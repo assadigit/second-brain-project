@@ -3,43 +3,15 @@ package dryrun
 import (
 	"os"
 	"runtime"
-	"strconv"
 	"strings"
+
+	"github.com/assadigit/second-brain-project/internal/helpers"
 )
 
-// formatComma mirrors Python's f"{n:,}" — thousands separators in groups
-// of three (doc 05 §3 item 12). Sizes are non-negative here, but the
-// negative form is handled for completeness. Candidate for promotion
-// into the T-17 helpers package when that lands.
-func formatComma(n int64) string {
-	s := strconv.FormatInt(n, 10)
-	neg := strings.HasPrefix(s, "-")
-	if neg {
-		s = s[1:]
-	}
-	if len(s) <= 3 {
-		if neg {
-			return "-" + s
-		}
-		return s
-	}
-	var parts []string
-	for len(s) > 3 {
-		parts = append([]string{s[len(s)-3:]}, parts...)
-		s = s[:len(s)-3]
-	}
-	parts = append([]string{s}, parts...)
-	out := strings.Join(parts, ",")
-	if neg {
-		return "-" + out
-	}
-	return out
-}
-
-// FormatComma exposes formatComma for the parity packages that need
-// Python's f"{n:,}" (T-15 notebuilder's star counts). T-17's helpers
-// package centralizes it (the promotion law this comment is part of).
-func FormatComma(n int64) string { return formatComma(n) }
+// FormatComma delegates to the canonical helpers home — the T-17
+// promotion law: formatComma MOVED to internal/helpers (promote, never
+// duplicate); this alias keeps dryrun's historical callers compiling.
+func FormatComma(n int64) string { return helpers.FormatComma(n) }
 
 // translateNewlines mirrors Python text-mode writes: on Windows open('w')
 // translates '\n' to os.linesep (and, like Python's naive translation,

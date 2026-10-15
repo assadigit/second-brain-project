@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"math"
 	"reflect"
 	"sort"
 	"strconv"
-	"strings"
+
+	"github.com/assadigit/second-brain-project/internal/helpers"
 )
 
 // PyDumps is the PROMOTED canonical JSON encoder — the encoder the
@@ -147,79 +147,14 @@ func pyEncodeOrdered(b *bytes.Buffer, o *OrderedMap, indent string) {
 }
 
 func pyEncodeFloat(b *bytes.Buffer, f float64) {
-	b.WriteString(pyFloatRepr(f))
+	b.WriteString(PyFloatRepr(f))
 }
 
-// PyFloatRepr exposes pyFloatRepr (Python float repr — which equals
-// Python's str(float) in Python 3) for the parity helpers that need
-// str(value) semantics on non-string slot values (internal/prompts'
-// pyStr; the T-13 golden pins 5 → "5" vs 5.0 → "5.0").
-func PyFloatRepr(f float64) string { return pyFloatRepr(f) }
-
-// pyFloatRepr reproduces Python's float repr (CPython float_repr_style
-// short): the shortest digit string that round-trips, in positional
-// notation while -3 <= decpt <= 16, otherwise scientific with a signed,
-// at-least-two-digit exponent. Integral positional values keep ".0".
-//
-// Verified against the generated corpus golden (storage_corpus.golden.json
-// float_repr): 1e15 → "1000000000000000.0", 1e16 → "1e+16",
-// 1e-05 → "1e-05", 0.0001 → "0.0001", 0.5 → "0.5", 2.0 → "2.0".
-// Go's own 'g' format would print 1e15 as "1e+15" — divergent.
-func pyFloatRepr(f float64) string {
-	// Python json.dumps spells non-finite floats Infinity/-Infinity/NaN
-	// (never in real configs; kept exact for completeness).
-	switch {
-	case math.IsNaN(f):
-		return "NaN"
-	case math.IsInf(f, 1):
-		return "Infinity"
-	case math.IsInf(f, -1):
-		return "-Infinity"
-	}
-	neg := false
-	if f < 0 || (f == 0 && math.Signbit(f)) {
-		neg = true
-		f = -f
-	}
-	// Shortest round-trip digits + decimal exponent via 'e' format.
-	sci := strconv.FormatFloat(f, 'e', -1, 64)
-	eIdx := strings.IndexByte(sci, 'e')
-	mant := sci[:eIdx]
-	exp10, _ := strconv.Atoi(sci[eIdx+1:]) // value = d.ddd × 10^exp10
-	digits := strings.Replace(mant, ".", "", 1)
-	// decpt: position of the decimal point relative to the digit string
-	// (value = 0.digits × 10^decpt).
-	decpt := exp10 + 1
-
-	var out string
-	if decpt < -3 || decpt > 16 {
-		// scientific: d[.ddd]e±XX (exponent = decpt-1, ≥ 2 digits)
-		m := digits[:1]
-		if len(digits) > 1 {
-			m += "." + digits[1:]
-		}
-		sign := "+"
-		e := decpt - 1
-		if e < 0 {
-			sign, e = "-", -e
-		}
-		es := strconv.Itoa(e)
-		if len(es) < 2 {
-			es = "0" + es
-		}
-		out = m + "e" + sign + es
-	} else if decpt <= 0 {
-		out = "0." + strings.Repeat("0", -decpt) + digits
-	} else if decpt >= len(digits) {
-		out = digits + strings.Repeat("0", decpt-len(digits)) + ".0"
-	} else {
-		out = digits[:decpt] + "." + digits[decpt:]
-	}
-	if neg {
-		return "-" + out
-	}
-	return out
-}
+// PyFloatRepr delegates to the canonical helpers home (the T-17 cycle
+// break: helpers is the leaf; storage→dryrun→helpers would cycle if
+// helpers imported storage back — the implementation MOVED, this alias
+// keeps the T-12/T-13 call sites stable).
+func PyFloatRepr(f float64) string { return helpers.PyFloatRepr(f) }
 
 // pyEncodeString mirrors json.dumps(ensure_ascii=False): raw UTF-8, only
 // the JSON-mandated escapes. Go's stock encoder escapes <, >, & in HTML

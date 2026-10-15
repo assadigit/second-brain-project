@@ -24,6 +24,7 @@
 package dryrun
 
 import (
+	"github.com/assadigit/second-brain-project/internal/helpers"
 	"os"
 	"path/filepath"
 	"sort"
@@ -409,7 +410,7 @@ func RenderReportMarkdown(title string) string {
 	for i, e := range es {
 		size := ""
 		if e.Size != nil {
-			size = formatComma(int64(*e.Size)) + " B" // f"{n:,} B"
+			size = helpers.FormatComma(int64(*e.Size)) + " B" // f"{n:,} B"
 		}
 		extra := e.Preview
 		if e.Preview == "" {

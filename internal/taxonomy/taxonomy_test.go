@@ -31,6 +31,7 @@ import (
 	"testing"
 
 	"github.com/assadigit/second-brain-project/assets"
+	"github.com/assadigit/second-brain-project/internal/helpers"
 )
 
 // ---------------------------------------------------------------------------
@@ -685,9 +686,9 @@ func TestGoldenSplitlines(t *testing.T) {
 		for _, l := range p[1].([]any) {
 			want = append(want, corpusString(t, l))
 		}
-		got := pySplitLines(s)
+		got := helpers.SplitLines(s)
 		if fmt.Sprint(got) != fmt.Sprint(want) {
-			t.Errorf("pySplitLines(%q) = %q, want %q", s, got, want)
+			t.Errorf("helpers.SplitLines(%q) = %q, want %q", s, got, want)
 		}
 	}
 }
@@ -701,14 +702,14 @@ func TestGoldenStripws(t *testing.T) {
 		p := e.([]any)
 		s := corpusString(t, p[0])
 		ops := p[1].([]any)
-		if got, want := pyStrip(s), corpusString(t, ops[0]); got != want {
-			t.Errorf("pyStrip(%q) = %q, want %q", s, got, want)
+		if got, want := helpers.Strip(s), corpusString(t, ops[0]); got != want {
+			t.Errorf("helpers.Strip(%q) = %q, want %q", s, got, want)
 		}
-		if got, want := pyLstrip(s), corpusString(t, ops[1]); got != want {
-			t.Errorf("pyLstrip(%q) = %q, want %q", s, got, want)
+		if got, want := helpers.Lstrip(s), corpusString(t, ops[1]); got != want {
+			t.Errorf("helpers.Lstrip(%q) = %q, want %q", s, got, want)
 		}
-		if got, want := pyRstrip(s), corpusString(t, ops[2]); got != want {
-			t.Errorf("pyRstrip(%q) = %q, want %q", s, got, want)
+		if got, want := helpers.Rstrip(s), corpusString(t, ops[2]); got != want {
+			t.Errorf("helpers.Rstrip(%q) = %q, want %q", s, got, want)
 		}
 	}
 }

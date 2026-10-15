@@ -32,11 +32,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"unicode"
 
 	"github.com/assadigit/second-brain-project/internal/constants"
-	"github.com/assadigit/second-brain-project/internal/dryrun"
-	"github.com/assadigit/second-brain-project/internal/prompts"
+	"github.com/assadigit/second-brain-project/internal/helpers"
 )
 
 // ---------------------------------------------------------------------------
@@ -72,36 +70,6 @@ var bodyCtrlRE = regexp.MustCompile("[\x00-\x08\x0b-\x1f\x7f]")
 // bannerSafeRE mirrors the cover/banner fullmatch gate.
 var bannerSafeRE = regexp.MustCompile(`^[A-Za-z0-9\-_.]+$`)
 
-// pyIsSpace mirrors Python's str.isspace() membership (unicode.IsSpace
-// plus the \x1c-\x1f group separators) — used by the unicode-aware
-// collapse helpers.
-func pyIsSpace(r rune) bool {
-	switch r {
-	case '\x1c', '\x1d', '\x1e', '\x1f':
-		return true
-	}
-	return unicode.IsSpace(r)
-}
-
-// pyWhitespaceCollapse mirrors Python re.sub(r'\s+', ' ', text) with its
-// UNICODE \s class: any run of Python whitespace becomes one ASCII space.
-func pyWhitespaceCollapse(text string) string {
-	var b strings.Builder
-	inRun := false
-	for _, r := range text {
-		if pyIsSpace(r) {
-			if !inRun {
-				b.WriteByte(' ')
-				inRun = true
-			}
-			continue
-		}
-		inRun = false
-		b.WriteRune(r)
-	}
-	return b.String()
-}
-
 // ---------------------------------------------------------------------------
 // Sanitizers (note_builder.py:57-167).
 // ---------------------------------------------------------------------------
@@ -114,9 +82,9 @@ func SanitizeSeqItem(value any, maxLen int) string {
 	if value == nil {
 		return ""
 	}
-	text := prompts.PyStr(value)
+	text := helpers.PyStr(value)
 	text = seqItemOK.ReplaceAllString(text, " ")
-	text = pyWhitespaceCollapse(text)
+	text = helpers.CollapseWhitespace(text)
 	text = strings.Trim(text, " ") // .strip() — spaces only remain
 	text = strings.Trim(text, "-") // .strip('-')
 	text = strings.Trim(text, " ") // .strip() again
@@ -238,10 +206,10 @@ func YamlScalar(value any, maxLen int) string {
 	if value == nil {
 		return `""`
 	}
-	text := prompts.PyStr(value)
+	text := helpers.PyStr(value)
 	text = strings.ReplaceAll(text, "\r", " ")
 	text = strings.ReplaceAll(text, "\n", " ")
-	text = pyWhitespaceCollapse(text)
+	text = helpers.CollapseWhitespace(text)
 	text = strings.Trim(text, " ")
 	if len([]rune(text)) > maxLen {
 		text = string([]rune(text)[:maxLen])
@@ -259,7 +227,7 @@ func SanitizeBodyText(value any, maxLen int) string {
 	if value == nil {
 		return ""
 	}
-	text := prompts.PyStr(value)
+	text := helpers.PyStr(value)
 	text = strings.ReplaceAll(text, "\r\n", "\n")
 	text = strings.ReplaceAll(text, "\r", "\n")
 	text = bodyCtrlRE.ReplaceAllString(text, "")
@@ -278,10 +246,10 @@ func SanitizeShortSummary(value any) string {
 	if value == nil {
 		return ""
 	}
-	text := prompts.PyStr(value)
+	text := helpers.PyStr(value)
 	text = strings.ReplaceAll(text, "\r", " ")
 	text = strings.ReplaceAll(text, "\n", " ")
-	text = pyWhitespaceCollapse(text)
+	text = helpers.CollapseWhitespace(text)
 	text = strings.Trim(text, " ")
 	if len([]rune(text)) > MaxSummary {
 		text = string([]rune(text)[:MaxSummary])
@@ -554,7 +522,7 @@ func BuildNote(args NoteArgs) string {
 	b.WriteString("# " + repoTitle + "\n\n")
 	b.WriteString(shortSummarySection)
 	b.WriteString("**`" + ownerLabel + "/" + repoTitle + "`** · ⭐ " +
-		dryrun.FormatComma(int64(args.Stars)) + " · 🔧 " + langLabel + "\n\n")
+		helpers.FormatComma(int64(args.Stars)) + " · 🔧 " + langLabel + "\n\n")
 	b.WriteString("## What is it?\n" + summary + "\n\n")
 	b.WriteString("## How does it work?\n" + howItWorks + "\n\n")
 	b.WriteString("## Why is it important? (Core Value)\n" + coreValue + "\n\n")
@@ -563,7 +531,7 @@ func BuildNote(args NoteArgs) string {
 	b.WriteString("## 🏢 Organization & Credibility\n")
 	b.WriteString("- **Developer:** " + args.OrgName + "\n")
 	b.WriteString("- **Reputation:** " + RepToStr(args.OrgRep) + "\n")
-	b.WriteString("- **Stars:** " + dryrun.FormatComma(int64(args.Stars)) + "\n")
+	b.WriteString("- **Stars:** " + helpers.FormatComma(int64(args.Stars)) + "\n")
 	b.WriteString("- **Forks:** " + strconv.Itoa(args.Forks) + "\n")
 	b.WriteString("- **Recent Activity:** " +
 		strconv.Itoa(args.CommitCount) + " commits in 3 months\n")

@@ -27,7 +27,9 @@ testdiff/
 │                                   # T-15;
 │                                   # dump_config.py → internal/config +
 │                                   # internal/constants (ordered example),
-│                                   # T-16)
+│                                   # T-16;
+│                                   # dump_helpers.py → internal/helpers,
+│                                   # T-17)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

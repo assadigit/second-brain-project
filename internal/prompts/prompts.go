@@ -29,18 +29,13 @@
 package prompts
 
 import (
-	"errors"
 	"fmt"
 	"io/fs"
 	"regexp"
-	"strconv"
 	"strings"
-	"unicode"
-
-	"encoding/json"
 
 	"github.com/assadigit/second-brain-project/assets"
-	"github.com/assadigit/second-brain-project/internal/storage"
+	"github.com/assadigit/second-brain-project/internal/helpers"
 )
 
 // slotRE mirrors prompts.py _SLOT_RE: {{THIS_STYLE}} — an upper-case
@@ -217,125 +212,17 @@ func ntpathBasename(p string) string {
 	return p[i:]
 }
 
-// PyOSErrorText formats a read failure the way str(OSError) does in
-// Python — "[Errno N] Message: 'PATH'" — for the common syscall shapes
-// both a disk read (os.ReadFile) and an embed-FS lookup produce:
-// missing → ENOENT; permission → EACCES; a directory read ("is a
-// directory" — os and embed spell it the same) → EISDIR. Anything else
-// falls back to the Go error text, still inside the caller's wrapper.
+// PyOSErrorText delegates to the canonical helpers home (the T-17
+// promotion: the implementation moved; this alias keeps the prompts API
+// and its historical call sites stable).
 func PyOSErrorText(err error, path string) string {
-	var pathErr *fs.PathError
-	if errors.As(err, &pathErr) {
-		switch {
-		case errors.Is(err, fs.ErrNotExist):
-			return "[Errno 2] No such file or directory: " + PyRepr(path)
-		case errors.Is(err, fs.ErrPermission):
-			return "[Errno 13] Permission denied: " + PyRepr(path)
-		case strings.Contains(err.Error(), "is a directory"):
-			return "[Errno 21] Is a directory: " + PyRepr(path)
-		}
-	}
-	return err.Error()
+	return helpers.PyOSErrorText(err, path)
 }
 
-// PyStr mirrors Python str() for the value shapes parity code meets:
-// string as-is; bool → "True"/"False"; ints in decimal; floats (and
-// JSON number literals) via Python float repr — str(5) == "5" but
-// str(5.0) == "5.0", 1e15 positional, 1e-05 scientific.
-func PyStr(v any) string {
-	switch vv := v.(type) {
-	case string:
-		return vv
-	case bool:
-		if vv {
-			return "True"
-		}
-		return "False"
-	case json.Number:
-		lit := vv.String()
-		if !strings.ContainsAny(lit, ".eE") {
-			return lit // integral literal → Python int str()
-		}
-		f, err := vv.Float64()
-		if err != nil {
-			return lit
-		}
-		return storage.PyFloatRepr(f)
-	case float64:
-		return storage.PyFloatRepr(vv)
-	case float32:
-		return storage.PyFloatRepr(float64(vv))
-	case int:
-		return strconv.Itoa(vv)
-	case int8:
-		return strconv.FormatInt(int64(vv), 10)
-	case int16:
-		return strconv.FormatInt(int64(vv), 10)
-	case int32:
-		return strconv.FormatInt(int64(vv), 10)
-	case int64:
-		return strconv.FormatInt(vv, 10)
-	case uint:
-		return strconv.FormatUint(uint64(vv), 10)
-	case uint8:
-		return strconv.FormatUint(uint64(vv), 10)
-	case uint16:
-		return strconv.FormatUint(uint64(vv), 10)
-	case uint32:
-		return strconv.FormatUint(uint64(vv), 10)
-	case uint64:
-		return strconv.FormatUint(vv, 10)
-	default:
-		return fmt.Sprintf("%v", v)
-	}
-}
+// PyStr delegates to the canonical helpers home (the T-17 promotion;
+// nil keeps Python's own word "None" there — callers with special None
+// grammar still check nil BEFORE calling, which FillTemplate does).
+func PyStr(v any) string { return helpers.PyStr(v) }
 
-// pyRepr mirrors Python repr() for strings: single quotes preferred,
-// switching to double quotes only when the string contains ' and no ";
-// \\ , \n, \r, \t escapes; \xNN for non-printable ASCII (including DEL);
-// \uNNNN / \UNNNNNNNN for non-printable runes; printable Unicode literal
-// (Go's unicode.IsPrint matches Python's printable set for these cases:
-// both exclude the format/control/private-use categories and non-ASCII
-// space separators).
-//
-// Exported as PyRepr: the {x!r} error-message shape is shared by other
-// parity packages (taxonomy's refusal messages). T-17's helpers package
-// will centralize it (same promotion law as dryrun's formatComma).
-func PyRepr(s string) string {
-	quote := byte('\'')
-	if strings.ContainsRune(s, '\'') && !strings.ContainsRune(s, '"') {
-		quote = '"'
-	}
-	var b strings.Builder
-	b.WriteByte(quote)
-	for _, r := range s {
-		switch {
-		case r == rune(quote):
-			b.WriteByte('\\')
-			b.WriteByte(quote)
-		case r == '\\':
-			b.WriteString(`\\`)
-		case r == '\n':
-			b.WriteString(`\n`)
-		case r == '\r':
-			b.WriteString(`\r`)
-		case r == '\t':
-			b.WriteString(`\t`)
-		case r < 0x20 || r == 0x7f:
-			fmt.Fprintf(&b, `\x%02x`, r)
-		case r < 0x7f:
-			b.WriteRune(r)
-		case unicode.IsPrint(r):
-			b.WriteRune(r)
-		case r < 0x100:
-			// non-printable Latin-1 (nbsp, soft hyphen): \xNN, like Python
-			fmt.Fprintf(&b, `\x%02x`, r)
-		case r <= 0xffff:
-			fmt.Fprintf(&b, `\u%04x`, r)
-		default:
-			fmt.Fprintf(&b, `\U%08x`, r)
-		}
-	}
-	b.WriteByte(quote)
-	return b.String()
-}
+// PyRepr delegates to the canonical helpers home (the T-17 promotion).
+func PyRepr(s string) string { return helpers.PyRepr(s) }

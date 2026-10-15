@@ -31,6 +31,7 @@
 package taxonomy
 
 import (
+	"fmt"
 	"os"
 	"regexp"
 	"strconv"
@@ -38,6 +39,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/assadigit/second-brain-project/internal/constants"
+	"github.com/assadigit/second-brain-project/internal/helpers"
 	"github.com/assadigit/second-brain-project/internal/prompts"
 	"github.com/assadigit/second-brain-project/internal/storage"
 )
@@ -95,7 +97,7 @@ var pureNoSubcategoriesRE = regexp.MustCompile(`(?i)^no subcategories$`)
 func stripCategoryHeading(text string) string {
 	text = trailingItalicRE.ReplaceAllString(text, "")
 	text = emojiRE.ReplaceAllString(text, "")
-	return pyStrip(text)
+	return helpers.Strip(text)
 }
 
 // stripSubcategory mirrors _strip_subcategory: bold markers stripped,
@@ -103,17 +105,17 @@ func stripCategoryHeading(text string) string {
 // _DASH_SPLIT_RE.split(text, maxsplit=1)[0] — Go's Split(s, 2) is the
 // maxsplit=1 equivalent.
 func stripSubcategory(text string) string {
-	text = pyStrip(text)
+	text = helpers.Strip(text)
 	text = strings.ReplaceAll(text, "**", "")
 	parts := dashSplitRE.Split(text, 2)
-	return pyStrip(parts[0])
+	return helpers.Strip(parts[0])
 }
 
 // stripTagsLine mirrors _strip_tags_line: '#icons' → "icons" per tag.
 func stripTagsLine(text string) []string {
 	var out []string
 	for _, m := range tagsRE.FindAllStringSubmatch(text, -1) {
-		out = append(out, pyStrip(strings.TrimPrefix(m[1], "#")))
+		out = append(out, helpers.Strip(strings.TrimPrefix(m[1], "#")))
 	}
 	return out
 }
@@ -161,7 +163,7 @@ func newTaxonomy(categories []Category, judgmentRules, sourcePath string) (*Taxo
 	}
 	return &Taxonomy{
 		categories:    categories,
-		judgmentRules: pyStrip(judgmentRules),
+		judgmentRules: helpers.Strip(judgmentRules),
 		sourcePath:    sourcePath,
 		byName:        byName,
 	}, nil
@@ -190,7 +192,7 @@ func (t *Taxonomy) CategoryNames() []string {
 // Category mirrors category(name): exact-match lookup after strip — model
 // answers must match a parsed name; nil when unknown.
 func (t *Taxonomy) Category(name string) *Category {
-	if i, ok := t.byName[pyStrip(name)]; ok {
+	if i, ok := t.byName[helpers.Strip(name)]; ok {
 		return &t.categories[i]
 	}
 	return nil
@@ -198,7 +200,7 @@ func (t *Taxonomy) Category(name string) *Category {
 
 // IsCategory mirrors is_category.
 func (t *Taxonomy) IsCategory(name string) bool {
-	_, ok := t.byName[pyStrip(name)]
+	_, ok := t.byName[helpers.Strip(name)]
 	return ok
 }
 
@@ -214,7 +216,7 @@ func (t *Taxonomy) SubcategoriesOf(categoryName string) []string {
 // IsSubcategoryOf mirrors is_subcategory_of: a stripped, non-empty name
 // that is a member of the category's subcategory list.
 func (t *Taxonomy) IsSubcategoryOf(categoryName, subcategory string) bool {
-	sub := pyStrip(subcategory)
+	sub := helpers.Strip(subcategory)
 	return sub != "" && containsString(t.SubcategoriesOf(categoryName), sub)
 }
 
@@ -351,11 +353,11 @@ func ParseTaxonomy(text, sourcePath string) (*Taxonomy, error) {
 	current := -1 // index of the open category; -1 = none
 	sawDefinition := false
 
-	for _, rawLine := range pySplitLines(text) {
-		line := pyRstrip(rawLine)
+	for _, rawLine := range helpers.SplitLines(text) {
+		line := helpers.Rstrip(rawLine)
 
 		// blank lines keep state
-		if pyStrip(line) == "" {
+		if helpers.Strip(line) == "" {
 			continue
 		}
 
@@ -376,12 +378,12 @@ func ParseTaxonomy(text, sourcePath string) (*Taxonomy, error) {
 		}
 
 		if m := heading2RE.FindStringSubmatch(line); m != nil {
-			section = strings.ToLower(pyStrip(m[1]))
+			section = strings.ToLower(helpers.Strip(m[1]))
 			current = -1 // a ## ends the current category block
 			continue
 		}
 
-		if pyStrip(line) == "---" {
+		if helpers.Strip(line) == "---" {
 			continue
 		}
 
@@ -393,9 +395,9 @@ func ParseTaxonomy(text, sourcePath string) (*Taxonomy, error) {
 		// non-*( prose appended VERBATIM (stripped).
 		if section != "" && section == rulesSection {
 			if m := bulletRE.FindStringSubmatch(line); m != nil {
-				rulesLines = append(rulesLines, pyStrip(m[1]))
-			} else if pyStrip(line) != "" && !strings.HasPrefix(line, "*(") {
-				rulesLines = append(rulesLines, pyStrip(line))
+				rulesLines = append(rulesLines, helpers.Strip(m[1]))
+			} else if helpers.Strip(line) != "" && !strings.HasPrefix(line, "*(") {
+				rulesLines = append(rulesLines, helpers.Strip(line))
 			}
 			continue
 		}
@@ -413,7 +415,7 @@ func ParseTaxonomy(text, sourcePath string) (*Taxonomy, error) {
 		}
 
 		if m := bulletRE.FindStringSubmatch(line); m != nil {
-			body := pyStrip(m[1])
+			body := helpers.Strip(m[1])
 			subName := stripSubcategory(body)
 			if subName == "" ||
 				strings.HasPrefix(strings.ToLower(subName), "(empty for now") {
@@ -427,23 +429,23 @@ func ParseTaxonomy(text, sourcePath string) (*Taxonomy, error) {
 			if !containsString(cat.Subcategories, subName) {
 				cat.Subcategories = append(cat.Subcategories, subName)
 				desc := dashSplitRE.Split(strings.ReplaceAll(body, "**", ""), 2)
-				if len(desc) == 2 && pyStrip(desc[1]) != "" {
-					cat.SubcategoryDefinitions[subName] = pyStrip(desc[1])
+				if len(desc) == 2 && helpers.Strip(desc[1]) != "" {
+					cat.SubcategoryDefinitions[subName] = helpers.Strip(desc[1])
 				}
 			}
 			continue
 		}
 
 		// Prose paragraph: the first one is the category's definition.
-		prose := pyStrip(line)
+		prose := helpers.Strip(line)
 		if strings.HasPrefix(prose, "*(") && strings.HasSuffix(prose, ")*") {
 			// Slicing off the emphasis also removes the parentheses, so
 			// compare the marker CONTENT directly (test-caught).
-			inner := pyStrip(prose[2 : len(prose)-2])
+			inner := helpers.Strip(prose[2 : len(prose)-2])
 			if pureNoSubcategoriesRE.MatchString(inner) {
 				continue // pure marker — nothing to keep
 			}
-			inner = pyStrip(leadingDashRE.ReplaceAllString(inner, ""))
+			inner = helpers.Strip(leadingDashRE.ReplaceAllString(inner, ""))
 			// NOTE: the italic-note path checks the DEFINITION (not
 			// saw_definition) and does NOT set it — a later prose line
 			// may still win (preserved quirk, golden-pinned).
@@ -453,10 +455,10 @@ func ParseTaxonomy(text, sourcePath string) (*Taxonomy, error) {
 			continue
 		}
 		body := noSubcategoriesRE.ReplaceAllString(prose, "")
-		body = pyStrip(strings.ReplaceAll(body, "**", ""))
+		body = helpers.Strip(strings.ReplaceAll(body, "**", ""))
 		body = strings.Trim(body, "*")
-		body = pyStrip(body)
-		body = pyStrip(leadingDashRE.ReplaceAllString(body, ""))
+		body = helpers.Strip(body)
+		body = helpers.Strip(leadingDashRE.ReplaceAllString(body, ""))
 		if body != "" && !sawDefinition {
 			cat.Definition = body
 			sawDefinition = true
@@ -501,4 +503,52 @@ func LoadTaxonomy(path string) (*Taxonomy, error) {
 // taxonomy — the config override, else the bundled default.
 func LoadTaxonomyFromConfig(config map[string]any) (*Taxonomy, error) {
 	return LoadTaxonomy(constants.ResolveTaxonomyPath(config))
+}
+
+// stripBOM removes a leading UTF-8 BOM (utf-8-sig decode).
+func stripBOM(raw []byte) []byte {
+	if len(raw) >= 3 && raw[0] == 0xEF && raw[1] == 0xBB && raw[2] == 0xBF {
+		return raw[3:]
+	}
+	return raw
+}
+
+// pyUTF8DecodeError reproduces Python's UnicodeDecodeError message for
+// the first invalid byte in a UTF-8 document: "'utf-8' codec can't decode
+// byte 0xXX in position N: <reason>" with the reason being "invalid start
+// byte" (the byte cannot lead a sequence), "invalid continuation byte"
+// (a valid lead byte is followed by a non-continuation byte), or
+// "unexpected end of data" (a multi-byte sequence is truncated by the end
+// of input). Returned as a PLAIN error — Python raises it OUTSIDE the
+// OSError/TaxonomyError contract and the port preserves that shape.
+func pyUTF8DecodeError(raw []byte) error {
+	for i := 0; i < len(raw); {
+		b := raw[i]
+		if b < utf8.RuneSelf {
+			i++
+			continue
+		}
+		var size int
+		switch {
+		case b >= 0xC2 && b <= 0xDF:
+			size = 2
+		case b >= 0xE0 && b <= 0xEF:
+			size = 3
+		case b >= 0xF0 && b <= 0xF4:
+			size = 4
+		default:
+			return fmt.Errorf("'utf-8' codec can't decode byte 0x%02x in position %d: invalid start byte", b, i)
+		}
+		if i+size > len(raw) {
+			return fmt.Errorf("'utf-8' codec can't decode byte 0x%02x in position %d: unexpected end of data", b, i)
+		}
+		for j := 1; j < size; j++ {
+			c := raw[i+j]
+			if c < 0x80 || c > 0xBF {
+				return fmt.Errorf("'utf-8' codec can't decode byte 0x%02x in position %d: invalid continuation byte", c, i+j)
+			}
+		}
+		i += size
+	}
+	return fmt.Errorf("'utf-8' codec can't decode: unreachable (validated)")
 }
