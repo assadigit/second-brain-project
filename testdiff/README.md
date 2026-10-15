@@ -50,9 +50,10 @@ with the winner noted — never silently normalized.
 | case | phase | status |
 |---|---|---|
 | `status-no-config` | 0 (T-03 skeleton proof) | **green** — report archived at `docs/poc-artifacts/t-03-status-no-config-report.md` |
+| (golden) `import-file grammar` | 1 (T-11) | **green** — realized in its spec-defined form (`spec-core-links` §Go mapping: Python `parse_import_text` vs Go on the same corpus, JSON-compared): `internal/links` `TestGoldenImportGrammar` over the generated `testdata/import_corpus.txt` + `link_grammar.golden.json`. A CLI-level `--import-file` case joins when the flag surface exists (Phase 5, T-62). |
 
-Planned (per doc 09 §3 scope): import-file grammar corpus, 30-link golden
-websites set, moves-as-corrections scenarios, banishment verdicts, scan
-plan apply, retry backoff clock, dry-run report equality — cases grow with
+Planned (per doc 09 §3 scope): 30-link golden websites set, moves-as-corrections
+scenarios, banishment verdicts, scan plan apply, retry backoff clock, dry-run report
+equality — cases grow with
 Phases 1–5; each case dir gains its input set (URLs, fake fetch bodies,
 fake LLM answers, config.json, empty vault tree) as those inputs exist.

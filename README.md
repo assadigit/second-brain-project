@@ -7,8 +7,10 @@
 **Status: Phase 0 CLOSED** — all three PoC verdicts final (Wails ✅ · tls-client ✅ ·
 gotd/td ✅ proven on the owner's account, then **demoted to dormant by the owner's
 Option-B stamp**: the queue rides the Worker only — ADR-0004 Am.3); harness skeleton +
-Python baselines archived; SESSION-001/002 closed. Next: **SESSION-003 = R-0 spec-ripple
-rider + Phase 1 (pure-foundation packages)**, per the roadmap.
+Python baselines archived; SESSION-001/002 closed. **Phase 1 IN PROGRESS** (SESSION-003):
+R-0 spec-ripple reconciled (14 spec files); **T-10 `constants` + T-11 `links` DONE with
+generated-golden parity** (40 tests green; the import-grammar differential matches).
+Remaining: T-12…T-17, per the roadmap.
 
 ## Map
 
