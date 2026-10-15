@@ -1,0 +1,1088 @@
+{
+  "banner_gate": [
+    [
+      null,
+      "",
+      ""
+    ],
+    [
+      "b.png",
+      "cover: attachments/banners/b.png",
+      "![banner](attachments/banners/b.png)\n\n"
+    ],
+    [
+      "attachments/banners/b.png",
+      "cover: attachments/banners/b.png",
+      "![banner](attachments/banners/b.png)\n\n"
+    ],
+    [
+      "/abs/vault/b.png",
+      "cover: attachments/banners/b.png",
+      "![banner](attachments/banners/b.png)\n\n"
+    ],
+    [
+      "C:\\banners\\b.png",
+      "cover: attachments/banners/b.png",
+      "![banner](attachments/banners/b.png)\n\n"
+    ],
+    [
+      "evil.png]",
+      "",
+      ""
+    ],
+    [
+      "sub/dir/ünïcode.png",
+      "",
+      ""
+    ],
+    [
+      "../traversal.png",
+      "cover: attachments/banners/traversal.png",
+      "![banner](attachments/banners/traversal.png)\n\n"
+    ],
+    [
+      "..",
+      "cover: attachments/banners/..",
+      "![banner](attachments/banners/..)\n\n"
+    ],
+    [
+      "...",
+      "cover: attachments/banners/...",
+      "![banner](attachments/banners/...)\n\n"
+    ],
+    [
+      ".hidden.png",
+      "cover: attachments/banners/.hidden.png",
+      "![banner](attachments/banners/.hidden.png)\n\n"
+    ],
+    [
+      "x",
+      "cover: attachments/banners/x",
+      "![banner](attachments/banners/x)\n\n"
+    ],
+    [
+      "a b.png",
+      "",
+      ""
+    ],
+    [
+      "banner.with.dots.png",
+      "cover: attachments/banners/banner.with.dots.png",
+      "![banner](attachments/banners/banner.with.dots.png)\n\n"
+    ],
+    [
+      "a-b_c.d-e",
+      "cover: attachments/banners/a-b_c.d-e",
+      "![banner](attachments/banners/a-b_c.d-e)\n\n"
+    ],
+    [
+      "tag[0].png",
+      "",
+      ""
+    ],
+    [
+      "quote\"d.png",
+      "",
+      ""
+    ]
+  ],
+  "missing_notes": [
+    [
+      [
+        "https://github.com/Danmoreng/local-qwen3-coder-env.git",
+        "Danmoreng",
+        "local-qwen3-coder-env.git",
+        2
+      ],
+      "---\nsource: https://github.com/Danmoreng/local-qwen3-coder-env.git\nrepo: Danmoreng/local-qwen3-coder-env\nstatus: missing\nreason: 404 Not Found (deleted or private)\nstrikes: 2\ndate_recorded: <DATE>\nplaceholder: missing-repo\n---\n\n# Danmoreng/local-qwen3-coder-env — missing (404)\n\nThe repository **https://github.com/Danmoreng/local-qwen3-coder-env.git** returned **404 Not Found** — it was deleted or\nmade private. GitCurator recorded this placeholder so the link:\n\n- no longer counts as *remaining to be processed* in any queue view,\n- is never fetched from the GitHub API again (404 quarantine confirmed).\n\n**To re-check this repo later** (restored / renamed / made public):\n\n1. Delete this note (the file you are reading).\n2. More ▸ View 404 Quarantine → reset this URL\n   (or the CLI: `python main.py --cli --reset-dead \"https://github.com/Danmoreng/local-qwen3-coder-env.git\"`).\n3. Run the next batch — the repo is processed like new.\n\n*Recorded <DATE> after 2 confirmed 404(s). The x/y links of this\nrepo, if any, live on in the bot chat; nothing was lost.*\n"
+    ],
+    [
+      [
+        "https://github.com/o/r.git",
+        "o",
+        "r.git",
+        1
+      ],
+      "---\nsource: https://github.com/o/r.git\nrepo: o/r\nstatus: missing\nreason: 404 Not Found (deleted or private)\nstrikes: 1\ndate_recorded: <DATE>\nplaceholder: missing-repo\n---\n\n# o/r — missing (404)\n\nThe repository **https://github.com/o/r.git** returned **404 Not Found** — it was deleted or\nmade private. GitCurator recorded this placeholder so the link:\n\n- no longer counts as *remaining to be processed* in any queue view,\n- is never fetched from the GitHub API again (404 quarantine confirmed).\n\n**To re-check this repo later** (restored / renamed / made public):\n\n1. Delete this note (the file you are reading).\n2. More ▸ View 404 Quarantine → reset this URL\n   (or the CLI: `python main.py --cli --reset-dead \"https://github.com/o/r.git\"`).\n3. Run the next batch — the repo is processed like new.\n\n*Recorded <DATE> after 1 confirmed 404(s). The x/y links of this\nrepo, if any, live on in the bot chat; nothing was lost.*\n"
+    ],
+    [
+      [
+        "https://github.com/o/r",
+        "o",
+        "r",
+        1
+      ],
+      "---\nsource: https://github.com/o/r\nrepo: o/r\nstatus: missing\nreason: 404 Not Found (deleted or private)\nstrikes: 1\ndate_recorded: <DATE>\nplaceholder: missing-repo\n---\n\n# o/r — missing (404)\n\nThe repository **https://github.com/o/r** returned **404 Not Found** — it was deleted or\nmade private. GitCurator recorded this placeholder so the link:\n\n- no longer counts as *remaining to be processed* in any queue view,\n- is never fetched from the GitHub API again (404 quarantine confirmed).\n\n**To re-check this repo later** (restored / renamed / made public):\n\n1. Delete this note (the file you are reading).\n2. More ▸ View 404 Quarantine → reset this URL\n   (or the CLI: `python main.py --cli --reset-dead \"https://github.com/o/r\"`).\n3. Run the next batch — the repo is processed like new.\n\n*Recorded <DATE> after 1 confirmed 404(s). The x/y links of this\nrepo, if any, live on in the bot chat; nothing was lost.*\n"
+    ],
+    [
+      [
+        "https://github.com/o/r",
+        "o",
+        "r",
+        7
+      ],
+      "---\nsource: https://github.com/o/r\nrepo: o/r\nstatus: missing\nreason: 404 Not Found (deleted or private)\nstrikes: 7\ndate_recorded: <DATE>\nplaceholder: missing-repo\n---\n\n# o/r — missing (404)\n\nThe repository **https://github.com/o/r** returned **404 Not Found** — it was deleted or\nmade private. GitCurator recorded this placeholder so the link:\n\n- no longer counts as *remaining to be processed* in any queue view,\n- is never fetched from the GitHub API again (404 quarantine confirmed).\n\n**To re-check this repo later** (restored / renamed / made public):\n\n1. Delete this note (the file you are reading).\n2. More ▸ View 404 Quarantine → reset this URL\n   (or the CLI: `python main.py --cli --reset-dead \"https://github.com/o/r\"`).\n3. Run the next batch — the repo is processed like new.\n\n*Recorded <DATE> after 7 confirmed 404(s). The x/y links of this\nrepo, if any, live on in the bot chat; nothing was lost.*\n"
+    ],
+    [
+      [
+        "https://github.com/x/y",
+        "x",
+        "y",
+        0
+      ],
+      "---\nsource: https://github.com/x/y\nrepo: x/y\nstatus: missing\nreason: 404 Not Found (deleted or private)\nstrikes: 0\ndate_recorded: <DATE>\nplaceholder: missing-repo\n---\n\n# x/y — missing (404)\n\nThe repository **https://github.com/x/y** returned **404 Not Found** — it was deleted or\nmade private. GitCurator recorded this placeholder so the link:\n\n- no longer counts as *remaining to be processed* in any queue view,\n- is never fetched from the GitHub API again (404 quarantine confirmed).\n\n**To re-check this repo later** (restored / renamed / made public):\n\n1. Delete this note (the file you are reading).\n2. More ▸ View 404 Quarantine → reset this URL\n   (or the CLI: `python main.py --cli --reset-dead \"https://github.com/x/y\"`).\n3. Run the next batch — the repo is processed like new.\n\n*Recorded <DATE> after 0 confirmed 404(s). The x/y links of this\nrepo, if any, live on in the bot chat; nothing was lost.*\n"
+    ]
+  ],
+  "notes": [
+    [
+      "full",
+      {
+        "banner_path": "/vault/attachments/banners/fullrepo.png",
+        "category_key": "Agents",
+        "commit_count": 5,
+        "confidence": 90,
+        "core_value": "val",
+        "cred_score": 80,
+        "difference": "diff",
+        "features": [
+          "f1",
+          "f2",
+          "f3"
+        ],
+        "forks": 2,
+        "how_it_works": "how",
+        "is_low_quality": false,
+        "languages": [
+          "Python",
+          "C++"
+        ],
+        "latest_release_date": "2024-01-01",
+        "org_name": "Full Org",
+        "org_rep": 7,
+        "owner": "o",
+        "primary_language": "Python",
+        "quality_issues": [],
+        "repo_name": "fullrepo",
+        "short_summary": "Useful.",
+        "stars": 10,
+        "summary": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "tags": [
+          "cli",
+          "tool"
+        ],
+        "url": "https://github.com/o/fullrepo"
+      },
+      "---\nsource: \"https://github.com/o/fullrepo\"\naliases:\n  - fullrepo\n  - o/fullrepo\n\ntags: [cli, tool]\ncategory: \"Agents\"\nstars: 10\norg: \"Full Org\"\nprimary_language: Python\nlanguages: [Python, C++]\ncredibility_score: 80/100\ndate_processed: <DATE>\nlast_release: 2024-01-01\ncover: attachments/banners/fullrepo.png\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n![banner](attachments/banners/fullrepo.png)\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# fullrepo\n\n> **TL;DR:** Useful.\n\n**`o/fullrepo`** · ⭐ 10 · 🔧 Python\n\n## What is it?\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n## How does it work?\nhow\n\n## Why is it important? (Core Value)\nval\n\n## Key Features & Technologies\n- f1\n- f2\n- f3\n\n## Difference from Others\ndiff\n\n## 🏢 Organization & Credibility\n- **Developer:** Full Org\n- **Reputation:** Medium (Well-known organization)\n- **Stars:** 10\n- **Forks:** 2\n- **Recent Activity:** 5 commits in 3 months\n- **Credibility Score:** 80/100 (Good)\n- **Languages:** Python, C++\n- **Last Release:** 2024-01-01\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/o/fullrepo)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+    ],
+    [
+      "minimal",
+      {
+        "banner_path": null,
+        "category_key": "Uncategorized",
+        "commit_count": 0,
+        "confidence": 0,
+        "core_value": "",
+        "cred_score": 0,
+        "difference": "",
+        "features": null,
+        "forks": 0,
+        "how_it_works": "",
+        "is_low_quality": false,
+        "languages": null,
+        "latest_release_date": "",
+        "org_name": "",
+        "org_rep": 0,
+        "owner": "min",
+        "primary_language": "",
+        "quality_issues": null,
+        "repo_name": "imal",
+        "short_summary": "",
+        "stars": 0,
+        "summary": "",
+        "tags": [],
+        "url": "https://github.com/min/imal"
+      },
+      "---\nsource: \"https://github.com/min/imal\"\naliases:\n  - imal\n  - min/imal\n\ntags: []\ncategory: \"Uncategorized\"\nstars: 0\norg: \"\"\n\n\ncredibility_score: 0/100\ndate_processed: <DATE>\n\n\nquality: low\nquality_issues: [summary too short, low confidence, uncategorized]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# imal\n\n**`min/imal`** · ⭐ 0 · 🔧 N/A\n\n## What is it?\n\n\n## How does it work?\n\n\n## Why is it important? (Core Value)\n\n\n## Key Features & Technologies\n(none listed)\n\n## Difference from Others\n\n\n## 🏢 Organization & Credibility\n- **Developer:** \n- **Reputation:** Unknown\n- **Stars:** 0\n- **Forks:** 0\n- **Recent Activity:** 0 commits in 3 months\n- **Credibility Score:** 0/100 (Low)\n- **Languages:** N/A\n- **Last Release:** No releases\n- **Quality:** ⚠️ low (summary too short, low confidence, uncategorized)\n\n---\n*Source: [GitHub](https://github.com/min/imal)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+    ],
+    [
+      "hostile",
+      {
+        "banner_path": null,
+        "category_key": "AI & ML",
+        "commit_count": 5,
+        "confidence": 80,
+        "core_value": "val",
+        "cred_score": 55,
+        "difference": "diff",
+        "features": [
+          "f1",
+          "f2",
+          "f3"
+        ],
+        "forks": 2,
+        "how_it_works": "how",
+        "is_low_quality": false,
+        "languages": [
+          "Python",
+          "C++"
+        ],
+        "latest_release_date": "2024-01-01",
+        "org_name": "Org: \"#pwn\"",
+        "org_rep": 3,
+        "owner": "ow ner",
+        "primary_language": "Python",
+        "quality_issues": null,
+        "repo_name": "Evil] Repo",
+        "short_summary": "short",
+        "stars": 10,
+        "summary": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+        "tags": [
+          "ok",
+          "bad,tag] #pwn",
+          "{{x}}"
+        ],
+        "url": "https://github.com/a/b?x=1"
+      },
+      "---\nsource: \"https://github.com/a/b?x=1\"\naliases:\n  - Evil Repo\n  - ow ner/Evil Repo\n\ntags: [ok, bad tag pwn, x]\ncategory: \"AI & ML\"\nstars: 10\norg: \"Org: \\\"#pwn\\\"\"\nprimary_language: Python\nlanguages: [Python, C++]\ncredibility_score: 55/100\ndate_processed: <DATE>\nlast_release: 2024-01-01\n\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Evil] Repo\n\n> **TL;DR:** short\n\n**`ow ner/Evil] Repo`** · ⭐ 10 · 🔧 Python\n\n## What is it?\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n## How does it work?\nhow\n\n## Why is it important? (Core Value)\nval\n\n## Key Features & Technologies\n- f1\n- f2\n- f3\n\n## Difference from Others\ndiff\n\n## 🏢 Organization & Credibility\n- **Developer:** Org: \"#pwn\"\n- **Reputation:** Unknown\n- **Stars:** 10\n- **Forks:** 2\n- **Recent Activity:** 5 commits in 3 months\n- **Credibility Score:** 55/100 (Low)\n- **Languages:** Python, C++\n- **Last Release:** 2024-01-01\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/a/b?x=1)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+    ],
+    [
+      "quality-passed",
+      {
+        "banner_path": null,
+        "category_key": "Dev-Tools",
+        "commit_count": 120,
+        "confidence": 95,
+        "core_value": "c",
+        "cred_score": 91,
+        "difference": "d",
+        "features": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "forks": 40,
+        "how_it_works": "h",
+        "is_low_quality": true,
+        "languages": [
+          "Go"
+        ],
+        "latest_release_date": "",
+        "org_name": "Q Org",
+        "org_rep": 8,
+        "owner": "q",
+        "primary_language": "Go",
+        "quality_issues": [
+          "custom issue",
+          "another: one"
+        ],
+        "repo_name": "uality",
+        "short_summary": "Quality-flagged.",
+        "stars": 500,
+        "summary": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+        "tags": [
+          "quality"
+        ],
+        "url": "https://github.com/q/uality"
+      },
+      "---\nsource: \"https://github.com/q/uality\"\naliases:\n  - uality\n  - q/uality\n\ntags: [quality]\ncategory: \"Dev-Tools\"\nstars: 500\norg: \"Q Org\"\nprimary_language: Go\nlanguages: [Go]\ncredibility_score: 91/100\ndate_processed: <DATE>\n\n\nquality: low\nquality_issues: [custom issue, another one]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# uality\n\n> **TL;DR:** Quality-flagged.\n\n**`q/uality`** · ⭐ 500 · 🔧 Go\n\n## What is it?\nBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n\n## How does it work?\nh\n\n## Why is it important? (Core Value)\nc\n\n## Key Features & Technologies\n- a\n- b\n- c\n- d\n\n## Difference from Others\nd\n\n## 🏢 Organization & Credibility\n- **Developer:** Q Org\n- **Reputation:** High (Major tech company)\n- **Stars:** 500\n- **Forks:** 40\n- **Recent Activity:** 120 commits in 3 months\n- **Credibility Score:** 91/100 (Excellent)\n- **Languages:** Go\n- **Last Release:** No releases\n- **Quality:** ⚠️ low (custom issue, another one)\n\n---\n*Source: [GitHub](https://github.com/q/uality)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+    ],
+    [
+      "features-string",
+      {
+        "banner_path": null,
+        "category_key": "MCP",
+        "commit_count": 2,
+        "confidence": 50,
+        "core_value": "cv",
+        "cred_score": 40,
+        "difference": "df",
+        "features": "one feature line\nanother feature line",
+        "forks": 1,
+        "how_it_works": "hw",
+        "is_low_quality": false,
+        "languages": [],
+        "latest_release_date": "",
+        "org_name": "F Org",
+        "org_rep": 2,
+        "owner": "f",
+        "primary_language": "",
+        "quality_issues": null,
+        "repo_name": "s",
+        "short_summary": "",
+        "stars": 3,
+        "summary": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+        "tags": [],
+        "url": "https://github.com/f/s"
+      },
+      "---\nsource: \"https://github.com/f/s\"\naliases:\n  - s\n  - f/s\n\ntags: []\ncategory: \"MCP\"\nstars: 3\norg: \"F Org\"\n\n\ncredibility_score: 40/100\ndate_processed: <DATE>\n\n\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# s\n\n**`f/s`** · ⭐ 3 · 🔧 N/A\n\n## What is it?\nCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\n\n## How does it work?\nhw\n\n## Why is it important? (Core Value)\ncv\n\n## Key Features & Technologies\none feature line\nanother feature line\n\n## Difference from Others\ndf\n\n## 🏢 Organization & Credibility\n- **Developer:** F Org\n- **Reputation:** Unknown\n- **Stars:** 3\n- **Forks:** 1\n- **Recent Activity:** 2 commits in 3 months\n- **Credibility Score:** 40/100 (Low)\n- **Languages:** N/A\n- **Last Release:** No releases\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/f/s)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+    ],
+    [
+      "big-numbers",
+      {
+        "banner_path": "attachments/banners/big.png",
+        "category_key": "Infrastructure/Cloud",
+        "commit_count": 345678,
+        "confidence": 70,
+        "core_value": "val2",
+        "cred_score": 75,
+        "difference": "diff2",
+        "features": [
+          "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+          "y"
+        ],
+        "forks": 89012,
+        "how_it_works": "how2",
+        "is_low_quality": false,
+        "languages": [
+          "TypeScript",
+          "Rust"
+        ],
+        "latest_release_date": "2023-12-31",
+        "org_name": "Big Org Inc.",
+        "org_rep": 6,
+        "owner": "big",
+        "primary_language": "TypeScript",
+        "quality_issues": null,
+        "repo_name": "numbers",
+        "short_summary": "Big.",
+        "stars": 1234567,
+        "summary": "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+        "tags": [
+          "big",
+          "numbers",
+          "stars"
+        ],
+        "url": "https://github.com/big/numbers"
+      },
+      "---\nsource: \"https://github.com/big/numbers\"\naliases:\n  - numbers\n  - big/numbers\n\ntags: [big, numbers, stars]\ncategory: \"Infrastructure/Cloud\"\nstars: 1234567\norg: \"Big Org Inc.\"\nprimary_language: TypeScript\nlanguages: [TypeScript, Rust]\ncredibility_score: 75/100\ndate_processed: <DATE>\nlast_release: 2023-12-31\ncover: attachments/banners/big.png\nquality: low\nquality_issues: [fewer than 3 features]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n![banner](attachments/banners/big.png)\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# numbers\n\n> **TL;DR:** Big.\n\n**`big/numbers`** · ⭐ 1,234,567 · 🔧 TypeScript\n\n## What is it?\nDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n\n## How does it work?\nhow2\n\n## Why is it important? (Core Value)\nval2\n\n## Key Features & Technologies\n- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n- y\n\n## Difference from Others\ndiff2\n\n## 🏢 Organization & Credibility\n- **Developer:** Big Org Inc.\n- **Reputation:** Medium (Well-known organization)\n- **Stars:** 1,234,567\n- **Forks:** 89012\n- **Recent Activity:** 345678 commits in 3 months\n- **Credibility Score:** 75/100 (Good)\n- **Languages:** TypeScript, Rust\n- **Last Release:** 2023-12-31\n- **Quality:** ⚠️ low (fewer than 3 features)\n\n---\n*Source: [GitHub](https://github.com/big/numbers)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+    ]
+  ],
+  "rep_to_str": [
+    [
+      0,
+      "Unknown"
+    ],
+    [
+      3,
+      "Unknown"
+    ],
+    [
+      4,
+      "Low (Individual or unknown)"
+    ],
+    [
+      5,
+      "Low (Individual or unknown)"
+    ],
+    [
+      6,
+      "Medium (Well-known organization)"
+    ],
+    [
+      7,
+      "Medium (Well-known organization)"
+    ],
+    [
+      8,
+      "High (Major tech company)"
+    ],
+    [
+      9,
+      "High (Major tech company)"
+    ],
+    [
+      10,
+      "High (Major tech company)"
+    ],
+    [
+      -1,
+      "Unknown"
+    ]
+  ],
+  "sanitize_aliases": [
+    [
+      [
+        "repo.name",
+        "owner/repo.name",
+        "repo.name"
+      ],
+      [
+        "repo.name",
+        "owner/repo.name"
+      ]
+    ],
+    [
+      [
+        "A",
+        "a",
+        "B",
+        "b",
+        "C",
+        "c",
+        "D",
+        "d",
+        "E"
+      ],
+      [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    ],
+    [
+      [
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "y"
+      ],
+      [
+        "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "y"
+      ]
+    ],
+    [
+      [
+        null,
+        "",
+        "  ",
+        "z z"
+      ],
+      [
+        "z z"
+      ]
+    ]
+  ],
+  "sanitize_body_text": [
+    [
+      "a\u0000b\u0007c\rd",
+      null,
+      "abc\nd"
+    ],
+    [
+      "line1\r\nline2\rline3\n",
+      null,
+      "line1\nline2\nline3"
+    ],
+    [
+      "  padded body  ",
+      null,
+      "padded body"
+    ],
+    [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      300,
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    [
+      "truncateeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      10,
+      "truncateee"
+    ],
+    [
+      null,
+      null,
+      ""
+    ],
+    [
+      "ctrl\u000b\u001fkeep\n\ttabs",
+      null,
+      "ctrlkeep\n\ttabs"
+    ]
+  ],
+  "sanitize_languages": [
+    [
+      [
+        "Python",
+        "C++",
+        "python",
+        "Python"
+      ],
+      [
+        "Python",
+        "C++",
+        "python"
+      ]
+    ],
+    [
+      [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14"
+      ],
+      [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ]
+    ],
+    [
+      null,
+      []
+    ],
+    [
+      [],
+      []
+    ],
+    [
+      [
+        "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+      ],
+      [
+        "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+      ]
+    ]
+  ],
+  "sanitize_seq_item": [
+    [
+      null,
+      60,
+      ""
+    ],
+    [
+      5,
+      60,
+      "5"
+    ],
+    [
+      5.0,
+      60,
+      "5.0"
+    ],
+    [
+      true,
+      60,
+      "True"
+    ],
+    [
+      "",
+      60,
+      ""
+    ],
+    [
+      "pwned, x]  # injected",
+      60,
+      "pwned x injected"
+    ],
+    [
+      "{{pipeline}}",
+      60,
+      "pipeline"
+    ],
+    [
+      "a:b",
+      60,
+      "a b"
+    ],
+    [
+      "'quoted'",
+      60,
+      "quoted"
+    ],
+    [
+      "d\"q",
+      60,
+      "d q"
+    ],
+    [
+      "ok-tag",
+      60,
+      "ok-tag"
+    ],
+    [
+      "ok tag 2",
+      60,
+      "ok tag 2"
+    ],
+    [
+      "  spaced  ",
+      60,
+      "spaced"
+    ],
+    [
+      "-leading-dash",
+      60,
+      "leading-dash"
+    ],
+    [
+      "trailing-dash-",
+      60,
+      "trailing-dash"
+    ],
+    [
+      "a\tb",
+      60,
+      "a b"
+    ],
+    [
+      "new\nline",
+      60,
+      "new line"
+    ],
+    [
+      "car\rriage",
+      60,
+      "car riage"
+    ],
+    [
+      "ctrl\u0000\u0007\u001fchars",
+      60,
+      "ctrl chars"
+    ],
+    [
+      "数据科学",
+      60,
+      ""
+    ],
+    [
+      "ünïcödé-é",
+      60,
+      "n c d"
+    ],
+    [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      60,
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    [
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      60,
+      "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    ],
+    [
+      ".dots.",
+      60,
+      ".dots."
+    ],
+    [
+      "(parens)",
+      60,
+      "(parens)"
+    ],
+    [
+      "sla/sh",
+      60,
+      "sla/sh"
+    ],
+    [
+      "back\\slash",
+      60,
+      "back slash"
+    ],
+    [
+      "emoji 🗑️ here",
+      60,
+      "emoji here"
+    ],
+    [
+      "MiXeD CaSe TAG",
+      60,
+      "MiXeD CaSe TAG"
+    ],
+    [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      80,
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    [
+      "short",
+      80,
+      "short"
+    ],
+    [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      40,
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    [
+      "2024-01-01T10:00:00Z",
+      32,
+      "2024-01-01T10 00 00Z"
+    ]
+  ],
+  "sanitize_short_summary": [
+    [
+      "line1\nline2\r\nline3  ",
+      "line1 line2 line3"
+    ],
+    [
+      null,
+      ""
+    ],
+    [
+      "",
+      ""
+    ],
+    [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    ],
+    [
+      "single",
+      "single"
+    ],
+    [
+      "multi\n\nline",
+      "multi line"
+    ],
+    [
+      "a b c",
+      "a b c"
+    ]
+  ],
+  "sanitize_tags": [
+    [
+      [
+        "pwned, x]  # injected",
+        "{{pipeline}}",
+        "a:b",
+        "'quoted'",
+        "d\"q",
+        "ok-tag",
+        "ok tag 2",
+        "  spaced  ",
+        "-leading-dash"
+      ],
+      [
+        "pwned x injected",
+        "pipeline",
+        "a b",
+        "quoted",
+        "d q",
+        "ok-tag",
+        "ok tag 2",
+        "spaced",
+        "leading-dash"
+      ]
+    ],
+    [
+      [
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b",
+        "Tag",
+        "tag",
+        "TAG",
+        "b"
+      ],
+      [
+        "Tag",
+        "b"
+      ]
+    ],
+    [
+      "single-string-tag",
+      [
+        "single-string-tag"
+      ]
+    ],
+    [
+      null,
+      []
+    ],
+    [
+      [],
+      []
+    ],
+    [
+      [
+        "",
+        "  ",
+        null,
+        "kept"
+      ],
+      [
+        "kept"
+      ]
+    ],
+    [
+      [
+        "one",
+        "one",
+        "One",
+        "ONE",
+        "two",
+        "TWO",
+        "three"
+      ],
+      [
+        "one",
+        "two",
+        "three"
+      ]
+    ],
+    [
+      [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19"
+      ],
+      [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ]
+    ]
+  ],
+  "schema": 1,
+  "score_to_rating": [
+    [
+      0,
+      "Low"
+    ],
+    [
+      10,
+      "Low"
+    ],
+    [
+      59,
+      "Low"
+    ],
+    [
+      60,
+      "Average"
+    ],
+    [
+      74,
+      "Average"
+    ],
+    [
+      75,
+      "Good"
+    ],
+    [
+      89,
+      "Good"
+    ],
+    [
+      90,
+      "Excellent"
+    ],
+    [
+      100,
+      "Excellent"
+    ],
+    [
+      -5,
+      "Low"
+    ]
+  ],
+  "yaml_scalar": [
+    [
+      null,
+      120,
+      "\"\""
+    ],
+    [
+      "simple",
+      120,
+      "\"simple\""
+    ],
+    [
+      "injected\" ] # comment",
+      120,
+      "\"injected\\\" ] # comment\""
+    ],
+    [
+      "back\\slash\"quote",
+      120,
+      "\"back\\\\slash\\\"quote\""
+    ],
+    [
+      "new\nline\rreturn",
+      120,
+      "\"new line return\""
+    ],
+    [
+      "  padded  ",
+      120,
+      "\"padded\""
+    ],
+    [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      120,
+      "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\""
+    ],
+    [
+      "tab\there",
+      120,
+      "\"tab here\""
+    ],
+    [
+      "数据科学 — naïve",
+      120,
+      "\"数据科学 — naïve\""
+    ],
+    [
+      "ctrl\u0000\u0007\u001f",
+      120,
+      "\"ctrl\u0000\u0007\""
+    ],
+    [
+      5,
+      120,
+      "\"5\""
+    ],
+    [
+      5.0,
+      120,
+      "\"5.0\""
+    ],
+    [
+      true,
+      120,
+      "\"True\""
+    ],
+    [
+      "multi\n\nblank",
+      120,
+      "\"multi blank\""
+    ],
+    [
+      "Ünicode-é",
+      120,
+      "\"Ünicode-é\""
+    ],
+    [
+      "a b",
+      120,
+      "\"a b\""
+    ],
+    [
+      "x y",
+      120,
+      "\"x y\""
+    ],
+    [
+      "lead  trail",
+      120,
+      "\"lead trail\""
+    ],
+    [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      20,
+      "\"aaaaaaaaaaaaaaaaaaaa\""
+    ],
+    [
+      "short",
+      20,
+      "\"short\""
+    ]
+  ]
+}

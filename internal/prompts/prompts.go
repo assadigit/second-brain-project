@@ -150,7 +150,7 @@ func FillTemplate(template any, slots ...Slot) (string, error) {
 		if v == nil {
 			return "", &PromptError{Msg: "prompt slot " + name + " got None"}
 		}
-		text := pyStr(v)
+		text := PyStr(v)
 		if slotRE.MatchString(text) {
 			return "", &PromptError{
 				Msg: "value for slot " + name + " contains a {{SLOT}} marker " +
@@ -238,11 +238,11 @@ func PyOSErrorText(err error, path string) string {
 	return err.Error()
 }
 
-// pyStr mirrors Python str() for the value shapes the loader meets:
+// PyStr mirrors Python str() for the value shapes parity code meets:
 // string as-is; bool → "True"/"False"; ints in decimal; floats (and
 // JSON number literals) via Python float repr — str(5) == "5" but
 // str(5.0) == "5.0", 1e15 positional, 1e-05 scientific.
-func pyStr(v any) string {
+func PyStr(v any) string {
 	switch vv := v.(type) {
 	case string:
 		return vv

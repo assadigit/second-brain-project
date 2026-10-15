@@ -22,7 +22,9 @@ testdiff/
 │                                   # dump_prompts.py → internal/prompts +
 │                                   # assets/prompts, T-13;
 │                                   # dump_taxonomy.py → internal/taxonomy +
-│                                   # assets/taxonomy, T-14)
+│                                   # assets/taxonomy, T-14;
+│                                   # dump_notebuilder.py → internal/notebuilder,
+│                                   # T-15)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

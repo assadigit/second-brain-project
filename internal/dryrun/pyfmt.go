@@ -36,6 +36,11 @@ func formatComma(n int64) string {
 	return out
 }
 
+// FormatComma exposes formatComma for the parity packages that need
+// Python's f"{n:,}" (T-15 notebuilder's star counts). T-17's helpers
+// package centralizes it (the promotion law this comment is part of).
+func FormatComma(n int64) string { return formatComma(n) }
+
 // translateNewlines mirrors Python text-mode writes: on Windows open('w')
 // translates '\n' to os.linesep (and, like Python's naive translation,
 // an existing "\r\n" in content becomes "\r\r\n" — faithful, not fixed).

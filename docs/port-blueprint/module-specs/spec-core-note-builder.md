@@ -44,7 +44,8 @@ cover: attachments/banners/<name>   # only when banner basename fullmatch [A-Za-
 quality: low                   # only when is_low_quality
 quality_issues: [..]
 managed_by: gitcurator
-schema_version: "1"
+schema_version: 1             # UNQUOTED (reality-fixed 2026-10-15, T-15: NOTE_SCHEMA_VERSION
+                              # interpolates raw — the golden pins `schema_version: 1`)
 prompt_version: gh-v1
 ---
 ```
