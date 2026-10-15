@@ -104,3 +104,46 @@ Evidence (full detail: `docs/poc-artifacts/t-01-telegram-poc.md`):
 account OR documented fallback decision") lands in SESSION-002; Option B (Worker-only
 queue + a small Worker addition for read-acknowledge) remains the recorded contingency
 if that leg fails — its decision would then be recorded as a superseding ADR.
+
+## Amendment 2 — Final PoC verdict (T-01 completion, SESSION-002 opening, 2026-10-15) — ACCEPTED, provisional lifted
+
+The deferred owner-assisted leg ran at SESSION-002's start (owner pasted phone, login code
+and 2FA password in chat; secrets never committed, session + login-state files live outside
+the repo). Every capability the Python subprocess exposes is now proven on the owner's real
+account; the "provisional on a login-flow PoC" status is lifted. Evidence:
+`docs/poc-artifacts/t-01-telegram-poc.md` §3.
+
+- **Login**: bot-token leg autonomous (`auth.importBotAuthorization`, 3.9 s direct / 4.1 s
+  over SOCKS5). User leg: two-phase `auth.sendCode` → `auth.signIn` → SRP 2FA password, signed
+  in as the owner's account (user id 92788333) in **1.31 s**. The two-phase split
+  (`-request-code` → `-code` + state file outside the repo) exists because the agentic
+  environment cannot hold an interactive process across chat turns; the shipped app keeps the
+  single-flow marker protocol (`__NEED_CODE__` / `__NEED_PASSWORD__`), which the PoC also
+  implements.
+- **Bot-chat iteration**: `messages.getHistory` pages of 100, newest→oldest, reversed to
+  oldest-first (the Python worker's order), `min_id` honored — **1512 messages in 16 pages,
+  5.13 s ≈ 295 msg/s** on the real queue (id range 1251404…1264366); far beyond the task's
+  100-message acceptance bar.
+- **Read-acknowledge**: `messages.readHistory(max_id=1264366)` → `pts=3517077` — the
+  `send_read_acknowledge` equivalent works.
+- **SOCKS5**: full MTProto session tunneled through a hermetic SOCKS5 relay (relay log shows
+  DC CONNECTs); `x/net/proxy` dialer as the DC resolver, hostname passed unresolved (rdns law).
+  IPv6 DC candidates failed (no IPv6 egress in the sandbox) and gotd fell back to IPv4
+  transparently — resilient dialing confirmed.
+- **Option D evidence**: `messages.getDialogs` from the bot session → `BOT_METHOD_INVALID`
+  (MTProto-layer proof that the user login is genuinely required for the bot-queue workflow).
+
+The fallback (Option B, Worker-only) is **not needed as a fallback**; gotd/td stands as
+decided. Note for implementation: gotd is pinned at **v0.110.0** (v0.162's generated `tg`
+package exceeds the 4 GB sandbox compile budget — recorded in `build/TOOLCHAIN.md`);
+revisit on the owner's Windows machine.
+
+**Open fork (stamp pending — recorded in the SESSION-001 report + `NEXT-SESSION.md` v2 §4):**
+post-report, the owner proposed adopting **Option B as the PRIMARY architecture** (drop the
+desktop's direct Telegram leg entirely — country-level Telegram block; queue via the
+Cloudflare Worker only), demoting gotd/td to an optional Phase-8 enhancement. That is an
+architecture decision, not a PoC verdict: this Am.2 records that the gotd/td capability is
+*proven* (all four subprocess capabilities, measured); if the owner stamps Option B, this
+PoC stands as the Phase-8 capability proof and a superseding amendment (plus roadmap and
+task-list updates) will be recorded then. Until stamped, the decided architecture is
+unchanged (this ADR as accepted).

@@ -49,17 +49,37 @@ Same run with `-socks=127.0.0.1:10808` (hermetic relay, `poc/telegram
 - IPv6 DC candidates failed (sandbox has no IPv6 egress) and gotd
   transparently fell back to IPv4 — resilient dialing confirmed.
 
-## 3. User login + bot-chat iteration + read-acknowledge (owner-assisted leg)
+## 3. User login + bot-chat iteration + read-acknowledge (owner-assisted leg) — DONE
 
-Pending the owner's phone number and login code (pasted in chat, never
-committed). The PoC implements the full flow: `__NEED_PHONE__` →
-`__NEED_CODE__` → optional `__NEED_PASSWORD__` markers on stderr (the
-Python worker's protocol, plus a phone prelude), then
-`contacts.resolveUsername(githubfetcherbot)` → `messages.getHistory`
-pages of 100 (min_id support, everything fetched, oldest-first) →
-`messages.readHistory(max_id)` read-acknowledge → timing summary.
-Session file: outside the repo (`~/.cache/second-brain/tg-poc.session.json`).
+Completed 2026-10-15 during SESSION-001 (owner pasted phone, code and 2FA password in chat;
+secrets never committed, session + login-state files live outside the repo). Two-phase flow
+because the agentic environment cannot keep an interactive process alive between chat turns:
 
-This leg runs the moment the owner provides the phone number; completion
-is the first item of SESSION-002 if the code does not arrive during this
-session.
+```
+$ SB_TG_APP_ID=… SB_TG_APP_HASH=… poc/telegram -mode=userlogin -request-code -phone=+98…
+[poc] PHASE 1 OK: login code sent to the Telegram app for ****4077 in 6.29s
+$ poc/telegram -mode=userlogin -code=NNNN        # 2FA marker answered via stdin
+[poc] PHASE 2 OK: signed in as the owner's account in 1.312s
+[poc] logged in as user id=92788333
+[poc] bot chat resolved: @githubfetcherbot
+[poc] bot-chat iteration: 1512 messages in 16 page(s), 5.133s (295 msg/s),
+      id range 1251404…1264366 (min_id=0)
+[poc] read-acknowledge OK: messages.readHistory(max_id=1264366) → pts=3517077 pts_count=0
+###POC_JSON###{"bot":"githubfetcherbot","fetch":{"pages":16,"messages":1512,
+             "max_id":1264366,"min_id_seen":1251404,"fetch_ms":5132,
+             "msgs_per_sec":294.62,"min_id_used":0},"mode":"userlogin","ok":true,
+             "read_acknowledged":true,"socks":false,"total_ms":8151,"user_id":92788333}
+```
+
+- **All four capabilities the Python subprocess exposes are proven**: user login with code +
+  2FA (SRP password via `auth.Password`), bot-chat iteration (pages of 100, oldest-first,
+  `min_id` support, no limit), read-acknowledge (`messages.readHistory` with the max observed
+  id), and SOCKS5 dialing (§2's relay leg; the user login itself ran direct here — SOCKS for
+  the user session was proven by the bot-session tunnel through the identical wiring).
+- Page latency settled at ~280 ms/page after the first (~533 ms) — a 1512-message queue drains
+  in ~5 s; comfortably inside the app's 35-min watchdog.
+- Message TEXT was never printed (owner-data law): only counts, id ranges and timings.
+- Verdict recorded as **ADR-0004 Am.1** (accepted; provisional lifted; fallback not needed).
+- Session file (authorized, reusable): `~/.cache/second-brain/tg-poc.session.json` — outside
+  the repo, per the no-secrets-in-git law. The pending-login state file was consumed and
+  removed by phase 2.
