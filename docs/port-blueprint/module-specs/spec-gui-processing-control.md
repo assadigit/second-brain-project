@@ -8,6 +8,12 @@
 
 ## Key flows
 
+> **Dated note (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED", rider R-0):**
+> the `lock only for telegram modes` clause below and the mark-read/msg-id steps it guarded
+> fall away with the MTProto client — no Telegram lock exists in the Go port; the queue source
+> is the Worker `/api/pending` (spec-gui-pages-a, bot_queue.py note). The batch-running state
+> machine itself stays.
+
 - `start_processing` (61-121) → `_start_worker_with_urls` (123-148) → `_start_worker`
   (1686-1765): lock only for telegram modes; `_batch_running=True`; hero→'running' (Stop);
   bar reset "Processing…"; `_clear_log()`; `ProcessingWorker(...)` with bot source/intake
@@ -44,4 +50,7 @@
 ## Tests
 
 Completion-chain order test (fake workers asserting call sequence); all-clear gating of
-mark-read + msg-id advance; retry drivers wiring; modal option outcomes.
+mark-read + msg-id advance
+(re-scoped 2026-10-15 per ADR-0004 Am.3/R-0: no mark-read/msg-id advance exists in Go — the
+all-clear gate's Phase-5 re-spec is an open item for T-62, see spec-cli's Phase-5 CLEAR note);
+retry drivers wiring; modal option outcomes.

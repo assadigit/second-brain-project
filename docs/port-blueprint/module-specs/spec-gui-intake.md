@@ -1,10 +1,17 @@
 # Module Spec — `gui/platform_intake.py` + `gui/telegram_lock.py`
 
+> **Dated note (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED", rider R-0):**
+> the `telegram_lock.py` half of this spec is **dormant in the Go port** — no MTProto client
+> ships, so there is no Telegram fetch to serialize and no lock to port (`internal/app/tglock.go`
+> will not exist; the traceability E12 row and doc 05 §1 are annotated in the same commit).
+> The section below is retained verbatim as the Python-reference record and the Phase-8
+> revival contract. `platform_intake.py` is **unaffected** and ports as specified.
+
 - **LOC**: 442 + 181 · **Go home**: `internal/batch/intake.go` + `internal/app/tglock.go` ·
-  **Status**: port
+  **Status**: port (intake) · dormant (telegram_lock — 2026-10-15, ADR-0004 Am.3)
 - **Responsibility**: non-GitHub link intake into per-platform `_inbox/*.md` tables (idempotent,
   atomic, token-scrubbed, law-filtered) + the prune pass; the thread-safe single-slot Telegram
-  lock with owner tracking.
+  lock with owner tracking (dormant per the banner above).
 
 ## platform_intake.py (`gui/platform_intake.py:`)
 
@@ -31,12 +38,14 @@
 
 ## Go notes
 
-- The lock ports as a mutex + owner/age fields with identical semantics (owner-scoped release,
-  stuck detection, force-release reason logging).
+- ~~The lock ports as a mutex + owner/age fields with identical semantics (owner-scoped release,
+  stuck detection, force-release reason logging).~~ **(Dormant 2026-10-15 — ADR-0004 Am.3/R-0;
+  no Telegram lock exists in the Go port.)**
 - Intake tables: exact same grammar and filter laws.
 
 ## Tests
 
 Platform classification → table file mapping; banned-never-collected; no-empty-file law; prune
 matrix; token scrubbing in rows; lock: owner scope, re-acquire refusal, stuck detection, context
-manager release law.
+manager release law
+(the lock tests apply only if the Phase-8 revival ever ships — R-0).

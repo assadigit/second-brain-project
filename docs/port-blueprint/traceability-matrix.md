@@ -85,7 +85,7 @@ Legend — Evidence `app/…:line` at v0.91.0 · Spec `module-specs/…` · Go `
 | E9 | CLI surface + `--sync` door + dry-run report | `cli/*.py` | spec-cli | `cli` | flag snapshot + differential | T-60/62/64 | AC-1 |
 | E10 | Startup cadences + quiet-open + shutdown chain | `gui/main_window/window.py:115-451`; `lifecycle.py:173-281` | spec-gui-window | `app/lifecycle` | cadence test | T-71 | AC-8/18 |
 | E11 | Single-instance lock (cross-binary) | `gui/app.py:393-440` | spec-gui-app-shell | `app/lifecycle` | cross-binary test | T-78 | AC-11 |
-| E12 | Platform intake tables + telegram lock owner-scope | `gui/platform_intake.py`; `telegram_lock.py` | spec-gui-intake | `batch/intake`; `app/tglock` | grammar + lock tests | T-25/T-71 | AC-2 |
+| E12 | Platform intake tables + telegram lock owner-scope — **telegram-lock half DORMANT per ADR-0004 Am.3 (Option B, 2026-10-15, R-0): no MTProto client ships; no `app/tglock` exists; intake tables stay** | `gui/platform_intake.py`; `telegram_lock.py` | spec-gui-intake | `batch/intake`; ~~`app/tglock`~~ | grammar tests (lock tests only if the Phase-8 revival ever ships) | T-25/T-71 | AC-2 |
 
 ## F. Data & packaging
 

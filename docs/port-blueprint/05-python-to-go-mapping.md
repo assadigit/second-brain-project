@@ -67,6 +67,14 @@
 **Coverage check**: every file in `01-repository-inventory.md` §2 appears exactly once above
 (including the drops, each with evidence).
 
+> **Dated note (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED", rider R-0):**
+> two §1 rows go **dormant** in the Go port — `gui/telegram_lock.py` → `internal/app/tglock.go`
+> (no Telegram lock exists; no MTProto client ships) and `integrations/telegram_fetch_worker.py`
+> + `telethon_fetcher.py` + `subprocess_runner.py` → `internal/telegram` (Phase-8 optional
+> revival only; capability proof = ADR-0004 Am.2 + `poc/telegram`; already banner-dormant on
+> spec-integrations-telegram.md). Both rows are retained above as the historical mapping;
+> see the dormant banner on spec-gui-intake.md for the lock.
+
 ## 2. Retain / replace / consolidate / redesign summary
 
 - **Retained (port)**: the entire `core/` engine, `cache_db`/`link_tracker`/`vault_index`, the

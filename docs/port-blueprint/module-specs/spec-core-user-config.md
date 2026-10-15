@@ -1,5 +1,12 @@
 # Module Spec — `app/gitcurator/core/user_config.py`
 
+> **Dated note (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED", rider R-0):**
+> the Telegram credential keys (`telegram_api_id`, `telegram_api_hash`, `telegram_phone`,
+> `telegram_user_id`, `bot_token`, `bot_username`) **keep being filled and mirrored unchanged**
+> — the compat law: the desktop keeps reading (and remembering) them for compatibility, but
+> the Go engine never uses them (no MTProto client ships). Fill/mirror/unset grammar is
+> **unaffected**; port verbatim.
+
 - **LOC**: 481 · **Go home**: `internal/config` (user memory) · **Status**: port
 - **Responsibility**: credentials + vault identity that survive version updates in one user-level
   file `Documents/.gitcurator`: THE FILL (read side) and THE MIRROR (write side). Never raises.
@@ -24,7 +31,9 @@
 
 1. Same file name/location/marker; same fill/mirror algorithms (order matters: credentials →
    vault → prefix → unknown).
-2. Unset grammar including **numeric 0 = unset** (telegram_api_id 0 is "no credential").
+2. Unset grammar including **numeric 0 = unset** (telegram_api_id 0 is "no credential")
+   — the compat law per the 2026-10-15 banner: the Telegram keys stay in the fill/mirror
+   surface unchanged; the engine simply never consumes them (ADR-0004 Am.3).
 3. Nested merge never mutates the caller's dict; blanks never flow; booleans always real.
 4. Windows Known-Folder via `golang.org/x/sys/windows.KnownFolderPath` (same GUID); POSIX
    `~/Documents` only when it exists.

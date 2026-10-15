@@ -37,7 +37,10 @@
   `GitCurator/MainWindow`, key `main_window/size`) → unblock worker (`resolve_llm_failure('stop')`,
   `provide_code('')`, `_disk_full_paused=False`) → `worker.stop()` + `wait(5000)` → each test
   worker `wait(2000)` → kill orphan Telethon subprocesses → force-release the telegram lock →
-  accept → `QApplication.quit()` (the hidden-SettingsDialog zombie fix).
+  accept → `QApplication.quit()` (the hidden-SettingsDialog zombie fix)
+  — **Dated note (2026-10-15, ADR-0004 Am.3 / R-0):** the `kill orphan Telethon subprocesses`
+  and `force-release the telegram lock` shutdown steps fall away in the Go port (no MTProto
+  client, no lock — ADR-0004 Am.3); the rest of the sequence (unblock, stop, wait, quit) stays.
 - `_unblock_worker_for_shutdown` (263-281): the three unblock doors above.
 
 ## Go parity requirements

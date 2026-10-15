@@ -89,6 +89,16 @@
 | T-77 | Main window chrome: hero button machine, progress row, More menu, sentinel labels, dialogs polish, sounds | spec-gui-ui; spec-gui-window | L | hero state machine tests; startup cadence test |
 | T-78 | Side-by-side verification vs Python app (lock mutual exclusion, same data) | ADR-0008 | S | lock test across both binaries |
 
+> **Dated note (2026-10-15, R-0 — surfaced by the Option-B spec-ripple rider):** the T-73/T-74
+> page lists above follow the GUI's page grouping, but the module-spec files split
+> differently: `spec-gui-pages-a.md` = hero, dashboard, bot_queue, telegram_ui,
+> connection_tests, test_connection_modal, vaults_config, input_proxy, llamacpp,
+> linking_tools, vault_scan_ui; `spec-gui-pages-b.md` = backup_seal only (drift seal + fast
+> sync). When implementing T-73/T-74, match pages **by name** to their spec file — do not
+> trust the A/B label. (This note exists because the R-0 instruction's "spec-gui-pages-b
+> (bot-queue data source = Worker pending)" pointed at the wrong file; the bot-queue spec
+> lives in `spec-gui-pages-a.md` — see its 2026-10-15 banner.)
+
 ## Phase 7 — Packaging & release
 
 | ID | Task | Spec refs | Effort | Acceptance |

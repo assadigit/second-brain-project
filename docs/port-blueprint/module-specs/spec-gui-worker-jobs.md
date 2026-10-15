@@ -21,6 +21,19 @@
 | `_repo_radar_job(config, log_signal)` | 647-683 | read-only detection on a config COPY |
 | `_vault_scan_job(config, log_signal, confirm_gui, progress, confirm_selection, vaults)` | 686-1287 | one-open NoteReadCache (logs "⚡ N note open(s) — M served from the last scan's memory"); hygiene both vaults; scope picker (`vaults=None`=both / list=chosen alone — a chosen-but-not-connected vault speaks its own name); per-vault story via `_scan_one_vault`: build plan → log proposal lines → confirm door (`_channel_for`: GUI ScanPlanDialog when injected and `scan_confirm_door != 'telegram'`, else Telegram round-trip; 300 s window) → picked counts → `apply_scan_plan`; merged verdict; DB close honesty line |
 
+> **Dated note (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED", rider R-0):**
+> two jobs above lose their MTProto legs in the Go port:
+> - `_telegram_test_job` (the connection battery's telegram leg) is **dropped** — the battery's
+>   Worker leg (GET `/health`) is the queue-reachability check (spec-core-connection).
+> - `_bot_queue_job`'s **fetch leg becomes the Worker `/api/pending` call** (the Telethon
+>   subprocess fetch falls away); its worker-thread vault filtering (VaultIndex rebuild, dead
+>   set, one-time `settle_existing_repos`, classification buckets, websites twin +
+>   `settle_the_ledger`, the ~12 count fields) stays and is ported verbatim.
+> - `_vault_scan_job`'s `scan_confirm_door='telegram'` door is **Worker-mediated**
+>   (`make_scan_confirm` → `/api/scan/propose` trio — server-side Telegram ask) and is
+>   **unaffected** by Option B; so is `make_telegram_confirm` (banish). Verified in the Python
+>   reference (`integrations/scan_confirm.py`, `integrations/banish_confirm.py`, R-0).
+
 ## Go mapping
 
 Each job becomes a command method (doc 04 §5) with the same result fields (the GUI fallbacks and

@@ -49,7 +49,11 @@ function resolves stale failed rows against the live vault.
   every bucket!" is a loud error; github notes verified as file-on-disk AND >100 bytes,
   websites >50; stale note_path healed via ground truth — a MOVE is not a loss).
 - `get_all_clear` (486-523): only GITHUB rows gate the bot-queue mark-read; failed/processing/
-  pending count as done when the vault holds the note.
+  pending count as done when the vault holds the note
+  — **Dated note (2026-10-15, ADR-0004 Am.3 / R-0):** the "gate the bot-queue mark-read"
+  *purpose* falls away in the Go port (no mark-read exists); `get_all_clear` itself survives
+  as the honest-completion (all-clear) law. What the all-clear now gates is re-specified at
+  T-62/T-74 (Phase 5/6), bounded by ADR-0004 Am.3 — see spec-cli's Phase-5 CLEAR note.
 - `get_reconciliation_urls`: heals pending rows whose note exists, re-points moved notes, tallies
   website/settled rows aside; persists the HEALED previous manifest without touching the live one.
 - Atomic saves; dry-run recorded not written.

@@ -113,6 +113,12 @@ topics/README-500-chars + reply edit). Webhook always returns 200 (Telegram cont
 2. Wear the 1010 UA on every leg; bypass proxies for workers.dev.
 3. `/api/pending` LIMIT 100 — pagination-free by design; treat count as the truth.
 4. Mirror-push is the ack (idempotent by sync_id).
+   - **Dated note (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED", rider R-0):**
+     the Go desktop drops read-acknowledge entirely (an accepted loss — the owner reads bot
+     replies on the phone); **a Worker read-ack endpoint is a Phase-8 optional revival only**
+     (it joins the Phase-8 future-work register with the gotd/td revival — roadmap Am.2). The
+     Worker side stays unchanged: `/api/vault_mirror/push` remains the one and only way items
+     leave the pending queue; **zero Worker changes are required for the core flow.**
 5. Never treat a down Worker as an empty queue (None ≠ []).
 6. Publish door: Bearer; index ≤20 MB/≤5k sites; ack commands only after publish.
 7. Read-back: public index 404 = never-published (honest state, not an error).

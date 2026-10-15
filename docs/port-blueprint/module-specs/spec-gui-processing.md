@@ -60,7 +60,11 @@ progress 100% → LinkTracker verify → `_generate_summary_log` → `_vault_hyg
   floor 90); `_backfill_missing_notes`.
 - **inputs.py** (232): `_fetch_from_telegram` (session .bak; subprocess config; non-GitHub →
   `_create_inbox_notes` + `_non_github_urls`); `_fetch_from_import` (the one link grammar;
-  duplicates and unparsed reported, ≤20 listed).
+  duplicates and unparsed reported, ≤20 listed)
+  — **Dated note (2026-10-15, ADR-0004 Am.3 / R-0):** `_fetch_from_telegram` (the MTProto
+  fetch) falls away in the Go port — the queue source is the Worker `/api/pending` +
+  `get_pending_result` path; the non-GitHub inbox-note creation and `_fetch_from_import`
+  (import grammar) stay and are ported verbatim.
 - **notes.py** (198): `_build_note` (delegates to note_builder); `_record_missing_repo`
   (`_missing/` placeholder + immediate `confirm_dead`, idempotent set); `_create_inbox_notes`
   (bypassed when websites pipeline ON; banned never collected).
@@ -74,6 +78,9 @@ progress 100% → LinkTracker verify → `_generate_summary_log` → `_vault_hyg
   (`models.classify/analyze`), `fetch_fn`, `banish_confirm` (Telegram channel),
   `vault_index_has`, `site_note_for`; blocked/self intake drops; shadow WebsiteStateDB in
   dry-run; `settle_the_ledger`; websites VaultIndex with the website normalizer;
+  (`banish_confirm` (Telegram channel) is **Worker-mediated** —
+  `make_telegram_confirm` → `/api/banish/propose` trio, server-side Telegram ask — and is
+  **unaffected** by ADR-0004 Am.3/Option B; verified in the Python reference, R-0.)
   `split_dismissed_links` pre-drop; `state.due_retries()`; **bar re-base**
   `total = github_done + len(links) + len(due)` with `_wp_advance` closure; backlog modes
   replace normal passes; manifest marking per outcome; `build_website_directory` rebuild;

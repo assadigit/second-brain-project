@@ -1,10 +1,21 @@
 # Module Spec — `core/connection_check.py` + `core/net_guard.py` + `core/netctx.py`
 
+> **RE-SCOPED (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED", rider R-0):** the
+> Go app drops its direct Telegram (MTProto) leg entirely. The Test Connection battery therefore
+> runs **three sections — vaults, LLM, GitHub — plus the Worker leg**: `check_telegram_local` is
+> **dropped**, and the existing `check_worker_version` (GET `/health`, proxy bypassed, UA law)
+> is promoted from an auxiliary version check to **the queue-reachability leg** (the queue rides
+> the Worker HTTP API only). Everything below describing the Telegram section is retained
+> verbatim as the Python-reference behavior record; the Go port (T-33) implements the re-scoped
+> battery, pinning the new `summarize` wording (the Python headline's "Telegram" mention goes)
+> in its result-shape tests. `net_guard` and `netctx` are unaffected.
+
 - **LOC**: 789 + 450 + 43 · **Go home**: `internal/connectioncheck` (battery + sentinel +
-  ssl-context helpers) · **Status**: port (merged group)
-- **Responsibility**: the four-section Test Connection battery (vaults, LLM, GitHub, Telegram +
-  Worker version), the background sentinel trio (internet/AI/proxy) with the warn-once offline
-  verdict, and the `verify_ssl` TLS context switch.
+  ssl-context helpers) · **Status**: port (merged group; battery re-scoped per the banner above)
+- **Responsibility**: the Test Connection battery (vaults, LLM, GitHub, Worker
+  version/reachability — Telegram dropped per the banner), the background sentinel trio
+  (internet/AI/proxy) with the warn-once offline verdict, and the `verify_ssl` TLS context
+  switch.
 
 ## connection_check.py (`connection_check.py:`)
 
@@ -21,10 +32,18 @@
   session file at `<APP_DIR>/session.session`, bot username, proxy TCP probe with latency ms,
   the "Telegram needs it in Iran" note) · `check_worker_version` (`GET {worker}/health` **proxy
   bypassed**, UA law; compare `EXPECTED_WORKER_VERSION`; older → warn with deploy pointer).
+  - **Dated note (2026-10-15, ADR-0004 Am.3 / R-0):** in the Go port `check_telegram_local` is
+    **dropped** (no MTProto client ships; the Telegram config keys keep being *read* for
+    compatibility — the compat law — but no session file, proxy probe, or login ever happens),
+    and `check_worker_version` is promoted to **the queue-reachability leg** (the queue rides
+    the Worker HTTP API only), so it covers both the version gate and queue reachability.
 - `run_local_checks(config, on_section, on_result)`: sections in order; each check
   try/except → `"check crashed ({Type}: {e})"`; callback exceptions swallowed.
 - `summarize(sections)`: headline `"ALL SYSTEMS READY — vaults, Telegram, LLM and GitHub are up"`
   or `"{ready}/{total} subsystems ready — N error(s) and M warning(s) (see the lines above)"`.
+  - **Dated note (2026-10-15, ADR-0004 Am.3 / R-0):** the Go port's `summarize` drops the
+    "Telegram" mention (no Telegram section exists); the exact re-worded headline is pinned by
+    T-33's result-shape tests when that task lands (Phase 3).
 
 ## net_guard.py (`net_guard.py:`)
 
