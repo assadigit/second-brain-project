@@ -1,5 +1,13 @@
 # Module Spec — `integrations/telegram_fetch_worker.py` + `telethon_fetcher.py` + `subprocess_runner.py`
 
+> **DORMANT (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED"):** the Go app
+> drops the direct Telegram (MTProto) leg entirely; the bot queue rides the Cloudflare
+> Worker HTTP API only, and read-acknowledge is dropped. This spec is **not implemented**
+> on the port's critical path — it is preserved as the contract for the **Phase-8 optional
+> revival** (capability proven by the T-01 PoC on the owner's account: ADR-0004 Am.2;
+> `poc/telegram` + the gotd v0.110.0 pin remain in the repo as the dormant proof). The
+> spec below is retained verbatim for that future use.
+
 - **LOC**: 741 + 432 + 456 · **Go home**: `internal/telegram` (gotd/td — ADR-0004) ·
   **Status**: **replace** (the *contract* below is preserved; the subprocess mechanism is not)
 - **Responsibility**: the Telethon fetch engine (subprocess) + its parent supervisor. In Go, a

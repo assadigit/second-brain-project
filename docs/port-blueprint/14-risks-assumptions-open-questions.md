@@ -137,3 +137,19 @@ A2/A4/OQ-9 status above.
   artifact data recorded in doc 10 §10; live Worker state in spec-worker-contract.md §9.
 - Owner re-confirmed the engagement law: this workspace is audit/spec-only until Phase 0 opens
   in `second-brain-project`; the port itself is multi-session and must not be crammed into one.
+
+**Round 5 — Option B stamped (2026-10-15, post-Phase-0):**
+- **"OPTION B CONFIRMED"** — the desktop drops its direct Telegram (MTProto) leg entirely;
+  the bot queue flows only through the Cloudflare Worker HTTP API. Motivation: country-level
+  Telegram block — the direct leg (even proxied) is a censorship liability; the
+  Telegram→Worker webhook pairing already exists and is live. Recorded as **ADR-0004 Am.3**
+  (supersedes the ADR's primary decision; also supersedes Round 1 Q2's one-time re-login —
+  its premise no longer exists). gotd/td demoted to the Phase-8 register (capability proven
+  by the T-01 PoC on the owner's account: login+2FA, 1512-message fetch, read-acknowledge).
+- Owner-accepted losses: read-ack badge-clearing; Saved-Messages/keyword/single-id modes;
+  webhook-miss recovery via chat re-read (mitigation: re-forward); the Telegram leg of Test
+  Connection. Gains: zero Worker changes for the core flow, no proxy for the queue leg, no
+  re-login, less GUI surface, less censorship exposure.
+- **Working model confirmed by the owner**: the overseer chat (planner/mentor) records
+  decisions and audits; implementation happens in fresh single-writer sessions per
+  `SESSION-PROTOCOL.md`.

@@ -79,7 +79,10 @@ $ poc/telegram -mode=userlogin -code=NNNN        # 2FA marker answered via stdin
 - Page latency settled at ~280 ms/page after the first (~533 ms) — a 1512-message queue drains
   in ~5 s; comfortably inside the app's 35-min watchdog.
 - Message TEXT was never printed (owner-data law): only counts, id ranges and timings.
-- Verdict recorded as **ADR-0004 Am.1** (accepted; provisional lifted; fallback not needed).
+- Verdict recorded as **ADR-0004 Am.2** (accepted; provisional lifted; fallback not needed)
+  — *(cross-ref fixed 2026-10-15; previously mis-cited as Am.1, which is the interim
+  verdict. Architecture later superseded by Am.3 — Option B — with this PoC standing as
+  the Phase-8 capability proof.)*
 - Session file (authorized, reusable): `~/.cache/second-brain/tg-poc.session.json` — outside
   the repo, per the no-secrets-in-git law. The pending-login state file was consumed and
   removed by phase 2.

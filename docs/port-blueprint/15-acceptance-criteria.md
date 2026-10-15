@@ -21,6 +21,11 @@
   honored; pairing flow works end-to-end against the rig.
 - **AC-7** Telegram: queue fetch with `min_id`, mark-read, login+2FA — PoC-verified via gotd (or
   the fallback ADR documents the accepted change).
+  *Amended 2026-10-15 (ADR-0004 Am.3, owner stamp "OPTION B CONFIRMED"): the desktop's
+  direct Telegram leg is dropped — the queue rides the Worker HTTP API only (covered by
+  the workerclient acceptance in T-34) and read-acknowledge is dropped. The gotd
+  capability proof above stands for the Phase-8 optional revival; no MTProto acceptance
+  criterion applies to the Go app v1.*
 - **AC-8** The GUI exposes every page, dialog, and control enumerated in the GUI module specs,
   with the 10 honesty laws demonstrated (workflow test recordings + checklist).
 

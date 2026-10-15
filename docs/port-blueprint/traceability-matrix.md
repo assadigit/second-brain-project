@@ -68,7 +68,7 @@ Legend — Evidence `app/…:line` at v0.91.0 · Spec `module-specs/…` · Go `
 | D12 | GoodRepos publish + repo radar dominance | `integrations/goodrepos.py`; `repo_radar.py` | spec-integrations-goodrepos | `goodrepos` | fake-GitHub tests | T-48 | AC-5 |
 | D13 | Directory publish (tree law, belts, tombstones) + command cycle | `cloud/directory_sync.py:820-1822` | spec-cloud-directory-sync | `directorysync` | index golden + cycle | T-49 | AC-5 |
 | D14 | Mirror + linking + embeddings + recall blocks | `core/mirror.py` + Phase-6 group | spec-core-mirror | `mirror` | block surgery | T-50 | AC-2 |
-| D15 | Telegram queue fetch + mark-read + login (gotd) | `integrations/telegram_fetch_worker.py` | spec-integrations-telegram | `telegram` | PoC + contract tests | T-01/T-51 | AC-7 |
+| D15 | Telegram queue fetch + mark-read + login (gotd) — **DORMANT per ADR-0004 Am.3 (Option B, 2026-10-15): Phase-8 optional revival; T-51 removed from Phase 4** | `integrations/telegram_fetch_worker.py` | spec-integrations-telegram | `telegram` | PoC done on owner account (T-01) | T-01 (done) / ~~T-51~~ → Phase-8 | AC-7 (amended) |
 
 ## E. Workflows & UX laws
 

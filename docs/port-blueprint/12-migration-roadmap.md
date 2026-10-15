@@ -99,8 +99,27 @@ release workflow, docs (README-go, QUICKSTART update).
 - **Phase 0 PoC C gains a bootstrapper dimension** (T-70): WebView2 is now *assumed absent* on
   the owner machine (updates stopped + Edge deleted — ADR-0001 Am.1), so the PoC must verify
   the silent Evergreen-bootstrapper path end-to-end on a WebView2-less Windows VM.
-- Phases 1–4, 7, 8 and M1–M4 are unchanged. M5 becomes an internal gate (no owner-facing
+- Phase 1–4, 7, 8 and M1–M4 are unchanged. M5 becomes an internal gate (no owner-facing
   release); M6 absorbs the release-ritual duties.
+
+## Amendment 2 — Owner Option-B stamp (2026-10-15, ADR-0004 Am.3)
+
+- **Phase 4 loses the `telegram` (gotd integration) work item** — T-51 moves to the
+  **Phase-8 future-work register** below. The desktop's bot queue rides the Worker HTTP API
+  only (`/api/pending` — already in Phase 3's T-34 `workerclient` scope; zero Worker changes
+  for the core flow). Read-acknowledge is dropped; a Worker read-ack endpoint joins the
+  Phase-8 register as an optional revival. The Telegram single-slot lock and the Telegram
+  leg of Test Connection fall away (ADR-0004 Am.3 lists the full consequences).
+- **Phase-8 register gains**: *gotd/td Telegram leg revival* (capability proven by the T-01
+  PoC on the owner's account — ADR-0004 Am.2; `poc/telegram` + the gotd v0.110.0 pin stay
+  in the repo as the dormant proof; would restore read-ack badge-clearing,
+  Saved-Messages/keyword/single-id modes, and chat re-read recovery).
+- **Rider task R-0** (XS) is attached to Phase 1's session (SESSION-003): reconcile the
+  remaining behavioral spec ripple (spec-core-connection, spec-cli `--sync` door,
+  spec-gui-pages-b queue data source, spec-worker-contract note) per ADR-0004 Am.3 —
+  docs-only, before T-10.
+- Supersession note: the one-time re-login accepted in the owner Q&A (doc 14 §6 Round 1
+  Q2) is void — no MTProto user login ever happens.
 
 ## Dependencies between phases (mermaid)
 

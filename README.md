@@ -4,11 +4,11 @@
 > builder (Python/PyQt6 → Go). Codename until the branded name is chosen; stays private
 > until launch.
 
-**Status: Phase 0 executed** — SESSION-001 (proofs & baselines) owner-confirmed
-2026-10-15; PoC verdicts recorded (Wails ✅, tls-client ✅, gotd/td provisional — the
-owner-assisted login leg is SESSION-002's first order of business), harness skeleton +
-Python baselines archived. Next: **SESSION-002 = T-01 completion + Phase 1
-(pure-foundation packages)**, per the roadmap.
+**Status: Phase 0 CLOSED** — all three PoC verdicts final (Wails ✅ · tls-client ✅ ·
+gotd/td ✅ proven on the owner's account, then **demoted to dormant by the owner's
+Option-B stamp**: the queue rides the Worker only — ADR-0004 Am.3); harness skeleton +
+Python baselines archived; SESSION-001/002 closed. Next: **SESSION-003 = R-0 spec-ripple
+rider + Phase 1 (pure-foundation packages)**, per the roadmap.
 
 ## Map
 

@@ -147,3 +147,50 @@ architecture decision, not a PoC verdict: this Am.2 records that the gotd/td cap
 PoC stands as the Phase-8 capability proof and a superseding amendment (plus roadmap and
 task-list updates) will be recorded then. Until stamped, the decided architecture is
 unchanged (this ADR as accepted).
+
+## Amendment 3 — Owner stamp: Option B adopted as the PRIMARY architecture (2026-10-15)
+
+**Status: SUPERSEDES this ADR's primary decision — the desktop drops its direct Telegram
+(MTProto) leg entirely; the queue flows only through the Cloudflare Worker HTTP API.
+gotd/td is demoted to an optional Phase-8 enhancement (capability proof: Am.2 +
+`poc/telegram`).**
+
+The owner stamped **"OPTION B CONFIRMED"** on 2026-10-15 in the overseer chat (planner
+channel), with full knowledge of the trade-off — the login leg had already proven gotd/td
+works perfectly on their account, making this purely an architecture call:
+
+**Motivation** (owner's): country-level Telegram block — the direct MTProto leg (even
+proxied) is a censorship liability; the Telegram→Worker webhook pairing already exists and
+is live (server-to-server; no owner-network involvement).
+
+**What changes:**
+- `internal/telegram` is **removed from Phase 4** (T-51 → the Phase-8 future-work
+  register). No MTProto client ships in the Go app; **no one-time re-login** (this
+  supersedes the SESSION-000 Round 1 Q2 answer — its premise, the Telethon→gotd session
+  migration, no longer exists).
+- The queue leg rides the **Worker HTTP API only** (`/api/pending` + the existing
+  get_pending/get_pending_result path — already in T-34 `workerclient` scope, Phase 3;
+  **zero Worker changes required for the core flow**).
+- **Read-acknowledge is dropped** (the owner reads bot replies on the phone). If ever
+  wanted later: a small Worker endpoint — recorded in the Phase-8 register.
+- Telegram config keys (api_id/api_hash/phone/bot) **keep being read** for compatibility
+  (the compat law) but the engine no longer uses them — documented compatibility note in
+  the config/user-config spec.
+- The Telegram single-slot lock (TelegramLockManager law) and the Telegram leg of Test
+  Connection **fall away** with the MTProto client (Test Connection's Telegram leg is
+  dropped or replaced by a Worker reachability check — R-0 reconciles the spec).
+
+**Accepted losses** (owner-confirmed): read-acknowledge badge-clearing; the
+Saved-Messages / keyword-search / single-id / preview Telethon modes; webhook-miss
+recovery via chat re-read (mitigation: re-forward the message to the bot); the Telegram
+leg of Test Connection.
+
+**Gains**: zero Worker changes for the core flow; no proxy for the queue leg; no
+one-time re-login; less GUI surface to port; less censorship exposure than today's
+proxied MTProto.
+
+**Bookkeeping**: Am.1/Am.2 retained as history; `poc/telegram` + the gotd v0.110.0 pin
+stay in the repo as the dormant capability proof. Ripple reconciliation in the plan docs:
+roadmap Am.2, task-list amendment, doc 14 §6 Round 5, spec-integrations-telegram dormant
+banner, traceability D15 + AC-7 annotations (this commit); the remaining behavioral spec
+reconciliation is rider task **R-0** for SESSION-003 (see `NEXT-SESSION.md` v3).

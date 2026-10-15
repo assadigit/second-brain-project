@@ -106,3 +106,16 @@
 3. No new dependencies beyond doc 06 §2 without a new ADR.
 4. Never weaken/skip a test to get green (repo house rule).
 5. Secrets: never in code, logs, reports, or the new repo tree.
+
+## Amendment — Owner Option-B stamp (2026-10-15, ADR-0004 Am.3)
+
+- **T-51 (`internal/telegram`: gotd client per PoC verdict) is removed from Phase 4** → the
+  Phase-8 future-work register (`12-migration-roadmap.md` Am.2). The bot queue rides the
+  Worker HTTP API only (T-34 scope, unchanged); read-acknowledge dropped.
+- **New rider task R-0** (XS, docs-only, attached to Phase 1's session — run before T-10):
+  reconcile the Option-B behavioral spec ripple per ADR-0004 Am.3 — spec-core-connection
+  (drop the Telegram leg → Worker reachability check), spec-cli (`--sync` door queue check
+  rides the Worker only), spec-gui-pages-b (bot-queue data source = Worker pending),
+  spec-worker-contract (dated note: read-ack endpoint = Phase-8 optional), plus any
+  cross-references those edits surface. Banner edits + dated notes; append-only where
+  decisions are concerned.
