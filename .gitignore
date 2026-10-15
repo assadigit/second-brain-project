@@ -1,21 +1,35 @@
-# build outputs
-/dist/
-/build/
-*.exe
-*.syso
+# Go
+*.test
+*.out
+/bin/
 
-# real user data & secrets — never commit
-config.json
-cache.db
+# Secrets & sessions — NEVER commit (laws: README "Laws", SESSION-PROTOCOL,
+# doc 11 §2). Session files and credentials live outside the repo.
 *.session
 *.session-journal
-app.lock
+*.session-shm
+*.session-wal
+session.json
+tg-session*.json
 .env
+.env.*
 
-# local dev scratch
-*.local.json
-/tmp/
+# Owner data (config.json / cache.db are opened in place, never committed)
+config.json
+cache.db
+cache.db-wal
+cache.db-shm
+app.lock
 
-# OS
-Thumbs.db
-.DS_Store
+# Python (the differential reference clone stays outside; guards only)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Differential harness run artifacts (regenerated per run, evidence is
+# copied into docs/ or the session report when needed)
+testdiff/runs/
+
+# Wails PoC build outputs
+poc/wails/build/

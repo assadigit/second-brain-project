@@ -5,12 +5,14 @@
 
 ## 1. Module and directory layout
 
-Go module `github.com/assadigit/GitCurator/go-desktop` in a new top-level `go-desktop/` directory
-(ADR-0002). Proposed tree (package names mirror Python modules for traceability):
+Go module `github.com/assadigit/second-brain-project` at the **repo root** of the private
+implementation repo (ADR-0002 Am.1 — supersedes the earlier `go-desktop/`-inside-GitCurator plan;
+the package tree below is otherwise unchanged; the Wails shell directory is named `webui/` per
+that amendment). Proposed tree (package names mirror Python modules for traceability):
 
 ```
-go-desktop/
-├── go.mod                      # module github.com/assadigit/GitCurator/go-desktop; go 1.22+
+(second-brain-project repo root)
+├── go.mod                      # module github.com/assadigit/second-brain-project; go 1.22+
 ├── cmd/
 │   ├── gitcurator/main.go      # GUI entry (windowsgui subsystem via -ldflags)
 │   └── gitcurator-cli/main.go  # CLI entry (console subsystem)
@@ -54,7 +56,7 @@ go-desktop/
 │   └── cli/                    # the command-line surface (flags, terminal paint)
 ├── assets/                     # go:embed: prompts/, taxonomy defaults, sounds, fonts, icons
 │   └── embed.go
-├── ui/                         # Wails GUI (Phase 5 — see ADR-0001)
+├── webui/                      # Wails GUI (Phase 6 — see ADR-0001)
 │   ├── frontend/               # HTML/CSS/TS replicating the documented design
 │   └── bindings.go             # event bridge to internal/app
 └── build/                      # packaging scripts, launcher .bat templates, zip builder
@@ -62,7 +64,7 @@ go-desktop/
 
 Rationale: 1:1 traceability with the Python core (`05-python-to-go-mapping.md`), the same
 layering law (gui/cli → app → integrations → core, one direction), no `gui` imports anywhere under
-`internal/` except `ui/` itself.
+`internal/` except `webui/` itself.
 
 ## 2. The `internal/app` composition layer (the Qt replacement seam)
 
