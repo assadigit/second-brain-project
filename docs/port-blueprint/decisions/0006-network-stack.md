@@ -120,3 +120,16 @@ Evidence (full detail: `docs/poc-artifacts/t-02-tlsimp-poc.md`):
 
 **Owner acknowledgement requested** for the BSD-4-Clause + fhttp combination; the utls
 hand-roll (Go BSD-3) stays the recorded fallback if the owner declines.
+
+## Amendment 2 — Owner acknowledgement (2026-10-15)
+
+The owner confirmed the SESSION-001 status report in full — the report that carried this
+ADR's licence-reality correction and its acknowledgement request. Recorded decision:
+
+- **Accepted**: `bogdanfinn/tls-client` v1.16.0 (**BSD-4-Clause**) stays the pinned
+  impersonation library; fhttp v0.6.9 (no LICENSE file) is accepted for private use.
+- The **utls hand-roll remains the recorded fallback** — the switch path stays documented
+  and is taken immediately if the owner ever revokes this acknowledgement.
+- The **review-before-any-public-release** precondition stands: the BSD-4-Clause
+  attribution clause and the fhttp license review must happen before the repo or any
+  artifact is ever made public (consistent with the private-until-launch law).

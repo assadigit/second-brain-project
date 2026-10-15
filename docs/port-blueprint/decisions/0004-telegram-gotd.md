@@ -74,3 +74,33 @@ for Go".
 - PoC: login (code + optional 2FA) over SOCKS5 on Windows; iterate the bot chat with `min_id`;
   `send_read_acknowledge` equivalent (gotd `messages.readHistory` / `ReadHistory` on the peer);
   measure fetch time for a 1000-message chat.
+
+## Amendment 1 — Interim PoC verdict (T-01, SESSION-001, 2026-10-15)
+
+**Status: provisional — every autonomous leg proven; the owner-assisted leg is deferred to
+SESSION-002 by owner decision (owner confirmed the SESSION-001 status report on 2026-10-15
+and attached this leg as the next session's first order of business).**
+
+Evidence (full detail: `docs/poc-artifacts/t-01-telegram-poc.md`):
+
+1. **Bot-token login proven direct and through SOCKS5** (`auth.importBotAuthorization`):
+   3.9 s direct, 4.1 s via the SOCKS5 relay (x/net/proxy dialer as the `dcs.Resolver` —
+   the same wiring ADR-0006 §1 specifies for webfetch). IPv6 DC candidates failed in the
+   IPv6-less sandbox and gotd transparently fell back to IPv4 — resilient dialing confirmed.
+2. **`messages.getDialogs` from a bot session → `BOT_METHOD_INVALID`** — MTProto-layer
+   confirmation of Option D's rejection: the user↔bot queue is unreadable from the bot
+   account, so the user login is structurally irreplaceable for the queue workflow.
+3. **gotd pinned at v0.110.0** — v0.162.0's generated `tg` package exceeds the sandbox's
+   4 GB compile budget (recorded in `build/TOOLCHAIN.md`); revisit the pin on the owner's
+   Windows machine.
+4. **The full owner-assisted flow is implemented and staged** (commit `4068bb0`): two-phase
+   `-request-code` / `-code` login for agentic environments (pending-login state outside
+   the repo, chmod 600), the Python worker's `__NEED_PHONE__` / `__NEED_CODE__` /
+   `__NEED_PASSWORD__` stderr protocol, `contacts.resolveUsername` → `messages.getHistory`
+   pages of 100 (`min_id`, oldest-first) → `messages.readHistory` read-acknowledge, with
+   phone masked to last-4 in logs. It runs the moment the owner provides the phone number.
+
+**Final verdict deferred**: the task-list acceptance ("100-message fetch on the owner's
+account OR documented fallback decision") lands in SESSION-002; Option B (Worker-only
+queue + a small Worker addition for read-acknowledge) remains the recorded contingency
+if that leg fails — its decision would then be recorded as a superseding ADR.

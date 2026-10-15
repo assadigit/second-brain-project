@@ -4,8 +4,11 @@
 > builder (Python/PyQt6 → Go). Codename until the branded name is chosen; stays private
 > until launch.
 
-**Status: pre-implementation** — the migration blueprint is complete; the next step is
-Phase 0 (proof-of-concepts + performance baselines), per the roadmap.
+**Status: Phase 0 executed** — SESSION-001 (proofs & baselines) owner-confirmed
+2026-10-15; PoC verdicts recorded (Wails ✅, tls-client ✅, gotd/td provisional — the
+owner-assisted login leg is SESSION-002's first order of business), harness skeleton +
+Python baselines archived. Next: **SESSION-002 = T-01 completion + Phase 1
+(pure-foundation packages)**, per the roadmap.
 
 ## Map
 
