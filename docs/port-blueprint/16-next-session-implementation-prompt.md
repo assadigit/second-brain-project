@@ -102,3 +102,14 @@ are unchanged:
 6. In step 1 of "Your first concrete steps", create the skeleton at the **repo root** of
    `second-brain-project` (not `go-desktop/`), module path as above; the package tree from
    `04-target-go-architecture.md` §1 is unchanged otherwise.
+
+## Amendment 1 — The session-chain protocol supersedes this document's flow (2026-10-15)
+
+The owner instituted a per-session handoff system in the implementation repo. From now on,
+**`second-brain-project/docs/SESSION-PROTOCOL.md` governs how sessions run and hand off**,
+and **`second-brain-project/docs/NEXT-SESSION.md` is the live state card** containing the
+prompt for the next session (numbered reports accumulate in `docs/sessions/`). Everything in
+this document remains the *briefing content* (laws, order, reading list) — but the literal
+"copy this prompt" mechanics live in the state card, which is rewritten at every session
+close. If this document and the state card ever disagree, **the state card wins** (it is
+always the more recent truth).

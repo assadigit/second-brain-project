@@ -11,10 +11,16 @@ Phase 0 (proof-of-concepts + performance baselines), per the roadmap.
 
 | What | Where |
 |---|---|
+| **HOW SESSIONS WORK (start here)** | [`docs/SESSION-PROTOCOL.md`](docs/SESSION-PROTOCOL.md) — the loop every session follows |
+| **The state card / next prompt** | [`docs/NEXT-SESSION.md`](docs/NEXT-SESSION.md) — rewritten at every session close |
+| **Session reports (the history)** | [`docs/sessions/`](docs/sessions/) — numbered SESSION-NNN.md files |
 | The complete migration blueprint (73 docs) | [`docs/port-blueprint/`](docs/port-blueprint/) — start at its `README.md`, then `00-executive-summary.md` |
 | The mission spec that produced the blueprint | [`docs/Port-investigation.md`](docs/Port-investigation.md) |
 | App icon (ready-made brand mark, multi-size) | [`assets/icons/gitcurator.ico`](assets/icons/gitcurator.ico) — swap the file later to rebrand |
 | Owner decisions (all Q&A rounds) | `docs/port-blueprint/14-risks-assumptions-open-questions.md` §6 |
+
+> **Starting a new work session?** Open a fresh AI chat and paste the prompt from
+> `docs/NEXT-SESSION.md` §5. That's the whole workflow.
 
 ## The goal in one paragraph
 
