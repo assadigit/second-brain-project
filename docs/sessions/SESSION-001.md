@@ -67,6 +67,18 @@ explicit deferral with the owner's confirmation (2026-10-15).
   does not block Phases 1–5.
 - **gotd pin**: v0.110.0 (v0.162 compile budget) — revisit on the owner's Windows machine;
   recorded, not blocking.
+- **Open owner decision (stamp pending)**: in the post-report chat the owner proposed
+  dropping the desktop's direct Telegram leg entirely (country-level Telegram block; the
+  queue would flow only via the Cloudflare Worker) — i.e., adopting ADR-0004's Option B
+  as the primary architecture, with gotd/td demoted to an optional Phase-8 enhancement.
+  The feasibility analysis (environment worklog, Task ID 10) recommended adoption — zero
+  Worker changes for the core flow, no proxy for the queue leg, no one-time re-login,
+  less censorship exposure; losses: read-acknowledge badge-clearing, the
+  Saved-Messages/keyword/single-id modes, webhook-miss recovery via chat re-read
+  (mitigation: re-forward), the Telegram leg of Test Connection. The owner has **not yet
+  stamped the decision**; the 2026-10-15 confirmation covered the SESSION-001 status
+  report, so the attached T-01 demand stands as written until this fork is resolved.
+  Carried in `NEXT-SESSION.md` v2 §4.
 
 ## Owner actions requested
 
@@ -86,6 +98,9 @@ explicit deferral with the owner's confirmation (2026-10-15).
   ADR-0006 licence-reality acknowledgement — and instructed that its pending items be
   attached to the next session's demands. Reflected in: this report, ADR-0004 Am.1,
   ADR-0006 Am.2, and `NEXT-SESSION.md` v2 (§2, §4, §5).
+- Explicitly **not** stamped by that confirmation: the Option-B adoption proposal from
+  the post-report chat (see Blockers above) — it remains the owner's open call, recorded
+  as an open decision in `NEXT-SESSION.md` v2 §4.
 
 ## Handoff
 

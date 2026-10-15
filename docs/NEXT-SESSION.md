@@ -65,6 +65,23 @@
   the 2FA password if prompted). Credentials travel through chat/environment only —
   **never committed**; the session file and pending-login state live outside the repo
   (`~/.cache/second-brain/`).
+- **OPEN OWNER DECISION (stamp pending — resolve FIRST, before the T-01 leg):** in the
+  post-report chat the owner proposed dropping the desktop's direct Telegram leg entirely
+  (country-level Telegram block; the queue would flow only via the Cloudflare Worker) =
+  adopting ADR-0004's **Option B** as the primary architecture, demoting gotd/td to an
+  optional Phase-8 enhancement. The analysis (environment worklog, Task ID 10)
+  recommended **adoption**: `/api/pending` already exists (zero Worker changes for the
+  core flow; read-ack simply dropped — the owner reads bot replies on the phone), no
+  proxy for the queue leg, no one-time re-login, less censorship exposure than today's
+  proxied MTProto; losses: read-acknowledge badge-clearing, Saved-Messages/keyword/
+  single-id Telethon modes, webhook-miss recovery via chat re-read (mitigation:
+  re-forward), the Telegram leg of Test Connection. **Not yet confirmed.** If the owner
+  confirms Option B at session start: record the superseding ADR-0004 amendment +
+  roadmap/task-list updates FIRST (it also supersedes the SESSION-000 Q2 re-login
+  answer), leave T-01's verdict as the recorded interim one (the login leg becomes
+  optional — still a useful Phase-8 verdict if the owner wants it), and start Phase 1
+  immediately. If the owner declines or defers: the attached T-01 demand stands as
+  written.
 - api_id/api_hash + bot token also needed for the PoC legs — pasted in chat when asked,
   never committed (unchanged law from SESSION-001).
 - **T-70 Windows bootstrapper leg** stays an owner action (a Windows VM/machine without
@@ -98,6 +115,10 @@ the GitCurator Python app (a personal second-brain library builder; full specs e
    read-acknowledge on my account, record the measured timings, and write ADR-0004's
    FINAL verdict — or, if the leg fails, the documented Option-B (Worker-only) fallback
    decision as a superseding ADR. Session and login-state files stay outside the repo.
+   (Exception: if I confirm the OPEN Option-B decision recorded in §4 — dropping the
+   direct Telegram leg — skip the login leg, record the superseding ADR-0004 amendment +
+   roadmap/task-list updates first, and go straight to step 4; the login leg then runs
+   only if I explicitly ask for it.)
 
 4. THEN start Phase 1 "Pure-foundation packages (byte-parity layer)" per
    docs/port-blueprint/12-migration-roadmap.md: tasks T-10…T-17 from
