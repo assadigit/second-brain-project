@@ -1,0 +1,21 @@
+# build outputs
+/dist/
+/build/
+*.exe
+*.syso
+
+# real user data & secrets — never commit
+config.json
+cache.db
+*.session
+*.session-journal
+app.lock
+.env
+
+# local dev scratch
+*.local.json
+/tmp/
+
+# OS
+Thumbs.db
+.DS_Store

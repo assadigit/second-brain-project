@@ -1,0 +1,103 @@
+# Module Spec — Settings pages A: `hero.py`, `dashboard.py`, `bot_queue.py`, `telegram_ui.py`, `connection_tests.py`, `test_connection_modal.py`, `vaults_config.py`, `input_proxy.py`, `llamacpp.py`, `linking_tools.py`, `vault_scan_ui.py`
+
+- **LOC**: 489+838+1,586+217+568+267+539+154+687+124+332 · **Go home**: `ui/frontend/src/pages/*`
+  + command bindings · **Status**: rehost (contracts below)
+- **Responsibility**: the hero SYNC state machine; Dashboard page; the bot-queue view; Telegram
+  lock/code UX; per-subsystem test buttons; the connection battery modal; config load/save;
+  proxy page; llama.cpp page; Phase-6 tools; the Scan CTA wiring.
+
+## hero.py — the two-stage SYNC flow
+
+- State machine `sync → fetching → process → running` on ONE button; label/glyph/kind per state;
+  progress formats ("Fetching undone items…", "{n} ready to process", …); running = Stop
+  (hero_danger, stop glyph).
+- Offline guard: advisory "Continue anyway?" BEFORE the fetch (140-155). No bot + no import ⇒
+  "Nothing to sync" teaching modal.
+- `_after_sync_fetch` decision tree: pending ⇒ PROCESS; caught-up + import ⇒ PROCESS; caught-up ⇒
+  waiting rows report + 🖐 scrape via Chrome + redo pass + **drift seal** + honest empty state
+  ("Nothing new from Telegram · Last sync …").
+- `_confirm_batch(>10)`.
+
+## dashboard.py
+
+- `update_dashboard` (61-155): vault stats from first-1000-chars frontmatter reads (category,
+  credibility, language counts; `_review` count; banner count).
+- Quarantine view/reset (`refresh_quarantine_view` top 30 rows + "… and N more";
+  `clear_all_quarantine`; threshold spinbox saves `notfound_strike_threshold`).
+- `undo_last_batch` (228-311): reads `<vault>/_undo_last_batch.txt`, deletes files best-effort,
+  deletes processed rows by note_path.
+- `verify_vault` (313-498): enqueues only GitHub-type failed links (v0.63.1), skips settled
+  (v0.63.3); `recategorize_notes` modal (QTableWidget + per-row category combo; locked notes
+  skipped); dead-links viewer + reset; retry launchers (reconciliation links, failed repos) with
+  the >10 confirm gate and bot-queue list clearing.
+
+## bot_queue.py
+
+- `check_bot_queue` (141-635): acquire lock → save config → TestWorker(_bot_queue_job) with a
+  re-bound closure injecting law-split domain lists → on finish: write `_inbox` platform tables;
+  read worker-side classification (GUI fallback re-runs it if fields missing) → pending badge
+  `⏳ N pending` (zinc) / `✅ 0 pending` (mint) → on_done.
+- Report "columns" = labeled count lines (Total GitHub URLs in bot / ✅ Already in vault /
+  🗑️ Decommissioned / 🤝 Repos settled / 🚫 Blocked / 🔒 Self / ⏳ Pending / 🔗 Non-GitHub +
+  websites sub-table / 🔄 Duplicates removed) + numbered pending lists (websites capped 50).
+- `process_bot_queue` (settled-link exclusion layers + confirm) / `process_new_bot_queue`
+  (incremental by `last_processed_msg_id`); `export_all_bot_links`; `verify_all_bot_links`
+  (+ fuzzy match + manual-resolve dialog + permanent `_verification_report_*.md`);
+  `clear_bot_queue` (via `QTimer.singleShot(0, …)` to break the signal-ordering self-deadlock);
+  `_mark_bot_messages_read`.
+
+## telegram_ui.py
+
+- Lock lifecycle: `_acquire_telegram_lock(owner)` (busy message names holder + age; >300 s stuck
+  hint); `_keep_worker(worker, owner)` (GC guard; `_cleanup` connected LAST; owner-scoped
+  release); watchdog 35 min force-release; login/2FA modal (Enter submits; Cancel feeds `""`).
+
+## connection_tests.py + test_connection_modal.py
+
+- Per-button tests: Telegram+GitHub, GitHub token (401 → actionable message; empty → anonymous
+  warning 60 vs 5000 req/h), proxy TCP, vault, Ollama (refresh models / **detached server spawn**
+  + 3000 ms re-probe / inference test "What is 2 + 3?" with options retry), lenient
+  `llm_num_ctx`/`llm_max_output_tokens` readers, cloud test (`/v1/models` pre-flight warn-only;
+  flavor by URL; empty-200 vs connection-failed modals).
+- Battery modal: snapshot saved config + live credential widgets; rows spin → settle; **crash ⇒
+  never "ALL SYSTEMS READY" from an empty result**; live telegram leg (bot queue when configured
+  else Saved-Messages preview); Start Syncing gated on all-ok.
+
+## vaults_config.py
+
+- `load_config` (209-258): CONFIG_EXAMPLE deep-copy base + user-config fill + credential strip
+  for display.
+- `save_config` (260-485): **four laws** — MERGE never whitelist-rebuild; tuning keys only
+  defaulted; **`self.config` mutated IN PLACE** (clear+update) so running workers see saves;
+  atomic write. Plus: user-config mirror; sentinel re-arm `singleShot(250 ms)`; vault combo
+  history; pickers' status ladder (`● not set` / `● found` / `● will be created` /
+  `● missing on disk` / `● not found — you create this vault yourself`); no pre-selection law;
+  volume slider label-only during drag.
+- Sound page handlers.
+
+## input_proxy.py / llamacpp.py / linking_tools.py / vault_scan_ui.py
+
+- input_proxy: import picker (.txt/.md); `_get_proxy_dict`; proxy status label (words, WCAG
+  label==accessible-name); the 2 s TCP probe lives on the sentinel thread (v0.85).
+- llamacpp: startup autodetect daemon thread → queued signal; **/props config grab** fills the
+  limits fields ("🦙 llama.cpp server config grabbed: context window N tokens · output cap M
+  tokens"); Detect/Refresh/Test; quick-detect dialog (combo min-contents-length law); apply
+  law (in-place + merge save; cancel ⇒ "the LLM provider was NOT changed (still {provider})");
+  loading model ⇒ "⏳ model still LOADING…".
+- linking_tools: Phase-6 tool runners inside TestWorker with stdout capture, last 40 lines
+  streamed; guard: no tool while a batch runs.
+- vault_scan_ui: Scan CTA → picker (None = safe cancel, quiet line); worker wiring (confirm-gui
+  door, progress emitter, selection door, vaults scope); finished routing: clean (+healed strays
+  ⇒ scorecard), confirmed ⇒ scorecard (repos sub-story line), error ⇒ 💥; scorecard skipped
+  when closing/hidden (logged instead).
+
+## Go parity requirements
+
+All labels, badge colors (zinc pending), report line names, ladder strings, modal texts, and
+cadences (250 ms re-arm, 3000 ms re-probe) ported verbatim — they are observable behavior.
+
+## Tests
+
+Hero state machine; queue report rendering from a canned job result; lock owner-scope; save-law
+(merge + in-place mutation observed by a "running worker" fake); vault status ladder; scan
+safe-cancel; battery crash honesty.
