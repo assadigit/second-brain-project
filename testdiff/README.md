@@ -24,7 +24,10 @@ testdiff/
 │                                   # dump_taxonomy.py → internal/taxonomy +
 │                                   # assets/taxonomy, T-14;
 │                                   # dump_notebuilder.py → internal/notebuilder,
-│                                   # T-15)
+│                                   # T-15;
+│                                   # dump_config.py → internal/config +
+│                                   # internal/constants (ordered example),
+│                                   # T-16)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

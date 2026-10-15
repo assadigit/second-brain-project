@@ -16,7 +16,7 @@
 | Symbol | Lines | Contract |
 |---|---|---|
 | `ENV_OVERRIDE` / `USER_CONFIG_FILENAME` / `USER_CONFIG_MARKER` | 65-72 | `GITCURATOR_USER_CONFIG` / `.gitcurator` / `"_gitcurator_user_config": 1` |
-| `CREDENTIAL_FLAT_KEYS` | 75-90 | 15 keys: `telegram_api_id, telegram_api_hash, telegram_phone, telegram_user_id, github_token, bot_token, bot_username, cloud_api_url, cloud_api_key, cloud_model, llamacpp_api_url, llamacpp_api_key, llamacpp_model, embedding_model` |
+| `CREDENTIAL_FLAT_KEYS` | 75-90 | 14 keys (reality-fixed 2026-10-15, T-16 — the "15" was a counting slip): `telegram_api_id, telegram_api_hash, telegram_phone, telegram_user_id, github_token, bot_token, bot_username, cloud_api_url, cloud_api_key, cloud_model, llamacpp_api_url, llamacpp_api_key, llamacpp_model, embedding_model` |
 | `CREDENTIAL_NESTED_KEYS` / `CREDENTIAL_PREFIXES` | 93-103 | `proxy, ollama, models` / `("cloudflare_","gdrive_","hmac_")` |
 | `VAULT_FLAT_KEYS` / `VAULT_NESTED_KEYS` | 112-126 | 6 vault keys / `vaultseal, goodrepos` |
 | `is_unset_value(v)` | 155-179 | None; blank str; `YOUR…_HERE`; **numeric 0**; empty list/dict → unset; booleans never unset |
@@ -37,6 +37,11 @@
 3. Nested merge never mutates the caller's dict; blanks never flow; booleans always real.
 4. Windows Known-Folder via `golang.org/x/sys/windows.KnownFolderPath` (same GUID); POSIX
    `~/Documents` only when it exists.
+   **Dated note (2026-10-15, T-16):** the port keeps Phase 1 stdlib-pure — the Known-Folder call
+   uses the raw syscall (`SHGetKnownFolderPath` via `syscall.NewLazyDLL`, mirroring the
+   reference's own ctypes approach), compile-checked with `GOOS=windows` and live-verified on
+   the Phase 7 clean-machine checklist; x/sys stays the doc 06 §2 option if a later phase
+   prefers it.
 
 ## Tests
 

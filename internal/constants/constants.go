@@ -12,6 +12,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/assadigit/second-brain-project/internal/storage"
 )
 
 // ---------------------------------------------------------------------------
@@ -227,22 +229,28 @@ var DefaultSystemPrompt = defaultSystemPromptHead + strings.Join(CategoryKeys, "
 
 // ---------------------------------------------------------------------------
 // CONFIG_EXAMPLE (constants.py:122-305) — the defaults contract: a config
-// missing a key gets exactly these values. Order in the literal mirrors the
-// Python source for reviewability; consumers get a fresh deep copy.
+// missing a key gets exactly these values. Built ONCE as an ordered tree
+// (storage.OrderedMap — Python's dict insertion order IS behavior: the
+// fresh-version load path deep-copies this tree and save_config writes
+// that order); consumers get fresh DEEP copies. ConfigExample() keeps the
+// historical map view (T-10 API; PyDumps sorts map keys, so its golden
+// is unchanged); ExampleTree() is the ordered view the config
+// load/save layer (T-16) rides — one construction site, no drift.
 // ---------------------------------------------------------------------------
 
-var configExample = map[string]any{
-	"telegram_api_id":   0,
-	"telegram_api_hash": "",
-	"telegram_phone":    "",
-	"proxy": map[string]any{
-		"enabled":     false,
-		"type":        "socks5",
-		"host":        "127.0.0.1",
-		"port":        10808,
-		"use_for_web": true,
-	},
-	"web_blocked_domains": []any{
+func buildExampleTree() *storage.OrderedMap {
+	o := storage.NewOrderedMap()
+	o.Set("telegram_api_id", 0)
+	o.Set("telegram_api_hash", "")
+	o.Set("telegram_phone", "")
+	proxy := storage.NewOrderedMap()
+	proxy.Set("enabled", false)
+	proxy.Set("type", "socks5")
+	proxy.Set("host", "127.0.0.1")
+	proxy.Set("port", 10808)
+	proxy.Set("use_for_web", true)
+	o.Set("proxy", proxy)
+	o.Set("web_blocked_domains", []any{
 		"x.com", "twitter.com", "t.co",
 		"github.com", "gist.github.com", "github.io",
 		"githubusercontent.com", "huggingface.co",
@@ -258,90 +266,136 @@ var configExample = map[string]any{
 		"discordapp.com", "t.me", "telegram.me",
 		"wa.me", "whatsapp.com", "vk.com", "bsky.app",
 		"weibo.com",
-	},
-	"web_self_domains":         []any{"github-to-obsidian-bot.aliassadi-plus.workers.dev"},
-	"web_user_agent":           "",
-	"web_archive_fallback":     true,
-	"web_doh_probe":            true,
-	"web_impersonate_fallback": true,
-	"web_impersonate_autopip":  true,
-	"ollama":                   map[string]any{"base_url": "http://localhost:11434", "model": "qwythos-9b"},
-	"llm_provider":             "ollama",
-	"cloud_api_url":            "https://api.openai.com/v1",
-	"cloud_api_key":            "",
-	"cloud_model":              "gpt-4o-mini",
-	"llm_max_output_tokens":    0,
-	"llamacpp_api_url":         "http://127.0.0.1:8080/v1",
-	"llamacpp_api_key":         "",
-	"llamacpp_model":           "",
-	"embedding_model":          "",
-	"llm_num_ctx":              8192,
-	"models":                   map[string]any{"classify": "", "analyze": ""},
-	"github_token":             "",
-	"vault_path":               "",
-	"vaults_history":           []any{},
-	"log_level":                "INFO",
-	"timeout_per_repo":         60,
-	"max_retries":              3,
-	"delay_between_api_calls":  0.5,
-	"cloudflare_enabled":       false,
-	"cloudflare_worker_url":    "",
-	"cloudflare_install_id":    "",
-	"cloudflare_shared_secret": "",
-	"cloudflare_poll_interval": 300,
-	"gdrive_enabled":           false,
-	"gdrive_client_id":         "",
-	"gdrive_client_secret":     "",
-	"gdrive_access_token":      "",
-	"gdrive_refresh_token":     "",
-	"gdrive_token_expiry":      0,
-	"gdrive_folder_id":         "",
-	"gdrive_max_backups":       10,
-	"gdrive_redirect_port":     8765,
-	"vaultseal": map[string]any{
-		"enabled":     true,
-		"repo_name":   "",
-		"auto_push":   true,
-		"create_repo": false,
-	},
-	"goodrepos": map[string]any{
-		"enabled":   true,
-		"repo_name": "",
-		"auto_push": true,
-	},
-	"website_vault_path":     "",
-	"manual_vault_path":      "",
-	"website_repo_name":      "",
-	"manual_repo_name":       "",
-	"taxonomy_path":          "",
-	"pipelines":              map[string]any{"github": true, "websites": false},
-	"vault_hygiene_on_start": true,
+	})
+	o.Set("web_self_domains", []any{"github-to-obsidian-bot.aliassadi-plus.workers.dev"})
+	o.Set("web_user_agent", "")
+	o.Set("web_archive_fallback", true)
+	o.Set("web_doh_probe", true)
+	o.Set("web_impersonate_fallback", true)
+	o.Set("web_impersonate_autopip", true)
+	ollama := storage.NewOrderedMap()
+	ollama.Set("base_url", "http://localhost:11434")
+	ollama.Set("model", "qwythos-9b")
+	o.Set("ollama", ollama)
+	o.Set("llm_provider", "ollama")
+	o.Set("cloud_api_url", "https://api.openai.com/v1")
+	o.Set("cloud_api_key", "")
+	o.Set("cloud_model", "gpt-4o-mini")
+	o.Set("llm_max_output_tokens", 0)
+	o.Set("llamacpp_api_url", "http://127.0.0.1:8080/v1")
+	o.Set("llamacpp_api_key", "")
+	o.Set("llamacpp_model", "")
+	o.Set("embedding_model", "")
+	o.Set("llm_num_ctx", 8192)
+	models := storage.NewOrderedMap()
+	models.Set("classify", "")
+	models.Set("analyze", "")
+	o.Set("models", models)
+	o.Set("github_token", "")
+	o.Set("vault_path", "")
+	o.Set("vaults_history", []any{})
+	o.Set("log_level", "INFO")
+	o.Set("timeout_per_repo", 60)
+	o.Set("max_retries", 3)
+	o.Set("delay_between_api_calls", 0.5)
+	o.Set("cloudflare_enabled", false)
+	o.Set("cloudflare_worker_url", "")
+	o.Set("cloudflare_install_id", "")
+	o.Set("cloudflare_shared_secret", "")
+	o.Set("cloudflare_poll_interval", 300)
+	o.Set("gdrive_enabled", false)
+	o.Set("gdrive_client_id", "")
+	o.Set("gdrive_client_secret", "")
+	o.Set("gdrive_access_token", "")
+	o.Set("gdrive_refresh_token", "")
+	o.Set("gdrive_token_expiry", 0)
+	o.Set("gdrive_folder_id", "")
+	o.Set("gdrive_max_backups", 10)
+	o.Set("gdrive_redirect_port", 8765)
+	vaultseal := storage.NewOrderedMap()
+	vaultseal.Set("enabled", true)
+	vaultseal.Set("repo_name", "")
+	vaultseal.Set("auto_push", true)
+	vaultseal.Set("create_repo", false)
+	o.Set("vaultseal", vaultseal)
+	goodrepos := storage.NewOrderedMap()
+	goodrepos.Set("enabled", true)
+	goodrepos.Set("repo_name", "")
+	goodrepos.Set("auto_push", true)
+	o.Set("goodrepos", goodrepos)
+	o.Set("website_vault_path", "")
+	o.Set("manual_vault_path", "")
+	o.Set("website_repo_name", "")
+	o.Set("manual_repo_name", "")
+	o.Set("taxonomy_path", "")
+	pipelines := storage.NewOrderedMap()
+	pipelines.Set("github", true)
+	pipelines.Set("websites", false)
+	o.Set("pipelines", pipelines)
+	o.Set("vault_hygiene_on_start", true)
+	return o
 }
 
-// ConfigExample returns a fresh deep copy of the defaults contract
-// (mirrors the Python consumers' CONFIG_EXAMPLE deep-copy base). The tree
-// is finite and acyclic — verified by the golden — so no cycle guard.
-func ConfigExample() map[string]any { return deepCopyConfig(configExample) }
+var exampleTree = buildExampleTree()
 
-func deepCopyConfig(src map[string]any) map[string]any {
-	dst := make(map[string]any, len(src))
-	for k, v := range src {
-		switch vv := v.(type) {
-		case map[string]any:
-			dst[k] = deepCopyConfig(vv)
-		case []any:
-			lst := make([]any, len(vv))
-			for i, e := range vv {
-				if em, ok := e.(map[string]any); ok {
-					lst[i] = deepCopyConfig(em)
-				} else {
-					lst[i] = e
-				}
-			}
-			dst[k] = lst
-		default:
-			dst[k] = vv
-		}
+// ExampleTree returns a fresh DEEP copy of the defaults contract in the
+// Python dict's insertion order (mirrors the Python consumers'
+// copy.deepcopy(CONFIG_EXAMPLE)). The T-16 golden pins
+// PyDumps(ExampleTree()) to the reference's write_config_file bytes.
+func ExampleTree() *storage.OrderedMap { return deepCopyOrderedTree(exampleTree) }
+
+// ConfigExample returns a fresh deep copy as a plain map (the T-10 API).
+func ConfigExample() map[string]any { return orderedToPlainMap(ExampleTree()) }
+
+// deepCopyOrderedTree deep-copies an OrderedMap tree (nested OrderedMaps
+// and lists copied; scalars immutable). The tree is finite and acyclic —
+// verified by the golden — so no cycle guard.
+func deepCopyOrderedTree(src *storage.OrderedMap) *storage.OrderedMap {
+	out := storage.NewOrderedMap()
+	for _, k := range src.Keys() {
+		v, _ := src.Get(k)
+		out.Set(k, deepCopyValue(v))
 	}
-	return dst
+	return out
+}
+
+func deepCopyValue(v any) any {
+	switch vv := v.(type) {
+	case *storage.OrderedMap:
+		return deepCopyOrderedTree(vv)
+	case []any:
+		lst := make([]any, len(vv))
+		for i, e := range vv {
+			lst[i] = deepCopyValue(e)
+		}
+		return lst
+	default:
+		return v
+	}
+}
+
+// orderedToPlainMap converts an OrderedMap tree to the plain map view.
+func orderedToPlainMap(src *storage.OrderedMap) map[string]any {
+	out := make(map[string]any, src.Len())
+	for _, k := range src.Keys() {
+		v, _ := src.Get(k)
+		if om, ok := v.(*storage.OrderedMap); ok {
+			out[k] = orderedToPlainMap(om)
+			continue
+		}
+		if lst, ok := v.([]any); ok {
+			plain := make([]any, len(lst))
+			for i, e := range lst {
+				if om, ok := e.(*storage.OrderedMap); ok {
+					plain[i] = orderedToPlainMap(om)
+					continue
+				}
+				plain[i] = e
+			}
+			out[k] = plain
+			continue
+		}
+		out[k] = v
+	}
+	return out
 }
