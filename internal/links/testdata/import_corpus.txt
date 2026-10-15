@@ -1,0 +1,47 @@
+https://example.com/one
+http://example.com/two
+example.com/three
+www.example.com/four
+
+# comment heading stays out
+## markdown section heading
+- [Coolors](https://coolors.co)
+- https://palette.ninja
+- https://www.color-hex.com/color-palettes — community palettes
+[Adobe Color](https://color.adobe.com) — the official wheel
+* https://example.com
+see https://a.example.com and https://b.example.com — both
+https://github.com/fastapi/fastapi
+github.com/psf/requests
+http://github.com/pydantic/pydantic
+www.github.com/encode/httpx
+- [Typer](https://github.com/tiangolo/typer) — CLI builder
+https://github.com/encode/starlette extra path /blob/main/README.md
+https://github.com/o/r/issues/123
+https://tiangolo.github.io/typer/
+https://github.com/tiangolo/typer
+https://tiangolo.github.io/
+https://coolors.co
+https://coolors.co/palettes
+https://github.com/o/r
+https://github.com/o/r
+this line is not a url at all
+just-text
+- a bullet with no address
+https://example.com/one
+   https://example.com/two  
+https://example.com/three.
+127.0.0.1:8901/site/palette
+https://x.com/elixir_status/123
+twitter.com/PyBlog/status/456
+https://huggingface.co/some-model
+https://www.instagram.com/p/ABC123
+https://www.linkedin.com/in/someone
+https://b.example.com
+https://github.com/o2/r2
+https://a.example.com
+notyoutube.com/watch?v=x
+İ.example.com/İstanbul
+https://🎬.example/x
+ἈΘΗΝΑ.δοκιμή.gr/ΟΔΟΣ
+https://xn--80ak6aa92e.com/
