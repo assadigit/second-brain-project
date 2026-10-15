@@ -178,14 +178,14 @@ func FillTemplate(template any, slots ...Slot) (string, error) {
 func LoadPromptFile(filename string, slots ...Slot) (string, error) {
 	if filename == "" || ntpathBasename(filename) != filename {
 		return "", &PromptError{
-			Msg: "bad prompt filename: " + pyRepr(filename),
+			Msg: "bad prompt filename: " + PyRepr(filename),
 		}
 	}
 	path := promptsRoot + "/" + filename
 	raw, err := fs.ReadFile(assets.PromptsFS, path)
 	if err != nil {
 		return "", &PromptError{
-			Msg: "cannot read prompt file " + pyRepr(path) + ": " + pyOSErrorText(err, path),
+			Msg: "cannot read prompt file " + PyRepr(path) + ": " + PyOSErrorText(err, path),
 		}
 	}
 	return FillTemplate(string(raw), slots...)
@@ -217,19 +217,23 @@ func ntpathBasename(p string) string {
 	return p[i:]
 }
 
-// pyOSErrorText formats a read failure the way str(OSError) does in
-// Python, for the common shapes an embedded-FS lookup produces
-// (fs.ErrNotExist → ENOENT; a directory read → EISDIR). Anything else
-// falls back to the Go error text — honest, still inside the same
-// "cannot read prompt file …" wrapper.
-func pyOSErrorText(err error, path string) string {
+// PyOSErrorText formats a read failure the way str(OSError) does in
+// Python — "[Errno N] Message: 'PATH'" — for the common syscall shapes
+// both a disk read (os.ReadFile) and an embed-FS lookup produce:
+// missing → ENOENT; permission → EACCES; a directory read ("is a
+// directory" — os and embed spell it the same) → EISDIR. Anything else
+// falls back to the Go error text, still inside the caller's wrapper.
+func PyOSErrorText(err error, path string) string {
 	var pathErr *fs.PathError
-	if errors.As(err, &pathErr) && errors.Is(err, fs.ErrNotExist) {
-		return "[Errno 2] No such file or directory: " + pyRepr(path)
-	}
-	if errors.As(err, &pathErr) && errors.Is(err, fs.ErrInvalid) {
-		// embed.FS reports "is a directory" as an invalid-read PathError.
-		return "[Errno 21] Is a directory: " + pyRepr(path)
+	if errors.As(err, &pathErr) {
+		switch {
+		case errors.Is(err, fs.ErrNotExist):
+			return "[Errno 2] No such file or directory: " + PyRepr(path)
+		case errors.Is(err, fs.ErrPermission):
+			return "[Errno 13] Permission denied: " + PyRepr(path)
+		case strings.Contains(err.Error(), "is a directory"):
+			return "[Errno 21] Is a directory: " + PyRepr(path)
+		}
 	}
 	return err.Error()
 }
@@ -293,7 +297,11 @@ func pyStr(v any) string {
 // (Go's unicode.IsPrint matches Python's printable set for these cases:
 // both exclude the format/control/private-use categories and non-ASCII
 // space separators).
-func pyRepr(s string) string {
+//
+// Exported as PyRepr: the {x!r} error-message shape is shared by other
+// parity packages (taxonomy's refusal messages). T-17's helpers package
+// will centralize it (same promotion law as dryrun's formatComma).
+func PyRepr(s string) string {
 	quote := byte('\'')
 	if strings.ContainsRune(s, '\'') && !strings.ContainsRune(s, '"') {
 		quote = '"'

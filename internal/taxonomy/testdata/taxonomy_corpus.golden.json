@@ -1,0 +1,1193 @@
+{
+  "bom": {
+    "names": [
+      "Cat One",
+      "Cat Two"
+    ],
+    "text": "﻿# Taxonomy\n### Cat One\nFirst prose.\n\n### Cat Two\nSecond prose.\n"
+  },
+  "errors": {
+    "folder_relpath": [
+      [
+        "Nope",
+        null,
+        "TaxonomyError",
+        "unknown category 'Nope' — refusing to build a path"
+      ],
+      [
+        "Design",
+        "Not A Subcategory",
+        "TaxonomyError",
+        "unknown subcategory 'Not A Subcategory' for 'Design' — refusing to build a path"
+      ],
+      [
+        "",
+        null,
+        "TaxonomyError",
+        "unknown category '' — refusing to build a path"
+      ]
+    ],
+    "load_invalid_utf8": [
+      "UnicodeDecodeError",
+      "'utf-8' codec can't decode byte 0xff in position 6: invalid start byte"
+    ],
+    "load_invalid_utf8_input_hex": "23232320410afffe2062726f6b656e0a",
+    "load_missing": [
+      "TaxonomyError",
+      "cannot read taxonomy file '<TAXPATH>': [Errno 2] No such file or directory: '<TAXPATH>'"
+    ],
+    "parse": [
+      [
+        "empty",
+        "TaxonomyError",
+        "no '### <Category>' headings found — not a taxonomy file"
+      ],
+      [
+        "no-headings",
+        "TaxonomyError",
+        "no '### <Category>' headings found — not a taxonomy file"
+      ],
+      [
+        "heading-without-name-emoji",
+        "TaxonomyError",
+        "category heading without a name: '### 🌐'"
+      ],
+      [
+        "heading-without-name-italic",
+        "TaxonomyError",
+        "category heading without a name: '### *(note)*'"
+      ],
+      [
+        "duplicate-category",
+        "TaxonomyError",
+        "duplicate category name in taxonomy file"
+      ]
+    ]
+  },
+  "fixture_model": {
+    "categories": [
+      {
+        "definition": "",
+        "name": "Design",
+        "subcategories": [
+          "Assets & Resources",
+          "UI/UX & Product Design",
+          "Print & Editorial Design",
+          "Branding & Identity"
+        ],
+        "subcategory_definitions": {
+          "Assets & Resources": "downloadable/usable design assets: icons, mockups, fonts, illustrations, UI kits, color/gradient tools",
+          "Branding & Identity": "logo tools, brand guidelines *(empty for now — ready for future links)*",
+          "Print & Editorial Design": "brochures, catalogues, print templates *(empty for now — ready for future links)*",
+          "UI/UX & Product Design": "process & inspiration: galleries, design systems, UX writing, wireframing/prototyping"
+        },
+        "tag_hints": [
+          "icons",
+          "mockup",
+          "illustration",
+          "vector",
+          "font",
+          "color-tool",
+          "gradient",
+          "ui-kit",
+          "free",
+          "paid",
+          "svg",
+          "3d-mockup",
+          "farsi-font",
+          "ai-powered",
+          "inspiration",
+          "design-system",
+          "ux-writing",
+          "wireframing",
+          "dark-mode",
+          "landing-page",
+          "mobile",
+          "dashboard",
+          "accessibility",
+          "brochure",
+          "catalogue",
+          "print-template",
+          "logo",
+          "brand-guideline"
+        ]
+      },
+      {
+        "definition": "",
+        "name": "AI Tools for Web & App Development",
+        "subcategories": [
+          "AI UI/Design Generation",
+          "AI Coding Assistants",
+          "AI Prototyping / No-Code"
+        ],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "ui-generation",
+          "code-gen",
+          "no-code"
+        ]
+      },
+      {
+        "definition": "",
+        "name": "AI Tools (General)",
+        "subcategories": [
+          "AI Writing & Content",
+          "AI Research & Search Assistants",
+          "AI Audio & Voice Generation"
+        ],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "tts",
+          "voice-cloning",
+          "research-ai"
+        ]
+      },
+      {
+        "definition": "",
+        "name": "Developer Tools",
+        "subcategories": [],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "cli",
+          "testing",
+          "formatting",
+          "reference"
+        ]
+      },
+      {
+        "definition": "",
+        "name": "Free Utilities & Everyday Tools",
+        "subcategories": [],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "pdf",
+          "converter",
+          "speed-test"
+        ]
+      },
+      {
+        "definition": "also the home for general, multi-topic learning platforms (Coursera, Udemy, Khan Academy). Tag with `#course`.",
+        "name": "Knowledge, Research & Reference",
+        "subcategories": [],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "data",
+          "academic",
+          "archive",
+          "course"
+        ]
+      },
+      {
+        "definition": "",
+        "name": "Download Resources",
+        "subcategories": [
+          "Public Archives & Libraries",
+          "Torrent & Shadow Libraries"
+        ],
+        "subcategory_definitions": {
+          "Public Archives & Libraries": "legitimate, public-domain (Gutenberg, Library of Congress, Internet Archive)",
+          "Torrent & Shadow Libraries": "Anna's Archive, libgen, sci-hub, Z-Library, torrent search engines"
+        },
+        "tag_hints": [
+          "ebook",
+          "torrent",
+          "shadow-library"
+        ]
+      },
+      {
+        "definition": "",
+        "name": "Music & Audio Discovery",
+        "subcategories": [],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "radio",
+          "focus-music",
+          "sfx"
+        ]
+      },
+      {
+        "definition": "",
+        "name": "Security & Privacy Tools",
+        "subcategories": [],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "breach-check",
+          "anon"
+        ]
+      },
+      {
+        "definition": "",
+        "name": "Crypto & Markets",
+        "subcategories": [],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "tracker",
+          "exchange-rate"
+        ]
+      },
+      {
+        "definition": "General English-test prep (IELTS, etc.) and general career/salary research — not tied to a specific country. Country-specific relocation content goes under Living Abroad instead.",
+        "name": "English Learning & Career Prep",
+        "subcategories": [],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "ielts",
+          "immigration",
+          "salary"
+        ]
+      },
+      {
+        "definition": "empty for now — ready for future links",
+        "name": "Geography & Urban Planning",
+        "subcategories": [
+          "Urban Planning Courses & Learning",
+          "Maps, GIS & Data Tools",
+          "Case Studies & Reference"
+        ],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "gis",
+          "zoning",
+          "transit",
+          "masterplan",
+          "course"
+        ]
+      },
+      {
+        "definition": "Country-specific relocation content only: job boards, visa info, housing, cost of living for one particular country.",
+        "name": "Living Abroad",
+        "subcategories": [
+          "Australia"
+        ],
+        "subcategory_definitions": {},
+        "tag_hints": [
+          "job-seeking",
+          "visa",
+          "housing",
+          "cost-of-living",
+          "salary"
+        ]
+      },
+      {
+        "definition": "Catch-all — use sparingly, only when nothing else genuinely fits.",
+        "name": "Random / Curiosities",
+        "subcategories": [],
+        "subcategory_definitions": {},
+        "tag_hints": []
+      }
+    ],
+    "counts": {
+      "categories": 14,
+      "subcategories": 16
+    },
+    "judgment_rules": "A single-purpose AI tool that does a design task (background removal, image upscaling, vectorizing) → **Design**, not either AI Tools category — its job is design, AI is just the mechanism. Tag `#ai-powered`.\n**AI Tools for Web & App Development** = tools that help *build* software (UI generation, code generation, no-code builders). **AI Tools (General)** = everything else AI-related with no build-a-product purpose.\nGeneral course platforms (Coursera, Udemy) → **Knowledge, Research & Reference** + `#course`. A topic-specific course stays in its own topic folder + `#course`.\nShadow libraries and piracy-adjacent sites → **Download Resources → Torrent & Shadow Libraries** (private). Legitimate public-domain archives → **Public Archives & Libraries**.",
+    "summary": "14 categories, 16 subcategories from <TMP>/website-library-categories.md"
+  },
+  "fixture_queries": {
+    "category_names": [
+      "Design",
+      "AI Tools for Web & App Development",
+      "AI Tools (General)",
+      "Developer Tools",
+      "Free Utilities & Everyday Tools",
+      "Knowledge, Research & Reference",
+      "Download Resources",
+      "Music & Audio Discovery",
+      "Security & Privacy Tools",
+      "Crypto & Markets",
+      "English Learning & Career Prep",
+      "Geography & Urban Planning",
+      "Living Abroad",
+      "Random / Curiosities"
+    ],
+    "category_one_liner": "- Design\n- AI Tools for Web & App Development\n- AI Tools (General)\n- Developer Tools\n- Free Utilities & Everyday Tools\n- Knowledge, Research & Reference — also the home for general, multi-topic learning platforms (Coursera, Udemy, Khan Academy). Tag with `#course`.\n- Download Resources\n- Music & Audio Discovery\n- Security & Privacy Tools\n- Crypto & Markets\n- English Learning & Career Prep — General English-test prep (IELTS, etc.) and general career/salary research — not tied to a specific country. Country-specific relocation content goes under Living Abroad instead.\n- Geography & Urban Planning — empty for now — ready for future links\n- Living Abroad — Country-specific relocation content only: job boards, visa info, housing, cost of living for one particular country.\n- Random / Curiosities — Catch-all — use sparingly, only when nothing else genuinely fits.",
+    "category_unknown": [
+      [
+        "Nope",
+        null
+      ],
+      [
+        "Design",
+        "found"
+      ]
+    ],
+    "is_category": [
+      [
+        "Design",
+        true
+      ],
+      [
+        "design",
+        false
+      ],
+      [
+        "Not A Category",
+        false
+      ],
+      [
+        " Design ",
+        true
+      ],
+      [
+        "",
+        false
+      ],
+      [
+        null,
+        false
+      ]
+    ],
+    "is_subcategory_of": [
+      [
+        "Design",
+        "Icons",
+        false
+      ],
+      [
+        "Design",
+        "UI/UX & Product Design",
+        true
+      ],
+      [
+        "Design",
+        "  UI/UX & Product Design  ",
+        true
+      ],
+      [
+        "Design",
+        "",
+        false
+      ],
+      [
+        "Nope",
+        "Anything",
+        false
+      ]
+    ],
+    "one_lines": [
+      [
+        "Design",
+        "Design"
+      ],
+      [
+        "AI Tools for Web & App Development",
+        "AI Tools for Web & App Development"
+      ],
+      [
+        "AI Tools (General)",
+        "AI Tools (General)"
+      ],
+      [
+        "Developer Tools",
+        "Developer Tools"
+      ],
+      [
+        "Free Utilities & Everyday Tools",
+        "Free Utilities & Everyday Tools"
+      ],
+      [
+        "Knowledge, Research & Reference",
+        "Knowledge, Research & Reference — also the home for general, multi-topic learning platforms (Coursera, Udemy, Khan Academy). Tag with `#course`."
+      ],
+      [
+        "Download Resources",
+        "Download Resources"
+      ],
+      [
+        "Music & Audio Discovery",
+        "Music & Audio Discovery"
+      ],
+      [
+        "Security & Privacy Tools",
+        "Security & Privacy Tools"
+      ],
+      [
+        "Crypto & Markets",
+        "Crypto & Markets"
+      ],
+      [
+        "English Learning & Career Prep",
+        "English Learning & Career Prep — General English-test prep (IELTS, etc.) and general career/salary research — not tied to a specific country. Country-specific relocation content goes under Living Abroad instead."
+      ],
+      [
+        "Geography & Urban Planning",
+        "Geography & Urban Planning — empty for now — ready for future links"
+      ],
+      [
+        "Living Abroad",
+        "Living Abroad — Country-specific relocation content only: job boards, visa info, housing, cost of living for one particular country."
+      ],
+      [
+        "Random / Curiosities",
+        "Random / Curiosities — Catch-all — use sparingly, only when nothing else genuinely fits."
+      ]
+    ],
+    "subcategories_of": [
+      [
+        "Design",
+        [
+          "Assets & Resources",
+          "UI/UX & Product Design",
+          "Print & Editorial Design",
+          "Branding & Identity"
+        ]
+      ],
+      [
+        "Developer Tools",
+        []
+      ],
+      [
+        "Nope",
+        []
+      ]
+    ],
+    "subcategory_one_liner": [
+      [
+        "Design",
+        "- Assets & Resources — downloadable/usable design assets: icons, mockups, fonts, illustrations, UI kits, color/gradient tools\n- UI/UX & Product Design — process & inspiration: galleries, design systems, UX writing, wireframing/prototyping\n- Print & Editorial Design — brochures, catalogues, print templates *(empty for now — ready for future links)*\n- Branding & Identity — logo tools, brand guidelines *(empty for now — ready for future links)*"
+      ],
+      [
+        "AI Tools for Web & App Development",
+        "- AI UI/Design Generation\n- AI Coding Assistants\n- AI Prototyping / No-Code"
+      ],
+      [
+        "AI Tools (General)",
+        "- AI Writing & Content\n- AI Research & Search Assistants\n- AI Audio & Voice Generation"
+      ],
+      [
+        "Developer Tools",
+        "- none (this category has no subcategories)"
+      ],
+      [
+        "Free Utilities & Everyday Tools",
+        "- none (this category has no subcategories)"
+      ],
+      [
+        "Knowledge, Research & Reference",
+        "- none (this category has no subcategories)"
+      ],
+      [
+        "Download Resources",
+        "- Public Archives & Libraries — legitimate, public-domain (Gutenberg, Library of Congress, Internet Archive)\n- Torrent & Shadow Libraries — Anna's Archive, libgen, sci-hub, Z-Library, torrent search engines"
+      ],
+      [
+        "Music & Audio Discovery",
+        "- none (this category has no subcategories)"
+      ],
+      [
+        "Security & Privacy Tools",
+        "- none (this category has no subcategories)"
+      ],
+      [
+        "Crypto & Markets",
+        "- none (this category has no subcategories)"
+      ],
+      [
+        "English Learning & Career Prep",
+        "- none (this category has no subcategories)"
+      ],
+      [
+        "Geography & Urban Planning",
+        "- Urban Planning Courses & Learning\n- Maps, GIS & Data Tools\n- Case Studies & Reference"
+      ],
+      [
+        "Living Abroad",
+        "- Australia"
+      ],
+      [
+        "Random / Curiosities",
+        "- none (this category has no subcategories)"
+      ],
+      [
+        "Nope",
+        ""
+      ]
+    ],
+    "tag_hints_of": [
+      [
+        "Design",
+        "#icons #mockup #illustration #vector #font #color-tool #gradient #ui-kit #free #paid #svg #3d-mockup #farsi-font #ai-powered #inspiration #design-system #ux-writing #wireframing #dark-mode #landing-page #mobile #dashboard #accessibility #brochure #catalogue #print-template #logo #brand-guideline"
+      ],
+      [
+        "AI Tools for Web & App Development",
+        "#ui-generation #code-gen #no-code"
+      ],
+      [
+        "AI Tools (General)",
+        "#tts #voice-cloning #research-ai"
+      ],
+      [
+        "Developer Tools",
+        "#cli #testing #formatting #reference"
+      ],
+      [
+        "Free Utilities & Everyday Tools",
+        "#pdf #converter #speed-test"
+      ],
+      [
+        "Knowledge, Research & Reference",
+        "#data #academic #archive #course"
+      ],
+      [
+        "Download Resources",
+        "#ebook #torrent #shadow-library"
+      ],
+      [
+        "Music & Audio Discovery",
+        "#radio #focus-music #sfx"
+      ],
+      [
+        "Security & Privacy Tools",
+        "#breach-check #anon"
+      ],
+      [
+        "Crypto & Markets",
+        "#tracker #exchange-rate"
+      ],
+      [
+        "English Learning & Career Prep",
+        "#ielts #immigration #salary"
+      ],
+      [
+        "Geography & Urban Planning",
+        "#gis #zoning #transit #masterplan #course"
+      ],
+      [
+        "Living Abroad",
+        "#job-seeking #visa #housing #cost-of-living #salary"
+      ],
+      [
+        "Random / Curiosities",
+        ""
+      ],
+      [
+        "Nope",
+        ""
+      ]
+    ]
+  },
+  "folder_relpaths": [
+    [
+      "Design",
+      null,
+      "Design"
+    ],
+    [
+      "Design",
+      "Assets & Resources",
+      "Design<SEP>Assets_Resources"
+    ],
+    [
+      "AI Tools (General)",
+      null,
+      "AI_Tools_General_"
+    ],
+    [
+      "Random / Curiosities",
+      null,
+      "Random_Curiosities"
+    ],
+    [
+      "Living Abroad",
+      "Australia",
+      "Living_Abroad<SEP>Australia"
+    ]
+  ],
+  "grammar": [
+    [
+      "emoji_and_italic_heading",
+      "### Design 🌐 *(Assets and UI are public-directory candidates)*\nprose definition here\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "prose definition here",
+            "name": "Design",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 0 subcategories from (inline)"
+      }
+    ],
+    [
+      "trailing_italic_only",
+      "### Cat *(note)*\nprose\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "prose",
+            "name": "Cat",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 0 subcategories from (inline)"
+      }
+    ],
+    [
+      "dash_splits",
+      "### Cat\n- **Sub A** — description of A\n- **Sub B** – en dash description\n- Sub C — plain bullet with dash\n- Sub D no dash\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "",
+            "name": "Cat",
+            "subcategories": [
+              "Sub A",
+              "Sub B",
+              "Sub C",
+              "Sub D no dash"
+            ],
+            "subcategory_definitions": {
+              "Sub A": "description of A",
+              "Sub B": "en dash description",
+              "Sub C": "plain bullet with dash"
+            },
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 4 subcategories from (inline)"
+      }
+    ],
+    [
+      "no_subcategories_shapes",
+      "### Cat\n- Real Sub — kept\n- *(no subcategories)*\n*(no subcategories)*\n- (No Subcategories) — case-insensitive bullet marker\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "",
+            "name": "Cat",
+            "subcategories": [
+              "Real Sub"
+            ],
+            "subcategory_definitions": {
+              "Real Sub": "kept"
+            },
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 1 subcategories from (inline)"
+      }
+    ],
+    [
+      "empty_for_now",
+      "### Cat\n- Kept Sub\n- (empty for now — ready for future links)\n- **Empty For Now** trailing\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "",
+            "name": "Cat",
+            "subcategories": [
+              "Kept Sub",
+              "Empty For Now trailing"
+            ],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 2 subcategories from (inline)"
+      }
+    ],
+    [
+      "example_tags",
+      "### Cat\nExample tags: `#icons` `#mockup` `#free`\nexample tags: #second-line #appended\nprose after tags\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "prose after tags",
+            "name": "Cat",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": [
+              "icons",
+              "mockup",
+              "free",
+              "second-line",
+              "appended"
+            ]
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 0 subcategories from (inline)"
+      }
+    ],
+    [
+      "ignored_sections",
+      "### Cat\nprose def\n\n## How this works\n- never a rule\nstray\n\n## Not yet covered\n- also never\n\n### Cat2\nsecond prose\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "prose def",
+            "name": "Cat",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          },
+          {
+            "definition": "",
+            "name": "Cat2",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "2 categories, 0 subcategories from (inline)"
+      }
+    ],
+    [
+      "judgment_rules",
+      "## Judgment-call rules\n- bullet rule one\nplain prose rule two\n*(italic note skipped)*\n*(no subcategories)*\n- bullet rule three\n",
+      "TaxonomyError",
+      "no '### <Category>' headings found — not a taxonomy file"
+    ],
+    [
+      "stray_lines_no_category",
+      "# Title\nstray line\n- no category open\nprose\n\n### Cat\nreal prose\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "real prose",
+            "name": "Cat",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 0 subcategories from (inline)"
+      }
+    ],
+    [
+      "horizontal_rules",
+      "### Cat\n---\nprose kept\n\n----\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "prose kept",
+            "name": "Cat",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 0 subcategories from (inline)"
+      }
+    ],
+    [
+      "italic_then_prose_overwrite",
+      "### Cat\n*(provisional definition)*\nreal prose wins\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "real prose wins",
+            "name": "Cat",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 0 subcategories from (inline)"
+      }
+    ],
+    [
+      "duplicate_subcategory_dedupe",
+      "### Cat\n- Sub — first\n- Sub — second definition ignored\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "",
+            "name": "Cat",
+            "subcategories": [
+              "Sub"
+            ],
+            "subcategory_definitions": {
+              "Sub": "first"
+            },
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 1 subcategories from (inline)"
+      }
+    ],
+    [
+      "subcategory_definitions",
+      "### Cat\n- Sub A — has a definition\n- Sub B\n- Sub C — trailing spaces in def \n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "",
+            "name": "Cat",
+            "subcategories": [
+              "Sub A",
+              "Sub B",
+              "Sub C"
+            ],
+            "subcategory_definitions": {
+              "Sub A": "has a definition",
+              "Sub C": "trailing spaces in def"
+            },
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "1 categories, 3 subcategories from (inline)"
+      }
+    ],
+    [
+      "h2_ends_category_block",
+      "### Cat\nprose one\n\n## Some Section\nlate prose is stray here\n\n### Cat2\nprose two\n",
+      "<no error>",
+      {
+        "categories": [
+          {
+            "definition": "prose one",
+            "name": "Cat",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          },
+          {
+            "definition": "prose two",
+            "name": "Cat2",
+            "subcategories": [],
+            "subcategory_definitions": {},
+            "tag_hints": []
+          }
+        ],
+        "judgment_rules": "",
+        "summary": "2 categories, 0 subcategories from (inline)"
+      }
+    ]
+  ],
+  "schema": 1,
+  "shipped_snapshot": {
+    "bytes": 7147,
+    "fixture_sha256": "1def8f550bad8f54d9a4ca635f5e63973580e69dc7511b4604b78803835cd7a4",
+    "has_bom": false,
+    "judgment_rules": "A single-purpose AI tool that does a design task (background removal, image upscaling, vectorizing) → **Design**, not either AI Tools category — its job is design, AI is just the mechanism. Tag `#ai-powered`.\n**AI Tools for Web & App Development** = tools that help *build* software (UI generation, code generation, no-code builders). **AI Tools (General)** = everything else AI-related with no build-a-product purpose.\nGeneral course platforms (Coursera, Udemy) → **Knowledge, Research & Reference** + `#course`. A topic-specific course stays in its own topic folder + `#course`.\nShadow libraries and piracy-adjacent sites → **Download Resources → Torrent & Shadow Libraries** (private). Legitimate public-domain archives → **Public Archives & Libraries**.",
+    "names": [
+      "Design",
+      "AI Tools for Web & App Development",
+      "AI Tools (General)",
+      "Developer Tools",
+      "Free Utilities & Everyday Tools",
+      "Knowledge, Research & Reference",
+      "Download Resources",
+      "Music & Audio Discovery",
+      "Security & Privacy Tools",
+      "Crypto & Markets",
+      "English Learning & Career Prep",
+      "Geography & Urban Planning",
+      "Living Abroad",
+      "Random / Curiosities"
+    ],
+    "sha256": "3272be908e5736e2fa3a203176eb6e7a120ced2713979a1e4dc7e601cd656ac8",
+    "subcounts": [
+      [
+        "Design",
+        11
+      ],
+      [
+        "AI Tools for Web & App Development",
+        3
+      ],
+      [
+        "AI Tools (General)",
+        3
+      ],
+      [
+        "Developer Tools",
+        0
+      ],
+      [
+        "Free Utilities & Everyday Tools",
+        0
+      ],
+      [
+        "Knowledge, Research & Reference",
+        0
+      ],
+      [
+        "Download Resources",
+        2
+      ],
+      [
+        "Music & Audio Discovery",
+        0
+      ],
+      [
+        "Security & Privacy Tools",
+        0
+      ],
+      [
+        "Crypto & Markets",
+        0
+      ],
+      [
+        "English Learning & Career Prep",
+        0
+      ],
+      [
+        "Geography & Urban Planning",
+        3
+      ],
+      [
+        "Living Abroad",
+        1
+      ],
+      [
+        "Random / Curiosities",
+        0
+      ]
+    ],
+    "summary": "14 categories, 23 subcategories from <TMP>/shipped.md"
+  },
+  "splitlines": [
+    [
+      "a\nb",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\r\nb",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\rb",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\u000bb",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\fb",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\u001cb",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\u001db",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\u001eb",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "ab",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a b",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a b",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\nb\n",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "a\n\nb",
+      [
+        "a",
+        "",
+        "b"
+      ]
+    ],
+    [
+      "",
+      []
+    ],
+    [
+      "\n",
+      [
+        ""
+      ]
+    ],
+    [
+      "plain",
+      [
+        "plain"
+      ]
+    ],
+    [
+      "a\r\nb\r\n",
+      [
+        "a",
+        "b"
+      ]
+    ],
+    [
+      "x y z",
+      [
+        "x",
+        "y",
+        "z"
+      ]
+    ],
+    [
+      "a\u001c\u001d\u001eb",
+      [
+        "a",
+        "",
+        "",
+        "b"
+      ]
+    ]
+  ],
+  "strip_chars": [
+    [
+      "**stars**",
+      "*",
+      "stars"
+    ],
+    [
+      "--dash--",
+      "-",
+      "dash"
+    ],
+    [
+      "*-mixed-*",
+      "*",
+      "-mixed-"
+    ]
+  ],
+  "stripws": [
+    [
+      "  hello  ",
+      [
+        "hello",
+        "hello  ",
+        "  hello"
+      ]
+    ],
+    [
+      " nbsp around ",
+      [
+        "nbsp around",
+        "nbsp around ",
+        " nbsp around"
+      ]
+    ],
+    [
+      "\u001cctrl\u001c",
+      [
+        "ctrl",
+        "ctrl\u001c",
+        "\u001cctrl"
+      ]
+    ],
+    [
+      " ls ",
+      [
+        "ls",
+        "ls ",
+        " ls"
+      ]
+    ],
+    [
+      " \u000bmixed\f ",
+      [
+        "mixed",
+        "mixed\f ",
+        " \u000bmixed"
+      ]
+    ],
+    [
+      "  ",
+      [
+        "",
+        "",
+        ""
+      ]
+    ],
+    [
+      "**stars**",
+      [
+        "**stars**",
+        "**stars**",
+        "**stars**"
+      ]
+    ],
+    [
+      "--dash--",
+      [
+        "--dash--",
+        "--dash--",
+        "--dash--"
+      ]
+    ],
+    [
+      "\t tab \t",
+      [
+        "tab",
+        "tab \t",
+        "\t tab"
+      ]
+    ]
+  ]
+}

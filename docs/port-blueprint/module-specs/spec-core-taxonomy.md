@@ -36,6 +36,17 @@
 - Prompt inputs derived from the model (`category_one_liner()`, `subcategory_one_liner(cat)`,
   `judgment_rules`, tag hints) must render identically (they are prompt text → behavior).
 - Folder mapping = `safe_filename(cat)[/safe_filename(sub)]`.
+- **Dated note (2026-10-15, T-14 implementation):** the folder join mirrors `os.path.join`
+  itself — the **platform separator** (`os.PathSeparator` in Go, `os.sep` in the Python test),
+  with NO path cleaning; the golden records `<SEP>` for it and the Go test substitutes its own
+  separator (per-platform parity, exactly like the reference). The parser iterates
+  `str.splitlines()` boundaries (not just `\n`) and strips with Python's Unicode whitespace
+  set — both pinned by the golden. Regexes port with Go's RE2 `\s` (ASCII) semantics, the
+  T-11 precedent. The SHIPPED taxonomy file ships embedded at `assets/taxonomy/…` (doc 04 §1
+  assets layout, generated copy, sha256-pinned) while the parity loaders stay disk-based
+  (`load_taxonomy_from_config` → `constants.ResolveTaxonomyPath`); invalid UTF-8 raises the
+  decode error OUTSIDE the TaxonomyError contract (mirrors Python's UnicodeDecodeError
+  escaping `except OSError`).
 
 ## Tests
 

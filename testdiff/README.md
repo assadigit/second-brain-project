@@ -20,7 +20,9 @@ testdiff/
 │                                   # dump_storage.py → internal/storage +
 │                                   # internal/dryrun, T-12;
 │                                   # dump_prompts.py → internal/prompts +
-│                                   # assets/prompts, T-13)
+│                                   # assets/prompts, T-13;
+│                                   # dump_taxonomy.py → internal/taxonomy +
+│                                   # assets/taxonomy, T-14)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

@@ -407,7 +407,7 @@ func TestPyRepr(t *testing.T) {
 		}
 		s := corpusString(t, e[0])
 		want := corpusString(t, e[1])
-		if got := pyRepr(s); got != want {
+		if got := PyRepr(s); got != want {
 			t.Fatalf("pyRepr(%q) = %q, want %q", s, got, want)
 		}
 	}
