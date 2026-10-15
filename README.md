@@ -7,10 +7,11 @@
 **Status: Phase 0 CLOSED** — all three PoC verdicts final (Wails ✅ · tls-client ✅ ·
 gotd/td ✅ proven on the owner's account, then **demoted to dormant by the owner's
 Option-B stamp**: the queue rides the Worker only — ADR-0004 Am.3); harness skeleton +
-Python baselines archived; SESSION-001/002 closed. **Phase 1 IN PROGRESS** (SESSION-003):
-R-0 spec-ripple reconciled (14 spec files); **T-10 `constants` + T-11 `links` DONE with
-generated-golden parity** (40 tests green; the import-grammar differential matches).
-Remaining: T-12…T-17, per the roadmap.
+Python baselines archived; SESSION-001/002 closed. **Phase 1 CLOSED** (SESSION-003–005):
+T-10…T-17 ALL DONE with generated-golden parity — the characterization suites
+(test_core incl. prompts/usermemory, taxonomy, note formats), the import-grammar
+differential, and the byte-stable config round-trip are green; 225 tests race-clean.
+Next: Phase 2 (stores and state engines) per the roadmap.
 
 ## Map
 
