@@ -1,0 +1,14 @@
+{
+  "name": "status-no-config",
+  "description": "--status against a missing config file: welcome banner (with the preserved stale v0.09.5 quirk), the timestamped no-config warning, exit code 1. The Phase-0 CLI seed surface — the trivial end-to-end proof of the differential harness (roadmap Phase 0 exit gate).",
+  "python": {
+    "args": ["--cli", "--status", "--config", "missing-config.json"]
+  },
+  "go": {
+    "args": ["--status", "--config", "missing-config.json"]
+  },
+  "env": {
+    "PYTHONIOENCODING": "utf-8",
+    "NO_COLOR": "1"
+  }
+}
