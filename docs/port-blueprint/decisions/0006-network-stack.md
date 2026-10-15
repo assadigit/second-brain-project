@@ -82,3 +82,41 @@ and a curl_cffi-equivalent Chrome TLS fingerprint.
 
 - PoC: fetch a known-Cloudflare-protected URL via stdlib route (expect 403) and via tls-client
   Chrome profile (expect 200); verify SOCKS5 hostname passthrough (proxy log shows domain, not IP).
+
+## Amendment 1 — PoC verdict (T-02, SESSION-001, 2026-10-15)
+
+**Status: accepted — `github.com/bogdanfinn/tls-client` pinned at v1.16.0**, with two
+reality corrections and one owner acknowledgement requested.
+
+Evidence (full detail: `docs/poc-artifacts/t-02-tlsimp-poc.md`):
+
+1. **Fingerprint substitution proven live** (tls.peet.ws echo): stdlib JA4
+   `t13d1311_f57a46bbacb6_f50d94e863eb` over HTTP/1.1 vs Chrome_133 profile JA4
+   `t13d1516h2_8daaf6152771_d8a2da3f94cd` with Chrome's H2 fingerprint — the exact layer
+   Cloudflare inspects.
+2. **Trigger matrix reproduced**: Go stdlib receives 403/429 on 14 real walled pages
+   (Cloudflare/Akamai/DataDome/CloudFront) — the Python ladder's trigger statuses
+   (403/405/429/451) are faithfully reproducible.
+3. **Live 403→200 not demonstrable from the sandbox**: every live wall blocks its
+   datacenter IP at the IP-reputation layer for BOTH transports (statuses recorded).
+   The mechanism itself was proven hermetically against a locally controlled
+   fingerprint gate (GREASE-led, ≥14-cipher ClientHello ⇒ Chrome): stdlib → **403**,
+   Chrome profile → **200** (WALL_BYPASSED). Opportunistic live re-verification on the
+   owner's residential connection is folded into T-31 (Phase 3 impersonation matrix).
+4. **SOCKS5 verified** (`WithProxyUrl("socks5://…")`) through the hermetic relay: the
+   proxy receives `CONNECT tls.peet.ws:443` with ATYP=DOMAIN — hostname unresolved,
+   the `rdns=True` law holds.
+5. Bonus: the Chrome profile negotiated HTTP/3 (QUIC) against reddit.com — recorded,
+   unused by web_fetch.
+
+**License reality check** (corrects the "Apache-2.0 at last check" assumption above):
+
+- tls-client v1.16.0: **BSD-4-Clause** (Bogdan Finn, 2023) — advertising-acknowledgment
+  clause; harmless for this private project, attribution required if ever published.
+- fhttp v0.6.9: **no LICENSE file** (net/http fork; GitHub reports license: None) —
+  private use fine, review before any public release.
+- utls (both forks): Go BSD-3-Clause; quic-go-utls: MIT; websocket fork: Gorilla BSD;
+  go-socks4 and hpkp: MIT.
+
+**Owner acknowledgement requested** for the BSD-4-Clause + fhttp combination; the utls
+hand-roll (Go BSD-3) stays the recorded fallback if the owner declines.
