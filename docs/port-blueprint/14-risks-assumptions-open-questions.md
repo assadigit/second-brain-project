@@ -117,3 +117,23 @@ A2/A4/OQ-9 status above.
   blueprint mirrored to `docs/port-blueprint/` as the implementation-canonical copy;
   differential reference pinned by git rev; A8 retired; public/branded-repo decision deferred to
   Phase 7/8.
+
+**Round 4 — language challenge closed; audit-currency check:**
+- **Go CONFIRMED by the owner** after a formal Go-vs-Rust(+Tauri) challenge. Recorded rationale:
+  the app is I/O-bound + webview-rendered (same WebView2 engine under Wails and Tauri → GUI
+  speed identical; the 10–50× win is leaving Python); Rust's residual CPU edge is imperceptible
+  at this app's scale; the owner's stated criteria — *scalable, easily "vibe-coded" (AI-agent
+  developed), maintainable for years* — decisively favor Go (compile-speed iteration loop,
+  language simplicity, agent-ergonomics); Rust's genuine wins (Tauri shell maturity, lower idle
+  RAM, compiler-guarded refactoring) were weighed and declined. Switch criteria documented for
+  the record: owner insists on Tauri maturity / minimum RAM / future human Rust engineers.
+- **Audit-currency verification performed 2026-10-15** after the owner flagged a "newer version"
+  released by a parallel agent: the release in question **is v0.91.0 itself** (the release
+  ritual — tag `a0ccf34`, GitHub release 413382822, deterministic zip, Worker 0.40.0 redeploy —
+  landed *after* the audit began, on the same code the audit read). Repo `main` advanced
+  `8fd4179 → 98f4fc7` with **zero application-code changes** (delta = `DEPLOYMENT.md` +50 lines
+  of Worker deploy record + one empty upload commit); all 68 other branches are ancestors of
+  `main`. **Audit + blueprint confirmed current for the released v0.91.0.** Reference release
+  artifact data recorded in doc 10 §10; live Worker state in spec-worker-contract.md §9.
+- Owner re-confirmed the engagement law: this workspace is audit/spec-only until Phase 0 opens
+  in `second-brain-project`; the port itself is multi-session and must not be crammed into one.

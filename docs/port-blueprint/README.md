@@ -88,3 +88,18 @@ This blueprint is mirrored to the private implementation repo
 that copy becomes canonical once implementation starts. The copy in this repository remains the
 v0.91.0 audit-of-record snapshot, including the owner Q&A amendments (doc 14 §6) and the ADR
 amendments (0001/0002/0007/0010 Am.1, 0010 Am.2).
+
+## Audit currency (verified 2026-10-15)
+
+- The audited commit `8fd4179` sits between the v0.91.0 code commit (`a0ccf34`) and the
+  post-release wrap-up commits; the v0.91.0 tag/release landed after the audit began.
+- Repo `main` is now `98f4fc7` (the v0.91.0 wrap-up deploy record). **Delta vs the audit:
+  `app/cloudflare-bot/DEPLOYMENT.md` +50 lines (Worker deploy documentation) and one empty
+  upload commit — zero application-code changes** in `app/gitcurator/`, `app/main.py`,
+  `app/tests/`, `app/prompts/`, or `app/taxonomy/` (verified by diff).
+- All 68 non-main branches are ancestors of `main` (no unreleased work exists elsewhere).
+- **The audit and blueprint are current for the released v0.91.0.** The reference release
+  artifact is recorded in `10-build-release-packaging.md` §10; the live Worker state in
+  `module-specs/spec-worker-contract.md` §9.
+- Language decision closed: **Go** (owner-confirmed after a Rust+Tauri challenge — doc 14 §6
+  Round 4).

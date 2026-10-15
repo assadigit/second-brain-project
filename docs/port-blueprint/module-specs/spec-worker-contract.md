@@ -116,3 +116,23 @@ topics/README-500-chars + reply edit). Webhook always returns 200 (Telegram cont
 5. Never treat a down Worker as an empty queue (None ≠ []).
 6. Publish door: Bearer; index ≤20 MB/≤5k sites; ack commands only after publish.
 7. Read-back: public index 404 = never-published (honest state, not an error).
+
+## 9. Live Worker state anchor (2026-10-15, v0.91.0 wrap-up deploy record)
+
+Recorded from `app/cloudflare-bot/DEPLOYMENT.md` at `main` `98f4fc7` (the release-wrap deploy
+record, +50 lines, the only post-audit change in the repo):
+
+- Worker **0.40.0 re-deployed LIVE** (wrangler version ID `b33658f6-fbc0-49e9-bf0e-9519e33280f6`);
+  schema applied idempotently (17 tables, 0 rows written — the INSERT OR IGNORE law held);
+  every binding intact: KV `CACHE`, `curator-ingest` + DLQ queues, D1 `curator-bot`, `*/20` cron.
+- `/health` → `{"status":"ok","version":"0.40.0"}` post-deploy — matches the desktop's expected
+  worker version (`constants.py:313`), so the version-gate contract is live-verified.
+- `/api/directory/index` serves **590 sites / 13 categories** (published 2026-10-14T22:40Z) —
+  a live reference point for directory-sync parity tests.
+- The Pages site (curator-directory.pages.dev) answers 200; its source diff vs the last upload
+  is EMPTY (site already rides latest bytes).
+- The release body documents the owner's setup door: the Worker URL to paste into Settings →
+  Credentials (the "1 stage not setup" cure).
+
+Go implementation note: this anchor is context, not a contract change — the wire contract in
+§§1–8 is unchanged and remains the binding spec.

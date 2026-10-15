@@ -3,6 +3,14 @@
 > Status: blueprint complete, awaiting implementation. Written from a full read of the repository at
 > v0.91.0 (HEAD `8fd4179`, branch `main`, clean tree). Every claim in the blueprint cites
 > `path:line` evidence from that commit.
+>
+> **Currency check (2026-10-15, post-release):** v0.91.0 was formally released *after* the audit
+> began (tag `a0ccf34`, GitHub release 413382822, deterministic zip attached). Repo `main` has since
+> advanced to `98f4fc7` with **zero application-code changes** — the delta is +50 lines of Worker
+> deploy documentation (`app/cloudflare-bot/DEPLOYMENT.md`) plus one empty upload commit; all 68
+> other branches are already merged into `main`. The audit and this blueprint therefore remain
+> current for the released v0.91.0. Language decision closed: **Go confirmed by the owner** after a
+> formal Rust+Tauri challenge (doc 14 §6 Round 4).
 
 ## What the application is
 

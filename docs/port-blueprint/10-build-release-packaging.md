@@ -99,3 +99,13 @@ Go exes occasionally trip heuristic scanners (packed strings). Mitigations, in o
 build simple (`-trimpath`, no obfuscation), avoid `-ldflags -s -w` if it worsens scores,
 consider an EV/OV code-signing cert later (owner decision — cost), document the sha256 in
 release notes so the owner can verify downloads.
+
+## 10. Reference release artifact (v0.91.0 — the parity target for the Go zip ritual)
+
+The Python app's last release (the artifact the Go port must eventually match in discipline):
+`GitCurator-v0.91.0-windows.zip` — **157 files, 1,395,452 bytes, sha256
+`44834bbaa936a41c955576ff7707cfb78b6fc3d98b31f6ea5a283ce13b15cee4`** — GitHub release 413382822,
+tag `v0.91.0` at `a0ccf34`, published 2026-10-15. The Go deterministic-zip builder (§2) uses this
+as the working reference: same fixed-timestamp discipline, same tracked-files-only law, double-build
+sha256 identity check. (Recorded 2026-10-15 from the release API + the wrap-up deploy record at
+`main` `98f4fc7`.)
