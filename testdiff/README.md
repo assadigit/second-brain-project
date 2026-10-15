@@ -29,7 +29,16 @@ testdiff/
 │                                   # internal/constants (ordered example),
 │                                   # T-16;
 │                                   # dump_helpers.py → internal/helpers,
-│                                   # T-17)
+│                                   # T-17;
+│                                   # dump_store.py → internal/store,
+│                                   # T-20 — incl. the Python-created
+│                                   # cache.db fixture, generated as an
+│                                   # ATOMIC PAIR with its content
+│                                   # golden via fixture_sha256: both
+│                                   # regenerate together, the sha ties
+│                                   # them; the other store goldens
+│                                   # (timestamp grammar, schema) are
+│                                   # byte-stable)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

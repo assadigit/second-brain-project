@@ -69,3 +69,38 @@ possible).
 - WAL + busy_timeout: same file, and `core/sync_review.py:466-486` (DeferredLog explicitly sets WAL)
 - Schemas: module specs `spec-gui-cache-db.md`, `spec-core-note-state.md`,
   `spec-core-website-state.md`, `spec-core-note-reads.md`, `spec-core-linking.md`
+
+## Amendments
+
+### Am.1 — 2026-10-15 (SESSION-006, T-20): the declared-type conversion reality, the CAST read law, the verified DSN syntax, and the version pin
+
+**Reality found while porting T-20** (the golden fixture test caught it pre-commit):
+
+1. **The modernc driver converts declared-type TIMESTAMP reads.** `modernc.org/sqlite`
+   (implemented at T-20 as **v1.36.1** — the newest version whose `go` directive, 1.21, keeps
+   ADR-0002's `go 1.22` floor intact; v1.36.2+ require go ≥ 1.23, v1.41+ go ≥ 1.24) parses TEXT
+   values from `DATE`/`DATETIME`/`TIMESTAMP`-declared columns into `time.Time` (a
+   mattn/go-sqlite3-compatible heuristic; sqlite.go's parseTimeFormats eat every shape the app
+   writes: `T`/space separators, optional fraction, optional offset). Through `database/sql` the
+   value re-serializes into a DIFFERENT string shape — `"...+00:00"` becomes `"...Z"`, trailing
+   fraction zeros drop (`".217680"` → `".21768"`). Python's `sqlite3` has NO declared-type
+   conversion: these columns are plain `str`. Newer driver versions do NOT fix this —
+   v1.60.1's `_texttotime` DSN parameter only guards UNDECLARED columns (and would bump the go
+   floor to 1.26), so upgrading buys nothing here.
+2. **THE CAST READ LAW**: every ported query that selects a timestamp-declared column wraps it
+   in `CAST(col AS TEXT)` — an expression carries an empty declared type, so the raw bytes come
+   back byte-identical to what Python wrote/read. CAST is applied ONLY to timestamp-declared
+   columns (CAST on an INTEGER column stringifies the value). The law lives in
+   `internal/store/doc.go`, is characterized by
+   `internal/store.TestDriverDeclaredTimestampConversion`, and is enforced byte-exactly by the
+   T-20 fixture golden (`internal/store/testdata/cache_fixture_content.golden.json`).
+3. **DSN syntax verified** (doc 06 §1's `[verify syntax]` flag): the working form is
+   `<path>?_pragma=busy_timeout(30000)&_pragma=journal_mode(WAL)&_pragma=synchronous(NORMAL)`
+   — function-call pragma syntax as query parameters, applied per connection. Asserted by
+   `TestDSNShape` + the pragma probes in `TestOpenPythonCreatedFixture` (journal_mode=wal,
+   busy_timeout=30000, synchronous=1 — matching the reference's own open).
+4. **Write-side stays string-typed**: Go writes timestamp columns as the `store.PyISOFormat*`
+   helper strings (ADR-0003 decision 4 shapes) — the driver's `time.Time` parameter path
+   (`formatTime` → `t.String()`, or `_time_format`) is never used. Cross-proof recorded in
+   SESSION-006: Python's own `CacheDB` reads Go-written rows (raw bytes:
+   `'2026-10-15T21:31:50.009129'` auto / `'2026-10-15T21:31:50'` seconds).

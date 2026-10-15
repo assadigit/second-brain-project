@@ -1,0 +1,244 @@
+{
+  "fixture_sha256": "defa32621f1f89e106eae885597065161fe68bfecb77272d3cdb0401c0da25d7",
+  "getters": {
+    "get_all_processed_urls": [
+      "https://github.com/owner/one-v2",
+      "https://github.com/owner/two"
+    ],
+    "get_dead_urls": [
+      [
+        "https://github.com/owner/dead3",
+        "404 Not Found",
+        3,
+        "2026-10-15T21:18:47.831178"
+      ]
+    ],
+    "get_failed_count": 2,
+    "get_failed_urls": [
+      [
+        "https://github.com/owner/fail3",
+        "second failure"
+      ],
+      [
+        "https://github.com/owner/fail1",
+        "HTTP 502 again"
+      ]
+    ],
+    "get_meta": {
+      "absent_key": null,
+      "probe_key": "probe-value",
+      "unicode_key": "näive — 测试"
+    },
+    "get_quarantine_stats": [
+      [
+        "https://github.com/owner/dead3",
+        "404 Not Found",
+        3,
+        "2026-10-15T21:18:47.831178"
+      ],
+      [
+        "https://github.com/owner/dead1",
+        "404 Not Found",
+        2,
+        "2026-10-15T21:18:47.831145"
+      ],
+      [
+        "https://github.com/owner/dead2",
+        "404 Not Found",
+        1,
+        "2026-10-15T21:18:47.831162"
+      ]
+    ],
+    "get_settled_repo_set": [
+      "https://github.com/OWNER/one",
+      "https://github.com/owner/one"
+    ],
+    "is_dead_link": {
+      "https://github.com/owner/dead1": false,
+      "https://github.com/owner/dead3": true
+    },
+    "is_repo_settled": {
+      "https://github.com/OWNER/one/": true,
+      "https://github.com/owner/one": true,
+      "https://github.com/owner/two": false
+    },
+    "processed_row_for": {
+      "https://github.com/owner/never-processed": null,
+      "https://github.com/owner/one-v2": {
+        "category": "AI & ML",
+        "note_path": "AI & ML/owner one v2.md",
+        "owner": "owner",
+        "repo_id": 111,
+        "repo_name": "one-v2",
+        "url": "https://github.com/owner/one-v2"
+      },
+      "https://github.com/owner/two": {
+        "category": "Infrastructure",
+        "note_path": "Infrastructure/owner two.md",
+        "owner": "owner",
+        "repo_id": 222,
+        "repo_name": "two",
+        "url": "https://github.com/owner/two"
+      }
+    },
+    "settled_repos_count": 2
+  },
+  "no_sidecars_after_close": true,
+  "pragmas_through_reference": {
+    "busy_timeout": 30000,
+    "journal_mode": "wal",
+    "synchronous": 1
+  },
+  "schema": 1,
+  "tables": {
+    "cache_meta": {
+      "columns": [
+        "key",
+        "value"
+      ],
+      "rows": [
+        [
+          "probe_key",
+          "probe-value"
+        ],
+        [
+          "unicode_key",
+          "näive — 测试"
+        ]
+      ]
+    },
+    "checkpoints": {
+      "columns": [
+        "id",
+        "run_id",
+        "processed_count",
+        "total_count",
+        "status",
+        "timestamp"
+      ],
+      "rows": []
+    },
+    "decommissioned_repos": {
+      "columns": [
+        "url",
+        "reason",
+        "decommissioned_at",
+        "fail_count"
+      ],
+      "rows": [
+        [
+          "https://github.com/owner/dead1",
+          "404 Not Found",
+          "2026-10-15T21:18:47.831145",
+          2
+        ],
+        [
+          "https://github.com/owner/dead2",
+          "404 Not Found",
+          "2026-10-15T21:18:47.831162",
+          1
+        ],
+        [
+          "https://github.com/owner/dead3",
+          "404 Not Found",
+          "2026-10-15T21:18:47.831178",
+          3
+        ]
+      ]
+    },
+    "failed_repos": {
+      "columns": [
+        "id",
+        "url",
+        "error",
+        "failed_at",
+        "retry_count",
+        "resolved"
+      ],
+      "rows": [
+        [
+          1,
+          "https://github.com/owner/fail1",
+          "HTTP 502 again",
+          "2026-10-15T21:18:47.831006",
+          0,
+          0
+        ],
+        [
+          2,
+          "https://github.com/owner/fail2",
+          "timeout",
+          "2026-10-15T21:18:47.831022",
+          0,
+          1
+        ],
+        [
+          3,
+          "https://github.com/owner/fail3",
+          "first failure",
+          "2026-10-15T21:18:47.831074",
+          0,
+          1
+        ],
+        [
+          4,
+          "https://github.com/owner/fail3",
+          "second failure",
+          "2026-10-15T21:18:47.831099",
+          0,
+          0
+        ]
+      ]
+    },
+    "processed_repos": {
+      "columns": [
+        "repo_id",
+        "url",
+        "owner",
+        "repo_name",
+        "processed_at",
+        "last_checked",
+        "note_path",
+        "category"
+      ],
+      "rows": [
+        [
+          111,
+          "https://github.com/owner/one-v2",
+          "owner",
+          "one-v2",
+          "2026-10-15T21:18:47.830919",
+          "2026-10-15T21:18:47.830935",
+          "AI & ML/owner one v2.md",
+          "AI & ML"
+        ],
+        [
+          222,
+          "https://github.com/owner/two",
+          "owner",
+          "two",
+          "2026-10-15T21:18:47.830903",
+          "2026-10-15T21:18:47.830903",
+          "Infrastructure/owner two.md",
+          "Infrastructure"
+        ]
+      ]
+    },
+    "repos_settled": {
+      "columns": [
+        "url",
+        "settled_at"
+      ],
+      "rows": [
+        [
+          "https://github.com/OWNER/one",
+          "2026-10-15T21:18:47"
+        ],
+        [
+          "https://github.com/owner/one",
+          "2026-10-15T21:18:47"
+        ]
+      ]
+    }
+  }
+}
