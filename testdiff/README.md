@@ -12,6 +12,10 @@ testdiff/
 ├── harness.py                     # the runner (drivers both sides + comparator)
 ├── PINNED-GITCURATOR-REV          # the reference commit the corpus is pinned to
 ├── cases/<case>/case.json         # case definitions (args per side + env)
+├── goldens/                       # GENERATORS that dump the unmodified Python
+│                                   # app into Go testdata/ goldens (Phase 1 law:
+│                                   # goldens are generated, never hand-typed;
+│                                   # e.g. dump_constants.py → internal/constants)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

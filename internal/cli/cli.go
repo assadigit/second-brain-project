@@ -17,6 +17,8 @@ import (
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/assadigit/second-brain-project/internal/constants"
 )
 
 // bannerArt mirrors the art string in cli_terminal.py banner() byte for
@@ -51,8 +53,8 @@ func Banner(w io.Writer) {
 }
 
 // configPath mirrors cli_settings.py _config_path: an explicit --config
-// argument is made absolute; the default (APP_DIR/config.json) is
-// provisional until task T-10 ports spec-core-constants.
+// argument is made absolute; the default is APP_DIR/config.json per
+// internal/constants (task T-10 — replaces the Phase-0 provisional).
 func configPath(cliArg string) string {
 	if cliArg != "" {
 		if abs, err := filepath.Abs(cliArg); err == nil {
@@ -60,11 +62,7 @@ func configPath(cliArg string) string {
 		}
 		return cliArg
 	}
-	exe, err := os.Executable()
-	if err != nil {
-		return "config.json"
-	}
-	return filepath.Join(filepath.Dir(exe), "config.json")
+	return constants.ConfigFile()
 }
 
 // cmdStatus mirrors cli.py cmd_status for the missing-config branch: the

@@ -1,0 +1,200 @@
+{
+  "category_folders_ordered": [
+    [
+      "Agents",
+      "AI-Domain/Agents"
+    ],
+    [
+      "Agents/Frameworks",
+      "AI-Domain/Agents/Frameworks"
+    ],
+    [
+      "Agents/Implementations",
+      "AI-Domain/Agents/Implementations"
+    ],
+    [
+      "Agents/Skills",
+      "AI-Domain/Agents/Skills"
+    ],
+    [
+      "MCP",
+      "AI-Domain/MCP"
+    ],
+    [
+      "Skills",
+      "AI-Domain/Skills"
+    ],
+    [
+      "LLM-Tools",
+      "AI-Domain/LLM-Tools"
+    ],
+    [
+      "Scraping",
+      "Tools/Scraping"
+    ],
+    [
+      "Automation",
+      "Tools/Automation"
+    ],
+    [
+      "Dev-Tools",
+      "Tools/Dev-Tools"
+    ],
+    [
+      "Networking",
+      "Tools/Networking"
+    ],
+    [
+      "Media",
+      "Tools/Media"
+    ],
+    [
+      "Guides",
+      "Documentation/Guides"
+    ],
+    [
+      "References",
+      "Documentation/References"
+    ],
+    [
+      "Research",
+      "Documentation/Research"
+    ],
+    [
+      "Web-Frameworks",
+      "Frameworks/Web-Frameworks"
+    ],
+    [
+      "Backend",
+      "Frameworks/Backend"
+    ],
+    [
+      "Frontend",
+      "Frameworks/Frontend"
+    ],
+    [
+      "Infrastructure",
+      "Infrastructure"
+    ],
+    [
+      "Infrastructure/Deployment",
+      "Infrastructure/Deployment"
+    ],
+    [
+      "Infrastructure/Cloud",
+      "Infrastructure/Cloud"
+    ],
+    [
+      "Infrastructure/Containerization",
+      "Infrastructure/Containerization"
+    ],
+    [
+      "Infrastructure/Documentation",
+      "Infrastructure/Documentation"
+    ],
+    [
+      "Uncategorized",
+      "Uncategorized"
+    ]
+  ],
+  "category_keys_ordered": [
+    "Agents",
+    "Agents/Frameworks",
+    "Agents/Implementations",
+    "Agents/Skills",
+    "MCP",
+    "Skills",
+    "LLM-Tools",
+    "Scraping",
+    "Automation",
+    "Dev-Tools",
+    "Networking",
+    "Media",
+    "Guides",
+    "References",
+    "Research",
+    "Web-Frameworks",
+    "Backend",
+    "Frontend",
+    "Infrastructure",
+    "Infrastructure/Deployment",
+    "Infrastructure/Cloud",
+    "Infrastructure/Containerization",
+    "Infrastructure/Documentation",
+    "Uncategorized"
+  ],
+  "colors": {
+    "bg_dark": "#221E2E",
+    "bg_light": "#FBF8F2",
+    "cta": "#B9E3C9",
+    "cta_hover": "#A8DABA",
+    "cta_text": "#17402B",
+    "danger_fill": "#D63A24",
+    "danger_fill_hover": "#C43320",
+    "danger_fill_press": "#B32D1D",
+    "error": "#F6C6CD",
+    "error_deep": "#AE2237",
+    "error_hover": "#F0B2BC",
+    "error_text": "#5E1120",
+    "hero_fill": "#B3A7F2",
+    "hero_fill_hover": "#A296EC",
+    "hero_text": "#241D3F",
+    "hint_dark": "#A6A2AC",
+    "hint_light": "#7A7288",
+    "log_well_dark": "#17131F",
+    "log_well_light": "#FFFFFF",
+    "neutral": "#6C6480",
+    "neutral_hover": "#57506B",
+    "primary": "#5F54B4",
+    "primary_dark": "#C4BCF5",
+    "primary_hover": "#514699",
+    "success": "#1E6B4B",
+    "warning": "#8A5B0B",
+    "warning_pastel": "#F7E7BE"
+  },
+  "default_system_prompt": "You are an expert software engineer and technical writer. Your task is to analyze GitHub repositories and provide detailed, structured insights.\n\nFor each project, you must output a JSON object with the following keys:\n- \"short_summary\": A single-sentence summary of the project in LESS THAN 140 characters. State the core utility/value directly.\n- \"summary\": A 2-3 paragraph summary explaining what the project does, its main purpose, and its key features. (This is the \"What is it?\" section.)\n- \"how_it_works\": A 1-2 paragraph explanation of the project's architecture, key technologies, and how it operates.\n- \"core_value\": A 1-2 paragraph explanation of why this project is important, what problem it solves, and its unique value proposition. If user context is provided, explain how it specifically helps that user.\n- \"features\": A list of 3-7 key features or technologies used (e.g., [\"Uses Cloudflare Workers\", \"Integrates with Gmail API\", \"Self-hosted\"]).\n- \"difference\": A 1-2 paragraph comparison with similar projects, explaining what makes this one stand out.\n- \"category\": Choose one category from this list: Agents, Agents/Frameworks, Agents/Implementations, Agents/Skills, MCP, Skills, LLM-Tools, Scraping, Automation, Dev-Tools, Networking, Media, Guides, References, Research, Web-Frameworks, Backend, Frontend, Infrastructure, Infrastructure/Deployment, Infrastructure/Cloud, Infrastructure/Containerization, Infrastructure/Documentation, Uncategorized\n- \"confidence\": A number between 0 and 100 indicating how confident you are in the chosen category.\n- \"tags\": A list of up to 5 relevant tags (e.g., [\"python\", \"llm\", \"agent\", \"framework\", \"email\"]).\n\nGuidelines:\n- Be factual and use the provided data (name, description, topics, owner, stars, forks, README).\n- If the project is from a major tech company (Microsoft, Google, Cloudflare, etc.), highlight this.\n- Choose the best-fit category even if confidence is moderate. Only use \"Uncategorized\" if truly unknown.\n- The short_summary MUST be under 140 characters and capture the essence of the project.\n\nAfter generating your analysis, cross-check your output against the README and project data. If you find any factual errors or hallucinations, correct them before returning the JSON. Do not guess or invent information not present in the source data.\n\nReturn only valid JSON. Do not include any extra text.",
+  "resolve_taxonomy_path": [
+    {
+      "config": null,
+      "returned_rel": "taxonomy/website-library-categories.md"
+    },
+    {
+      "config": {},
+      "returned_rel": "taxonomy/website-library-categories.md"
+    },
+    {
+      "config": {
+        "taxonomy_path": ""
+      },
+      "returned_rel": "taxonomy/website-library-categories.md"
+    },
+    {
+      "config": {
+        "taxonomy_path": "   "
+      },
+      "returned_rel": "taxonomy/website-library-categories.md"
+    },
+    {
+      "config": {
+        "taxonomy_path": "/abs/override/x.md"
+      },
+      "returned": "/abs/override/x.md"
+    },
+    {
+      "config": {
+        "taxonomy_path": "  /abs/override/y.md  "
+      },
+      "returned": "/abs/override/y.md"
+    }
+  ],
+  "scalars": {
+    "config_file_rel": "config.json",
+    "default_taxonomy_path_rel": "taxonomy/website-library-categories.md",
+    "expected_worker_version": "0.40.0",
+    "github_prompt_version": "gh-v1",
+    "managed_by_gitcurator": "gitcurator",
+    "note_schema_version": "1",
+    "ownership_banner": "> [!info] Managed by GitCurator — machine-written note."
+  },
+  "schema": 1
+}
