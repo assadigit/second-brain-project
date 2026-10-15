@@ -18,140 +18,26 @@ package constants
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"os"
 	"path/filepath"
-	"reflect"
-	"sort"
-	"strconv"
 	"strings"
 	"testing"
+
+	"github.com/assadigit/second-brain-project/internal/storage"
 )
 
 // ---------------------------------------------------------------------------
 // pyCanonical — the canonical dumper shared by every golden test in this
-// file (promoted into internal/storage with T-12's write_config_file).
+// file. The encoder itself was PROMOTED into internal/storage with T-12's
+// write_config_file (production needed it: no HTML escape, 2-space indent,
+// Python float repr); this test-local wrapper adds the golden files'
+// trailing newline and keeps the sort_keys convention (storage.PyDumps
+// sorts plain maps) — the constants goldens are byte-identical under the
+// promoted encoder, which is exactly what the promotion proves.
 // ---------------------------------------------------------------------------
 
 func pyCanonical(v any) string {
-	var b bytes.Buffer
-	pyEncode(&b, reflect.ValueOf(v), "")
-	b.WriteByte('\n')
-	return b.String()
-}
-
-func pyEncode(b *bytes.Buffer, v reflect.Value, indent string) {
-	switch v.Kind() {
-	case reflect.Invalid:
-		b.WriteString("null")
-	case reflect.Bool:
-		if v.Bool() {
-			b.WriteString("true")
-		} else {
-			b.WriteString("false")
-		}
-	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-		b.WriteString(strconv.FormatInt(v.Int(), 10))
-	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
-		b.WriteString(strconv.FormatUint(v.Uint(), 10))
-	case reflect.Float32, reflect.Float64:
-		pyEncodeFloat(b, v.Float())
-	case reflect.String:
-		pyEncodeString(b, v.String())
-	case reflect.Slice, reflect.Array:
-		if v.Kind() == reflect.Slice && v.IsNil() {
-			b.WriteString("null") // Python None; unused by our data but kept honest
-			return
-		}
-		if v.Len() == 0 {
-			b.WriteString("[]")
-			return
-		}
-		inner := indent + "  "
-		b.WriteString("[\n")
-		for i := 0; i < v.Len(); i++ {
-			b.WriteString(inner)
-			pyEncode(b, v.Index(i), inner)
-			if i != v.Len()-1 {
-				b.WriteByte(',')
-			}
-			b.WriteByte('\n')
-		}
-		b.WriteString(indent + "]")
-	case reflect.Map:
-		if v.Len() == 0 {
-			b.WriteString("{}")
-			return
-		}
-		// Python json.dumps(sort_keys=True) sorts by code point; our keys
-		// are ASCII, so a plain sort matches.
-		keys := make([]string, 0, v.Len())
-		for _, k := range v.MapKeys() {
-			keys = append(keys, k.String())
-		}
-		sort.Strings(keys)
-		inner := indent + "  "
-		b.WriteString("{\n")
-		for i, k := range keys {
-			b.WriteString(inner)
-			pyEncodeString(b, k)
-			b.WriteString(": ")
-			pyEncode(b, v.MapIndex(reflect.ValueOf(k)), inner)
-			if i != len(keys)-1 {
-				b.WriteByte(',')
-			}
-			b.WriteByte('\n')
-		}
-		b.WriteString(indent + "}")
-	case reflect.Pointer:
-		if v.IsNil() {
-			b.WriteString("null")
-			return
-		}
-		pyEncode(b, v.Elem(), indent)
-	case reflect.Interface:
-		pyEncode(b, v.Elem(), indent)
-	default:
-		panic("pyEncode: unsupported kind " + v.Kind().String())
-	}
-}
-
-func pyEncodeFloat(b *bytes.Buffer, f float64) {
-	s := strconv.FormatFloat(f, 'g', -1, 64)
-	// Python repr keeps a decimal point on integral floats (2.0), Go's
-	// shortest form drops it (2). Compensate (finite values only here).
-	if !strings.ContainsAny(s, ".eE") && !strings.Contains(s, "Inf") && !strings.Contains(s, "NaN") {
-		s += ".0"
-	}
-	b.WriteString(s)
-}
-
-func pyEncodeString(b *bytes.Buffer, s string) {
-	// Mirror json.dumps(ensure_ascii=False): raw UTF-8, escape only the
-	// JSON-mandated characters. Go's stock escaping of <, >, & (HTML mode)
-	// is disabled by hand-rolling the string encoder.
-	b.WriteByte('"')
-	for _, r := range s {
-		switch r {
-		case '"':
-			b.WriteString("\\\"")
-		case '\\':
-			b.WriteString("\\\\")
-		case '\n':
-			b.WriteString("\\n")
-		case '\r':
-			b.WriteString("\\r")
-		case '\t':
-			b.WriteString("\\t")
-		default:
-			if r < 0x20 {
-				fmt.Fprintf(b, "\\u%04x", r)
-			} else {
-				b.WriteRune(r)
-			}
-		}
-	}
-	b.WriteByte('"')
+	return storage.PyDumps(v) + "\n"
 }
 
 // golden reads a testdata golden file (generated, never hand-typed).

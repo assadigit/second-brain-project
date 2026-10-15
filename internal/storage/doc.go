@@ -1,5 +1,8 @@
-// Package storage ports core/storage.py — atomic writes, safe_filename, unique_path, merge_config.
+// Package storage ports app/gitcurator/core/storage.py — atomic
+// filesystem writes, safe filenames, unique paths, the pure config-merge
+// law, and write_config_file with the promoted Python-parity JSON
+// encoder (PyDumps).
 //
-// Spec: docs/port-blueprint/module-specs/spec-core-storage.md;
-// task T-12 (Phase 1). Placeholder until that phase lands.
+// Spec: docs/port-blueprint/module-specs/spec-core-storage.md; task T-12
+// (Phase 1).
 package storage

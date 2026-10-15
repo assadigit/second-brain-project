@@ -37,7 +37,7 @@ All files below are specified in `module-specs/`. Grouped exactly as the specs g
 | `constants.py` | 366 | `spec-core-constants.md` |
 | `links.py` | 798 | `spec-core-links.md` |
 | `storage.py` | 182 | `spec-core-storage.md` |
-| `dryrun.py` | 304 | `spec-core-dryrun.md` |
+| `dryrun.py` | 304 | `spec-core-storage.md` §dryrun.py (reality-fixed 2026-10-15, T-12 — the dryrun contract lives inside the storage spec file; a separate `spec-core-dryrun.md` never existed) |
 | `prompts.py` | 98 | `spec-core-prompts.md` |
 | `note_builder.py` | 400 | `spec-core-note-builder.md` |
 | `note_state.py` | 842 | `spec-core-note-state.md` |

@@ -1,0 +1,22 @@
+{
+  "ollama": {
+    "model": "new-model",
+    "extra_nested": "new"
+  },
+  "proxy": {
+    "port": 10809,
+    "user": "me"
+  },
+  "brand_new_top": {
+    "one": 1
+  },
+  "scalar_to_dict": {
+    "now": "a-dict"
+  },
+  "dict_to_scalar": "now-a-scalar",
+  "list_val": [
+    9,
+    8
+  ],
+  "unicode_key_value": "更新 — updated value"
+}

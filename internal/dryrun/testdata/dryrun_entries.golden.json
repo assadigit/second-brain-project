@@ -1,0 +1,135 @@
+{
+  "entries": [
+    {
+      "note": "",
+      "op": "write",
+      "path": "/vault/Notes/note.md",
+      "preview": "# Title⏎⏎Body — émoji 🗑️ and | pipe⏎",
+      "size": 45,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "append",
+      "path": "/vault/Notes/note.md",
+      "preview": "more text",
+      "size": 9,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "write",
+      "path": "/vault/Notes/long.md",
+      "preview": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…",
+      "size": 300,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "write",
+      "path": "/vault/Notes/cjk-str.md",
+      "preview": "数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数数…",
+      "size": 600,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "write",
+      "path": "/vault/Notes/cjk-bytes.md",
+      "preview": "阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿阿�",
+      "size": 600,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "banner",
+      "path": "/vault/banner.png",
+      "preview": "�PNG⏎\u001a⏎��yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "size": 310,
+      "time": "<TS>"
+    },
+    {
+      "note": "create folder",
+      "op": "makedirs",
+      "path": "/vault/Notes",
+      "preview": "",
+      "size": null,
+      "time": "<TS>"
+    },
+    {
+      "note": "from /vault/Notes/old.md",
+      "op": "move",
+      "path": "/vault/Notes/new.md",
+      "preview": "",
+      "size": null,
+      "time": "<TS>"
+    },
+    {
+      "note": "delete file",
+      "op": "remove",
+      "path": "/vault/Notes/old.md",
+      "preview": "",
+      "size": null,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "write",
+      "path": "/vault/Notes/empty.md",
+      "preview": "",
+      "size": 0,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "append",
+      "path": "/vault/Notes/empty-bytes.db",
+      "preview": "",
+      "size": 0,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "write",
+      "path": "/vault/Notes/just-under.md",
+      "preview": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "size": 159,
+      "time": "<TS>"
+    },
+    {
+      "note": "",
+      "op": "write",
+      "path": "/vault/Notes/exact.md",
+      "preview": "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz…",
+      "size": 160,
+      "time": "<TS>"
+    }
+  ],
+  "schema": 1,
+  "summary_ordered": [
+    [
+      "write",
+      7
+    ],
+    [
+      "append",
+      2
+    ],
+    [
+      "banner",
+      1
+    ],
+    [
+      "makedirs",
+      1
+    ],
+    [
+      "move",
+      1
+    ],
+    [
+      "remove",
+      1
+    ]
+  ]
+}

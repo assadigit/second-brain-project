@@ -19,7 +19,7 @@
 |---|---|---|---|---|
 | T-10 | `internal/constants`: APP_DIR resolution, stamps, CONFIG_EXAMPLE defaults, CATEGORY_FOLDERS, law lists, EXPECTED_WORKER_VERSION | spec-core-constants | S | golden test vs Python dict dump |
 | T-11 | `internal/links`: both normalizers, THE LAW lists, platform classify, secret scrub, import parser (bare domains, comments, dupes) | spec-core-links | L | ported `test_core` grammar cases + Unicode edge fixtures; differential import-file case |
-| T-12 | `internal/storage` + `internal/dryrun`: atomic writes, safe_filename, unique_path, merge_config, write_config_file (no HTML escape, 2-space indent); dryrun recorder + shadow cache (incl. WAL sidecars) | spec-core-storage; spec-core-dryrun | M | atomicity + traversal tests; config round-trip byte-stable vs Python on a real config copy |
+| T-12 | `internal/storage` + `internal/dryrun`: atomic writes, safe_filename, unique_path, merge_config, write_config_file (no HTML escape, 2-space indent); dryrun recorder + shadow cache (incl. WAL sidecars) | spec-core-storage (covers BOTH storage.py and dryrun.py — reality-fixed 2026-10-15, T-12: the referenced `spec-core-dryrun.md` never existed) | M | atomicity + traversal tests; config round-trip byte-stable vs Python on a real config copy |
 | T-13 | `internal/prompts` + embedded prompt files; slot refusal laws | spec-core-prompts | XS | ported slot tests; note dead 01/02/03 prompts not shipped |
 | T-14 | `internal/taxonomy` parser + folder rules | spec-core-taxonomy | M | parser grammar tests incl. emoji/dash/`no subcategories` cases |
 | T-15 | `internal/notebuilder`: sanitizers, yamlScalar, build_note, missing-repo note (byte-exact) | spec-core-note-builder | M | note-format goldens generated from Python for 6 sample repos |

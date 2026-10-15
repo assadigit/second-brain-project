@@ -1,0 +1,32 @@
+{
+  "ollama": {
+    "base_url": "http://localhost:11434",
+    "model": "new-model",
+    "custom_key": "keep-me",
+    "extra_nested": "new"
+  },
+  "proxy": {
+    "host": "127.0.0.1",
+    "port": 10809,
+    "user": "me"
+  },
+  "timeout_per_repo": 120,
+  "max_retries": 7,
+  "delay_between_api_calls": 2.5,
+  "cloudflare_install_id": "uuid-123",
+  "cloudflare_shared_secret": "abc",
+  "gdrive_folder_id": "xyz",
+  "user_added_key": 42,
+  "unicode_key_value": "更新 — updated value",
+  "list_val": [
+    9,
+    8
+  ],
+  "scalar_to_dict": {
+    "now": "a-dict"
+  },
+  "dict_to_scalar": "now-a-scalar",
+  "brand_new_top": {
+    "one": 1
+  }
+}

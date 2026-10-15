@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "shadow_cleanup_quirk": {
+    "dir_survives_disable": true
+  },
+  "shadow_double_enable": {
+    "same_dir": true,
+    "same_path": true
+  },
+  "shadow_missing": {
+    "basename": "cache.db",
+    "info_count": 1,
+    "info_note": "no real cache.db yet — the dry-run starts from an empty shadow cache"
+  },
+  "shadow_real": {
+    "basename": "cache.db",
+    "dir_prefix_ok": true,
+    "mtime_equal": true,
+    "recorded_ops": [],
+    "second_call_same": true,
+    "shadow_sha_eq": true,
+    "shm_sha_eq": true,
+    "wal_sha_eq": true
+  },
+  "standin_on": [
+    [
+      "makedirs",
+      "folder exists",
+      null,
+      ""
+    ],
+    [
+      "makedirs",
+      "create folder",
+      null,
+      ""
+    ],
+    [
+      "write",
+      "",
+      5,
+      "hello"
+    ],
+    [
+      "append",
+      "",
+      1,
+      "!"
+    ],
+    [
+      "move",
+      "from <TMP>/a.md",
+      null,
+      ""
+    ],
+    [
+      "remove",
+      "delete file",
+      null,
+      ""
+    ]
+  ]
+}
