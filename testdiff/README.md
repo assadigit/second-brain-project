@@ -18,7 +18,9 @@ testdiff/
 │                                   # e.g. dump_constants.py → internal/constants,
 │                                   # dump_links.py → internal/links,
 │                                   # dump_storage.py → internal/storage +
-│                                   # internal/dryrun, T-12)
+│                                   # internal/dryrun, T-12;
+│                                   # dump_prompts.py → internal/prompts +
+│                                   # assets/prompts, T-13)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

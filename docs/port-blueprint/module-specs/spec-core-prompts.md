@@ -37,3 +37,12 @@
   stripping here (parity), but assert the shipped files have no BOM.
 - Tests: slot enumeration order; every refusal error string; separator rejection; the
   marker-in-value guard.
+- **Dated note (2026-10-15, T-13 implementation):** the embed lives in `assets/prompts`
+  (`assets.PromptsFS`; the internal package reads from there), and the error messages use the
+  virtual root `prompts/<name>` in place of the reference's disk `PROMPTS_DIR` (dump-time
+  normalization in `dump_prompts.py`; the shape is otherwise byte-identical). The filename
+  grammar `os.path.basename(filename) != filename` is **platform-dependent in the reference**
+  (posixpath on the Linux characterization rig, ntpath in Windows production); the Go port
+  pins **ntpath semantics** — platform-stable behavior equal to production ('\\' and '/' are
+  separators; a single-letter drive colon splits). The golden dumps BOTH columns as evidence;
+  only ntpath is asserted.

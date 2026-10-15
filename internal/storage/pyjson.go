@@ -150,6 +150,12 @@ func pyEncodeFloat(b *bytes.Buffer, f float64) {
 	b.WriteString(pyFloatRepr(f))
 }
 
+// PyFloatRepr exposes pyFloatRepr (Python float repr — which equals
+// Python's str(float) in Python 3) for the parity helpers that need
+// str(value) semantics on non-string slot values (internal/prompts'
+// pyStr; the T-13 golden pins 5 → "5" vs 5.0 → "5.0").
+func PyFloatRepr(f float64) string { return pyFloatRepr(f) }
+
 // pyFloatRepr reproduces Python's float repr (CPython float_repr_style
 // short): the shortest digit string that round-trips, in positional
 // notation while -3 <= decpt <= 16, otherwise scientific with a signed,

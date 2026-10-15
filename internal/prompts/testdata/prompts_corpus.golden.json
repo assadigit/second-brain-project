@@ -1,0 +1,829 @@
+{
+  "bad_filename_errors": [
+    [
+      "../secrets.txt",
+      "bad prompt filename: '../secrets.txt'"
+    ],
+    [
+      "",
+      "bad prompt filename: ''"
+    ],
+    [
+      "sub/file.txt",
+      "bad prompt filename: 'sub/file.txt'"
+    ],
+    [
+      "a//b",
+      "bad prompt filename: 'a//b'"
+    ]
+  ],
+  "fill_errors": [
+    [
+      null,
+      [],
+      "no template given"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          ""
+        ]
+      ],
+      "prompt slot(s) left unfilled: A"
+    ],
+    [
+      "Hello {{NAME}} and {{OTHER}}",
+      [
+        [
+          "NAME",
+          "x"
+        ]
+      ],
+      "prompt slot(s) left unfilled: OTHER"
+    ],
+    [
+      "{{B}} {{A}}",
+      [],
+      "prompt slot(s) left unfilled: B, A"
+    ],
+    [
+      "x",
+      [
+        [
+          "A",
+          null
+        ]
+      ],
+      "prompt slot A got None"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          null
+        ]
+      ],
+      "prompt slot(s) left unfilled: A"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          "{{B}}"
+        ]
+      ],
+      "value for slot A contains a {{SLOT}} marker — refusing to fill (untrusted input)"
+    ],
+    [
+      "{{A}}}}",
+      [
+        [
+          "A",
+          "{{C"
+        ]
+      ],
+      "prompt slot(s) left unfilled: C"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          "v"
+        ],
+        [
+          "B",
+          "{{C}}"
+        ]
+      ],
+      "value for slot B contains a {{SLOT}} marker — refusing to fill (untrusted input)"
+    ]
+  ],
+  "fill_ok": [
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          "x"
+        ]
+      ],
+      "x"
+    ],
+    [
+      "Hello {{NAME}} and {{OTHER}}",
+      [
+        [
+          "NAME",
+          "x"
+        ],
+        [
+          "OTHER",
+          "y"
+        ]
+      ],
+      "Hello x and y"
+    ],
+    [
+      "{{A}} and {{A}} again",
+      [
+        [
+          "A",
+          "dup"
+        ]
+      ],
+      "dup and dup again"
+    ],
+    [
+      "no slots here",
+      [
+        [
+          "A",
+          "unused"
+        ]
+      ],
+      "no slots here"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          5
+        ]
+      ],
+      "5"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          5.0
+        ]
+      ],
+      "5.0"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          2.5
+        ]
+      ],
+      "2.5"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          1000000000000000.0
+        ]
+      ],
+      "1000000000000000.0"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          1e-05
+        ]
+      ],
+      "1e-05"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          true
+        ]
+      ],
+      "True"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          false
+        ]
+      ],
+      "False"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          0
+        ]
+      ],
+      "0"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          "0"
+        ]
+      ],
+      "0"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          "你好 🗑️ — naïve"
+        ]
+      ],
+      "你好 🗑️ — naïve"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          "{{partial"
+        ]
+      ],
+      "{{partial"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          "{{9X}}"
+        ]
+      ],
+      "{{9X}}"
+    ],
+    [
+      "{{A}}",
+      [
+        [
+          "A",
+          "has {{ bracket"
+        ]
+      ],
+      "has {{ bracket"
+    ],
+    [
+      "﻿# {{A}}",
+      [
+        [
+          "A",
+          "title"
+        ]
+      ],
+      "﻿# title"
+    ],
+    [
+      "",
+      [],
+      ""
+    ],
+    [
+      "x",
+      [
+        [
+          "A",
+          ""
+        ]
+      ],
+      "x"
+    ]
+  ],
+  "missing_file_errors": [
+    [
+      "nope.txt",
+      "cannot read prompt file 'prompts/nope.txt': [Errno 2] No such file or directory: 'prompts/nope.txt'"
+    ],
+    [
+      "w04_missing.txt",
+      "cannot read prompt file 'prompts/w04_missing.txt': [Errno 2] No such file or directory: 'prompts/w04_missing.txt'"
+    ],
+    [
+      "no-such-stem.txt",
+      "cannot read prompt file 'prompts/no-such-stem.txt': [Errno 2] No such file or directory: 'prompts/no-such-stem.txt'"
+    ]
+  ],
+  "ntbasename": [
+    [
+      "../secrets.txt",
+      "secrets.txt",
+      false
+    ],
+    [
+      "sub/file.txt",
+      "file.txt",
+      false
+    ],
+    [
+      "a\\b.txt",
+      "b.txt",
+      false
+    ],
+    [
+      "C:foo.txt",
+      "foo.txt",
+      false
+    ],
+    [
+      "C:\\x.txt",
+      "x.txt",
+      false
+    ],
+    [
+      "a//b",
+      "b",
+      false
+    ],
+    [
+      "\\root",
+      "root",
+      false
+    ],
+    [
+      "..",
+      "..",
+      true
+    ],
+    [
+      ".",
+      ".",
+      true
+    ],
+    [
+      "",
+      "",
+      true
+    ],
+    [
+      "a b.txt",
+      "a b.txt",
+      true
+    ],
+    [
+      "plain.txt",
+      "plain.txt",
+      true
+    ],
+    [
+      "w01_category.txt",
+      "w01_category.txt",
+      true
+    ],
+    [
+      "a:b.txt",
+      "b.txt",
+      false
+    ],
+    [
+      "nul.txt",
+      "nul.txt",
+      true
+    ]
+  ],
+  "posixbasename": [
+    [
+      "../secrets.txt",
+      "secrets.txt",
+      false
+    ],
+    [
+      "sub/file.txt",
+      "file.txt",
+      false
+    ],
+    [
+      "a\\b.txt",
+      "a\\b.txt",
+      true
+    ],
+    [
+      "C:foo.txt",
+      "C:foo.txt",
+      true
+    ],
+    [
+      "C:\\x.txt",
+      "C:\\x.txt",
+      true
+    ],
+    [
+      "a//b",
+      "b",
+      false
+    ],
+    [
+      "\\root",
+      "\\root",
+      true
+    ],
+    [
+      "..",
+      "..",
+      true
+    ],
+    [
+      ".",
+      ".",
+      true
+    ],
+    [
+      "",
+      "",
+      true
+    ],
+    [
+      "a b.txt",
+      "a b.txt",
+      true
+    ],
+    [
+      "plain.txt",
+      "plain.txt",
+      true
+    ],
+    [
+      "w01_category.txt",
+      "w01_category.txt",
+      true
+    ],
+    [
+      "a:b.txt",
+      "a:b.txt",
+      true
+    ],
+    [
+      "nul.txt",
+      "nul.txt",
+      true
+    ]
+  ],
+  "prompt_files": [
+    [
+      "l01_confirm.txt",
+      {
+        "bytes": 1003,
+        "has_bom": false,
+        "sha256": "4f19dbfdf81764ece5272dcc2c650528e03d38c17d6d0980746f4229dd22debc",
+        "slots": [
+          "A_NAME",
+          "A_LINE",
+          "A_RECALL",
+          "A_TAGS",
+          "B_NAME",
+          "B_LINE",
+          "B_RECALL",
+          "B_TAGS"
+        ]
+      }
+    ],
+    [
+      "r01_recall.txt",
+      {
+        "bytes": 1009,
+        "has_bom": false,
+        "sha256": "2e35d5662ab254bd4fa93b24abcf48cd32af2fddc4375c31ab7b7ac951ee5ee7",
+        "slots": [
+          "REPO_NAME",
+          "TLDR",
+          "SUMMARY",
+          "FEATURES",
+          "TAGS"
+        ]
+      }
+    ],
+    [
+      "s01_vaultscan.txt",
+      {
+        "bytes": 6313,
+        "has_bom": false,
+        "sha256": "5c21eee719126fad842539381e94c79092a7cf18b1eb6805d82eff0dfec6cb5a",
+        "slots": []
+      }
+    ],
+    [
+      "s02_reposscan.txt",
+      {
+        "bytes": 6597,
+        "has_bom": false,
+        "sha256": "57fa31964fda3aed5d4892232ad5bd4eb81c16b3616e35329701281624a5db25",
+        "slots": []
+      }
+    ],
+    [
+      "w01_category.txt",
+      {
+        "bytes": 624,
+        "has_bom": false,
+        "sha256": "ace720997d6044e8948bc9752bf7e8018266d206980a9afba755f788335dd939",
+        "slots": [
+          "CATEGORY_NAMES_WITH_ONE_LINE_DEFINITIONS",
+          "JUDGMENT_RULES",
+          "PAST_CORRECTIONS",
+          "URL",
+          "TITLE",
+          "META_DESCRIPTION",
+          "TEXT_EXCERPT"
+        ]
+      }
+    ],
+    [
+      "w02_subcategory.txt",
+      {
+        "bytes": 374,
+        "has_bom": false,
+        "sha256": "62f0ecec9a7d72eb3e8b230020dcbb6334842879174a1a2b800b9ac2606b722e",
+        "slots": [
+          "CATEGORY",
+          "SUBCATEGORIES_WITH_DEFINITIONS",
+          "URL",
+          "TITLE",
+          "META_DESCRIPTION",
+          "TEXT_EXCERPT"
+        ]
+      }
+    ],
+    [
+      "w03_analyze.txt",
+      {
+        "bytes": 2464,
+        "has_bom": false,
+        "sha256": "0439fc74cce512ecbda36d5cf0774fbc36179f9093a14302a61cebd6a6dc08d4",
+        "slots": [
+          "TAG_HINTS",
+          "URL",
+          "TITLE",
+          "META_DESCRIPTION",
+          "TEXT_EXCERPT"
+        ]
+      }
+    ]
+  ],
+  "pyrepr": [
+    [
+      "../secrets.txt",
+      "'../secrets.txt'"
+    ],
+    [
+      "plain.txt",
+      "'plain.txt'"
+    ],
+    [
+      "a\\b",
+      "'a\\\\b'"
+    ],
+    [
+      "C:\\x",
+      "'C:\\\\x'"
+    ],
+    [
+      "it's",
+      "\"it's\""
+    ],
+    [
+      "say \"hi\"",
+      "'say \"hi\"'"
+    ],
+    [
+      "it's \"both\"",
+      "'it\\'s \"both\"'"
+    ],
+    [
+      "tab\there",
+      "'tab\\there'"
+    ],
+    [
+      "nl\nhere",
+      "'nl\\nhere'"
+    ],
+    [
+      "cr\rhere",
+      "'cr\\rhere'"
+    ],
+    [
+      "\u0000\u0001\u001f",
+      "'\\x00\\x01\\x1f\\x7f'"
+    ],
+    [
+      "你好",
+      "'你好'"
+    ],
+    [
+      "é",
+      "'é'"
+    ],
+    [
+      "nbsp ",
+      "'nbsp\\xa0'"
+    ],
+    [
+      "soft­",
+      "'soft\\xad'"
+    ],
+    [
+      "U+2028 ",
+      "'U+2028\\u2028'"
+    ],
+    [
+      "",
+      "''"
+    ],
+    [
+      "x",
+      "'x'"
+    ],
+    [
+      "prompts/nope.txt",
+      "'prompts/nope.txt'"
+    ]
+  ],
+  "schema": 1,
+  "slots_in": [
+    [
+      "{{A}}",
+      [
+        "A"
+      ]
+    ],
+    [
+      "{{A}} {{B}} {{A}}",
+      [
+        "A",
+        "B"
+      ]
+    ],
+    [
+      "{{A}} then {{AB}} then {{A_B2}}",
+      [
+        "A",
+        "AB",
+        "A_B2"
+      ]
+    ],
+    [
+      "{{lower}}",
+      []
+    ],
+    [
+      "{{lower_case}}",
+      []
+    ],
+    [
+      "{{1A}}",
+      []
+    ],
+    [
+      "{{A B}}",
+      []
+    ],
+    [
+      "{{A-B}}",
+      []
+    ],
+    [
+      "{{}}",
+      []
+    ],
+    [
+      "{{}}{{A}}{{a}}",
+      [
+        "A"
+      ]
+    ],
+    [
+      "no slots at all",
+      []
+    ],
+    [
+      "",
+      []
+    ],
+    [
+      "{{À}}",
+      []
+    ],
+    [
+      "{{A_}}{{_A}}",
+      [
+        "A_"
+      ]
+    ],
+    [
+      "prefix{{URL}}middle{{TITLE}}suffix",
+      [
+        "URL",
+        "TITLE"
+      ]
+    ],
+    [
+      null,
+      []
+    ]
+  ],
+  "w_fill_outputs": [
+    [
+      "w01_category",
+      [
+        [
+          "CATEGORY_NAMES_WITH_ONE_LINE_DEFINITIONS",
+          "- A\n- B"
+        ],
+        [
+          "JUDGMENT_RULES",
+          "rules"
+        ],
+        [
+          "PAST_CORRECTIONS",
+          "(none)"
+        ],
+        [
+          "URL",
+          "https://x"
+        ],
+        [
+          "TITLE",
+          "T"
+        ],
+        [
+          "META_DESCRIPTION",
+          "D"
+        ],
+        [
+          "TEXT_EXCERPT",
+          "E"
+        ]
+      ],
+      "You are filing a website into a personal library. Choose exactly one category from the list. Follow the judgment rules.\n\nCategories:\n- A\n- B\n\nJudgment rules:\nrules\n\nPast corrections by the owner (the owner already re-filed these — a strong signal of their preferences; follow them when the site is similar):\n(none)\n\nWebsite: https://x\nTitle: T\nDescription: D\nPage text (may be partial): E\n\nReturn only JSON: {\"category\": \"<exact name from the list>\", \"confidence\": \"high|medium|low\", \"reason\": \"<one short sentence>\"}\n"
+    ],
+    [
+      "w02_subcategory",
+      [
+        [
+          "CATEGORY",
+          "A"
+        ],
+        [
+          "SUBCATEGORIES_WITH_DEFINITIONS",
+          "- s1"
+        ],
+        [
+          "URL",
+          "https://x"
+        ],
+        [
+          "TITLE",
+          "T"
+        ],
+        [
+          "META_DESCRIPTION",
+          "D"
+        ],
+        [
+          "TEXT_EXCERPT",
+          "E"
+        ]
+      ],
+      "The website was filed under \"A\". Choose the best subcategory from this list, or \"none\" if none fits well.\n\nSubcategories:\n- s1\n\nWebsite: https://x\nTitle: T\nDescription: D\nPage text (may be partial): E\n\nReturn only JSON: {\"subcategory\": \"<exact name or none>\", \"confidence\": \"high|medium|low\"}\n"
+    ],
+    [
+      "w03_analyze",
+      [
+        [
+          "TAG_HINTS",
+          "#a #b"
+        ],
+        [
+          "URL",
+          "https://x"
+        ],
+        [
+          "TITLE",
+          "T"
+        ],
+        [
+          "META_DESCRIPTION",
+          "D"
+        ],
+        [
+          "TEXT_EXCERPT",
+          "E"
+        ]
+      ],
+      "You are cataloguing a website for a personal knowledge library. The reader is a designer-developer who will search this library later, when an idea comes up, to remember which tool or resource could help.\n\nRules:\n1. Use only what the provided text supports. If something is not stated or clearly implied, leave it out. Never guess features, prices, or names.\n2. Write plain, concrete English. No marketing words (\"revolutionary\", \"powerful\", \"seamless\") and no pitch claims (\"lifetime access\", \"easy integration\", \"everything you need\") — those describe the sales page, not the product.\n3. \"what_it_does\": 3 to 6 short bullets of factual capabilities — things the page shows, demonstrates, or clearly documents. Each bullet must be checkable against the page.\n4. \"best_used_for\" is the most important field. Write one sentence starting \"Use when you need to\" that names the READER'S task — what they are trying to get done — in the words someone would use when thinking about their own work. Do not restate the one_line.\n5. \"practical_details\": up to 4 short bullets of the concrete facts a person needs BEFORE trying the tool — exact price terms if stated (\"$60 one-time\", \"free for 3 projects\"), license, framework or tech (\"plain CSS\", \"React components\"), how you get it (download, npm, copy-paste), platform requirements. Only what the page states. Empty list if nothing concrete is stated.\n6. \"pricing\": free|freemium|paid|unknown. \"pricing_detail\": the actual terms as the page states them (e.g. \"$60 one-time\", \"free for 3 projects\"), else empty string.\n7. \"watch_out\": up to 2 honest caveats the page itself supports — a login wall before you can download, no public pricing, requires a build step, unclear license. Empty list if there is nothing.\n8. \"similar_tools\": list only tools you are confident exist and are genuinely similar. Otherwise return an empty list.\n9. \"tags\": up to 6, lowercase. Prefer these for the category: #a #b.\n10. Return only valid JSON in exactly this shape:\n\n{\n  \"name\": \"\",\n  \"one_line\": \"\",\n  \"what_it_does\": [],\n  \"best_used_for\": \"\",\n  \"practical_details\": [],\n  \"pricing\": \"free|freemium|paid|unknown\",\n  \"pricing_detail\": \"\",\n  \"login_required\": \"yes|no|unknown\",\n  \"watch_out\": [],\n  \"similar_tools\": [],\n  \"tags\": [],\n  \"confidence\": \"high|medium|low\"\n}\n\n(\"one_line\" is at most 25 words.)\n\nURL: https://x\nTitle: T\nDescription: D\nPage text (may be partial): E\n"
+    ]
+  ]
+}
