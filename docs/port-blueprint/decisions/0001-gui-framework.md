@@ -121,3 +121,29 @@ Owner context recorded from the Q&A (verbatim signals):
 
 PoC C (T-70) gains an explicit dimension: verify the silent bootstrapper path end-to-end on a
 WebView2-less Windows VM (install → launch → themed window, measured).
+
+## Amendment 2 — PoC verdict (T-70, SESSION-001, 2026-10-15)
+
+**Status: accepted — Wails v2.16.0 (stable v2 line) confirmed by working PoC.**
+
+Evidence (full detail: `docs/poc-artifacts/t-70-wails-poc.md`, screenshot
+`t-70-wails-poc-screenshot.png`):
+
+- **Themed window + log desk + one worker job — all proven live** on Linux
+  (rootless webkit2gtk-4.1 tree, Xvfb, VLM-verified screenshot): GitCurator
+  LIGHT tokens replicated (cream/plum), coalesced log bus with the
+  120 ms/250-row/1024-cap numbers, sequential worker job with progress.
+- **All three PoC acceptance criteria pass**: cold start → first frame
+  **213–301 ms** (gate < 1.5 s); desk sustained a 10k-line flood at
+  **625,000 lines/s accepted, 0 drops, UI interactive** (gate ≥ 2,000 rows/s);
+  exe size **11.8 MB** Windows / 9.1 MB Linux (gate < 20 MB).
+- **Windows cross-compile works from Linux** (plain `wails build -platform
+  windows/amd64`, WebView2 loader is pure Go — no CGO).
+- **Blocked-with-plan (owner action)**: the silent Evergreen-bootstrapper
+  leg on a WebView2-less Windows VM — no Windows environment exists in the
+  sandbox. The concrete plan (NSIS installer chaining the bootstrapper,
+  the absence probes, the measurement checklist) is recorded in the
+  artifact and NEXT-SESSION.md; it does not block Phase 1–5.
+- PoC environment note: Fyne fallback remains unnecessary; the PoC found
+  no Wails blocker on the Linux leg, and the Windows runtime leg is an
+  owner-VM verification, not a library risk.

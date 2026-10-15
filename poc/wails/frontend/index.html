@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitCurator — Wails PoC T-70</title>
+</head>
+<body>
+  <div id="app">
+    <!-- top bar -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">GitCurator</span>
+        <span class="brand-sub">Wails PoC · T-70</span>
+      </div>
+      <div class="sentinels">
+        <span class="sentinel" id="sentinel-startup">startup …</span>
+      </div>
+    </header>
+
+    <!-- CTA band (one filled primary — the btn_kind law) -->
+    <section class="cta">
+      <button id="btn-job" class="hero">Run worker job</button>
+      <button id="btn-flood" class="secondary">Flood 10k lines</button>
+      <button id="btn-stats" class="ghost">Stats</button>
+    </section>
+
+    <!-- progress row -->
+    <section class="progress-row">
+      <div class="bar"><div id="bar-fill" class="fill"></div></div>
+      <span id="bar-label" class="bar-label">idle</span>
+    </section>
+
+    <!-- the log desk -->
+    <section class="log-card">
+      <div class="log-head">
+        <span>Progress Logs</span>
+        <span id="log-count" class="log-count">0 rows</span>
+      </div>
+      <div id="log-desk" class="log-desk"></div>
+    </section>
+
+    <!-- stats footer -->
+    <footer class="stats" id="stats"></footer>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

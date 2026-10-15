@@ -1,0 +1,13 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "GitCurator Wails PoC T-70",
+  "outputfilename": "wails-poc-t70",
+  "frontend:install": "npm install",
+  "frontend:build": "npm run build",
+  "frontend:dev:watcher": "npm run dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "second-brain-agent",
+    "email": "agent@second-brain.local"
+  }
+}

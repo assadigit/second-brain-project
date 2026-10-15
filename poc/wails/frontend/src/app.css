@@ -1,0 +1,104 @@
+/* GitCurator LIGHT theme tokens — gui/theme.py:62-107, replicated for the
+   T-70 PoC (cream window, soft-plum ink, plum accent, tinted log desk). */
+:root {
+  --window: #FBF8F2;        /* warm cream background */
+  --sheet: #FFFFFF;
+  --sheet_alt: #F2EDE3;
+  --border: #EAE3D6;
+  --text: #423A52;          /* soft plum */
+  --text_muted: #6C6480;    /* mauve */
+  --accent: #5F54B4;
+  --accent_hover: #514699;
+  --on_accent: #FFFFFF;
+  --success: #1E6B4B;
+  --warning: #75510A;
+  --error: #AE2237;
+  --log_tint: #F2EDE3;
+  --log_text: #57506B;
+  --log_ts: #6C6480;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #app {
+  height: 100%;
+  background: var(--window);
+  color: var(--text);
+  font: 13px/1.45 "Segoe UI", system-ui, sans-serif;
+}
+
+#app { display: flex; flex-direction: column; padding: 14px 16px; gap: 12px; }
+
+/* top bar */
+.topbar { display: flex; align-items: center; justify-content: space-between; }
+.brand { display: flex; align-items: baseline; gap: 8px; }
+.brand-mark { color: var(--accent); font-size: 18px; }
+.brand-name { font-size: 15px; font-weight: 800; letter-spacing: 0.2px; }
+.brand-sub { font-size: 11px; color: var(--text_muted); }
+.sentinel {
+  font-size: 11px; color: var(--text_muted);
+  background: var(--sheet_alt); border: 1px solid var(--border);
+  padding: 3px 10px; border-radius: 999px;
+}
+.sentinel.pass { color: var(--success); }
+
+/* CTA band — exactly one filled primary per view (the law) */
+.cta { display: flex; gap: 10px; }
+button {
+  font: inherit; border-radius: 8px; cursor: pointer;
+  padding: 9px 18px; border: 1px solid transparent;
+  transition: background 120ms ease;
+}
+button:active { transform: translateY(1px); }
+.hero {
+  background: var(--accent); color: var(--on_accent);
+  font-weight: 700; padding: 13px 30px; font-size: 15px;
+}
+.hero:hover { background: var(--accent_hover); }
+.hero:disabled { background: var(--border); color: var(--log_ts); cursor: default; }
+.secondary {
+  background: var(--sheet); color: var(--text);
+  border-color: var(--border);
+}
+.secondary:hover { background: var(--sheet_alt); }
+.ghost { background: transparent; color: var(--text_muted); }
+.ghost:hover { background: var(--sheet_alt); }
+
+/* progress row (the SegmentBar seat) */
+.progress-row { display: flex; align-items: center; gap: 10px; }
+.bar {
+  flex: 1; height: 8px; background: var(--sheet_alt);
+  border-radius: 999px; overflow: hidden;
+}
+.fill {
+  height: 100%; width: 0%;
+  background: var(--accent); border-radius: 999px;
+  transition: width 120ms linear;
+}
+.bar-label { font-size: 11px; color: var(--text_muted); min-width: 64px; text-align: right; }
+
+/* the log desk — tinted, visually secondary (v0.32 law) */
+.log-card { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.log-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  font-size: 14px; font-weight: 700; margin-bottom: 6px;
+}
+.log-count { font-size: 11px; font-weight: 400; color: var(--log_ts); }
+.log-desk {
+  flex: 1; overflow-y: auto; background: var(--log_tint);
+  border-radius: 8px; padding: 8px 10px;
+  font: 12px/1.5 Consolas, "Cascadia Mono", monospace;
+}
+.log-row { display: flex; gap: 8px; white-space: pre-wrap; word-break: break-all; }
+.log-ts { color: var(--log_ts); flex: 0 0 auto; }
+.log-msg { color: var(--log_text); }
+.log-row.success .log-msg { color: var(--success); }
+.log-row.warning .log-msg { color: var(--warning); }
+.log-row.error .log-msg { color: var(--error); }
+
+/* stats footer */
+.stats {
+  font: 11px/1.5 Consolas, monospace; color: var(--text_muted);
+  background: var(--sheet); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 10px; min-height: 34px;
+}
