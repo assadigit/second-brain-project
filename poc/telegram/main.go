@@ -359,7 +359,58 @@ func runBotLogin(ctx context.Context, token, socksAddr, sessionFile string) {
 	}
 }
 
-func runUserLogin(ctx context.Context, phone, botUsername, socksAddr, sessionFile string, minID int, markRead bool) {
+// loginState carries the pending login across process boundaries (the
+// agentic environment cannot keep an interactive process alive between
+// turns) — the same trick Telethon's session file uses: the phone code
+// hash must survive until the code arrives.
+type loginState struct {
+	Phone         string `json:"phone"`
+	PhoneCodeHash string `json:"phone_code_hash"`
+	RequestedAt   string `json:"requested_at"`
+}
+
+func loginStatePath() string {
+	p := envOr("SB_TG_LOGIN_STATE", "")
+	if p == "" {
+		home, err := os.UserHomeDir()
+		if err != nil {
+			die("home dir: %v", err)
+		}
+		p = filepath.Join(home, ".cache", "second-brain", "tg-poc-login-state.json")
+	}
+	return p
+}
+
+func saveLoginState(st loginState, path string) {
+	if err := os.MkdirAll(filepath.Dir(path), 0o700); err != nil {
+		die("state dir: %v", err)
+	}
+	b, _ := json.Marshal(st)
+	if err := os.WriteFile(path, b, 0o600); err != nil {
+		die("write login state: %v", err)
+	}
+}
+
+func loadLoginState(path string) loginState {
+	b, err := os.ReadFile(path)
+	if err != nil {
+		die("no pending login state at %s (run -request-code first): %v", path, err)
+	}
+	var st loginState
+	if err := json.Unmarshal(b, &st); err != nil {
+		die("parse login state: %v", err)
+	}
+	return st
+}
+
+// runUserLogin drives the USER login in three shapes:
+//
+//	-request-code          phase 1: auth.sendCode, persist the hash, exit
+//	-code=NNNN [-password] phase 2: auth.signIn (+2FA), then the full
+//	                       bot-chat leg (iteration + read-acknowledge)
+//	(neither)              the original single-process interactive flow
+//	                       (phone → __NEED_CODE__ → __NEED_PASSWORD__)
+func runUserLogin(ctx context.Context, phone, botUsername, socksAddr, sessionFile, statePath string, minID int, markRead bool, requestCode bool, code, password string) {
 	appID, appHash := mustAppID()
 	client := newClient(appID, appHash, socksAddr, sessionFile)
 	t0 := time.Now()
@@ -368,59 +419,120 @@ func runUserLogin(ctx context.Context, phone, botUsername, socksAddr, sessionFil
 		if err != nil {
 			return fmt.Errorf("auth status: %w", err)
 		}
-		if !status.Authorized {
+
+		if !status.Authorized && requestCode {
+			if phone == "" {
+				return errors.New("phase 1 (-request-code) needs -phone or SB_TG_PHONE")
+			}
+			sent, err := client.Auth().SendCode(ctx, phone, auth.SendCodeOptions{})
+			if err != nil {
+				return fmt.Errorf("auth.sendCode: %w", err)
+			}
+			hash := ""
+			if sc, ok := sent.(*tg.AuthSentCode); ok {
+				hash = sc.PhoneCodeHash
+			} else if sc, ok := sent.(*tg.AuthSentCodeSuccess); ok {
+				_ = sc // unexpected for a fresh login; fall through with empty hash
+			}
+			if hash == "" {
+				return errors.New("auth.sendCode returned no phone_code_hash")
+			}
+			saveLoginState(loginState{Phone: phone, PhoneCodeHash: hash, RequestedAt: time.Now().Format(time.RFC3339)}, statePath)
+			fmt.Printf("[poc] PHASE 1 OK: login code sent to the Telegram app for %s in %s (state saved outside the repo at %s)\n",
+				maskPhone(phone), time.Since(t0).Round(time.Millisecond), statePath)
+			fmt.Println("[poc] Now run me again with -code=NNNN (the code from your Telegram app).")
+			return nil
+		}
+
+		if !status.Authorized && code != "" {
+			st := loadLoginState(statePath)
+			loginT0 := time.Now()
+			_, err := client.Auth().SignIn(ctx, st.Phone, code, st.PhoneCodeHash)
+			if errors.Is(err, auth.ErrPasswordAuthNeeded) {
+				if password == "" {
+					password, err = ask(ctx, "__NEED_PASSWORD__", "2FA password:")
+					if err != nil {
+						return err
+					}
+				}
+				_, err = client.Auth().Password(ctx, password)
+			}
+			if err != nil {
+				return fmt.Errorf("sign-in: %s (if the code was wrong/expired, re-run -request-code)", cleanTGErr(err))
+			}
+			fmt.Printf("[poc] PHASE 2 OK: signed in as the owner's account in %s\n", time.Since(loginT0).Round(time.Millisecond))
+			_ = os.Remove(statePath) // the hash is spent; the session file carries us now
+		} else if !status.Authorized {
+			// the original interactive flow (one process, marker protocol)
 			fmt.Println("[poc] no stored authorization — starting the interactive login flow (markers on stderr)")
 			flow := auth.NewFlow(interactiveAuth{phone: phone}, auth.SendCodeOptions{})
 			if err := client.Auth().IfNecessary(ctx, flow); err != nil {
 				return fmt.Errorf("login flow: %w", err)
 			}
-			fmt.Printf("[poc] login flow complete in %s (session stored OUTSIDE the repo at %s)\n",
-				time.Since(t0).Round(time.Millisecond), sessionFile)
 		} else {
 			fmt.Printf("[poc] stored session is authorized — skipping login (one-time re-login law satisfied earlier)\n")
 		}
 
-		self, err := client.Self(ctx)
-		if err != nil {
-			return fmt.Errorf("self: %w", err)
+		status, err = client.Auth().Status(ctx)
+		if err != nil || !status.Authorized {
+			return errors.New("still not authorized after the login phases — see the error above")
 		}
-		fmt.Printf("[poc] logged in as user id=%d\n", self.ID) // no phone, no name — owner data law
-
-		peer, handle, err := resolveBot(ctx, client.API(), botUsername)
-		if err != nil {
-			return fmt.Errorf("resolve bot: %w", err)
-		}
-		fmt.Printf("[poc] bot chat resolved: @%s\n", handle)
-
-		st, err := fetchBotChat(ctx, client.API(), peer, minID)
-		if err != nil {
-			return err
-		}
-		fmt.Printf("[poc] bot-chat iteration: %d messages in %d page(s), %s (%.0f msg/s), id range %d…%d (min_id=%d)\n",
-			st.Messages, st.Pages, st.FetchTime, st.MsgsPerSec, st.MinIDSeen, st.MaxID, st.MinIDUsed)
-
-		var readAck *tg.MessagesAffectedMessages
-		if markRead {
-			readAck, err = readAcknowledge(ctx, client.API(), peer, st.MaxID)
-			if err != nil {
-				fmt.Printf("[poc] read-acknowledge FAILED: %v\n", cleanTGErr(err))
-			} else {
-				fmt.Printf("[poc] read-acknowledge OK: messages.readHistory(max_id=%d) → pts=%d pts_count=%d\n",
-					st.MaxID, readAck.Pts, readAck.PtsCount)
-			}
-		}
-
-		emitSummary(map[string]any{
-			"mode": "userlogin", "ok": true,
-			"user_id": self.ID, "bot": handle, "fetch": st,
-			"read_acknowledged": readAck != nil, "socks": socksAddr != "",
-			"total_ms": time.Since(t0).Milliseconds(),
-		})
-		return nil
+		return botChatLeg(ctx, client, botUsername, minID, markRead, t0, socksAddr)
 	})
 	if err != nil {
 		die("userlogin run: %v", cleanTGErr(err))
 	}
+}
+
+// botChatLeg is the actual T-01 proof on the owner's account: resolve the
+// bot, iterate its chat (pages of 100, min_id, everything), read-acknowledge,
+// summarize. No message text is ever printed (owner-data law).
+func botChatLeg(ctx context.Context, client *telegram.Client, botUsername string, minID int, markRead bool, t0 time.Time, socksAddr string) error {
+	self, err := client.Self(ctx)
+	if err != nil {
+		return fmt.Errorf("self: %w", err)
+	}
+	fmt.Printf("[poc] logged in as user id=%d\n", self.ID) // no phone, no name — owner data law
+
+	peer, handle, err := resolveBot(ctx, client.API(), botUsername)
+	if err != nil {
+		return fmt.Errorf("resolve bot: %w", err)
+	}
+	fmt.Printf("[poc] bot chat resolved: @%s\n", handle)
+
+	st, err := fetchBotChat(ctx, client.API(), peer, minID)
+	if err != nil {
+		return err
+	}
+	fmt.Printf("[poc] bot-chat iteration: %d messages in %d page(s), %s (%.0f msg/s), id range %d…%d (min_id=%d)\n",
+		st.Messages, st.Pages, st.FetchTime, st.MsgsPerSec, st.MinIDSeen, st.MaxID, st.MinIDUsed)
+
+	var readAck *tg.MessagesAffectedMessages
+	if markRead {
+		readAck, err = readAcknowledge(ctx, client.API(), peer, st.MaxID)
+		if err != nil {
+			fmt.Printf("[poc] read-acknowledge FAILED: %v\n", cleanTGErr(err))
+		} else {
+			fmt.Printf("[poc] read-acknowledge OK: messages.readHistory(max_id=%d) → pts=%d pts_count=%d\n",
+				st.MaxID, readAck.Pts, readAck.PtsCount)
+		}
+	}
+
+	emitSummary(map[string]any{
+		"mode": "userlogin", "ok": true,
+		"user_id": self.ID, "bot": handle, "fetch": st,
+		"read_acknowledged": readAck != nil, "socks": socksAddr != "",
+		"total_ms": time.Since(t0).Milliseconds(),
+	})
+	return nil
+}
+
+// maskPhone keeps the last 4 digits only.
+func maskPhone(p string) string {
+	if len(p) <= 4 {
+		return "****"
+	}
+	return "****" + p[len(p)-4:]
 }
 
 // cleanTGErr keeps error text single-line for tidy logs.
@@ -544,6 +656,10 @@ func main() {
 	phone := flag.String("phone", envOr("SB_TG_PHONE", ""), "phone number (or answer the __NEED_PHONE__ prompt)")
 	minID := flag.Int("min-id", 0, "only messages with id > min-id (the Python worker's pre-flight filter)")
 	noMarkRead := flag.Bool("no-mark-read", false, "skip the read-acknowledge leg")
+	requestCode := flag.Bool("request-code", false, "userlogin phase 1: send the login code and persist its hash (state file outside the repo)")
+	code := flag.String("code", "", "userlogin phase 2: the login code from the Telegram app")
+	password := flag.String("password", "", "2FA password (or answer the __NEED_PASSWORD__ prompt)")
+	stateFile := flag.String("state", loginStatePath(), "pending-login state file (phone code hash)")
 	listen := flag.String("listen", "127.0.0.1:1080", "socksrelay listen address")
 	flag.Parse()
 
@@ -570,7 +686,7 @@ func main() {
 		}
 		runBotLogin(ctx, token, *socks, *sessionFile)
 	case "userlogin":
-		runUserLogin(ctx, *phone, *bot, *socks, *sessionFile, *minID, !*noMarkRead)
+		runUserLogin(ctx, *phone, *bot, *socks, *sessionFile, *stateFile, *minID, !*noMarkRead, *requestCode, *code, *password)
 	default:
 		die("unknown mode %q", *mode)
 	}
