@@ -10,8 +10,13 @@ Option-B stamp**: the queue rides the Worker only — ADR-0004 Am.3); harness sk
 Python baselines archived; SESSION-001/002 closed. **Phase 1 CLOSED** (SESSION-003–005):
 T-10…T-17 ALL DONE with generated-golden parity — the characterization suites
 (test_core incl. prompts/usermemory, taxonomy, note formats), the import-grammar
-differential, and the byte-stable config round-trip are green; 225 tests race-clean.
-Next: Phase 2 (stores and state engines) per the roadmap.
+differential, and the byte-stable config round-trip are green. **Phase 2 OPENED**
+(SESSION-006): T-20 `internal/store` done — modernc.org/sqlite v1.36.1 (the first
+real dependency, pinned to the go 1.22 floor), the ADR-0003 DSN pragmas verified,
+the naive/UTC timestamp helpers, the deferred shadow-cache sqlite assertions landed,
+and **ADR-0003 Am.1's CAST read law** (the driver's declared-type TIMESTAMP
+conversion characterized and bypassed byte-exactly). 234 tests race-clean.
+Next: T-21 notestate per the roadmap's strict order.
 
 ## Map
 
