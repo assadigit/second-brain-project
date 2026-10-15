@@ -38,7 +38,18 @@ testdiff/
 │                                   # regenerate together, the sha ties
 │                                   # them; the other store goldens
 │                                   # (timestamp grammar, schema) are
-│                                   # byte-stable)
+│                                   # byte-stable);
+│                                   # dump_notestate.py →
+│                                   # internal/notestate, T-21 — the
+│                                   # pure corpus (fingerprint incl.
+│                                   # the invalid-UTF-8 replacement
+│                                   # battery + folder_category
+│                                   # matrix, byte-stable) + the
+│                                   # Python-created notestate DB
+│                                   # fixture as an ATOMIC PAIR with its
+│                                   # content golden + the schema golden
+│                                   # (the CAST-law guard: all-TEXT
+│                                   # declared columns)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

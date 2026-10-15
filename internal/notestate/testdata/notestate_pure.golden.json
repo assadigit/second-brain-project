@@ -1,0 +1,306 @@
+{
+  "fingerprint_cases": [
+    {
+      "input": "abc",
+      "kind": "str",
+      "name": "plain",
+      "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "stripped": "abc"
+    },
+    {
+      "input": "héllo — 世界 🌍\r\n",
+      "kind": "str",
+      "name": "unicode",
+      "sha256": "e5cba050fccd5c0bb055ebef890b44f96a744a16e886fe39ef5d66e6dbe84362",
+      "stripped": "héllo — 世界 🌍"
+    },
+    {
+      "input": "note body\n<!-- gitcurator:recall:start -->\nrelated: something\n<!-- gitcurator:recall:end -->",
+      "kind": "str",
+      "name": "one_recall_block",
+      "sha256": "1c727d26215adccb96d725e8b63b3ee11cf73215a554e60295877244b0778847",
+      "stripped": "note body"
+    },
+    {
+      "input": "a<!-- gitcurator:recall:start -->x<!-- gitcurator:recall:end -->b<!-- gitcurator:recall:start -->y<!-- gitcurator:recall:end -->c",
+      "kind": "str",
+      "name": "two_recall_blocks",
+      "sha256": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+      "stripped": "abc"
+    },
+    {
+      "input": "body\n<!-- gitcurator:recall:start -->\nnever closed\n",
+      "kind": "str",
+      "name": "unterminated_block",
+      "sha256": "7550b33f2d016be478cff696f754b67854c72738d9981314d6e8c0bda64dca86",
+      "stripped": "body\n<!-- gitcurator:recall:start -->\nnever closed"
+    },
+    {
+      "input": "x  \n\n\t \r",
+      "kind": "str",
+      "name": "trailing_whitespace",
+      "sha256": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881",
+      "stripped": "x"
+    },
+    {
+      "input": "",
+      "kind": "str",
+      "name": "empty",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stripped": ""
+    },
+    {
+      "input": "<!-- gitcurator:recall:start -->x<!-- gitcurator:recall:end -->",
+      "kind": "str",
+      "name": "only_block",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stripped": ""
+    },
+    {
+      "input": [
+        255
+      ],
+      "kind": "bytes",
+      "name": "invalid_single_ff",
+      "sha256": "83d544ccc223c057d2bf80d3f2a32982c32c3c0db8e2674820da5064783fb097",
+      "stripped": "�"
+    },
+    {
+      "input": [
+        194,
+        65
+      ],
+      "kind": "bytes",
+      "name": "invalid_c2_then_ascii",
+      "sha256": "1b6d8a78363cf390895eba876b9fefb99d73506bb40fe31c4efeb2b58f7fe1fc",
+      "stripped": "�A"
+    },
+    {
+      "input": [
+        97,
+        226,
+        130
+      ],
+      "kind": "bytes",
+      "name": "invalid_truncated_e2_82",
+      "sha256": "51d277510ba4bf97b25f12d38513c1b620a2a33fc83b3beeeb0dd971bf429e6d",
+      "stripped": "a�"
+    },
+    {
+      "input": [
+        195,
+        195,
+        65
+      ],
+      "kind": "bytes",
+      "name": "invalid_run_c3_c3",
+      "sha256": "e95a7363204eb40353cb0c8e7dde3aa6a23aafa95f59a9d0c7e490271e236d05",
+      "stripped": "��A"
+    },
+    {
+      "input": [
+        254,
+        255,
+        116,
+        101,
+        120,
+        116,
+        195,
+        189
+      ],
+      "kind": "bytes",
+      "name": "invalid_mixed",
+      "sha256": "cc72d8467c60d507b06a2dc36e6f90c66ed0e435a39e177993b0865604d37594",
+      "stripped": "��textý"
+    },
+    {
+      "input": [
+        239,
+        191,
+        189
+      ],
+      "kind": "bytes",
+      "name": "valid_replacement_literal",
+      "sha256": "83d544ccc223c057d2bf80d3f2a32982c32c3c0db8e2674820da5064783fb097",
+      "stripped": "�"
+    }
+  ],
+  "folder_category": [
+    [
+      "AI-Domain/Agents",
+      "Agents",
+      null
+    ],
+    [
+      "AI-Domain/Agents/Frameworks",
+      "Agents/Frameworks",
+      null
+    ],
+    [
+      "AI-Domain/Agents/Implementations",
+      "Agents/Implementations",
+      null
+    ],
+    [
+      "AI-Domain/Agents/Skills",
+      "Agents/Skills",
+      null
+    ],
+    [
+      "AI-Domain/LLM-Tools",
+      "LLM-Tools",
+      null
+    ],
+    [
+      "AI-Domain/MCP",
+      "MCP",
+      null
+    ],
+    [
+      "AI-Domain/Skills",
+      "Skills",
+      null
+    ],
+    [
+      "Documentation/Guides",
+      "Guides",
+      null
+    ],
+    [
+      "Documentation/References",
+      "References",
+      null
+    ],
+    [
+      "Documentation/Research",
+      "Research",
+      null
+    ],
+    [
+      "Frameworks/Backend",
+      "Backend",
+      null
+    ],
+    [
+      "Frameworks/Frontend",
+      "Frontend",
+      null
+    ],
+    [
+      "Frameworks/Web-Frameworks",
+      "Web-Frameworks",
+      null
+    ],
+    [
+      "Infrastructure",
+      "Infrastructure",
+      null
+    ],
+    [
+      "Infrastructure/Cloud",
+      "Infrastructure/Cloud",
+      null
+    ],
+    [
+      "Infrastructure/Containerization",
+      "Infrastructure/Containerization",
+      null
+    ],
+    [
+      "Infrastructure/Deployment",
+      "Infrastructure/Deployment",
+      null
+    ],
+    [
+      "Infrastructure/Documentation",
+      "Infrastructure/Documentation",
+      null
+    ],
+    [
+      "Tools/Automation",
+      "Automation",
+      null
+    ],
+    [
+      "Tools/Dev-Tools",
+      "Dev-Tools",
+      null
+    ],
+    [
+      "Tools/Media",
+      "Media",
+      null
+    ],
+    [
+      "Tools/Networking",
+      "Networking",
+      null
+    ],
+    [
+      "Tools/Scraping",
+      "Scraping",
+      null
+    ],
+    [
+      "Uncategorized",
+      "Uncategorized",
+      null
+    ],
+    [
+      "",
+      null,
+      null
+    ],
+    [
+      "_review",
+      null,
+      null
+    ],
+    [
+      "/",
+      null,
+      null
+    ],
+    [
+      "//_review//",
+      null,
+      null
+    ],
+    [
+      "RandomFolder",
+      "RandomFolder",
+      null
+    ],
+    [
+      "AI-Domain/Agents/Frameworks",
+      "Agents/Frameworks",
+      null
+    ],
+    [
+      "Tools/Scraping/Extras",
+      "Scraping",
+      "Extras"
+    ],
+    [
+      "a/b\\c",
+      "a/b/c",
+      null
+    ],
+    [
+      " AI-Domain/Agents ",
+      " AI-Domain/Agents ",
+      null
+    ],
+    [
+      "AI-Domain",
+      "AI-Domain",
+      null
+    ],
+    [
+      "AI-Domain/Nope/Deep",
+      "AI-Domain/Nope/Deep",
+      null
+    ]
+  ],
+  "schema": 1
+}

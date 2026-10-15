@@ -1,0 +1,296 @@
+{
+  "fixture_sha256": "a4e79d6eb5a8eccc4b79e9ab568789229aef3ddb14c90c6834a7b3ec0d4b5e2b",
+  "getters": {
+    "all_rows_github": {
+      "https://github.com/o/repo1": {
+        "category": "Scraping",
+        "fingerprint": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "first_seen": "2026-10-15T23:05:55",
+        "locked": true,
+        "path": "/vault/Tools/Scraping/a.md",
+        "source_url": "https://github.com/o/repo1",
+        "subcategory": null,
+        "updated_at": "2026-10-15T23:05:55"
+      },
+      "https://github.com/o/repo2": {
+        "category": "Agents/Frameworks",
+        "fingerprint": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+        "first_seen": "2026-10-15T23:05:55",
+        "locked": true,
+        "path": "/vault/AI-Domain/Agents/Frameworks/b.md",
+        "source_url": "https://github.com/o/repo2",
+        "subcategory": null,
+        "updated_at": "2026-10-15T23:05:55"
+      },
+      "https://github.com/o/repo3": {
+        "category": null,
+        "fingerprint": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "first_seen": "2026-10-15T23:05:55",
+        "locked": false,
+        "path": "/vault/_review/r.md",
+        "source_url": "https://github.com/o/repo3",
+        "subcategory": null,
+        "updated_at": "2026-10-15T23:05:55"
+      },
+      "https://github.com/o/repo4": {
+        "category": "Scraping",
+        "fingerprint": "ed7002b439e9ac845f22357d822bac1444730fbdb6016d3ec9432297b9ec9f73",
+        "first_seen": "2026-10-15T23:05:55",
+        "locked": false,
+        "path": "/vault/Tools/Scraping/c.md",
+        "source_url": "https://github.com/o/repo4",
+        "subcategory": null,
+        "updated_at": "2026-10-15T23:05:55"
+      }
+    },
+    "clear_dismissed_probes": [
+      false,
+      true,
+      false
+    ],
+    "correction_count": {
+      "github": 2,
+      "websites": 1
+    },
+    "corrections_for": [
+      {
+        "from_category": "Agents",
+        "note": "owner moved",
+        "to_category": "Scraping",
+        "ts": "2026-10-15T23:05:55"
+      },
+      {
+        "from_category": "Scraping",
+        "note": "",
+        "to_category": "MCP",
+        "ts": "2026-10-15T23:05:55"
+      }
+    ],
+    "count": {
+      "absent-vault": 0,
+      "github": 4,
+      "websites": 2
+    },
+    "dismissed_count": {
+      "github": 1,
+      "websites": 1
+    },
+    "dismissed_set": [
+      "https://github.com/o/gone"
+    ],
+    "is_dismissed": {
+      "https://github.com/o/gone": true,
+      "https://github.com/o/repo1": false
+    },
+    "recent_corrections": [
+      {
+        "from_category": "Scraping",
+        "from_path": "",
+        "note": "",
+        "source_url": "https://github.com/o/repo1",
+        "to_category": "MCP",
+        "to_path": "",
+        "ts": "2026-10-15T23:05:55"
+      },
+      {
+        "from_category": "Agents",
+        "from_path": "/vault/AI-Domain/Agents/a.md",
+        "note": "owner moved",
+        "source_url": "https://github.com/o/repo1",
+        "to_category": "Scraping",
+        "to_path": "/vault/Tools/Scraping/a.md",
+        "ts": "2026-10-15T23:05:55"
+      }
+    ],
+    "row_for": {
+      "https://github.com/o/never": null,
+      "https://github.com/o/repo1": {
+        "category": "Scraping",
+        "fingerprint": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "first_seen": "2026-10-15T23:05:55",
+        "locked": true,
+        "path": "/vault/Tools/Scraping/a.md",
+        "source_url": "https://github.com/o/repo1",
+        "subcategory": null,
+        "updated_at": "2026-10-15T23:05:55"
+      },
+      "https://github.com/o/repo3": {
+        "category": null,
+        "fingerprint": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "first_seen": "2026-10-15T23:05:55",
+        "locked": false,
+        "path": "/vault/_review/r.md",
+        "source_url": "https://github.com/o/repo3",
+        "subcategory": null,
+        "updated_at": "2026-10-15T23:05:55"
+      }
+    }
+  },
+  "no_sidecars_after_close": true,
+  "pragmas_through_reference": {
+    "busy_timeout": 30000,
+    "journal_mode": "delete",
+    "synchronous": 2
+  },
+  "schema": 1,
+  "tables": {
+    "corrections_log": {
+      "columns": [
+        "id",
+        "ts",
+        "vault",
+        "source_url",
+        "from_category",
+        "to_category",
+        "from_path",
+        "to_path",
+        "note"
+      ],
+      "rows": [
+        [
+          1,
+          "2026-10-15T23:05:55",
+          "github",
+          "https://github.com/o/repo1",
+          "Agents",
+          "Scraping",
+          "/vault/AI-Domain/Agents/a.md",
+          "/vault/Tools/Scraping/a.md",
+          "owner moved"
+        ],
+        [
+          2,
+          "2026-10-15T23:05:55",
+          "github",
+          "https://github.com/o/repo1",
+          "Scraping",
+          "MCP",
+          "",
+          "",
+          ""
+        ],
+        [
+          3,
+          "2026-10-15T23:05:55",
+          "websites",
+          "https://example.com/site/",
+          "Design",
+          "Development",
+          "/old",
+          "/new",
+          "recategorized"
+        ]
+      ]
+    },
+    "note_state": {
+      "columns": [
+        "id",
+        "vault",
+        "source_url",
+        "path",
+        "fingerprint",
+        "category",
+        "subcategory",
+        "locked",
+        "first_seen",
+        "updated_at"
+      ],
+      "rows": [
+        [
+          1,
+          "github",
+          "https://github.com/o/repo1",
+          "/vault/Tools/Scraping/a.md",
+          "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "Scraping",
+          null,
+          1,
+          "2026-10-15T23:05:55",
+          "2026-10-15T23:05:55"
+        ],
+        [
+          2,
+          "github",
+          "https://github.com/o/repo2",
+          "/vault/AI-Domain/Agents/Frameworks/b.md",
+          "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "Agents/Frameworks",
+          null,
+          1,
+          "2026-10-15T23:05:55",
+          "2026-10-15T23:05:55"
+        ],
+        [
+          3,
+          "github",
+          "https://github.com/o/repo3",
+          "/vault/_review/r.md",
+          "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          null,
+          null,
+          0,
+          "2026-10-15T23:05:55",
+          "2026-10-15T23:05:55"
+        ],
+        [
+          5,
+          "websites",
+          "https://example.com/site/",
+          "/web/Design/UIUX/s.md",
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "Design",
+          "UI/UX",
+          0,
+          "2026-10-15T23:05:55",
+          "2026-10-15T23:05:55"
+        ],
+        [
+          6,
+          "websites",
+          "https://example.com/page",
+          "/web/Design/Inspiration/p.md",
+          "7ff8f46aa9fd5a838869938a93588b4ef6f210f62daa79a924405dce2055124e",
+          "Design",
+          "Inspiration",
+          0,
+          "2026-10-15T23:05:55",
+          "2026-10-15T23:05:55"
+        ],
+        [
+          7,
+          "github",
+          "https://github.com/o/repo4",
+          "/vault/Tools/Scraping/c.md",
+          "ed7002b439e9ac845f22357d822bac1444730fbdb6016d3ec9432297b9ec9f73",
+          "Scraping",
+          null,
+          0,
+          "2026-10-15T23:05:55",
+          "2026-10-15T23:05:55"
+        ]
+      ]
+    },
+    "note_state_dismissed": {
+      "columns": [
+        "vault",
+        "source_url",
+        "last_path",
+        "dismissed_at"
+      ],
+      "rows": [
+        [
+          "github",
+          "https://github.com/o/gone",
+          "",
+          "2026-10-15T23:05:55"
+        ],
+        [
+          "websites",
+          "https://example.com/dead",
+          "",
+          "2026-10-15T23:05:55"
+        ]
+      ]
+    }
+  }
+}
