@@ -254,6 +254,44 @@ func TestFingerprintHumanEditChanges(t *testing.T) {
 // 2. FolderCategory (test_phase1.py TestFolderCategory)
 // ---------------------------------------------------------------------------
 
+// TestReadHeadTranslatesCRLF — SESSION-008 fidelity fix: the
+// reference's scan reads notes in TEXT mode (open(..., 'r',
+// errors='replace').read(800)), so CRLF notes — the norm on the
+// owner's Windows vault — fingerprint over the TRANSLATED head. The
+// golden's crlf_file_read case pins compute_fingerprint's side; this
+// test pins the assembly (readHead800 over a real file).
+func TestReadHeadTranslatesCRLF(t *testing.T) {
+	var g pureGolden
+	decodeGolden(t, "notestate_pure.golden.json", &g)
+	var want *fpCase
+	for i := range g.FingerprintCases {
+		if g.FingerprintCases[i].Name == "crlf_file_read" {
+			want = &g.FingerprintCases[i]
+			break
+		}
+	}
+	if want == nil {
+		t.Fatal("golden carries no crlf_file_read case (regenerate goldens)")
+	}
+	data := []byte("---\r\nsource: \"https://a.example/x\"\r\n---\r\n\r\n" +
+		"# A Note\r\n\r\nbody text\r\n")
+	p := filepath.Join(t.TempDir(), "crlf.md")
+	if err := os.WriteFile(p, data, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	head, ok := readHead800(p)
+	if !ok {
+		t.Fatal("readHead800 failed")
+	}
+	if strings.Contains(head, "\r") {
+		t.Errorf("head still carries \\r — the universal-newlines translation missing: %q", head[:40])
+	}
+	if got := ComputeFingerprint(head); got != want.Sha256 {
+		t.Errorf("fingerprint over the real CRLF file = %s; the reference's own translated head hashes %s",
+			got, want.Sha256)
+	}
+}
+
 func TestFolderCategoryExactCategoryFolder(t *testing.T) {
 	cat, sub := FolderCategory("AI-Domain/Agents")
 	if cat == nil || *cat != "Agents" || sub != nil {
@@ -342,7 +380,11 @@ func TestPureGolden(t *testing.T) {
 				}
 				buf = append(buf, byte(v))
 			}
-			text = decodeUTF8Replace(buf)
+			// model the reference's OWN file read exactly (the golden's
+			// bytes cases do the same): text mode's universal-newlines
+			// translation after the replace decode — the crlf_file_read
+			// case pins it (SESSION-008 fidelity fix)
+			text = helpers.PyNewlines(decodeUTF8Replace(buf))
 		default:
 			t.Fatalf("unknown kind %q", c.Kind)
 		}

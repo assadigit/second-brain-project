@@ -337,19 +337,8 @@ func readBounded(path string, maxBytes int) string {
 	if err != nil {
 		return ""
 	}
-	text := helpers.DecodeUTF8Replace(data)
-	text = universalNewlines(text)
+	text := helpers.PyNewlines(helpers.DecodeUTF8Replace(data))
 	return helpers.CutRunes(text, maxBytes)
-}
-
-// universalNewlines mirrors Python text mode's newline=None: \r\n and
-// lone \r both translate to \n; nothing else changes.
-func universalNewlines(s string) string {
-	if !strings.Contains(s, "\r") {
-		return s
-	}
-	s = strings.ReplaceAll(s, "\r\n", "\n")
-	return strings.ReplaceAll(s, "\r", "\n")
 }
 
 // Fingerprint is the note's identity for one scan: (mtime_ns, size).

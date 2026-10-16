@@ -165,6 +165,12 @@ FP_CASES = [
     ("invalid_run_c3_c3", "bytes", b"\xc3\xc3A"),
     ("invalid_mixed", "bytes", b"\xfe\xfftext\xc3\xbd"),
     ("valid_replacement_literal", "bytes", b"\xef\xbf\xbd"),
+    # SESSION-008 — the CRLF law: the reference's text-mode read
+    # translates \r\n to \n BEFORE the fingerprint (the owner's
+    # Windows vault notes are CRLF; the untranslated bytes hash
+    # differently — the port's readHead800 fidelity fix is pinned here)
+    ("crlf_file_read", "bytes",
+     b'---\r\nsource: "https://a.example/x"\r\n---\r\n\r\n# A Note\r\n\r\nbody text\r\n'),
 ]
 
 import re
@@ -173,7 +179,12 @@ from gitcurator.core.note_state import _RECALL_BLOCK
 fp_cases = []
 for name, kind, payload in FP_CASES:
     if kind == "bytes":
-        text = payload.decode("utf-8", "replace")
+        # model the reference's OWN file read exactly: text mode's
+        # universal-newlines translation applies after the replace
+        # decode (open(..., 'r', encoding='utf-8', errors='replace')
+        # .read(800) — SESSION-008: the CRLF case pins it; a no-op for
+        # every earlier byte case, none of which carries \r)
+        text = payload.decode("utf-8", "replace").replace("\r\n", "\n").replace("\r", "\n")
         as_json = list(payload)
     else:
         text = payload

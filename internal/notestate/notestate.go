@@ -200,13 +200,17 @@ func posixDirname(rel string) string {
 }
 
 // readHead800 mirrors open(..., encoding='utf-8', errors='replace')
-// .read(800): the first 800 CODE POINTS of the replaced-decoded text.
+// .read(800): the first 800 CODE POINTS of the replaced-decoded text —
+// INCLUDING text mode's universal-newlines translation (\r\n and lone
+// \r become \n; SESSION-008 fidelity fix: CRLF notes are the norm on
+// the owner's Windows vault, and the reference's fingerprint hashes the
+// TRANSLATED head — pinned by the pure golden's crlf_file_read case).
 func readHead800(path string) (string, bool) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return "", false
 	}
-	return helpers.CutRunes(decodeUTF8Replace(data), 800), true
+	return helpers.CutRunes(helpers.PyNewlines(decodeUTF8Replace(data)), 800), true
 }
 
 // decodeUTF8Replace mirrors Python's utf-8 errors='replace' decode with

@@ -651,3 +651,17 @@ func subpartLen(data []byte) int {
 	}
 	return n
 }
+
+// PyNewlines mirrors Python text mode's universal-newlines translation
+// (open(..., 'r') with newline=None): \r\n and a lone \r both become
+// \n; nothing else changes (\x85 NEL is NOT a file newline). Every
+// reference read of a note file runs through this law, so the port's
+// file reads must translate identically — pinned by the notereads
+// read-bounded golden battery and the notestate CRLF fingerprint case.
+func PyNewlines(s string) string {
+	if !strings.Contains(s, "\r") {
+		return s
+	}
+	s = strings.ReplaceAll(s, "\r\n", "\n")
+	return strings.ReplaceAll(s, "\r", "\n")
+}
