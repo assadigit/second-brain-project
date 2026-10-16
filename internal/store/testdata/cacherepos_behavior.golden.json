@@ -1,0 +1,231 @@
+{
+  "probes": {
+    "decommission_legacy_and_reopen": {
+      "empty_after": [],
+      "is_decommissioned": true,
+      "reason_rows": [
+        [
+          "https://github.com/legacy/gone",
+          "404 Not Found"
+        ]
+      ],
+      "reset_all": 1
+    },
+    "migration_pre_v08": {
+      "dead_set": [
+        "https://github.com/dead/repo"
+      ],
+      "is_dead_link": true,
+      "legacy_statements": [
+        "CREATE TABLE decommissioned_repos ( url TEXT PRIMARY KEY, reason TEXT, decommissioned_at TIMESTAMP)",
+        "INSERT INTO decommissioned_repos VALUES ('https://github.com/dead/repo', '404 Not Found', '2025-01-01')"
+      ],
+      "quarantine_stats": [
+        [
+          "https://github.com/dead/repo",
+          "404 Not Found",
+          3,
+          "2025-01-01"
+        ]
+      ]
+    },
+    "migration_v07_strikes": {
+      "legacy_statements": [
+        "CREATE TABLE notfound_strikes ( url TEXT PRIMARY KEY, strikes INTEGER, first_seen TIMESTAMP, last_seen TIMESTAMP)",
+        "INSERT INTO notfound_strikes VALUES ('https://github.com/a/gone', 2, '2025-01-01', '2025-01-02')",
+        "INSERT INTO notfound_strikes VALUES ('https://github.com/b/gone', 3, '2025-01-01', '2025-01-02')",
+        "CREATE TABLE decommissioned_repos ( url TEXT PRIMARY KEY, reason TEXT, decommissioned_at TIMESTAMP, fail_count INTEGER NOT NULL DEFAULT 3)",
+        "INSERT INTO decommissioned_repos VALUES ('https://github.com/b/gone', '404 Not Found', '2025-01-01', 1)"
+      ],
+      "old_table_left": 0,
+      "stats": {
+        "https://github.com/a/gone": 2,
+        "https://github.com/b/gone": 3
+      }
+    },
+    "purge_old": {
+      "ancient_gone": true,
+      "forget": true,
+      "forget_again": false,
+      "left_repo_ids": [
+        1
+      ],
+      "note_path": "n1.md",
+      "row_for": {
+        "category": "AI",
+        "note_path": "n1.md",
+        "owner": "o",
+        "repo_id": 1,
+        "repo_name": "fresh",
+        "url": "https://github.com/o/fresh"
+      },
+      "still_duplicate": true
+    },
+    "quarantine": {
+      "all_decommissioned": [
+        [
+          "https://github.com/patient/repo",
+          "404 Not Found"
+        ],
+        [
+          "https://github.com/o/one",
+          "404 Not Found"
+        ],
+        [
+          "https://github.com/o/two",
+          "404 Not Found"
+        ],
+        [
+          "https://github.com/o/gone",
+          "x"
+        ],
+        [
+          "https://github.com/o/high",
+          "404 Not Found"
+        ]
+      ],
+      "counts": [
+        1,
+        2,
+        3
+      ],
+      "dead_set_at_5": [],
+      "dead_urls_at_5": [],
+      "high_never_lowered": true,
+      "patient_dead_default": true,
+      "patient_not_dead_at_5": true,
+      "unconfirmed": {
+        "https://github.com/o/one": 1,
+        "https://github.com/o/two": 2
+      }
+    },
+    "record_404_fail_closed": {
+      "closed_answer": 3,
+      "threshold": 3
+    },
+    "retry_queue": {
+      "after_bulk": [
+        "https://github.com/o/missing",
+        "https://github.com/o/r2",
+        "https://github.com/o/r"
+      ],
+      "bulk_flipped": 2,
+      "history_rows": [
+        [
+          "https://github.com/o/r",
+          "failure 2",
+          0
+        ],
+        [
+          "https://github.com/o/r2",
+          "two",
+          0
+        ],
+        [
+          "https://github.com/Owner/Repo",
+          "legacy row",
+          1
+        ],
+        [
+          "https://github.com/o/stale",
+          "timeout",
+          1
+        ],
+        [
+          "https://example.com/walled",
+          "phase 3",
+          1
+        ],
+        [
+          "https://github.com/o/missing",
+          "gave up",
+          0
+        ],
+        [
+          "https://github.com/o/hist",
+          "first",
+          1
+        ],
+        [
+          "https://github.com/o/hist",
+          "second",
+          0
+        ]
+      ],
+      "legacy_row_resolved_under_slash_spelling": 2,
+      "normalized_key_count": 2,
+      "stack_rows": [
+        [
+          "https://github.com/o/r",
+          "failure 2"
+        ]
+      ]
+    },
+    "revive_door": {
+      "alive_keeps_settlement": true,
+      "other_dead_unsettled": true,
+      "settled_count": 1,
+      "single": {
+        "dead_unsettled": true,
+        "not_decommissioned": true,
+        "others_settled": true,
+        "removed": 1
+      },
+      "whole_removed": 1
+    },
+    "revive_empty_quarantine": {
+      "removed": 0,
+      "settled_count": 1
+    },
+    "settle_existing_repos": {
+      "brandnew_settled": false,
+      "first": {
+        "already": false,
+        "retries_cleared": 1,
+        "settled": 3
+      },
+      "is_repo_settled_probes": {
+        "https://github.com/OWNER/stored/": false,
+        "https://github.com/owner/absent": false,
+        "https://github.com/owner/stored": true
+      },
+      "meta_guard": true,
+      "meta_value_stamped": true,
+      "never_processed_settled": false,
+      "queue_after": [],
+      "second_after_new_rows": {
+        "already": true,
+        "retries_cleared": 0,
+        "settled": 0
+      },
+      "settled_count": 3,
+      "settled_set": [
+        "https://github.com/owner/failed",
+        "https://github.com/owner/gone",
+        "https://github.com/owner/stored"
+      ],
+      "third_with_extras": {
+        "already": true,
+        "retries_cleared": 0,
+        "settled": 0
+      }
+    },
+    "settle_repos_round_trip": {
+      "added": 1,
+      "count_after_add": 4,
+      "idempotent_second": 0,
+      "is_settled": true,
+      "meta_kv": {
+        "absent": null,
+        "set_get": [
+          null,
+          "v"
+        ]
+      },
+      "unsettle": true,
+      "unsettle_again": false,
+      "unsettled": true
+    }
+  },
+  "schema": 1
+}

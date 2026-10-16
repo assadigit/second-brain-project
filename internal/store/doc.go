@@ -1,7 +1,11 @@
 // Package store — the shared SQLite plumbing for every ledger (cache.db
 // and siblings). New in Go (no single Python module maps here; it
 // extracts the store law every Python store repeated), per ADR-0003 +
-// doc 04 §3's store bullet; task T-20 (Phase 2).
+// doc 04 §3's store bullet; task T-20 (Phase 2). repos.go (task T-24)
+// ports gui/cache_db.py's CacheDB into this package — the one store
+// where THE CAST READ LAW is GENUINELY LIVE (its processed_at /
+// last_checked / failed_at / decommissioned_at / settled_at columns are
+// TIMESTAMP-declared; see repos.go's file doc).
 //
 // THE LOCKING LAW (ported from the reference's own store law,
 // gui/cache_db.py:106-147 and core/sync_review.py:439-456):

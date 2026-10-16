@@ -1,0 +1,80 @@
+{
+  "constants": {
+    "DEAD_LINK_THRESHOLD": 3,
+    "REPOS_SETTLED_META_KEY": "repos_settled_at"
+  },
+  "dead_link_threshold": [
+    [
+      {},
+      3
+    ],
+    [
+      {
+        "notfound_strike_threshold": 5
+      },
+      5
+    ],
+    [
+      {
+        "notfound_strike_threshold": 0
+      },
+      2
+    ],
+    [
+      {
+        "notfound_strike_threshold": "bogus"
+      },
+      3
+    ],
+    [
+      {
+        "notfound_strike_threshold": "7"
+      },
+      7
+    ],
+    [
+      {
+        "notfound_strike_threshold": 2.9
+      },
+      2
+    ]
+  ],
+  "failed_rows_truth": {
+    "empty": {
+      "missing": [],
+      "stale": [],
+      "websites": []
+    },
+    "legacy_shapes": {
+      "missing": [
+        "https://github.com/o/r"
+      ],
+      "stale": [],
+      "websites": [
+        "https://example.com/x"
+      ]
+    },
+    "no_probe": {
+      "missing": [
+        "https://github.com/owner/stale",
+        "https://github.com/owner/missing"
+      ],
+      "stale": [],
+      "websites": [
+        "https://example.com/walled-article"
+      ]
+    },
+    "probe": {
+      "missing": [
+        "https://github.com/owner/missing"
+      ],
+      "stale": [
+        "https://github.com/owner/stale"
+      ],
+      "websites": [
+        "https://example.com/walled-article"
+      ]
+    }
+  },
+  "schema": 1
+}

@@ -75,6 +75,24 @@ testdiff/
 │                                   # character-budget baseline the
 │                                   # Go byte-budget fix diverges
 │                                   # from);
+│                                   # dump_cacherepos.py →
+│                                   # internal/store/repos.go, T-24 —
+│                                   # the pure corpus (the
+│                                   # failed_rows_truth classifier
+│                                   # battery + the threshold clamp
+│                                   # battery, byte-stable) + the
+│                                   # behavior golden (the open-time
+│                                   # migrations with the legacy DDL
+│                                   # recorded verbatim for byte-exact
+│                                   # replay, THE SETTLED REPOS
+│                                   # LEDGER, the ♻️ revive door,
+│                                   # record_404's FAIL-CLOSED, the
+│                                   # retry queue's laws, threshold
+│                                   # steering, purge_old, the legacy
+│                                   # decommission across a reopen);
+│                                   # REUSES T-20's Python-created
+│                                   # cache fixture for the fixture
+│                                   # acceptance;
 │                                   # dump_websitestate.py →
 │                                   # internal/websitepipeline, T-23 —
 │                                   # the pure corpus (the _key
