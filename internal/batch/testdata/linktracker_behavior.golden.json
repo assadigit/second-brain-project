@@ -1,0 +1,47 @@
+{
+  "probes": {
+    "add_url": {
+      "count_after": 8,
+      "has_new": true,
+      "site_note_new": "new-site.md"
+    },
+    "gh_vault": {
+      "count": 2,
+      "has": {
+        "https://github.com/o/attach": false,
+        "https://github.com/o/inbox": false,
+        "https://github.com/o/moc": false,
+        "https://github.com/o/obsidian": false,
+        "https://github.com/o/quoted": true,
+        "https://github.com/o/reviewed": true,
+        "https://github.com/o/trashed": false,
+        "https://github.com/o/undecodable": false
+      },
+      "log_line": "📚 Vault index: 2 notes indexed",
+      "path_quoted_basename": "Real.md"
+    },
+    "web_vault": {
+      "consolidated_path_is_site_note": "site.md",
+      "count": 7,
+      "has": {
+        "https://boundary.example/within": true,
+        "https://cleanup.pictures": true,
+        "https://cleanup.pictures/": true,
+        "https://cleanup.pictures/features": true,
+        "https://cleanup.pictures/pricing": true,
+        "https://failed.example": true,
+        "https://hand.example": true,
+        "https://invisible.example": false,
+        "https://reviewed.example": true
+      },
+      "site_notes": {
+        "https://cleanup.pictures/features": "site.md",
+        "https://failed.example": null,
+        "https://hand.example": null,
+        "https://never-registered.example": null,
+        "https://reviewed.example": null
+      }
+    }
+  },
+  "schema": 1
+}

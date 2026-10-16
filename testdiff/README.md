@@ -75,6 +75,24 @@ testdiff/
 │                                   # character-budget baseline the
 │                                   # Go byte-budget fix diverges
 │                                   # from);
+│                                   # dump_linktracker.py →
+│                                   # internal/batch, T-25 — the
+│                                   # pure corpus (manifest_bytes:
+│                                   # the reference's own atomic
+│                                   # writer output over a FIXED
+│                                   # manifest — the Go writer's
+│                                   # json.dump(indent=2) byte-parity
+│                                   # pin, null fields + unicode
+│                                   # escapes included; the
+│                                   # SafeMocName battery) + the
+│                                   # env-steered obsidian discovery
+│                                   # golden + the behavior golden
+│                                   # (the VaultIndex skip sets,
+│                                   # quote stripping, the 4000-char
+│                                   # read boundary, the site_links
+│                                   # grammar, the site-map
+│                                   # registration gates, add_url's
+│                                   # incremental learn);
 │                                   # dump_cacherepos.py →
 │                                   # internal/store/repos.go, T-24 —
 │                                   # the pure corpus (the

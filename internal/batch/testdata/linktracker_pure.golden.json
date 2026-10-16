@@ -1,0 +1,54 @@
+{
+  "manifest_bytes": "{\n  \"batch_id\": \"20260101_000000\",\n  \"created_at\": \"2026-01-01T00:00:00\",\n  \"source\": \"bot\",\n  \"total_links\": 4,\n  \"links\": [\n    {\n      \"url\": \"https://github.com/o/one\",\n      \"normalized\": \"https://github.com/o/one\",\n      \"type\": \"github\",\n      \"status\": \"processed\",\n      \"note_path\": \"/vault/AI/one.md\",\n      \"error\": null,\n      \"processed_at\": \"2026-01-01T00:00:01\"\n    },\n    {\n      \"url\": \"https://github.com/o/two/\",\n      \"normalized\": \"https://github.com/o/two\",\n      \"type\": \"github\",\n      \"status\": \"failed\",\n      \"note_path\": null,\n      \"error\": \"HTTP 404 \\u2014 \\ud83d\\uddd1\\ufe0f not found\",\n      \"processed_at\": null\n    },\n    {\n      \"url\": \"https://example.com/x\",\n      \"normalized\": \"https://example.com/x\",\n      \"type\": \"non-github\",\n      \"status\": \"recorded\",\n      \"note_path\": \"_inbox/non_github_links.md\",\n      \"error\": null,\n      \"processed_at\": \"2026-01-01T00:00:02\"\n    },\n    {\n      \"url\": \"https://example.com/walled\",\n      \"normalized\": \"https://example.com/walled\",\n      \"type\": \"non-github\",\n      \"status\": \"blocked\",\n      \"note_path\": null,\n      \"error\": \"self domain\",\n      \"processed_at\": null\n    }\n  ]\n}",
+  "safe_moc_name": [
+    [
+      "Agents_Skills",
+      "Agents_Skills"
+    ],
+    [
+      "\"Agents_Skills\"",
+      "Agents_Skills"
+    ],
+    [
+      "AI > Skills",
+      "AI Skills"
+    ],
+    [
+      "a:b|c?d*e<f>g",
+      "abcdefg"
+    ],
+    [
+      "slash/and\\back",
+      "slash_and_back"
+    ],
+    [
+      "spaced    out  name",
+      "spaced out name"
+    ],
+    [
+      "trailing dots... ",
+      "trailing dots"
+    ],
+    [
+      "",
+      "Uncategorized"
+    ],
+    [
+      " ",
+      "Uncategorized"
+    ],
+    [
+      "...",
+      "Uncategorized"
+    ],
+    [
+      "ctrl\u0001\u0002chars",
+      "ctrlchars"
+    ],
+    [
+      "naïve — 测试",
+      "naïve — 测试"
+    ]
+  ],
+  "schema": 1
+}
