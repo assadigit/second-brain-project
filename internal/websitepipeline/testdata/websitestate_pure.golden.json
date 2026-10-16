@@ -1,0 +1,107 @@
+{
+  "backoff": [
+    {
+      "attempt": 1,
+      "delta_days": 2.0,
+      "error_field": "e",
+      "first_equals_last_on_first_failure": true
+    },
+    {
+      "attempt": 1,
+      "delta_days": 2.0,
+      "error_field": "e",
+      "first_equals_last_on_first_failure": true
+    },
+    {
+      "attempt": 1,
+      "delta_days": 2.0,
+      "error_field": "e",
+      "first_equals_last_on_first_failure": true
+    },
+    {
+      "attempt": 1,
+      "delta_days": 2.0,
+      "error_field": "e",
+      "first_equals_last_on_first_failure": true
+    }
+  ],
+  "backoff_refresh": {
+    "attempts": 2,
+    "first_failed_at_shape": 19,
+    "first_survives": true
+  },
+  "constants": {
+    "MAX_FETCH_RETRIES": 3,
+    "QUEUE_HISTORY_SETTLED_META_KEY": "websites_queue_history_settled_at",
+    "RETRY_BACKOFF_DAYS": 2,
+    "SETTLED_META_KEY": "websites_settled_at"
+  },
+  "key_cases": [
+    [
+      "'https://cleanup.pictures/'",
+      "https://cleanup.pictures"
+    ],
+    [
+      "'https://cleanup.pictures'",
+      "https://cleanup.pictures"
+    ],
+    [
+      "'https://example.com/deep/path/'",
+      "https://example.com/deep/path"
+    ],
+    [
+      "'https://example.com/deep/path'",
+      "https://example.com/deep/path"
+    ],
+    [
+      "'https://example.com/p?a=1&utm_source=x'",
+      "https://example.com/p?a=1"
+    ],
+    [
+      "'https://example.com/p'",
+      "https://example.com/p"
+    ],
+    [
+      "'HTTPS://EXAMPLE.COM/Page'",
+      "https://example.com/Page"
+    ],
+    [
+      "'  https://example.com/whitespace  '",
+      "https://example.com/whitespace"
+    ],
+    [
+      "'https://example.com/trailing?'",
+      "https://example.com/trailing"
+    ],
+    [
+      "''",
+      ""
+    ],
+    [
+      "None",
+      ""
+    ],
+    [
+      "'not a url at all'",
+      "https://not a url at all"
+    ],
+    [
+      "'::::'",
+      "https://::::"
+    ],
+    [
+      "'https://'",
+      "https://"
+    ]
+  ],
+  "schema": 1,
+  "truncation": {
+    "error_bytes": 760,
+    "error_head": "ééé",
+    "error_runes": 500,
+    "error_tail": "xxx",
+    "reason_bytes": 560,
+    "reason_head": "🗑🗑",
+    "reason_runes": 200
+  }
+}

@@ -74,7 +74,25 @@ testdiff/
 │                                   # rows, prune, broken db, the
 │                                   # character-budget baseline the
 │                                   # Go byte-budget fix diverges
-│                                   # from)
+│                                   # from);
+│                                   # dump_websitestate.py →
+│                                   # internal/websitepipeline, T-23 —
+│                                   # the pure corpus (the _key
+│                                   # one-spelling boundary battery +
+│                                   # the 2×attempts backoff table +
+│                                   # the rune-truncation battery,
+│                                   # byte-stable) + the Python-created
+│                                   # website-state DB fixture as an
+│                                   # ATOMIC PAIR with its content
+│                                   # golden + the schema golden (the
+│                                   # CAST-law guard: all TEXT/INTEGER
+│                                   # columns) + the behavior golden
+│                                   # (the healing matrix, both
+│                                   # settlements, and the due_retries
+│                                   # battery at an injected fixed now
+│                                   # — incl. the aware-datetime
+│                                   # TypeError→due quirk and the
+│                                   # rot-proof default-now probe)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

@@ -1,0 +1,122 @@
+{
+  "probes": {
+    "due_retries_default_now": [
+      "https://alwaysoverdue.example",
+      "https://aware.example",
+      "https://broken.example"
+    ],
+    "due_retries_fixed_now": [
+      "https://aware.example",
+      "https://boundary.example",
+      "https://dateonly.example",
+      "https://due.example",
+      "https://garbage.example"
+    ],
+    "healing": {
+      "dismissed_rows": [
+        [
+          "https://cleanup.pictures",
+          "r2",
+          "2026-10-06"
+        ]
+      ],
+      "first_report": {
+        "merged": 4,
+        "rekeyed": 4
+      },
+      "processed_rows": [
+        [
+          "https://cleanup.pictures",
+          "Cleanup Pictures.md"
+        ]
+      ],
+      "retry_rows": [
+        [
+          "https://cleanup.pictures",
+          3
+        ]
+      ],
+      "second_report": {
+        "merged": 0,
+        "rekeyed": 0
+      },
+      "settled_rows": [
+        [
+          "https://cleanup.pictures",
+          "2026-10-06"
+        ]
+      ]
+    },
+    "healing_canonical_only": {
+      "merged": 0,
+      "rekeyed": 0
+    },
+    "healing_noop": {
+      "merged": 0,
+      "rekeyed": 0
+    },
+    "settle_existing": {
+      "due_after": [
+        "https://new.example"
+      ],
+      "first": {
+        "already": false,
+        "retries_cleared": 1,
+        "settled": 3
+      },
+      "meta_stamped": true,
+      "new_row_settled": false,
+      "queue_after": [
+        "https://new.example"
+      ],
+      "second_after_new_rows": {
+        "already": true,
+        "retries_cleared": 0,
+        "settled": 0
+      },
+      "settled_count": 3,
+      "third_with_extras": {
+        "already": true,
+        "retries_cleared": 0,
+        "settled": 0
+      }
+    },
+    "settle_queue_history": {
+      "first": {
+        "already": false,
+        "settled": 2
+      },
+      "later_settled": false,
+      "meta_stamped": true,
+      "queue_after": [
+        "https://fresh-failure.example",
+        "https://qh.example"
+      ],
+      "second": {
+        "already": true,
+        "settled": 0
+      },
+      "settled_one_spelling_count": 2,
+      "third_after_refailure": {
+        "already": true,
+        "settled": 0
+      }
+    },
+    "settle_queue_history_count_honesty": {
+      "is_settled": true,
+      "report": {
+        "already": false,
+        "settled": 0
+      },
+      "settled_count": 1
+    },
+    "settle_queue_history_empty": {
+      "report": {
+        "already": false,
+        "settled": 0
+      },
+      "settled_count": 0
+    }
+  },
+  "schema": 1
+}

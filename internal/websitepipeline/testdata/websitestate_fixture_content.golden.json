@@ -1,0 +1,253 @@
+{
+  "fixture_sha256": "e8895d9afb2cbd1363a0866ad111920cd79d82d300d001a915725c2912e156f6",
+  "getters": {
+    "all_retry_rows_count": 2,
+    "all_retry_rows_urls": [
+      "https://retry.example",
+      "https://burned.example"
+    ],
+    "burned_after_reset_attempts": 0,
+    "dismissed_row": {
+      "dismissed_at": "2026-10-16T11:59:56",
+      "reason": "banished by owner — 🗑️ the note carried the mark",
+      "url": "https://banished.example"
+    },
+    "dismissed_rows_all": [
+      {
+        "dismissed_at": "2026-10-16T11:59:56",
+        "reason": "auto-verdict: dead (fetch failed 3x)",
+        "url": "https://auto.example"
+      },
+      {
+        "dismissed_at": "2026-10-16T11:59:56",
+        "reason": "banished by owner — 🗑️ the note carried the mark",
+        "url": "https://banished.example"
+      },
+      {
+        "dismissed_at": "2026-10-16T11:59:56",
+        "reason": "decommissioned by owner — graveyard table (v0.44.0)",
+        "url": "https://decom.example"
+      },
+      {
+        "dismissed_at": "2026-10-16T11:59:56",
+        "reason": "blocked domain (v0.20.0 purge)",
+        "url": "https://blocked-review.example"
+      },
+      {
+        "dismissed_at": "2026-10-16T11:59:56",
+        "reason": "blocked domain (v0.20.0 purge)",
+        "url": "https://blocked.example"
+      }
+    ],
+    "dismissed_rows_auto_prefix": [
+      {
+        "dismissed_at": "2026-10-16T11:59:56",
+        "reason": "auto-verdict: dead (fetch failed 3x)",
+        "url": "https://auto.example"
+      }
+    ],
+    "due_retries_fixed_now": [
+      "https://retry.example",
+      "https://burned.example"
+    ],
+    "forget_failed_probes": [
+      true,
+      false,
+      false
+    ],
+    "forget_row_probe": true,
+    "is_dismissed": {
+      "https://auto.example/": true,
+      "https://gone.example/": false
+    },
+    "is_processed": {
+      "https://absent.example/": false,
+      "https://c.example/page?utm=x": true,
+      "https://cleanup.pictures": true,
+      "https://hand.example/": false
+    },
+    "is_settled": false,
+    "meta": {
+      "absent": null,
+      "get": "2026-10-01T00:00:00"
+    },
+    "processed_row": {
+      "https://absent.example/": null,
+      "https://cleanup.pictures": {
+        "category": "Design",
+        "fetch_status": "full",
+        "note_path": "/vault/Design/Assets/cleanup.md",
+        "processed_at": "2026-10-16T11:59:56",
+        "subcategory": "Assets",
+        "url": "https://cleanup.pictures"
+      }
+    },
+    "purge_again": {
+      "dismissed": 0,
+      "placeholders": [],
+      "retries": 0
+    },
+    "purge_report": {
+      "dismissed": 2,
+      "placeholders": [
+        [
+          "https://blocked-review.example",
+          "/vault/_review/blocked.md"
+        ]
+      ],
+      "retries": 1
+    },
+    "rearm_count": 2,
+    "reset_probe": true,
+    "retry_row": {
+      "https://absent.example/": null,
+      "https://burned.example/": {
+        "attempts": 0,
+        "first_failed_at": "2026-10-16T11:59:56",
+        "last_error": "e3",
+        "last_failed_at": "2026-10-16T11:59:56",
+        "next_attempt_at": "2026-10-16T11:59:56",
+        "url": "https://burned.example"
+      },
+      "https://retry.example/": {
+        "attempts": 0,
+        "first_failed_at": "2026-10-16T11:59:56",
+        "last_error": "HTTP 503 second",
+        "last_failed_at": "2026-10-16T11:59:56",
+        "next_attempt_at": "2026-10-16T11:59:56",
+        "url": "https://retry.example"
+      }
+    },
+    "settled_count": 0,
+    "undismiss_probes": [
+      true,
+      false
+    ]
+  },
+  "no_sidecars_after_close": true,
+  "pragmas_through_reference": {
+    "busy_timeout": 30000,
+    "journal_mode": "delete",
+    "synchronous": 2
+  },
+  "schema": 1,
+  "tables": {
+    "dismissed_urls": {
+      "columns": [
+        "url",
+        "reason",
+        "dismissed_at"
+      ],
+      "rows": [
+        [
+          "https://auto.example",
+          "auto-verdict: dead (fetch failed 3x)",
+          "2026-10-16T11:59:56"
+        ],
+        [
+          "https://banished.example",
+          "banished by owner — 🗑️ the note carried the mark",
+          "2026-10-16T11:59:56"
+        ],
+        [
+          "https://blocked-review.example",
+          "blocked domain (v0.20.0 purge)",
+          "2026-10-16T11:59:56"
+        ],
+        [
+          "https://blocked.example",
+          "blocked domain (v0.20.0 purge)",
+          "2026-10-16T11:59:56"
+        ],
+        [
+          "https://decom.example",
+          "decommissioned by owner — graveyard table (v0.44.0)",
+          "2026-10-16T11:59:56"
+        ]
+      ]
+    },
+    "website_retry_queue": {
+      "columns": [
+        "url",
+        "attempts",
+        "last_error",
+        "next_attempt_at",
+        "first_failed_at",
+        "last_failed_at"
+      ],
+      "rows": [
+        [
+          "https://burned.example",
+          0,
+          "e3",
+          "2026-10-16T11:59:56",
+          "2026-10-16T11:59:56",
+          "2026-10-16T11:59:56"
+        ],
+        [
+          "https://retry.example",
+          0,
+          "HTTP 503 second",
+          "2026-10-16T11:59:56",
+          "2026-10-16T11:59:56",
+          "2026-10-16T11:59:56"
+        ]
+      ]
+    },
+    "website_state_meta": {
+      "columns": [
+        "key",
+        "value"
+      ],
+      "rows": [
+        [
+          "proxy_epoch",
+          "2026-10-01T00:00:00"
+        ]
+      ]
+    },
+    "websites_processed": {
+      "columns": [
+        "url",
+        "note_path",
+        "category",
+        "subcategory",
+        "fetch_status",
+        "processed_at"
+      ],
+      "rows": [
+        [
+          "https://blocked-real.example",
+          "/vault/Design/real.md",
+          "Design",
+          "",
+          "full",
+          "2026-10-16T11:59:56"
+        ],
+        [
+          "https://c.example/page",
+          "/vault/Tools/Scraping/c.md",
+          "Tools",
+          "Scraping",
+          "partial",
+          "2026-10-16T11:59:56"
+        ],
+        [
+          "https://cleanup.pictures",
+          "/vault/Design/Assets/cleanup.md",
+          "Design",
+          "Assets",
+          "full",
+          "2026-10-16T11:59:56"
+        ]
+      ]
+    },
+    "websites_settled": {
+      "columns": [
+        "url",
+        "settled_at"
+      ],
+      "rows": []
+    }
+  }
+}
