@@ -177,6 +177,14 @@ func llamaCppLimitsLine(limits *LlamaCppLimits) string {
 	return strings.Join(bits, " · ")
 }
 
+// LlamaCppLimitsLine is the exported seam for the battery's
+// Test-Connection line (connection_check.check_llamacpp's
+// _llm._llamacpp_limits_line call — T-33). Same law: "" when the
+// server said nothing worth saying.
+func LlamaCppLimitsLine(limits *LlamaCppLimits) string {
+	return llamaCppLimitsLine(limits)
+}
+
 // modelsFingerprint checks the llama.cpp fingerprints on a /v1/models
 // response (used ONLY when /props did not identify the server): the
 // Server header ('server-header'), owned_by ('owned_by'), or a .gguf

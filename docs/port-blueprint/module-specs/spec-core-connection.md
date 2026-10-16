@@ -79,3 +79,19 @@
 Port `test_connection` (73) + `test_netguard` (56) selections: result shapes, masked phone,
 version compare (older/newer), summarize headlines, offline verdict transitions, any-answer-
 is-online law, proxy states, verify_ssl split.
+
+- **Dated note (2026-10-16, SESSION-014 / T-33 landed):** the selections actually
+  ported are the CORE-module classes; with the Telegram section dropped (the banner
+  above), its test classes fall away too — `TestTelegramLocal` (the masked-phone rows)
+  and `TestTelegramLiveResult` are NOT ported (no session file, no proxy probe, no
+  login ever happens in the Go app). The GUI-wiring classes (`TestGuiBattery`,
+  `TestGuiWiring` in both files) belong to the GUI phase (Phase 5+); the CLI classes
+  (`TestCli`) to the CLI phase — their source-contract asserts re-home there. The
+  landed battery: 132 Go tests — the result shapes, the short_line differential
+  (the reference's own `_short_detail` outputs, 22 cases byte-compared, generated at
+  the pinned rev), the vaults matrix, the LLM routes, the GitHub ladder with the UA
+  table from the wire, the Worker version ladder with the UA + proxy-bypass law, the
+  re-scoped battery order (Vaults/LLM/GitHub/Worker) + the re-worded headline pinned
+  exactly, the sentinel trio with the any-answer law, the offline-verdict transitions,
+  and the verify_ssl split. The net_guard wiring classes' read-only/never-writes laws
+  are pinned behaviorally (GET + no body from the wire) rather than by source grep.
