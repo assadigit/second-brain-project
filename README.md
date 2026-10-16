@@ -10,19 +10,25 @@ Option-B stamp**: the queue rides the Worker only — ADR-0004 Am.3); harness sk
 Python baselines archived; SESSION-001/002 closed. **Phase 1 CLOSED** (SESSION-003–005):
 T-10…T-17 ALL DONE with generated-golden parity — the characterization suites
 (test_core incl. prompts/usermemory, taxonomy, note formats), the import-grammar
-differential, and the byte-stable config round-trip are green. **Phase 2 OPENED**
-(SESSION-006–008, 3 of 6 tasks): T-20 `internal/store` done — modernc.org/sqlite
-v1.36.1 (the first real dependency, pinned to the go 1.22 floor), the ADR-0003 DSN
-pragmas verified, the naive/UTC timestamp helpers, the deferred shadow-cache sqlite
-assertions landed, and **ADR-0003 Am.1's CAST read law**; T-21 `internal/notestate`
-done — the §4.4 moves-as-corrections engine (55-test suite; the Python-created
-fixture opens byte-exact); **T-22 `internal/notereads` done (SESSION-008) — v0.71.0
-THE ONE-OPEN LAW: the RAM text layer (byte-budget FIFO — the documented fix) + the
-persisted parse layer (parse-version 4, the banish grammar, the hand-rolled
-Python-shape row-JSON writer pinned byte-for-byte, the stars-fix regression), the
-second scan of unchanged notes opens NOTHING (reference-counted: opens 4→0, db_hits
-6). 313 tests race-clean.**
-Next: T-23 websitepipeline/state per the roadmap's strict order.
+differential, and the byte-stable config round-trip are green. **Phase 2 CLOSED
+(SESSION-006–010; all six tasks)**: T-20 `internal/store` (modernc.org/sqlite
+v1.36.1 pinned to the go 1.22 floor; the ADR-0003 DSN pragmas; **ADR-0003 Am.1's
+CAST read law**); T-21 `internal/notestate` (the §4.4 moves-as-corrections engine;
++ the SESSION-008 CRLF fingerprint fidelity fix); T-22 `internal/notereads` (v0.71.0
+THE ONE-OPEN LAW — the second scan of unchanged notes opens NOTHING:
+reference-counted opens 4→0, db_hits 6); **T-23 `internal/websitepipeline/state`
+(SESSION-010) — WebsiteStateDB: THE ONE SPELLING boundary, the 2×attempts backoff,
+both settlements, the v0.64.0 healing pass; T-24 `internal/store/repos.go` —
+CacheDB: the retry queue's no-stacking/normalized-key laws, THE SETTLED REPOS
+LEDGER + the ♻️ revive door, the fail-closed record_404, the open-time migrations
+(and the CAST read law GENUINELY LIVE on the TIMESTAMP-declared columns);
+T-25 `internal/batch` — LinkTracker (the 5-phase manifest with FULL ACCOUNTING +
+the json.dump(indent=2) byte-parity writer) + VaultIndex (the reconciliation
+ground truth: skip sets, the 4000-char read, the site-map gates). SESSION-009's
+T-23/T-24 were lost at an environment wipe while push-pending — re-ported
+independently in SESSION-010, which now pushes after every task. 425 tests
+race-clean.**
+Next: Phase 3 "Network and LLM" opens — T-30 llmclient per the roadmap's strict order.
 
 ## Map
 

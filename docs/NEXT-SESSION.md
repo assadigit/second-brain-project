@@ -10,207 +10,205 @@
   HTTP API only; gotd/td dormant in the Phase-8 register).
 - **Phase 1 CLOSED** (SESSION-003–005): the eight foundation packages
   ported with generated-golden parity (constants, links, storage+dryrun,
-  prompts, taxonomy, notebuilder, config, helpers); 225 tests at close.
-- **Phase 2 OPEN (SESSION-006/007/008; 3 of 6 tasks)**: T-20
-  `internal/store` DONE (modernc.org/sqlite **v1.36.1** pinned to
-  ADR-0002's `go 1.22` floor; ADR-0003 Am.1's CAST read law), T-21
-  `internal/notestate` DONE (the §4.4 moves-as-corrections engine,
-  55-test suite + fixture acceptance), and **T-22
-  `internal/notereads` DONE (SESSION-008, commit `f322b95`) — v0.71.0
-  THE ONE-OPEN LAW: the RAM text layer (byte-budget FIFO — the documented fix) + the persisted
-  parse layer (parse-version 4, the banish grammar, the hand-rolled
-  Python-shape row-JSON writer pinned byte-for-byte, the stars-fix
-  regression); the second scan of unchanged notes opens NOTHING
-  (reference-counted: opens 4→0, db_hits 6). PLUS the T-21 CRLF
-  fingerprint fidelity fix (commit `8312848`): readHead800 now applies
-  text mode's universal-newlines translation (CRLF notes are the
-  owner's Windows reality; pinned by the crlf_file_read golden case +
-  TestReadHeadTranslatesCRLF). **314/314 tests race-clean at close.**
-  ALL THREE named Phase-2 exit-gate items are now green (fixture
-  probes, moves-as-corrections, one-open law); T-23/T-24/T-25 remain
-  to finish the phase.
-- Environment note (STANDING — proven FOUR times now): the sandbox is
-  REBUILDABLE, not persistent (full wipes at SESSION-005/006/007/008
-  starts). The SESSION-008 restore recipe that worked: GitHub API via
-  the owner's in-chat PAT (never stored — clone with `git -c
-  http.extraheader="Authorization: Basic $(printf
-  'x-access-token:%s' "$PAT" | base64)"`; the `token` scheme gets 401
-  on the git endpoint — Basic works), work repo +
-  GitCurator @ `98f4fc7` (verify against `testdiff/PINNED-GITCURATOR-REV`),
-  symlinks `/home/z/second-brain-project` and `/home/z/GitCurator`,
-  toolchain go1.27.2 → `/home/z/.local/go` (go.dev tarball), venv
-  `/home/z/venvs/gitcurator` (Python 3.12, stdlib-only). Then
-  re-verify the suite (314 green) before work. Also: verify the pin
-  itself (`git rev-parse HEAD:go.mod` — expect the v1.36.1/1.22
-  bytes; SESSION-008's check found it intact, blob
-  `6721ebb8766573ec2209e6f536755822a905cee8`).
+  prompts, taxonomy, notebuilder, config, helpers).
+- **Phase 2 CLOSED (SESSION-006–010; all six tasks)**: T-20
+  `internal/store` (modernc.org/sqlite **v1.36.1** pinned to the go
+  1.22 floor; ADR-0003 Am.1's CAST read law); T-21 `internal/notestate`
+  (the §4.4 moves-as-corrections engine; + the SESSION-008 CRLF
+  fingerprint fix); T-22 `internal/notereads` (v0.71.0 THE ONE-OPEN
+  LAW); **T-23 `internal/websitepipeline/state.go` (SESSION-010,
+  commit `0d02a15`) — WebsiteStateDB: THE ONE SPELLING boundary, the
+  2×attempts backoff, both settlements, the v0.64.0 healing pass;
+  T-24 `internal/store/repos.go` (commit `05e67d9`) — CacheDB: the
+  retry queue's laws, THE SETTLED REPOS LEDGER + the ♻️ revive door,
+  the fail-closed record_404, the open-time migrations — and the CAST
+  READ LAW GENUINELY LIVE (GetDeadURLs/GetQuarantineStats select
+  CAST(decommissioned AS TEXT)); T-25 `internal/batch`
+  (commit `901644a`) — LinkTracker (the 5-phase manifest with FULL
+  ACCOUNTING + the json.dump(indent=2) byte-parity writer) +
+  VaultIndex (the ground truth: skip sets, the 4000-char read, the
+  site-map gates)**. **425/425 tests race-clean at close; the
+  differential case status-no-config PASS; eleven golden generators.**
+- **SESSION-009's work was LOST and re-ported**: that session ended
+  push-pending and the environment wiped — the GitHub API returned 422
+  for both its commit SHAs; origin/main sat at the SESSION-008 close
+  (`df84157`). SESSION-010 re-ported T-23+T-24 independently from the
+  pinned reference and landed T-25. **The institutionalized lesson:
+  PUSH AFTER EVERY TASK** — each SESSION-010 task commit was pushed
+  the moment it landed.
+- Environment notes (STANDING — the sandbox is REBUILDABLE and now
+  proven to degrade MID-session too): full wipes at the starts of
+  SESSION-005…010, PLUS SESSION-010's mid-session event (every tracked
+  file's mode flipped 644→755 with content untouched — proven by
+  0-insertion/0-deletion diffs — and the toolchain/venv wiped while
+  the repos survived). The restore recipes: start-of-session (clone
+  via the owner's in-chat PAT with `git -c http.extraheader=
+  "Authorization: Basic $(printf 'x-access-token:%s' "$PAT" | base64)"`
+  — the Basic scheme; the token scheme gets 401; never store it),
+  GitCurator @ `98f4fc7` (verify against `testdiff/
+  PINNED-GITCURATOR-REV`), go1.27.2 → `/home/z/.local/go` (go.dev
+  tarball), venv `/home/z/venvs/gitcurator` (Python 3.12,
+  stdlib-only), symlinks `/home/z/second-brain-project` and
+  `/home/z/GitCurator`; mid-session mode-flip (`git checkout-index -f
+  -a` restores modes from the index — content stays; `git fsck` to
+  sanity-check). Verify the pin itself at every start
+  (`git rev-parse HEAD:go.mod` — expect blob
+  `6721ebb8766573ec2209e6f536755822a905cee8`, the v1.36.1/1.22
+  bytes; do NOT bump it).
 
-## 2. Next session: SESSION-009 — Phase 2 continuation (T-23, then T-24+ as capacity allows)
+## 2. Next session: SESSION-011 — Phase 3 "Network and LLM" opens (T-30 first, then strictly in order as capacity allows)
 
-- **Phase order is law** (task list doc 13): T-23
-  websitepipeline/state → T-24 store/repos → T-25
-  batch/linktracker+vaultindex. Tests FIRST, then the code; read the
-  module spec BEFORE the task; goldens GENERATED by running the
-  unmodified Python app (`testdiff/goldens/` — EIGHT generators now
-  exist; `dump_notereads.py` is the newest pattern: pure corpus +
-  DB-fixture ATOMIC PAIR + schema golden + **behavior golden** — the
-  reference's own probe counts, the strongest characterization shape
-  for state engines).
-- **T-23 notes** (`internal/websitepipeline/state.go`, spec
-  `spec-core-website-state.md`, effort M): port
-  `core/website_state.py`'s WebsiteStateDB (the websites vault's own
-  tables in cache.db: `websites_processed`,
-  `website_retry_queue`, `dismissed_urls`, `website_state_meta`,
-  `websites_settled`) + the retry/backoff arithmetic (2×attempts
-  days) + settle/heal. Acceptance (task list row): backoff arithmetic
-  tests (2×attempts days); settle/heal passes. Standing laws carry
-  (the CAST read law — CHECK the schema golden for any
-  timestamp-DECLARED column, unlike note_state/note_reads this one
-  may genuinely need the CAST; timestamps through
-  `store.PyISOFormatSeconds` per the table's Python shape;
-  `store.Open` + embedded RWMutex, not reentrant; collect rows before
-  nested statements; the dry-run seam at call sites).
-- **T-22's reusable patterns for T-23**: the behavior-golden probe
-  convention (run the reference's own methods over a scratch vault,
-  record counts/values only — no per-run facts); the
-  pragma-through-the-reference's-own-open rule (a bare
-  `sqlite3.connect` reports Python's 5000 busy_timeout default, NOT
-  the reference's 30000 — probe through the reference's own
-  connection); `helpers.PyNewlines` + `helpers.DecodeUTF8Replace` for
-  any text-mode file reads; the hand-rolled Python-shape JSON writer
-  pattern if any column carries JSON.
-- **Exit gate (Phase 2 overall)**: the three named items are green;
-  finishing T-23+T-24+T-25 closes the phase (fixture probes for the
-  remaining stores, backoff arithmetic, accounting tests).
+- **Phase order is law** (task list doc 13): T-30 llmclient → T-31
+  webfetch → T-32 webextract → T-33 connectioncheck → T-34
+  workerclient. Tests FIRST, then the code; read the module spec
+  BEFORE the task; goldens GENERATED by running the unmodified Python
+  app (`testdiff/goldens/` — eleven generators; `dump_linktracker.py`
+  is the newest pattern: pure corpus + behavior probes with
+  per-run-fact hygiene + the PyQt6 icons stub for gui modules).
+- **T-30 notes** (`internal/llmclient`, spec `spec-core-llm-client`,
+  effort L): port `core/llm_client.py` — the three providers (Ollama
+  HTTP, OpenAI-compatible, Anthropic), the JSON-mode memoized retry,
+  `extract_json`, the detection probes, the llama.cpp /props grab, the
+  autodetect policy. Acceptance (task list row): fake-server payload
+  goldens; `test_detectset`-equivalent; `test_llamacpp`-equivalent.
+  The fake-server rig runs the REAL HTTP shape against a local
+  net/http listener — no external network, no new dependencies (the
+  stdlib is the whole point; doc 06 §2's line).
+- **T-31 is XL** (webfetch: the routes/ladder/limiter/caps/DoH/wayback
+  machine) — it deserves its own session; do not start it with
+  leftover capacity. T-32 (webextract, S) is the natural
+  second-slice candidate if T-30 lands with capacity remaining.
+- Standing port laws carry: THE CAST READ LAW (ADR-0003 Am.1) for any
+  store-adjacent column; `store.PyISOFormat*` for timestamp writes;
+  atomic saves; the dry-run seam at call sites; rows collected before
+  nested statements; tests never weakened; reality wins over specs
+  (fix the spec in the same commit).
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-008.md` — the most recent report (the T-22
-   evidence, the CRLF fidelity fix, the fourth environment rebuild,
-   the generator-design lessons).
-2. `docs/port-blueprint/12-migration-roadmap.md` §Phase 2.
-3. `docs/port-blueprint/13-implementation-task-list.md` — T-23…T-25
+1. `docs/sessions/SESSION-010.md` — the most recent report (the
+   Phase-2 close evidence, the SESSION-009 loss + re-port, the
+   mid-session environment event and its repair, the generator
+   lessons).
+2. `docs/port-blueprint/12-migration-roadmap.md` §Phase 3.
+3. `docs/port-blueprint/13-implementation-task-list.md` — T-30…T-34
    rows.
-4. `docs/port-blueprint/decisions/0003-sqlite-strategy.md` — Am.1 in
-   full (the CAST read law + the version pin).
-5. `docs/port-blueprint/module-specs/spec-core-website-state.md` —
-   BEFORE T-23's code (then `spec-gui-cache-db.md` before T-24/T-25).
-6. Working examples to imitate: `internal/notereads` (T-22 — the
-   NEWEST pattern: the behavior golden + the row-JSON byte-parity
-   writer + the bounded readBounded), `internal/notestate` (T-21 +
-   the SESSION-008 CRLF fix), `internal/store` (T-20), and the
-   earlier T-10…T-17 packages; generators: `testdiff/goldens/*.py`
-   (all eight; `dump_notereads.py` for the newest patterns).
+4. `docs/port-blueprint/module-specs/spec-core-llm-client.md` — BEFORE
+   T-30's code.
+5. Working examples to imitate: `internal/batch` + `internal/store/
+   repos.go` + `internal/websitepipeline/state.go` (SESSION-010's
+   ports — the newest patterns: the byte-parity JSON writer, the
+   behavior-golden discipline, the env-steered probes); generators:
+   `testdiff/goldens/*.py` (all eleven; `dump_linktracker.py` and
+   `dump_cacherepos.py` for the newest shapes).
+6. `docs/port-blueprint/decisions/0006-network-stack.md` — the
+   TLS-impersonation verdict (tls-client pinned; the stdlib-first
+   ladder) that T-31 must honor; read it before T-31, skim at T-30.
 
-## 4. Known constraints / owner actions for SESSION-009
+## 4. Known constraints / owner actions for SESSION-011
 
 - **Single-writer law**: the fresh session is the ONLY writer; the
   overseer chat records decisions and audits — it does not implement.
 - Python reference: `assadigit/GitCurator` @ `98f4fc7` — **read-only**;
-  if a sandbox reset wiped the clone (see §1), re-clone from the owner's
-  PAT (ask for it when not in chat context — never store it; the
-  Basic-header clone recipe is in §1), verify `git -C <clone> rev-parse
-  HEAD` against `testdiff/PINNED-GITCURATOR-REV`; goldens are GENERATED
-  by running its unmodified code; the repo must stay pristine
-  (`PYTHONDONTWRITEBYTECODE=1` is set by the generators).
+  if a sandbox reset wiped the clone (see §1), re-clone from the
+  owner's PAT (ask for it when not in chat context — never store it;
+  the Basic-header clone recipe is in §1), verify `git -C <clone>
+  rev-parse HEAD` against `testdiff/PINNED-GITCURATOR-REV`; goldens
+  are GENERATED by running its unmodified code; the repo must stay
+  pristine (`PYTHONDONTWRITEBYTECODE=1` is set by the generators).
 - **Dependency law**: modernc.org/sqlite is pinned at **v1.36.1**
   deliberately (the go 1.22 floor, ADR-0002; v1.36.2+ need go ≥ 1.23).
-  Do NOT `go get -u` it; any dependency change needs a new ADR. VERIFY
-  THE PIN at session start (`git rev-parse HEAD:go.mod` or grep
-  go.mod) — SESSION-006 proved a session's own close report can claim
-  a revert that never landed; SESSION-007 proved hash-level
-  verification catches it; SESSION-008 verified it intact (blob
-  `6721ebb8…`).
-- Standing: no new dependencies beyond doc 06 §2 without a new ADR;
-  secrets / owner data never in git; tests never weakened; reality wins
-  over specs (fix the spec in the same commit); surface blockers with
-  evidence (hash-level, not display — the display channel eats `[m`
-  bytes: SESSION-008 re-proved it live on the CI workflow's
-  `branches: [main]` line; only blob hashes and `od -c` are truth).
-- Small known audit item (non-blocking, from SESSION-008): the
-  note_state SURGERY path's CRLF behavior (apply_corrections'
-  read/rewrite of note files — Python reads CRLF→LF in text mode and,
-  on Windows, writes LF→CRLF back; the Go surgery reads/writes raw).
-  The read-side fingerprint is FIXED and pinned; the surgery-side
-  round-trip deserves a CRLF differential case in a later session
-  (Phase 3+ or when the surgery surfaces again).
-- Deferred items on the books (not blockers): the VaultIndex
-  missing-repo test leg (T-25); the Windows live legs (syscall
-  Known-Folder, ntpath, pySplitExt caveats) — Phase 7 clean-machine
-  checklist.
-- Optional owner action (non-blocking, any session): a Windows VM
-  without WebView2 for the T-70 bootstrapper leg.
+  Do NOT `go get -u` it; any dependency change needs a new ADR.
+  VERIFY THE PIN at session start (`git rev-parse HEAD:go.mod` or
+  grep go.mod). Phase 3's stores-free packages should need NO new
+  dependencies — the network stack rides the stdlib + the pinned
+  tls-client at T-31 (ADR-0006 already authorizes it; check doc 06 §2
+  for the exact pin before `go get`).
+- Standing: secrets / owner data never in git; tests never weakened;
+  reality wins over specs (fix the spec in the same commit); surface
+  blockers with evidence (hash-level, not display — the display
+  channel eats bytes; only blob hashes and `od -c` are truth).
+- **Push after every task** (the SESSION-009/010 lesson): commit and
+  push each task the moment its battery is green; never let a session
+  end push-pending.
+- Deferred items on the books (not blockers): the note_state SURGERY
+  path's CRLF round-trip differential (Phase 3+); the Windows live
+  legs (Phase 7 clean-machine checklist); a Windows VM without
+  WebView2 for T-70 (optional, non-blocking).
 
-## 5. THE PROMPT TO COPY (SESSION-009)
+## 5. THE PROMPT TO COPY (SESSION-011)
 
 ```
-You are starting SESSION-009 of the second-brain-project — the multi-session Go
+You are starting SESSION-011 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
 code alongside you. You are the single writer on the repo.
 
-1. The environment is REBUILDABLE, not persistent (proven by full wipes at the
-   starts of SESSION-005, SESSION-006, SESSION-007 and SESSION-008). FIRST
-   verify with evidence: work repo at /home/z/my-project/second-brain-project
+1. The environment is REBUILDABLE, not persistent (full wipes at the starts of
+   SESSION-005 through SESSION-010, plus a MID-session degradation in
+   SESSION-010: every tracked file's mode flipped 644→755 with content
+   untouched, and the toolchain/venv were wiped while the repos survived).
+   FIRST verify with evidence: work repo at /home/z/my-project/second-brain-project
    (symlinked /home/z/second-brain-project), read-only reference
    /home/z/my-project/GitCurator @ 98f4fc7 (symlinked /home/z/GitCurator; must
    match testdiff/PINNED-GITCURATOR-REV), toolchain go1.27.2 → /home/z/.local/go,
-   venv /home/z/venvs/gitcurator (Python 3.12, stdlib-only) per
-   build/TOOLCHAIN.md, and modernc.org/sqlite pinned at v1.36.1 in go.mod with
-   the go 1.22 floor (verify the go.mod CONTENT — `git rev-parse HEAD:go.mod`
-   or grep; at SESSION-008's close the blob was 6721ebb8766573ec2209e6f536755822a905cee8,
-   the v1.36.1/1.22 bytes; do not upgrade it). If a clone is genuinely missing,
-   I will re-authorize access — surface it with evidence (blob/rev hashes, not
-   shell display — the display channel eats bytes; SESSION-008 re-proved it on
-   the CI workflow's branches line) instead of improvising. Never store the
-   GitHub PAT; when cloning needs it, pass it ephemerally via
-   git -c http.extraheader="Authorization: Basic $(printf 'x-access-token:%s' "$PAT" | base64)"
-   (the Basic scheme — the token scheme gets 401 on the git endpoint).
+   venv /home/z/venvs/gitcurator (Python 3.12, stdlib-only) per build/TOOLCHAIN.md,
+   and modernc.org/sqlite pinned at v1.36.1 in go.mod with the go 1.22 floor
+   (verify the go.mod CONTENT — `git rev-parse HEAD:go.mod` or grep; at
+   SESSION-010's close the blob was 6721ebb8766573ec2209e6f536755822a905cee8,
+   the v1.36.1/1.22 bytes; do not upgrade it). Then check `git status` and
+   `git log --oneline -5`: SESSION-010 closed Phase 2 (T-25 = commit 901644a;
+   the tree must be clean and origin/main at 901644a). If anything is missing,
+   rebuild per docs/NEXT-SESSION.md §1 (clone via the PAT I give you when you
+   ask — pass it ephemerally with git -c http.extraheader="Authorization: Basic
+   $(printf 'x-access-token:%s' "$PAT" | base64)", the Basic scheme; never
+   store it; a mid-session mode-flip is repaired with `git checkout-index -f
+   -a` after `git fsck`) and re-verify the suite (425 green) before work.
+   PUSH AFTER EVERY TASK this session — SESSION-009's work was lost precisely
+   because it ended push-pending.
 
 2. Read, in order: the repo README.md → docs/SESSION-PROTOCOL.md (the working
-   law) → docs/NEXT-SESSION.md (your state card — §1 records the Phase 2 state
-   with T-20+T-21+T-22 done, 314 tests race-clean, the T-21 CRLF fidelity fix,
-   and the fourth-rebuild recipe) → docs/sessions/SESSION-008.md (the most
+   law) → docs/NEXT-SESSION.md (your state card — §1 records the Phase 2 CLOSE
+   with T-20…T-25 done, 425 tests race-clean, the SESSION-009 loss + re-port
+   story, and the environment recipes) → docs/sessions/SESSION-010.md (the most
    recent report).
 
-3. Continue Phase 2 "Stores and state engines" per
-   docs/port-blueprint/12-migration-roadmap.md: T-23 first
-   (internal/websitepipeline/state.go: port core/website_state.py —
-   WebsiteStateDB (websites_processed / website_retry_queue / dismissed_urls /
-   website_state_meta / websites_settled in cache.db) + the retry/backoff
-   arithmetic (2×attempts days) + settle/heal), then T-24 store/repos → T-25
-   batch/linktracker+vaultindex, strictly in order as capacity allows. Port
-   the Python characterization tests FIRST (the website_state suite for T-23),
-   then the code; read each package's module spec BEFORE its task; generate
-   goldens by running the unmodified Python app (testdiff/goldens/ — eight
-   generators exist; dump_notereads.py is the newest pattern incl. the
-   behavior-golden probe convention, the DB-fixture ATOMIC PAIR, and the
-   schema golden as the CAST-law guard — CHECK the website_state schema for
-   timestamp-DECLARED columns: unlike note_state/note_reads it may genuinely
-   need the CAST). Standing port laws for every store task: THE CAST READ LAW
-   (ADR-0003 Am.1 — every timestamp-DECLARED column selected through
-   CAST(col AS TEXT); TEXT-declared columns read raw, and the generated schema
-   golden is the guard; write timestamps via store.PyISOFormatSeconds /
-   PyISOFormat per the table's Python shape), the store plumbing (store.Open +
-   embedded RWMutex, not reentrant; collect rows before nested statements),
-   and the dry-run seam at call sites. T-22's reusable patterns and the
-   pragma-probe lesson are in NEXT-SESSION.md §2.
+3. OPEN Phase 3 "Network and LLM" per docs/port-blueprint/12-migration-roadmap.md:
+   T-30 first — internal/llmclient (port core/llm_client.py: the three
+   providers — Ollama HTTP, OpenAI-compatible, Anthropic — the JSON-mode
+   memoized retry, extract_json, the detection probes, the llama.cpp /props
+   grab, the autodetect policy; spec-core-llm-client.md is the contract —
+   read it BEFORE the code). Port the Python characterization tests
+   FIRST, then the code; generate goldens by running the unmodified Python app
+   (testdiff/goldens/ — eleven generators exist; dump_linktracker.py is the
+   newest pattern: pure corpus + behavior probes, per-run-fact hygiene, the
+   PyQt6 icons stub for gui modules). The acceptance: fake-server payload
+   goldens (a real local net/http listener — stdlib only, no new dependencies
+   without an ADR); test_detectset-equivalent; test_llamacpp-equivalent. T-31
+   (webfetch, XL) deserves its own session — do not start it with leftover
+   capacity; T-32 (webextract, S) is the natural second slice if T-30 lands
+   early. Standing port laws carry: the CAST read law where store-adjacent
+   columns appear, store.PyISOFormat* timestamp shapes, atomic saves, the
+   dry-run seam at call sites, rows collected before nested statements, no
+   per-run facts in goldens.
 
 4. Standing laws: reality wins over specs (fix the spec in the same commit);
    tests are never weakened; no secrets or owner data in git; no new
    dependencies without an ADR (modernc.org/sqlite v1.36.1 is already
-   authorized and pinned — do not bump it); surface blockers with evidence
-   (hash-level, not display) instead of improvising past them.
+   authorized and pinned — do not bump it; Phase 3 rides the stdlib except
+   T-31's tls-client, already authorized by ADR-0006 — check doc 06 §2 for
+   the pin); surface blockers with evidence (hash-level, not display) instead
+   of improvising past them.
 
-5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation, commit
-   + push everything (ask me for the GitHub PAT if it is not already
-   available — never store it anywhere), write docs/sessions/SESSION-009.md,
-   rewrite docs/NEXT-SESSION.md with the next session's prompt, and end your
-   reply with a plain-language report plus the prompt I should copy to start
-   SESSION-010.
+5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (Phase 3's
+   exit gate is fake-server contract tests green — T-30's payload goldens are
+   its first stone), commit + push everything (ask me for the GitHub PAT if it
+   is not already available — never store it anywhere), write
+   docs/sessions/SESSION-011.md, rewrite docs/NEXT-SESSION.md with the next
+   session's prompt, and end your reply with a plain-language report plus the
+   prompt I should copy to start SESSION-012.
 
-Do not attempt to finish the whole phase in one session — a clean slice per
-session, done properly, with proof; close cleanly at a natural boundary when
-capacity runs out.
+One task done properly with proof beats two half-done; close cleanly at a
+natural boundary when capacity runs out.
 ```
