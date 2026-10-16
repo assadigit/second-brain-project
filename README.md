@@ -28,7 +28,15 @@ ground truth: skip sets, the 4000-char read, the site-map gates). SESSION-009's
 T-23/T-24 were lost at an environment wipe while push-pending — re-ported
 independently in SESSION-010, which now pushes after every task. 425 tests
 race-clean.**
-Next: Phase 3 "Network and LLM" opens — T-30 llmclient per the roadmap's strict order.
+**Phase 3 OPEN (SESSION-011)**: T-30 `internal/llmclient` landed (commit
+`f2073b5`) — the three providers on Python-json.dumps-identical wire
+bytes (the payload goldens), the JSON-mode memoized 400-fallback,
+extract_json, the llama.cpp detection engine + the /props grab, the
+autodetect policy; 556 tests race-clean; the twelfth golden generator.
+Next: T-31 webfetch (its own session per the roadmap), then T-32
+webextract — with the T-32 dependency-law question surfaced for the
+owner (spec-core-web-extract names golang.org/x/net/html; the no-new-
+dependencies law requires an ADR or a hand-rolled parser port).
 
 ## Map
 
