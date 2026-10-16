@@ -41,10 +41,18 @@ decompression, the failure taxonomy, the DoH verdicts, the dead-page
 rescue + the Wayback courtesy, and the tls-client impersonation door
 (ships armed); 676 tests race-clean; the thirteenth golden generator;
 the go directive rides tls-client's floor (1.24.1 — ADR-0002 Am.2
-records the correction; sqlite stays v1.36.1)**. Next: T-32
-webextract (awaiting the owner's x/net/html verdict — the module is
-already in the graph), then T-33 connectioncheck, T-34 workerclient
-(the gate's last stone).
+records the correction; sqlite stays v1.36.1)**; and **T-32
+`internal/webextract` landed (commit `833b21b`; SESSION-013) — the
+HTML extraction port on the HAND-ROLLED CPython-3.12 html.parser
+tokenizer (option b: the owner's x/net/html verdict never arrived, so
+zero new imports — the swap stays one ADR away), the _PageParser
+laws, the js-shell/paywall heuristics, the charset ladder with four
+GENERATED data tables embedded (entities, single-byte charsets,
+cp949, DBCS acceptance bitmaps — from the reference runtime's own
+stdlib, sha-pinned by the golden); 713 tests race-clean; the
+fourteenth golden generator; the goldens caught five real divergences
+before landing**. Next: T-33 connectioncheck + the sentinel, then
+T-34 workerclient (the gate's last stone).
 
 ## Map
 
