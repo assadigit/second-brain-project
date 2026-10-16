@@ -160,6 +160,36 @@ testdiff/
 │                                   # over-budget warnings — per-run
 │                                   # ports normalized to
 │                                   # <ROOT>/<API>/<DEADURL>)
+│                                   #
+│                                   # dump_webfetch.py →
+│                                   # internal/webfetch, T-31 — the
+│                                   # THIRTEENTH generator: the pure
+│                                   # corpus (constants, the proxy
+│                                   # config contract, the Chrome-131
+│                                   # header set WITH ORDER, the
+│                                   # verdict table, Retry-After, the
+│                                   # URL variants, decompression,
+│                                   # decode, penalties, the
+│                                   # TLS/DNS marker matrices), THE
+│                                   # PAYLOAD GOLDENS (the exact wire
+│                                   # requests: the plain fetch's
+│                                   # header set, the redirect chain
+│                                   # with hop cookies + the Referer
+│                                   # law LIVE, the custom UA, the DoH
+│                                   # probe, the Wayback availability
+│                                   # probe, the http-proxy absolute
+│                                   # URI), and the behavior golden
+│                                   # (the redirect truth, the phase-2
+│                                   # battery, DoH verdicts, the
+│                                   # rescue ladder, rate penalties,
+│                                   # the origin-down courtesy, the
+│                                   # third door's trigger matrix +
+│                                   # verdicts + the autopip laws, the
+│                                   # both-doors table, the preflight
+│                                   # facts — per-run ports
+│                                   # normalized to
+│                                   # <ROOT>/<ROOT2>/<DOH>/<ARCHIVE>/
+│                                   # <PROXY>/<DEADPORT>)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

@@ -1,0 +1,856 @@
+{
+  "corpus": {
+    "bot_defense_hint": {
+      "cf_mitigated": "bot defense (Cloudflare: challenge)",
+      "cf_mitigated_empty": "",
+      "none": "",
+      "none_headers": "",
+      "server_akamai": "bot defense (server: akamai)",
+      "server_cloudflare": "bot defense (server: cloudflare)",
+      "server_nginx": ""
+    },
+    "combined_category": {
+      "dead_beats_blocked_bot": "dead",
+      "no_categories": "",
+      "paywalled_beats_timeout": "paywalled",
+      "proxy_error_beats_nothing": "proxy_error",
+      "redirect_broken_beats_retry": "redirect_broken",
+      "single": "retry_later"
+    },
+    "constants": {
+      "DEFAULT_DOMAIN_DELAY_S": 2.0,
+      "DEFAULT_MAX_BYTES": 2000000,
+      "DEFAULT_PROXY_HOST": "127.0.0.1",
+      "DEFAULT_PROXY_PORT": 10808,
+      "DEFAULT_PROXY_TYPE": "socks5",
+      "DEFAULT_TIMEOUT_S": 20,
+      "IMPERSONATE_TARGET": "chrome",
+      "MAX_REDIRECTS": 5,
+      "PROXY_PREFLIGHT_TIMEOUT_S": 2.5,
+      "ROUTE_REFUSAL_STATUSES": [
+        403,
+        405,
+        429,
+        451
+      ],
+      "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+      "_ARCHIVE_API": "https://archive.org/wayback/available",
+      "_ARCHIVE_MAX_BYTES": 65536,
+      "_AUTOPIP_TIMEOUT_S": 240.0,
+      "_BOT_DEFENSE_SERVERS": [
+        "cloudflare",
+        "akamai",
+        "cloudfront",
+        "fastly",
+        "imperva",
+        "incapsula",
+        "sucuri",
+        "edgecast"
+      ],
+      "_CATEGORY_PRECEDENCE": [
+        "paywalled",
+        "dead",
+        "refused",
+        "redirect_broken",
+        "blocked_bot",
+        "proxy_error",
+        "retry_later"
+      ],
+      "_CHALLENGE_WON_HINT": " — the challenge needs a live browser; the fetcher cannot solve it",
+      "_CLOUDFLARE_ORIGIN_STATUSES": {
+        "521": "web server is down",
+        "522": "connection to the origin timed out",
+        "523": "origin is unreachable",
+        "524": "timed out waiting for the origin"
+      },
+      "_DNS_FAIL_MARKERS": [
+        "getaddrinfo",
+        "name or service not known",
+        "no such host",
+        "temporary failure in name resolution",
+        "nodename nor servname",
+        "WSAHOST_NOT_FOUND",
+        "Name or service not known"
+      ],
+      "_DOH_ENDPOINT": "https://cloudflare-dns.com/dns-query",
+      "_DOH_TIMEOUT_S": 5.0,
+      "_HTML_TYPES": [
+        "text/html",
+        "application/xhtml",
+        "text/plain"
+      ],
+      "_IMP_INSTALL_HINT": " — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+      "_NO_HEAL_CATEGORIES": [
+        "dead",
+        "paywalled",
+        "refused"
+      ],
+      "_ORIGIN_ARCHIVE_TIMEOUT_S": 15.0,
+      "_PROXY_TYPES": [
+        "socks5",
+        "socks4",
+        "http"
+      ],
+      "_RATE_PENALTY_CAP_S": 300.0,
+      "_RATE_PENALTY_DEFAULT_S": 60.0,
+      "_REDIRECT_STATUSES": [
+        301,
+        302,
+        303,
+        307,
+        308
+      ],
+      "_TLS_HANDSHAKE_MARKERS": [
+        "SSLV3_ALERT_HANDSHAKE_FAILURE",
+        "alert handshake failure",
+        "handshake operation timed out",
+        "handshake timed out",
+        "UNEXPECTED_EOF_WHILE_READING",
+        "EOF occurred in violation of protocol",
+        "WRONG_VERSION_NUMBER",
+        "TLSV1_ALERT",
+        "sslv3 alert"
+      ]
+    },
+    "decode_best_effort": {
+      "bad_charset_falls_back_utf8": "plain ascii",
+      "charset_param": "Diseño",
+      "invalid_utf8_replaced": "caf�",
+      "utf8": "héllo wörld"
+    },
+    "decompress_capped": {
+      "deflate_raw_capped": {
+        "data_len": 50000,
+        "head": "raw raw raw raw ",
+        "truncated": true
+      },
+      "deflate_raw_fallback": {
+        "data_len": 80,
+        "head": "raw deflate payl",
+        "truncated": false
+      },
+      "deflate_zlib": {
+        "data_len": 88,
+        "head": "deflated content",
+        "truncated": false
+      },
+      "empty_gzip": {
+        "data_len": 0,
+        "head": "",
+        "truncated": false
+      },
+      "gzip_bomb_capped": {
+        "data_len": 50000,
+        "head": "bomb bomb bomb b",
+        "truncated": true
+      },
+      "gzip_bomb_head": {
+        "data_len": 5,
+        "head": "bomb ",
+        "truncated": false
+      },
+      "gzip_ok": {
+        "data_len": 92,
+        "head": "hello compressed",
+        "truncated": false
+      },
+      "gzip_x_gzip": {
+        "data_len": 92,
+        "head": "hello compressed",
+        "truncated": false
+      },
+      "junk_gzip": {
+        "error_class": "BadGzipFile"
+      },
+      "unsupported_brotli": {
+        "error_class": "ValueError"
+      },
+      "unsupported_identity": {
+        "error_class": "ValueError"
+      }
+    },
+    "domain_of": {
+      "empty": "",
+      "garbage": "",
+      "plain": "example.com",
+      "port": "127.0.0.1:9944"
+    },
+    "hop_headers": {
+      "bad_urls_no_referer": {
+        "headers": [
+          [
+            "Accept",
+            "text/html"
+          ],
+          [
+            "Accept-Encoding",
+            "gzip, deflate"
+          ]
+        ]
+      },
+      "cross_host_origin_only": {
+        "headers": [
+          [
+            "Accept",
+            "text/html"
+          ],
+          [
+            "Referer",
+            "https://example.org/"
+          ],
+          [
+            "Accept-Encoding",
+            "gzip, deflate"
+          ]
+        ]
+      },
+      "no_base_referer_absent": {
+        "headers": []
+      },
+      "same_host_full_url": {
+        "headers": [
+          [
+            "Accept",
+            "text/html"
+          ],
+          [
+            "Referer",
+            "https://example.org/a?q=1"
+          ],
+          [
+            "Accept-Encoding",
+            "gzip, deflate"
+          ]
+        ]
+      }
+    },
+    "http_error_verdict": {
+      "400_plain": [
+        "HTTP 400",
+        "refused",
+        null
+      ],
+      "401_plain": [
+        "HTTP 401 — authorization required (the page is private; credentials the fetcher does not have)",
+        "refused",
+        null
+      ],
+      "402_plain": [
+        "HTTP 402 — paywalled (payment required; the content is behind a paywall, not gone)",
+        "paywalled",
+        null
+      ],
+      "403_cf_mitigated_challenge": [
+        "HTTP 403 — bot defense (Cloudflare: challenge)",
+        "blocked_bot",
+        null
+      ],
+      "403_plain": [
+        "HTTP 403 — forbidden (the server refused this client without naming a wall)",
+        "blocked_bot",
+        null
+      ],
+      "403_server_cloudflare": [
+        "HTTP 403 — bot defense (server: cloudflare)",
+        "blocked_bot",
+        null
+      ],
+      "403_server_nginx": [
+        "HTTP 403 — forbidden (the server refused this client without naming a wall)",
+        "blocked_bot",
+        null
+      ],
+      "403_server_uppercase": [
+        "HTTP 403 — bot defense (server: cloudflare)",
+        "blocked_bot",
+        null
+      ],
+      "404_plain": [
+        "HTTP 404 — the page is gone",
+        "dead",
+        null
+      ],
+      "405_plain": [
+        "HTTP 405 — method refused (the server does not allow GET here — often an API-only endpoint)",
+        "refused",
+        null
+      ],
+      "406_plain": [
+        "HTTP 406",
+        "refused",
+        null
+      ],
+      "408_plain": [
+        "HTTP 408",
+        "retry_later",
+        null
+      ],
+      "410_plain": [
+        "HTTP 410 — the page was removed",
+        "dead",
+        null
+      ],
+      "418_plain": [
+        "HTTP 418",
+        "refused",
+        null
+      ],
+      "429_cf_mitigated_challenge": [
+        "HTTP 429 — bot defense (Cloudflare: challenge)",
+        "blocked_bot",
+        null
+      ],
+      "429_plain": [
+        "HTTP 429 — rate limited (no Retry-After given; the domain limiter backs off anyway)",
+        "retry_later",
+        null
+      ],
+      "429_retry_after_120": [
+        "HTTP 429 — rate limited (Retry-After: 120s — the site asked for a pause)",
+        "retry_later",
+        120.0
+      ],
+      "429_retry_after_zero": [
+        "HTTP 429 — rate limited (Retry-After: 0s — the site asked for a pause)",
+        "retry_later",
+        0.0
+      ],
+      "429_server_cloudflare": [
+        "HTTP 429 — bot defense (server: cloudflare)",
+        "blocked_bot",
+        null
+      ],
+      "429_server_nginx": [
+        "HTTP 429 — rate limited (no Retry-After given; the domain limiter backs off anyway)",
+        "retry_later",
+        null
+      ],
+      "429_server_uppercase": [
+        "HTTP 429 — bot defense (server: cloudflare)",
+        "blocked_bot",
+        null
+      ],
+      "451_plain": [
+        "HTTP 451",
+        "refused",
+        null
+      ],
+      "500_plain": [
+        "HTTP 500",
+        "retry_later",
+        null
+      ],
+      "502_plain": [
+        "HTTP 502",
+        "retry_later",
+        null
+      ],
+      "503_plain": [
+        "HTTP 503 — service unavailable (the site is temporarily down or maintaining)",
+        "retry_later",
+        null
+      ],
+      "503_retry_after_30": [
+        "HTTP 503 — service unavailable (Retry-After: 30s)",
+        "retry_later",
+        30.0
+      ],
+      "503_retry_after_garbage": [
+        "HTTP 503 — service unavailable (the site is temporarily down or maintaining)",
+        "retry_later",
+        null
+      ],
+      "504_plain": [
+        "HTTP 504",
+        "retry_later",
+        null
+      ],
+      "520_plain": [
+        "HTTP 520",
+        "retry_later",
+        null
+      ],
+      "521_plain": [
+        "HTTP 521 — Cloudflare: the site's own server web server is down (site-side, retry later — not the fetcher's fault)",
+        "retry_later",
+        null
+      ],
+      "522_plain": [
+        "HTTP 522 — Cloudflare: the site's own server connection to the origin timed out (site-side, retry later — not the fetcher's fault)",
+        "retry_later",
+        null
+      ],
+      "523_plain": [
+        "HTTP 523 — Cloudflare: the site's own server origin is unreachable (site-side, retry later — not the fetcher's fault)",
+        "retry_later",
+        null
+      ],
+      "524_plain": [
+        "HTTP 524 — Cloudflare: the site's own server timed out waiting for the origin (site-side, retry later — not the fetcher's fault)",
+        "retry_later",
+        null
+      ],
+      "599_plain": [
+        "HTTP 599",
+        "retry_later",
+        null
+      ]
+    },
+    "is_bare_hostname": {
+      "empty": false,
+      "ipv4": false,
+      "ipv6": false,
+      "localhost": false,
+      "no_dot": false,
+      "plain": true,
+      "port": false,
+      "userinfo": false,
+      "www": true
+    },
+    "is_dns_failure": {
+      "empty": false,
+      "getaddrinfo": true,
+      "name_or_service": true,
+      "no_such_host": true,
+      "nodename": true,
+      "plain_timeout_is_not": false,
+      "refused_is_not": false,
+      "temporary_failure": true,
+      "wsahost": true
+    },
+    "is_loopback_url": {
+      "bare_localhost": true,
+      "empty": false,
+      "garbage": false,
+      "ipv4_127_0_0_1": true,
+      "ipv4_127_range": true,
+      "ipv6_loopback": true,
+      "ipv6_mapped_v4": true,
+      "localhost": true,
+      "localhost_no_scheme": true,
+      "none": false,
+      "private_not_loopback": false,
+      "public": false
+    },
+    "is_tls_handshake_failure": {
+      "alert_handshake_failure": true,
+      "case_insensitive": true,
+      "cert_verify_failed_is_not": false,
+      "empty": false,
+      "handshake_timed_out": true,
+      "none": false,
+      "owner_sslv3_line": true,
+      "plain_timeout_is_not": false,
+      "tlsv1_alert": true,
+      "unexpected_eof": true,
+      "wrong_version_number": true
+    },
+    "looks_like_pdf": {
+      "content_type_pdf": true,
+      "magic_bytes": true,
+      "octet_stream_non_pdf_url": false,
+      "octet_stream_pdf_url": true,
+      "octet_stream_pdf_url_trailing_slash": true,
+      "plain_no": false
+    },
+    "parse_retry_after": {
+      "empty": null,
+      "future_date_lt_120": true,
+      "future_date_positive": true,
+      "garbage": null,
+      "missing": null,
+      "negative_capped": 0.0,
+      "none_headers": null,
+      "past_date_zero": 0.0,
+      "seconds_0": 0.0,
+      "seconds_7": 7.0
+    },
+    "proxy_from_config": {
+      "bad_port_high": null,
+      "bad_port_negative": null,
+      "bad_port_string": null,
+      "bad_port_zero": null,
+      "bad_type": null,
+      "credentials_carried": {
+        "host": "127.0.0.1",
+        "password": "p",
+        "port": 10808,
+        "type": "socks5",
+        "username": "u"
+      },
+      "disabled": null,
+      "enabled_missing": null,
+      "enabled_truthy_string": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "http",
+        "username": ""
+      },
+      "host_blank_rejected": null,
+      "host_defaults": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "socks5",
+        "username": ""
+      },
+      "missing_block": null,
+      "none_config": null,
+      "not_a_dict_list": null,
+      "not_a_dict_string": null,
+      "port_empty_string_defaults": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "socks5",
+        "username": ""
+      },
+      "port_none_defaults": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "socks5",
+        "username": ""
+      },
+      "port_string_number": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 3128,
+        "type": "socks5",
+        "username": ""
+      },
+      "type_case_insensitive": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "socks5",
+        "username": ""
+      },
+      "type_http": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "http",
+        "username": ""
+      },
+      "type_socks4": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "socks4",
+        "username": ""
+      },
+      "type_socks5": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "socks5",
+        "username": ""
+      },
+      "use_for_web_false": null,
+      "use_for_web_missing_means_on": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "socks5",
+        "username": ""
+      },
+      "use_for_web_true": {
+        "host": "127.0.0.1",
+        "password": "",
+        "port": 10808,
+        "type": "socks5",
+        "username": ""
+      }
+    },
+    "proxy_label": {
+      "http": "HTTP p.example:3128",
+      "none": "none",
+      "socks5": "SOCKS5 127.0.0.1:10808"
+    },
+    "proxy_url_for_curl": {
+      "auth_percent_encoded": "socks5h://a%20b%2Fc:p%40ss%3Aword@h:1",
+      "bogus_type": null,
+      "empty_type": null,
+      "http": "http://h:8080",
+      "http_auth": "http://u:p@h:8080",
+      "none": null,
+      "socks4": "socks4://h:1",
+      "socks5_becomes_socks5h": "socks5h://p.example.net:10808"
+    },
+    "rate_limit_penalty": {
+      "none_result": null,
+      "not_rate_403": null,
+      "ok_result": null,
+      "ra_120": 120.0,
+      "ra_503": 30.0,
+      "ra_99999_capped": 300.0,
+      "ra_none_default": 60.0,
+      "timeout": null
+    },
+    "redirect_target": {
+      "empty": "",
+      "location": "/next",
+      "location_with_spaces": "/path%20with%20spaces/next",
+      "missing": "",
+      "none_headers": "",
+      "uri_fallback": "/next-uri"
+    },
+    "request_headers_custom_non_chrome": [
+      [
+        "Upgrade-Insecure-Requests",
+        "1"
+      ],
+      [
+        "User-Agent",
+        "GitCurator-test/0.41"
+      ],
+      [
+        "Accept",
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+      ],
+      [
+        "Sec-Fetch-Site",
+        "none"
+      ],
+      [
+        "Sec-Fetch-Mode",
+        "navigate"
+      ],
+      [
+        "Sec-Fetch-User",
+        "?1"
+      ],
+      [
+        "Sec-Fetch-Dest",
+        "document"
+      ],
+      [
+        "Accept-Encoding",
+        "gzip, deflate"
+      ],
+      [
+        "Accept-Language",
+        "en-US,en;q=0.9"
+      ]
+    ],
+    "request_headers_default": [
+      [
+        "sec-ch-ua",
+        "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+      ],
+      [
+        "sec-ch-ua-mobile",
+        "?0"
+      ],
+      [
+        "sec-ch-ua-platform",
+        "\"Windows\""
+      ],
+      [
+        "Upgrade-Insecure-Requests",
+        "1"
+      ],
+      [
+        "User-Agent",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      ],
+      [
+        "Accept",
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+      ],
+      [
+        "Sec-Fetch-Site",
+        "none"
+      ],
+      [
+        "Sec-Fetch-Mode",
+        "navigate"
+      ],
+      [
+        "Sec-Fetch-User",
+        "?1"
+      ],
+      [
+        "Sec-Fetch-Dest",
+        "document"
+      ],
+      [
+        "Accept-Encoding",
+        "gzip, deflate"
+      ],
+      [
+        "Accept-Language",
+        "en-US,en;q=0.9"
+      ]
+    ],
+    "request_headers_empty_ua_falls_back": [
+      [
+        "sec-ch-ua",
+        "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+      ],
+      [
+        "sec-ch-ua-mobile",
+        "?0"
+      ],
+      [
+        "sec-ch-ua-platform",
+        "\"Windows\""
+      ],
+      [
+        "Upgrade-Insecure-Requests",
+        "1"
+      ],
+      [
+        "User-Agent",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      ],
+      [
+        "Accept",
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+      ],
+      [
+        "Sec-Fetch-Site",
+        "none"
+      ],
+      [
+        "Sec-Fetch-Mode",
+        "navigate"
+      ],
+      [
+        "Sec-Fetch-User",
+        "?1"
+      ],
+      [
+        "Sec-Fetch-Dest",
+        "document"
+      ],
+      [
+        "Accept-Encoding",
+        "gzip, deflate"
+      ],
+      [
+        "Accept-Language",
+        "en-US,en;q=0.9"
+      ]
+    ],
+    "request_headers_firefox_drops_hints": [
+      [
+        "Upgrade-Insecure-Requests",
+        "1"
+      ],
+      [
+        "User-Agent",
+        "Mozilla/5.0 (X11; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0"
+      ],
+      [
+        "Accept",
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+      ],
+      [
+        "Sec-Fetch-Site",
+        "none"
+      ],
+      [
+        "Sec-Fetch-Mode",
+        "navigate"
+      ],
+      [
+        "Sec-Fetch-User",
+        "?1"
+      ],
+      [
+        "Sec-Fetch-Dest",
+        "document"
+      ],
+      [
+        "Accept-Encoding",
+        "gzip, deflate"
+      ],
+      [
+        "Accept-Language",
+        "en-US,en;q=0.9"
+      ]
+    ],
+    "url_variants": {
+      "bare_to_www": [
+        [
+          "trailing-slash",
+          "https://example.org/a/?q=1#f"
+        ],
+        [
+          "www",
+          "https://www.example.org/a?q=1#f"
+        ]
+      ],
+      "empty": [],
+      "ftp_none": [],
+      "ip_no_www": [
+        [
+          "trailing-slash",
+          "https://192.0.2.10/page/"
+        ]
+      ],
+      "localhost_no_www": [
+        [
+          "trailing-slash",
+          "http://localhost:8080/x/"
+        ]
+      ],
+      "no_slash_gets_slash": [
+        [
+          "trailing-slash",
+          "https://example.org/page/"
+        ],
+        [
+          "www",
+          "https://www.example.org/page"
+        ]
+      ],
+      "port_no_www": [
+        [
+          "trailing-slash",
+          "https://example.org:8443/page/"
+        ]
+      ],
+      "root_slash_only": [
+        [
+          "trailing-slash",
+          "https://example.org//"
+        ],
+        [
+          "www",
+          "https://www.example.org/"
+        ]
+      ],
+      "slash_dropped": [
+        [
+          "no-trailing-slash",
+          "https://example.org/page"
+        ],
+        [
+          "www",
+          "https://www.example.org/page/"
+        ]
+      ],
+      "userinfo_no_www": [
+        [
+          "trailing-slash",
+          "https://u@example.org/page/"
+        ]
+      ],
+      "www_to_nonwww": [
+        [
+          "trailing-slash",
+          "https://www.example.org/page/"
+        ],
+        [
+          "non-www",
+          "https://example.org/page"
+        ]
+      ]
+    }
+  },
+  "schema": 1
+}

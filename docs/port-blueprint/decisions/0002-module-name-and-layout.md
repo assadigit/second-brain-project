@@ -74,3 +74,31 @@ branded name is chosen) as the Go implementation's home.
 - **A8 is retired**: no Go tree inside GitCurator → zero interaction with `build_zip.py`.
 - A module-path rename at branding time is mechanical (`go mod edit -module` + import rewrites) —
   acceptable pre-launch.
+
+## Amendment 2 — The go directive rides tls-client's floor (2026-10-16, SESSION-012, T-31)
+
+**Status: applied with an owner-acknowledgement request** (the ADR-0006
+Am.1 precedent: proceed with the newer owner-acknowledged pin, record
+the correction, request acknowledgement).
+
+The version policy above says "Pin `go 1.22` (or newer) in `go.mod`".
+T-31 (internal/webfetch) imports `bogdanfinn/tls-client v1.16.0` — the
+impersonation door's owner-acknowledged pin (ADR-0006 Am.1+2) — into
+the main module, and that pin's own go.mod declares `go 1.24.1`, so
+the main module's directive MUST be ≥1.24.x (Go's module-graph rule;
+verified empirically: `go build` refuses, `go mod tidy` rewrites).
+
+- **Applied**: `go 1.24.1` in the main go.mod (the pin's own
+  declaration — the conservative graph-minimum choice).
+- **Unchanged**: `modernc.org/sqlite v1.36.1` exactly; our own source
+  keeps the 1.22 language floor; the build toolchain stays go1.27.2.
+- **Side effects** (all forced by the authorized pin's graph):
+  `golang.org/x/net v0.48.0` and `golang.org/x/text v0.32.0` become
+  direct requires (x/net/proxy is ADR-0006 §1's named SOCKS5 dialer;
+  x/text carries the charset ladder), `golang.org/x/sys` bumps
+  v0.30.0 → v0.39.0, plus tls-client's transitive set (fhttp, utls
+  forks, quic-go-utls, brotli, circl, … — all recorded in go.sum).
+- **The rollback path if the owner declines**: downgrade the tls-client
+  pin to a ≤go-1.22 era version (needs a re-PoC of the fingerprint
+  substitution) or drop the in-process door (contradicts ADR-0006 §4).
+  One line from the owner resolves it.

@@ -1,0 +1,808 @@
+{
+  "scenarios": {
+    "cross_host_redirect": {
+      "requests": [
+        {
+          "headers": [
+            [
+              "Host",
+              "<ROOT-RAW>"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/x-a"
+        },
+        {
+          "headers": [
+            [
+              "Host",
+              "<ROOT2-RAW>"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Referer",
+              "<ROOT>/"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/x-b"
+        }
+      ],
+      "result": {
+        "body_len": 91,
+        "category": "",
+        "charset": "utf-8",
+        "content_type": "text/html; charset=utf-8",
+        "final_url": "<ROOT2>/x-b",
+        "http_status": 200,
+        "ok": true,
+        "reason": "",
+        "retry_after_s": null,
+        "status": "full",
+        "text": "<html><head><title>Practical Typography Guide</title></head><body>the article</body></html>",
+        "url": "<ROOT>/x-a"
+      }
+    },
+    "custom_ua_drops_hints": {
+      "requests": [
+        {
+          "headers": [
+            [
+              "Host",
+              "<ROOT-RAW>"
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "GitCurator-test/0.41"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/ua"
+        }
+      ]
+    },
+    "doh_probe_request": {
+      "requests": [
+        {
+          "headers": [
+            [
+              "Accept-Encoding",
+              "identity"
+            ],
+            [
+              "Host",
+              "<DOH-RAW>"
+            ],
+            [
+              "Accept",
+              "application/dns-json"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/dns-query?name=gone.example.net&type=A"
+        }
+      ],
+      "verdict": "exists"
+    },
+    "http_proxy_absolute_uri": {
+      "requests": [
+        {
+          "headers": [
+            [
+              "Host",
+              "example.test"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "http://example.test/via-proxy"
+        },
+        {
+          "headers": [
+            [
+              "Host",
+              "example.test"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "http://example.test/via-proxy/"
+        },
+        {
+          "headers": [
+            [
+              "Host",
+              "www.example.test"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "http://www.example.test/via-proxy"
+        }
+      ],
+      "result": {
+        "body_len": 0,
+        "category": "dead",
+        "charset": "",
+        "content_type": "",
+        "final_url": "http://example.test/via-proxy",
+        "http_status": 404,
+        "ok": false,
+        "reason": "HTTP 404 — the page is gone (variants tried: trailing-slash, www; the Wayback Machine itself could not be asked)",
+        "retry_after_s": null,
+        "status": "failed",
+        "text": "",
+        "url": "http://example.test/via-proxy"
+      }
+    },
+    "plain_fetch": {
+      "requests": [
+        {
+          "headers": [
+            [
+              "Host",
+              "<ROOT-RAW>"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/article"
+        }
+      ],
+      "result": {
+        "body_len": 91,
+        "category": "",
+        "charset": "utf-8",
+        "content_type": "text/html; charset=utf-8",
+        "final_url": "<ROOT>/article",
+        "http_status": 200,
+        "ok": true,
+        "reason": "",
+        "retry_after_s": null,
+        "status": "full",
+        "text": "<html><head><title>Practical Typography Guide</title></head><body>the article</body></html>",
+        "url": "<ROOT>/article"
+      }
+    },
+    "redirect_chain": {
+      "requests": [
+        {
+          "headers": [
+            [
+              "Host",
+              "<ROOT-RAW>"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/chain-a"
+        },
+        {
+          "headers": [
+            [
+              "Cookie",
+              "hopA=1"
+            ],
+            [
+              "Host",
+              "<ROOT-RAW>"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Referer",
+              "<ROOT>/chain-a"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/chain-b"
+        },
+        {
+          "headers": [
+            [
+              "Cookie",
+              "hopA=1; hopB=2"
+            ],
+            [
+              "Host",
+              "<ROOT-RAW>"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Referer",
+              "<ROOT>/chain-b"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/chain-c"
+        }
+      ],
+      "result": {
+        "body_len": 91,
+        "category": "",
+        "charset": "utf-8",
+        "content_type": "text/html; charset=utf-8",
+        "final_url": "<ROOT>/chain-c",
+        "http_status": 200,
+        "ok": true,
+        "reason": "",
+        "retry_after_s": null,
+        "status": "full",
+        "text": "<html><head><title>Practical Typography Guide</title></head><body>the article</body></html>",
+        "url": "<ROOT>/chain-a"
+      }
+    },
+    "wayback_availability_request": {
+      "requests": [
+        {
+          "headers": [
+            [
+              "Host",
+              "<ARCHIVE-RAW>"
+            ],
+            [
+              "Sec-Ch-Ua",
+              "\"Google Chrome\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+            ],
+            [
+              "Sec-Ch-Ua-Mobile",
+              "?0"
+            ],
+            [
+              "Sec-Ch-Ua-Platform",
+              "\"Windows\""
+            ],
+            [
+              "Upgrade-Insecure-Requests",
+              "1"
+            ],
+            [
+              "User-Agent",
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+            ],
+            [
+              "Accept",
+              "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+            ],
+            [
+              "Sec-Fetch-Site",
+              "none"
+            ],
+            [
+              "Sec-Fetch-Mode",
+              "navigate"
+            ],
+            [
+              "Sec-Fetch-User",
+              "?1"
+            ],
+            [
+              "Sec-Fetch-Dest",
+              "document"
+            ],
+            [
+              "Accept-Encoding",
+              "gzip, deflate"
+            ],
+            [
+              "Accept-Language",
+              "en-US,en;q=0.9"
+            ],
+            [
+              "Connection",
+              "close"
+            ]
+          ],
+          "method": "GET",
+          "path": "/wayback/available?url=https%3A%2F%2Fpast.example.org%2Fa"
+        }
+      ],
+      "snapshot": "https://web.archive.org/web/20150601/https://past.example.org/a",
+      "timestamp": "20150601"
+    }
+  },
+  "schema": 1
+}

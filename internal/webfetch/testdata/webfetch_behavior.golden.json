@@ -1,0 +1,1206 @@
+{
+  "probes": {
+    "autopip_laws": {
+      "failed_install_keeps_hint": {
+        "pip_calls": 1,
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "HTTP 403 — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "installs_and_answers": {
+        "imp_calls": [
+          [
+            "http://walled.example.net/page",
+            null,
+            5
+          ]
+        ],
+        "pip_calls": 1,
+        "result": {
+          "body_len": 28,
+          "category": "",
+          "charset": "utf-8",
+          "content_type": "text/html; charset=utf-8",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via impersonated Chrome (curl_cffi) — the stdlib doors were walled: HTTP 403",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html><body>ok</body></html>",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "off_keeps_hint": {
+        "imp_calls": [],
+        "pip_calls": 0,
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "HTTP 403 — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "once_per_process": {
+        "pip_calls": 1
+      },
+      "resource_truth_never_installs": {
+        "pip_calls": 0
+      }
+    },
+    "both_doors": {
+      "401_truth_single_attempt": {
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 401,
+          "ok": false,
+          "reason": "HTTP 401",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        },
+        "route_calls": [
+          true
+        ]
+      },
+      "403_falls_back_and_succeeds": {
+        "result": {
+          "body_len": 23,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "https://walled.test/a",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via direct fallback (proxy path failed: HTTP 403 — bot defense (server: cloudflare))",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html>walled out</html>",
+          "url": "https://walled.test/a"
+        },
+        "route_calls": [
+          true,
+          false
+        ]
+      },
+      "404_truth_single_route_with_ladder": {
+        "all_primary": true,
+        "result": {
+          "body_len": 0,
+          "category": "dead",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 404,
+          "ok": false,
+          "reason": "HTTP 404 (variants tried: trailing-slash, www; the Wayback Machine itself could not be asked)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        },
+        "route_calls": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "405_alternates": {
+        "result": {
+          "body_len": 23,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "https://w.test/b",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via direct fallback (proxy path failed: HTTP 405)",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html>walled out</html>",
+          "url": "https://w.test/b"
+        },
+        "route_calls": [
+          true,
+          false
+        ]
+      },
+      "429_alternates": {
+        "result": {
+          "body_len": 23,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "https://w.test/c",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via direct fallback (proxy path failed: HTTP 429)",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html>walled out</html>",
+          "url": "https://w.test/c"
+        },
+        "route_calls": [
+          true,
+          false
+        ]
+      },
+      "451_alternates": {
+        "result": {
+          "body_len": 23,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "https://w.test/d",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via direct fallback (proxy path failed: HTTP 451)",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html>walled out</html>",
+          "url": "https://w.test/d"
+        },
+        "route_calls": [
+          true,
+          false
+        ]
+      },
+      "500_truth_single_attempt": {
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 500,
+          "ok": false,
+          "reason": "HTTP 500",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        },
+        "route_calls": [
+          true
+        ]
+      },
+      "bad_url": {
+        "body_len": 0,
+        "category": "bad_url",
+        "charset": "",
+        "content_type": "",
+        "final_url": "ftp://example.com/x",
+        "http_status": null,
+        "ok": false,
+        "reason": "not an http(s) URL",
+        "retry_after_s": null,
+        "status": "failed",
+        "text": "",
+        "url": "ftp://example.com/x"
+      },
+      "both_connection_dead_line": {
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": null,
+          "ok": false,
+          "reason": "proxy: timeout | direct: connection: timed out",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        },
+        "route_calls": [
+          true,
+          false
+        ]
+      },
+      "direct_optout_single_attempt": {
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "HTTP 403 — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        },
+        "route_calls": [
+          true
+        ]
+      },
+      "first_door_success_never_dials_second": {
+        "result": {
+          "body_len": 23,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "https://w.test/h",
+          "http_status": 200,
+          "ok": true,
+          "reason": "",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html>walled out</html>",
+          "url": "https://w.test/h"
+        },
+        "route_calls": [
+          true
+        ]
+      },
+      "loopback_never_alternates": {
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "HTTP 403",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        },
+        "route_calls": [
+          true
+        ]
+      },
+      "no_proxy_single_attempt": {
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "HTTP 403 — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        },
+        "route_calls": [
+          false
+        ]
+      },
+      "timeout_still_alternates": {
+        "result": {
+          "body_len": 23,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "https://w.test/f",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via direct fallback (proxy path failed: timeout)",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html>walled out</html>",
+          "url": "https://w.test/f"
+        },
+        "route_calls": [
+          true,
+          false
+        ]
+      },
+      "walled_on_both_reports_both": {
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 405,
+          "ok": false,
+          "reason": "proxy: HTTP 403 — bot defense (server: cloudflare) | direct: HTTP 405 — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        },
+        "route_calls": [
+          true,
+          false
+        ]
+      }
+    },
+    "dead_http_proxy": {
+      "category": "retry_later",
+      "ok": false,
+      "reason_has_proxy": true,
+      "status": "failed"
+    },
+    "dead_page_rescue": {
+      "archive_opt_out": {
+        "archive_calls": [],
+        "result": {
+          "body_len": 0,
+          "category": "dead",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 404,
+          "ok": false,
+          "reason": "HTTP 404 — the page is gone (variants tried: trailing-slash, www)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "archived_snapshot_partial": {
+        "archive_calls": [
+          "https://past.example.org/a"
+        ],
+        "result": {
+          "body_len": 49,
+          "category": "archived",
+          "charset": "utf-8",
+          "content_type": "text/html",
+          "final_url": "https://web.archive.org/web/20150601/https://past.example.org/a",
+          "http_status": 200,
+          "ok": true,
+          "reason": "archived copy — the live page answered HTTP 410; the Wayback Machine's capture (20150601) served this",
+          "retry_after_s": null,
+          "status": "partial",
+          "text": "<html><head><title>The Past</title></head></html>",
+          "url": "https://web.archive.org/web/20150601/https://past.example.org/a"
+        }
+      },
+      "loopback_never": {
+        "body_len": 0,
+        "category": "dead",
+        "charset": "",
+        "content_type": "",
+        "final_url": "http://walled.example.net/page",
+        "http_status": 404,
+        "ok": false,
+        "reason": "HTTP 404 — the page is gone",
+        "retry_after_s": null,
+        "status": "failed",
+        "text": "",
+        "url": "http://walled.example.net/page"
+      },
+      "nothing_rescued_dead": {
+        "archive_calls": [
+          "https://gone.example.org/dead"
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "dead",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 404,
+          "ok": false,
+          "reason": "HTTP 404 — the page is gone (variants tried: trailing-slash, www; no archived copy exists on the Wayback Machine)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "www_variant_rescues": {
+        "archive_calls": [],
+        "result": {
+          "body_len": 34,
+          "category": "",
+          "charset": "utf-8",
+          "content_type": "text/html",
+          "final_url": "https://www.moved.example.org/page",
+          "http_status": 200,
+          "ok": true,
+          "reason": "the original URL answered HTTP 404 — the www variant answered; rescued",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html><body>the page</body></html>",
+          "url": "https://www.moved.example.org/page"
+        }
+      }
+    },
+    "dns_verdict": {
+      "cached_per_host": {
+        "probe_call_count": 1
+      },
+      "exists": {
+        "probe_calls": [
+          [
+            "x.example.net",
+            null
+          ]
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "retry_later",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": null,
+          "ok": false,
+          "reason": "connection: [Errno 11001] getaddrinfo failed | dns: the name resolves via DNS-over-HTTPS — the local resolver is lying (poisoned DNS; the proxy route is the door that can still reach it)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "non_dns_never_probes": {
+        "probe_calls": [],
+        "result": {
+          "body_len": 0,
+          "category": "retry_later",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": null,
+          "ok": false,
+          "reason": "timeout",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "nxdomain": {
+        "probe_calls": [
+          [
+            "gone.example.net",
+            null
+          ]
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "dead",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": null,
+          "ok": false,
+          "reason": "connection: [Errno 11001] getaddrinfo failed | dns: NXDOMAIN even via DNS-over-HTTPS — the domain itself is dead (the local resolver was right)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "opt_out": {
+        "probe_calls": [],
+        "result": {
+          "body_len": 0,
+          "category": "retry_later",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": null,
+          "ok": false,
+          "reason": "connection: [Errno 11001] getaddrinfo failed",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "unknown": {
+        "probe_calls": [
+          [
+            "y.example.net",
+            null
+          ]
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "retry_later",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": null,
+          "ok": false,
+          "reason": "connection: [Errno 11001] getaddrinfo failed | dns: DNS-over-HTTPS itself unreachable — verdict unknown",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      }
+    },
+    "origin_down_courtesy": {
+      "52x_names_snapshot": {
+        "archive_calls": [
+          "https://origin.example.net/x"
+        ],
+        "category": "blocked_bot",
+        "reason": "proxy: HTTP 403 — forbidden | direct: HTTP 523 — Cloudflare: the site's own server origin is unreachable (site-side, retry later — not the fetcher's fault) | wayback: an archived copy exists — https://web.archive.org/web/20230101120000/https://origin.example.net/x (captured 20230101120000)"
+      },
+      "loopback_never_probes": {
+        "archive_calls": []
+      },
+      "no_52x_never_probes": {
+        "archive_calls": [],
+        "reason": "proxy: HTTP 403 — forbidden | direct: HTTP 523 — Cloudflare: the site's own server origin is unreachable (site-side, retry later — not the fetcher's fault)"
+      },
+      "no_snapshot_no_suffix": {
+        "archive_calls": [
+          "https://origin.example.net/x"
+        ],
+        "reason": "proxy: HTTP 403 — forbidden | direct: HTTP 523 — Cloudflare: the site's own server origin is unreachable (site-side, retry later — not the fetcher's fault)"
+      },
+      "optout_never_probes": {
+        "archive_calls": []
+      },
+      "single_52x_leg": {
+        "archive_calls": [
+          "https://solo.example.org/y"
+        ],
+        "reason": "HTTP 523 — Cloudflare | wayback: an archived copy exists — https://web.archive.org/web/2023/https://solo.example.org"
+      },
+      "unreachable_no_suffix": {
+        "archive_calls": [
+          "https://origin.example.net/x"
+        ],
+        "reason": "proxy: HTTP 403 — forbidden | direct: HTTP 523 — Cloudflare: the site's own server origin is unreachable (site-side, retry later — not the fetcher's fault)"
+      }
+    },
+    "phase2_403_bot_defense": {
+      "body_len": 0,
+      "category": "blocked_bot",
+      "charset": "",
+      "content_type": "",
+      "final_url": "<P2>/blocked",
+      "http_status": 403,
+      "ok": false,
+      "reason": "HTTP 403 — bot defense (server: cloudflare)",
+      "retry_after_s": null,
+      "status": "failed",
+      "text": "",
+      "url": "<P2>/blocked"
+    },
+    "phase2_404_failed": {
+      "body_len": 0,
+      "category": "dead",
+      "charset": "",
+      "content_type": "",
+      "final_url": "<P2>/nope",
+      "http_status": 404,
+      "ok": false,
+      "reason": "HTTP 404 — the page is gone",
+      "retry_after_s": null,
+      "status": "failed",
+      "text": "",
+      "url": "<P2>/nope"
+    },
+    "phase2_bad_scheme": {
+      "body_len": 0,
+      "category": "bad_url",
+      "charset": "",
+      "content_type": "",
+      "final_url": "ftp://example.com/x",
+      "http_status": null,
+      "ok": false,
+      "reason": "not an http(s) URL",
+      "retry_after_s": null,
+      "status": "failed",
+      "text": "",
+      "url": "ftp://example.com/x"
+    },
+    "phase2_deflate_decoded": {
+      "body_len": 110,
+      "category": "",
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "<P2>/deflate",
+      "http_status": 200,
+      "ok": true,
+      "reason": "",
+      "retry_after_s": null,
+      "status": "full",
+      "text": "<html><head><title>Deflate Page</title></head><body><p>deflated content for the reading list</p></body></html>",
+      "url": "<P2>/deflate"
+    },
+    "phase2_follows_redirect": {
+      "body_len": 91,
+      "category": "",
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "<P2>/article",
+      "http_status": 200,
+      "ok": true,
+      "reason": "",
+      "retry_after_s": null,
+      "status": "full",
+      "text": "<html><head><title>Practical Typography Guide</title></head><body>the article</body></html>",
+      "url": "<P2>/redirect"
+    },
+    "phase2_full_fetch": {
+      "body_len": 91,
+      "category": "",
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "<P2>/article",
+      "http_status": 200,
+      "ok": true,
+      "reason": "",
+      "retry_after_s": null,
+      "status": "full",
+      "text": "<html><head><title>Practical Typography Guide</title></head><body>the article</body></html>",
+      "url": "<P2>/article"
+    },
+    "phase2_gzip_bomb_capped": {
+      "body_len": 50000,
+      "category": "",
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "<P2>/gzip-bomb",
+      "http_status": 200,
+      "ok": true,
+      "reason": "size cap (50,000 bytes) reached",
+      "retry_after_s": null,
+      "status": "partial",
+      "text": "bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb bomb ",
+      "url": "<P2>/gzip-bomb"
+    },
+    "phase2_gzip_decoded": {
+      "body_len": 115,
+      "category": "",
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "<P2>/gzip",
+      "http_status": 200,
+      "ok": true,
+      "reason": "",
+      "retry_after_s": null,
+      "status": "full",
+      "text": "<html><head><title>Gzip Page</title></head><body><p>gzipped content about design tools and assets</p></body></html>",
+      "url": "<P2>/gzip"
+    },
+    "phase2_latin1_decodes": {
+      "body_len": 140,
+      "category": "",
+      "charset": "windows-1252",
+      "content_type": "text/html; charset=windows-1252",
+      "final_url": "<P2>/latin1",
+      "http_status": 200,
+      "ok": true,
+      "reason": "",
+      "retry_after_s": null,
+      "status": "full",
+      "text": "<html><head><title>Café Diseño</title></head><body><p>Página sobre diseño gráfico y tipografía editorial para el proyecto.</p></body></html>",
+      "url": "<P2>/latin1"
+    },
+    "phase2_pdf_partial": {
+      "body_len": 0,
+      "category": "",
+      "charset": "",
+      "content_type": "application/pdf",
+      "final_url": "<P2>/pdf",
+      "http_status": 200,
+      "ok": true,
+      "reason": "pdf",
+      "retry_after_s": null,
+      "status": "partial",
+      "text": "",
+      "url": "<P2>/pdf"
+    },
+    "phase2_rate_limiter_delay": {
+      "other_domain_free": true,
+      "second_hit_waited": true
+    },
+    "phase2_redirect_loop_failed": {
+      "body_len": 0,
+      "category": "redirect_broken",
+      "charset": "",
+      "content_type": "",
+      "final_url": "<P2>/redirect-loop",
+      "http_status": 302,
+      "ok": false,
+      "reason": "HTTP 302 — broken redirect: redirect loop (the chain revisits <P2>/redirect-loop after 0 hop(s) — cookies are carried, so this is the server's own loop)",
+      "retry_after_s": null,
+      "status": "failed",
+      "text": "",
+      "url": "<P2>/redirect-loop"
+    },
+    "phase2_size_cap_partial": {
+      "body_len": 50000,
+      "category": "",
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "<P2>/huge",
+      "http_status": 200,
+      "ok": true,
+      "reason": "size cap (50,000 bytes) reached",
+      "retry_after_s": null,
+      "status": "partial",
+      "text": "<html><head><title>Huge</title></head><body><p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word </p>\n<p>word word word word word word wor",
+      "url": "<P2>/huge"
+    },
+    "phase2_timeout": {
+      "body_len": 0,
+      "category": "retry_later",
+      "charset": "",
+      "content_type": "",
+      "elapsed_lt_5": true,
+      "final_url": "<P2>/slow",
+      "http_status": null,
+      "ok": false,
+      "reason": "timeout",
+      "retry_after_s": null,
+      "status": "failed",
+      "text": "",
+      "url": "<P2>/slow"
+    },
+    "preflight": {
+      "alive": [
+        true,
+        ""
+      ],
+      "dead": {
+        "ok": false,
+        "why_has_host_port": true,
+        "why_has_unreachable": true,
+        "why_names_the_remedy": true
+      },
+      "none": [
+        false,
+        "no proxy configured"
+      ]
+    },
+    "rate_penalty": {
+      "bare_429_pays_capped_default": {
+        "penalties": [
+          [
+            "bare.example.net",
+            60.0
+          ]
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "retry_later",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 429,
+          "ok": false,
+          "reason": "HTTP 429 — rate limited — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "both_routes_pay_retry_after": {
+        "penalties": [
+          [
+            "limited.example.net",
+            120.0
+          ]
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "retry_later",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 429,
+          "ok": false,
+          "reason": "proxy: HTTP 429 — rate limited (Retry-After: 120s — the site asked for a pause) | direct: HTTP 429 — rate limited (Retry-After: 120s — the site asked for a pause) — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+          "retry_after_s": 120.0,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      }
+    },
+    "redirect_truth": {
+      "cookie_target_gated_without_cookie": {
+        "body_len": 0,
+        "category": "blocked_bot",
+        "charset": "",
+        "content_type": "",
+        "final_url": "<ROOT>/hop-cookie-target",
+        "http_status": 403,
+        "ok": false,
+        "reason": "HTTP 403 — forbidden (the server refused this client without naming a wall)",
+        "retry_after_s": null,
+        "status": "failed",
+        "text": "",
+        "url": "<ROOT>/hop-cookie-target"
+      },
+      "hop_budget_holds": {
+        "body_len": 0,
+        "category": "redirect_broken",
+        "charset": "",
+        "content_type": "",
+        "final_url": "<ROOT>/chain/1",
+        "http_status": 302,
+        "ok": false,
+        "reason": "HTTP 302 — broken redirect: more than 5 redirects (a tracker chute or a wandering chain)",
+        "retry_after_s": null,
+        "status": "failed",
+        "text": "",
+        "url": "<ROOT>/chain/1"
+      },
+      "hop_cookies_ride": {
+        "body_len": 56,
+        "category": "",
+        "charset": "utf-8",
+        "content_type": "text/html; charset=utf-8",
+        "final_url": "<ROOT>/hop-cookie-target",
+        "http_status": 200,
+        "ok": true,
+        "reason": "",
+        "retry_after_s": null,
+        "status": "full",
+        "text": "<html><head><title>Behind the gate</title></head></html>",
+        "url": "<ROOT>/hop-cookie"
+      },
+      "loop_named": {
+        "body_len": 0,
+        "category": "redirect_broken",
+        "charset": "",
+        "content_type": "",
+        "final_url": "<ROOT>/loop",
+        "http_status": 302,
+        "ok": false,
+        "reason": "HTTP 302 — broken redirect: redirect loop (the chain revisits <ROOT>/loop after 0 hop(s) — cookies are carried, so this is the server's own loop)",
+        "retry_after_s": null,
+        "status": "failed",
+        "text": "",
+        "url": "<ROOT>/loop"
+      },
+      "moved_308_followed": {
+        "body_len": 91,
+        "category": "",
+        "charset": "utf-8",
+        "content_type": "text/html; charset=utf-8",
+        "final_url": "<ROOT>/article",
+        "http_status": 200,
+        "ok": true,
+        "reason": "",
+        "retry_after_s": null,
+        "status": "full",
+        "text": "<html><head><title>Practical Typography Guide</title></head><body>the article</body></html>",
+        "url": "<ROOT>/moved-308"
+      },
+      "no_location_broken": {
+        "body_len": 0,
+        "category": "redirect_broken",
+        "charset": "",
+        "content_type": "",
+        "final_url": "<ROOT>/no-location",
+        "http_status": 307,
+        "ok": false,
+        "reason": "HTTP 307 — broken redirect: no Location header in the answer — the server's redirect is broken (site-side)",
+        "retry_after_s": null,
+        "status": "failed",
+        "text": "",
+        "url": "<ROOT>/no-location"
+      },
+      "plain_fetch_full": {
+        "body_len": 91,
+        "category": "",
+        "charset": "utf-8",
+        "content_type": "text/html; charset=utf-8",
+        "final_url": "<ROOT>/article",
+        "http_status": 200,
+        "ok": true,
+        "reason": "",
+        "retry_after_s": null,
+        "status": "full",
+        "text": "<html><head><title>Practical Typography Guide</title></head><body>the article</body></html>",
+        "url": "<ROOT>/article"
+      }
+    },
+    "third_door_trigger": {
+      "cert_failure_never_opens": {
+        "imp_calls": [],
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": null,
+          "ok": false,
+          "reason": "connection: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "loopback_never_escalates": {
+        "imp_calls": [],
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "proxy: HTTP 403 — bot defense (Cloudflare: challenge) | direct: HTTP 403 — bot defense (Cloudflare: challenge)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "missing_library_hint": {
+        "imp_calls": [],
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "proxy: HTTP 403 — bot defense (Cloudflare: challenge) | direct: HTTP 403 — bot defense (Cloudflare: challenge) — a third door exists: pip install curl_cffi (the browser-TLS handshake)",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "opt_out_honored": {
+        "imp_calls": [],
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "HTTP 403",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "owners_tls_line_opens_door": {
+        "imp_calls": [
+          [
+            "http://walled.example.net/page",
+            {
+              "http": "socks5h://p.example.net:10808",
+              "https": "socks5h://p.example.net:10808"
+            },
+            5
+          ]
+        ],
+        "result": {
+          "body_len": 28,
+          "category": "",
+          "charset": "utf-8",
+          "content_type": "text/html; charset=utf-8",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via impersonated Chrome (curl_cffi) — the stdlib doors were walled: proxy: connection: [SSL: SSLV3_ALERT_HANDSHAKE_FAILURE] sslv3 alert handshake failure (_ssl.c:1010) | direct: connection: [Errno 11001] getaddrinfo failed | dns: DNS-over-HTTPS itself unreachable — verdict unknown",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html><body>ok</body></html>",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "plain_timeout_never_asks_chrome": {
+        "imp_calls": [],
+        "result": {
+          "body_len": 0,
+          "category": "retry_later",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": null,
+          "ok": false,
+          "reason": "proxy: timeout | direct: timeout",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "refusal_family_earns_door": {
+        "403": {
+          "ok": true,
+          "reason_has_impersonated": true
+        },
+        "405": {
+          "ok": true,
+          "reason_has_impersonated": true
+        },
+        "429": {
+          "ok": true,
+          "reason_has_impersonated": true
+        },
+        "451": {
+          "ok": true,
+          "reason_has_impersonated": true
+        }
+      },
+      "single_door_tls_opens_direct": {
+        "imp_calls": [
+          [
+            "http://walled.example.net/page",
+            null,
+            5
+          ]
+        ],
+        "result": {
+          "body_len": 28,
+          "category": "",
+          "charset": "utf-8",
+          "content_type": "text/html; charset=utf-8",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via impersonated Chrome (curl_cffi) — the stdlib doors were walled: connection: [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html><body>ok</body></html>",
+          "url": "http://walled.example.net/page"
+        }
+      }
+    },
+    "third_door_verdicts": {
+      "challenge_survives_three_leg": {
+        "imp_calls": [
+          [
+            "http://walled.example.net/page",
+            null,
+            5
+          ]
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "proxy: HTTP 403 — bot defense (Cloudflare: challenge) | direct: HTTP 403 — bot defense (Cloudflare: challenge) | chrome-impersonated: HTTP 403 — bot defense (Cloudflare: challenge) — the challenge needs a live browser; the fetcher cannot solve it",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "plain_403_reports_cleanly": {
+        "imp_calls": [
+          [
+            "http://walled.example.net/page",
+            null,
+            5
+          ]
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "proxy: HTTP 403 | direct: HTTP 403 | chrome-impersonated: HTTP 403",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "success_is_real_success": {
+        "imp_calls": [
+          [
+            "http://walled.example.net/page",
+            null,
+            5
+          ]
+        ],
+        "result": {
+          "body_len": 75,
+          "category": "",
+          "charset": "utf-8",
+          "content_type": "text/html; charset=utf-8",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 200,
+          "ok": true,
+          "reason": "via impersonated Chrome (curl_cffi) — the stdlib doors were walled: proxy: HTTP 403 — bot defense (Cloudflare: challenge) | direct: HTTP 403 — bot defense (Cloudflare: challenge)",
+          "retry_after_s": null,
+          "status": "full",
+          "text": "<html><head><title>The Real Page</title></head><body>fix live</body></html>",
+          "url": "http://walled.example.net/page"
+        }
+      },
+      "two_routes_two_asks_proxy_first": {
+        "imp_calls": [
+          [
+            "http://walled.example.net/page",
+            {
+              "http": "socks5h://p.example.net:10808",
+              "https": "socks5h://p.example.net:10808"
+            },
+            5
+          ],
+          [
+            "http://walled.example.net/page",
+            null,
+            5
+          ]
+        ],
+        "result": {
+          "body_len": 0,
+          "category": "",
+          "charset": "",
+          "content_type": "",
+          "final_url": "http://walled.example.net/page",
+          "http_status": 403,
+          "ok": false,
+          "reason": "proxy: HTTP 403 — bot defense (Cloudflare: challenge) | direct: HTTP 403 — bot defense (Cloudflare: challenge) | chrome-impersonated: HTTP 403 — bot defense (Cloudflare: challenge) — the challenge needs a live browser; the fetcher cannot solve it",
+          "retry_after_s": null,
+          "status": "failed",
+          "text": "",
+          "url": "http://walled.example.net/page"
+        }
+      }
+    }
+  },
+  "schema": 1
+}
