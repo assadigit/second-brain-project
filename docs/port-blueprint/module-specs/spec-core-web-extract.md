@@ -21,10 +21,28 @@ continue', 'subscription required', … 'reader mode is not available') ·
 
 ## Go notes
 
-- Use `golang.org/x/net/html` walking with the same conservative rules: title text
-  concatenation, description precedence (name before og), invisible subtree skipping, block-tag
-  newlines, charref decoding (parser default in Go too).
+- **Amendment (SESSION-013, T-32 landed — reality wins over specs)**: the
+  owner's verdict on `golang.org/x/net/html` did NOT arrive with the session
+  prompt (it had been surfaced since SESSION-011), so the port took
+  NEXT-SESSION §4's option (b): a hand-rolled tokenizer byte-faithful to
+  CPython 3.12's `html.parser` in its convert_charrefs=True configuration
+  (the only one the reference uses) — zero new imports, no ADR needed. The
+  tokenizer lives isolated in `internal/webextract/parser.go`; if the owner
+  later approves an x/net/html ADR, the swap is confined to that file's scan
+  internals (the handler laws and the goldens stay the referee).
+- The original recommendation (kept for the record): use `golang.org/x/net/html`
+  walking with the same conservative rules — title text concatenation,
+  description precedence (name before og), invisible subtree skipping,
+  block-tag newlines, charref decoding (parser default in Go too).
 - Keep the regex-based JS-shell/paywall heuristics (they operate on raw HTML, not the DOM).
+- The charset ladder (extract_from_bytes) rides tables GENERATED from the
+  reference runtime's own stdlib (`html.entities.html5`, the codecs
+  registry — embedded, sha-pinned by the golden) with x/text behind
+  generated acceptance bitmaps for the DBCS family: x/text's decoders
+  accept strictly more than Python's codecs (Big5 extension leads,
+  Shift-JIS 0x80), so every DBCS decode is gated on Python's own
+  acceptance sets (see `internal/webextract/doc.go` for the documented
+  divergences, incl. the gb18030 FFFD-scan edge).
 
 ## Tests
 

@@ -190,6 +190,58 @@ testdiff/
 │                                   # normalized to
 │                                   # <ROOT>/<ROOT2>/<DOH>/<ARCHIVE>/
 │                                   # <PROXY>/<DEADPORT>)
+│                                   #
+│                                   # dump_webextract.py →
+│                                   # internal/webextract, T-32 — the
+│                                   # FOURTEENTH generator: the pure
+│                                   # corpus (the constants, the 5
+│                                   # HTML fixtures byte-compared on
+│                                   # every Extracted field, the
+│                                   # 86-case extract() battery —
+│                                   # title/meta precedence incl.
+│                                   # first-wins og/name, the meta
+│                                   # elif chain, duplicate attrs,
+│                                   # charset shapes, raw-mode
+│                                   # xmp/iframe, RCDATA title,
+│                                   # comments/PIs/CDATA/marked
+│                                   # sections, the stray-endtag
+│                                   # newline law, the incomplete-tag
+│                                   # discard laws, block-tag
+│                                   # newline collapse, nbsp/CR
+│                                   # survival, the 20k cap, the
+│                                   # 120-word js-shell boundary, the
+│                                   # 4000-char paywall window, the
+│                                   # <script\b> word-boundary law —
+│                                   # the parser-level battery, the
+│                                   # 95-case unescape battery (the
+│                                   # eight spots where Go's stdlib
+│                                   # html.UnescapeString diverges
+│                                   # from Python's html.unescape are
+│                                   # pinned), the utf-8
+│                                   # errors='replace' maximal-subpart
+│                                   # law, the 74-name charset ladder
+│                                   # (resolution, the strict-decode
+│                                   # law, per-byte holes, full-256
+│                                   # decodes), the extract_from_bytes
+│                                   # battery (header/sniff/replace
+│                                   # flows, BOM, the windows-1252
+│                                   # hole fallback, the charset_used
+│                                   # backfill law) — PLUS the three
+│                                   # EMBEDDED DATA TABLES it emits:
+│                                   # entities_html5.json (the HTML5
+│                                   # named-reference table from the
+│                                   # reference runtime's own
+│                                   # html.entities.html5), charsets_
+│                                   # table.json + cp949_table.json
+│                                   # (single-byte and UHC-Korean
+│                                   # decode tables from the reference
+│                                   # runtime's own codecs), and
+│                                   # dbcs_accept.json (the DBCS
+│                                   # acceptance bitmaps that gate
+│                                   # x/text — Python's codecs accept
+│                                   # strictly less than x/text on
+│                                   # Big5/Shift-JIS/gb2312); each
+│                                   # table pinned at sha256 level)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```
