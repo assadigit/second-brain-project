@@ -563,3 +563,91 @@ var runtimeIsWindows = runtime.GOOS == "windows"
 
 // decodeRune is utf8.DecodeRuneInString (named for the call-site shape).
 func decodeRune(s string) (rune, int) { return utf8.DecodeRuneInString(s) }
+
+// ---------------------------------------------------------------------------
+// UTF-8 replacement decode (Python open(..., errors='replace')).
+// ---------------------------------------------------------------------------
+
+// DecodeUTF8Replace mirrors decoding bytes as utf-8 with
+// errors='replace' (Python's open(..., encoding='utf-8',
+// errors='replace') and bytes.decode('utf-8', 'replace')) with the
+// maximal-subpart rule the reference interpreter applies: each maximal
+// invalid subpart (the longest prefix that is still a prefix of some
+// valid sequence) collapses into ONE U+FFFD. Pinned byte-exact by the
+// goldens' invalid-UTF-8 batteries (helpers', notestate's fingerprint
+// corpus, notereads' read-bounded corpus):
+//
+//	b"\xff"→1×U+FFFD; b"\xc2A"→U+FFFD+"A"; b"a\xe2\x82"→"a"+1×U+FFFD
+//	(the truncated 3-byte attempt is ONE subpart); b"\xc3\xc3A"→2×
+//	U+FFFD+"A" (each C3 is its own failed attempt).
+//
+// (internal/notestate carries a local twin from T-21 — kept untouched
+// this session; a future cleanup may re-point it here, with both
+// goldens already pinning the same law.)
+func DecodeUTF8Replace(data []byte) string {
+	if utf8.Valid(data) {
+		return string(data)
+	}
+	var b strings.Builder
+	b.Grow(len(data))
+	for len(data) > 0 {
+		r, size := utf8.DecodeRune(data)
+		if r != utf8.RuneError || size != 1 {
+			// Valid sequence — keep the original bytes (a literal
+			// U+FFFD in the input stays exactly the bytes it was).
+			b.Write(data[:size])
+			data = data[size:]
+			continue
+		}
+		b.WriteRune(utf8.RuneError)
+		data = data[subpartLen(data):]
+	}
+	return b.String()
+}
+
+// subpartLen returns the length of the maximal invalid subpart starting
+// at data[0]: the lead byte plus however many following bytes are legal
+// continuations of a still-possibly-valid sequence (lead-specific range
+// for the first continuation, 0x80-0xBF for the rest). C0/C1 (overlong
+// 2-byte leads), 0x80-0xBF (bare continuations) and 0xF5-0xFF are
+// invalid leads on their own.
+func subpartLen(data []byte) int {
+	lead := data[0]
+	var expected int
+	switch {
+	case lead < 0xC2: // bare continuation, C0, C1
+		return 1
+	case lead < 0xE0: // C2-DF: one continuation
+		expected = 1
+	case lead < 0xF0: // E0-EF: two
+		expected = 2
+	case lead < 0xF5: // F0-F4: three
+		expected = 3
+	default: // F5-FF
+		return 1
+	}
+	n := 1
+	for i := 1; i <= expected && i < len(data); i++ {
+		c := data[i]
+		if c < 0x80 || c > 0xBF {
+			break
+		}
+		// Lead-specific first-continuation ranges (anti-overlong and
+		// anti-surrogate): E0 needs A0-BF, ED needs 80-9F, F0 needs
+		// 90-BF, F4 needs 80-8F.
+		if i == 1 {
+			switch {
+			case lead == 0xE0 && c < 0xA0:
+				return n
+			case lead == 0xED && c > 0x9F:
+				return n
+			case lead == 0xF0 && c < 0x90:
+				return n
+			case lead == 0xF4 && c > 0x8F:
+				return n
+			}
+		}
+		n++
+	}
+	return n
+}

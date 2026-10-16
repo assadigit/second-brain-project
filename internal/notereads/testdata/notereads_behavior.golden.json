@@ -1,0 +1,114 @@
+{
+  "probes": {
+    "broken_db": {
+      "db_broken": true,
+      "source": "https://a.example/1",
+      "stats": {
+        "db_hits": 0,
+        "db_writes": 0,
+        "notes_parsed": 1,
+        "opens": 1,
+        "ram_hits": 0
+      },
+      "tag": ""
+    },
+    "changed_note": {
+      "stats": {
+        "db_hits": 0,
+        "db_writes": 1,
+        "notes_parsed": 1,
+        "opens": 1,
+        "ram_hits": 0
+      },
+      "tags": [
+        "auto_delete"
+      ]
+    },
+    "prune": {
+      "pre_close_db_hits": 0,
+      "remaining": [
+        "one.md"
+      ]
+    },
+    "ram_budget_chars": {
+      "budget": 200000,
+      "second_ask": "ééééé",
+      "stats": {
+        "db_hits": 0,
+        "db_writes": 0,
+        "notes_parsed": 0,
+        "opens": 1,
+        "ram_hits": 1
+      },
+      "text_chars": 150000
+    },
+    "second_scan": {
+      "deletions1": [
+        {
+          "canonical": "https://a.example/3",
+          "marker": "auto_delete",
+          "note": "three.md"
+        },
+        {
+          "canonical": "https://a.example/2",
+          "marker": "#auto-delete",
+          "note": "two.md"
+        }
+      ],
+      "deletions2": [
+        {
+          "canonical": "https://a.example/3",
+          "marker": "auto_delete",
+          "note": "three.md"
+        },
+        {
+          "canonical": "https://a.example/2",
+          "marker": "#auto-delete",
+          "note": "two.md"
+        }
+      ],
+      "inventory2": {
+        "core_notes": 0,
+        "curated_notes": 0,
+        "folder_count": 0,
+        "hand_notes": 1,
+        "locked_notes": 0,
+        "root_notes": 4,
+        "total_notes": 4,
+        "trash_notes": 0,
+        "uncategorized_notes": 0
+      },
+      "pass1_stats": {
+        "db_hits": 0,
+        "db_writes": 4,
+        "notes_parsed": 4,
+        "opens": 4,
+        "ram_hits": 0
+      },
+      "pass2_stats": {
+        "db_hits": 6,
+        "db_writes": 0,
+        "notes_parsed": 4,
+        "opens": 0,
+        "ram_hits": 0
+      }
+    },
+    "stale_rows": {
+      "fm_alpha_source": "https://a.example/a",
+      "fm_beta_source": "https://a.example/b",
+      "restored_versions": {
+        "alpha.md": 4,
+        "beta.md": 4
+      },
+      "stats": {
+        "db_hits": 1,
+        "db_writes": 2,
+        "notes_parsed": 2,
+        "opens": 2,
+        "ram_hits": 0
+      },
+      "tag_beta": "#banish"
+    }
+  },
+  "schema": 1
+}

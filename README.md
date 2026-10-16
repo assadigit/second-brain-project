@@ -11,12 +11,18 @@ Python baselines archived; SESSION-001/002 closed. **Phase 1 CLOSED** (SESSION-0
 T-10…T-17 ALL DONE with generated-golden parity — the characterization suites
 (test_core incl. prompts/usermemory, taxonomy, note formats), the import-grammar
 differential, and the byte-stable config round-trip are green. **Phase 2 OPENED**
-(SESSION-006): T-20 `internal/store` done — modernc.org/sqlite v1.36.1 (the first
-real dependency, pinned to the go 1.22 floor), the ADR-0003 DSN pragmas verified,
-the naive/UTC timestamp helpers, the deferred shadow-cache sqlite assertions landed,
-and **ADR-0003 Am.1's CAST read law** (the driver's declared-type TIMESTAMP
-conversion characterized and bypassed byte-exactly). 234 tests race-clean.
-Next: T-21 notestate per the roadmap's strict order.
+(SESSION-006–008, 3 of 6 tasks): T-20 `internal/store` done — modernc.org/sqlite
+v1.36.1 (the first real dependency, pinned to the go 1.22 floor), the ADR-0003 DSN
+pragmas verified, the naive/UTC timestamp helpers, the deferred shadow-cache sqlite
+assertions landed, and **ADR-0003 Am.1's CAST read law**; T-21 `internal/notestate`
+done — the §4.4 moves-as-corrections engine (55-test suite; the Python-created
+fixture opens byte-exact); **T-22 `internal/notereads` done (SESSION-008) — v0.71.0
+THE ONE-OPEN LAW: the RAM text layer (byte-budget FIFO — the documented fix) + the
+persisted parse layer (parse-version 4, the banish grammar, the hand-rolled
+Python-shape row-JSON writer pinned byte-for-byte, the stars-fix regression), the
+second scan of unchanged notes opens NOTHING (reference-counted: opens 4→0, db_hits
+6). 313 tests race-clean.**
+Next: T-23 websitepipeline/state per the roadmap's strict order.
 
 ## Map
 

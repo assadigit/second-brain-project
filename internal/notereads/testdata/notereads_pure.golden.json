@@ -1,0 +1,1326 @@
+{
+  "banish_grammar_mirror": {
+    "emoji": "🗑️",
+    "keys": [
+      "decommission",
+      "banish",
+      "blacklist"
+    ],
+    "stops": " \t\r\n,.;:!?)]}'\"»«…—>",
+    "words": [
+      "delete",
+      "banish",
+      "blacklist",
+      "purge",
+      "auto_delete",
+      "auto-delete"
+    ]
+  },
+  "body_tag_cases": [
+    {
+      "group": "suite_bodies",
+      "index": 0,
+      "tag": "",
+      "text": "plain body, no tags"
+    },
+    {
+      "group": "suite_bodies",
+      "index": 1,
+      "tag": "",
+      "text": "not needed #auto-delete"
+    },
+    {
+      "group": "suite_bodies",
+      "index": 2,
+      "tag": "",
+      "text": "a heading\n\n# delete\n\nnever a tag (space after #)"
+    },
+    {
+      "group": "suite_bodies",
+      "index": 3,
+      "tag": "",
+      "text": "a fenced snippet\n\n```python\n# purge the cache\n```\n\nok"
+    },
+    {
+      "group": "suite_bodies",
+      "index": 4,
+      "tag": "",
+      "text": "see https://x.example/#fragment — mid-word, never a tag"
+    },
+    {
+      "group": "suite_bodies",
+      "index": 5,
+      "tag": "",
+      "text": "C# is not a tag either"
+    },
+    {
+      "group": "suite_bodies",
+      "index": 6,
+      "tag": "",
+      "text": "#deleted-files not a mark"
+    },
+    {
+      "group": "suite_bodies",
+      "index": 7,
+      "tag": "",
+      "text": "trash day #delete."
+    },
+    {
+      "group": "suite_bodies",
+      "index": 8,
+      "tag": "",
+      "text": "mixed #auto_delete and #purge"
+    },
+    {
+      "group": "suite_bodies",
+      "index": 9,
+      "tag": "",
+      "text": "the emoji ride 🗑️ #ok"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 0,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n~~~\n# purge\n~~~\nafter\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 1,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n```js\n# delete\n```\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 2,
+      "tag": "#auto-delete",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n(#auto-delete) bracket-preceded\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 3,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\nword#auto-delete mid-word never fires\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 4,
+      "tag": "#auto-delete",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#auto-delete. stops at period\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 5,
+      "tag": "#auto-delete",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#auto-delete, stops at comma\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 6,
+      "tag": "#auto-delete",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#auto-delete) stops at paren\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 7,
+      "tag": "#AUTO-DELETE",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#AUTO-DELETE case-folds\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 8,
+      "tag": "#x🗑️y",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#x🗑️y emoji substring\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 9,
+      "tag": "#auto_delete",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#auto_delete underscore word\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 10,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n##auto-delete heading run never parses\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 11,
+      "tag": "#delete",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\na #delete #purge first match wins\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 12,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n---\n# delete\nsource: x\n\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 13,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 14,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n   \n\t\n\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 15,
+      "tag": "#delete",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#delete\tstops at tab\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 16,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#—delete empty token\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 17,
+      "tag": "",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n#🚮 wrong emoji never fires\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 18,
+      "tag": "#purge",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n---\nsource: x\n---\n#purge after block\n"
+    },
+    {
+      "group": "grammar_edges",
+      "index": 19,
+      "tag": "#banish",
+      "text": "---\nsource: \"https://a.example/b\"\n---\n\n---\nsource: x\n---\n```python\n#delete fenced\n```\n#banish live\n"
+    }
+  ],
+  "default_ram_budget": 33554432,
+  "default_text_bytes": 200000,
+  "parse_cases": [
+    {
+      "fm": {
+        "banish": {
+          "blacklist": "true"
+        },
+        "category": "Design",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "full",
+        "has_fm": true,
+        "kind": "directory",
+        "locked": false,
+        "managed_by": "gitcurator",
+        "org": "",
+        "primary_language": "",
+        "source": "https://a.example/x",
+        "stars": "",
+        "subcategory": "Assets",
+        "tags": [
+          "icons",
+          "mockup"
+        ]
+      },
+      "name": "union_of_both_doors_keys",
+      "text": "---\nsource: \"https://a.example/x\"\ncategory: \"Design\"\nsubcategory: \"Assets\"\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\nfetch_status: \"full\"\ntags: [icons, mockup]\nblacklist: true\n---\n\n# t\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "https://a.example/x",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "auto_delete",
+          "web"
+        ]
+      },
+      "name": "block_style_tags",
+      "text": "---\nsource: \"https://a.example/x\"\ntags:\n  - \"auto_delete\"\n  - web\n---\n\n# t\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": false,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "no_frontmatter",
+      "text": "# just a heading\n\nbody"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "https://a.example/x",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "unterminated_block",
+      "text": "---\nsource: \"https://a.example/x\"\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": true,
+        "curated": true,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": true,
+        "managed_by": "x",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "lock_law_truthy_folds",
+      "text": "---\nlocked: true\ncategory_locked: \"yes\"\ncurated: 1\nmanaged_by: x\n---\nbody\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "lock_law_on_is_not_truthy",
+      "text": "---\nlocked: on\ncategory_locked: no\ncurated: 0\n---\nbody\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "repository",
+        "locked": false,
+        "managed_by": "",
+        "org": "golang",
+        "primary_language": "Go",
+        "source": "https://github.com/o/r",
+        "stars": "1200",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "repos_metadata",
+      "text": "---\nsource: \"https://github.com/o/r\"\nprimary_language: \"Go\"\norg: \"golang\"\nstars: \"1200\"\nkind: \"repository\"\n---\nbody\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "directory",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "https://a.example/UP",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "One",
+          "Two"
+        ]
+      },
+      "name": "uppercase_keys_fold",
+      "text": "---\nSOURCE: \"https://a.example/UP\"\nTags: [One, Two]\nKIND: directory\n---\nbody\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "https://x.example/a?b=c:d",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "first_colon_partition",
+      "text": "---\nsource: https://x.example/a?b=c:d\n---\nbody\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "“smart”",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "single\"mix",
+        "org": "",
+        "primary_language": "",
+        "source": "double'mixed",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "quote_stripping",
+      "text": "---\nsource: \"double'mixed\"\nmanaged_by: 'single\"mix'\nkind: \"\"\nfetch_status: “smart”\n---\nbody\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "a b",
+          "c d",
+          "e"
+        ]
+      },
+      "name": "tags_flow_quotes_and_spaces",
+      "text": "---\ntags: [ \"a b\" , 'c d' , e ]\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "x",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "tags_empty_flow",
+      "text": "---\ntags: []\nsource: x\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "x",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "one",
+          "two",
+          "three"
+        ]
+      },
+      "name": "tags_block_then_key_then_block",
+      "text": "---\ntags:\n  - one\n  - two\nsource: x\ntags:\n  - three\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "[a",
+          "b] extra"
+        ]
+      },
+      "name": "tags_line_with_junk",
+      "text": "---\ntags: [a, b] extra\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "x",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "no_colon_line_skipped",
+      "text": "---\njust words here\nsource: x\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {
+          "banish": "later",
+          "blacklist": "1",
+          "decommission": "true"
+        },
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "x",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "banish_keys_values",
+      "text": "---\ndecommission: \"true\"\nbanish: later\nblacklist: \"1\"\nsource: x\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "https://a.example/crlf",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "a",
+          "b"
+        ]
+      },
+      "name": "crlf_text",
+      "text": "---\r\nsource: \"https://a.example/crlf\"\r\ntags: [a, b]\r\n---\r\nbody #delete\r\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "second",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "duplicate_keys_last_wins",
+      "text": "---\nsource: first\nsource: second\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "a",
+          "b"
+        ]
+      },
+      "name": "tags_accumulate_two_lines",
+      "text": "---\ntags: [a]\ntags: [b]\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "x",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "colon_only_line",
+      "text": "---\n:\nsource: x\n---\n"
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": false,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "empty_text",
+      "text": ""
+    },
+    {
+      "fm": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "fence_only",
+      "text": "---\n---\n"
+    }
+  ],
+  "parse_version": 4,
+  "read_bounded_cases": [
+    {
+      "bytes": [
+        104,
+        101,
+        108,
+        108,
+        111,
+        32,
+        119,
+        111,
+        114,
+        108,
+        100,
+        44,
+        32,
+        116,
+        104,
+        105,
+        115,
+        32,
+        105,
+        115,
+        32,
+        97,
+        32,
+        110,
+        111,
+        116,
+        101
+      ],
+      "n": 10,
+      "name": "plain_ascii_cut",
+      "out": "hello worl"
+    },
+    {
+      "bytes": [
+        115,
+        104,
+        111,
+        114,
+        116
+      ],
+      "n": 100000,
+      "name": "n_past_eof",
+      "out": "short"
+    },
+    {
+      "bytes": [
+        97,
+        110,
+        121,
+        116,
+        104,
+        105,
+        110,
+        103
+      ],
+      "n": 0,
+      "name": "n_zero",
+      "out": ""
+    },
+    {
+      "bytes": [
+        45,
+        45,
+        45,
+        13,
+        10,
+        115,
+        111,
+        117,
+        114,
+        99,
+        101,
+        58,
+        32,
+        34,
+        120,
+        34,
+        13,
+        10,
+        45,
+        45,
+        45,
+        13,
+        10,
+        98,
+        111,
+        100,
+        121,
+        13,
+        10
+      ],
+      "n": 100,
+      "name": "crlf_full",
+      "out": "---\nsource: \"x\"\n---\nbody\n"
+    },
+    {
+      "bytes": [
+        97,
+        98,
+        13,
+        10,
+        99,
+        100
+      ],
+      "n": 3,
+      "name": "crlf_cut_pair_boundary",
+      "out": "ab\n"
+    },
+    {
+      "bytes": [
+        97,
+        13,
+        98
+      ],
+      "n": 2,
+      "name": "lone_cr",
+      "out": "a\n"
+    },
+    {
+      "bytes": [
+        97,
+        133,
+        98
+      ],
+      "n": 3,
+      "name": "nel_not_translated",
+      "out": "a�b"
+    },
+    {
+      "bytes": [
+        97,
+        255,
+        98,
+        195
+      ],
+      "n": 100,
+      "name": "invalid_single_ff",
+      "out": "a�b�"
+    },
+    {
+      "bytes": [
+        226,
+        130
+      ],
+      "n": 100,
+      "name": "invalid_truncated_e2_82",
+      "out": "�"
+    },
+    {
+      "bytes": [
+        195,
+        195,
+        65
+      ],
+      "n": 100,
+      "name": "invalid_run_c3_c3",
+      "out": "��A"
+    },
+    {
+      "bytes": [
+        195,
+        169,
+        195,
+        169,
+        195,
+        169
+      ],
+      "n": 2,
+      "name": "rune_cut_multibyte",
+      "out": "éé"
+    },
+    {
+      "bytes": [
+        239,
+        187,
+        191,
+        104,
+        101,
+        108,
+        108,
+        111
+      ],
+      "n": 10,
+      "name": "bom_passthrough",
+      "out": "﻿hello"
+    },
+    {
+      "bytes": [
+        45,
+        45,
+        45,
+        13,
+        10,
+        115,
+        111,
+        117,
+        114,
+        99,
+        101,
+        58,
+        32,
+        34,
+        255,
+        254,
+        34,
+        13,
+        10,
+        45,
+        45,
+        45,
+        13,
+        10
+      ],
+      "n": 28,
+      "name": "crlf_invalid_mix",
+      "out": "---\nsource: \"��\"\n---\n"
+    },
+    {
+      "bytes": [
+        97,
+        11,
+        98,
+        12,
+        99
+      ],
+      "n": 100,
+      "name": "vt_ff_kept",
+      "out": "a\u000bb\fc"
+    }
+  ],
+  "row_is_current_cases": [
+    [
+      {
+        "v": 4
+      },
+      true
+    ],
+    [
+      {
+        "v": 3
+      },
+      false
+    ],
+    [
+      {},
+      false
+    ],
+    [
+      null,
+      false
+    ],
+    [
+      "x",
+      false
+    ],
+    [
+      {
+        "v": "4"
+      },
+      false
+    ],
+    [
+      {
+        "extra": 1,
+        "v": 4
+      },
+      true
+    ]
+  ],
+  "schema": 1,
+  "shape_cases": [
+    {
+      "banish": {
+        "banish": {
+          "blacklist": "true"
+        },
+        "managed_by": "gitcurator",
+        "source": "https://a.example/x",
+        "tags": [
+          "icons",
+          "mockup"
+        ]
+      },
+      "inventory": {
+        "category": "Design",
+        "category_locked": false,
+        "curated": true,
+        "fetch_status": "full",
+        "kind": "directory",
+        "locked": true,
+        "managed_by": "gitcurator",
+        "org": "golang",
+        "primary_language": "Go",
+        "source": "https://a.example/x",
+        "stars": "1200",
+        "subcategory": "Assets",
+        "tags": [
+          "icons",
+          "mockup"
+        ]
+      },
+      "name": "full",
+      "text": "---\nsource: \"https://a.example/x\"\ncategory: \"Design\"\nsubcategory: \"Assets\"\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\nfetch_status: \"full\"\ntags: [icons, mockup]\nblacklist: true\nlocked: true\ncurated: 1\nprimary_language: \"Go\"\norg: \"golang\"\nstars: \"1200\"\n---\nbody #auto-delete\n"
+    },
+    {
+      "banish": null,
+      "inventory": {
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "name": "no_fm",
+      "text": "# hand note\nno frontmatter at all\n"
+    },
+    {
+      "banish": {
+        "banish": {},
+        "managed_by": "",
+        "source": "",
+        "tags": [
+          "one"
+        ]
+      },
+      "inventory": {
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "one"
+        ]
+      },
+      "name": "tags_only",
+      "text": "---\ntags:\n  - one\n---\n"
+    }
+  ],
+  "truthy_cases": [
+    [
+      "",
+      false
+    ],
+    [
+      "true",
+      true
+    ],
+    [
+      "True",
+      true
+    ],
+    [
+      "TRUE",
+      true
+    ],
+    [
+      "\"true\"",
+      true
+    ],
+    [
+      "'1'",
+      true
+    ],
+    [
+      "yes",
+      true
+    ],
+    [
+      "YES",
+      true
+    ],
+    [
+      "Yes",
+      true
+    ],
+    [
+      "1",
+      true
+    ],
+    [
+      " 1 ",
+      true
+    ],
+    [
+      "true ",
+      true
+    ],
+    [
+      "on",
+      false
+    ],
+    [
+      "no",
+      false
+    ],
+    [
+      "0",
+      false
+    ],
+    [
+      "false",
+      false
+    ],
+    [
+      "2",
+      false
+    ],
+    [
+      "y",
+      false
+    ],
+    [
+      "true\"",
+      true
+    ],
+    [
+      "1.0",
+      false
+    ]
+  ],
+  "unified_from_json_cases": [
+    {
+      "name": "full_row_with_stars",
+      "out": {
+        "banish": {
+          "blacklist": "true"
+        },
+        "category": "Design",
+        "category_locked": false,
+        "curated": true,
+        "fetch_status": "full",
+        "has_fm": true,
+        "kind": "directory",
+        "locked": true,
+        "managed_by": "gitcurator",
+        "org": "golang",
+        "primary_language": "Go",
+        "source": "https://a.example/x",
+        "stars": "",
+        "subcategory": "Assets",
+        "tags": [
+          "icons",
+          "mockup"
+        ]
+      },
+      "row": {
+        "banish": {
+          "blacklist": "true"
+        },
+        "category": "Design",
+        "category_locked": false,
+        "curated": true,
+        "fetch_status": "full",
+        "has_fm": true,
+        "kind": "directory",
+        "locked": true,
+        "managed_by": "gitcurator",
+        "org": "golang",
+        "primary_language": "Go",
+        "source": "https://a.example/x",
+        "stars": "1200",
+        "subcategory": "Assets",
+        "tags": [
+          "icons",
+          "mockup"
+        ],
+        "v": 4
+      },
+      "row_is_current": true
+    },
+    {
+      "name": "minimal_row",
+      "out": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": false,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "row": {
+        "has_fm": false,
+        "v": 4
+      },
+      "row_is_current": true
+    },
+    {
+      "name": "tags_banish_locks",
+      "out": {
+        "banish": {
+          "blacklist": "true"
+        },
+        "category": "",
+        "category_locked": false,
+        "curated": true,
+        "fetch_status": "",
+        "has_fm": true,
+        "kind": "",
+        "locked": true,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "s",
+        "stars": "",
+        "subcategory": "",
+        "tags": [
+          "a",
+          "b"
+        ]
+      },
+      "row": {
+        "banish": {
+          "blacklist": "true"
+        },
+        "category_locked": false,
+        "curated": true,
+        "has_fm": true,
+        "locked": true,
+        "source": "s",
+        "tags": [
+          "a",
+          "b"
+        ],
+        "v": 4
+      },
+      "row_is_current": true
+    },
+    {
+      "name": "no_v_key",
+      "out": {
+        "banish": {
+          "blacklist": "true"
+        },
+        "category": "Design",
+        "category_locked": false,
+        "curated": true,
+        "fetch_status": "full",
+        "has_fm": true,
+        "kind": "directory",
+        "locked": true,
+        "managed_by": "gitcurator",
+        "org": "golang",
+        "primary_language": "Go",
+        "source": "https://a.example/x",
+        "stars": "",
+        "subcategory": "Assets",
+        "tags": [
+          "icons",
+          "mockup"
+        ]
+      },
+      "row": {
+        "banish": {
+          "blacklist": "true"
+        },
+        "category": "Design",
+        "category_locked": false,
+        "curated": true,
+        "fetch_status": "full",
+        "has_fm": true,
+        "kind": "directory",
+        "locked": true,
+        "managed_by": "gitcurator",
+        "org": "golang",
+        "primary_language": "Go",
+        "source": "https://a.example/x",
+        "stars": "1200",
+        "subcategory": "Assets",
+        "tags": [
+          "icons",
+          "mockup"
+        ]
+      },
+      "row_is_current": false
+    },
+    {
+      "name": "empty_dict",
+      "out": {
+        "banish": {},
+        "category": "",
+        "category_locked": false,
+        "curated": false,
+        "fetch_status": "",
+        "has_fm": false,
+        "kind": "",
+        "locked": false,
+        "managed_by": "",
+        "org": "",
+        "primary_language": "",
+        "source": "",
+        "stars": "",
+        "subcategory": "",
+        "tags": []
+      },
+      "row": {},
+      "row_is_current": false
+    }
+  ]
+}

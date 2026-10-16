@@ -1,0 +1,155 @@
+{
+  "banish_marks": [
+    {
+      "marker": "auto_delete",
+      "note": "blocktags.md"
+    },
+    {
+      "marker": "#auto-delete",
+      "note": "bodytag.md"
+    },
+    {
+      "marker": "blacklist: true",
+      "note": "full.md"
+    }
+  ],
+  "columns": [
+    "path",
+    "mtime_ns",
+    "size",
+    "frontmatter_json",
+    "banish_tag",
+    "scanned_at"
+  ],
+  "corpus": [
+    {
+      "banish_tag": "",
+      "frontmatter_json": "{\"has_fm\": true, \"source\": \"https://a.example/full\", \"category\": \"Design\", \"subcategory\": \"Assets\", \"managed_by\": \"gitcurator\", \"kind\": \"directory\", \"fetch_status\": \"full\", \"tags\": [\"icons\", \"mockup\"], \"banish\": {\"blacklist\": \"true\"}, \"locked\": true, \"category_locked\": true, \"curated\": true, \"primary_language\": \"Go\", \"org\": \"golang\", \"stars\": \"1200\", \"v\": 4}",
+      "name": "full.md",
+      "text": "---\nsource: \"https://a.example/full\"\ncategory: \"Design\"\nsubcategory: \"Assets\"\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\nfetch_status: \"full\"\ntags: [icons, mockup]\nblacklist: \"true\"\nlocked: true\ncategory_locked: \"yes\"\ncurated: 1\nprimary_language: \"Go\"\norg: \"golang\"\nstars: \"1200\"\n---\n\n# Full Grammar\n\nthe union of every key the doors read\n"
+    },
+    {
+      "banish_tag": "",
+      "frontmatter_json": "{\"has_fm\": true, \"source\": \"https://a.example/block\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [\"auto_delete\", \"web\"], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "name": "blocktags.md",
+      "text": "---\nsource: \"https://a.example/block\"\ntags:\n  - \"auto_delete\"\n  - web\nmanaged_by: \"gitcurator\"\n---\n\nblock-style tags with quotes\n"
+    },
+    {
+      "banish_tag": "#auto-delete",
+      "frontmatter_json": "{\"has_fm\": true, \"source\": \"https://a.example/body\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "name": "bodytag.md",
+      "text": "---\nsource: \"https://a.example/body\"\nmanaged_by: \"gitcurator\"\n---\n\nnot needed #auto-delete\n"
+    },
+    {
+      "banish_tag": "",
+      "frontmatter_json": "{\"has_fm\": false, \"source\": \"\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "name": "hand.md",
+      "text": "# my own note, no frontmatter\n"
+    },
+    {
+      "banish_tag": "",
+      "frontmatter_json": "{\"has_fm\": true, \"source\": \"https://a.example/crlf\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [\"a\", \"b\"], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "name": "crlf.md",
+      "text": "---\nsource: \"https://a.example/crlf\"\nmanaged_by: \"gitcurator\"\ntags: [a, b]\n---\n\n# CRLF Note\n\nbody text with windows endings\n"
+    },
+    {
+      "banish_tag": "",
+      "frontmatter_json": "{\"has_fm\": true, \"source\": \"https://a.example/ok��x\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "name": "badutf8.md",
+      "text": "---\nsource: \"https://a.example/ok��x\"\nmanaged_by: \"gitcurator\"\n---\n\n# Bad Bytes\n"
+    },
+    {
+      "banish_tag": "",
+      "frontmatter_json": "{\"has_fm\": true, \"source\": \"https://a.example/unterm\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "name": "unterm.md",
+      "text": "---\nsource: \"https://a.example/unterm\"\n"
+    },
+    {
+      "banish_tag": "",
+      "frontmatter_json": "{\"has_fm\": true, \"source\": \"https://github.com/o/repos\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"repository\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"Rust\", \"org\": \"oxidize\", \"stars\": \"42\", \"v\": 4}",
+      "name": "repos.md",
+      "text": "---\nsource: \"https://github.com/o/repos\"\nprimary_language: \"Rust\"\norg: \"oxidize\"\nstars: \"42\"\nkind: \"repository\"\nmanaged_by: \"gitcurator\"\n---\n\n# A Repo Note\n"
+    }
+  ],
+  "fixture_sha256": "bc1e44bb03f655b4f11cc30b8749b0edf212be9a6c243314b6365df78cd271be",
+  "no_sidecars_after_close": true,
+  "pass_stats": {
+    "db_hits": 0,
+    "db_writes": 8,
+    "notes_parsed": 8,
+    "opens": 8,
+    "ram_hits": 0
+  },
+  "pragmas_through_reference": {
+    "busy_timeout": 30000,
+    "journal_mode": "delete",
+    "synchronous": 2
+  },
+  "rows": [
+    [
+      "/tmp/curator-notereads-z9j4yfxc/websites/badutf8.md",
+      1792109623976978257,
+      80,
+      "{\"has_fm\": true, \"source\": \"https://a.example/ok��x\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "",
+      1792109623.9786472
+    ],
+    [
+      "/tmp/curator-notereads-z9j4yfxc/websites/blocktags.md",
+      1792109623976978257,
+      129,
+      "{\"has_fm\": true, \"source\": \"https://a.example/block\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [\"auto_delete\", \"web\"], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "",
+      1792109623.9788866
+    ],
+    [
+      "/tmp/curator-notereads-z9j4yfxc/websites/bodytag.md",
+      1792109623976978257,
+      91,
+      "{\"has_fm\": true, \"source\": \"https://a.example/body\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "#auto-delete",
+      1792109623.9790046
+    ],
+    [
+      "/tmp/curator-notereads-z9j4yfxc/websites/crlf.md",
+      1792109623976978257,
+      133,
+      "{\"has_fm\": true, \"source\": \"https://a.example/crlf\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [\"a\", \"b\"], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "",
+      1792109623.9791033
+    ],
+    [
+      "/tmp/curator-notereads-z9j4yfxc/websites/full.md",
+      1792109623976978257,
+      339,
+      "{\"has_fm\": true, \"source\": \"https://a.example/full\", \"category\": \"Design\", \"subcategory\": \"Assets\", \"managed_by\": \"gitcurator\", \"kind\": \"directory\", \"fetch_status\": \"full\", \"tags\": [\"icons\", \"mockup\"], \"banish\": {\"blacklist\": \"true\"}, \"locked\": true, \"category_locked\": true, \"curated\": true, \"primary_language\": \"Go\", \"org\": \"golang\", \"stars\": \"1200\", \"v\": 4}",
+      "",
+      1792109623.9792354
+    ],
+    [
+      "/tmp/curator-notereads-z9j4yfxc/websites/hand.md",
+      1792109623976978257,
+      30,
+      "{\"has_fm\": false, \"source\": \"\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "",
+      1792109623.9793246
+    ],
+    [
+      "/tmp/curator-notereads-z9j4yfxc/websites/repos.md",
+      1792109623976978257,
+      156,
+      "{\"has_fm\": true, \"source\": \"https://github.com/o/repos\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"gitcurator\", \"kind\": \"repository\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"Rust\", \"org\": \"oxidize\", \"stars\": \"42\", \"v\": 4}",
+      "",
+      1792109623.9794037
+    ],
+    [
+      "/tmp/curator-notereads-z9j4yfxc/websites/unterm.md",
+      1792109623976978257,
+      39,
+      "{\"has_fm\": true, \"source\": \"https://a.example/unterm\", \"category\": \"\", \"subcategory\": \"\", \"managed_by\": \"\", \"kind\": \"\", \"fetch_status\": \"\", \"tags\": [], \"banish\": {}, \"locked\": false, \"category_locked\": false, \"curated\": false, \"primary_language\": \"\", \"org\": \"\", \"stars\": \"\", \"v\": 4}",
+      "",
+      1792109623.979485
+    ]
+  ],
+  "schema": 1
+}

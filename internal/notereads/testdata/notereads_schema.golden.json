@@ -1,0 +1,61 @@
+{
+  "objects": [
+    [
+      "index",
+      "sqlite_autoindex_note_reads_1",
+      "note_reads",
+      null
+    ],
+    [
+      "table",
+      "note_reads",
+      "note_reads",
+      "CREATE TABLE note_reads (\n                        path TEXT PRIMARY KEY,\n                        mtime_ns INTEGER NOT NULL,\n                        size INTEGER NOT NULL,\n                        frontmatter_json TEXT NOT NULL DEFAULT '',\n                        banish_tag TEXT NOT NULL DEFAULT '',\n                        scanned_at REAL NOT NULL DEFAULT 0\n                    )"
+    ]
+  ],
+  "schema": 1,
+  "table_columns": [
+    [
+      "path",
+      "TEXT",
+      0,
+      null,
+      1
+    ],
+    [
+      "mtime_ns",
+      "INTEGER",
+      1,
+      null,
+      0
+    ],
+    [
+      "size",
+      "INTEGER",
+      1,
+      null,
+      0
+    ],
+    [
+      "frontmatter_json",
+      "TEXT",
+      1,
+      "''",
+      0
+    ],
+    [
+      "banish_tag",
+      "TEXT",
+      1,
+      "''",
+      0
+    ],
+    [
+      "scanned_at",
+      "REAL",
+      1,
+      "0",
+      0
+    ]
+  ]
+}

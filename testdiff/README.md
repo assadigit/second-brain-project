@@ -49,7 +49,32 @@ testdiff/
 │                                   # fixture as an ATOMIC PAIR with its
 │                                   # content golden + the schema golden
 │                                   # (the CAST-law guard: all-TEXT
-│                                   # declared columns)
+│                                   # declared columns);
+│                                   # dump_notereads.py →
+│                                   # internal/notereads, T-22 — the
+│                                   # pure corpus (the unified parse +
+│                                   # the body-tag grammar + the truthy
+│                                   # fold + the text-mode read law
+│                                   # incl. universal newlines and the
+│                                   # maximal-subpart replacement +
+│                                   # the shape adapters + the row-JSON
+│                                   # reader WITH the stars-quirk
+│                                   # evidence, byte-stable) + the
+│                                   # Python-created note_reads DB
+│                                   # fixture as an ATOMIC PAIR with
+│                                   # its content golden (the
+│                                   # frontmatter_json bytes are the
+│                                   # Go JSON writer's byte-parity
+│                                   # pin) + the schema golden (the
+│                                   # CAST-law guard: all
+│                                   # TEXT/INTEGER/REAL columns) + the
+│                                   # behavior golden (the reference's
+│                                   # own probe counts: second-scan
+│                                   # opens 4→0 / db_hits 6, stale
+│                                   # rows, prune, broken db, the
+│                                   # character-budget baseline the
+│                                   # Go byte-budget fix diverges
+│                                   # from)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```
