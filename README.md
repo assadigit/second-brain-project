@@ -28,15 +28,23 @@ ground truth: skip sets, the 4000-char read, the site-map gates). SESSION-009's
 T-23/T-24 were lost at an environment wipe while push-pending — re-ported
 independently in SESSION-010, which now pushes after every task. 425 tests
 race-clean.**
-**Phase 3 OPEN (SESSION-011)**: T-30 `internal/llmclient` landed (commit
-`f2073b5`) — the three providers on Python-json.dumps-identical wire
-bytes (the payload goldens), the JSON-mode memoized 400-fallback,
+**Phase 3 OPEN (SESSION-011–012)**: T-30 `internal/llmclient` landed
+(commit `f2073b5`) — the three providers on Python-json.dumps-identical
+wire bytes (the payload goldens), the JSON-mode memoized 400-fallback,
 extract_json, the llama.cpp detection engine + the /props grab, the
-autodetect policy; 556 tests race-clean; the twelfth golden generator.
-Next: T-31 webfetch (its own session per the roadmap), then T-32
-webextract — with the T-32 dependency-law question surfaced for the
-owner (spec-core-web-extract names golang.org/x/net/html; the no-new-
-dependencies law requires an ADR or a hand-rolled parser port).
+autodetect policy; and **T-31 `internal/webfetch` landed (commit
+`4d93877`) — the whole fetch ladder: the routes (SOCKS5 rdns, the
+http-proxy absolute URI, loopback/direct never proxied), the OWN
+redirect loop (hop cookies, 308, the Referer law), the Chrome-131
+header set, the rate limiter with penalties, the caps + capped
+decompression, the failure taxonomy, the DoH verdicts, the dead-page
+rescue + the Wayback courtesy, and the tls-client impersonation door
+(ships armed); 676 tests race-clean; the thirteenth golden generator;
+the go directive rides tls-client's floor (1.24.1 — ADR-0002 Am.2
+records the correction; sqlite stays v1.36.1)**. Next: T-32
+webextract (awaiting the owner's x/net/html verdict — the module is
+already in the graph), then T-33 connectioncheck, T-34 workerclient
+(the gate's last stone).
 
 ## Map
 
