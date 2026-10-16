@@ -1,0 +1,1208 @@
+{
+  "corpus": {
+    "autodetect_decision": [
+      {
+        "config": {
+          "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+          "llm_provider": "ollama"
+        },
+        "name": "ollama_dead",
+        "ollama_up": false,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "success",
+          "limits": null,
+          "message": "🦙 llama.cpp caught automatically at http://127.0.0.1:8080 · model 'qwen2.5-3b' — Ollama is not running, switching the LLM provider to llama.cpp.",
+          "model": "qwen2.5-3b",
+          "switch": true,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "llm_provider": "ollama"
+        },
+        "name": "ollama_alive",
+        "ollama_up": true,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "info",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b' — Settings → 🧠 LLM → 🦙 llama.cpp to use it.",
+          "model": null,
+          "switch": false,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "llm_provider": "ollama"
+        },
+        "name": "ollama_unknown",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "info",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b' — Settings → 🧠 LLM → 🦙 llama.cpp to use it.",
+          "model": null,
+          "switch": false,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "cloud_api_key": "",
+          "llm_provider": "cloud"
+        },
+        "name": "cloud_keyless",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "success",
+          "limits": null,
+          "message": "🦙 llama.cpp caught automatically at http://127.0.0.1:8080 · model 'qwen2.5-3b' — no cloud API key is configured, switching the LLM provider to llama.cpp.",
+          "model": "qwen2.5-3b",
+          "switch": true,
+          "url": "http://127.0.0.1:8080/v1"
+        }
+      },
+      {
+        "config": {
+          "cloud_api_key": "sk-live-xyz",
+          "llm_provider": "cloud"
+        },
+        "name": "cloud_keyed",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "info",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b' — Settings → 🧠 LLM → 🦙 llama.cpp to use it.",
+          "model": null,
+          "switch": false,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+          "llamacpp_model": "qwen2.5-3b",
+          "llm_provider": "llamacpp"
+        },
+        "name": "already_llamacpp_matching",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "success",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b'",
+          "model": null,
+          "switch": false,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+          "llamacpp_model": "qwen2.5-3b",
+          "llm_provider": "llamacpp"
+        },
+        "name": "already_llamacpp_moved",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:51717",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "success",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:51717 · model 'qwen2.5-3b' (was http://127.0.0.1:8080/v1)",
+          "model": null,
+          "switch": false,
+          "url": "http://127.0.0.1:51717/v1"
+        }
+      },
+      {
+        "config": {
+          "llm_provider": "llamacpp"
+        },
+        "name": "already_llamacpp_empty_url",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "success",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b'",
+          "model": "qwen2.5-3b",
+          "switch": false,
+          "url": "http://127.0.0.1:8080/v1"
+        }
+      },
+      {
+        "config": {
+          "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+          "llamacpp_model": "old-choice",
+          "llm_provider": "llamacpp"
+        },
+        "name": "already_llamacpp_new_model",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "success",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b'",
+          "model": "qwen2.5-3b",
+          "switch": false,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "cloud_api_key": "sk-x",
+          "cloud_api_url": "http://my-endpoint/v1",
+          "llm_provider": "cloud"
+        },
+        "name": "custom_provider",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "info",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b' — Settings → 🧠 LLM → 🦙 llama.cpp to use it.",
+          "model": null,
+          "switch": false,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "llm_provider": null
+        },
+        "name": "junk_provider",
+        "ollama_up": null,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ]
+        },
+        "want": {
+          "level": "info",
+          "limits": null,
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b' — Settings → 🧠 LLM → 🦙 llama.cpp to use it.",
+          "model": null,
+          "switch": false,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "llm_provider": "ollama"
+        },
+        "name": "not_found",
+        "ollama_up": null,
+        "probe": {
+          "found": false
+        },
+        "want": {
+          "level": "info",
+          "limits": null,
+          "message": "",
+          "model": null,
+          "switch": false,
+          "url": null
+        }
+      },
+      {
+        "config": {
+          "llm_provider": "ollama"
+        },
+        "name": "limits_carried",
+        "ollama_up": false,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ],
+          "props_limits": {
+            "n_ctx": 8192,
+            "n_predict": 512
+          }
+        },
+        "want": {
+          "level": "success",
+          "limits": {
+            "n_ctx": 8192,
+            "n_predict": 512
+          },
+          "message": "🦙 llama.cpp caught automatically at http://127.0.0.1:8080 · model 'qwen2.5-3b' · context window 8192 tokens · output cap 512 tokens — Ollama is not running, switching the LLM provider to llama.cpp.",
+          "model": "qwen2.5-3b",
+          "switch": true,
+          "url": "http://127.0.0.1:8080/v1"
+        }
+      },
+      {
+        "config": {
+          "llm_provider": "ollama"
+        },
+        "name": "limits_hint_only",
+        "ollama_up": true,
+        "probe": {
+          "base_url": "http://127.0.0.1:8080",
+          "found": true,
+          "model": "qwen2.5-3b",
+          "models": [
+            "qwen2.5-3b"
+          ],
+          "props_limits": {
+            "n_ctx": 8192,
+            "n_predict": 512
+          }
+        },
+        "want": {
+          "level": "info",
+          "limits": {
+            "n_ctx": 8192,
+            "n_predict": 512
+          },
+          "message": "🦙 llama.cpp detected at http://127.0.0.1:8080 · model 'qwen2.5-3b' · context window 8192 tokens · output cap 512 tokens — Settings → 🧠 LLM → 🦙 llama.cpp to use it.",
+          "model": null,
+          "switch": false,
+          "url": null
+        }
+      }
+    ],
+    "constants": {
+      "ANTHROPIC_FALLBACK_MAX_TOKENS": 4096,
+      "ANTHROPIC_HOST_HINTS": [
+        "api.anthropic.com",
+        "anthropic.com"
+      ],
+      "ANTHROPIC_VERSION_HEADER": "2023-06-01",
+      "CLOUD_PROVIDER_LABEL": "OpenAI-compatible endpoint",
+      "DEFAULT_LIST_TIMEOUT_S": 15,
+      "DEFAULT_MAX_OUTPUT_TOKENS": 0,
+      "DEFAULT_NUM_CTX": 8192,
+      "DEFAULT_TIMEOUT_S": 300,
+      "LLAMACPP_DEFAULT_BASE": "http://127.0.0.1:8080",
+      "LLAMACPP_PROBE_TIMEOUT_S": 2.0,
+      "LLAMACPP_PROVIDER_LABEL": "llama.cpp server (local)",
+      "LLAMACPP_SCAN_PORTS": [
+        8080,
+        8081,
+        8082,
+        8083,
+        8084,
+        8085,
+        8000,
+        5000,
+        5001,
+        1234,
+        9000
+      ]
+    },
+    "estimate_tokens": [
+      {
+        "messages": null,
+        "want": 0
+      },
+      {
+        "messages": [],
+        "want": 0
+      },
+      {
+        "messages": [
+          {
+            "content": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          }
+        ],
+        "want": 104
+      },
+      {
+        "messages": [
+          {
+            "content": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+          }
+        ],
+        "want": 1004
+      },
+      {
+        "messages": [
+          {
+            "content": "héllo",
+            "role": "user"
+          }
+        ],
+        "want": 5
+      },
+      {
+        "messages": [
+          {
+            "content": "a"
+          },
+          {
+            "content": "b"
+          }
+        ],
+        "want": 8
+      },
+      {
+        "messages": [
+          null,
+          "junk"
+        ],
+        "want": 8
+      },
+      {
+        "messages": [
+          {
+            "role": "user"
+          }
+        ],
+        "want": 4
+      }
+    ],
+    "extract_json": [
+      {
+        "ok": true,
+        "result": "{\"a\": 1}",
+        "text": "{\"a\": 1}"
+      },
+      {
+        "ok": true,
+        "result": "{\"a\": 1}",
+        "text": "  {\"a\": 1}  "
+      },
+      {
+        "ok": true,
+        "result": "{\"a\": 2}",
+        "text": "Sure! Here is the JSON:\n```json\n{\"a\": 2}\n```\nDone."
+      },
+      {
+        "ok": true,
+        "result": "{\"b\": 3}",
+        "text": "text\n```\n{\"b\": 3}\n```"
+      },
+      {
+        "ok": true,
+        "result": "{\"a\": {\"b\": 3}}",
+        "text": "The result is {\"a\": {\"b\": 3}} as requested."
+      },
+      {
+        "ok": true,
+        "result": "{\"outer\": {\"inner\": [1, 2, {\"deep\": true}]}}",
+        "text": "{\"outer\": {\"inner\": [1, 2, {\"deep\": true}]}}"
+      },
+      {
+        "ok": false,
+        "result": null,
+        "text": "no json here at all"
+      },
+      {
+        "ok": false,
+        "result": null,
+        "text": ""
+      },
+      {
+        "ok": true,
+        "result": "{\"a\": 9}",
+        "text": "```json\nnot json\n``` then {\"a\": 9} in prose"
+      },
+      {
+        "ok": false,
+        "result": null,
+        "text": "{bad json} nothing else"
+      },
+      {
+        "ok": true,
+        "result": "{\"ok\": 1}",
+        "text": "prefix {\"ok\": 1} suffix {\"second\": 2}"
+      },
+      {
+        "ok": true,
+        "result": "5",
+        "text": "5"
+      },
+      {
+        "ok": true,
+        "result": "[1, 2, 3]",
+        "text": "[1, 2, 3]"
+      },
+      {
+        "ok": true,
+        "result": "\"a plain string\"",
+        "text": "\"a plain string\""
+      },
+      {
+        "ok": true,
+        "result": "null",
+        "text": "null"
+      },
+      {
+        "ok": true,
+        "result": "{\"w\\u00f6rld\": \"\\u00e4\"}",
+        "text": "héllo {\"wörld\": \"ä\"} ✓"
+      }
+    ],
+    "is_anthropic_url": {
+      "no": [
+        "https://api.openai.com/v1",
+        "http://127.0.0.1:8080/v1",
+        "",
+        null,
+        "https://anthropic.example.com"
+      ],
+      "yes": [
+        "https://api.anthropic.com/v1",
+        "https://api.anthropic.com",
+        "https://prefix.anthropic.com/v1"
+      ]
+    },
+    "is_llamacpp_props": [
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_predict": -1,
+            "temperature": 0.8
+          },
+          "model_alias": "qwen2.5-3b",
+          "model_path": "models/qwen2.5-3b-instruct-q4_k_m.gguf",
+          "total_slots": 1
+        },
+        "want": true
+      },
+      {
+        "props": {
+          "default_generation_settings": {},
+          "model_path": "models/foo.gguf",
+          "total_slots": 1
+        },
+        "want": true
+      },
+      {
+        "props": {
+          "data": [
+            {
+              "id": "m"
+            }
+          ],
+          "object": "list"
+        },
+        "want": false
+      },
+      {
+        "props": {},
+        "want": false
+      },
+      {
+        "props": [
+          1,
+          2
+        ],
+        "want": false
+      },
+      {
+        "props": "llama.cpp",
+        "want": false
+      },
+      {
+        "props": null,
+        "want": false
+      }
+    ],
+    "is_loopback_url": {
+      "no": [
+        "http://192.168.1.5:8080",
+        "http://api.openai.com/v1",
+        "http://[::ffff:192.168.1.5]:8080",
+        "",
+        null,
+        "http://example.com",
+        "not a url",
+        "http://[::ffff:127.0.0.1]:9"
+      ],
+      "yes": [
+        "http://127.0.0.1:8080/v1",
+        "127.0.0.1:8080",
+        "http://localhost:11434",
+        "http://LOCALHOST:8080/v1",
+        "http://[::1]:8080/v1",
+        "http://127.8.8.8:9",
+        "http://user@127.0.0.1:9"
+      ]
+    },
+    "list_models_names": {
+      "model_key_new_api": [
+        "new-api",
+        "second"
+      ],
+      "name_key": [
+        "old-api",
+        "old-api-2"
+      ]
+    },
+    "llamacpp_limits_from_props": [
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": 8192,
+            "params": {
+              "n_predict": 2048,
+              "temperature": 0.7
+            }
+          }
+        },
+        "want": {
+          "n_ctx": 8192,
+          "n_predict": 2048
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": 4096,
+            "n_predict": 512
+          }
+        },
+        "want": {
+          "n_ctx": 4096,
+          "n_predict": 512
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": 8192,
+            "n_predict": -1
+          }
+        },
+        "want": {
+          "n_ctx": 8192,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": 8192,
+            "n_predict": 0
+          }
+        },
+        "want": {
+          "n_ctx": 8192,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_predict": -1,
+            "temperature": 0.8
+          },
+          "model_alias": "qwen2.5-3b",
+          "model_path": "models/qwen2.5-3b-instruct-q4_k_m.gguf",
+          "total_slots": 1
+        },
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": null,
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": [],
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": "x",
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {},
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": "x"
+        },
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {}
+        },
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": null
+        },
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": "junk",
+            "params": {
+              "n_predict": "x"
+            }
+          }
+        },
+        "want": {
+          "n_ctx": null,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": "8192"
+          }
+        },
+        "want": {
+          "n_ctx": 8192,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": 8192.9
+          }
+        },
+        "want": {
+          "n_ctx": 8192,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": true
+          }
+        },
+        "want": {
+          "n_ctx": 1,
+          "n_predict": null
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_predict": 128
+          }
+        },
+        "want": {
+          "n_ctx": null,
+          "n_predict": 128
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_predict": null,
+            "params": {
+              "n_predict": 256
+            }
+          }
+        },
+        "want": {
+          "n_ctx": null,
+          "n_predict": 256
+        }
+      },
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_ctx": 4096,
+            "n_predict": null
+          }
+        },
+        "want": {
+          "n_ctx": 4096,
+          "n_predict": null
+        }
+      }
+    ],
+    "llamacpp_limits_line": [
+      {
+        "limits": {
+          "n_ctx": 8192,
+          "n_predict": 2048
+        },
+        "want": "context window 8192 tokens · output cap 2048 tokens"
+      },
+      {
+        "limits": {
+          "n_ctx": 8192
+        },
+        "want": "context window 8192 tokens"
+      },
+      {
+        "limits": {
+          "n_predict": 2048
+        },
+        "want": "output cap 2048 tokens"
+      },
+      {
+        "limits": {},
+        "want": ""
+      },
+      {
+        "limits": null,
+        "want": ""
+      },
+      {
+        "limits": {
+          "n_ctx": null,
+          "n_predict": null
+        },
+        "want": ""
+      }
+    ],
+    "llamacpp_model_from_props": [
+      {
+        "props": {
+          "default_generation_settings": {
+            "n_predict": -1,
+            "temperature": 0.8
+          },
+          "model_alias": "qwen2.5-3b",
+          "model_path": "models/qwen2.5-3b-instruct-q4_k_m.gguf",
+          "total_slots": 1
+        },
+        "want": "qwen2.5-3b"
+      },
+      {
+        "props": {
+          "model_path": "models/foo.Q4_K_M.gguf"
+        },
+        "want": "foo.Q4_K_M.gguf"
+      },
+      {
+        "props": {
+          "model_alias": "unknown",
+          "model_path": "/home/x/bar.gguf"
+        },
+        "want": "bar.gguf"
+      },
+      {
+        "props": {
+          "model_path": "C:\\models\\baz.gguf"
+        },
+        "want": "baz.gguf"
+      },
+      {
+        "props": {
+          "model_alias": "Unknown"
+        },
+        "want": null
+      },
+      {
+        "props": {
+          "model_alias": "  unknown  "
+        },
+        "want": null
+      },
+      {
+        "props": {
+          "model_alias": ""
+        },
+        "want": null
+      },
+      {
+        "props": {
+          "model_path": "models/foo.gguf/"
+        },
+        "want": "foo.gguf"
+      },
+      {
+        "props": {
+          "model_path": "foo.gguf"
+        },
+        "want": "foo.gguf"
+      },
+      {
+        "props": {},
+        "want": null
+      },
+      {
+        "props": null,
+        "want": null
+      }
+    ],
+    "normalize_llamacpp_api_url": [
+      {
+        "url": "127.0.0.1:8080",
+        "want": "http://127.0.0.1:8080/v1"
+      },
+      {
+        "url": "http://127.0.0.1:8080",
+        "want": "http://127.0.0.1:8080/v1"
+      },
+      {
+        "url": "http://127.0.0.1:8080/",
+        "want": "http://127.0.0.1:8080/v1"
+      },
+      {
+        "url": "http://127.0.0.1:8080/v1",
+        "want": "http://127.0.0.1:8080/v1"
+      },
+      {
+        "url": "http://host:8080/llamacpp",
+        "want": "http://host:8080/llamacpp"
+      },
+      {
+        "url": "",
+        "want": "http://127.0.0.1:8080/v1"
+      },
+      {
+        "url": null,
+        "want": "http://127.0.0.1:8080/v1"
+      },
+      {
+        "url": "  http://127.0.0.1:8080  ",
+        "want": "http://127.0.0.1:8080/v1"
+      },
+      {
+        "url": "HTTP://127.0.0.1:8080",
+        "want": "HTTP://127.0.0.1:8080/v1"
+      },
+      {
+        "url": "127.0.0.1:8080/v1",
+        "want": "http://127.0.0.1:8080/v1"
+      },
+      {
+        "url": "host:8080/llamacpp/",
+        "want": "http://host:8080/llamacpp"
+      },
+      {
+        "url": "http://127.0.0.1:8080//",
+        "want": "http://127.0.0.1:8080/v1"
+      }
+    ],
+    "parse_netstat_ports": [
+      {
+        "pids": [
+          4242,
+          7171
+        ],
+        "text": "  TCP    127.0.0.1:8080          0.0.0.0:0              LISTENING       4242\r\n  TCP    [::]:8080               [::]:0                 LISTENING       4242\r\n  TCP    0.0.0.0:51717           0.0.0.0:0              LISTENING       4242\r\n  TCP    127.0.0.1:11434         0.0.0.0:0              LISTENING       5150\r\n  TCP    127.0.0.1:9999          0.0.0.0:0              LISTENING       7171\r\n  TCP    192.168.1.5:5177        44.3.2.1:443           ESTABLISHED     4242\r\n  TCP    127.0.0.1:5188          127.0.0.1:5189         TIME_WAIT       0\r\n",
+        "want": [
+          8080,
+          51717,
+          9999
+        ]
+      },
+      {
+        "pids": [],
+        "text": "  TCP    127.0.0.1:8080          0.0.0.0:0              LISTENING       4242\r\n  TCP    [::]:8080               [::]:0                 LISTENING       4242\r\n  TCP    0.0.0.0:51717           0.0.0.0:0              LISTENING       4242\r\n  TCP    127.0.0.1:11434         0.0.0.0:0              LISTENING       5150\r\n  TCP    127.0.0.1:9999          0.0.0.0:0              LISTENING       7171\r\n  TCP    192.168.1.5:5177        44.3.2.1:443           ESTABLISHED     4242\r\n  TCP    127.0.0.1:5188          127.0.0.1:5189         TIME_WAIT       0\r\n",
+        "want": []
+      },
+      {
+        "pids": [
+          4242
+        ],
+        "text": "",
+        "want": []
+      }
+    ],
+    "parse_posix_ports": [
+      {
+        "text": "State   Recv-Q Send-Q Local Address:Port   Peer Address:Port  Process\nLISTEN  0      4096   127.0.0.1:51717        0.0.0.0:*   users:((\"llama-server\",pid=1234,fd=3))\nLISTEN  0      5      127.0.0.1:3031         0.0.0.0:*   users:((\"python3\",pid=555,fd=4))\n",
+        "want": [
+          51717
+        ]
+      },
+      {
+        "text": "",
+        "want": []
+      }
+    ],
+    "parse_tasklist_pids": [
+      {
+        "text": "\"llama-server.exe\",\"4242\",\"Console\",\"1\",\"123,456 K\"\r\n\"ollama.exe\",\"5150\",\"Console\",\"1\",\"456,789 K\"\r\n\"llamafile\",\"7171\",\"Console\",\"1\",\"111 K\"\r\n\"chrome.exe\",\"9999\",\"Console\",\"1\",\"999,999 K\"\r\n\"llama-server.exe\",\"notapid\",\"Console\",\"1\",\"1 K\"\r\n",
+        "want": [
+          4242,
+          7171
+        ]
+      },
+      {
+        "text": "",
+        "want": []
+      },
+      {
+        "text": null,
+        "want": []
+      },
+      {
+        "text": "随机 text\n\"普通\"",
+        "want": []
+      }
+    ],
+    "resolve_llamacpp_model": [
+      {
+        "config": {
+          "llamacpp_model": "my-pick"
+        },
+        "models": [
+          "server-model"
+        ],
+        "props_model": "props-model",
+        "want": "my-pick"
+      },
+      {
+        "config": {
+          "llamacpp_model": ""
+        },
+        "models": [
+          "a",
+          "b"
+        ],
+        "props_model": "props-model",
+        "want": "a"
+      },
+      {
+        "config": {},
+        "models": [],
+        "props_model": "props-model",
+        "want": "props-model"
+      },
+      {
+        "config": {},
+        "models": [],
+        "props_model": null,
+        "want": null
+      },
+      {
+        "config": null,
+        "models": [],
+        "props_model": null,
+        "want": null
+      },
+      {
+        "config": {
+          "llamacpp_model": "   "
+        },
+        "models": [],
+        "props_model": "p",
+        "want": "p"
+      }
+    ],
+    "resolve_task_model": [
+      {
+        "config": {
+          "models": {
+            "analyze": "",
+            "classify": "big-ctx"
+          }
+        },
+        "default": "default",
+        "task": "classify",
+        "want": "big-ctx"
+      },
+      {
+        "config": {
+          "models": {
+            "analyze": "",
+            "classify": "big-ctx"
+          }
+        },
+        "default": "default",
+        "task": "analyze",
+        "want": "default"
+      },
+      {
+        "config": {},
+        "default": "d",
+        "task": "classify",
+        "want": "d"
+      },
+      {
+        "config": {
+          "models": {}
+        },
+        "default": "d",
+        "task": "classify",
+        "want": "d"
+      },
+      {
+        "config": {
+          "models": {
+            "classify": "  "
+          }
+        },
+        "default": "d",
+        "task": "classify",
+        "want": "d"
+      },
+      {
+        "config": {
+          "models": {
+            "classify": "x"
+          }
+        },
+        "default": "d",
+        "task": null,
+        "want": "d"
+      },
+      {
+        "config": {
+          "models": "nope"
+        },
+        "default": "d",
+        "task": "classify",
+        "want": "d"
+      },
+      {
+        "config": null,
+        "default": "d",
+        "task": "classify",
+        "want": "d"
+      },
+      {
+        "config": {
+          "models": {
+            "classify": 42
+          }
+        },
+        "default": "d",
+        "task": "classify",
+        "want": "42"
+      }
+    ],
+    "response_content": [
+      {
+        "response": {
+          "message": {
+            "content": "dict"
+          }
+        },
+        "shape": "dict",
+        "want": "dict"
+      },
+      {
+        "response": {
+          "message": {
+            "content": ""
+          }
+        },
+        "shape": "dict_empty_content",
+        "want": ""
+      },
+      {
+        "response": {},
+        "shape": "dict_no_message",
+        "want": ""
+      },
+      {
+        "response": null,
+        "shape": "none",
+        "want": ""
+      },
+      {
+        "response": "«SimpleNamespace»",
+        "shape": "object_new_api",
+        "skip_go": true,
+        "want": "obj-content"
+      }
+    ]
+  },
+  "schema": 1
+}

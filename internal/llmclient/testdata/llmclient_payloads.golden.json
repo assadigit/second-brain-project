@@ -1,0 +1,279 @@
+{
+  "scenarios": {
+    "anthropic_full": {
+      "requests": [
+        {
+          "body": "{\"model\": \"claude-sonnet-4-5\", \"messages\": [{\"role\": \"user\", \"content\": \"analyze\"}], \"max_tokens\": 2048, \"temperature\": 0.7, \"system\": \"be strict\"}",
+          "headers": {
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "x-api-key": "sk-ant-test"
+          },
+          "method": "POST",
+          "path": "/v1/messages"
+        }
+      ]
+    },
+    "anthropic_json_mode": {
+      "requests": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"max_tokens\": 4096, \"temperature\": 0.7, \"system\": \"sys\\n\\nReply with ONLY a valid JSON object \\u2014 no prose, no markdown fences.\"}",
+          "headers": {
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "x-api-key": "k"
+          },
+          "method": "POST",
+          "path": "/v1/messages"
+        }
+      ]
+    },
+    "anthropic_list_models": {
+      "requests": [
+        {
+          "body": "",
+          "headers": {
+            "anthropic-version": "2023-06-01",
+            "x-api-key": "sk-ant"
+          },
+          "method": "GET",
+          "path": "/v1/models"
+        }
+      ]
+    },
+    "anthropic_max_tokens_fallback": {
+      "requests": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"max_tokens\": 4096, \"temperature\": 0.7}",
+          "headers": {
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "x-api-key": "k"
+          },
+          "method": "POST",
+          "path": "/v1/messages"
+        }
+      ]
+    },
+    "anthropic_no_system": {
+      "requests": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"max_tokens\": 4096, \"temperature\": 0.7}",
+          "headers": {
+            "anthropic-version": "2023-06-01",
+            "content-type": "application/json",
+            "x-api-key": "k"
+          },
+          "method": "POST",
+          "path": "/v1/messages"
+        }
+      ]
+    },
+    "detect_ollama_ua": {
+      "requests": [
+        {
+          "body": "",
+          "headers": {
+            "user-agent": "GitCurator-detect"
+          },
+          "method": "GET",
+          "path": "/api/tags"
+        }
+      ]
+    },
+    "ollama_request_building": {
+      "json_mode_off": {
+        "messages": [
+          {
+            "content": "hi",
+            "role": "user"
+          }
+        ],
+        "model": "m",
+        "options": {
+          "num_ctx": 8192
+        }
+      },
+      "num_ctx_and_format": {
+        "format": "json",
+        "messages": [
+          {
+            "content": "hi",
+            "role": "user"
+          }
+        ],
+        "model": "m",
+        "options": {
+          "num_ctx": 8192
+        }
+      },
+      "num_ctx_and_num_predict": {
+        "format": "json",
+        "messages": [
+          {
+            "content": "hi",
+            "role": "user"
+          }
+        ],
+        "model": "m",
+        "options": {
+          "num_ctx": 160000,
+          "num_predict": 32000
+        }
+      },
+      "num_ctx_off": {
+        "format": "json",
+        "messages": [
+          {
+            "content": "hi",
+            "role": "user"
+          }
+        ],
+        "model": "m"
+      },
+      "over_budget_warning": [
+        "prompt ≈10004 tokens exceeds the context window (num_ctx=512) — the model may not see the start of it. Raise llm_num_ctx in Settings if answers degrade."
+      ]
+    },
+    "openai_fallback_memoized": {
+      "memoized_rejected": true,
+      "request_count_second_call_delta": 1,
+      "requests_after_two_calls": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"temperature\": 0.7, \"response_format\": {\"type\": \"json_object\"}}",
+          "headers": {
+            "authorization": "Bearer k",
+            "content-type": "application/json"
+          },
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        },
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"temperature\": 0.7}",
+          "headers": {
+            "authorization": "Bearer k",
+            "content-type": "application/json"
+          },
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        },
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"temperature\": 0.7}",
+          "headers": {
+            "authorization": "Bearer k",
+            "content-type": "application/json"
+          },
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        }
+      ],
+      "return": "ok",
+      "warnings": [
+        "endpoint rejected response_format — retrying without JSON mode (memoized)"
+      ]
+    },
+    "openai_json_mode": {
+      "requests": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"temperature\": 0.7, \"response_format\": {\"type\": \"json_object\"}}",
+          "headers": {
+            "authorization": "Bearer k",
+            "content-type": "application/json"
+          },
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        }
+      ]
+    },
+    "openai_list_models": {
+      "requests": [
+        {
+          "body": "",
+          "headers": {
+            "authorization": "Bearer k"
+          },
+          "method": "GET",
+          "path": "/v1/models"
+        }
+      ]
+    },
+    "openai_max_tokens": {
+      "requests": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"temperature\": 0.7, \"max_tokens\": 32000}",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        }
+      ]
+    },
+    "openai_no_key": {
+      "requests": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"temperature\": 0.7}",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        }
+      ]
+    },
+    "openai_plain_key": {
+      "requests": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"temperature\": 0.7}",
+          "headers": {
+            "authorization": "Bearer k",
+            "content-type": "application/json"
+          },
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        }
+      ]
+    },
+    "openai_temperature_explicit": {
+      "requests": [
+        {
+          "body": "{\"model\": \"m\", \"messages\": [{\"role\": \"user\", \"content\": \"hi\"}], \"temperature\": 0.2}",
+          "headers": {
+            "content-type": "application/json"
+          },
+          "method": "POST",
+          "path": "/v1/chat/completions"
+        }
+      ]
+    },
+    "probe_llamacpp_auth": {
+      "requests": [
+        {
+          "body": "",
+          "headers": {
+            "authorization": "Bearer sekrit"
+          },
+          "method": "GET",
+          "path": "/props"
+        },
+        {
+          "body": "",
+          "headers": {
+            "authorization": "Bearer sekrit"
+          },
+          "method": "GET",
+          "path": "/health"
+        },
+        {
+          "body": "",
+          "headers": {
+            "authorization": "Bearer sekrit"
+          },
+          "method": "GET",
+          "path": "/v1/models"
+        }
+      ]
+    }
+  },
+  "schema": 1
+}

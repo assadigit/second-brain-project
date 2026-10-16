@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"io"
 	"reflect"
 	"sort"
 	"strconv"
@@ -32,6 +33,173 @@ func PyDumps(v any) string {
 	var b bytes.Buffer
 	pyEncode(&b, reflect.ValueOf(v), "")
 	return b.String()
+}
+
+// PyDumpsCompact mirrors Python json.dumps(v) with the DEFAULT
+// settings — the WIRE shape GitCurator's LLM clients put on the
+// network (T-30's payload goldens pin it byte-for-byte):
+// ensure_ascii=True (every non-ASCII rune escapes \uXXXX with lowercase
+// hex, astral runes as surrogate pairs, DEL escaped like Python's
+// ESCAPE_ASCII table), item separator ", ", key separator ": ", no
+// indent. Same type rules as PyDumps (OrderedMap → insertion order,
+// map → sorted keys, json.Number verbatim, Python float repr).
+func PyDumpsCompact(v any) string {
+	var b bytes.Buffer
+	pyEncodeCompact(&b, reflect.ValueOf(v))
+	return b.String()
+}
+
+func pyEncodeCompact(b *bytes.Buffer, v reflect.Value) {
+	if v.IsValid() {
+		if n, ok := v.Interface().(json.Number); ok {
+			b.WriteString(string(n))
+			return
+		}
+		if o, ok := v.Interface().(*OrderedMap); ok {
+			pyEncodeOrderedCompact(b, o)
+			return
+		}
+	}
+	switch v.Kind() {
+	case reflect.Invalid:
+		b.WriteString("null")
+	case reflect.Bool:
+		if v.Bool() {
+			b.WriteString("true")
+		} else {
+			b.WriteString("false")
+		}
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		b.WriteString(strconv.FormatInt(v.Int(), 10))
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		b.WriteString(strconv.FormatUint(v.Uint(), 10))
+	case reflect.Float32, reflect.Float64:
+		b.WriteString(PyFloatRepr(v.Float()))
+	case reflect.String:
+		pyCompactString(b, v.String())
+	case reflect.Slice, reflect.Array:
+		if v.Kind() == reflect.Slice && v.IsNil() {
+			b.WriteString("null") // Python None
+			return
+		}
+		b.WriteByte('[')
+		for i := 0; i < v.Len(); i++ {
+			if i != 0 {
+				b.WriteString(", ")
+			}
+			pyEncodeCompact(b, v.Index(i))
+		}
+		b.WriteByte(']')
+	case reflect.Map:
+		if v.Len() == 0 {
+			b.WriteString("{}")
+			return
+		}
+		keys := make([]string, 0, v.Len())
+		for _, k := range v.MapKeys() {
+			keys = append(keys, k.String())
+		}
+		sort.Strings(keys)
+		b.WriteByte('{')
+		for i, k := range keys {
+			if i != 0 {
+				b.WriteString(", ")
+			}
+			pyCompactString(b, k)
+			b.WriteString(": ")
+			pyEncodeCompact(b, v.MapIndex(reflect.ValueOf(k)))
+		}
+		b.WriteByte('}')
+	case reflect.Pointer:
+		if v.IsNil() {
+			b.WriteString("null")
+			return
+		}
+		pyEncodeCompact(b, v.Elem())
+	case reflect.Interface:
+		pyEncodeCompact(b, v.Elem())
+	default:
+		panic("pyEncodeCompact: unsupported kind " + v.Kind().String())
+	}
+}
+
+func pyEncodeOrderedCompact(b *bytes.Buffer, o *OrderedMap) {
+	if o.Len() == 0 {
+		b.WriteString("{}")
+		return
+	}
+	b.WriteByte('{')
+	for i, k := range o.Keys() {
+		if i != 0 {
+			b.WriteString(", ")
+		}
+		pyCompactString(b, k)
+		b.WriteString(": ")
+		v, _ := o.Get(k)
+		pyEncodeCompact(b, reflect.ValueOf(v))
+	}
+	b.WriteByte('}')
+}
+
+// pyCompactString mirrors json.dumps(ensure_ascii=True): printable
+// ASCII (space through tilde, minus the short-escaped set) stays raw;
+// everything else — controls, DEL, non-ASCII — escapes \uXXXX (lowercase
+// hex), astral runes as surrogate pairs.
+func pyCompactString(b *bytes.Buffer, s string) {
+	b.WriteByte('"')
+	for _, r := range s {
+		switch r {
+		case '"':
+			b.WriteString("\\\"")
+		case '\\':
+			b.WriteString("\\\\")
+		case '\n':
+			b.WriteString("\\n")
+		case '\r':
+			b.WriteString("\\r")
+		case '\t':
+			b.WriteString("\\t")
+		case '\b':
+			b.WriteString("\\b")
+		case '\f':
+			b.WriteString("\\f")
+		default:
+			if r >= 0x20 && r < 0x7f {
+				b.WriteRune(r)
+			} else if r <= 0xffff {
+				fmt.Fprintf(b, "\\u%04x", r)
+			} else {
+				// astral plane: the surrogate pair Python emits
+				r -= 0x10000
+				hi := 0xd800 + (r >> 10)
+				lo := 0xdc00 + (r & 0x3ff)
+				fmt.Fprintf(b, "\\u%04x\\u%04x", hi, lo)
+			}
+		}
+	}
+	b.WriteByte('"')
+}
+
+// DecodeJSONValue parses ONE JSON document into a Python-faithful value
+// tree — the value-level sibling of DecodeJSON (which requires an
+// object at the top). Python's json.loads accepts any top-level value
+// ("5", "[1,2]", "\"x\"", "null", …) and so does the app's extract_json
+// family; the number/shape rules are DecodeJSON's (int64 for integral
+// literals, float64 otherwise, *OrderedMap for objects, []any arrays).
+func DecodeJSONValue(data []byte) (any, error) {
+	dec := json.NewDecoder(bytes.NewReader(data))
+	dec.UseNumber()
+	v, err := decodeValue(dec)
+	if err != nil {
+		return nil, err
+	}
+	if _, err := dec.Token(); err != io.EOF {
+		if err == nil {
+			return nil, fmt.Errorf("decodeJSONValue: trailing data after the JSON document")
+		}
+		return nil, err
+	}
+	return v, nil
 }
 
 func pyEncode(b *bytes.Buffer, v reflect.Value, indent string) {

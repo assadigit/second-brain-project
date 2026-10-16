@@ -128,7 +128,38 @@ testdiff/
 │                                   # battery at an injected fixed now
 │                                   # — incl. the aware-datetime
 │                                   # TypeError→due quirk and the
-│                                   # rot-proof default-now probe)
+│                                   # rot-proof default-now probe);
+│                                   # dump_llmclient.py →
+│                                   # internal/llmclient, T-30 — the
+│                                   # pure corpus (extract_json incl.
+│                                   # top-level non-objects,
+│                                   # estimate_tokens, the URL
+│                                   # normalizer, the loopback table
+│                                   # incl. the v4-mapped corner, the
+│                                   # /props batteries incl. the
+│                                   # Python int() quirks, the
+│                                   # autodetect decision table with
+│                                   # the exact emoji messages, the
+│                                   # canned tasklist/netstat/ss
+│                                   # parses, the constants) + THE
+│                                   # PAYLOAD GOLDENS (the exact wire
+│                                   # requests — method, path,
+│                                   # app-chosen headers with the
+│                                   # GitCurator-detect UA, the RAW
+│                                   # bodies in Python json.dumps
+│                                   # compact shape — for all three
+│                                   # providers, the response_format
+│                                   # 400-fallback + memoization, and
+│                                   # the ollama request-building law
+│                                   # via a recording fake client) +
+│                                   # the behavior golden (the probe
+│                                   # matrix, detect_llamacpp
+│                                   # provenance, detect_ollama
+│                                   # details, preflight, the
+│                                   # error-family messages, the
+│                                   # over-budget warnings — per-run
+│                                   # ports normalized to
+│                                   # <ROOT>/<API>/<DEADURL>)
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```

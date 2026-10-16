@@ -1,0 +1,394 @@
+{
+  "probes": {
+    "anthropic_empty_url": {
+      "class": "CloudLLMError",
+      "message": "no API URL configured for the Claude endpoint"
+    },
+    "anthropic_error_object": {
+      "class": "CloudLLMBadResponse",
+      "message": "endpoint error object: bad model"
+    },
+    "anthropic_http_error": {
+      "class": "CloudLLMHTTPError",
+      "code": 401,
+      "message": "endpoint answered HTTP 401: {\"m\": \"no\"}"
+    },
+    "anthropic_joins_text_blocks": "part one \npart two",
+    "anthropic_list_models_names": [
+      "claude-sonnet-4-5",
+      "claude-opus-4-1"
+    ],
+    "anthropic_over_budget_warning": [
+      "prompt ≈10004 tokens may exceed the model's context window (llm_num_ctx=8192) — answers may degrade if the model can't see the whole prompt."
+    ],
+    "cloud_chat_routes_by_url": {
+      "anthropic": "{\"summary\": \"ok\"}",
+      "openai": "ok",
+      "requests": [
+        "/anthropic.com/messages",
+        "/v1/chat/completions"
+      ]
+    },
+    "detect_dead_ports": null,
+    "detect_finds_scan": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'qwen2.5-3b'",
+      "found": true,
+      "identified_by": "props",
+      "model": "qwen2.5-3b",
+      "models": [
+        "qwen2.5-3b"
+      ],
+      "props_limits": {
+        "n_ctx": null,
+        "n_predict": null
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": true,
+      "via": "scan"
+    },
+    "detect_ollama_dead_port": {
+      "base_url": "<DEADURL>",
+      "detail": "URLError",
+      "found": false,
+      "models": []
+    },
+    "detect_ollama_found_name_key": {
+      "base_url": "<ROOT>",
+      "detail": "up · 2 model(s)",
+      "found": true,
+      "models": [
+        "llama3:latest",
+        "qwen2.5:7b"
+      ]
+    },
+    "detect_ollama_missing_route": {
+      "base_url": "<ROOT>",
+      "detail": "HTTPError",
+      "found": false,
+      "models": []
+    },
+    "detect_ollama_model_key_dedup_order": {
+      "base_url": "<ROOT>",
+      "detail": "up · 2 model(s)",
+      "found": true,
+      "models": [
+        "gemma2:2b",
+        "mistral:latest"
+      ]
+    },
+    "detect_ollama_non_dict_json": {
+      "base_url": "<ROOT>",
+      "detail": "ValueError: response is not a JSON object",
+      "found": false,
+      "models": []
+    },
+    "detect_ollama_up_no_models": {
+      "base_url": "<ROOT>",
+      "detail": "up but NO models installed",
+      "found": true,
+      "models": []
+    },
+    "detect_ollama_url_normalization": [
+      {
+        "base_url": "<NORM>",
+        "detail": "up · 1 model(s)",
+        "found": true,
+        "models": [
+          "m1"
+        ]
+      },
+      {
+        "base_url": "<NORM>",
+        "detail": "up · 1 model(s)",
+        "found": true,
+        "models": [
+          "m1"
+        ]
+      },
+      {
+        "base_url": "<NORM>",
+        "detail": "up · 1 model(s)",
+        "found": true,
+        "models": [
+          "m1"
+        ]
+      }
+    ],
+    "detect_only_non_llamacpp": null,
+    "detect_process_first": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'qwen2.5-3b'",
+      "found": true,
+      "identified_by": "props",
+      "model": "qwen2.5-3b",
+      "models": [
+        "qwen2.5-3b"
+      ],
+      "props_limits": {
+        "n_ctx": null,
+        "n_predict": null
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": true,
+      "via": "process"
+    },
+    "detect_skips_non_llamacpp": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'qwen2.5-3b'",
+      "found": true,
+      "identified_by": "props",
+      "model": "qwen2.5-3b",
+      "models": [
+        "qwen2.5-3b"
+      ],
+      "props_limits": {
+        "n_ctx": null,
+        "n_predict": null
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": true,
+      "via": "scan"
+    },
+    "openai_empty_content": "",
+    "openai_empty_url": {
+      "class": "CloudLLMError",
+      "message": "no API URL configured for the OpenAI-compatible endpoint"
+    },
+    "openai_error_object": {
+      "class": "CloudLLMBadResponse",
+      "message": "endpoint error object: boom from server"
+    },
+    "openai_http_error": {
+      "body": "{\"error\": {\"message\": \"bad request\"}}",
+      "class": "CloudLLMHTTPError",
+      "code": 400,
+      "message": "endpoint answered HTTP 400: {\"error\": {\"message\": \"bad request\"}}"
+    },
+    "openai_list_models_names": [
+      "a",
+      "b"
+    ],
+    "openai_malformed": {
+      "class": "CloudLLMBadResponse",
+      "message": "endpoint returned a non-JSON body: {\"choices\": [{\"mes"
+    },
+    "openai_no_choices": {
+      "class": "CloudLLMBadResponse",
+      "message": "endpoint returned no choices"
+    },
+    "openai_over_budget_warning": [
+      "prompt ≈10004 tokens may exceed the server's context window (llm_num_ctx=8192) — launch llama.cpp with -c (or vLLM with --max-model-len) at least that large if answers degrade."
+    ],
+    "openai_success": "ok",
+    "preflight_openai_hidden_route": [
+      false,
+      "GET <API>/models answered HTTP 404",
+      null
+    ],
+    "preflight_openai_listed": [
+      true,
+      "2 model(s) listed",
+      true
+    ],
+    "preflight_openai_not_listed": [
+      true,
+      "2 model(s) listed",
+      false
+    ],
+    "preflight_openai_unreachable": [
+      false,
+      "could not reach http://127.0.0.1:9/v1/models: <urlopen error…>",
+      null
+    ],
+    "probe_dead_address": {
+      "base_url": "<DEADURL>",
+      "detail": "could not reach <DEADURL> (URLError)",
+      "found": false,
+      "identified_by": null,
+      "model": null,
+      "models": [],
+      "props_limits": null,
+      "props_model": null,
+      "ready": null
+    },
+    "probe_found_ready": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'qwen2.5-3b'",
+      "found": true,
+      "identified_by": "props",
+      "model": "qwen2.5-3b",
+      "models": [
+        "qwen2.5-3b"
+      ],
+      "props_limits": {
+        "n_ctx": null,
+        "n_predict": null
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": true
+    },
+    "probe_gguf_id_fingerprint": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'models/qwen2.5-3b-instruct-q4_k_m.gguf'",
+      "found": true,
+      "identified_by": "models:gguf-id",
+      "model": "models/qwen2.5-3b-instruct-q4_k_m.gguf",
+      "models": [
+        "models/qwen2.5-3b-instruct-q4_k_m.gguf"
+      ],
+      "props_limits": null,
+      "props_model": null,
+      "ready": true
+    },
+    "probe_hidden_models": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'qwen2.5-3b'",
+      "found": true,
+      "identified_by": "props",
+      "model": "qwen2.5-3b",
+      "models": [],
+      "props_limits": {
+        "n_ctx": null,
+        "n_predict": null
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": true
+    },
+    "probe_hidden_props": {
+      "base_url": "<ROOT>",
+      "detail": "/props answered HTTP 404",
+      "found": false,
+      "identified_by": null,
+      "model": null,
+      "models": [],
+      "props_limits": null,
+      "props_model": null,
+      "ready": null
+    },
+    "probe_limits_grab": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'qwen2.5-3b' · context window 8192 tokens · output cap 512 tokens",
+      "found": true,
+      "identified_by": "props",
+      "model": "qwen2.5-3b",
+      "models": [
+        "qwen2.5-3b"
+      ],
+      "props_limits": {
+        "n_ctx": 8192,
+        "n_predict": 512
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": true
+    },
+    "probe_model_prefers_v1": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'advertised-name'",
+      "found": true,
+      "identified_by": "props",
+      "model": "advertised-name",
+      "models": [
+        "advertised-name"
+      ],
+      "props_limits": {
+        "n_ctx": null,
+        "n_predict": null
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": true
+    },
+    "probe_not_llamacpp_props": {
+      "base_url": "<ROOT>",
+      "detail": "/props answered but is not llama.cpp",
+      "found": false,
+      "identified_by": null,
+      "model": null,
+      "models": [],
+      "props_limits": null,
+      "props_model": null,
+      "ready": null
+    },
+    "probe_owned_by_fingerprint": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'qwen2.5-3b'",
+      "found": true,
+      "identified_by": "models:owned_by",
+      "model": "qwen2.5-3b",
+      "models": [
+        "qwen2.5-3b"
+      ],
+      "props_limits": null,
+      "props_model": null,
+      "ready": true
+    },
+    "probe_plain_openai_not_misreported": {
+      "base_url": "<ROOT>",
+      "detail": "/props answered HTTP 404",
+      "found": false,
+      "identified_by": null,
+      "model": null,
+      "models": [],
+      "props_limits": null,
+      "props_model": null,
+      "ready": null
+    },
+    "probe_raw_spelling": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'qwen2.5-3b'",
+      "found": true,
+      "identified_by": "props",
+      "model": "qwen2.5-3b",
+      "models": [
+        "qwen2.5-3b"
+      ],
+      "props_limits": {
+        "n_ctx": null,
+        "n_predict": null
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": true
+    },
+    "probe_server_header_fingerprint": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (ready) · model 'whatever'",
+      "found": true,
+      "identified_by": "models:server-header",
+      "model": "whatever",
+      "models": [
+        "whatever"
+      ],
+      "props_limits": null,
+      "props_model": null,
+      "ready": true
+    },
+    "probe_still_loading": {
+      "base_url": "<ROOT>",
+      "detail": "llama.cpp server at <ROOT> (still loading) · model 'qwen2.5-3b'",
+      "found": true,
+      "identified_by": "props",
+      "model": "qwen2.5-3b",
+      "models": [
+        "qwen2.5-3b"
+      ],
+      "props_limits": {
+        "n_ctx": null,
+        "n_predict": null
+      },
+      "props_model": "qwen2.5-3b",
+      "ready": false
+    },
+    "probe_vllm_not_misreported": {
+      "base_url": "<ROOT>",
+      "detail": "/props answered HTTP 404",
+      "found": false,
+      "identified_by": null,
+      "model": null,
+      "models": [],
+      "props_limits": null,
+      "props_model": null,
+      "ready": null
+    }
+  },
+  "schema": 1
+}
