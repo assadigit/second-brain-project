@@ -15,65 +15,67 @@
   store`, T-21 `internal/notestate`, T-22 `internal/notereads`, T-23
   `internal/websitepipeline/state.go`, T-24 `internal/store/repos.go`,
   T-25 `internal/batch` — 425 tests race-clean at the close.
-- **Phase 3 OPEN (SESSION-011–013)**: T-30 `internal/llmclient`
-  (`f2073b5`), T-31 `internal/webfetch` (`4d93877`), and **T-32
-  `internal/webextract` (`833b21b`; SESSION-013) — the HTML extraction
-  port: the hand-rolled CPython-3.12 html.parser tokenizer (option b —
-  the owner's x/net/html verdict never arrived, so ZERO new imports),
-  the reference's _PageParser laws, the heuristics (20k cap, 120-word
-  js-shell boundary, 4000-char paywall window, the `<script\b`
-  boundary), and the charset ladder with FOUR generated data tables
-  embedded (entities_html5.json, charsets_table.json, cp949_table.json,
-  dbcs_accept.json — from the reference runtime's own stdlib,
-  sha-pinned by the golden; x/text rides behind the acceptance
-  bitmaps because its decoders accept strictly more than Python's
-  codecs). 713/713 tests race-clean; the FOURTEENTH golden generator
-  (`testdiff/goldens/dump_webextract.py`); the goldens caught five
-  real divergences before landing.** The environment was fully wiped
-  AGAIN at the session start (the eighth full reset) and rebuilt per
-  the §1 recipes before work.
+- **Phase 3 CLOSED (SESSION-011–014; all five tasks)**: T-30
+  `internal/llmclient` (`f2073b5`), T-31 `internal/webfetch`
+  (`4d93877`), T-32 `internal/webextract` (`833b21b`), **T-33
+  `internal/connectioncheck` (`e5846bd`; SESSION-014) — the RE-SCOPED
+  Test Connection battery (Vaults/LLM/GitHub/Worker — Telegram
+  dropped per ADR-0004 Am.3; the Worker leg promoted to
+  queue-reachability; the re-worded headline pinned), the sentinel
+  trio with the any-answer law and the warn-once offline verdict,
+  netctx's verify_ssl split, the UA table from the wire, and the
+  22-case short_detail differential; and T-34 `internal/workerclient`
+  (`6ffc4e9`; SESSION-014) — the desktop↔Worker REST client (pairing,
+  the HMAC law with the sha256hex-key, all endpoints, the 1010 UA,
+  proxy bypass, the honest poll, sync_id idempotency with a
+  hand-rolled uuid4 — zero new dependencies) + THE LOOPBACK RIG
+  (test_synclive's _FakeWorker ported: verifyHmac byte-for-byte, the
+  four 401 reasons, the directory doors T-49 reuses) with five GOLDEN
+  SIGNATURE VECTORS generated from the unmodified reference.**
+  **872/872 tests race-clean; the exit gate's five stones are all
+  laid (payload goldens, ladder/redirect parity, fixture parity,
+  result shapes + UA table, HMAC loopback rig).**
 - **SESSION-009's lesson stays institutionalized: PUSH AFTER EVERY
-  TASK** — T-32 was pushed the moment its battery went green
-  (`833b21b`).
+  TASK** — T-33 and T-34 were each pushed the moment their batteries
+  went green.
 - Environment notes (STANDING — the sandbox is REBUILDABLE): full
-  wipes at the starts of SESSION-005…013 (eight so far) PLUS
+  wipes at the starts of SESSION-005…014 (nine so far) PLUS
   SESSION-010's mid-session mode-flip event. The restore recipes:
   start-of-session (discover the remote via the GitHub API with the
   owner's in-chat PAT passed ephemerally as the Basic
-  `x-access-token:<PAT>` header — SESSION-013 had to do this from a
-  bare sandbox; clone `assadigit/second-brain-project` with `git -c
-  http.extraheader="Authorization: Basic $(printf
-  'x-access-token:%s' "$PAT" | base64)"` — the Basic scheme; the
-  token scheme gets 401; never store it), GitCurator @ `98f4fc7`
-  (verify against `testdiff/PINNED-GITCURATOR-REV`), go1.27.2 →
-  `/home/z/.local/go` (go.dev tarball), venv `/home/z/venvs/
-  gitcurator` (Python 3.12, stdlib-only), symlinks
-  `/home/z/second-brain-project` and `/home/z/GitCurator`; mid-session
-  mode-flip (`git checkout-index -f -a` restores modes from the
-  index; `git fsck` to sanity-check). Verify the pins at every start:
-  `git rev-parse HEAD:go.mod` — expect the v1.36.1/tls-client/1.24.1
-  bytes (do NOT bump sqlite; do NOT bump tls-client past v1.16.0).
+  `x-access-token:<PAT>` header — SESSION-013 and SESSION-014 both
+  had to do this from a bare sandbox; clone `assadigit/
+  second-brain-project` with `git -c http.extraheader="Authorization:
+  Basic $(printf 'x-access-token:%s' "$PAT" | base64)"` — the Basic
+  scheme; the token scheme gets 401; never store it), GitCurator @
+  `98f4fc7` (verify against `testdiff/PINNED-GITCURATOR-REV`),
+  go1.27.2 → `/home/z/.local/go` (go.dev tarball), venv `/home/z/
+  venvs/gitcurator` (Python 3.12, stdlib-only), symlinks
+  `/home/z/second-brain-project` and `/home/z/GitCurator`;
+  mid-session mode-flip (`git checkout-index -f -a` restores modes
+  from the index; `git fsck` to sanity-check). Verify the pins at
+  every start: `git rev-parse HEAD:go.mod` — expect the
+  v1.36.1/tls-client/1.24.1 bytes (do NOT bump sqlite; do NOT bump
+  tls-client past v1.16.0).
 
-## 2. Next session: SESSION-014 — Phase 3 continues: T-33 connectioncheck + sentinel (M), then T-34 workerclient (M) if capacity remains
+## 2. Next session: SESSION-015 — Phase 4 OPENS: T-40 websitepipeline (XL)
 
-- **T-33 `internal/connectioncheck` + the sentinel** (M): port
-  `core/connection_check.py` + `core/net_guard.py` + `core/netctx.py`
-  per `spec-core-connection.md` — the RE-SCOPED Test Connection
-  battery (vaults, LLM, GitHub, the Worker leg promoted to
-  queue-reachability; `check_telegram_local` DROPPED per ADR-0004
-  Am.3/R-0 — the Telegram config keys keep being read for
-  compatibility but no session file, proxy probe, or login ever
-  happens), the sentinel trio (internet/AI/proxy with the
-  warn-once offline verdict), `verify_ssl`'s split law, and the
-  pinned re-worded `summarize` headline (the Python headline's
-  "Telegram" mention goes — T-33's own result-shape tests pin the
-  exact wording). Acceptance: result-shape tests + the UA table
-  asserted (`GitCurator-connection-check`, `GitCurator-sentinel`,
-  the Worker UA law). Working example: `internal/webextract`
-  (SESSION-013) and `internal/webfetch` (SESSION-012).
-- **T-34 `internal/workerclient`** (M) is the gate's last stone (the
-  HMAC loopback rig ported from test_synclive) — likely its own
-  session or the second half of SESSION-014.
+- **T-40 `internal/websitepipeline`** (XL): the per-link state machine
+  on top of T-23's state layer — the full pipeline: gates,
+  consolidation, review notes, the master table, banishment + its
+  gate, the tally. Spec: `spec-core-website-pipeline.md` (READ THE
+  SPEC BEFORE THE CODE). Acceptance: state-machine table tests;
+  banishment flows (confirmed/declined/timeout); a differential
+  golden-set case. Working examples: `internal/webfetch` +
+  `internal/webextract` (the golden-generator pattern) and
+  `internal/batch` (T-25's LinkTracker + VaultIndex — the Phase-2
+  reconciliation ground truth this pipeline consumes).
+- The Phase 4 queue behind it: T-41 directorynote, T-42 githubpipeline
+  + batch, T-43 handdelivery, T-44 chrometabs, T-45 vaultscan, T-46
+  vaulthygiene + repobanish, T-47 vaultseal, T-48 goodrepos +
+  reporadar, T-49 directorysync (REUSES T-34's rig directory doors),
+  T-50 mirror, T-51 telegram (dormant per ADR-0004 Am.3 — the
+  register's Phase-8 door).
 - Standing port laws carry: THE CAST READ LAW (ADR-0003 Am.1) for any
   store-adjacent column; `store.PyISOFormat*` for timestamp writes;
   atomic saves; the dry-run seam at call sites; rows collected before
@@ -84,36 +86,31 @@
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-013.md` — the most recent report (the T-32
-   evidence, the eighth wipe + rebuild, the five
-   goldens-caught-divergences story, the option-b record).
-2. `docs/port-blueprint/module-specs/spec-core-connection.md` —
-   BEFORE T-33's code (note the RE-SCOPED banner at the top:
-   ADR-0004 Am.3 / R-0 — the Telegram section is dropped, the Worker
-   leg is promoted).
-3. The reference: `app/gitcurator/core/connection_check.py` +
-   `net_guard.py` + `netctx.py` (find them under the app tree) and
-   their test legs (`test_connection.py` + `test_netguard.py` —
-   ~73 + 56 selections).
-4. Working examples: `internal/webextract/` (SESSION-013's port — the
-   generated-data-tables pattern) and `internal/webfetch/` (the
-   three-golden generator, the fakes rig, doc.go's divergence
-   records).
-5. ADR-0004 Am.3 (the Option-B stamp and R-0 rider) before touching
-   the battery's section list.
+1. `docs/sessions/SESSION-014.md` — the most recent report (the T-33
+   + T-34 evidence, the ninth wipe + rebuild, Phase 3's close).
+2. `docs/port-blueprint/module-specs/spec-core-website-pipeline.md` —
+   BEFORE T-40's code (the state machine's laws, the gates, the
+   consolidation + review-note shapes, the banishment gate, the
+   tally).
+3. The reference: `app/gitcurator/core/website_pipeline.py` (+ its
+   state layer `website_state.py` — T-23's port is
+   `internal/websitepipeline/state.go`, byte-pinned already) and the
+   test legs (`test_website_pipeline*`).
+4. Working examples: `internal/batch` (T-25 — LinkTracker + VaultIndex,
+   the reconciliation ground truth) and `internal/webextract` (the
+   golden-generator + generated-tables pattern).
+5. ADR-0003 (the CAST read law) before any store-adjacent column.
 
-## 4. Known constraints / owner actions for SESSION-014
+## 4. Known constraints / owner actions for SESSION-015
 
 - **The go-directive acknowledgement (STILL WAITING — one line closes
   it)**: the main module rides `go 1.24.1`, forced by the
   owner-acknowledged tls-client v1.16.0 pin (ADR-0002 Am.2 has the
   record + the rollback path).
-- **The x/net/html question is now a KEEP-OR-SWAP, not a blocker**:
-  T-32 shipped on option (b) — the hand-rolled tokenizer (zero new
-  imports, permanent as-is). If the owner prefers x/net/html, approve
-  an ADR and a future session swaps `internal/webextract/parser.go`'s
-  scan internals; the handler laws, goldens, and tests stay the
-  referee. If the owner says nothing, the hand-rolled port stands.
+- **The x/net/html question is a KEEP-OR-SWAP, not a blocker** (T-32
+  shipped the hand-rolled tokenizer; if the owner prefers x/net/html,
+  approve an ADR and a future session swaps
+  `internal/webextract/parser.go`'s scan internals).
 - **Single-writer law**: the fresh session is the ONLY writer; the
   overseer chat records decisions and audits — it does not implement.
 - Python reference: `assadigit/GitCurator` @ `98f4fc7` — read-only;
@@ -122,33 +119,33 @@
   pristine).
 - **Dependency law**: `modernc.org/sqlite` pinned at v1.36.1;
   `bogdanfinn/tls-client` pinned at v1.16.0; `golang.org/x/net`
-  v0.48.0 + `golang.org/x/text` v0.32.0 (direct, per ADR-0006 §1's
-  named dialer + the charset ladder); ANY other add needs a new ADR —
-  surface, don't improvise.
+  v0.48.0 + `golang.org/x/text` v0.32.0 (direct); ANY other add needs
+  a new ADR — surface, don't improvise.
 - Standing: secrets / owner data never in git; tests never weakened;
   reality wins over specs (fix the spec in the same commit); surface
   blockers with evidence (hash-level, not display).
 - **Push after every task** — never end a session push-pending.
 - Deferred items on the books (not blockers): the note_state SURGERY
-  path's CRLF round-trip differential (Phase 3+); the Windows live
+  path's CRLF round-trip differential (Phase 4+); the Windows live
   legs (Phase 7 clean-machine checklist); a Windows VM without
   WebView2 for T-70 (optional).
 
-## 5. THE PROMPT TO COPY (SESSION-014)
+## 5. THE PROMPT TO COPY (SESSION-015)
 
 ```
-You are starting SESSION-014 of the second-brain-project — the multi-session Go
+You are starting SESSION-015 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
 code alongside you. You are the single writer on the repo.
 
 1. The environment is REBUILDABLE, not persistent (full wipes at the starts of
-   SESSION-005 through SESSION-013, plus a MID-session degradation in
-   SESSION-010; SESSION-013 started from a BARE sandbox and had to discover
-   the remote via the GitHub API with the PAT before cloning). FIRST verify
-   with evidence: work repo at /home/z/my-project/second-brain-project
-   (symlinked /home/z/second-brain-project), read-only reference
+   SESSION-005 through SESSION-014 — nine so far — plus a MID-session
+   degradation in SESSION-010; SESSION-013 and SESSION-014 both started from a
+   BARE sandbox and had to discover the remote via the GitHub API with the PAT
+   before cloning). FIRST verify with evidence: work repo at
+   /home/z/my-project/second-brain-project (symlinked
+   /home/z/second-brain-project), read-only reference
    /home/z/my-project/GitCurator @ 98f4fc7 (symlinked /home/z/GitCurator; must
    match testdiff/PINNED-GITCURATOR-REV), toolchain go1.27.2 → /home/z/.local/go,
    venv /home/z/venvs/gitcurator (Python 3.12, stdlib-only) per
@@ -156,70 +153,58 @@ code alongside you. You are the single writer on the repo.
    bogdanfinn/tls-client at v1.16.0, golang.org/x/net v0.48.0 + golang.org/
    x/text v0.32.0 direct, and the go directive at 1.24.1 (the
    tls-client-forced floor — ADR-0002 Am.2; do not bump any of these). Then
-   check `git status` and `git log --oneline -3`: SESSION-013 landed T-32
-   (commit 833b21b; the tree must be clean and origin/main at the SESSION-013
-   close). If anything is missing, rebuild per docs/NEXT-SESSION.md §1 (clone
-   via the PAT I give you when you ask — pass it ephemerally with git -c
+   check `git status` and `git log --oneline -3`: SESSION-014 closed Phase 3
+   (T-33 connectioncheck at e5846bd, T-34 workerclient at 6ffc4e9; the tree
+   must be clean and origin/main at the SESSION-014 close). If anything is
+   missing, rebuild per docs/NEXT-SESSION.md §1 (clone via the PAT I give you
+   when you ask — pass it ephemerally with git -c
    http.extraheader="Authorization: Basic $(printf 'x-access-token:%s' "$PAT" |
    base64)", the Basic scheme; never store it; a mid-session mode-flip is
    repaired with `git checkout-index -f -a` after `git fsck`) and re-verify the
-   suite (713 green) before work. PUSH AFTER EVERY TASK this session.
+   suite (872 green) before work. PUSH AFTER EVERY TASK this session.
 
 2. Read, in order: the repo README.md → docs/SESSION-PROTOCOL.md (the working
-   law) → docs/NEXT-SESSION.md (your state card — §1 records the Phase 3 OPEN
-   state with T-30/T-31/T-32 done at 713 tests race-clean, the eighth full
+   law) → docs/NEXT-SESSION.md (your state card — §1 records the Phase 3
+   CLOSED state with T-30…T-34 done at 872 tests race-clean, the ninth full
    wipe + bare-sandbox rebuild story, and the environment recipes) →
-   docs/sessions/SESSION-013.md (the most recent report).
+   docs/sessions/SESSION-014.md (the most recent report).
 
-3. THIS SESSION IS T-33 + (if capacity remains) T-34: first T-33
-   internal/connectioncheck + the sentinel (M) — port
-   core/connection_check.py + core/net_guard.py + core/netctx.py per
-   docs/port-blueprint/module-specs/spec-core-connection.md (READ THE SPEC
-   BEFORE THE CODE, including its RE-SCOPED banner: per ADR-0004 Am.3 /
-   rider R-0 the battery runs vaults, LLM, GitHub, plus the Worker leg
-   promoted to queue-reachability — check_telegram_local is DROPPED, the
-   Telegram config keys keep being read for compatibility, and the
-   summarize headline's "Telegram" mention goes; T-33's own result-shape
-   tests pin the exact re-worded headline): the Result line shapes and
-   render_line/short_line, _http_get_json with its UA, the sections'
-   verdict laws (vaults writability probe, the GitHub 401/404/public-repo
-   ladder with rate context, the Worker version compare with EXPECTED_
-   WORKER_VERSION), the sentinel trio (probe_internet's endpoint ladder and
-   ANY-ANSWER-IS-ONLINE law, ai_status, proxy_reachable with errno details),
-   offline_verdict's warn-once modal law, sentinel_line, netctx's verify_ssl
-   split law (websites always verify; LLM/cloud/probes honor the switch).
-   Acceptance: result-shape tests + the UA table asserted
-   (GitCurator-connection-check, GitCurator-sentinel, the Worker UA law) —
-   the reference's own test_connection.py + test_netguard.py selections
-   ported. Standing port laws carry: the CAST read law where store-adjacent
-   columns appear, store.PyISOFormat* timestamp shapes, atomic saves, the
-   dry-run seam at call sites, rows collected before nested statements, no
-   per-run facts in goldens. internal/webextract (SESSION-013) and
-   internal/webfetch (SESSION-012) are the working examples. Then, if
-   capacity remains, T-34 internal/workerclient (M) per
-   spec-cloud-worker-client + spec-worker-contract: pairing, the HMAC
-   signing law, all endpoints, the 1010 UA, proxy bypass, honest-poll —
-   the acceptance is the loopback rig ported from test_synclive (a real
-   127.0.0.1 server verifying signatures), Phase 3's exit-gate last stone.
+3. THIS SESSION IS T-40 (XL): Phase 4 OPENS — internal/websitepipeline, the
+   per-link state machine on top of T-23's state layer. READ
+   docs/port-blueprint/module-specs/spec-core-website-pipeline.md BEFORE THE
+   CODE, then port core/website_pipeline.py: the full pipeline — the gates,
+   consolidation, review notes, the master table, banishment + its gate, the
+   tally. The state layer itself is already byte-pinned
+   (internal/websitepipeline/state.go, T-23 — THE ONE SPELLING boundary, the
+   2×attempts backoff, both settlements, the v0.64.0 healing pass); do not
+   re-port it. Acceptance: state-machine table tests; banishment flows
+   (confirmed/declined/timeout); a differential golden-set case. Working
+   examples: internal/batch (T-25's LinkTracker + VaultIndex — the
+   reconciliation ground truth this pipeline consumes) and internal/webextract
+   (the golden-generator pattern; generate the differential golden by running
+   the unmodified Python reference through the venv — never hand-type it, no
+   per-run facts inside). Standing port laws carry: the CAST read law
+   (ADR-0003 Am.1) where store-adjacent columns appear, store.PyISOFormat*
+   timestamp shapes, atomic saves, the dry-run seam at call sites, rows
+   collected before nested statements. T-40 is XL — if capacity runs out at a
+   natural boundary, close cleanly with the state card saying exactly where
+   the boundary fell; one task done properly with proof beats a rushed whole.
 
 4. Standing laws: reality wins over specs (fix the spec in the same commit);
    tests are never weakened; no secrets or owner data in git; no new
    dependencies without an ADR (the authorized set is exactly modernc.org/
    sqlite v1.36.1, tls-client v1.16.0, x/net v0.48.0, x/text v0.32.0 — do
-   not bump any; note x/net/html stays OUT unless the owner approves an ADR
-   — T-32 shipped the hand-rolled tokenizer, and the swap is confined to
-   internal/webextract/parser.go); surface blockers with evidence
-   (hash-level, not display) instead of improvising past them.
+   not bump any; x/net/html stays OUT unless the owner approves an ADR);
+   surface blockers with evidence (hash-level, not display) instead of
+   improvising past them.
 
-5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (Phase
-   3's exit gate: fake-server contract tests green — T-30's payload goldens,
-   T-31's ladder tests, and T-32's fixture parity are laid; T-33's
-   result-shape tests and T-34's HMAC loopback rig remain), commit + push
-   everything (ask me for the GitHub PAT if it is not already available —
-   never store it anywhere), write docs/sessions/SESSION-014.md, rewrite
+5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (Phase 4
+   has no single exit gate — evaluate T-40's own acceptance honestly), commit
+   + push everything (ask me for the GitHub PAT if it is not already available
+   — never store it anywhere), write docs/sessions/SESSION-015.md, rewrite
    docs/NEXT-SESSION.md with the next session's prompt, and end your reply
    with a plain-language report plus the prompt I should copy to start
-   SESSION-015.
+   SESSION-016.
 
 One task done properly with proof beats two half-done; close cleanly at a
 natural boundary when capacity runs out.

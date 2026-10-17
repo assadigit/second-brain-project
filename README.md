@@ -28,31 +28,35 @@ ground truth: skip sets, the 4000-char read, the site-map gates). SESSION-009's
 T-23/T-24 were lost at an environment wipe while push-pending — re-ported
 independently in SESSION-010, which now pushes after every task. 425 tests
 race-clean.**
-**Phase 3 OPEN (SESSION-011–012)**: T-30 `internal/llmclient` landed
+**Phase 3 CLOSED (SESSION-011–014)**: T-30 `internal/llmclient`
 (commit `f2073b5`) — the three providers on Python-json.dumps-identical
 wire bytes (the payload goldens), the JSON-mode memoized 400-fallback,
 extract_json, the llama.cpp detection engine + the /props grab, the
-autodetect policy; and **T-31 `internal/webfetch` landed (commit
-`4d93877`) — the whole fetch ladder: the routes (SOCKS5 rdns, the
-http-proxy absolute URI, loopback/direct never proxied), the OWN
-redirect loop (hop cookies, 308, the Referer law), the Chrome-131
+autodetect policy; T-31 `internal/webfetch` (commit `4d93877`) — the
+whole fetch ladder: the routes, the OWN redirect loop, the Chrome-131
 header set, the rate limiter with penalties, the caps + capped
 decompression, the failure taxonomy, the DoH verdicts, the dead-page
-rescue + the Wayback courtesy, and the tls-client impersonation door
-(ships armed); 676 tests race-clean; the thirteenth golden generator;
-the go directive rides tls-client's floor (1.24.1 — ADR-0002 Am.2
-records the correction; sqlite stays v1.36.1)**; and **T-32
-`internal/webextract` landed (commit `833b21b`; SESSION-013) — the
-HTML extraction port on the HAND-ROLLED CPython-3.12 html.parser
-tokenizer (option b: the owner's x/net/html verdict never arrived, so
-zero new imports — the swap stays one ADR away), the _PageParser
-laws, the js-shell/paywall heuristics, the charset ladder with four
-GENERATED data tables embedded (entities, single-byte charsets,
-cp949, DBCS acceptance bitmaps — from the reference runtime's own
-stdlib, sha-pinned by the golden); 713 tests race-clean; the
-fourteenth golden generator; the goldens caught five real divergences
-before landing**. Next: T-33 connectioncheck + the sentinel, then
-T-34 workerclient (the gate's last stone).
+rescue + the Wayback courtesy, and the tls-client impersonation door;
+T-32 `internal/webextract` (commit `833b21b`) — the HTML extraction
+port on the HAND-ROLLED CPython-3.12 html.parser tokenizer (option b,
+zero new imports), the charset ladder with four GENERATED data tables;
+and **T-33 `internal/connectioncheck` (commit `e5846bd`;
+SESSION-014) — the RE-SCOPED Test Connection battery (Vaults, LLM,
+GitHub, and the Worker leg promoted to queue-reachability per
+ADR-0004 Am.3 — the Telegram section is dropped), the sentinel trio
+(internet/AI/proxy with the any-HTTP-answer law and the warn-once
+offline verdict), netctx's verify_ssl split, the UA table pinned from
+the wire, and the 22-case short_detail differential; and T-34
+`internal/workerclient` (commit `6ffc4e9`; SESSION-014) — the
+desktop↔Worker REST client: pairing, the HMAC signing law (the
+sha256hex-key), all endpoints, the 1010 UA, the proxy bypass, the
+honest poll, sync_id idempotency (a hand-rolled uuid4 — zero new
+dependencies), plus THE LOOPBACK RIG (test_synclive's _FakeWorker
+ported: verifyHmac byte-for-byte, the golden signature vectors, the
+directory doors T-49 reuses). 872 tests race-clean; the exit gate's
+five stones all laid (payload goldens, ladder/redirect parity,
+fixture parity, result shapes + UA table, HMAC loopback rig).**
+Next: Phase 4 OPENS — T-40 websitepipeline (the engine room).
 
 ## Map
 
