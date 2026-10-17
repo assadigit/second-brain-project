@@ -1,0 +1,459 @@
+{
+  "candidates": {
+    "empty": [],
+    "plain": [
+      {
+        "error": "fetch failed: HTTP 403 — bot defense (server: cloudflare; challenge)",
+        "url": "https://walled.example.net/article"
+      },
+      {
+        "error": "boom",
+        "url": "https://hard.example/c"
+      },
+      {
+        "error": "e5",
+        "url": "https://dismissed.example/d"
+      },
+      {
+        "error": "e6",
+        "url": "https://raising.example/e"
+      }
+    ],
+    "with_filter": [
+      {
+        "error": "fetch failed: HTTP 403 — bot defense (server: cloudflare; challenge)",
+        "url": "https://walled.example.net/article"
+      },
+      {
+        "error": "boom",
+        "url": "https://hard.example/c"
+      },
+      {
+        "error": "e6",
+        "url": "https://raising.example/e"
+      }
+    ]
+  },
+  "cdp_wire": {
+    "call": {
+      "json": "{\"id\": 1, \"method\": \"Runtime.evaluate\", \"params\": {\"expression\": \"1\", \"returnByValue\": true, \"awaitPromise\": false}}",
+      "result": {
+        "value": "complete"
+      }
+    },
+    "error_message": "Runtime.evaluate: no such target",
+    "evaluate": "full",
+    "event_skipped": true,
+    "fragmented_result": "{}",
+    "handshake_request": "GET /devtools/page/1 HTTP/1.1\r\nHost: 127.0.0.1:9222\r\nUpgrade: websocket\r\nConnection: Upgrade\r\nSec-WebSocket-Key: <KEY>\r\nSec-WebSocket-Version: 13\r\n\r\n",
+    "timeout_message": "Runtime.evaluate timed out after 0s"
+  },
+  "frame_codec": {
+    "client_16bit": {
+      "b1_len_bits": 126,
+      "decoded_payload_len": 300,
+      "decoded_payload_prefix": "xxxxxxxx",
+      "len_bytes": [
+        1,
+        44
+      ]
+    },
+    "client_small": {
+      "b0": 129,
+      "b1": 133,
+      "decoded": [
+        [
+          true,
+          1,
+          "hello"
+        ]
+      ],
+      "rest_len": 0,
+      "total_len": 11
+    },
+    "close_frame": {
+      "decoded": [
+        [
+          true,
+          8,
+          ""
+        ]
+      ]
+    },
+    "fragmentation": {
+      "decoded": [
+        [
+          false,
+          1,
+          "abc"
+        ],
+        [
+          true,
+          9,
+          "hi"
+        ],
+        [
+          true,
+          0,
+          "def"
+        ]
+      ]
+    },
+    "oversize_guard": "a DevTools frame claimed 1099511627776 bytes (guard: 1024) — runaway page?",
+    "server_64bit": {
+      "decoded_payload_len": 70000,
+      "fin": true,
+      "opcode": 1,
+      "rest_len": 0
+    },
+    "split_feed": {
+      "completed": [
+        [
+          true,
+          1,
+          "{\"id\": 1}"
+        ]
+      ],
+      "first_half_frames": 0,
+      "first_half_rest_len": 7,
+      "rest_len": 0
+    }
+  },
+  "loopback_law": {
+    "dot_local": true,
+    "empty": false,
+    "ipv4": true,
+    "ipv6_bare": false,
+    "ipv6_brackets": true,
+    "localhost": true,
+    "localhost_upper": true,
+    "no_netloc": false,
+    "not_local": false,
+    "sub_local": true
+  },
+  "page_verdict": {
+    "about_blank": [
+      false,
+      "the tab ended on 'about:blank' — Chrome's own page, not the site's"
+    ],
+    "chrome_error_url": [
+      false,
+      "the tab ended on 'chrome-error://chromewebdata/' — Chrome's own page, not the site's"
+    ],
+    "crash_body": [
+      true,
+      ""
+    ],
+    "crash_title": [
+      false,
+      "the tab crashed ('Aw, Snap' — the renderer died)"
+    ],
+    "empty_href": [
+      false,
+      "the tab ended on 'an empty URL' — Chrome's own page, not the site's"
+    ],
+    "err_code": [
+      false,
+      "the tab showed Chrome's error page (ERR_CONNECTION_RESET) — the site never loaded"
+    ],
+    "ftp_scheme": [
+      false,
+      "the tab ended on 'ftp://walled.example.net/f' — Chrome's own page, not the site's"
+    ],
+    "html_marker_thick": [
+      true,
+      ""
+    ],
+    "html_marker_thin": [
+      false,
+      "the page stayed on a bot challenge (challenge-platform)"
+    ],
+    "real_page": [
+      true,
+      ""
+    ],
+    "strong_challenge": [
+      false,
+      "the page stayed on a bot challenge (title: 'just a moment')"
+    ],
+    "strong_challenge_long_title": [
+      false,
+      "the page stayed on a bot challenge (title: 'checking your browser')"
+    ],
+    "titled_unicode": [
+      true,
+      ""
+    ],
+    "uppercase_scheme": [
+      true,
+      ""
+    ],
+    "weak_title_long": [
+      true,
+      ""
+    ],
+    "weak_title_many_words": [
+      true,
+      ""
+    ],
+    "weak_title_short": [
+      false,
+      "the page stayed on a bot challenge (title: 'access denied')"
+    ]
+  },
+  "proxy_laws": {
+    "chrome_proxy_flag": {
+      "empty": [],
+      "http": [
+        "--proxy-server=http://p.example:3128"
+      ],
+      "no_host": [],
+      "no_port": [],
+      "none": [],
+      "socks5": [
+        "--proxy-server=socks5://127.0.0.1:10808"
+      ],
+      "upper_type": [
+        "--proxy-server=socks5://127.0.0.1:10808"
+      ],
+      "weird_type": [
+        "--proxy-server=http://h:1"
+      ]
+    },
+    "domain_of_url": {
+      "bare": "example.com",
+      "empty": "",
+      "ipv6": "2001:db8::1",
+      "no_host": "",
+      "userinfo": "example.com",
+      "www": "example.com"
+    },
+    "normalize_proxy_mode": {
+      "auto": "auto",
+      "bogus": "auto",
+      "empty": "auto",
+      "none": "auto",
+      "off": "off",
+      "on": "on",
+      "spaced": "off",
+      "upper": "auto"
+    },
+    "plan_proxy_legs": {
+      "auto_no_proxy": [
+        [
+          "direct",
+          [
+            "https://new.example/a",
+            "https://proxy.example/b",
+            "https://direct.example/c"
+          ]
+        ]
+      ],
+      "auto_with_proxy": [
+        [
+          "direct",
+          [
+            "https://new.example/a",
+            "https://direct.example/c"
+          ]
+        ],
+        [
+          "proxy",
+          [
+            "https://proxy.example/b"
+          ]
+        ]
+      ],
+      "bogus_mode": [
+        [
+          "direct",
+          [
+            "https://new.example/a",
+            "https://direct.example/c"
+          ]
+        ],
+        [
+          "proxy",
+          [
+            "https://proxy.example/b"
+          ]
+        ]
+      ],
+      "empty_urls": [
+        [
+          "proxy",
+          []
+        ]
+      ],
+      "off_with_proxy": [
+        [
+          "direct",
+          [
+            "https://new.example/a",
+            "https://proxy.example/b",
+            "https://direct.example/c"
+          ]
+        ]
+      ],
+      "on_no_proxy": [
+        [
+          "direct",
+          [
+            "https://new.example/a",
+            "https://proxy.example/b",
+            "https://direct.example/c"
+          ]
+        ]
+      ],
+      "on_with_proxy": [
+        [
+          "proxy",
+          [
+            "https://new.example/a",
+            "https://proxy.example/b",
+            "https://direct.example/c"
+          ]
+        ]
+      ]
+    },
+    "remember_route": {
+      "remembered.example": "direct"
+    }
+  },
+  "split_probe": {
+    "complete": [
+      "complete",
+      "https://x.example/a"
+    ],
+    "empty": [
+      "",
+      ""
+    ],
+    "loading_blank": [
+      "loading",
+      "about:blank"
+    ],
+    "no_pipe": [
+      "complete",
+      ""
+    ],
+    "pipe_in_url": [
+      "complete",
+      "https://x.example/a|b"
+    ],
+    "spaces": [
+      "complete",
+      "https://x.example/a"
+    ]
+  },
+  "url_shapes": {
+    "about_blank": {
+      "hostname": null,
+      "netloc": "",
+      "port": null,
+      "scheme": "about"
+    },
+    "at_sign_no_host": {
+      "hostname": "example.com",
+      "netloc": "@example.com",
+      "port": null,
+      "scheme": "https"
+    },
+    "bracket_no_close": {
+      "error": "Invalid IPv6 URL"
+    },
+    "chrome_error": {
+      "hostname": "chromewebdata",
+      "netloc": "chromewebdata",
+      "port": null,
+      "scheme": "chrome-error"
+    },
+    "empty": {
+      "hostname": null,
+      "netloc": "",
+      "port": null,
+      "scheme": ""
+    },
+    "ipv6": {
+      "hostname": "::1",
+      "netloc": "[::1]:8080",
+      "port": "8080",
+      "scheme": "http"
+    },
+    "just_scheme": {
+      "hostname": null,
+      "netloc": "",
+      "port": null,
+      "scheme": "https"
+    },
+    "multiple_at": {
+      "hostname": "example.com",
+      "netloc": "a@b@example.com",
+      "port": null,
+      "scheme": "https"
+    },
+    "not_a_url": {
+      "hostname": null,
+      "netloc": "",
+      "port": null,
+      "scheme": ""
+    },
+    "plain": {
+      "hostname": "walled.example.net",
+      "netloc": "walled.example.net",
+      "port": null,
+      "scheme": "https"
+    },
+    "port_only_colon": {
+      "hostname": "example.com",
+      "netloc": "example.com:",
+      "port": null,
+      "scheme": "https"
+    },
+    "protocol_relative": {
+      "hostname": "host",
+      "netloc": "host",
+      "port": null,
+      "scheme": ""
+    },
+    "raw_unicode_host": {
+      "hostname": "例え.テスト",
+      "netloc": "例え.テスト",
+      "port": null,
+      "scheme": "https"
+    },
+    "space_in_host": {
+      "hostname": "host with space",
+      "netloc": "host with space",
+      "port": null,
+      "scheme": "https"
+    },
+    "uppercase_scheme": {
+      "hostname": "example.net",
+      "netloc": "EXAMPLE.NET",
+      "port": null,
+      "scheme": "http"
+    },
+    "userinfo_port": {
+      "hostname": "example.com",
+      "netloc": "user:pw@Example.COM:8443",
+      "port": "8443",
+      "scheme": "https"
+    }
+  },
+  "visible_text": {
+    "close_tag_space": 3,
+    "comment_stripped": 3,
+    "empty": 0,
+    "entity_collapsed": 5,
+    "mixed_ladder": 19,
+    "plain": 11,
+    "script_stripped": 12,
+    "style_stripped": 4,
+    "tags_stripped": 7,
+    "template_noscript": 7,
+    "unterminated_script_stays": 15,
+    "uppercase_script": 3,
+    "whitespace_squeeze": 3
+  }
+}

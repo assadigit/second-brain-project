@@ -113,8 +113,29 @@ selections (54 module tests + 20 pipeline legs); two reality-wins
 fixes: the blank-body law (Python bytes.strip is ASCII-only — a
 NBSP-only page IS delivered) and a latent T-42 flake (the report's
 category table iterated a Go map — ties flipped randomly; now rides
-the insertion-order slice). 1058 tests race-clean. Next: T-44
-chrometabs.
+the insertion-order slice). **T-44 `internal/chrometabs`
+(SESSION-019) — THE FIFTH DOOR COMPLETE** (spec-core-chrome-tabs.md,
+with the SESSION-019 amendment: the CDP WebSocket is hand-rolled
+stdlib net + crypto/rand + encoding/base64 exactly as the reference
+hand-rolls it on Python's socket module — the old gorilla/websocket
+Go-note is superseded, zero new dependencies): the RFC 6455 frame
+codec (masked client frames, all three length encodings,
+fragmentation + control frames, the 64 MB runaway guard), the
+DevTools socket (the handshake shape, the call/event round-trip,
+ping→pong, the error/stall/timeout laws), page_is_real wired into
+handdelivery.PageIsRealFn (the seam T-43 staged) with the deferred
+auto-door discard battery landed (an auto-delivered error/challenge
+page is discarded, the link re-asks; the owner's saves stay
+trusted), the load watch (complete at an http(s) URL, still for the
+settle, real by the verdict), the candidates, the session ladders
+(adoption through DevToolsActivePort, container/headless retries),
+the real-profile rung (the attach link, chrome-attach.bat), the
+proxy legs with per-site route memory, and the fetch driver honesty
+(no Chrome, loopback, dry-run) — with THE GOLDEN (9 sections, mask
+bytes folded, generated from the unmodified reference; the pyurl
+lenient urlsplit is CPython 3.12's exact shapes incl. the bracket
+law) + the ported test_fifthdoor selections (63 module tests + 2
+pipeline legs). 1132 tests race-clean. Next: T-45 vaultscan.
 
 ## Map
 
