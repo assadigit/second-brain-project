@@ -80,7 +80,24 @@ THE OUTPUT GOLDEN (33 sections, byte-compared, generated from the
 unmodified reference) — and three reality-wins fixes the golden forced
 in the shared primitives (universal newlines in readHeadRunes,
 maximal-subpart U+FFFD in decodeUTF8Replace, files-before-subdirs in
-walkVault). 938 tests race-clean. Next: T-42 githubpipeline + batch.
+walkVault). **T-42
+`internal/githubpipeline` + `internal/batch/summary.go` (SESSION-017)**
+— the GUI processing worker's GitHub loop per spec-gui-processing:
+the per-repo gate chain (non-GitHub → dead-set → dismissed → settled
+ledger → invalid → vault-index dedupe BEFORE any API call), the
+get_repo error paths (403+rate-limit 3605 s wait + retry, the
+401-anonymous token drop, the 404 strike → the `_missing` note +
+notfound-links.md, the manifest-failure else), the two-layer dedupe,
+fork→parent analysis, the enrichment + the banner goroutine, the
+LLM 3-attempt ladder with the README injection guard, the disk-full
+protocol, the reports (the summary log + rotation, the final Markdown
+report), the batch-undo diff, and the v0.39.0 scorecard — THE GOLDEN
+(12 sections, frozen clocks, generated from the unmodified reference
+through the GUI-layer import stubs) + the behavior battery (the
+rate-limit laws, the 404-strike flow, the 401 fallback, the undo
+laws). Plus the reality-wins float fix: notebuilder's cred_score is
+now the round(x,1) FLOAT the reference renders ("90.0/100"). 984
+tests race-clean. Next: T-43 handdelivery.
 
 ## Map
 

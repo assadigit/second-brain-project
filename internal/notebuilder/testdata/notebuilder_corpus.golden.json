@@ -142,7 +142,7 @@
         "commit_count": 5,
         "confidence": 90,
         "core_value": "val",
-        "cred_score": 80,
+        "cred_score": 80.0,
         "difference": "diff",
         "features": [
           "f1",
@@ -172,7 +172,7 @@
         ],
         "url": "https://github.com/o/fullrepo"
       },
-      "---\nsource: \"https://github.com/o/fullrepo\"\naliases:\n  - fullrepo\n  - o/fullrepo\n\ntags: [cli, tool]\ncategory: \"Agents\"\nstars: 10\norg: \"Full Org\"\nprimary_language: Python\nlanguages: [Python, C++]\ncredibility_score: 80/100\ndate_processed: <DATE>\nlast_release: 2024-01-01\ncover: attachments/banners/fullrepo.png\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n![banner](attachments/banners/fullrepo.png)\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# fullrepo\n\n> **TL;DR:** Useful.\n\n**`o/fullrepo`** · ⭐ 10 · 🔧 Python\n\n## What is it?\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n## How does it work?\nhow\n\n## Why is it important? (Core Value)\nval\n\n## Key Features & Technologies\n- f1\n- f2\n- f3\n\n## Difference from Others\ndiff\n\n## 🏢 Organization & Credibility\n- **Developer:** Full Org\n- **Reputation:** Medium (Well-known organization)\n- **Stars:** 10\n- **Forks:** 2\n- **Recent Activity:** 5 commits in 3 months\n- **Credibility Score:** 80/100 (Good)\n- **Languages:** Python, C++\n- **Last Release:** 2024-01-01\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/o/fullrepo)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+      "---\nsource: \"https://github.com/o/fullrepo\"\naliases:\n  - fullrepo\n  - o/fullrepo\n\ntags: [cli, tool]\ncategory: \"Agents\"\nstars: 10\norg: \"Full Org\"\nprimary_language: Python\nlanguages: [Python, C++]\ncredibility_score: 80.0/100\ndate_processed: <DATE>\nlast_release: 2024-01-01\ncover: attachments/banners/fullrepo.png\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n![banner](attachments/banners/fullrepo.png)\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# fullrepo\n\n> **TL;DR:** Useful.\n\n**`o/fullrepo`** · ⭐ 10 · 🔧 Python\n\n## What is it?\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n## How does it work?\nhow\n\n## Why is it important? (Core Value)\nval\n\n## Key Features & Technologies\n- f1\n- f2\n- f3\n\n## Difference from Others\ndiff\n\n## 🏢 Organization & Credibility\n- **Developer:** Full Org\n- **Reputation:** Medium (Well-known organization)\n- **Stars:** 10\n- **Forks:** 2\n- **Recent Activity:** 5 commits in 3 months\n- **Credibility Score:** 80.0/100 (Good)\n- **Languages:** Python, C++\n- **Last Release:** 2024-01-01\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/o/fullrepo)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
     ],
     [
       "minimal",
@@ -182,7 +182,7 @@
         "commit_count": 0,
         "confidence": 0,
         "core_value": "",
-        "cred_score": 0,
+        "cred_score": 0.0,
         "difference": "",
         "features": null,
         "forks": 0,
@@ -202,7 +202,7 @@
         "tags": [],
         "url": "https://github.com/min/imal"
       },
-      "---\nsource: \"https://github.com/min/imal\"\naliases:\n  - imal\n  - min/imal\n\ntags: []\ncategory: \"Uncategorized\"\nstars: 0\norg: \"\"\n\n\ncredibility_score: 0/100\ndate_processed: <DATE>\n\n\nquality: low\nquality_issues: [summary too short, low confidence, uncategorized]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# imal\n\n**`min/imal`** · ⭐ 0 · 🔧 N/A\n\n## What is it?\n\n\n## How does it work?\n\n\n## Why is it important? (Core Value)\n\n\n## Key Features & Technologies\n(none listed)\n\n## Difference from Others\n\n\n## 🏢 Organization & Credibility\n- **Developer:** \n- **Reputation:** Unknown\n- **Stars:** 0\n- **Forks:** 0\n- **Recent Activity:** 0 commits in 3 months\n- **Credibility Score:** 0/100 (Low)\n- **Languages:** N/A\n- **Last Release:** No releases\n- **Quality:** ⚠️ low (summary too short, low confidence, uncategorized)\n\n---\n*Source: [GitHub](https://github.com/min/imal)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+      "---\nsource: \"https://github.com/min/imal\"\naliases:\n  - imal\n  - min/imal\n\ntags: []\ncategory: \"Uncategorized\"\nstars: 0\norg: \"\"\n\n\ncredibility_score: 0.0/100\ndate_processed: <DATE>\n\n\nquality: low\nquality_issues: [summary too short, low confidence, uncategorized]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# imal\n\n**`min/imal`** · ⭐ 0 · 🔧 N/A\n\n## What is it?\n\n\n## How does it work?\n\n\n## Why is it important? (Core Value)\n\n\n## Key Features & Technologies\n(none listed)\n\n## Difference from Others\n\n\n## 🏢 Organization & Credibility\n- **Developer:** \n- **Reputation:** Unknown\n- **Stars:** 0\n- **Forks:** 0\n- **Recent Activity:** 0 commits in 3 months\n- **Credibility Score:** 0.0/100 (Low)\n- **Languages:** N/A\n- **Last Release:** No releases\n- **Quality:** ⚠️ low (summary too short, low confidence, uncategorized)\n\n---\n*Source: [GitHub](https://github.com/min/imal)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
     ],
     [
       "hostile",
@@ -212,7 +212,7 @@
         "commit_count": 5,
         "confidence": 80,
         "core_value": "val",
-        "cred_score": 55,
+        "cred_score": 55.5,
         "difference": "diff",
         "features": [
           "f1",
@@ -243,7 +243,7 @@
         ],
         "url": "https://github.com/a/b?x=1"
       },
-      "---\nsource: \"https://github.com/a/b?x=1\"\naliases:\n  - Evil Repo\n  - ow ner/Evil Repo\n\ntags: [ok, bad tag pwn, x]\ncategory: \"AI & ML\"\nstars: 10\norg: \"Org: \\\"#pwn\\\"\"\nprimary_language: Python\nlanguages: [Python, C++]\ncredibility_score: 55/100\ndate_processed: <DATE>\nlast_release: 2024-01-01\n\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Evil] Repo\n\n> **TL;DR:** short\n\n**`ow ner/Evil] Repo`** · ⭐ 10 · 🔧 Python\n\n## What is it?\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n## How does it work?\nhow\n\n## Why is it important? (Core Value)\nval\n\n## Key Features & Technologies\n- f1\n- f2\n- f3\n\n## Difference from Others\ndiff\n\n## 🏢 Organization & Credibility\n- **Developer:** Org: \"#pwn\"\n- **Reputation:** Unknown\n- **Stars:** 10\n- **Forks:** 2\n- **Recent Activity:** 5 commits in 3 months\n- **Credibility Score:** 55/100 (Low)\n- **Languages:** Python, C++\n- **Last Release:** 2024-01-01\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/a/b?x=1)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+      "---\nsource: \"https://github.com/a/b?x=1\"\naliases:\n  - Evil Repo\n  - ow ner/Evil Repo\n\ntags: [ok, bad tag pwn, x]\ncategory: \"AI & ML\"\nstars: 10\norg: \"Org: \\\"#pwn\\\"\"\nprimary_language: Python\nlanguages: [Python, C++]\ncredibility_score: 55.5/100\ndate_processed: <DATE>\nlast_release: 2024-01-01\n\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Evil] Repo\n\n> **TL;DR:** short\n\n**`ow ner/Evil] Repo`** · ⭐ 10 · 🔧 Python\n\n## What is it?\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n## How does it work?\nhow\n\n## Why is it important? (Core Value)\nval\n\n## Key Features & Technologies\n- f1\n- f2\n- f3\n\n## Difference from Others\ndiff\n\n## 🏢 Organization & Credibility\n- **Developer:** Org: \"#pwn\"\n- **Reputation:** Unknown\n- **Stars:** 10\n- **Forks:** 2\n- **Recent Activity:** 5 commits in 3 months\n- **Credibility Score:** 55.5/100 (Low)\n- **Languages:** Python, C++\n- **Last Release:** 2024-01-01\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/a/b?x=1)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
     ],
     [
       "quality-passed",
@@ -253,7 +253,7 @@
         "commit_count": 120,
         "confidence": 95,
         "core_value": "c",
-        "cred_score": 91,
+        "cred_score": 91.0,
         "difference": "d",
         "features": [
           "a",
@@ -278,14 +278,14 @@
         ],
         "repo_name": "uality",
         "short_summary": "Quality-flagged.",
-        "stars": 500,
+        "stars": 12500,
         "summary": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
         "tags": [
           "quality"
         ],
         "url": "https://github.com/q/uality"
       },
-      "---\nsource: \"https://github.com/q/uality\"\naliases:\n  - uality\n  - q/uality\n\ntags: [quality]\ncategory: \"Dev-Tools\"\nstars: 500\norg: \"Q Org\"\nprimary_language: Go\nlanguages: [Go]\ncredibility_score: 91/100\ndate_processed: <DATE>\n\n\nquality: low\nquality_issues: [custom issue, another one]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# uality\n\n> **TL;DR:** Quality-flagged.\n\n**`q/uality`** · ⭐ 500 · 🔧 Go\n\n## What is it?\nBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n\n## How does it work?\nh\n\n## Why is it important? (Core Value)\nc\n\n## Key Features & Technologies\n- a\n- b\n- c\n- d\n\n## Difference from Others\nd\n\n## 🏢 Organization & Credibility\n- **Developer:** Q Org\n- **Reputation:** High (Major tech company)\n- **Stars:** 500\n- **Forks:** 40\n- **Recent Activity:** 120 commits in 3 months\n- **Credibility Score:** 91/100 (Excellent)\n- **Languages:** Go\n- **Last Release:** No releases\n- **Quality:** ⚠️ low (custom issue, another one)\n\n---\n*Source: [GitHub](https://github.com/q/uality)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+      "---\nsource: \"https://github.com/q/uality\"\naliases:\n  - uality\n  - q/uality\n\ntags: [quality]\ncategory: \"Dev-Tools\"\nstars: 12500\norg: \"Q Org\"\nprimary_language: Go\nlanguages: [Go]\ncredibility_score: 91.0/100\ndate_processed: <DATE>\n\n\nquality: low\nquality_issues: [custom issue, another one]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# uality\n\n> **TL;DR:** Quality-flagged.\n\n**`q/uality`** · ⭐ 12,500 · 🔧 Go\n\n## What is it?\nBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n\n## How does it work?\nh\n\n## Why is it important? (Core Value)\nc\n\n## Key Features & Technologies\n- a\n- b\n- c\n- d\n\n## Difference from Others\nd\n\n## 🏢 Organization & Credibility\n- **Developer:** Q Org\n- **Reputation:** High (Major tech company)\n- **Stars:** 12,500\n- **Forks:** 40\n- **Recent Activity:** 120 commits in 3 months\n- **Credibility Score:** 91.0/100 (Excellent)\n- **Languages:** Go\n- **Last Release:** No releases\n- **Quality:** ⚠️ low (custom issue, another one)\n\n---\n*Source: [GitHub](https://github.com/q/uality)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
     ],
     [
       "features-string",
@@ -295,7 +295,7 @@
         "commit_count": 2,
         "confidence": 50,
         "core_value": "cv",
-        "cred_score": 40,
+        "cred_score": 40.0,
         "difference": "df",
         "features": "one feature line\nanother feature line",
         "forks": 1,
@@ -315,7 +315,7 @@
         "tags": [],
         "url": "https://github.com/f/s"
       },
-      "---\nsource: \"https://github.com/f/s\"\naliases:\n  - s\n  - f/s\n\ntags: []\ncategory: \"MCP\"\nstars: 3\norg: \"F Org\"\n\n\ncredibility_score: 40/100\ndate_processed: <DATE>\n\n\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# s\n\n**`f/s`** · ⭐ 3 · 🔧 N/A\n\n## What is it?\nCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\n\n## How does it work?\nhw\n\n## Why is it important? (Core Value)\ncv\n\n## Key Features & Technologies\none feature line\nanother feature line\n\n## Difference from Others\ndf\n\n## 🏢 Organization & Credibility\n- **Developer:** F Org\n- **Reputation:** Unknown\n- **Stars:** 3\n- **Forks:** 1\n- **Recent Activity:** 2 commits in 3 months\n- **Credibility Score:** 40/100 (Low)\n- **Languages:** N/A\n- **Last Release:** No releases\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/f/s)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+      "---\nsource: \"https://github.com/f/s\"\naliases:\n  - s\n  - f/s\n\ntags: []\ncategory: \"MCP\"\nstars: 3\norg: \"F Org\"\n\n\ncredibility_score: 40.0/100\ndate_processed: <DATE>\n\n\n\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# s\n\n**`f/s`** · ⭐ 3 · 🔧 N/A\n\n## What is it?\nCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\n\n## How does it work?\nhw\n\n## Why is it important? (Core Value)\ncv\n\n## Key Features & Technologies\none feature line\nanother feature line\n\n## Difference from Others\ndf\n\n## 🏢 Organization & Credibility\n- **Developer:** F Org\n- **Reputation:** Unknown\n- **Stars:** 3\n- **Forks:** 1\n- **Recent Activity:** 2 commits in 3 months\n- **Credibility Score:** 40.0/100 (Low)\n- **Languages:** N/A\n- **Last Release:** No releases\n- **Quality:** ✅ good\n\n---\n*Source: [GitHub](https://github.com/f/s)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
     ],
     [
       "big-numbers",
@@ -325,7 +325,7 @@
         "commit_count": 345678,
         "confidence": 70,
         "core_value": "val2",
-        "cred_score": 75,
+        "cred_score": 75.0,
         "difference": "diff2",
         "features": [
           "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -355,7 +355,7 @@
         ],
         "url": "https://github.com/big/numbers"
       },
-      "---\nsource: \"https://github.com/big/numbers\"\naliases:\n  - numbers\n  - big/numbers\n\ntags: [big, numbers, stars]\ncategory: \"Infrastructure/Cloud\"\nstars: 1234567\norg: \"Big Org Inc.\"\nprimary_language: TypeScript\nlanguages: [TypeScript, Rust]\ncredibility_score: 75/100\ndate_processed: <DATE>\nlast_release: 2023-12-31\ncover: attachments/banners/big.png\nquality: low\nquality_issues: [fewer than 3 features]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n![banner](attachments/banners/big.png)\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# numbers\n\n> **TL;DR:** Big.\n\n**`big/numbers`** · ⭐ 1,234,567 · 🔧 TypeScript\n\n## What is it?\nDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n\n## How does it work?\nhow2\n\n## Why is it important? (Core Value)\nval2\n\n## Key Features & Technologies\n- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n- y\n\n## Difference from Others\ndiff2\n\n## 🏢 Organization & Credibility\n- **Developer:** Big Org Inc.\n- **Reputation:** Medium (Well-known organization)\n- **Stars:** 1,234,567\n- **Forks:** 89012\n- **Recent Activity:** 345678 commits in 3 months\n- **Credibility Score:** 75/100 (Good)\n- **Languages:** TypeScript, Rust\n- **Last Release:** 2023-12-31\n- **Quality:** ⚠️ low (fewer than 3 features)\n\n---\n*Source: [GitHub](https://github.com/big/numbers)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
+      "---\nsource: \"https://github.com/big/numbers\"\naliases:\n  - numbers\n  - big/numbers\n\ntags: [big, numbers, stars]\ncategory: \"Infrastructure/Cloud\"\nstars: 1234567\norg: \"Big Org Inc.\"\nprimary_language: TypeScript\nlanguages: [TypeScript, Rust]\ncredibility_score: 75.0/100\ndate_processed: <DATE>\nlast_release: 2023-12-31\ncover: attachments/banners/big.png\nquality: low\nquality_issues: [fewer than 3 features]\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n![banner](attachments/banners/big.png)\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# numbers\n\n> **TL;DR:** Big.\n\n**`big/numbers`** · ⭐ 1,234,567 · 🔧 TypeScript\n\n## What is it?\nDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n\n## How does it work?\nhow2\n\n## Why is it important? (Core Value)\nval2\n\n## Key Features & Technologies\n- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n- y\n\n## Difference from Others\ndiff2\n\n## 🏢 Organization & Credibility\n- **Developer:** Big Org Inc.\n- **Reputation:** Medium (Well-known organization)\n- **Stars:** 1,234,567\n- **Forks:** 89012\n- **Recent Activity:** 345678 commits in 3 months\n- **Credibility Score:** 75.0/100 (Good)\n- **Languages:** TypeScript, Rust\n- **Last Release:** 2023-12-31\n- **Quality:** ⚠️ low (fewer than 3 features)\n\n---\n*Source: [GitHub](https://github.com/big/numbers)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax), added\nin the tags property, or moved into the Trash folder — the next run\ncounts it, asks you to confirm on Telegram, and on your 🗑️ Delete it\nleaves the library and this repo is never fetched or counted again\n(v0.65.0).*\n"
     ]
   ],
   "rep_to_str": [

@@ -74,6 +74,19 @@ func corpusSection(t *testing.T, doc map[string]any, key string) []any {
 }
 
 // corpusInt decodes a golden number field.
+func corpusFloat(t *testing.T, v any) float64 {
+	t.Helper()
+	n, ok := v.(json.Number)
+	if !ok {
+		t.Fatalf("corpus number field wrong type: %T", v)
+	}
+	f, err := n.Float64()
+	if err != nil {
+		t.Fatalf("corpus number field %q: %v", n.String(), err)
+	}
+	return f
+}
+
 func corpusInt(t *testing.T, v any) int {
 	t.Helper()
 	n, ok := v.(json.Number)
@@ -545,9 +558,9 @@ func TestGoldenRepAndScore(t *testing.T) {
 	}
 	for _, e := range corpusSection(t, doc, "score_to_rating") {
 		p := e.([]any)
-		n := corpusInt(t, p[0])
+		n := corpusFloat(t, p[0])
 		if got, want := ScoreToRating(n), corpusString(t, p[1]); got != want {
-			t.Errorf("ScoreToRating(%d) = %q, want %q", n, got, want)
+			t.Errorf("ScoreToRating(%v) = %q, want %q", n, got, want)
 		}
 	}
 }

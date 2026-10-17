@@ -322,8 +322,10 @@ func RepToStr(rep int) string {
 	}
 }
 
-// ScoreToRating mirrors score_to_rating.
-func ScoreToRating(score int) string {
+// ScoreToRating mirrors score_to_rating. T-42's reality-wins fix: the
+// score is _calculate_credibility's round(x, 1) FLOAT — the note's
+// own renderings carry "90.0", never "90".
+func ScoreToRating(score float64) string {
 	switch {
 	case score >= 90:
 		return "Excellent"
@@ -344,28 +346,28 @@ func ScoreToRating(score int) string {
 // fields the LLM can misshape stay any; numeric fields are int (GitHub
 // API contract — spec migration note).
 type NoteArgs struct {
-	URL               string `json:"url"`
-	RepoName          string `json:"repo_name"`
-	Owner             string `json:"owner"`
-	OrgName           string `json:"org_name"`
-	Stars             int    `json:"stars"`
-	Forks             int    `json:"forks"`
-	CommitCount       int    `json:"commit_count"`
-	CredScore         int    `json:"cred_score"`
-	OrgRep            int    `json:"org_rep"`
-	Summary           string `json:"summary"`
-	Tags              any    `json:"tags"`
-	CategoryKey       string `json:"category_key"`
-	Confidence        int    `json:"confidence"`
-	HowItWorks        string `json:"how_it_works"`
-	CoreValue         string `json:"core_value"`
-	Features          any    `json:"features"`
-	Difference        string `json:"difference"`
-	BannerPath        string `json:"banner_path"`
-	PrimaryLanguage   string `json:"primary_language"`
-	Languages         any    `json:"languages"`
-	ShortSummary      string `json:"short_summary"`
-	LatestReleaseDate string `json:"latest_release_date"`
+	URL               string  `json:"url"`
+	RepoName          string  `json:"repo_name"`
+	Owner             string  `json:"owner"`
+	OrgName           string  `json:"org_name"`
+	Stars             int     `json:"stars"`
+	Forks             int     `json:"forks"`
+	CommitCount       int     `json:"commit_count"`
+	CredScore         float64 `json:"cred_score"`
+	OrgRep            int     `json:"org_rep"`
+	Summary           string  `json:"summary"`
+	Tags              any     `json:"tags"`
+	CategoryKey       string  `json:"category_key"`
+	Confidence        int     `json:"confidence"`
+	HowItWorks        string  `json:"how_it_works"`
+	CoreValue         string  `json:"core_value"`
+	Features          any     `json:"features"`
+	Difference        string  `json:"difference"`
+	BannerPath        string  `json:"banner_path"`
+	PrimaryLanguage   string  `json:"primary_language"`
+	Languages         any     `json:"languages"`
+	ShortSummary      string  `json:"short_summary"`
+	LatestReleaseDate string  `json:"latest_release_date"`
 	// QualityIssues nil = auto-detect (Python None); a non-nil slice —
 	// even empty — means the caller supplied them and auto-detect is
 	// skipped, exactly like Python's `if quality_issues is None`.
@@ -555,7 +557,7 @@ func BuildNote(args NoteArgs) string {
 	b.WriteString(langLine + "\n")
 	b.WriteString(languagesYAML + "\n")
 	b.WriteString("credibility_score: " +
-		strconv.Itoa(args.CredScore) + "/100\n")
+		helpers.PyFloatRepr(args.CredScore) + "/100\n")
 	b.WriteString("date_processed: " + localDateString() + "\n")
 	b.WriteString(lastReleaseLine + "\n")
 	b.WriteString(bannerCoverLine + "\n")
@@ -582,7 +584,7 @@ func BuildNote(args NoteArgs) string {
 	b.WriteString("- **Forks:** " + strconv.Itoa(args.Forks) + "\n")
 	b.WriteString("- **Recent Activity:** " +
 		strconv.Itoa(args.CommitCount) + " commits in 3 months\n")
-	b.WriteString("- **Credibility Score:** " + strconv.Itoa(args.CredScore) +
+	b.WriteString("- **Credibility Score:** " + helpers.PyFloatRepr(args.CredScore) +
 		"/100 (" + ScoreToRating(args.CredScore) + ")\n")
 	b.WriteString("- **Languages:** " + langsLine + "\n")
 	b.WriteString("- **Last Release:** " + releaseLine + "\n")

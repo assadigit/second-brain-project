@@ -190,7 +190,7 @@ NOTES = [
     ("full", dict(
         url="https://github.com/o/fullrepo", repo_name="fullrepo", owner="o",
         org_name="Full Org", stars=10, forks=2, commit_count=5,
-        cred_score=80, org_rep=7, summary="A" * 80, tags=["cli", "tool"],
+        cred_score=80.0, org_rep=7, summary="A" * 80, tags=["cli", "tool"],
         category_key="Agents", confidence=90, how_it_works="how",
         core_value="val", features=["f1", "f2", "f3"], difference="diff",
         banner_path="/vault/attachments/banners/fullrepo.png",
@@ -199,7 +199,7 @@ NOTES = [
         quality_issues=[], is_low_quality=False)),
     ("minimal", dict(
         url="https://github.com/min/imal", repo_name="imal", owner="min",
-        org_name="", stars=0, forks=0, commit_count=0, cred_score=0,
+        org_name="", stars=0, forks=0, commit_count=0, cred_score=0.0,
         org_rep=0, summary="", tags=[], category_key="Uncategorized",
         confidence=0, how_it_works="", core_value="", features=None,
         difference="", banner_path=None, primary_language="",
@@ -208,7 +208,7 @@ NOTES = [
     ("hostile", dict(
         url="https://github.com/a/b?x=1", repo_name="Evil] Repo",
         owner="ow ner", org_name='Org: "#pwn"', stars=10, forks=2,
-        commit_count=5, cred_score=55, org_rep=3, summary="A" * 80,
+        commit_count=5, cred_score=55.5, org_rep=3, summary="A" * 80,
         tags=["ok", "bad,tag] #pwn", "{{x}}"], category_key="AI & ML",
         confidence=80, how_it_works="how", core_value="val",
         features=["f1", "f2", "f3"], difference="diff", banner_path=None,
@@ -217,8 +217,8 @@ NOTES = [
         quality_issues=None, is_low_quality=False)),
     ("quality-passed", dict(
         url="https://github.com/q/uality", repo_name="uality", owner="q",
-        org_name="Q Org", stars=500, forks=40, commit_count=120,
-        cred_score=91, org_rep=8, summary="B" * 100, tags=["quality"],
+        org_name="Q Org", stars=12500, forks=40, commit_count=120,
+        cred_score=91.0, org_rep=8, summary="B" * 100, tags=["quality"],
         category_key="Dev-Tools", confidence=95, how_it_works="h",
         core_value="c", features=["a", "b", "c", "d"], difference="d",
         banner_path=None, primary_language="Go", languages=["Go"],
@@ -227,7 +227,7 @@ NOTES = [
         is_low_quality=True)),
     ("features-string", dict(
         url="https://github.com/f/s", repo_name="s", owner="f",
-        org_name="F Org", stars=3, forks=1, commit_count=2, cred_score=40,
+        org_name="F Org", stars=3, forks=1, commit_count=2, cred_score=40.0,
         org_rep=2, summary="C" * 80, tags=[], category_key="MCP",
         confidence=50, how_it_works="hw", core_value="cv",
         features="one feature line\nanother feature line", difference="df",
@@ -237,7 +237,7 @@ NOTES = [
     ("big-numbers", dict(
         url="https://github.com/big/numbers", repo_name="numbers",
         owner="big", org_name="Big Org Inc.", stars=1234567, forks=89012,
-        commit_count=345678, cred_score=75, org_rep=6,
+        commit_count=345678, cred_score=75.0, org_rep=6,
         summary="D" * 80, tags=["big", "numbers", "stars"],
         category_key="Infrastructure/Cloud", confidence=70,
         how_it_works="how2", core_value="val2",
