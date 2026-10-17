@@ -82,13 +82,13 @@
   v1.36.1/tls-client/1.24.1 bytes (do NOT bump sqlite; do NOT bump
   tls-client past v1.16.0). **SESSION-015's debugging lesson, kept —
   widened by SESSION-022's own close: this sandbox's renderer EATS
-  the two-character console-escape sequences `[h` AND `[m` — on the
+  the two-character console-escape pairs [h AND [m - on the
   OUTPUT path (verify suspicious "corruption" with %q byte dumps
   before believing rendered text) AND ON THE INPUT PATH (SESSION-
-  022's close-commit message lost a "[manual's" to an eaten "[m" —
+  022's close-commit message lost a bracket-manual to an eaten [m -
   avoid bracket-adjacent-lowercase-m/h spellings inside heredocs and
   commit messages, or verify the committed bytes with
-  `git log --format=%B` before pushing).**
+  'git log --format=%B' before pushing).**
 
 ## 2. Next session: SESSION-023 — Phase 4 continues: T-48 goodrepos + reporadar (M), then T-49 directorysync (L) if capacity remains
 
