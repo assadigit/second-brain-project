@@ -260,7 +260,30 @@ mirror push + THE GOLDEN (22 sections, paths/clock/git-dates frozen —
 the byte-exact publish body 10,514 bytes + the deterministic mirror
 commit sha c28cc921; dump_directorysync.py imports the reference's own
 fixtures). 1736 tests race-clean.
-Next: T-50 mirror (M) if capacity remains, else Phase-4 close-out.
+**T-50 `internal/mirror` (SESSION-025) — THE
+LIBRARY MIRROR + THE LINKING LAYER COMPLETE** (spec-core-mirror.md,
+with the SESSION-025 amendments + the reality-wins test_noteredo
+mapping fix): the whole merged group — mirror.py + mirror_keys.py +
+linking.py + embeddings.py + recall.py — the one-way Library/ mirror
+(the containment guards: SafeJoin's every traversal defense, the
+both-direction overlap refusal, nothing-outside-Library; the
+RAW-source move matching; the dry-run default; idempotence), the
+recall hooks (the delimited block's insert/replace/idempotent/CRLF
+surgery, the sanitizers with the 220-rune cut, the field extractors,
+the plan/run pipeline), the embeddings surface (the short embed text,
+the Ollama/OpenAI-compatible endpoints over the loopback stub, the
+SQLite store, the stale-only refresh), and the linking layer (the
+candidate pairs, the LLM confirm, THE SUGGESTION LIFECYCLE —
+pending→approved/rejected, never re-suggested, capped at 7 — the
+Suggestions note with its checkbox/strike grammar, the Related (auto)
+blocks in mirror copies only, the Phase-5↔6 carry-over) — with the
+ported test_phase5 + test_phase6 core selections (79) + THE GOLDEN
+(39 sections, generated from the unmodified reference's own fixtures
+via importlib, run twice byte-identical — the exact mirror-note
+bytes, the refusal messages, the full mirror flow, the resync
+integration). 1826 tests race-clean. **Phase 4's task list is now
+complete (T-40..T-50 all landed).**
+Next: the Phase-4 close-out evaluation + Phase 5 (CLI parity, T-60).
 
 ## Map
 

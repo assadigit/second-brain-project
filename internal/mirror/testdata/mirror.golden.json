@@ -1,0 +1,719 @@
+{
+  "apply_decisions": {
+    "approved": 1,
+    "ignored": 1,
+    "rejected": 0
+  },
+  "apply_related_blocks": {
+    "after_removal": false,
+    "mir_bytes": "---\nsource: https://github.com/a/a\nmirror_of: https://github.com/a/a\nmanaged_by: gitcurator\n---\n\n> 🔒 Read-only library copy.\n\n# Mirror note\n\nBody.\n",
+    "owner_touched": false,
+    "removal_updated": [
+      "GitHub Projects/Dev Tools/mir.md"
+    ],
+    "updated": [
+      "GitHub Projects/Dev Tools/mir.md"
+    ]
+  },
+  "approved_links_capped": {
+    "n": 7,
+    "others": [
+      "https://x/00",
+      "https://x/01",
+      "https://x/02",
+      "https://x/03",
+      "https://x/04",
+      "https://x/05",
+      "https://x/06"
+    ],
+    "scores": [
+      1.0,
+      0.99,
+      0.98,
+      0.97,
+      0.96,
+      0.95,
+      0.94
+    ]
+  },
+  "build_mirror_note": {
+    "banner_stripped": "---\nsource: https://github.com/a/b\naliases: []\ntags: [python, tools]\ncategory: Agents\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\nmirror_of: https://github.com/a/b\n---\n\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Repo\n\nWhat is it? Real body text.\n\n---\n*Source: [https://github.com/a/b](https://github.com/a/b)*\n",
+    "crlf": "---\r\nsource: https://github.com/a/b\r\naliases: []\r\ntags: [python, tools]\r\ncategory: Agents\r\nmanaged_by: gitcurator\r\nschema_version: 1\r\nprompt_version: gh-v1\r\nmirror_of: https://github.com/a/b\n---\r\n\r\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\r\n\r\n# Repo\r\n\r\nWhat is it? Real body text.\r\n\r\n---\r\n*Source: [https://github.com/a/b](https://github.com/a/b)*\r\n",
+    "github_exact_bytes": "---\nsource: https://github.com/a/b\naliases: []\ntags: [python, tools]\ncategory: Agents\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\nmirror_of: https://github.com/a/b\n---\n\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Repo\n\nWhat is it? Real body text.\n\n---\n*Source: [https://github.com/a/b](https://github.com/a/b)*\n",
+    "no_frontmatter": "---\nmirror_of: https://example.com/x\n---\n\n> [!warning] Read-only mirror of a note in the Websites vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n# Just a heading\n\nbody\n",
+    "tight_body": "---\nsource: https://x/y\nmirror_of: https://x/y\n---\n\n> [!warning] Read-only mirror of a note in the Websites vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n# Tight\n",
+    "website_exact_bytes": "---\nsource: \"https://example.com/tool\"\naliases: []\ntags: [design]\ncategory: \"Design\"\nsubcategory: \"UI\"\nfetch_status: \"full\"\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v1\"\nmirror_of: https://example.com/tool\n---\n\n> [!warning] Read-only mirror of a note in the Websites vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Tool\n\nStandout feature text.\n\n---\n*Source: [https://example.com/tool](https://example.com/tool)*\n"
+  },
+  "check_vault_paths": [
+    {
+      "case": "manual_not_set",
+      "error": "manual_vault_path is not set — configure it (GUI 📁 Vault page, config.json, or the tool's --manual-vault flag) first"
+    },
+    {
+      "case": "manual_equals_gh",
+      "error": "refusing to run: the manual vault contains the GitHub Projects vault\n  manual:  <tmp>/ghvault\n  machine:  <tmp>/ghvault"
+    },
+    {
+      "case": "manual_contains_gh",
+      "error": "refusing to run: the manual vault contains the GitHub Projects vault\n  manual:  <tmp>/manualvault\n  machine:  <tmp>/manualvault/gh-inside"
+    },
+    {
+      "case": "manual_inside_gh",
+      "error": "refusing to run: the manual vault is inside the GitHub Projects vault\n  manual:  <tmp>/ghvault/sub/manual\n  machine:  <tmp>/ghvault"
+    },
+    {
+      "case": "manual_equals_ws",
+      "error": "refusing to run: the manual vault contains the Websites vault\n  manual:  <tmp>/wsvault\n  machine:  <tmp>/wsvault"
+    },
+    {
+      "case": "both_unset",
+      "error": "nothing to mirror: neither the GitHub vault (vault_path) nor the Websites vault (website_vault_path) is set"
+    },
+    {
+      "case": "library_is_a_file",
+      "error": "'Library' exists in the manual vault but is not a folder: <tmp>/m2/Library"
+    },
+    {
+      "case": "apply_missing_manual",
+      "error": "the manual vault folder does not exist — create it first (or point --manual-vault at a copy): <tmp>/not-created"
+    },
+    {
+      "case": "ok_dry",
+      "error": null
+    }
+  ],
+  "collect_decisions": {
+    "free_text": [
+      {
+        "key_a": "https://a",
+        "key_b": "https://b",
+        "status": "approved"
+      }
+    ],
+    "nothing": [],
+    "struck": [
+      {
+        "key_a": "https://a",
+        "key_b": "https://b",
+        "status": "rejected"
+      }
+    ],
+    "ticked": [
+      {
+        "key_a": "https://a",
+        "key_b": "https://b",
+        "status": "approved"
+      }
+    ]
+  },
+  "collect_note_fields": {
+    "duplicates": 1,
+    "entries": {
+      "https://github.com/a/a": {
+        "fields": {
+          "name": "a",
+          "one_line": "A fast demo tool for testing.",
+          "recall": "Use when you need to a.",
+          "tags": "python, cli"
+        },
+        "stem": "a",
+        "vault": "github"
+      },
+      "https://palette.example.com": {
+        "fields": {
+          "name": "Palette Gen",
+          "one_line": "Generates color palettes from an image.",
+          "recall": "Use when you need to build a color scheme fast.",
+          "tags": "design, colors"
+        },
+        "stem": "p-dup",
+        "vault": "websites"
+      }
+    }
+  },
+  "confirm_prompt": "You curate a personal knowledge library. Two entries from it are below.\nWould a reader who is interested in entry A plausibly also want entry B\n(and the other way around)? Answer with a yes/no and a short reason.\n\nRules:\n1. \"Related\" means they serve overlapping problems or workflows — not\n   merely sharing a broad technology, and not merely both being popular.\n2. Two entries from the same area can still be unrelated (two unrelated\n   design tools). Two entries from different areas can be related (a\n   color palette generator and a color contrast checker).\n3. When unsure, answer no — a wrong link costs the reader more than a\n   missing one.\n4. Return only valid JSON in exactly this shape:\n\n{\"related\": true, \"reason\": \"\"}\n\n(\"reason\" is at most 20 words, plain English. \"related\" is true or\nfalse.)\n\nEntry A:\nName: Palette Gen\nDescription: Palettes from images\nBest used for: Use when you need to build a scheme.\nTags: design\n\nEntry B:\nName: Contrast Check\nDescription: A11y contrast\nBest used for: Use when you need to check contrast.\nTags: design\n",
+  "cosine": [
+    1.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.9746318461970762
+  ],
+  "embed_text": {
+    "composed": "Palette Gen\nGenerates color palettes.\nUse when you need to build a scheme.\ntags: design, colors",
+    "empty": "",
+    "hash_a": "ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb",
+    "hash_b": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+    "hash_unicode": "779b2599078cda0039c50f44bf5fe1c89171801d601d7db960a7391a249dcf89",
+    "no_tags": "A\nB\nC"
+  },
+  "embedding_store": {
+    "count": 2,
+    "count_after": 0,
+    "dropped": 2,
+    "loaded": {
+      "https://a": [
+        [
+          0.1,
+          0.2
+        ],
+        "h1"
+      ],
+      "https://b": [
+        [
+          0.3,
+          0.4
+        ],
+        "h2"
+      ]
+    },
+    "upserted": {
+      "https://a": [
+        [
+          0.9
+        ],
+        "h3"
+      ],
+      "https://b": [
+        [
+          0.3,
+          0.4
+        ],
+        "h2"
+      ]
+    }
+  },
+  "find_candidate_pairs": {
+    "fixture": [
+      [
+        "c",
+        "d",
+        1.0
+      ],
+      [
+        "a",
+        "b",
+        0.9949371890224981
+      ]
+    ],
+    "high_floor": [
+      [
+        "a",
+        "b",
+        1.0
+      ]
+    ],
+    "pruned": []
+  },
+  "line_ending_of": [
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    "\n"
+  ],
+  "link_store_lifecycle": {
+    "counts": {
+      "approved": 1,
+      "pending": 0,
+      "rejected": 1
+    },
+    "invalid_status_error": "invalid status: maybe",
+    "known_pairs": {
+      "a|b": "approved",
+      "c|d": "rejected"
+    },
+    "reask_approved": "approved",
+    "reask_approved_mirrored": "approved",
+    "reask_rejected": "rejected",
+    "with_status_approved": [
+      {
+        "key_a": "a",
+        "key_b": "b",
+        "reason": "why",
+        "score": 0.9
+      }
+    ],
+    "with_status_pending": [],
+    "with_status_rejected": [
+      {
+        "key_a": "c",
+        "key_b": "d",
+        "reason": "",
+        "score": 0.8
+      }
+    ]
+  },
+  "mirror_flow_apply": {
+    "applied": true,
+    "logs": [
+      "[GitHub Projects] mirrored 3 notes — 3 change(s) applied",
+      "[Websites] mirrored 2 notes — 2 change(s) applied"
+    ],
+    "repo_mirror_bytes": "---\nsource: https://github.com/owner/repo\naliases: []\ntags: [python, tools]\ncategory: Agents\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\nmirror_of: https://github.com/owner/repo\n---\n\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Repo\n\nWhat is it? Real body text.\n\n---\n*Source: [https://github.com/owner/repo](https://github.com/owner/repo)*\n",
+    "report": "GitCurator — Manual Notes Library mirror — APPLIED\nManual vault:   <tmp>/flowmanual\nGitHub vault:   <tmp>/flowgh\nWebsites vault: <tmp>/flowws\n\n== GitHub Projects  →  Library/GitHub Projects/  (scanned) ==\n  library notes: 3 · kept: 0 · created: 3 · updated: 0 · moved: 0 · deleted: 0\n  skipped: 1 without a source line; 1 unmarked file(s) under Library/ (left untouched)\n  CREATE   Agents/Frameworks/Repo.md\n  CREATE   Dev-Tools/Cli_Tool.md\n  CREATE   _review/Pending.md\n\n== Websites  →  Library/Websites/  (scanned) ==\n  library notes: 2 · kept: 0 · created: 2 · updated: 0 · moved: 0 · deleted: 0\n  CREATE   Design/UI/Tool.md\n  CREATE   Learning/Courses/Course.md\n\nTotals: 5 change(s) needed — applied.\nSafety: only files carrying the mirror_of marker under Library/ are ever changed; nothing outside Library/ is touched.\n",
+    "tree": {
+      "Library/GitHub Projects/Agents/Frameworks/Repo.md": "---\nsource: https://github.com/owner/repo\naliases: []\ntags: [python, tools]\ncategory: Agents\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\nmirror_of: https://github.com/owner/repo\n---\n\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Repo\n\nWhat is it? Real body text.\n\n---\n*Source: [https://github.com/owner/repo](https://github.com/owner/repo)*\n",
+      "Library/GitHub Projects/Dev-Tools/Cli_Tool.md": "---\nsource: https://github.com/other/cli\naliases: []\ntags: [python, tools]\ncategory: Agents\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\nmirror_of: https://github.com/other/cli\n---\n\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Cli_Tool\n\nWhat is it? Real body text.\n\n---\n*Source: [https://github.com/other/cli](https://github.com/other/cli)*\n",
+      "Library/GitHub Projects/_review/Pending.md": "---\nsource: https://github.com/owner/pending\naliases: []\ntags: [python, tools]\ncategory: Agents\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\nmirror_of: https://github.com/owner/pending\n---\n\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Pending\n\nWhat is it? Real body text.\n\n---\n*Source: [https://github.com/owner/pending](https://github.com/owner/pending)*\n",
+      "Library/GitHub Projects/my-own-note.md": "owner file inside the GitHub tree (no marker — never touched)\n",
+      "Library/Websites/Design/UI/Tool.md": "---\nsource: \"https://example.com/tool\"\naliases: []\ntags: [design]\ncategory: \"Design\"\nsubcategory: \"UI\"\nfetch_status: \"full\"\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v1\"\nmirror_of: https://example.com/tool\n---\n\n> [!warning] Read-only mirror of a note in the Websites vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Tool\n\nStandout feature text.\n\n---\n*Source: [https://example.com/tool](https://example.com/tool)*\n",
+      "Library/Websites/Learning/Courses/Course.md": "---\nsource: \"https://example.com/course\"\naliases: []\ntags: [design]\ncategory: \"Design\"\nsubcategory: \"UI\"\nfetch_status: \"full\"\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v1\"\nmirror_of: https://example.com/course\n---\n\n> [!warning] Read-only mirror of a note in the Websites vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Course\n\nStandout feature text.\n\n---\n*Source: [https://example.com/course](https://example.com/course)*\n",
+      "Library/owner-note.md": "an owner file directly under Library (never touched)\n"
+    }
+  },
+  "mirror_flow_conflict": {
+    "blocked_bytes": "---\nsource: https://github.com/other/cli\naliases: []\ntags: [python, tools]\ncategory: Agents\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\nxmirror: https://github.com/other/cli\n---\n\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Cli_Tool\n\nWhat is it? Real body text.\n\n---\n*Source: [https://github.com/other/cli](https://github.com/other/cli)*\n",
+    "conflicts": {
+      "GitHub Projects": [
+        [
+          "Dev-Tools/Cli_Tool.md",
+          "a file without the mirror_of marker is in the way (left untouched)"
+        ]
+      ],
+      "Websites": []
+    },
+    "logs": [
+      "[GitHub Projects] mirrored 3 notes — 0 change(s) applied",
+      "[Websites] mirrored 1 notes — 0 change(s) applied"
+    ]
+  },
+  "mirror_flow_dry": {
+    "logs": [
+      "[GitHub Projects] 3 library notes — 3 change(s) planned (dry run)",
+      "[Websites] 2 library notes — 2 change(s) planned (dry run)"
+    ],
+    "report": "GitCurator — Manual Notes Library mirror — DRY RUN (nothing written)\nManual vault:   <tmp>/flowmanual\nGitHub vault:   <tmp>/flowgh\nWebsites vault: <tmp>/flowws\n\n== GitHub Projects  →  Library/GitHub Projects/  (scanned) ==\n  library notes: 3 · kept: 0 · created: 3 · updated: 0 · moved: 0 · deleted: 0\n  skipped: 1 without a source line; 1 unmarked file(s) under Library/ (left untouched)\n  CREATE   Agents/Frameworks/Repo.md\n  CREATE   Dev-Tools/Cli_Tool.md\n  CREATE   _review/Pending.md\n\n== Websites  →  Library/Websites/  (scanned) ==\n  library notes: 2 · kept: 0 · created: 2 · updated: 0 · moved: 0 · deleted: 0\n  CREATE   Design/UI/Tool.md\n  CREATE   Learning/Courses/Course.md\n\nTotals: 5 change(s) needed — NOT applied (dry run).\nSafety: only files carrying the mirror_of marker under Library/ are ever changed; nothing outside Library/ is touched.\n",
+    "total_changes": 5,
+    "trees": {
+      "GitHub Projects": {
+        "conflicts": [],
+        "creates": [
+          "Agents/Frameworks/Repo.md",
+          "Dev-Tools/Cli_Tool.md",
+          "_review/Pending.md"
+        ],
+        "deletes": [],
+        "duplicates": [],
+        "keeps": 0,
+        "moves": [],
+        "skipped_no_source": 1,
+        "sources": 3,
+        "unmarked_files": 1,
+        "updates": [],
+        "vault_present": true
+      },
+      "Websites": {
+        "conflicts": [],
+        "creates": [
+          "Design/UI/Tool.md",
+          "Learning/Courses/Course.md"
+        ],
+        "deletes": [],
+        "duplicates": [],
+        "keeps": 0,
+        "moves": [],
+        "skipped_no_source": 0,
+        "sources": 2,
+        "unmarked_files": 0,
+        "updates": [],
+        "vault_present": true
+      }
+    }
+  },
+  "mirror_flow_duplicate": {
+    "duplicates": {
+      "GitHub Projects": [
+        "Infrastructure/Repo.md"
+      ],
+      "Websites": []
+    },
+    "sources": {
+      "GitHub Projects": 3,
+      "Websites": 1
+    }
+  },
+  "mirror_flow_idempotent": {
+    "keeps": {
+      "GitHub Projects": 3,
+      "Websites": 2
+    },
+    "logs": [
+      "[GitHub Projects] mirrored 3 notes — 0 change(s) applied",
+      "[Websites] mirrored 2 notes — 0 change(s) applied"
+    ],
+    "total_changes": 0
+  },
+  "mirror_flow_move": {
+    "logs": [
+      "[GitHub Projects] mirrored 3 notes — 1 change(s) applied",
+      "[Websites] mirrored 2 notes — 0 change(s) applied"
+    ],
+    "moves": {
+      "GitHub Projects": [
+        [
+          "Agents/Frameworks/Repo.md",
+          "Infrastructure/Repo.md"
+        ]
+      ],
+      "Websites": []
+    },
+    "new_exists": true,
+    "old_gone": true
+  },
+  "mirror_flow_orphan": {
+    "deletes": {
+      "GitHub Projects": [],
+      "Websites": [
+        "Design/UI/Tool.md"
+      ]
+    },
+    "dir_gone": true,
+    "logs": [
+      "[GitHub Projects] mirrored 3 notes — 0 change(s) applied",
+      "[Websites] mirrored 1 notes — 1 change(s) applied"
+    ],
+    "orphan_gone": true
+  },
+  "mirror_keys": {
+    "MIRROR_KEY": "mirror_of",
+    "unquote": [
+      "https://x/y",
+      "https://x/y",
+      "https://x/y",
+      "",
+      "",
+      " mixed ",
+      "plain"
+    ]
+  },
+  "mirror_resync": {
+    "block_survived": true,
+    "changes": 0,
+    "edited_arrived": true,
+    "keeps": 1,
+    "second_bytes": "---\nsource: https://github.com/a/demo\naliases: []\ntags: [python, cli]\ncategory: Developer Tools\nstars: 120\norg: acme\ncredibility_score: 80/100\ndate_processed: 2026-09-01\nmanaged_by: gitcurator\nschema_version: 2\nprompt_version: g3\nmirror_of: https://github.com/a/demo\n---\n\n> [!warning] Read-only mirror of a note in the GitHub Projects vault — GitCurator keeps this copy in sync and overwrites edits made here.\n\n# demo-tool\n\n> **TL;DR:** A fast demo tool for testing.\n\n**`acme/demo-tool`** · ⭐ 120 · 🔧 Python\n\n## What is it?\nIt automates the boring parts of demo datasets so tests stay small.\n\n## How does it work?\nA single command walks a folder and emits JSON fixtures.\n\n## Why is it important? (Core Value)\nTests stop depending on hand-written data.\n\n## Key Features & Technologies\n- fixture generation\n- deterministic output\n- zero dependencies\n\n## Difference from Others\nSmaller and faster than the big frameworks.\n\n## 🏢 Organization & Credibility\n- **Developer:** acme\n\n---\n*Source: [GitHub](https://github.com/a/demo)*\n\nEdited.\n\n<!-- gitcurator:related:start -->\n**Related (auto):**\n- [[Palette Gen]] — design adjacent\n<!-- gitcurator:related:end -->\n"
+  },
+  "parse_confirm": [
+    {
+      "got": [
+        true,
+        "both color work"
+      ],
+      "reply": "{\"related\": true, \"reason\": \"both color work\"}"
+    },
+    {
+      "got": [
+        false,
+        "no overlap"
+      ],
+      "reply": "Sure! {\"related\": false, \"reason\": \"no overlap\"}"
+    },
+    {
+      "got": [
+        true,
+        "overlap"
+      ],
+      "reply": "{\"related\": \"yes\", \"reason\": \"overlap\"}"
+    },
+    {
+      "got": [
+        false,
+        "nope"
+      ],
+      "reply": "{\"related\": \"no\", \"reason\": \"nope\"}"
+    },
+    {
+      "got": [
+        null,
+        ""
+      ],
+      "reply": "{\"related\": 1, \"reason\": \"numeric\"}"
+    },
+    {
+      "got": [
+        null,
+        ""
+      ],
+      "reply": "{\"related\": null}"
+    },
+    {
+      "got": [
+        null,
+        ""
+      ],
+      "reply": "garbage"
+    },
+    {
+      "got": [
+        null,
+        ""
+      ],
+      "reply": ""
+    },
+    {
+      "got": [
+        null,
+        ""
+      ],
+      "reply": "{\"reason\": \"missing key\"}"
+    },
+    {
+      "got": [
+        true,
+        "wrapped"
+      ],
+      "reply": "PREFIX {\"related\": true, \"reason\": \"wrapped\"} SUFFIX"
+    }
+  ],
+  "plan_recall_hooks": {
+    "default": [
+      "a.md"
+    ],
+    "forced": [
+      "a.md",
+      "b.md"
+    ]
+  },
+  "recall_block": {
+    "crlf": "---\r\nsource: https://github.com/acme/demo-tool\r\naliases: []\r\ntags: [python, cli]\r\ncategory: Developer Tools\r\nstars: 120\r\norg: acme\r\ncredibility_score: 80/100\r\ndate_processed: 2026-09-01\r\nmanaged_by: gitcurator\r\nschema_version: 2\r\nprompt_version: g3\r\n---\r\n\r\n# demo-tool\r\n\r\n> **TL;DR:** A fast demo tool for testing.\r\n\r\n**`acme/demo-tool`** · ⭐ 120 · 🔧 Python\r\n\r\n## What is it?\r\nIt automates the boring parts of demo datasets so tests stay small.\r\n\r\n## How does it work?\r\nA single command walks a folder and emits JSON fixtures.\r\n\r\n## Why is it important? (Core Value)\r\nTests stop depending on hand-written data.\r\n\r\n## Key Features & Technologies\r\n- fixture generation\r\n- deterministic output\r\n- zero dependencies\r\n\r\n## Difference from Others\r\nSmaller and faster than the big frameworks.\r\n\r\n## 🏢 Organization & Credibility\r\n- **Developer:** acme\r\n\r\n---\r\n*Source: [GitHub](https://github.com/acme/demo-tool)*\r\n\r\n<!-- gitcurator:recall:start -->\r\n**Best used for:** Use when you need to test.\r\n<!-- gitcurator:recall:end -->\r\n",
+    "get_sentence": "Use when you need to test.",
+    "idempotent": "---\nsource: https://github.com/acme/demo-tool\naliases: []\ntags: [python, cli]\ncategory: Developer Tools\nstars: 120\norg: acme\ncredibility_score: 80/100\ndate_processed: 2026-09-01\nmanaged_by: gitcurator\nschema_version: 2\nprompt_version: g3\n---\n\n# demo-tool\n\n> **TL;DR:** A fast demo tool for testing.\n\n**`acme/demo-tool`** · ⭐ 120 · 🔧 Python\n\n## What is it?\nIt automates the boring parts of demo datasets so tests stay small.\n\n## How does it work?\nA single command walks a folder and emits JSON fixtures.\n\n## Why is it important? (Core Value)\nTests stop depending on hand-written data.\n\n## Key Features & Technologies\n- fixture generation\n- deterministic output\n- zero dependencies\n\n## Difference from Others\nSmaller and faster than the big frameworks.\n\n## 🏢 Organization & Credibility\n- **Developer:** acme\n\n---\n*Source: [GitHub](https://github.com/acme/demo-tool)*\n\n<!-- gitcurator:recall:start -->\n**Best used for:** Use when you need to test.\n<!-- gitcurator:recall:end -->\n",
+    "insert_get": "---\nsource: https://github.com/acme/demo-tool\naliases: []\ntags: [python, cli]\ncategory: Developer Tools\nstars: 120\norg: acme\ncredibility_score: 80/100\ndate_processed: 2026-09-01\nmanaged_by: gitcurator\nschema_version: 2\nprompt_version: g3\n---\n\n# demo-tool\n\n> **TL;DR:** A fast demo tool for testing.\n\n**`acme/demo-tool`** · ⭐ 120 · 🔧 Python\n\n## What is it?\nIt automates the boring parts of demo datasets so tests stay small.\n\n## How does it work?\nA single command walks a folder and emits JSON fixtures.\n\n## Why is it important? (Core Value)\nTests stop depending on hand-written data.\n\n## Key Features & Technologies\n- fixture generation\n- deterministic output\n- zero dependencies\n\n## Difference from Others\nSmaller and faster than the big frameworks.\n\n## 🏢 Organization & Credibility\n- **Developer:** acme\n\n---\n*Source: [GitHub](https://github.com/acme/demo-tool)*\n\n<!-- gitcurator:recall:start -->\n**Best used for:** Use when you need to test.\n<!-- gitcurator:recall:end -->\n",
+    "render": "<!-- gitcurator:recall:start -->\n**Best used for:** Use when you need to x.\n<!-- gitcurator:recall:end -->",
+    "replace_in_place": "---\nsource: https://github.com/acme/demo-tool\naliases: []\ntags: [python, cli]\ncategory: Developer Tools\nstars: 120\norg: acme\ncredibility_score: 80/100\ndate_processed: 2026-09-01\nmanaged_by: gitcurator\nschema_version: 2\nprompt_version: g3\n---\n\n# demo-tool\n\n> **TL;DR:** A fast demo tool for testing.\n\n**`acme/demo-tool`** · ⭐ 120 · 🔧 Python\n\n## What is it?\nIt automates the boring parts of demo datasets so tests stay small.\n\n## How does it work?\nA single command walks a folder and emits JSON fixtures.\n\n## Why is it important? (Core Value)\nTests stop depending on hand-written data.\n\n## Key Features & Technologies\n- fixture generation\n- deterministic output\n- zero dependencies\n\n## Difference from Others\nSmaller and faster than the big frameworks.\n\n## 🏢 Organization & Credibility\n- **Developer:** acme\n\n---\n*Source: [GitHub](https://github.com/acme/demo-tool)*\n\n<!-- gitcurator:recall:start -->\n**Best used for:** Use when you need to demo.\n<!-- gitcurator:recall:end -->\n",
+    "strip": "---\nsource: https://github.com/acme/demo-tool\naliases: []\ntags: [python, cli]\ncategory: Developer Tools\nstars: 120\norg: acme\ncredibility_score: 80/100\ndate_processed: 2026-09-01\nmanaged_by: gitcurator\nschema_version: 2\nprompt_version: g3\n---\n\n# demo-tool\n\n> **TL;DR:** A fast demo tool for testing.\n\n**`acme/demo-tool`** · ⭐ 120 · 🔧 Python\n\n## What is it?\nIt automates the boring parts of demo datasets so tests stay small.\n\n## How does it work?\nA single command walks a folder and emits JSON fixtures.\n\n## Why is it important? (Core Value)\nTests stop depending on hand-written data.\n\n## Key Features & Technologies\n- fixture generation\n- deterministic output\n- zero dependencies\n\n## Difference from Others\nSmaller and faster than the big frameworks.\n\n## 🏢 Organization & Credibility\n- **Developer:** acme\n\n---\n*Source: [GitHub](https://github.com/acme/demo-tool)*"
+  },
+  "recall_fields": {
+    "github": {
+      "FEATURES": "- fixture generation\n- deterministic output\n- zero dependencies",
+      "REPO_NAME": "demo-tool",
+      "SUMMARY": "It automates the boring parts of demo datasets so tests stay small.",
+      "TAGS": "python, cli",
+      "TLDR": "A fast demo tool for testing."
+    },
+    "recall_fields_for_github": {
+      "name": "demo-tool",
+      "one_line": "A fast demo tool for testing.",
+      "recall": "Use when you need to test.",
+      "tags": "python, cli"
+    },
+    "recall_fields_for_websites": {
+      "name": "Palette Gen",
+      "one_line": "Generates color palettes from an image.",
+      "recall": "Use when you need to build a color scheme fast.",
+      "tags": "design, colors"
+    },
+    "website": {
+      "best_used_for": "Use when you need to build a color scheme fast.",
+      "name": "Palette Gen",
+      "one_line": "Generates color palettes from an image.",
+      "tags": "design, colors"
+    }
+  },
+  "recall_prompt": "You are writing a recall hook for a personal knowledge library. The\nreader is a designer-developer who will search this library later, when\nan idea comes up, to remember which tool or project could help.\n\nWrite ONE sentence starting with \"Use when you need to\" that names the\nproblem this project solves, in the words someone would use when\nthinking about their own task. Plain, concrete English. No marketing\nwords such as \"powerful\" or \"revolutionary\".\n\nRules:\n1. Use only what the provided text supports. Never guess features.\n2. Describe the problem it solves, not the project's marketing.\n3. If the text is too thin to name a problem, return exactly:\n   Use when you need to… (not captured — see the source link).\n4. Return only valid JSON in exactly this shape:\n\n{\"best_used_for\": \"\"}\n\n(\"best_used_for\" is one sentence, at most 25 words, starts with\n\"Use when you need to\".)\n\nRepository: demo-tool\nTL;DR: A fast demo tool for testing.\nWhat it is: It automates the boring parts of demo datasets so tests stay small.\nKey features & technologies: - fixture generation\n- deterministic output\n- zero dependencies\nTags: python, cli\n",
+  "recall_report": "GitCurator — recall hooks — DRY RUN (nothing written)\nGitHub vault: <tmp>/rflow_one\nNotes in this run: 1\n\nPLANNED  solo.md — Use when you need to… (not captured — see the source link).\n\n1 note(s) got the 'not captured' placeholder — the source text was too thin to name a problem (deliberate: omit rather than guess).\n\nThe block is delimited and fingerprint-invisible: note_state will not read it as a human edit.\n",
+  "refresh_embeddings": [
+    {
+      "embedded": 2,
+      "failed": 0,
+      "skipped_fresh": 0
+    },
+    {
+      "embedded": 0,
+      "failed": 0,
+      "skipped_fresh": 2
+    },
+    {
+      "embedded": 2,
+      "failed": 0,
+      "skipped_fresh": 0
+    },
+    {
+      "embedded": 0,
+      "failed": 3,
+      "skipped_fresh": 0
+    },
+    {
+      "survivors": 2
+    }
+  ],
+  "related_blocks": {
+    "crlf_insert": "# T\r\n\r\nB\r\n\r\n<!-- gitcurator:related:start -->\n**Related (auto):**\n- [[Other Note]] — same problem\n<!-- gitcurator:related:end -->\r\n",
+    "extract": "<!-- gitcurator:related:start -->\n**Related (auto):**\n- [[Other Note]] — same problem\n<!-- gitcurator:related:end -->",
+    "has": [
+      true,
+      false
+    ],
+    "insert": "# Title\n\nBody\n\n<!-- gitcurator:related:start -->\n**Related (auto):**\n- [[Other Note]] — same problem\n<!-- gitcurator:related:end -->\n",
+    "preserve": "# New body\n\nR.\n\n<!-- gitcurator:related:start -->\n**Related (auto):**\n- [[Other Note]] — same problem\n<!-- gitcurator:related:end -->\n",
+    "preserve_none": "# New\n",
+    "render": "<!-- gitcurator:related:start -->\n**Related (auto):**\n- [[Other Note]] — same problem\n<!-- gitcurator:related:end -->",
+    "replace": "# Title\n\nBody\n\n<!-- gitcurator:related:start -->\n**Related (auto):**\n<!-- gitcurator:related:end -->\n"
+  },
+  "run_recall_hooks_apply": {
+    "on_disk_has_block": true,
+    "progress": [
+      "  + a.md — hook written"
+    ],
+    "wrote": [
+      "a.md"
+    ]
+  },
+  "run_recall_hooks_dry": {
+    "progress": [
+      "  ~ a.md — would write: Use when you need to test things."
+    ],
+    "results": [
+      {
+        "error": null,
+        "name": "a.md",
+        "new_block": "<!-- gitcurator:recall:start -->\n**Best used for:** Use when you need to test things.\n<!-- gitcurator:recall:end -->",
+        "old_block": "",
+        "sentence": "Use when you need to test things.",
+        "unchanged": false,
+        "written": null
+      }
+    ]
+  },
+  "run_recall_hooks_garbage": {
+    "sentence": [
+      "Use when you need to… (not captured — see the source link).",
+      "Use when you need to… (not captured — see the source link)."
+    ]
+  },
+  "run_recall_hooks_unchanged": {
+    "progress": [
+      "  + b.md — hook written (replaced)",
+      "  = a.md — unchanged"
+    ],
+    "unchanged": [
+      true,
+      false
+    ],
+    "wrote": [
+      "a.md",
+      "b.md"
+    ]
+  },
+  "safe_join": [
+    {
+      "error": "unsafe mirror path '../escape.md': empty or parent-reference component '..'",
+      "rel": "../escape.md"
+    },
+    {
+      "error": "unsafe mirror path 'Agents/../../escape.md': empty or parent-reference component '..'",
+      "rel": "Agents/../../escape.md"
+    },
+    {
+      "error": "unsafe mirror path '/etc/passwd': absolute paths are not allowed",
+      "rel": "/etc/passwd"
+    },
+    {
+      "error": "unsafe mirror path 'C:\\\\escape.md': drive-letter-like component 'C:'",
+      "rel": "C:\\escape.md"
+    },
+    {
+      "error": "unsafe mirror path 'C:/escape.md': drive-letter-like component 'C:'",
+      "rel": "C:/escape.md"
+    },
+    {
+      "error": "unsafe mirror path '': empty or parent-reference component ''",
+      "rel": ""
+    },
+    {
+      "error": "unsafe mirror path '.': empty or parent-reference component '.'",
+      "rel": "."
+    },
+    {
+      "error": "unsafe mirror path 'Agents//x.md': empty or parent-reference component ''",
+      "rel": "Agents//x.md"
+    },
+    {
+      "error": "unsafe mirror path 'Agents/./x.md': empty or parent-reference component '.'",
+      "rel": "Agents/./x.md"
+    },
+    {
+      "rel": "ok/path.md",
+      "target": "<tmp>/joinroot/ok/path.md"
+    },
+    {
+      "rel": "a/b/c.md",
+      "target": "<tmp>/joinroot/a/b/c.md"
+    }
+  ],
+  "sanitize_recall": [
+    {
+      "got": "Use when you need to generate fixture data for tests.",
+      "raw": "Use when you need to generate fixture data for tests."
+    },
+    {
+      "got": "Use when you need to generate fixture data for tests.",
+      "raw": "  Use when you need to generate fixture data for tests.  "
+    },
+    {
+      "got": "Use when you need to… (not captured — see the source link).",
+      "raw": "Try this amazing tool!!"
+    },
+    {
+      "got": "Use when you need to… (not captured — see the source link).",
+      "raw": ""
+    },
+    {
+      "got": "Use when you need to… (not captured — see the source link).",
+      "raw": "multiple\nlines\nhere"
+    },
+    {
+      "got": "Use when you need to… (not captured — see the source link).",
+      "raw": null
+    },
+    {
+      "got": "Use when you need to… (not captured — see the source link).",
+      "raw": "Use when you need to\nsecond line"
+    },
+    {
+      "got": "Use when you need to quote things.",
+      "raw": "\"Use when you need to quote things.\""
+    },
+    {
+      "got": "Use when you need to single quote.",
+      "raw": "'Use when you need to single quote.'"
+    },
+    {
+      "got": "Use when you need to backtick.",
+      "raw": "`Use when you need to backtick.`"
+    },
+    {
+      "got": "Use when you need to… (not captured — see the source link).",
+      "raw": "Use when you need to"
+    },
+    {
+      "got": "Use when you need to… (not captured — see the source link).",
+      "raw": "Use when you need to "
+    },
+    {
+      "got": "use when you need to test something (lowercased).",
+      "raw": "use when you need to test something (lowercased)."
+    },
+    {
+      "got": "Use when you need to very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very",
+      "raw": "Use when you need to very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long"
+    },
+    {
+      "got": "Use when you need to… (not captured — see the source link).",
+      "raw": "Use when you need to xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    {
+      "got": "Use when you need to, comma only",
+      "raw": "Use when you need to, comma only"
+    }
+  ],
+  "strip_banner_refs": [
+    "---\nsource: https://github.com/a/b\naliases: []\ntags: [python, tools]\ncategory: Agents\nmanaged_by: gitcurator\nschema_version: 1\nprompt_version: gh-v1\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Repo\n\nWhat is it? Real body text.\n\n---\n*Source: [https://github.com/a/b](https://github.com/a/b)*\n",
+    "body\n",
+    "body\n"
+  ],
+  "suggestions_note": "---\nmanaged_by: gitcurator\npurpose: link suggestions\n---\n\n# Link suggestions\n\nGenerated 2026-01-01 12:34. Related notes are linked automatically once\nyou approve them here.\n\n**How to decide:** tick a checkbox (`- [x]`) to APPROVE the\npair; strike the whole line through (`~~…~~`) to REJECT it\nforever; leave it as `- [ ]` to keep it pending for later.\nThen run the collect step (Settings → More menu, or\n`python gitcurator/tools/build_links.py --collect`) — the\nRelated (auto) blocks in the Library mirror update.\n\n## Pending (2)\n\n- [ ] [[Alpha]] ↔ [[Beta]] — both color tools (score 0.90)\n  - `https://a` / `https://b`\n- [ ] [[Alpha]] ↔ [[subtitle-translator_AI-Tools_typescript|subtitle-translator]] — stemmed (score 0.75)\n  - `https://a` / `https://stem`\n\n## Approved (1)\n\n- [[Gamma]] ↔ [[Delta]] — similar purpose\n\n## Rejected (1) — never suggested again\n\n- ~~[[Epsilon]] ↔ [[Zeta]]~~ — weak\n"
+}
