@@ -240,7 +240,7 @@ func TestGoldenMasterWaitingRowsAndHandQueue(t *testing.T) {
 
 		// the hand queue: one delivered page for the hand row
 		walls := map[string]string{"https://handrow.example/h": "HTTP 403 — refused"}
-		handdelivery.EnqueueHandDelivery(vault, []string{"https://handrow.example/h"}, walls, nil, "")
+		handdelivery.EnqueueHandDelivery(vault, []string{"https://handrow.example/h"}, walls, nil, false, "")
 		page := filepath.Join(handdelivery.HandDeliveryDir(vault),
 			handdelivery.SuggestedFilename("https://handrow.example/h"))
 		os.WriteFile(page, []byte("<html><head><title>Hand</title></head><body>delivered</body></html>"), 0o644)

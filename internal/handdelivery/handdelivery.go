@@ -1,34 +1,40 @@
 // Package handdelivery ports core/hand_delivery.py — THE FOURTH DOOR:
 // the owner's own Chrome (v0.48.0).
 //
-// T-40's SURFACE (SESSION-015): websitepipeline consumes this
-// package's predicates, queue, and consume/stamp functions directly
-// (the reference imports hand_delivery at module level). What ships
-// here is the minimal surface that consumption needs:
+// T-40 floored the consumption surface websitepipeline needs; T-43
+// (this session) completes the module: the Chrome launch family
+// (chrome.go — FindChrome/OpenInChrome with the patchable launch
+// seams), the pickers (pickers.go — WalledRetryRows over the
+// RetryRowsState seam + PendingHandLinks, the fifth door's to-do
+// list), the batch consume (consume.go — ConsumeDelivered with the
+// v0.53 auto-page re-verification seam PageIsRealFn, which T-44's
+// internal/chrometabs wires), and the table's queue stamp (stamp.go —
+// StampHandRows). The full module surface:
 //
 //	StatusIsHand, IsWalledReason        the pure gestures
 //	HandDeliveryDir/QueuePath/ReadmePath, ReadQueue,
 //	SuggestedFilename, ReadmeText,
-//	EnqueueHandDelivery                 the queue write side
+//	EnqueueHandDelivery                 the queue write side (openChrome leg)
+//	FindChrome, OpenInChrome            the real Chrome ladder
+//	WalledRetryRows                     the picker's data
 //	CollectDelivered, HandFetchResult,
-//	TakeHandDelivered                   the consume side
-//	StampHandDeliveredRows              the harvest stamp
+//	TakeHandDelivered, ConsumeDelivered the per-link + batch consume
+//	PendingHandLinks                    the fifth door's to-do list
+//	StampHandRows, StampHandDeliveredRows
+//	                                    the queue + harvest stamps
 //
-// What stays for T-43 (the module's own task): the Chrome launch
-// family (find_chrome/open_in_chrome — T-44's browser leg), the
-// batch-level consume_delivered + walled_retry_rows + pending_hand_
-// links + stamp_hand_rows pickers, and the module's own test battery
-// (test_handdelivery/test_handharvest). The v0.53 auto-page
-// re-verification (chrome_tabs.page_is_real) degrades exactly the way
-// the reference's own except-path defines ("a verdict that cannot be
-// asked is not a wall") until T-44 lands — documented at
-// autoPageIsReal.
+// The v0.53 auto-page re-verification (chrome_tabs.page_is_real)
+// degrades exactly the way the reference's own except-path defines
+// ("a verdict that cannot be asked is not a wall") until T-44 wires
+// the seam — documented at PageIsRealFn.
 //
 // LAYERING: the reference's stamp functions import website_pipeline's
 // table helpers via Python's function-level imports; Go has no
 // deferred imports, so the shared table grammar lives in
 // internal/websitepipeline/decomtable (below both packages — see that
-// package's doc for the layering record).
+// package's doc for the layering record). The same law gives
+// WalledRetryRows its RetryRowsState seam (the StateDB adapter lives
+// with the GUI/CLI call sites).
 //
 // WIRE SHAPE: queue.json is Python's json.dumps(queue, indent=2,
 // ensure_ascii=False) — insertion-ordered keys, raw UTF-8. The queue's
@@ -339,11 +345,14 @@ type EnqueueReport struct {
 // EnqueueHandDelivery mirrors enqueue_hand_delivery (the write side
 // of the door): merges into queue.json (an already-queued URL is
 // refreshed, never duplicated); rewrites README.txt with the full
-// current queue. Dry-run aware. The open_chrome leg is T-43/T-44's
-// (the pipeline never asks for it); door stamps which door queued the
-// link. Never raises.
+// current queue; optionally opens each NEW link in the real Chrome
+// (the openChrome leg — OpenInChrome's honest ladder, counted in
+// report.Opened). Dry-run aware (the queue and README are recorded,
+// not written; a dry-run never opens Chrome — the pages the owner
+// saves are the contract). door stamps which door queued the link.
+// Never raises.
 func EnqueueHandDelivery(vaultPath string, urls []string,
-	walls map[string]string, log LogFn, door string) EnqueueReport {
+	walls map[string]string, log LogFn, openChrome bool, door string) EnqueueReport {
 	if log == nil {
 		log = noopLog
 	}
@@ -429,6 +438,13 @@ func EnqueueHandDelivery(vaultPath string, urls []string,
 		report.Added = len(added)
 		report.QueuedTotal = queue.Links.Len()
 		log(fmt.Sprintf("🖐 Hand-delivery: %d link(s) queued — save each page (Ctrl+S, 'Webpage, HTML Only') as its suggested name into %s; the next batch consumes them", len(added), folder), "info")
+		if openChrome {
+			for _, u := range added {
+				if how := OpenInChrome(u, log); how != "" {
+					report.Opened++
+				}
+			}
+		}
 	} else {
 		report.QueuedTotal = queue.Links.Len()
 	}
@@ -472,16 +488,6 @@ func CollectDelivered(vaultPath string) []DeliveredPage {
 		}
 	}
 	return out
-}
-
-// autoPageIsReal mirrors _auto_page_is_real's honest degradation: the
-// reference asks chrome_tabs.page_is_real and answers (True, ”) when
-// the verdict cannot be asked. Until T-44 lands the port has no
-// chrome_tabs to ask — the same law, the same answer.
-func autoPageIsReal(u string, body []byte) (bool, string) {
-	_ = u
-	_ = body
-	return true, ""
 }
 
 // HandFetchResult mirrors hand_fetch_result: build the FetchResult a
@@ -568,7 +574,10 @@ func TakeHandDelivered(vaultPath, canonical string, log LogFn, allowConsumed boo
 		log(fmt.Sprintf("⚠️ Hand-delivered page unreadable for %s: %v", canonical, err), "warning")
 		return nil
 	}
-	if len(strings.TrimSpace(string(body))) == 0 {
+	// Python's `not body.strip()` — bytes.strip is ASCII-only (the
+	// pyBytesBlank law; reality-wins over the earlier strings.TrimSpace
+	// check, which wrongly blanked a NBSP-only body).
+	if pyBytesBlank(body) {
 		return nil
 	}
 	if metaStr(meta, "door") == "auto" {

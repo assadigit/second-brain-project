@@ -96,8 +96,25 @@ report), the batch-undo diff, and the v0.39.0 scorecard — THE GOLDEN
 through the GUI-layer import stubs) + the behavior battery (the
 rate-limit laws, the 404-strike flow, the 401 fallback, the undo
 laws). Plus the reality-wins float fix: notebuilder's cred_score is
-now the round(x,1) FLOAT the reference renders ("90.0/100"). 984
-tests race-clean. Next: T-43 handdelivery.
+now the round(x,1) FLOAT the reference renders ("90.0/100"). **T-43
+`internal/handdelivery` (SESSION-018) — THE FOURTH DOOR COMPLETE**
+(spec-core-hand-delivery.md): the module T-40 floored is finished —
+the Chrome launch family (FindChrome/OpenInChrome with the patchable
+launch seams; loopback never opens), WalledRetryRows (the picker's
+data over the RetryRowsState seam) + PendingHandLinks (the fifth
+door's to-do list), the batch ConsumeDelivered (stamps the queue,
+keeps the file; dry-run takes without stamping) with the PageIsRealFn
+seam staged for T-44 (the honest except-path degrade), StampHandRows
+(the master-table queue stamp), and the enqueue's openChrome leg —
+with THE GOLDEN (5 sections, frozen clocks, generated from the
+unmodified reference; hand_delivery is core/ and stdlib-only, no
+stubs needed) + the ported test_handdelivery/test_handharvest
+selections (54 module tests + 20 pipeline legs); two reality-wins
+fixes: the blank-body law (Python bytes.strip is ASCII-only — a
+NBSP-only page IS delivered) and a latent T-42 flake (the report's
+category table iterated a Go map — ties flipped randomly; now rides
+the insertion-order slice). 1058 tests race-clean. Next: T-44
+chrometabs.
 
 ## Map
 

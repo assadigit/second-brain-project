@@ -1,0 +1,87 @@
+{
+  "consume_delivered": {
+    "logs": [
+      "[warning] ⚠️ Hand-delivered page is empty (hand-beta-example-648e5e83.html) — the link keeps waiting",
+      "[info] 🖐 Hand-delivery: 2 delivered page(s) taken — processing them as real fetches"
+    ],
+    "queue_after": "{\n  \"links\": {\n    \"https://alpha.example/walled\": {\n      \"wall\": \"HTTP 403 — bot defense (server: cloudflare)\",\n      \"queued\": \"2026-10-17 12:00\",\n      \"suggested\": \"hand-alpha-example-f35b03ce.html\",\n      \"consumed\": \"2026-10-17 12:00\"\n    },\n    \"https://beta.example/empty\": {\n      \"wall\": \"HTTP 403 — refused\",\n      \"queued\": \"2026-10-17 12:00\",\n      \"suggested\": \"hand-beta-example-648e5e83.html\"\n    },\n    \"https://gamma.example/consumed\": {\n      \"wall\": \"ssl handshake failed\",\n      \"queued\": \"2026-10-17 12:00\",\n      \"suggested\": \"hand-gamma-example-8f69eb65.html\",\n      \"consumed\": \"2026-10-01 10:00\"\n    },\n    \"https://epsilon.example/waiting\": {\n      \"wall\": \"HTTP 429 — rate limited\",\n      \"queued\": \"2026-10-17 12:00\",\n      \"suggested\": \"hand-epsilon-example-8e25dd58.html\"\n    },\n    \"https://delta.example/auto\": {\n      \"wall\": \"fingerprint mismatch\",\n      \"queued\": \"2026-10-17 12:00\",\n      \"suggested\": \"hand-delta-example-7b50d884.html\",\n      \"door\": \"auto\",\n      \"consumed\": \"2026-10-17 12:00\"\n    },\n    \"https://zeta.example/waiting-too\": {\n      \"wall\": \"HTTP 405\",\n      \"queued\": \"2026-10-17 12:00\",\n      \"suggested\": \"hand-zeta-example-ef9e0071.html\",\n      \"door\": \"auto\"\n    }\n  }\n}",
+    "taken": [
+      {
+        "body": "<html><head><title>The Walled Page</title></head><body>the content the browser sees</body></html>",
+        "file": "<TMP>/vault/websites/_review/hand-delivered/hand-alpha-example-f35b03ce.html",
+        "url": "https://alpha.example/walled",
+        "wall": "HTTP 403 — bot defense (server: cloudflare)"
+      },
+      {
+        "body": "<html><head><title>Auto Real</title></head><body>real live DOM content long enough to be a real page for the fifth door's own verdict</body></html>",
+        "file": "<TMP>/vault/websites/_review/hand-delivered/hand-delta-example-7b50d884.html",
+        "url": "https://delta.example/auto",
+        "wall": "fingerprint mismatch"
+      }
+    ]
+  },
+  "hand_fetch_result": {
+    "fifth_door_auto": {
+      "charset": "utf-8",
+      "content_type": "text/html",
+      "final_url": "https://delta.example/auto",
+      "http_status": 200,
+      "ok": true,
+      "reason": "auto-delivered via the owner's own Chrome (the fifth door's tab retry — one tab per failed link, the live DOM taken after the page loaded) — the machine doors failed: fingerprint mismatch",
+      "status": "full",
+      "text": "<html><head><title>Story</title></head><body>x</body></html>",
+      "url": "https://delta.example/auto"
+    },
+    "fourth_door": {
+      "charset": "utf-8",
+      "content_type": "text/html",
+      "final_url": "https://alpha.example/walled",
+      "http_status": 200,
+      "ok": true,
+      "reason": "hand-delivered via the owner's real Chrome — the machine doors were walled: HTTP 403 — bot defense",
+      "status": "full",
+      "text": "<html><head><title>Story</title></head><body>x</body></html>",
+      "url": "https://alpha.example/walled"
+    }
+  },
+  "pending_hand_links": [
+    {
+      "url": "https://epsilon.example/waiting",
+      "wall": "HTTP 429 — rate limited"
+    },
+    {
+      "url": "https://zeta.example/waiting-too",
+      "wall": "HTTP 405"
+    }
+  ],
+  "stamp_hand_rows": {
+    "stamped": 2,
+    "table": "# Review Master Table — decommission or approve\n\n> Last updated: 2026-10-17 12:00\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-01 | https://hand1.example/a | hand1.example | retry backlog | 🖐 hand — queued 2026-10-17 | first |\n| 🖐 | 2026-10-01 | https://hand2.example/b | hand2.example | owner | 🖐 hand — queued 2026-10-17 | second |\n| - | 2026-10-01 | https://other.example/c | other.example | retry backlog | unreviewed | third |\n"
+  },
+  "walled_retry_rows": {
+    "input": [
+      {
+        "attempts": 2,
+        "last_error": "HTTP 403 — bot defense (server: cloudflare; challenge) | chrome-impersonated: HTTP 403",
+        "url": "https://walled.example.net/article"
+      },
+      {
+        "attempts": 1,
+        "last_error": "HTTP 404 — gone",
+        "url": "https://dead.example.org/x"
+      },
+      {
+        "attempts": 1,
+        "last_error": "timeout",
+        "url": "https://ok.example.org/y"
+      }
+    ],
+    "output": [
+      {
+        "attempts": 2,
+        "url": "https://walled.example.net/article",
+        "wall": "HTTP 403 — bot defense (server: cloudflare; challenge) | chrome-impersonated: HTTP 403"
+      }
+    ]
+  }
+}

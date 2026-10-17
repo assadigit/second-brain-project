@@ -405,12 +405,17 @@ func (r *Runner) GenerateFinalReport(
 			name  string
 			count int
 		}
+		// sorted(key=lambda x: -x[1]) — the reference's count-desc
+		// order (ties keep the dict's insertion order: first-seen
+		// category). Python dicts iterate in INSERTION order; a Go
+		// map's range order is RANDOM per run — the order must ride
+		// the categoryOrder slice (the first-seen order), never the
+		// map. (Found as the flaky golden divergence in SESSION-018:
+		// two count-1 categories swapped rows between runs.)
 		var cats []catCount
-		for name, count := range categories {
-			cats = append(cats, catCount{name, count})
+		for _, name := range categoryOrder {
+			cats = append(cats, catCount{name, categories[name]})
 		}
-		// sorted(key=lambda x: -x[1]) — the reference's count-desc order
-		// (ties keep the dict's insertion order: first-seen category).
 		stable := make([]catCount, len(cats))
 		copy(stable, cats)
 		sort.SliceStable(stable, func(i, j int) bool {

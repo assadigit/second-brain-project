@@ -312,7 +312,7 @@ func TestHandDeliveryQueueWireFormat(t *testing.T) {
 	// the reference's bytes; this pins the structural law)
 	c := newPipeCase(t)
 	handdelivery.EnqueueHandDelivery(c.vault, []string{"https://hand.example/x"},
-		map[string]string{"https://hand.example/x": "HTTP 403 — refused"}, nil, "")
+		map[string]string{"https://hand.example/x": "HTTP 403 — refused"}, nil, false, "")
 	q := handdelivery.ReadQueue(c.vault)
 	if len(q.Links.Keys()) != 1 {
 		t.Fatalf("queue: %v", q.Links.Keys())
@@ -323,7 +323,7 @@ func TestHandDeliveryQueueWireFormat(t *testing.T) {
 		t.Errorf("queue json:\n%s", dump)
 	}
 	// re-enqueue is a no-op
-	handdelivery.EnqueueHandDelivery(c.vault, []string{"https://hand.example/x"}, nil, nil, "")
+	handdelivery.EnqueueHandDelivery(c.vault, []string{"https://hand.example/x"}, nil, nil, false, "")
 	q2 := handdelivery.ReadQueue(c.vault)
 	if q2.Links.Len() != 1 {
 		t.Errorf("duplicate queue row: %d", q2.Links.Len())

@@ -1142,7 +1142,7 @@ func ConsumeDecommissionTable(state *StateDB, vaultPath string, log LogFn,
 		}
 	}
 	if len(handURLs) > 0 {
-		handdelivery.EnqueueHandDelivery(vaultPath, handURLs, nil, log, "")
+		handdelivery.EnqueueHandDelivery(vaultPath, handURLs, nil, log, false, "")
 		log(fmt.Sprintf("🖐 %d hand row(s) queued — your real Chrome opens for them at the end of this run (one tab per link, the live pages taken as real fetches; saving a page into the hand-delivered folder yourself still works too)", report.Handed), "info")
 	}
 
