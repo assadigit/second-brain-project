@@ -56,7 +56,18 @@ ported: verifyHmac byte-for-byte, the golden signature vectors, the
 directory doors T-49 reuses). 872 tests race-clean; the exit gate's
 five stones all laid (payload goldens, ladder/redirect parity,
 fixture parity, result shapes + UA table, HMAC loopback rig).**
-Next: Phase 4 OPENS — T-40 websitepipeline (the engine room).
+**Phase 4 OPENED (SESSION-015)**: T-40 `internal/websitepipeline`
+(the engine room, commit below) — the per-link state machine on top of
+T-23's state layer: the note builders + the review scans + the
+consolidation (ONE NOTE PER SITE) + the master table's full grammar
+(parse/writers/stamp/harvest/prune/refresh) + THE BANISHMENT with its
+confirmation gate (confirmed/declined/timeout/defer/auto) and the
+run tally + the settlement + the four batch drivers; the table
+grammar floor (decomtable), the handdelivery consumption surface, and
+the directorysync banish-gate helpers carved as the dependency
+floors T-43/T-49 complete; the DIFFERENTIAL GOLDEN (51 sections,
+frozen clocks, generated from the unmodified reference). 910 tests
+race-clean. Next: T-41 directorynote.
 
 ## Map
 

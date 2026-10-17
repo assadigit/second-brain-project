@@ -1,59 +1,7 @@
-// Package websitepipeline ports core/website_pipeline.py +
-// core/website_state.py + core/website_directory.py — the Websites
-// pipeline, its state ledger, and the directory-note regeneration.
-//
-// Spec: docs/port-blueprint/module-specs/spec-core-website-pipeline.md;
-// tasks T-23 (state.go, Phase 2 — this file) and T-40/T-41 (Phase 4).
-//
-// THE LOCKING LAW (store/doc.go, applied here): this DB embeds the
-// shared store plumbing — ONE connection (MaxOpenConns(1)) opened with
-// the ADR-0003 DSN pragmas, an embedded RWMutex that is NOT reentrant
-// (public entry points acquire, private helpers run free), rows
-// collected before any nested statement. close() is idempotent
-// (inherited from store.DB).
-//
-// THE CAST READ LAW (ADR-0003 Am.1), checked and satisfied vacuously:
-// the driver's declared-type conversion fires on DATE/DATETIME/TIMESTAMP/
-// TIME-declared columns — the website-state schema declares EVERY column
-// TEXT or INTEGER (see testdata/websitestate_schema.golden.json,
-// generated from the reference's own DDL), so reads return Python's
-// plain-str bytes with no CAST. The schema-identity test pins this:
-// changing any column to a TIMESTAMP declaration would change the DDL
-// bytes and fail the test, forcing the CAST re-evaluation the law
-// demands.
-//
-// THE DIVERGENCES from the Python law, deliberate and documented:
-//
-//   - Unified pragmas: the Go open sets WAL + synchronous=NORMAL +
-//     busy_timeout (store package law); the reference's WebsiteStateDB
-//     sets only busy_timeout (journal_mode stays whatever the file had —
-//     'delete' for a WebsiteStateDB-only file, WAL in the composed app
-//     where CacheDB opened first). Observable only for a file no
-//     CacheDB ever touched; the fixture golden records the reference's
-//     own facts ('delete'/30000/2) and the fixture test asserts the
-//     documented Go divergence instead (wal after a Go open).
-//   - settle_urls is NOT ported: the module spec records it as dead
-//     code ("Dead: settle_urls (no callers)") — no production caller in
-//     the reference; the one-spelling fold it exercised is pinned
-//     through SettleExisting/SettleQueueHistory instead.
-//   - dueRetries' Python datetime.fromisoformat accepts shapes Go's
-//     time.Parse does not (any single-character date/time separator,
-//     compact YYYYMMDDTHHMMSS). The port accepts the shapes the
-//     reference family writes (naive seconds, space separator, optional
-//     fraction, minute precision, date-only) plus the offset-carrying
-//     and garbage classes the behavior golden pins; everything else
-//     counts as due exactly like Python's parse-failure path. An
-//     offset-carrying value counts as DUE in Python too (the naive-vs-
-//     aware comparison raises TypeError, which due_retries catches and
-//     treats as due) — pinned by the behavior golden's aware case.
-//   - NormalizeLedgerKeys swallows statement errors and returns the
-//     counts accumulated so far, exactly like the reference's blanket
-//     try/except (rollback + partial report, never raises on the
-//     caller's head).
-//
-// The dry-run seam stays at call sites exactly like Python
-// (db_path=_dryrun.shadow_cache_path(...)): NewWebsiteStateDB receives
-// an already-shadowed path and needs no dryrun knowledge.
+// state.go — T-23's state layer (core/website_state.py): WebsiteStateDB,
+// THE ONE SPELLING boundary, the 2×attempts backoff, both settlements,
+// the v0.64.0 healing pass. The package laws and the full divergence
+// record live in doc.go.
 package websitepipeline
 
 import (
@@ -187,9 +135,12 @@ func (d *WebsiteStateDB) createTables() error {
 
 // nowSeconds is the write shape law: naive-local
 // datetime.now().isoformat(timespec='seconds') — YYYY-MM-DDTHH:MM:SS
-// (every website_state timestamp writes this shape).
+// (every website_state timestamp writes this shape). T-40's clock
+// seam: reads the package clockNow (the golden runner freezes it the
+// same way the reference generator freezes ws.datetime); production
+// reads the wall clock.
 func nowSeconds() string {
-	return store.PyISOFormatSeconds(time.Now())
+	return store.PyISOFormatSeconds(clockNow())
 }
 
 // -- row shapes (Python's dict returns; NULL ⇔ nil *string) -------------

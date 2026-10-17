@@ -1,0 +1,1708 @@
+{
+  "add_site_links_to_note": {
+    "extend": {
+      "file": "---\nsource: \"https://site.example/\"\nsite_links: [https://site.example/page2, https://site.example/page3]\naliases: []\ntags: [design]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"free\"\nlogin_required: \"no\"\ndate_processed: 2026-10-09\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Test Site\n\n> **TL;DR:** A test page.\n\n## Best used for\nTesting.\n\n## Similar tools\n—\n\n## Links on this site\n- [https://site.example/page2](https://site.example/page2)\n- [https://site.example/page3](https://site.example/page3)\n---\n*Source: [https://site.example/](https://site.example/)*\n",
+      "rep": {
+        "already": 0,
+        "appended": [
+          "https://site.example/page3"
+        ],
+        "written": true
+      }
+    },
+    "fresh": {
+      "file": "---\nsource: \"https://site.example/\"\nsite_links: [https://site.example/page2]\naliases: []\ntags: [design]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"free\"\nlogin_required: \"no\"\ndate_processed: 2026-10-09\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Test Site\n\n> **TL;DR:** A test page.\n\n## Best used for\nTesting.\n\n## Similar tools\n—\n\n## Links on this site\n- [https://site.example/page2](https://site.example/page2)\n---\n*Source: [https://site.example/](https://site.example/)*\n",
+      "rep": {
+        "already": 0,
+        "appended": [
+          "https://site.example/page2"
+        ],
+        "written": true
+      }
+    },
+    "idempotent": {
+      "rep": {
+        "already": 1,
+        "appended": [],
+        "written": false
+      }
+    },
+    "no_footer": {
+      "file": "---\nsource: \"https://nf.example/\"\nsite_links: [https://nf.example/x]\n---\n\n# No Footer\n\nBody text.\n\n## Links on this site\n- [https://nf.example/x](https://nf.example/x)\n",
+      "rep": {
+        "already": 0,
+        "appended": [
+          "https://nf.example/x"
+        ],
+        "written": true
+      }
+    },
+    "no_frontmatter": {
+      "file": "Just a body, no frontmatter at all.\n",
+      "rep": {
+        "already": 0,
+        "appended": [],
+        "written": false
+      }
+    },
+    "no_source_line": {
+      "file": "---\nsite_links: [https://nosrc.example/x]\naliases: []\ntags: []\n---\n\nBody only.\n\n## Links on this site\n- [https://nosrc.example/x](https://nosrc.example/x)\n",
+      "rep": {
+        "already": 0,
+        "appended": [
+          "https://nosrc.example/x"
+        ],
+        "written": true
+      }
+    },
+    "one_new_one_old": {
+      "rep": {
+        "already": 0,
+        "appended": [
+          "https://site.example/page4"
+        ],
+        "written": true
+      }
+    }
+  },
+  "banish_marked_notes": {
+    "banished": 3,
+    "db": {
+      "dismissed": [
+        [
+          "https://bodymarked.example",
+          "banished by owner — 🗑️ note tag (#auto-delete); the note left the library, the URL is blacklisted, never fetched again (v0.58.0)"
+        ],
+        [
+          "https://marked.example",
+          "banished by owner — 🗑️ note tag (delete); the note left the library, the URL is blacklisted, never fetched again (v0.58.0)"
+        ],
+        [
+          "https://moved.example",
+          "banished by owner — 🗑️ Trash folder move (Trash folder); the note left the library, the URL is blacklisted, never fetched again (v0.58.0)"
+        ]
+      ],
+      "meta": [],
+      "processed": [
+        [
+          "https://proper.example",
+          "/tmp/wpgolden-_2iyc13d/flowA/Design/Assets & Resources/proper.md",
+          "full"
+        ]
+      ],
+      "retry": [],
+      "settled": []
+    },
+    "kept_handwritten": 0,
+    "marked": 3,
+    "notes_moved": 3,
+    "review_swept": 0,
+    "rows_written": 3,
+    "table": "# Review Master Table — decommission or approve\n\n> legend line\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-01 | https://wait.example/w | wait.example | waiting | unreviewed | |\n| - | 2026-10-01 | https://low.example/ | low.example | review | unreviewed | |\n| - | 2026-10-01 | https://stored.example/s | stored.example | waiting | unreviewed | |\n| - | 2026-10-01 | https://failed.example/ | failed.example | waiting | unreviewed | |\n| 🖐 | 2026-10-01 | https://handrow.example/h | handrow.example | waiting | unreviewed | the wall |\n| 🪦 | 2026-10-01 | https://deadrow.example/d | deadrow.example | waiting |  | |\n| - | 2026-10-01 | https://settled.example/t | settled.example | waiting | - | |\n| - | 2026-10-17 | https://bodymarked.example | bodymarked.example | note tag | 🗑️ banished — confirmed 2026-10-17 | 🗑️ marked on the note: #auto-delete |\n| - | 2026-10-17 | https://marked.example | marked.example | note tag | 🗑️ banished — confirmed 2026-10-17 | 🗑️ marked on the note: delete |\n| - | 2026-10-17 | https://moved.example | moved.example | Trash folder | 🗑️ banished — confirmed 2026-10-17 | 🗑️ you moved it to the Trash folder |\n",
+    "trash": [
+      "already.md",
+      "body-marked.md",
+      "marked.md",
+      "moved.md"
+    ],
+    "urls": [
+      "https://bodymarked.example",
+      "https://marked.example",
+      "https://moved.example"
+    ]
+  },
+  "banish_marked_notes_idempotent": {
+    "banished": 0,
+    "marked": 0,
+    "urls": []
+  },
+  "banish_twins": {
+    "left": [
+      "human-twin.md"
+    ],
+    "moved": 1,
+    "trash": [
+      "twin.md"
+    ]
+  },
+  "build_review_note": {
+    "custom_reason": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# A Title\n\n> [!warning] Needs review — partial\n> The wall: HTTP 403 — refused\n\nThis note is a placeholder created automatically. The link was recorded so\nit is never lost; it will be retried automatically.\n\n---\n*Source: [https://r.example/b](https://r.example/b)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://r.example/b\"\naliases: []\ntags: [tag1, tag2]\ncategory: \"\"\nsubcategory: \"\"\nfetch_status: \"partial\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "default_reason": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# https://r.example/a\n\n> [!warning] Needs review — failed\n> The page could not be processed fully.\n\nThis note is a placeholder created automatically. The link was recorded so\nit is never lost; it will be retried automatically.\n\n---\n*Source: [https://r.example/a](https://r.example/a)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://r.example/a\"\naliases: []\ntags: []\ncategory: \"\"\nsubcategory: \"\"\nfetch_status: \"failed\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "gist_snippet": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# T\n\n> [!warning] Needs review — failed\n> x\n\nThis note is a placeholder created automatically. The link was recorded so\nit is never lost; it will be retried automatically.\n\n---\n*Source: [https://gist.github.com/u/1](https://gist.github.com/u/1)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://gist.github.com/u/1\"\naliases: []\ntags: [snippet]\ncategory: \"\"\nsubcategory: \"\"\nfetch_status: \"failed\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "long_reason": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT\n\n> [!warning] Needs review — failed\n> rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr\n\nThis note is a placeholder created automatically. The link was recorded so\nit is never lost; it will be retried automatically.\n\n---\n*Source: [https://r.example/e](https://r.example/e)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://r.example/e\"\naliases: []\ntags: []\ncategory: \"\"\nsubcategory: \"\"\nfetch_status: \"failed\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "tags_cap": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# T\n\n> [!warning] Needs review — failed\n> x\n\nThis note is a placeholder created automatically. The link was recorded so\nit is never lost; it will be retried automatically.\n\n---\n*Source: [https://r.example/d](https://r.example/d)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://r.example/d\"\naliases: []\ntags: [t1, t2, t3, t4, t5, t6]\ncategory: \"\"\nsubcategory: \"\"\nfetch_status: \"failed\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "title_falls_back_to_url": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# https://r.example/c\n\n> [!warning] Needs review — failed\n> reason\n\nThis note is a placeholder created automatically. The link was recorded so\nit is never lost; it will be retried automatically.\n\n---\n*Source: [https://r.example/c](https://r.example/c)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://r.example/c\"\naliases: []\ntags: []\ncategory: \"\"\nsubcategory: \"\"\nfetch_status: \"failed\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    }
+  },
+  "build_website_note": {
+    "does_as_string": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# S\n\n> **TL;DR:** l\n\n## What it does\n- one big string\n\n## Best used for\nUse when you need to… (not captured — see the source link).\n\n## Similar tools\n—\n\n---\n*Source: [https://str.example/x](https://str.example/x)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://str.example/x\"\naliases: []\ntags: []\ncategory: \"Design\"\nsubcategory: \"\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "empty_analysis": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# Untitled site\n\n> **TL;DR:** —\n\n## Best used for\nUse when you need to… (not captured — see the source link).\n\n## Similar tools\n—\n\n---\n*Source: [https://empty.example/](https://empty.example/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://empty.example/\"\naliases: []\ntags: []\ncategory: \"Design\"\nsubcategory: \"Fonts\"\nfetch_status: \"partial\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "full": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# Example Tool\n\n> **TL;DR:** A tool for everything.\n\n## What it does\n- One thing\n- Two things\n- Pipe|in text\n\n## Best used for\nUse when you need examples.\n\n## Practical details\n- Pricing: freemium — Free tier; Pro from $9\n- Sign-up required: yes\n- p1\n- p2\n- p3\n- p4\n\n## Watch out\n- w1\n- w2\n\n## Similar tools\nOther, Another, Third, Fourth, Fifth\n\n---\n*Source: [https://example.com/tool](https://example.com/tool)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://example.com/tool\"\naliases: []\ntags: [import, web, design]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"freemium\"\nlogin_required: \"yes\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "gist_gets_snippet": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# Gist\n\n> **TL;DR:** l\n\n## Best used for\nUse when you need to… (not captured — see the source link).\n\n## Similar tools\n—\n\n---\n*Source: [https://gist.github.com/user/abc123](https://gist.github.com/user/abc123)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://gist.github.com/user/abc123\"\naliases: []\ntags: [code, snippet]\ncategory: \"Design\"\nsubcategory: \"\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "old_shape_core_offerings": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# Old Shape\n\n> **TL;DR:** —\n\n## What it does\n- A single string offering\n\n## Best used for\nx\n\n## Practical details\n- Pricing: paid\n\n## Similar tools\n—\n\n---\n*Source: [https://old.example/shape](https://old.example/shape)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://old.example/shape\"\naliases: []\ntags: []\ncategory: \"Productivity\"\nsubcategory: \"\"\nfetch_status: \"full\"\npricing: \"paid\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "pricing_detail_starts_with_pricing": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# PD\n\n> **TL;DR:** l\n\n## Best used for\nUse when you need to… (not captured — see the source link).\n\n## Practical details\n- Pricing: free for individuals\n\n## Similar tools\n—\n\n---\n*Source: [https://pd.example/x](https://pd.example/x)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://pd.example/x\"\naliases: []\ntags: []\ncategory: \"Design\"\nsubcategory: \"\"\nfetch_status: \"full\"\npricing: \"free\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "sanitizer_adversarial": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# Quote \" Name \\ Back\n\n> **TL;DR:** Multi line one-liner here\n\n## What it does\n- tab\tinside\n\n## Best used for\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n\n## Watch out\n- yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\n\n## Similar tools\n—\n\n---\n*Source: [https://adv.example/x?a=1&b=2](https://adv.example/x?a=1&b=2)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://adv.example/x?a=1&b=2\"\naliases: []\ntags: [tag quote, tag single]\ncategory: \"Categor'y\"\nsubcategory: \"Sub\\\"cat\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    },
+    "unknown_pricing_login": {
+      "body": "\n> [!info] Managed by GitCurator — machine-written note.\n\n# U\n\n> **TL;DR:** line\n\n## Best used for\nUse when you need to… (not captured — see the source link).\n\n## Practical details\n- Pricing: expensive thing\n\n## Similar tools\n—\n\n---\n*Source: [https://unknowns.example/x](https://unknowns.example/x)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+      "frontmatter": "source: \"https://unknowns.example/x\"\naliases: []\ntags: []\ncategory: \"Design\"\nsubcategory: \"\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\""
+    }
+  },
+  "collect_delivered": [
+    {
+      "door": "",
+      "suggested": "hand-handrow-example-384f3faf.html",
+      "url": "https://handrow.example/h",
+      "wall": "HTTP 403 — refused"
+    }
+  ],
+  "constants": {
+    "BANISH_EMOJI": "🗑️",
+    "BANISH_GATE_ENDPOINT": "/api/banish",
+    "BANISH_GATE_PREFIX": "🗑️ Vault scan:",
+    "BANISH_KEYS": [
+      "decommission",
+      "banish",
+      "blacklist"
+    ],
+    "BANISH_QUARANTINE_RELPATH": ".trash/banished",
+    "BANISH_REASON_PREFIX": "banished by owner",
+    "BANISH_TALLY_PREFIX": "🗑️ Run tally:",
+    "BANISH_WORDS": [
+      "delete",
+      "banish",
+      "blacklist",
+      "purge",
+      "auto_delete",
+      "auto-delete"
+    ],
+    "BODY_TAG_STOPS": " \t\r\n,.;:!?)]}'\"»«…—>",
+    "CANONICAL_HEADER": "| # | Date | URL | Domain | Source | Status | Notes |",
+    "CANONICAL_SEPARATOR": "|---|------|-----|--------|--------|--------|-------|",
+    "CLASSIFY_RETRIES": 2,
+    "DEAD_MARKERS": [
+      "🪦",
+      "❌",
+      "☠️",
+      "💀",
+      "decommissioned",
+      "retired",
+      "dead"
+    ],
+    "DECOMMISSION_TABLE": "DECOMMISSIONED.md",
+    "DOMAIN_DELAY_S": 2.0,
+    "FETCH_MAX_BYTES": 2000000,
+    "FETCH_TIMEOUT_S": 20,
+    "HAND_DOOR_HINT": " — the fourth door: 🖐 hand-deliver it (More ▸ Hand-deliver walled links opens the link in your real Chrome; save the page into the hand-delivered folder and the next batch takes it from there)",
+    "HAND_FOLDER_NAME": "hand-delivered",
+    "HAND_MARKERS": [
+      "🖐",
+      "✋",
+      "🫱",
+      "hand-deliver",
+      "hand deliver",
+      "hand",
+      "chrome"
+    ],
+    "LLM_EXCERPT_CHARS": 4000,
+    "LOW_CONFIDENCE": "low",
+    "MIN_TEXT_FOR_ANALYSIS": 80,
+    "QUEUE_FILENAME": "queue.json",
+    "README_FILENAME": "README.txt",
+    "REVIEWED_MARKERS": [
+      "✅",
+      "✔",
+      "☑",
+      "reviewed",
+      "kept",
+      "done"
+    ],
+    "REVIEW_FOLDER": "_review",
+    "REVIVE_MARKERS": [
+      "♻️",
+      "revived",
+      "restored",
+      "un-decommissioned"
+    ],
+    "SITE_LINKS_HEADING": "## Links on this site",
+    "TABLE_HEADER_CELLS": 7,
+    "TRASH_FOLDER_NAMES": [
+      "trash"
+    ],
+    "TRASH_GESTURE": "Trash folder move",
+    "TRASH_MARKER": "Trash folder",
+    "WALL_MARKERS": [
+      "http 403",
+      "http 405",
+      "http 429",
+      "http 451",
+      "bot defense",
+      "challenge",
+      "blocked_bot",
+      "refused",
+      "ssl",
+      "handshake",
+      "chrome-impersonated",
+      "curl_cffi",
+      "fingerprint"
+    ],
+    "WEBSITE_PROMPT_VERSION": "web-v2"
+  },
+  "consume_confirmed": {
+    "banished": 2,
+    "banished_urls": [
+      "https://banish.example",
+      "https://gone.example"
+    ],
+    "db": {
+      "dismissed": [
+        [
+          "https://banish.example",
+          "banished by owner — 🗑️ master-table gesture (🗑️); the note left the library, the URL is blacklisted, never fetched again (v0.58.0)"
+        ],
+        [
+          "https://deadb.example",
+          "decommissioned by owner — graveyard table (v0.44.0)"
+        ],
+        [
+          "https://gone.example",
+          "banished by owner — 🗑️ master-table gesture (🗑️ delete); the note left the library, the URL is blacklisted, never fetched again (v0.58.0)"
+        ],
+        [
+          "https://reviewed.example",
+          "retired by owner (reviewed ✅) — the master table (v0.47.0); never fetched again"
+        ]
+      ],
+      "meta": [
+        [
+          "websites_settled_at",
+          "2026-10-17T12:00:00"
+        ]
+      ],
+      "processed": [],
+      "retry": [],
+      "settled": [
+        "https://banish.example"
+      ]
+    },
+    "dead": 1,
+    "handed": 1,
+    "notes_moved": 1,
+    "placeholders_swept": 1,
+    "queue": {
+      "links": {
+        "https://handc.example": {
+          "queued": "2026-10-17 12:00",
+          "suggested": "hand-handc-example-0a49511d.html",
+          "wall": ""
+        }
+      }
+    },
+    "review_left": [
+      "DECOMMISSIONED.md",
+      "bhand.md",
+      "hand-delivered"
+    ],
+    "reviewed": 1,
+    "revived": 1,
+    "rows_confirmed": 4,
+    "table": "# Review Master Table — decommission or approve\n\n> legend line\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| 🗑️ | 2026-10-01 | https://banish.example/ | banish.example | gesture | 🗑️ banished — confirmed 2026-10-17 | |\n| - | 2026-10-01 | https://reviewed.example/ | reviewed.example | gesture | ✅ confirmed — reviewed 2026-10-17 | |\n| - | 2026-10-01 | https://deadb.example/ | deadb.example | gesture | 🪦 confirmed — decommissioned 2026-10-17 | |\n| 🖐 | 2026-10-01 | https://handc.example/ | handc.example | gesture | 🖐 hand — queued 2026-10-17 | |\n| ♻️ | 2026-10-01 | https://revive.example/ | revive.example | gesture |  | |\n| - | 2026-10-01 | https://gone.example/ | gone.example | gesture | 🗑️ banished — confirmed 2026-10-17 | |\n",
+    "trash": [
+      "bnote.md"
+    ]
+  },
+  "consume_held": {
+    "banished": 0,
+    "banished_urls": [],
+    "held_note_exists": true,
+    "pending_banish": 3,
+    "table": "# Review Master Table — decommission or approve\n\n> legend line\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| 🗑️ | 2026-10-01 | https://banish.example/ | banish.example | gesture | 🗑️ banished — confirmed 2026-10-17 | |\n| - | 2026-10-01 | https://reviewed.example/ | reviewed.example | gesture | ✅ confirmed — reviewed 2026-10-17 | |\n| - | 2026-10-01 | https://deadb.example/ | deadb.example | gesture | 🪦 confirmed — decommissioned 2026-10-17 | |\n| 🖐 | 2026-10-01 | https://handc.example/ | handc.example | gesture | 🖐 hand — queued 2026-10-17 | |\n| ♻️ | 2026-10-01 | https://revive.example/ | revive.example | gesture |  | |\n| - | 2026-10-01 | https://gone.example/ | gone.example | gesture | 🗑️ banished — confirmed 2026-10-17 | |\n| 🗑️ | 2026-10-01 | https://held.example/ | held.example | gesture | delete | |\n"
+  },
+  "ensure_table_shape": {
+    "file": "# header\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| 💀 | 2026-10-01 | https://trim.example/t | trim.example ||||\n| - | 2026-10-01 | https://trim2.example/t2 | trim2.example ||||\n",
+    "restored": true
+  },
+  "ensure_table_shape_idempotent": false,
+  "find_note_for_url": {
+    "gone": "",
+    "state_row": "",
+    "walk": ""
+  },
+  "fmt_site_links_list": "site_links: [https://a.example/, https://b.example/]",
+  "harvest_hand_rows": {
+    "harvested": 1,
+    "table": "# Review Master Table — decommission or approve\n\n> legend line\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-01 | https://stamp.example/ | stamp.example | waiting | 📁 stored — fetched 2026-10-17 | |\n| 🖐 | 2026-10-01 | https://harvest.example/ | harvest.example | waiting | ✅ hand-delivered — fetched 2026-10-17 | |\n| - | 2026-10-01 | https://terminal.example/ | terminal.example | w | 🪦 confirmed — decommissioned 2026-10-01 | |\n| - | 2026-10-01 | https://pending.example/ | pending.example | w | unreviewed | |\n"
+  },
+  "is_trash_folder": {
+    "deep": false,
+    "dot": false,
+    "dot_only": false,
+    "empty": false,
+    "lower": true,
+    "sub": true,
+    "trash": true,
+    "windows": true
+  },
+  "is_walled_reason": {
+    "": false,
+    "Bot Defense (Cloudflare: challenge)": true,
+    "DNS failure": false,
+    "HTTP 403 — forbidden": true,
+    "HTTP 404 — not found": false,
+    "HTTP 429 too many": true,
+    "SSL handshake failed": true,
+    "TLS fingerprint mismatch": true,
+    "blocked_bot": true,
+    "challenge": true,
+    "chrome-impersonated: yes": true,
+    "connection reset": false,
+    "curl_cffi missing": true,
+    "fine": false,
+    "http 405": true,
+    "http 451": true,
+    "paywall detected": false,
+    "refused": true
+  },
+  "mark_urls_dead": {
+    "file": "# Review Master Table — decommission or approve\n\n> The master note for EVERY link waiting in _review — fetch failures\n> waiting for retries AND the human-eye classes (low classification\n> confidence, analysis failures, archived rescues): one row per link,\n> every link with a Status cell you can set. Edit ONLY the Status\n> column — do not delete rows. The # column is yours too: an emoji in\n> the FIRST cell of a row (🖐 / 💀 / ✅ / ♻️) reads exactly like the\n> same emoji in the Status cell — set it wherever is faster.\n> ✅ reviewed — you handled this link: never fetched, never retried\n>   again, its _review placeholder is swept.\n> 🪦 dead / ❌ dead / ☠️ dead / 💀 dead — the link is dead: same\n>   never-fetch retirement, same placeholder sweep.\n> 🗑️ banished / delete / auto_delete — the site outlived its welcome\n>   (terms changed, no longer free, no longer useful): the STRONGEST\n>   retirement — the note itself is REMOVED from the library\n>   (recoverable in .trash/banished) AND the URL is blacklisted,\n>   never fetched again. ♻️ revived undoes it. You can also set\n>   this verdict INSIDE the note itself: open any note and add\n>   the tag 🗑️ (or \"delete\" / \"auto_delete\") — the next run shows\n>   you the count and ASKS first (the Telegram deletion review:\n>   \"N notes marked for deletion\" — 🗑️ Delete / ✋ Keep); on your\n>   confirm it removes the note, blacklists the URL, and writes\n>   the record row here. Every run answers with the tally line:\n>   how many were removed and never fetched again because you\n>   confirmed them.\n> ♻️ revived (in place of a dead or ✅ Status) — the link is fetched\n>   like new again.\n> 🖐 hand — the fourth door's gesture, the fifth door's engine: set\n>   it (the # cell or the Status cell) and GitCurator itself opens\n>   your real Chrome, one tab per hand row, takes the live pages, and\n>   processes them as real fetches — no manual saving (you can still\n>   save a page into _review/hand-delivered/ yourself; a delivered\n>   page is consumed either way). NOT a retirement — the link keeps\n>   waiting until the page is delivered. When the delivery STORES\n>   the proper, categorized note, the row retires itself:\n>   ✅ hand-delivered — fetched <date> (the half-fetched _review\n>   item is swept — the note in the vault is the record).\n> blank / unreviewed / \" - \" — still waiting: the caught-up check\n>   retries these rows BEFORE \"everything is up to date\" is said\n>   (the link is valid, its fetch failed — the machine tries it\n>   again; what still fails keeps waiting, its Status decides).\n> 📁 stored — the retry succeeded: the link's note is in the vault\n>   (the row is the record, nothing more to do).\n> Rows marked \"auto\" were retired by the fetcher's own verdict\n> (dead / paywalled / refused) — set ♻️ revived to disagree.\n> v0.60.2 — THE COMPACT TABLE: rows whose verdict is WRITTEN\n>   (confirmed / banished / stored / hand-delivered / auto) LEAVE this\n>   table after every batch — their records live in the state DB and\n>   .trash/banished, and this table keeps only the links that still\n>   need you. To REVIVE any retired link (bring it back to be fetched\n>   like new), add a row with ♻️ and its URL — any shape works:\n>\n>     | ♻️ | | https://the-link.example/its-path | | | | |\n>\n>   (indented here so it stays an instruction, not a row) — the next\n>   run reads your row and un-retires the link.\n> Auto-updated after every batch. Last updated: 2026-10-17 12:00\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-17 | https://n1.example/a | n1.example | waiting | 🪦 dead — decommissioned 2026-10-17 | the last error · with pipe |\n| - | 2026-10-17 | https://n2.example/b | n2.example | waiting | unreviewed | |\n| - | 2026-10-17 | https://n3.example/c | n3.example | waiting | unreviewed | note c |\n| - | 2026-10-17 | https://n4.example/d | n4.example | retry backlog | 🪦 auto — dead | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx… |\n| - | 2026-10-17 | https://n5.example/e | n5.example | picker | 🪦 dead — decommissioned 2026-10-17 | |\n",
+    "marked": 2
+  },
+  "note_body_banish_tag": {
+    "bracket_preceded": "#banish",
+    "code_fence": "",
+    "emoji": "#🗑️",
+    "frontmatter_skipped": "#banish",
+    "heading": "",
+    "mid_word": "",
+    "near_misses": "",
+    "no_frontmatter": "",
+    "owners_exact": "#auto-delete",
+    "punctuation": "#delete",
+    "tilde_fence": "",
+    "url_fragment": "",
+    "word_delete": "#delete"
+  },
+  "note_is_properly_stored": [
+    {
+      "prior": null,
+      "proper": false,
+      "why": [
+        false,
+        "no processed row — the note never landed"
+      ]
+    },
+    {
+      "prior": {
+        "fetch_status": "full",
+        "note_path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/proper.md",
+        "url": "https://proper.example/"
+      },
+      "res": [
+        true,
+        ""
+      ]
+    },
+    {
+      "res": [
+        false,
+        "the row records a failed fetch"
+      ]
+    },
+    {
+      "res": [
+        false,
+        "the note is half-fetched in _review"
+      ]
+    },
+    {
+      "res": [
+        false,
+        "no note path recorded"
+      ]
+    },
+    {
+      "res": [
+        false,
+        "the note file is missing on disk"
+      ]
+    },
+    {
+      "res": [
+        false,
+        "the note is half-fetched in _review"
+      ]
+    },
+    {
+      "res": [
+        true,
+        ""
+      ]
+    },
+    {
+      "res": [
+        false,
+        "the note belongs to another link"
+      ]
+    }
+  ],
+  "note_lists_site_link": {
+    "absent": false,
+    "missing_file": false,
+    "present": true
+  },
+  "parse_banish_frontmatter": {
+    "banish_key_false": {
+      "banish": {
+        "decommission": "false"
+      },
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        false,
+        ""
+      ],
+      "source": "https://bf.example/g",
+      "tags": []
+    },
+    "banish_key_true": {
+      "banish": {
+        "decommission": "true"
+      },
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        true,
+        "decommission: true"
+      ],
+      "source": "https://bf.example/f",
+      "tags": []
+    },
+    "banish_key_yes": {
+      "banish": {
+        "blacklist": "yes"
+      },
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        true,
+        "blacklist: yes"
+      ],
+      "source": "https://bf.example/h",
+      "tags": []
+    },
+    "block_tags": {
+      "banish": {},
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        true,
+        "auto-delete"
+      ],
+      "source": "https://bf.example/b",
+      "tags": [
+        "design",
+        "auto-delete"
+      ]
+    },
+    "emoji_tag": {
+      "banish": {},
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        true,
+        "🗑️"
+      ],
+      "source": "https://bf.example/c",
+      "tags": [
+        "🗑️"
+      ]
+    },
+    "emoji_word_tag": {
+      "banish": {},
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        true,
+        "🗑️ delete"
+      ],
+      "source": "https://bf.example/d",
+      "tags": [
+        "🗑️ delete"
+      ]
+    },
+    "flow_tags": {
+      "banish": {},
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        true,
+        "delete"
+      ],
+      "source": "https://bf.example/a",
+      "tags": [
+        "design",
+        "delete",
+        "web"
+      ]
+    },
+    "hash_tag": {
+      "banish": {},
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        true,
+        "#delete"
+      ],
+      "source": "https://bf.example/j",
+      "tags": [
+        "#delete"
+      ]
+    },
+    "near_miss": {
+      "banish": {},
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        false,
+        ""
+      ],
+      "source": "https://bf.example/e",
+      "tags": [
+        "deleted-files"
+      ]
+    },
+    "stranger_key": {
+      "banish": {},
+      "managed_by": "gitcurator",
+      "reads_banished": [
+        false,
+        ""
+      ],
+      "source": "https://bf.example/i",
+      "tags": []
+    }
+  },
+  "parse_decommission_rows": {
+    "canonical": [
+      {
+        "icon": "",
+        "line": 6,
+        "notes": "",
+        "status": "unreviewed",
+        "url": "https://a.example/x"
+      },
+      {
+        "icon": "🪦",
+        "line": 7,
+        "notes": "note b",
+        "status": "🪦",
+        "url": "https://b.example/y"
+      },
+      {
+        "icon": "",
+        "line": 8,
+        "notes": "",
+        "status": "✅",
+        "url": "https://c.example/z"
+      }
+    ],
+    "hand_made_url_cell": [
+      {
+        "icon": "",
+        "line": 7,
+        "notes": "",
+        "status": "unreviewed",
+        "url": "https://early.example/u"
+      },
+      {
+        "icon": "",
+        "line": 8,
+        "notes": "",
+        "status": "unreviewed",
+        "url": "https://late.example/u"
+      }
+    ],
+    "icon_carries_verdict": [
+      {
+        "icon": "🖐",
+        "line": 6,
+        "notes": "",
+        "status": "🖐 unreviewed",
+        "url": "https://hand.example/x"
+      },
+      {
+        "icon": "",
+        "line": 7,
+        "notes": "",
+        "status": "—",
+        "url": "https://plain.example/x"
+      }
+    ],
+    "separator_only": [],
+    "short_rows": [
+      {
+        "icon": "",
+        "line": 6,
+        "notes": "",
+        "status": "",
+        "url": "https://s.example/u"
+      }
+    ],
+    "trimmed_four_col": [
+      {
+        "icon": "",
+        "line": 6,
+        "notes": "",
+        "status": "",
+        "url": "https://a.example/x"
+      },
+      {
+        "icon": "💀",
+        "line": 7,
+        "notes": "",
+        "status": "💀",
+        "url": "https://b.example/y"
+      }
+    ]
+  },
+  "parse_review_frontmatter": {
+    "review_full": {
+      "fetch_status": "failed",
+      "managed_by": "gitcurator",
+      "source": "https://fm.example/a"
+    },
+    "review_no_fm": null,
+    "review_partial": {
+      "source": "https://fm.example/c"
+    },
+    "review_quotes": {
+      "fetch_status": "failed",
+      "managed_by": "gitcurator",
+      "source": "https://fm.example/b"
+    },
+    "review_unclosed": {
+      "source": "https://fm.example/d"
+    }
+  },
+  "parse_site_links_list": {
+    "blank": [],
+    "empty": [],
+    "flow": [
+      "https://a.example/",
+      "https://b.example/"
+    ],
+    "quoted": [
+      "https://a.example/",
+      "https://b.example/"
+    ],
+    "single": [
+      "https://one.example/"
+    ],
+    "spaces": [
+      "https://a.example/",
+      "https://b.example/"
+    ]
+  },
+  "prune": {
+    "kept": 1,
+    "pruned": 3,
+    "pruned_urls": [
+      "https://stamp.example",
+      "https://harvest.example",
+      "https://terminal.example"
+    ],
+    "table": "# Review Master Table — decommission or approve\n\n> legend line\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-01 | https://pending.example/ | pending.example | w | unreviewed | |\n"
+  },
+  "queue_json": {
+    "links": {
+      "https://handrow.example/h": {
+        "queued": "2026-10-17 12:00",
+        "suggested": "hand-handrow-example-384f3faf.html",
+        "wall": "HTTP 403 — refused"
+      }
+    }
+  },
+  "read_note_placement": {
+    "full": [
+      "Design",
+      "Assets & Resources",
+      "full"
+    ],
+    "missing": [
+      "",
+      "",
+      "full"
+    ],
+    "no_fm": [
+      "",
+      "",
+      "full"
+    ]
+  },
+  "readme_text": "GitCurator - the fourth door: hand-delivered pages\n====================================================\n\nThese links were walled for every machine door (403 / bot\ndefense / TLS fingerprint). Your real Chrome can open them.\n\nFor each link below:\n  1. open it in Chrome (More > 'Hand-deliver walled links'\n     does it for you),\n  2. save the page here: Ctrl+S, format\n     'Webpage, HTML Only', filename = the suggested name,\n  3. run the next batch (SYNC) - the page is consumed as a\n     real fetch, the note is written, the retry clears.\n\nQueued links:\n  - https://handrow.example/h\n    save as: hand-handrow-example-384f3faf.html\n    the wall: HTTP 403 — refused\n\nSaved pages already consumed are marked in queue.json\n(consumed: true) - do not delete them; they are the record.\nDelete this README freely - it regenerates on the next\nhand-delivery enqueue.\n",
+  "refresh_master_table": {
+    "retired": 0,
+    "table": "# Review Master Table — decommission or approve\n\n> The master note for EVERY link waiting in _review — fetch failures\n> waiting for retries AND the human-eye classes (low classification\n> confidence, analysis failures, archived rescues): one row per link,\n> every link with a Status cell you can set. Edit ONLY the Status\n> column — do not delete rows. The # column is yours too: an emoji in\n> the FIRST cell of a row (🖐 / 💀 / ✅ / ♻️) reads exactly like the\n> same emoji in the Status cell — set it wherever is faster.\n> ✅ reviewed — you handled this link: never fetched, never retried\n>   again, its _review placeholder is swept.\n> 🪦 dead / ❌ dead / ☠️ dead / 💀 dead — the link is dead: same\n>   never-fetch retirement, same placeholder sweep.\n> 🗑️ banished / delete / auto_delete — the site outlived its welcome\n>   (terms changed, no longer free, no longer useful): the STRONGEST\n>   retirement — the note itself is REMOVED from the library\n>   (recoverable in .trash/banished) AND the URL is blacklisted,\n>   never fetched again. ♻️ revived undoes it. You can also set\n>   this verdict INSIDE the note itself: open any note and add\n>   the tag 🗑️ (or \"delete\" / \"auto_delete\") — the next run shows\n>   you the count and ASKS first (the Telegram deletion review:\n>   \"N notes marked for deletion\" — 🗑️ Delete / ✋ Keep); on your\n>   confirm it removes the note, blacklists the URL, and writes\n>   the record row here. Every run answers with the tally line:\n>   how many were removed and never fetched again because you\n>   confirmed them.\n> ♻️ revived (in place of a dead or ✅ Status) — the link is fetched\n>   like new again.\n> 🖐 hand — the fourth door's gesture, the fifth door's engine: set\n>   it (the # cell or the Status cell) and GitCurator itself opens\n>   your real Chrome, one tab per hand row, takes the live pages, and\n>   processes them as real fetches — no manual saving (you can still\n>   save a page into _review/hand-delivered/ yourself; a delivered\n>   page is consumed either way). NOT a retirement — the link keeps\n>   waiting until the page is delivered. When the delivery STORES\n>   the proper, categorized note, the row retires itself:\n>   ✅ hand-delivered — fetched <date> (the half-fetched _review\n>   item is swept — the note in the vault is the record).\n> blank / unreviewed / \" - \" — still waiting: the caught-up check\n>   retries these rows BEFORE \"everything is up to date\" is said\n>   (the link is valid, its fetch failed — the machine tries it\n>   again; what still fails keeps waiting, its Status decides).\n> 📁 stored — the retry succeeded: the link's note is in the vault\n>   (the row is the record, nothing more to do).\n> Rows marked \"auto\" were retired by the fetcher's own verdict\n> (dead / paywalled / refused) — set ♻️ revived to disagree.\n> v0.60.2 — THE COMPACT TABLE: rows whose verdict is WRITTEN\n>   (confirmed / banished / stored / hand-delivered / auto) LEAVE this\n>   table after every batch — their records live in the state DB and\n>   .trash/banished, and this table keeps only the links that still\n>   need you. To REVIVE any retired link (bring it back to be fetched\n>   like new), add a row with ♻️ and its URL — any shape works:\n>\n>     | ♻️ | | https://the-link.example/its-path | | | | |\n>\n>   (indented here so it stays an instruction, not a row) — the next\n>   run reads your row and un-retires the link.\n> Auto-updated after every batch. Last updated: 2026-10-17 12:00\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-17 | https://refresh-wait.example/r | refresh-wait.example | waiting | unreviewed | HTTP 404 — not found |\n| - | 2026-10-17 | https://lost.example/ | lost.example | waiting | unreviewed | placeholder in _review (state row was lost) |\n| - | 2026-10-17 | https://eyes.example | eyes.example | waiting | unreviewed | in _review (partial): classification confidence was low |\n",
+    "waiting": 3,
+    "written": 3
+  },
+  "review_note_reason": {
+    "built": "Fetch failed: HTTP 404 — not found",
+    "eyes": "classification confidence was low",
+    "hand_written": "",
+    "missing": ""
+  },
+  "scan_banished_notes": [
+    {
+      "app_owned": true,
+      "door": "note tag",
+      "marker": "#auto-delete",
+      "path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/body-marked.md",
+      "url": "https://bodymarked.example/"
+    },
+    {
+      "app_owned": true,
+      "door": "note tag",
+      "marker": "delete",
+      "path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/marked.md",
+      "url": "https://marked.example/"
+    },
+    {
+      "app_owned": true,
+      "door": "trash folder",
+      "marker": "Trash folder",
+      "path": "/tmp/wpgolden-_2iyc13d/websites/Trash/moved.md",
+      "url": "https://moved.example/"
+    }
+  ],
+  "scan_decommission_table": {
+    "https://deadrow.example/d": "🪦",
+    "https://failed.example/": "unreviewed",
+    "https://handrow.example/h": "🖐 unreviewed",
+    "https://low.example/": "unreviewed",
+    "https://settled.example/t": "-",
+    "https://stored.example/s": "unreviewed",
+    "https://wait.example/w": "unreviewed"
+  },
+  "scan_master_hand_rows": [],
+  "scan_master_waiting_rows": [
+    {
+      "kind": "eyes",
+      "notes": "",
+      "path": "/tmp/wpgolden-_2iyc13d/websites/_review/low-confidence.md",
+      "status": "unreviewed",
+      "url": "https://low.example/"
+    }
+  ],
+  "scan_pending_banishments": {
+    "items": [
+      {
+        "canonical": "https://bodymarked.example",
+        "door": "note tag",
+        "marker": "#auto-delete",
+        "path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/body-marked.md",
+        "title": "body-marked",
+        "url": "https://bodymarked.example/"
+      },
+      {
+        "canonical": "https://marked.example",
+        "door": "note tag",
+        "marker": "delete",
+        "path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/marked.md",
+        "title": "marked",
+        "url": "https://marked.example/"
+      },
+      {
+        "canonical": "https://moved.example",
+        "door": "trash folder",
+        "marker": "Trash folder",
+        "path": "/tmp/wpgolden-_2iyc13d/websites/Trash/moved.md",
+        "title": "moved",
+        "url": "https://moved.example/"
+      }
+    ],
+    "kept_handwritten": 0
+  },
+  "scan_review_backlog": [
+    {
+      "path": "/tmp/wpgolden-_2iyc13d/websites/_review/failed-placeholder.md",
+      "url": "https://failed.example/"
+    }
+  ],
+  "scan_review_notes": [
+    {
+      "fetch_status": "failed",
+      "path": "/tmp/wpgolden-_2iyc13d/websites/_review/failed-placeholder.md",
+      "url": "https://failed.example/"
+    },
+    {
+      "fetch_status": "partial",
+      "path": "/tmp/wpgolden-_2iyc13d/websites/_review/low-confidence.md",
+      "url": "https://low.example/"
+    }
+  ],
+  "settle_the_ledger": {
+    "db": {
+      "dismissed": [],
+      "meta": [
+        [
+          "websites_queue_history_settled_at",
+          "2026-10-17T12:00:00"
+        ],
+        [
+          "websites_settled_at",
+          "2026-10-17T12:00:00"
+        ]
+      ],
+      "processed": [
+        [
+          "https://ledger.example/a",
+          "",
+          "full"
+        ]
+      ],
+      "retry": [],
+      "settled": [
+        "https://eyes.example",
+        "https://ledger.example/a",
+        "https://lost.example",
+        "https://qhistory.example/q",
+        "https://refresh-wait.example/r"
+      ]
+    },
+    "first": {
+      "already": false,
+      "retries_cleared": 0,
+      "settled": 4
+    },
+    "queue_history": {
+      "already": true,
+      "retries_cleared": 0,
+      "settled": 0
+    },
+    "second": {
+      "already": true,
+      "retries_cleared": 0,
+      "settled": 0
+    }
+  },
+  "splits": {
+    "dismissed_dropped": [
+      "https://split-a.example/"
+    ],
+    "dismissed_kept": [
+      "https://keep.example/"
+    ],
+    "settled_dropped": [
+      "https://split-b.example/"
+    ],
+    "settled_kept": [
+      "https://keep2.example/"
+    ]
+  },
+  "stamp_stored_rows": {
+    "stamped": 1,
+    "table": "# Review Master Table — decommission or approve\n\n> legend line\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-01 | https://stamp.example/ | stamp.example | waiting | 📁 stored — fetched 2026-10-17 | |\n| 🖐 | 2026-10-01 | https://harvest.example/ | harvest.example | waiting | hand | |\n| - | 2026-10-01 | https://terminal.example/ | terminal.example | w | 🪦 confirmed — decommissioned 2026-10-01 | |\n| - | 2026-10-01 | https://pending.example/ | pending.example | w | unreviewed | |\n"
+  },
+  "status_predicates": [
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "-",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "—",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "unreviewed",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "✅",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "✔",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "☑",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "reviewed",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "kept",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "done",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "✅ reviewed",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "unreviewed ✅",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "REVIEWED",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "Unreviewed",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "🪦",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "❌",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "☠️",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "💀",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "dead",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "decommissioned",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "retired",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "🪦 dead — gone",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "Decommissioned 2026",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": "dead + reviewed",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": true,
+      "status": "♻️",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": true,
+      "status": "revived",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": true,
+      "status": "restored",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": true,
+      "status": "un-decommissioned",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": true,
+      "status": "♻️ revived",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": true,
+      "status": "revived + hand",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "🗑️",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "delete",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "banish",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "blacklist",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "purge",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "auto_delete",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "auto-delete",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "DELETE",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "🗑️ delete",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "deleted-files",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "delete-me",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "trash talk",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": true,
+      "status": "🗑️ + ♻️ revived",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "dead + delete",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "hand",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "🖐",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "✋",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "🫱",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "Hand",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "HAND-DELIVER",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "hand-deliver",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "hand deliver",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "chrome",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "Chrome",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": false,
+      "revived": false,
+      "status": "🖐 hand — queued 2026-10-01",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "queued",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "confirmed",
+      "terminal": true,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "auto — dead",
+      "terminal": true,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "auto",
+      "terminal": false,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "📁 stored",
+      "terminal": true,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "stored",
+      "terminal": true,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": true,
+      "reviewed": true,
+      "revived": false,
+      "status": "✅ hand-delivered — fetched 2026-10-01",
+      "terminal": true,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": true,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "🪦 confirmed — decommissioned 2026-10-01",
+      "terminal": true,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": true,
+      "revived": false,
+      "status": " ✅ confirmed — reviewed 2026-10-01 ",
+      "terminal": true,
+      "waiting": false
+    },
+    {
+      "banished": true,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "🗑️ banished — confirmed 2026-10-01",
+      "terminal": true,
+      "waiting": false
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "waiting",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "pending",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": " - ",
+      "terminal": false,
+      "waiting": true
+    },
+    {
+      "banished": false,
+      "dead": false,
+      "hand": false,
+      "reviewed": false,
+      "revived": false,
+      "status": "unknown verdict",
+      "terminal": false,
+      "waiting": true
+    }
+  ],
+  "suggested_filename": {
+    "https://EXAMPLE.COM/Path": "hand-example-com-66251aef.html",
+    "https://site.example": "hand-site-example-1b9e9bae.html",
+    "https://site.example/": "hand-site-example-1b9e9bae.html",
+    "https://site.example/long/path/with/query?a=1": "hand-site-example-71e57fc2.html",
+    "https://x.example/": "hand-x-example-8195db0c.html"
+  },
+  "sweep_review_leftovers": {
+    "left": [
+      "keep-hand.md",
+      "other-link.md",
+      "sweep-me.md"
+    ],
+    "swept": 0
+  },
+  "table_cell": {
+    "collapse": "spaced out text",
+    "exact_limit": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+    "long": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…",
+    "newlines": "line1 line2 line3",
+    "over_limit_short": "zzzzzzzzz…",
+    "pipes": "a·b·c",
+    "plain": "plain text",
+    "unicode": "ééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé…"
+  },
+  "take_hand_delivered": {
+    "body": "<html><head><title>Hand</title></head><body>delivered</body></html>",
+    "charset": "utf-8",
+    "content_type": "text/html",
+    "http_status": 200,
+    "queue_after": {
+      "links": {
+        "https://handrow.example/h": {
+          "consumed": "2026-10-17 12:00",
+          "queued": "2026-10-17 12:00",
+          "suggested": "hand-handrow-example-384f3faf.html",
+          "wall": "HTTP 403 — refused"
+        }
+      }
+    },
+    "reason": "hand-delivered via the owner's real Chrome — the machine doors were walled: HTTP 403 — refused",
+    "status": "full"
+  },
+  "take_hand_delivered_heal": {
+    "queue_after": {
+      "links": {
+        "https://handrow.example/h": {
+          "consumed": "2026-10-17 12:00",
+          "queued": "2026-10-17 12:00",
+          "suggested": "hand-handrow-example-384f3faf.html",
+          "wall": "HTTP 403 — refused"
+        }
+      }
+    },
+    "status": null
+  },
+  "take_hand_delivered_redo": {
+    "queue_after": {
+      "links": {
+        "https://handrow.example/h": {
+          "consumed": "2026-10-17 12:00",
+          "queued": "2026-10-17 12:00",
+          "suggested": "hand-handrow-example-384f3faf.html",
+          "wall": "HTTP 403 — refused"
+        }
+      }
+    },
+    "status": "full"
+  },
+  "write_candidates_append": {
+    "file": "# Review Master Table — decommission or approve\n\n> The master note for EVERY link waiting in _review — fetch failures\n> waiting for retries AND the human-eye classes (low classification\n> confidence, analysis failures, archived rescues): one row per link,\n> every link with a Status cell you can set. Edit ONLY the Status\n> column — do not delete rows. The # column is yours too: an emoji in\n> the FIRST cell of a row (🖐 / 💀 / ✅ / ♻️) reads exactly like the\n> same emoji in the Status cell — set it wherever is faster.\n> ✅ reviewed — you handled this link: never fetched, never retried\n>   again, its _review placeholder is swept.\n> 🪦 dead / ❌ dead / ☠️ dead / 💀 dead — the link is dead: same\n>   never-fetch retirement, same placeholder sweep.\n> 🗑️ banished / delete / auto_delete — the site outlived its welcome\n>   (terms changed, no longer free, no longer useful): the STRONGEST\n>   retirement — the note itself is REMOVED from the library\n>   (recoverable in .trash/banished) AND the URL is blacklisted,\n>   never fetched again. ♻️ revived undoes it. You can also set\n>   this verdict INSIDE the note itself: open any note and add\n>   the tag 🗑️ (or \"delete\" / \"auto_delete\") — the next run shows\n>   you the count and ASKS first (the Telegram deletion review:\n>   \"N notes marked for deletion\" — 🗑️ Delete / ✋ Keep); on your\n>   confirm it removes the note, blacklists the URL, and writes\n>   the record row here. Every run answers with the tally line:\n>   how many were removed and never fetched again because you\n>   confirmed them.\n> ♻️ revived (in place of a dead or ✅ Status) — the link is fetched\n>   like new again.\n> 🖐 hand — the fourth door's gesture, the fifth door's engine: set\n>   it (the # cell or the Status cell) and GitCurator itself opens\n>   your real Chrome, one tab per hand row, takes the live pages, and\n>   processes them as real fetches — no manual saving (you can still\n>   save a page into _review/hand-delivered/ yourself; a delivered\n>   page is consumed either way). NOT a retirement — the link keeps\n>   waiting until the page is delivered. When the delivery STORES\n>   the proper, categorized note, the row retires itself:\n>   ✅ hand-delivered — fetched <date> (the half-fetched _review\n>   item is swept — the note in the vault is the record).\n> blank / unreviewed / \" - \" — still waiting: the caught-up check\n>   retries these rows BEFORE \"everything is up to date\" is said\n>   (the link is valid, its fetch failed — the machine tries it\n>   again; what still fails keeps waiting, its Status decides).\n> 📁 stored — the retry succeeded: the link's note is in the vault\n>   (the row is the record, nothing more to do).\n> Rows marked \"auto\" were retired by the fetcher's own verdict\n> (dead / paywalled / refused) — set ♻️ revived to disagree.\n> v0.60.2 — THE COMPACT TABLE: rows whose verdict is WRITTEN\n>   (confirmed / banished / stored / hand-delivered / auto) LEAVE this\n>   table after every batch — their records live in the state DB and\n>   .trash/banished, and this table keeps only the links that still\n>   need you. To REVIVE any retired link (bring it back to be fetched\n>   like new), add a row with ♻️ and its URL — any shape works:\n>\n>     | ♻️ | | https://the-link.example/its-path | | | | |\n>\n>   (indented here so it stays an instruction, not a row) — the next\n>   run reads your row and un-retires the link.\n> Auto-updated after every batch. Last updated: 2026-10-17 12:00\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-17 | https://n1.example/a | n1.example | waiting | unreviewed | the last error · with pipe |\n| - | 2026-10-17 | https://n2.example/b | n2.example | waiting | unreviewed | |\n| - | 2026-10-17 | https://n3.example/c | n3.example | waiting | unreviewed | note c |\n",
+    "written": 1
+  },
+  "write_candidates_fresh": {
+    "file": "# Review Master Table — decommission or approve\n\n> The master note for EVERY link waiting in _review — fetch failures\n> waiting for retries AND the human-eye classes (low classification\n> confidence, analysis failures, archived rescues): one row per link,\n> every link with a Status cell you can set. Edit ONLY the Status\n> column — do not delete rows. The # column is yours too: an emoji in\n> the FIRST cell of a row (🖐 / 💀 / ✅ / ♻️) reads exactly like the\n> same emoji in the Status cell — set it wherever is faster.\n> ✅ reviewed — you handled this link: never fetched, never retried\n>   again, its _review placeholder is swept.\n> 🪦 dead / ❌ dead / ☠️ dead / 💀 dead — the link is dead: same\n>   never-fetch retirement, same placeholder sweep.\n> 🗑️ banished / delete / auto_delete — the site outlived its welcome\n>   (terms changed, no longer free, no longer useful): the STRONGEST\n>   retirement — the note itself is REMOVED from the library\n>   (recoverable in .trash/banished) AND the URL is blacklisted,\n>   never fetched again. ♻️ revived undoes it. You can also set\n>   this verdict INSIDE the note itself: open any note and add\n>   the tag 🗑️ (or \"delete\" / \"auto_delete\") — the next run shows\n>   you the count and ASKS first (the Telegram deletion review:\n>   \"N notes marked for deletion\" — 🗑️ Delete / ✋ Keep); on your\n>   confirm it removes the note, blacklists the URL, and writes\n>   the record row here. Every run answers with the tally line:\n>   how many were removed and never fetched again because you\n>   confirmed them.\n> ♻️ revived (in place of a dead or ✅ Status) — the link is fetched\n>   like new again.\n> 🖐 hand — the fourth door's gesture, the fifth door's engine: set\n>   it (the # cell or the Status cell) and GitCurator itself opens\n>   your real Chrome, one tab per hand row, takes the live pages, and\n>   processes them as real fetches — no manual saving (you can still\n>   save a page into _review/hand-delivered/ yourself; a delivered\n>   page is consumed either way). NOT a retirement — the link keeps\n>   waiting until the page is delivered. When the delivery STORES\n>   the proper, categorized note, the row retires itself:\n>   ✅ hand-delivered — fetched <date> (the half-fetched _review\n>   item is swept — the note in the vault is the record).\n> blank / unreviewed / \" - \" — still waiting: the caught-up check\n>   retries these rows BEFORE \"everything is up to date\" is said\n>   (the link is valid, its fetch failed — the machine tries it\n>   again; what still fails keeps waiting, its Status decides).\n> 📁 stored — the retry succeeded: the link's note is in the vault\n>   (the row is the record, nothing more to do).\n> Rows marked \"auto\" were retired by the fetcher's own verdict\n> (dead / paywalled / refused) — set ♻️ revived to disagree.\n> v0.60.2 — THE COMPACT TABLE: rows whose verdict is WRITTEN\n>   (confirmed / banished / stored / hand-delivered / auto) LEAVE this\n>   table after every batch — their records live in the state DB and\n>   .trash/banished, and this table keeps only the links that still\n>   need you. To REVIVE any retired link (bring it back to be fetched\n>   like new), add a row with ♻️ and its URL — any shape works:\n>\n>     | ♻️ | | https://the-link.example/its-path | | | | |\n>\n>   (indented here so it stays an instruction, not a row) — the next\n>   run reads your row and un-retires the link.\n> Auto-updated after every batch. Last updated: 2026-10-17 12:00\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-17 | https://n1.example/a | n1.example | waiting | unreviewed | the last error · with pipe |\n| - | 2026-10-17 | https://n2.example/b | n2.example | waiting | unreviewed | |\n",
+    "written": 2
+  },
+  "write_candidates_status": {
+    "file": "# Review Master Table — decommission or approve\n\n> The master note for EVERY link waiting in _review — fetch failures\n> waiting for retries AND the human-eye classes (low classification\n> confidence, analysis failures, archived rescues): one row per link,\n> every link with a Status cell you can set. Edit ONLY the Status\n> column — do not delete rows. The # column is yours too: an emoji in\n> the FIRST cell of a row (🖐 / 💀 / ✅ / ♻️) reads exactly like the\n> same emoji in the Status cell — set it wherever is faster.\n> ✅ reviewed — you handled this link: never fetched, never retried\n>   again, its _review placeholder is swept.\n> 🪦 dead / ❌ dead / ☠️ dead / 💀 dead — the link is dead: same\n>   never-fetch retirement, same placeholder sweep.\n> 🗑️ banished / delete / auto_delete — the site outlived its welcome\n>   (terms changed, no longer free, no longer useful): the STRONGEST\n>   retirement — the note itself is REMOVED from the library\n>   (recoverable in .trash/banished) AND the URL is blacklisted,\n>   never fetched again. ♻️ revived undoes it. You can also set\n>   this verdict INSIDE the note itself: open any note and add\n>   the tag 🗑️ (or \"delete\" / \"auto_delete\") — the next run shows\n>   you the count and ASKS first (the Telegram deletion review:\n>   \"N notes marked for deletion\" — 🗑️ Delete / ✋ Keep); on your\n>   confirm it removes the note, blacklists the URL, and writes\n>   the record row here. Every run answers with the tally line:\n>   how many were removed and never fetched again because you\n>   confirmed them.\n> ♻️ revived (in place of a dead or ✅ Status) — the link is fetched\n>   like new again.\n> 🖐 hand — the fourth door's gesture, the fifth door's engine: set\n>   it (the # cell or the Status cell) and GitCurator itself opens\n>   your real Chrome, one tab per hand row, takes the live pages, and\n>   processes them as real fetches — no manual saving (you can still\n>   save a page into _review/hand-delivered/ yourself; a delivered\n>   page is consumed either way). NOT a retirement — the link keeps\n>   waiting until the page is delivered. When the delivery STORES\n>   the proper, categorized note, the row retires itself:\n>   ✅ hand-delivered — fetched <date> (the half-fetched _review\n>   item is swept — the note in the vault is the record).\n> blank / unreviewed / \" - \" — still waiting: the caught-up check\n>   retries these rows BEFORE \"everything is up to date\" is said\n>   (the link is valid, its fetch failed — the machine tries it\n>   again; what still fails keeps waiting, its Status decides).\n> 📁 stored — the retry succeeded: the link's note is in the vault\n>   (the row is the record, nothing more to do).\n> Rows marked \"auto\" were retired by the fetcher's own verdict\n> (dead / paywalled / refused) — set ♻️ revived to disagree.\n> v0.60.2 — THE COMPACT TABLE: rows whose verdict is WRITTEN\n>   (confirmed / banished / stored / hand-delivered / auto) LEAVE this\n>   table after every batch — their records live in the state DB and\n>   .trash/banished, and this table keeps only the links that still\n>   need you. To REVIVE any retired link (bring it back to be fetched\n>   like new), add a row with ♻️ and its URL — any shape works:\n>\n>     | ♻️ | | https://the-link.example/its-path | | | | |\n>\n>   (indented here so it stays an instruction, not a row) — the next\n>   run reads your row and un-retires the link.\n> Auto-updated after every batch. Last updated: 2026-10-17 12:00\n\n| # | Date | URL | Domain | Source | Status | Notes |\n|---|------|-----|--------|--------|--------|-------|\n| - | 2026-10-17 | https://n1.example/a | n1.example | waiting | unreviewed | the last error · with pipe |\n| - | 2026-10-17 | https://n2.example/b | n2.example | waiting | unreviewed | |\n| - | 2026-10-17 | https://n3.example/c | n3.example | waiting | unreviewed | note c |\n| - | 2026-10-17 | https://n4.example/d | n4.example | retry backlog | 🪦 auto — dead | xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx… |\n",
+    "written": 1
+  }
+}

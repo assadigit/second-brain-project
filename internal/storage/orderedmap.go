@@ -39,6 +39,23 @@ func (o *OrderedMap) Get(key string) (any, bool) {
 	return v, ok
 }
 
+// Delete removes a key (Python dict.pop/del semantics: the key and its
+// position both leave; a missing key is a no-op). T-40's hand-delivery
+// queue heal (the one-spelling re-key) needs the pop.
+func (o *OrderedMap) Delete(key string) bool {
+	if _, ok := o.m[key]; !ok {
+		return false
+	}
+	delete(o.m, key)
+	for i, k := range o.keys {
+		if k == key {
+			o.keys = append(o.keys[:i], o.keys[i+1:]...)
+			break
+		}
+	}
+	return true
+}
+
 // Keys returns the keys in insertion order.
 func (o *OrderedMap) Keys() []string {
 	out := make([]string, len(o.keys))

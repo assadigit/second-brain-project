@@ -136,6 +136,53 @@ func SanitizeTags(tags any) []string {
 	return result
 }
 
+// SanitizeTagsMax mirrors sanitize_tags(tags, max_items=N) — the
+// reference's own parameterized cap (website_pipeline passes 5/6/8;
+// the house SanitizeTags keeps the default 12). Same dedupe law:
+// case-insensitive, first casing kept, cap applied to the DEDUPED
+// result (a post-hoc slice of SanitizeTags' output is equivalent, but
+// this names the reference's own shape). T-40's addition.
+func SanitizeTagsMax(tags any, maxItems int) []string {
+	if maxItems <= 0 {
+		maxItems = MaxTags
+	}
+	if tags == nil {
+		return nil
+	}
+	var items []any
+	switch vv := tags.(type) {
+	case string:
+		items = []any{vv}
+	case []string:
+		items = make([]any, len(vv))
+		for i, s := range vv {
+			items[i] = s
+		}
+	case []any:
+		items = vv
+	default:
+		items = []any{vv}
+	}
+	seen := map[string]bool{}
+	var result []string
+	for _, t := range items {
+		clean := SanitizeSeqItem(t, maxSeqItem)
+		if clean == "" {
+			continue
+		}
+		key := strings.ToLower(clean)
+		if seen[key] {
+			continue
+		}
+		seen[key] = true
+		result = append(result, clean)
+		if len(result) >= maxItems {
+			break
+		}
+	}
+	return result
+}
+
 // SanitizeAliases mirrors sanitize_aliases: ≤80 chars per item, ≤4 items,
 // case-insensitive dedupe.
 func SanitizeAliases(names ...any) []string {
