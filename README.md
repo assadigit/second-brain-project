@@ -157,8 +157,29 @@ test_weighhomes/test_reposcan selections (215 tests; the repos
 banishment floor — the gate's eyes + the burial — landed with T-45 in
 `internal/repobanish`, its remaining doors stay T-46's); the
 pointer-threading law ([]*NoteRow — Go struct copies would break the
-reference's dict aliasing, found live). 1347 tests race-clean. Next:
-T-46 vaulthygiene + repobanish.
+reference's dict aliasing, found live). **T-46 `internal/vaulthygiene`
++ the completion of `internal/repobanish` (SESSION-021) — THE
+STRAY-NOTES DOOR + THE REPOS BANISHMENT COMPLETE** (spec-core-vault-
+hygiene.md + spec-core-repo-banish.md, with the SESSION-021
+amendments): the whole hygiene module — the classifiers (empty stub,
+app-owned bodyless with the fence laws, the lock doors, the note-name
+shape, the identity fold), the [[wiki-link]] eyes + the head-identity
+harvest, and THE ONE WALK (each .md opened exactly once — identities +
+stub candidacy + link targets from the same read, the shared
+notereads cache or the direct bounded read, the three fingerprints:
+shape / name-twin / linked-ghost, the lock guard, the master-index
+scaffold, the legacy root reports, heal_machine_vaults over both
+vaults) — with THE GOLDEN (9 sections, paths + walk-order folded,
+generated from the unmodified reference) + the ported
+test_strayheal/test_vaulthygiene selections + test_picklock's
+locked-bodyless law + test_vaultscan's one-open hygiene-sharing leg;
+and the repobanish completion — revive_banished_repos (the ♻️ door
+back) + run_repo_banishment_pass (the confirmation-gate orchestration:
+the ungated revive, the count spoken before the ask over the injected
+channel factory, the verdict gates, the tally with the zero-run
+answer) + the ported test_repobanish selections incl. the never-fetch
+promise and the no-op-settle locking pin. 1464 tests race-clean.
+Next: T-47 vaultseal.
 
 ## Map
 

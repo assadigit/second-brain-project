@@ -28,6 +28,7 @@ import (
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/notereads"
 	"github.com/assadigit/second-brain-project/internal/storage"
+	"github.com/assadigit/second-brain-project/internal/vaulthygiene"
 	"github.com/assadigit/second-brain-project/internal/websitepipeline"
 )
 
@@ -2091,6 +2092,42 @@ func TestTheNextScanOfTheUnchangedVaultOpensNothing(t *testing.T) {
 	if len(plan2.Moves) != len(plan1.Moves) {
 		t.Fatalf("moves diverged")
 	}
+}
+
+// TestHygieneAndThePlanShareOneOpenPerNote ports test_vaultscan's
+// test_hygiene_and_the_plan_share_one_open_per_note (T-46's own leg):
+// the hygiene walks AND both plan walks ride the SAME shared cache —
+// one open per note across every pass that touches it.
+func TestHygieneAndThePlanShareOneOpenPerNote(t *testing.T) {
+	c := newScanCase(t)
+	github := filepath.Join(c.tmp, "github")
+	if err := os.MkdirAll(github, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	for i := 0; i < 3; i++ {
+		writeNote(t, github, fmt.Sprintf("real-%d.md", i),
+			fmt.Sprintf("https://g.example/%d", i),
+			noteSpec{managed: "gitcurator", fetchStatus: "full",
+				body: "real content lives here"})
+	}
+	c.note("web-0.md", "https://w.example/0")
+	cache := notereads.New(filepath.Join(c.tmp, "reads.db"))
+	defer cache.Close(false)
+	healed := vaulthygiene.HealMachineVaults(map[string]any{
+		"vault_path":         github,
+		"website_vault_path": c.vault,
+	}, c.logs.log, nil, cache)
+	plan := BuildScanPlan(c.vault, nil, c.logs.log, nil, nil, cache,
+		VaultKindWebsites, nil)
+	// 3 github notes + 1 websites note — ONE open each, across the
+	// hygiene walk AND both plan walks.
+	if got := cache.Stats().Opens; got != 4 {
+		t.Fatalf("opens %d != 4", got)
+	}
+	if healed["github"].RetiredStubs != 0 {
+		t.Fatalf("github retired %d; want 0", healed["github"].RetiredStubs)
+	}
+	_ = plan // the plan is the sharing proof, not an assertion target
 }
 
 // --- TestTheCensusStamp (test_censusstamp selections) -------------------

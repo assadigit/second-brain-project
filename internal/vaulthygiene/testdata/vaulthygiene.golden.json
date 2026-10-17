@@ -1,0 +1,227 @@
+{
+  "app_owned_bodyless": {
+    "bare_frontmatter_line": false,
+    "body_list": false,
+    "body_text": false,
+    "dots_fence": true,
+    "empty_fence_pair": false,
+    "failed_write": true,
+    "managed_by_lower": true,
+    "managed_by_single_quoted": true,
+    "managed_by_spaced_val": true,
+    "managed_by_upper": true,
+    "managed_by_wrong": false,
+    "no_frontmatter": [
+      false,
+      false,
+      false
+    ],
+    "owners_frontmatter": false,
+    "two_headings": false,
+    "unterminated_block": true
+  },
+  "empty_stub": {
+    "bare_hash_line": true,
+    "body_text": false,
+    "crlf_blank": true,
+    "empty": true,
+    "frontmatter": false,
+    "leading_newline_frontmatter": false,
+    "list": false,
+    "lone_hash": true,
+    "none": true,
+    "single_heading": true,
+    "two_headings": false,
+    "whitespace": true
+  },
+  "frontmatter_type": {
+    "empty": "",
+    "master_index": "master-index",
+    "missing": "",
+    "moc": "moc",
+    "no_frontmatter": "",
+    "quoted": "moc",
+    "second_type_after_cap": "",
+    "single_quoted": "moc",
+    "spaced": "moc",
+    "type_in_body_not_head": "moc"
+  },
+  "harvest_link_targets": {
+    "alias_only": [],
+    "backslash_path": [
+      "note"
+    ],
+    "junk": [
+      [],
+      [],
+      [],
+      [],
+      []
+    ],
+    "self_anchor_only": [
+      "anchor"
+    ],
+    "shapes": [
+      "anembed",
+      "ghost",
+      "notename",
+      "subtitletranslator"
+    ],
+    "trailing_slash": [
+      "sub"
+    ]
+  },
+  "head_identities": {
+    "alias_item_then_plain": [
+      "h",
+      "one"
+    ],
+    "dots_fence": [
+      "afterdots",
+      "x"
+    ],
+    "empty": [],
+    "first_h1_only": [
+      "first"
+    ],
+    "h1_no_space": [
+      "real"
+    ],
+    "h2_not_h1": [
+      "realh1"
+    ],
+    "inline_aliases": [
+      "alphatool",
+      "beta",
+      "heading"
+    ],
+    "no_frontmatter_h1": [
+      "baretitle"
+    ],
+    "quoted_aliases": [
+      "h",
+      "quotedalias",
+      "single"
+    ],
+    "real_note": [
+      "someonesubtitletranslator",
+      "subtitletranslator"
+    ]
+  },
+  "locked_frontmatter": {
+    "body_only_lock_word": false,
+    "category_locked": true,
+    "category_locked_1": true,
+    "dots_not_a_fence": true,
+    "locked_1": true,
+    "locked_True_case": true,
+    "locked_blank_val": false,
+    "locked_false": false,
+    "locked_quoted": true,
+    "locked_true": true,
+    "locked_yes": true,
+    "no_colon_line": false,
+    "no_frontmatter": [
+      false,
+      false,
+      false
+    ],
+    "tags_bare_word": false,
+    "tags_block_lock": true,
+    "tags_block_then_key": false,
+    "tags_empty_block": false,
+    "tags_flow_lock": true,
+    "tags_flow_lock_dash_fold": true,
+    "tags_flow_locked": true,
+    "tags_flow_notelock": false
+  },
+  "normalize_identity": {
+    "digits_kept": "v2release3",
+    "junk": [
+      "",
+      "",
+      "ab"
+    ],
+    "none": "",
+    "three_families": [
+      "subtitletranslator",
+      "subtitletranslator",
+      "subtitletranslator"
+    ],
+    "unicode_stripped": "ncodenme"
+  },
+  "note_name_shape": {
+    "canonical": true,
+    "lowercase_key": false,
+    "no_ext": true,
+    "no_underscore": false,
+    "owner_names": [
+      false,
+      false,
+      false
+    ],
+    "two_segment": true,
+    "underscore_non_category": false
+  },
+  "run_hygiene": {
+    "counts": {
+      "removed_index": 2,
+      "retired_app_owned": 1,
+      "retired_linked": 2,
+      "retired_reports": 1,
+      "retired_stubs": 5
+    },
+    "healed_github": {
+      "removed_index": 0,
+      "retired_app_owned": 0,
+      "retired_linked": 0,
+      "retired_reports": 0,
+      "retired_stubs": 0
+    },
+    "healed_keys": [
+      "github",
+      "websites"
+    ],
+    "healed_websites": {
+      "removed_index": 1,
+      "retired_app_owned": 0,
+      "retired_linked": 0,
+      "retired_reports": 0,
+      "retired_stubs": 0
+    },
+    "hygiene_total": 1,
+    "idempotent_second": {
+      "removed_index": 0,
+      "retired_app_owned": 0,
+      "retired_linked": 0,
+      "retired_reports": 0,
+      "retired_stubs": 0
+    },
+    "moc_after": [
+      "my-own-notes.md"
+    ],
+    "root_md_after": [
+      "big-repo.md",
+      "locked_LLM-Tools_ts.md",
+      "my-thoughts.md",
+      "quiet-placeholder.md"
+    ],
+    "stub_names_sorted": [
+      "Subtitle Translator",
+      "another-repo_LLM-Tools_automation",
+      "ghost-target",
+      "repo-note",
+      "subtitle-translator"
+    ],
+    "trash_empty_stubs": [
+      "Subtitle Translator.md",
+      "another-repo_LLM-Tools_automation.md",
+      "ghost-target.md",
+      "repo-note.md",
+      "subtitle-translator.md"
+    ],
+    "trash_retired_reports": [
+      "_processing_report_20260101.md"
+    ]
+  }
+}
