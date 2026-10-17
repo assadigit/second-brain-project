@@ -328,39 +328,49 @@ func isDirPath(p string) bool {
 
 // walkVault mirrors the reference's pruned os.walk: dirs sorted,
 // '_inbox' and dot-folders skipped, files sorted, files of a directory
-// handled BEFORE its subdirectories (os.walk's top-down order).
+// handled BEFORE its subdirectories (os.walk's top-down order — a
+// directory's own files, then each subdir completely, depth-first; NOT
+// WalkDir's lexical interleaving of files and dirs, which would visit
+// "a-dir/x.md" before "z-note.md" where os.walk yields z-note.md
+// first). T-41's reality-wins fix: the banishment scans' list order
+// rides the walk order, so the recursion is hand-rolled (the same shape
+// iterNoteFiles uses).
 func walkVault(vaultPath string, visit func(path, relRoot string)) {
-	_ = filepath.WalkDir(vaultPath, func(path string, d os.DirEntry, err error) error {
-		if err != nil {
-			return nil // never raises — the walk's own law
+	walkVaultDir(vaultPath, "", visit)
+}
+
+func walkVaultDir(dir, relRoot string, visit func(path, relRoot string)) {
+	entries, err := os.ReadDir(dir)
+	if err != nil {
+		return // never raises — the walk's own law
+	}
+	for _, e := range entries {
+		if e.IsDir() {
+			continue
 		}
-		if d.IsDir() {
-			if path == vaultPath {
-				return nil
-			}
-			name := d.Name()
-			if name == "_inbox" || strings.HasPrefix(name, ".") {
-				return filepath.SkipDir
-			}
-			return nil
+		if !strings.HasSuffix(strings.ToLower(e.Name()), ".md") {
+			continue
 		}
-		if !strings.HasSuffix(strings.ToLower(d.Name()), ".md") {
-			return nil
-		}
+		path := filepath.Join(dir, e.Name())
 		if !isFilePath(path) {
-			return nil
+			continue
 		}
-		rel, relErr := filepath.Rel(vaultPath, filepath.Dir(path))
-		if relErr != nil {
-			rel = "."
+		visit(path, relRoot)
+	}
+	for _, e := range entries {
+		if !e.IsDir() {
+			continue
 		}
-		rel = strings.ReplaceAll(rel, string(filepath.Separator), "/")
-		if rel == "." {
-			rel = ""
+		name := e.Name()
+		if name == "_inbox" || strings.HasPrefix(name, ".") {
+			continue
 		}
-		visit(path, rel)
-		return nil
-	})
+		sub := name
+		if relRoot != "" {
+			sub = relRoot + "/" + name
+		}
+		walkVaultDir(filepath.Join(dir, name), sub, visit)
+	}
 }
 
 func isFilePath(p string) bool {

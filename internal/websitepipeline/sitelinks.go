@@ -301,60 +301,76 @@ func baseName(path string) string {
 }
 
 // decodeUTF8Replace mirrors open(..., encoding='utf-8',
-// errors='replace') — invalid bytes become U+FFFD (Python's
-// maximal-subpart placement, matching the reference's own reads).
+// errors='replace') — invalid bytes become U+FFFD with Python's
+// maximal-subpart placement: each maximal invalid subpart (the longest
+// prefix that is still a prefix of some valid sequence) collapses into
+// ONE U+FFFD (notestate's own law, pinned byte-exact by its golden;
+// T-41's reality-wins fix — the previous version consumed only the
+// lead byte, emitting two U+FFFDs where Python emits one for a
+// truncated sequence like b"\xe2\x82"). A literal U+FFFD in the input
+// stays exactly the bytes it was.
 func decodeUTF8Replace(s string) string {
 	if utf8.ValidString(s) {
 		return s
 	}
 	var b strings.Builder
 	for i := 0; i < len(s); {
-		r, size := decodeRune(s[i:])
-		if r == 0xFFFD && size == 1 {
-			b.WriteRune(0xFFFD)
-			i++
+		r, size := utf8.DecodeRuneInString(s[i:])
+		if r != utf8.RuneError || size != 1 {
+			// Valid sequence — keep the original bytes.
+			b.WriteString(s[i : i+size])
+			i += size
 			continue
 		}
-		b.WriteString(s[i : i+size])
-		i += size
+		b.WriteRune(utf8.RuneError)
+		i += subpartLen(s[i:])
 	}
 	return b.String()
 }
 
-// decodeRune decodes one UTF-8 rune with Python's maximal-subpart
-// U+FFFD law (the webextract port's own readRune shape).
-func decodeRune(s string) (rune, int) {
-	if len(s) == 0 {
-		return 0xFFFD, 0
-	}
-	b := s[0]
-	if b < 0x80 {
-		return rune(b), 1
-	}
-	var n int
-	var r rune
+// subpartLen returns the length of the maximal invalid subpart starting
+// at s[0]: the lead byte plus however many following bytes are legal
+// continuations of a still-possibly-valid sequence (lead-specific range
+// for the first continuation, 0x80-0xBF for the rest). C0/C1 (overlong
+// 2-byte leads), 0x80-0xBF (bare continuations) and 0xF5-0xFF are
+// invalid leads on their own.
+func subpartLen(s string) int {
+	lead := s[0]
+	var expected int
 	switch {
-	case b&0xE0 == 0xC0:
-		n, r = 2, rune(b&0x1F)
-	case b&0xF0 == 0xE0:
-		n, r = 3, rune(b&0x0F)
-	case b&0xF8 == 0xF0:
-		n, r = 4, rune(b&0x07)
-	default:
-		return 0xFFFD, 1
+	case lead < 0xC2: // bare continuation, C0, C1
+		return 1
+	case lead < 0xE0: // C2-DF: one continuation
+		expected = 1
+	case lead < 0xF0: // E0-EF: two
+		expected = 2
+	case lead < 0xF5: // F0-F4: three
+		expected = 3
+	default: // F5-FF
+		return 1
 	}
-	if len(s) < n {
-		return 0xFFFD, 1
-	}
-	for i := 1; i < n; i++ {
-		if s[i]&0xC0 != 0x80 {
-			return 0xFFFD, 1
+	n := 1
+	for i := 1; i <= expected && i < len(s); i++ {
+		c := s[i]
+		if c < 0x80 || c > 0xBF {
+			break
 		}
-		r = r<<6 | rune(s[i]&0x3F)
+		// Lead-specific first-continuation ranges (anti-overlong and
+		// anti-surrogate): E0 needs A0-BF, ED needs 80-9F, F0 needs
+		// 90-BF, F4 needs 80-8F.
+		if i == 1 {
+			switch {
+			case lead == 0xE0 && c < 0xA0:
+				return n
+			case lead == 0xED && c > 0x9F:
+				return n
+			case lead == 0xF0 && c < 0x90:
+				return n
+			case lead == 0xF4 && c > 0x8F:
+				return n
+			}
+		}
+		n++
 	}
-	if (n == 2 && r < 0x80) || (n == 3 && r < 0x800) ||
-		(n == 4 && r < 0x10000) || r > 0x10FFFF || (r >= 0xD800 && r <= 0xDFFF) {
-		return 0xFFFD, 1
-	}
-	return r, n
+	return n
 }

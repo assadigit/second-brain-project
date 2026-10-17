@@ -385,8 +385,12 @@ func NewPipeline(config map[string]any, llmCall LLMCallFn,
 		// v0.28.0 — THE LAW, disk edition: any app-owned note whose
 		// source is on a banned domain leaves the library for
 		// .trash/banned-domains (website_directory's sweep — T-41's
-		// module; the seam stays honest until that task lands).
-		sweepBannedNotesSeam(p)
+		// directorynote.go; the seam is gone, the sweep is real).
+		// Runs on every batch; idempotent (the first run cleans
+		// history, later runs are no-ops).
+		if p.vaultPath != "" && isDirPath(p.vaultPath) {
+			p.sweepBannedNotesGuarded()
+		}
 	}
 	// Fetch politeness knobs are config-overridable.
 	p.fetchTimeoutS = pyFloatOr(p.config, "web_fetch_timeout_s", FetchTimeoutS)
@@ -513,14 +517,20 @@ func resolveTaxonomyPath(config map[string]any) string {
 	return "taxonomy/website-library-categories.md"
 }
 
-// sweepBannedNotesSeam is the v0.28.0 disk-edition seam: the
-// banned-domains note sweep lives in website_directory (T-41's
-// directorynote module, not yet ported). Until T-41 lands the seam is
-// a documented no-op with the state-side purge enforced above — the
-// DB law (never collected) holds; the furniture sweep (notes of since-
-// banned domains already in the vault) is T-41's first order of
-// business. Recorded in doc.go.
-func sweepBannedNotesSeam(p *Pipeline) {}
+// sweepBannedNotesGuarded runs the v0.28.0 disk sweep wrapped in the
+// reference's blanket except ("⚠️ Banned-domain sweep skipped: …") —
+// bookkeeping never kills a batch. The pinned shape is the fallback
+// (a warning line, the batch continues), never the rendered exception
+// text (the package's standing divergence record: Go renders the
+// recovered value, Python renders the exception class + message).
+func (p *Pipeline) sweepBannedNotesGuarded() {
+	defer func() {
+		if r := recover(); r != nil {
+			p.log(fmt.Sprintf("⚠️ Banned-domain sweep skipped: %v", r), "warning")
+		}
+	}()
+	SweepBannedNotes(p.vaultPath, p.blockedDomains, p.log)
+}
 
 // BanishedURLs / BanishGate expose the run's verdict + tally.
 func (p *Pipeline) BanishedURLs() []string { return p.banishedURLs }

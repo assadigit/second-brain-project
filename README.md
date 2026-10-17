@@ -66,8 +66,21 @@ run tally + the settlement + the four batch drivers; the table
 grammar floor (decomtable), the handdelivery consumption surface, and
 the directorysync banish-gate helpers carved as the dependency
 floors T-43/T-49 complete; the DIFFERENTIAL GOLDEN (51 sections,
-frozen clocks, generated from the unmodified reference). 910 tests
-race-clean. Next: T-41 directorynote.
+frozen clocks, generated from the unmodified reference). **T-41
+`internal/websitepipeline/directorynote.go` (SESSION-016) — THE LAW
+sweep + the Website Directory regeneration** (spec-core-website-
+directory.md, the standalone spec the task list had always
+referenced): sweep_banned_notes (app-owned notes on banned domains →
+.trash/banned-domains; the banned platforms' _inbox tables quarantine
+whole) + build_website_directory (the `000 📚 Website Directory.md`
+regeneration — taxonomy-ordered categories/subcategories, the ≤80
+alias / ≤140 TL;DR trims, the full-lowercase sort keys, the _review
+todo callout) + the constructor's real sweep (the T-40 seam closed);
+THE OUTPUT GOLDEN (33 sections, byte-compared, generated from the
+unmodified reference) — and three reality-wins fixes the golden forced
+in the shared primitives (universal newlines in readHeadRunes,
+maximal-subpart U+FFFD in decodeUTF8Replace, files-before-subdirs in
+walkVault). 938 tests race-clean. Next: T-42 githubpipeline + batch.
 
 ## Map
 

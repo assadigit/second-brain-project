@@ -84,9 +84,11 @@
 //   - internal/directorysync ships the banish-gate helpers (LoadBanish-
 //     List / IsBanished / DefaultSharedHosts) — T-49 owns the rest.
 //   - the v0.28.0 banned-domains DISK sweep (website_directory's
-//     sweep_banned_notes) is a documented seam (sweepBannedNotesSeam)
-//     until T-41 lands directorynote; the state-side purge (the DB
-//     law) is enforced now.
+//     sweep_banned_notes) LANDED with T-41 (directorynote.go) — the
+//     documented no-op seam (sweepBannedNotesSeam) is gone; the
+//     constructor now runs the real sweep (guarded by the reference's
+//     blanket except) and the state-side purge (the DB law) is enforced
+//     as before.
 //
 // THE DIVERGENCES from the Python law, deliberate and documented
 // (T-40's own list — T-23's list above carries unchanged):
@@ -116,6 +118,47 @@
 //   - os.walk's pruned traversal (the banishment scans): filepath.
 //     WalkDir with _inbox/dot-folder SkipDir — same deterministic
 //     order (sorted dirs, files before subdirs at each level).
+//
+// ============================================================================
+// T-41 (SESSION-016) — directorynote.go: core/website_directory.py's
+// two jobs (THE LAW sweep + the Website Directory regeneration).
+// ============================================================================
+//
+// THE WALK (iterNoteFiles): a hand-rolled recursion, NOT WalkDir —
+// os.walk yields each directory's own files (sorted) before ANY of its
+// subdirectories' files, while WalkDir interleaves files and dirs
+// lexically; the sweep's `moved` list order rides the walk order, so
+// the order is part of the contract. Dot-folders and the skip-set
+// folders are pruned; dot-FILES ride the file list (only directories
+// carry the dot rule); the directory note itself is excluded by name.
+// A symlinked directory rides Python's dirs list (DirEntry.is_dir()
+// FOLLOWS links) and followlinks=False never descends it — the
+// isFilePath guard reproduces that (never yielded, never scanned);
+// a symlinked FILE is yielded like any other file.
+//
+// THE REGEXES: Python's Unicode \s class (pyWS) — U+00A0, \x1c-\x1f
+// and the space separators are whitespace to the reference's frontmatter
+// and TL;DR/H1 parses; Go's ASCII \s would leave them attached to
+// values. Case mappings ride helpers.PyLower (Python's FULL lower —
+// İ → i+U+0307, final sigma ς — the sort keys and the .md suffix checks
+// are byte-parity facts, not approximations).
+//
+// T-41's DIVERGENCES (beyond the package's standing list):
+//
+//   - the OSError warning lines (the sweep's per-move failures, the
+//     directory write failure, the constructor's sweep-skip guard)
+//     render Go's error text where Python renders its OSError str —
+//     log-only, the same standing divergence as the unexpected-
+//     exception path (the SHAPE is pinned, never the rendered text).
+//   - _category_order's None-key tail is dead code in the reference
+//     (tree keys are always strings) and is not ported.
+//   - the quarantine relpath in the sweep's log line is the literal
+//     ".trash/banned-domains" — the reference's own
+//     QUARANTINE_RELPATH.replace(os.sep, '/') renders exactly that on
+//     every platform.
+//   - storage gained PySplitExt (the exported os.path.splitext twin —
+//     the directory title fallback needed the primitive; promote,
+//     never duplicate).
 //
 // THE STANDING LAWS, honored here: atomic saves through the house
 // writer everywhere; the dry-run seam at every file mutation

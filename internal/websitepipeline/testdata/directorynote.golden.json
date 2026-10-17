@@ -1,0 +1,997 @@
+{
+  "alias_safe": [
+    [
+      "Plain Title",
+      "Plain Title"
+    ],
+    [
+      "[Wiki] Broken | Alias^#Chars",
+      "Wiki Broken  AliasChars"
+    ],
+    [
+      "  spaced out  ",
+      "spaced out"
+    ],
+    [
+      "[]|^#",
+      ""
+    ],
+    [
+      "",
+      ""
+    ],
+    [
+      "Emoji 📚 Title",
+      "Emoji 📚 Title"
+    ]
+  ],
+  "build_all_banned": {
+    "logs": [],
+    "report": null
+  },
+  "build_config_extras": {
+    "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 1 website(s) across 1 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Alpha Cat (1)\n\n### Only Sub (1)\n\n- [[Alpha/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+    "logs": [],
+    "report": {
+      "categories": 1,
+      "path": "/tmp/dirgolden-5yckl6v1/build-config_extras/000 📚 Website Directory.md",
+      "review": 0,
+      "sites": 1
+    }
+  },
+  "build_config_load": {
+    "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 1 website(s) across 1 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Alpha Cat (1)\n\n### Only Sub (1)\n\n- [[Alpha/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+    "logs": [],
+    "report": {
+      "categories": 1,
+      "path": "/tmp/dirgolden-5yckl6v1/build-config_load/000 📚 Website Directory.md",
+      "review": 0,
+      "sites": 1
+    }
+  },
+  "build_config_load_failure": {
+    "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 1 website(s) across 1 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Alpha Cat (1)\n\n### Assets & Resources (1)\n\n- [[Alpha/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+    "logs": [],
+    "report": {
+      "categories": 1,
+      "path": "/tmp/dirgolden-5yckl6v1/build-config_load_failure/000 📚 Website Directory.md",
+      "review": 0,
+      "sites": 1
+    }
+  },
+  "build_empty_vault": {
+    "logs": [],
+    "report": null
+  },
+  "build_handwritten_only": {
+    "logs": [],
+    "report": null
+  },
+  "build_main": {
+    "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 25 website(s) across 5 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Zeta Cat (19)\n\n### Sub Two (8)\n\n- [[Trims/AliasChars|Wiki  BrokenAlias]] — Alias chars stripped — free — [↗](https://aliaschars.example/)\n- [[Trims/LongTitle|A Very Long Title Indeed…]] — The alias cap applies — free — [↗](https://longtitle.example/)\n- [[Design/Sub_Two/First|First Site]] — The first site of all — free — [↗](https://first.example/)\n- [[Trims/LongTldr|Long TLDR]] — word word word word word word word word word word word word word word word word word word word word word word word word word word word word… — free — [↗](https://longtldr.example/)\n- [[Trims/NoTldr|No TLDR Note]] — free — [↗](https://notldr.example/)\n- [[Trims/NoTitle|NoTitle]] — title falls back to filename — free — [↗](https://notitle.example/)\n- [[Design/Sub_Two/Second|second site]] — lowercase title sorts first — freemium — [↗](https://second.example/)\n- [[Trims/WeirdPricing|Weird Pricing]] — Pricing word omitted — [↗](https://weirdpricing.example/)\n\n### Sub Ten (1)\n\n- [[Design/Sub_Ten/Deep|Deep Site]] — Under a later subcategory — paid — [↗](https://deep.example/)\n\n### Sub One (8)\n\n- [[Sorts/I|I]] — Plain capital I — free — [↗](https://i-plain.example/)\n- [[Sorts/1_I|İ]] — Bare dotted capital I — free — [↗](https://i-dot.example/)\n- [[Sorts/Istanbul|İstanbul]] — Turkish dotted capital I — free — [↗](https://istanbul.example/)\n- [[Design/Sub_One/Only|Only Sub One]] — One note — free — [↗](https://only.example/)\n- [[Sorts/Same|Same Title]] — Same title different paths A — free — [↗](https://same-a.example/)\n- [[Sorts/sub/Same|Same Title]] — Same title different paths B — free — [↗](https://same-b.example/)\n- [[Sorts/Odos|οδος]] — Greek lowercase — free — [↗](https://odos-lower.example/)\n- [[Sorts/odos|ΟΔΟΣ]] — Greek capitals ending in sigma — free — [↗](https://odos-upper.example/)\n\n### A Leftover Sub (1)\n\n- [[Design/LeftoverSub|Leftover Sub Note]] — Not in the taxonomy — free — [↗](https://leftsub.example/)\n\n- [[Design/NoSub|No Subcategory]] — Rides the empty-key group — free — [↗](https://nosub.example/)\n\n## Alpha Cat (2)\n\n### Only Sub (1)\n\n- [[Alpha/Only_Sub/AlphaOne|Alpha One]] — First category, first sub — free — [↗](https://alphaone.example/)\n\n### Bold Sub (1)\n\n- [[Alpha/Bold_Sub/BoldOne|Bold Sub Note]] — A defined subcategory — free — [↗](https://bold.example/)\n\n## Middle Cat (1)\n\n### Assets & Resources (1)\n\n- [[Middle/MiddleOne|Middle Note]] — No subcategories in taxonomy — free — [↗](https://middleone.example/)\n\n## Leftover Category (1)\n\n### Assets & Resources (1)\n\n- [[Leftovers/LeftoverCat|Leftover Cat Note]] — Not in the taxonomy at all — free — [↗](https://leftcat.example/)\n\n## Uncategorized (2)\n\n### Assets & Resources (2)\n\n- [[Uncat/BlankCat|Blank Category]] — Whitespace category is Uncategorized too — free — [↗](https://blankcat.example/)\n- [[Uncat/NoCat|No Category Given]] — Falls back to Uncategorized — free — [↗](https://nocat.example/)\n\n> [!todo] 📥 2 link(s) still waiting in `_review/` (fetch failed / needs a look) — they join this directory once processed.\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+    "logs": [],
+    "report": {
+      "categories": 5,
+      "path": "/tmp/dirgolden-5yckl6v1/build-main/000 📚 Website Directory.md",
+      "review": 2,
+      "sites": 25
+    }
+  },
+  "build_missing_vault": {
+    "logs": [],
+    "report": null
+  },
+  "build_no_taxonomy": {
+    "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 2 website(s) across 2 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Alpha Comes First (1)\n\n### Assets & Resources (1)\n\n- [[Alpha/Two|Two]] — A test page. — free — [↗](https://two.example/)\n\n## Zeta Sorts Last Here (1)\n\n### Assets & Resources (1)\n\n- [[Zeta/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+    "logs": [],
+    "report": {
+      "categories": 2,
+      "path": "/tmp/dirgolden-5yckl6v1/build-no_taxonomy/000 📚 Website Directory.md",
+      "review": 0,
+      "sites": 2
+    }
+  },
+  "build_real_taxonomy": {
+    "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 4 website(s) across 3 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Design (2)\n\n### Assets & Resources (2)\n\n- [[Design/Assets_Resources/Coolors|Coolors]] — Color palette maker with generators and export — freemium — [↗](https://coolors.co/)\n- [[Design/Assets_Resources/Reverse_UI|Reverse UI]] — 68 animated web UI components, copy-paste Tailwind — free — [↗](https://reverseui.com/)\n\n## Security & Privacy Tools (1)\n\n### Assets & Resources (1)\n\n- [[Security/HaveIBeenPwned|HaveIBeenPwned]] — Breach checker for your accounts — paid — [↗](https://haveibeenpwned.com/)\n\n## Random / Curiosities (1)\n\n### Assets & Resources (1)\n\n- [[Random/Curiosity|A Curiosity]] — Odd but lovely — free — [↗](https://curiosity.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+    "logs": [],
+    "report": {
+      "categories": 3,
+      "path": "/tmp/dirgolden-5yckl6v1/build-real/000 📚 Website Directory.md",
+      "review": 0,
+      "sites": 4
+    }
+  },
+  "build_regenerate": {
+    "first": {
+      "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 1 website(s) across 1 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Zeta Cat (1)\n\n### Sub Two (1)\n\n- [[Design/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+      "report": {
+        "categories": 1,
+        "path": "/tmp/dirgolden-5yckl6v1/build-regenerate/000 📚 Website Directory.md",
+        "review": 0,
+        "sites": 1
+      }
+    },
+    "identical": true,
+    "second": {
+      "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 1 website(s) across 1 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Zeta Cat (1)\n\n### Sub Two (1)\n\n- [[Design/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+      "report": {
+        "categories": 1,
+        "path": "/tmp/dirgolden-5yckl6v1/build-regenerate/000 📚 Website Directory.md",
+        "review": 0,
+        "sites": 1
+      }
+    }
+  },
+  "build_uncategorized_only": {
+    "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 1 website(s) across 1 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Design (1)\n\n### Assets & Resources (1)\n\n- [[Root/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
+    "logs": [],
+    "report": {
+      "categories": 1,
+      "path": "/tmp/dirgolden-5yckl6v1/build-uncat_only/000 📚 Website Directory.md",
+      "review": 0,
+      "sites": 1
+    }
+  },
+  "category_order": {
+    "empty_name_excluded": [
+      "Named"
+    ],
+    "no_taxonomy": [
+      "Alpha",
+      "Beta",
+      "Gamma"
+    ],
+    "with_taxonomy": [
+      "Zeta Cat",
+      "Alpha Cat",
+      "Middle Cat",
+      "Leftover A",
+      "Leftover B"
+    ]
+  },
+  "constants": {
+    "DIRECTORY_FILENAME": "000 📚 Website Directory.md",
+    "MANAGED_BY": "gitcurator",
+    "QUARANTINE_RELPATH": ".trash/banned-domains",
+    "SKIP_DIRS": [
+      ".git",
+      ".obsidian",
+      ".trash",
+      "_inbox",
+      "_missing",
+      "_moc",
+      "_review",
+      "attachments"
+    ],
+    "SKIP_DIRS_SWEEP": [
+      ".git",
+      ".obsidian",
+      ".trash",
+      "_inbox"
+    ],
+    "TITLE_MAX": 80,
+    "TLDR_MAX": 140
+  },
+  "count_review": {
+    "missing": 0,
+    "mixed": 3
+  },
+  "iter_walk": {
+    "directory": [
+      ".hidden.md",
+      "link-file.md",
+      "m-note.md",
+      "zNote.md",
+      "a-dir/inner.md",
+      "a-dir/z-inner.md",
+      "b-dir/N2.MD",
+      "b-dir/n1.md",
+      "sub/deep.md"
+    ],
+    "sweep": [
+      ".hidden.md",
+      "link-file.md",
+      "m-note.md",
+      "zNote.md",
+      "_missing/m.md",
+      "_moc/m.md",
+      "_review/r.md",
+      "a-dir/inner.md",
+      "a-dir/z-inner.md",
+      "attachments/a.md",
+      "b-dir/N2.MD",
+      "b-dir/n1.md",
+      "sub/deep.md"
+    ]
+  },
+  "parse_note": {
+    "canonical.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "Test Site",
+      "tldr": "A test page."
+    },
+    "cr_only.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "Test Site",
+      "tldr": "A test page."
+    },
+    "crlf.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "Test Site",
+      "tldr": "A test page."
+    },
+    "dashed_key.md": {
+      "app_owned": false,
+      "category": "Design",
+      "fetch_status": "",
+      "pricing": "unknown",
+      "source": "",
+      "subcategory": "",
+      "title": "T",
+      "tldr": ""
+    },
+    "dashes_only.md": {
+      "app_owned": false,
+      "category": "",
+      "fetch_status": "",
+      "pricing": "unknown",
+      "source": "",
+      "subcategory": "",
+      "title": "",
+      "tldr": ""
+    },
+    "dup_keys.md": {
+      "app_owned": false,
+      "category": "Second",
+      "fetch_status": "",
+      "pricing": "unknown",
+      "source": "",
+      "subcategory": "",
+      "title": "T",
+      "tldr": ""
+    },
+    "empty.md": null,
+    "empty_value.md": {
+      "app_owned": false,
+      "category": "Design",
+      "fetch_status": "",
+      "pricing": "unknown",
+      "source": "",
+      "subcategory": "",
+      "title": "T",
+      "tldr": ""
+    },
+    "fm_no_close.md": null,
+    "h1_h2.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "Real H1",
+      "tldr": "x"
+    },
+    "h1_no_space.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "",
+      "tldr": "x"
+    },
+    "invalid_utf8.md": {
+      "app_owned": false,
+      "category": "Bad�",
+      "fetch_status": "",
+      "pricing": "unknown",
+      "source": "https://bad.example/�",
+      "subcategory": "",
+      "title": "Bad �Bytes",
+      "tldr": "invalid"
+    },
+    "missing_file": null,
+    "newline_first.md": null,
+    "no_colon.md": {
+      "app_owned": false,
+      "category": "Design",
+      "fetch_status": "",
+      "pricing": "unknown",
+      "source": "",
+      "subcategory": "",
+      "title": "T",
+      "tldr": ""
+    },
+    "no_frontmatter.md": null,
+    "only_openers.md": {
+      "app_owned": false,
+      "category": "",
+      "fetch_status": "",
+      "pricing": "unknown",
+      "source": "",
+      "subcategory": "",
+      "title": "Just A Heading",
+      "tldr": ""
+    },
+    "quoted.md": {
+      "app_owned": false,
+      "category": "Double Quoted",
+      "fetch_status": "",
+      "pricing": "mixed",
+      "source": "https://single.example/",
+      "subcategory": "no_quotes_here",
+      "title": "T",
+      "tldr": ""
+    },
+    "read_cap.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://big.example/",
+      "subcategory": "Assets & Resources",
+      "title": "Early Heading",
+      "tldr": ""
+    },
+    "rule_line.md": {
+      "app_owned": false,
+      "category": "Design",
+      "fetch_status": "",
+      "pricing": "unknown",
+      "source": "https://rules.example/",
+      "subcategory": "",
+      "title": "Rule Note",
+      "tldr": "rules"
+    },
+    "tldr_emdash.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "Test Site",
+      "tldr": ""
+    },
+    "tldr_first_wins.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "T",
+      "tldr": "first"
+    },
+    "tldr_hyphen.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "Test Site",
+      "tldr": ""
+    },
+    "tldr_indent.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "T",
+      "tldr": "two spaces after the quote"
+    },
+    "tldr_missing.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "Title Only",
+      "tldr": ""
+    },
+    "tldr_ws_only.md": {
+      "app_owned": true,
+      "category": "Design",
+      "fetch_status": "full",
+      "pricing": "free",
+      "source": "https://example.com/",
+      "subcategory": "Assets & Resources",
+      "title": "T",
+      "tldr": "more"
+    },
+    "unicode_ws.md": {
+      "app_owned": false,
+      "category": "A B",
+      "fetch_status": "",
+      "pricing": "free",
+      "source": "",
+      "subcategory": "",
+      "title": "T",
+      "tldr": ""
+    }
+  },
+  "sweep_collision": {
+    "logs": [
+      [
+        "info",
+        "🧹 Law sweep: moved 2 banned-domain note(s) to .trash/banned-domains — the manifest's blocked bucket is the record"
+      ]
+    ],
+    "quarantine": [
+      "x_com_1.md",
+      "x_com_1_v1.md"
+    ],
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [
+        [
+          "https://x.com/1b",
+          "/tmp/dirgolden-5yckl6v1/sweep-collision/Design/x_com_1.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-collision/.trash/banned-domains/x_com_1.md"
+        ],
+        [
+          "https://x.com/1",
+          "/tmp/dirgolden-5yckl6v1/sweep-collision/_review/x_com_1.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-collision/.trash/banned-domains/x_com_1_v1.md"
+        ]
+      ],
+      "moved_tables": [],
+      "scanned": 2
+    }
+  },
+  "sweep_dryrun": {
+    "file_kept": true,
+    "logs": [
+      [
+        "info",
+        "🧹 Law sweep: moved 1 banned-domain note(s) to .trash/banned-domains — the manifest's blocked bucket is the record"
+      ],
+      [
+        "info",
+        "🧹 Law sweep: quarantined 4 banned-platform table(s) (_inbox/huggingface_links.md, _inbox/linkedin_links.md, _inbox/x_twitter_links.md, _inbox/youtube_links.md) — those platforms are never collected (notes or review) anymore"
+      ]
+    ],
+    "quarantine": null,
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [
+        [
+          "https://x.com/1",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_review/x_com_1.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/x_com_1.md"
+        ]
+      ],
+      "moved_tables": [
+        [
+          "x_twitter",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_inbox/x_twitter_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/x_twitter_links.md"
+        ],
+        [
+          "youtube",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_inbox/youtube_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/youtube_links.md"
+        ],
+        [
+          "linkedin",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_inbox/linkedin_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/linkedin_links.md"
+        ],
+        [
+          "huggingface",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_inbox/huggingface_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/huggingface_links.md"
+        ]
+      ],
+      "scanned": 1
+    },
+    "table_kept": true
+  },
+  "sweep_empty_blocked": {
+    "file_kept": true,
+    "logs": [],
+    "quarantine": null,
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [],
+      "moved_tables": [],
+      "scanned": 0
+    }
+  },
+  "sweep_handwritten": {
+    "logs": [
+      [
+        "info",
+        "✍️ Law sweep: 1 hand-written note(s) with banned sources kept — they are yours; delete them by hand if you want them gone"
+      ]
+    ],
+    "notes_left": [
+      "my_own_x_thread.md"
+    ],
+    "quarantine": null,
+    "report": {
+      "kept_handwritten": 1,
+      "moved": [],
+      "moved_tables": [],
+      "scanned": 2
+    }
+  },
+  "sweep_legacy_pile": {
+    "design_left": [
+      "Real_Site.md"
+    ],
+    "logs": [
+      [
+        "info",
+        "🧹 Law sweep: moved 3 banned-domain note(s) to .trash/banned-domains — the manifest's blocked bucket is the record"
+      ]
+    ],
+    "quarantine": [
+      "x_com_i_status_2011934783064826.md",
+      "x_com_i_status_2011943712111707.md",
+      "x_com_i_status_2011947543668256.md"
+    ],
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [
+        [
+          "https://x.com/i/status/2011934783064826",
+          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/_review/x_com_i_status_2011934783064826.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011934783064826.md"
+        ],
+        [
+          "https://x.com/i/status/2011943712111707",
+          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/_review/x_com_i_status_2011943712111707.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011943712111707.md"
+        ],
+        [
+          "https://x.com/i/status/2011947543668256",
+          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/_review/x_com_i_status_2011947543668256.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011947543668256.md"
+        ]
+      ],
+      "moved_tables": [],
+      "scanned": 4
+    },
+    "review_left": []
+  },
+  "sweep_missing_vault": {
+    "logs": [],
+    "quarantine": null,
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [],
+      "moved_tables": [],
+      "scanned": 0
+    }
+  },
+  "sweep_order_pin": {
+    "logs": [
+      [
+        "info",
+        "🧹 Law sweep: quarantined 6 banned-platform table(s) (_inbox/arxiv_links.md, _inbox/huggingface_links.md, _inbox/linkedin_links.md, _inbox/package_registry_links.md, _inbox/x_twitter_links.md, _inbox/youtube_links.md) — those platforms are never collected (notes or review) anymore"
+      ]
+    ],
+    "quarantine": [
+      "arxiv_links.md",
+      "huggingface_links.md",
+      "linkedin_links.md",
+      "package_registry_links.md",
+      "x_twitter_links.md",
+      "youtube_links.md"
+    ],
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [],
+      "moved_tables": [
+        [
+          "x_twitter",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/x_twitter_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/x_twitter_links.md"
+        ],
+        [
+          "youtube",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/youtube_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/youtube_links.md"
+        ],
+        [
+          "linkedin",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/linkedin_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/linkedin_links.md"
+        ],
+        [
+          "huggingface",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/huggingface_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/huggingface_links.md"
+        ],
+        [
+          "arxiv",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/arxiv_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/arxiv_links.md"
+        ],
+        [
+          "package_registry",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/package_registry_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/package_registry_links.md"
+        ]
+      ],
+      "scanned": 0
+    }
+  },
+  "sweep_partial_ban": {
+    "inbox_left": [
+      "arxiv_links.md",
+      "huggingface_links.md",
+      "linkedin_links.md",
+      "medium_links.md",
+      "other_links.md",
+      "package_registry_links.md",
+      "reddit_links.md",
+      "youtube_links.md"
+    ],
+    "logs": [
+      [
+        "info",
+        "🧹 Law sweep: quarantined 1 banned-platform table(s) (_inbox/x_twitter_links.md) — those platforms are never collected (notes or review) anymore"
+      ]
+    ],
+    "quarantine": [
+      "x_twitter_links.md"
+    ],
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [],
+      "moved_tables": [
+        [
+          "x_twitter",
+          "/tmp/dirgolden-5yckl6v1/sweep-partial_ban/_inbox/x_twitter_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-partial_ban/.trash/banned-domains/x_twitter_links.md"
+        ]
+      ],
+      "scanned": 0
+    }
+  },
+  "sweep_platform_tables": {
+    "inbox_left": [
+      "arxiv_links.md",
+      "medium_links.md",
+      "other_links.md",
+      "package_registry_links.md",
+      "reddit_links.md"
+    ],
+    "logs": [
+      [
+        "info",
+        "🧹 Law sweep: quarantined 4 banned-platform table(s) (_inbox/huggingface_links.md, _inbox/linkedin_links.md, _inbox/x_twitter_links.md, _inbox/youtube_links.md) — those platforms are never collected (notes or review) anymore"
+      ]
+    ],
+    "quarantine": [
+      "huggingface_links.md",
+      "linkedin_links.md",
+      "x_twitter_links.md",
+      "youtube_links.md"
+    ],
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [],
+      "moved_tables": [
+        [
+          "x_twitter",
+          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/_inbox/x_twitter_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/.trash/banned-domains/x_twitter_links.md"
+        ],
+        [
+          "youtube",
+          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/_inbox/youtube_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/.trash/banned-domains/youtube_links.md"
+        ],
+        [
+          "linkedin",
+          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/_inbox/linkedin_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/.trash/banned-domains/linkedin_links.md"
+        ],
+        [
+          "huggingface",
+          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/_inbox/huggingface_links.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/.trash/banned-domains/huggingface_links.md"
+        ]
+      ],
+      "scanned": 0
+    }
+  },
+  "sweep_real_notes": {
+    "left": [
+      ".trash/banned-domains/hf_note.md",
+      ".trash/banned-domains/ig_note.md",
+      ".trash/banned-domains/tco_note.md"
+    ],
+    "logs": [
+      [
+        "info",
+        "🧹 Law sweep: moved 3 banned-domain note(s) to .trash/banned-domains — the manifest's blocked bucket is the record"
+      ]
+    ],
+    "quarantine": [
+      "hf_note.md",
+      "ig_note.md",
+      "tco_note.md"
+    ],
+    "report": {
+      "kept_handwritten": 0,
+      "moved": [
+        [
+          "https://huggingface.co/org/model",
+          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/AI_Tools_(General)/hf_note.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/.trash/banned-domains/hf_note.md"
+        ],
+        [
+          "https://t.co/abc",
+          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/Design/Tools/tco_note.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/.trash/banned-domains/tco_note.md"
+        ],
+        [
+          "https://www.instagram.com/p/xyz/",
+          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/Random__Curiosities/ig_note.md",
+          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/.trash/banned-domains/ig_note.md"
+        ]
+      ],
+      "moved_tables": [],
+      "scanned": 3
+    }
+  },
+  "sweep_scanned": {
+    "logs": [
+      [
+        "info",
+        "✍️ Law sweep: 1 hand-written note(s) with banned sources kept — they are yours; delete them by hand if you want them gone"
+      ]
+    ],
+    "quarantine": null,
+    "report": {
+      "kept_handwritten": 1,
+      "moved": [],
+      "moved_tables": [],
+      "scanned": 4
+    }
+  },
+  "sweep_twice": {
+    "first": {
+      "logs": [
+        [
+          "info",
+          "🧹 Law sweep: moved 1 banned-domain note(s) to .trash/banned-domains — the manifest's blocked bucket is the record"
+        ]
+      ],
+      "quarantine": [
+        "x_com_1.md"
+      ],
+      "report": {
+        "kept_handwritten": 0,
+        "moved": [
+          [
+            "https://x.com/1",
+            "/tmp/dirgolden-5yckl6v1/sweep-twice/_review/x_com_1.md",
+            "/tmp/dirgolden-5yckl6v1/sweep-twice/.trash/banned-domains/x_com_1.md"
+          ]
+        ],
+        "moved_tables": [],
+        "scanned": 1
+      }
+    },
+    "quarantine": [
+      "x_com_1.md"
+    ],
+    "second_logs": [],
+    "second_report": {
+      "kept_handwritten": 0,
+      "moved": [],
+      "moved_tables": [],
+      "scanned": 0
+    }
+  },
+  "taxonomy": {
+    "real_parsed": [
+      [
+        "Design",
+        [
+          "Assets & Resources",
+          "Background Removal & Image Editors",
+          "Backgrounds & SVG Generators",
+          "Branding & Identity",
+          "Color Palettes & Tools",
+          "Gradients & Color Assets",
+          "Icons & SVG Assets",
+          "Image Edit & Background Tools",
+          "Mockups & Templates PSD",
+          "UI Design Inspiration",
+          "UI/UX & Product Design"
+        ]
+      ],
+      [
+        "AI Tools for Web & App Development",
+        [
+          "AI UI/Design Generation",
+          "AI Coding Assistants",
+          "AI Prototyping / No-Code"
+        ]
+      ],
+      [
+        "AI Tools (General)",
+        [
+          "AI Writing & Content",
+          "AI Research & Search Assistants",
+          "AI Audio & Voice Generation"
+        ]
+      ],
+      [
+        "Developer Tools",
+        []
+      ],
+      [
+        "Free Utilities & Everyday Tools",
+        []
+      ],
+      [
+        "Knowledge, Research & Reference",
+        []
+      ],
+      [
+        "Download Resources",
+        [
+          "Public Archives & Libraries",
+          "Torrent & Shadow Libraries"
+        ]
+      ],
+      [
+        "Music & Audio Discovery",
+        []
+      ],
+      [
+        "Security & Privacy Tools",
+        []
+      ],
+      [
+        "Crypto & Markets",
+        []
+      ],
+      [
+        "English Learning & Career Prep",
+        []
+      ],
+      [
+        "Geography & Urban Planning",
+        [
+          "Urban Planning Courses & Learning",
+          "Maps, GIS & Data Tools",
+          "Case Studies & Reference"
+        ]
+      ],
+      [
+        "Living Abroad",
+        [
+          "Australia"
+        ]
+      ],
+      [
+        "Random / Curiosities",
+        []
+      ]
+    ],
+    "real_source": "# Website Library — Category System\n\n## How this works\n- Two mirrored roots in the vault: `Websites/` (bookmarked links) and `Notes/` (your own writing, reflections, and evaluations) — same category names under both, so a bookmark and your own note on the same topic never conflict or compete for the same folder.\n- Maximum two folder levels: **Category → Subcategory**. Anything more specific becomes a tag instead of a folder.\n- GitHub repo links (exact domain `github.com`) are excluded entirely from this system — your separate GitHub Project Curator app handles those. `GitHub Projects/` is reserved as its own top-level folder in the same vault.\n\n## The domain law (owner, 2026-10-01 — v0.28.0; second reading 2026-10-05 — v0.35.0)\n**Banned from this Websites vault, always:** X/Twitter (`x.com`, `twitter.com`, `t.co`), the whole GitHub group (`github.com`, `gist.github.com`, `*.github.io`, `githubusercontent.com`), HuggingFace (`huggingface.co`, `hf.co`), Instagram, Facebook, and LinkedIn — **plus the v0.35.0 extension:** the whole YouTube group (`youtube.com`, `youtu.be`, `youtube-nocookie.com`), the Google share/drive/docs family (`share.google`, `drive.google.com`, `docs.google.com` — docs/sheets/slides, `forms.google.com`), and the social-media majors (TikTok, Threads, Snapchat, Pinterest, Twitch, Discord, Telegram `t.me`, WhatsApp, VK, Bluesky, Weibo). Only real websites (and GitHub, via its own pipeline) are ever curated. Banned links are never fetched, never turned into notes, never retried, and — v0.35.0 — never collected in the `_inbox` review-queue tables either: no note, no review, no row. Any legacy note or platform table is swept to `.trash/banned-domains` on the next run. This is law, not a setting: the \"Blocked domains\" field in Settings can only ADD domains. Deliberately still allowed: Reddit and Medium (content platforms), arXiv and the package registries.\n\n---\n\n## Categories\n\n### Design 🌐 *(public-directory candidate — the folder tree below is the vault's own, evolved by the LLM + owner review)*\n- **Assets & Resources** — general downloadable/usable design assets\n- **Background Removal & Image Editors** — background removers, upscalers, and image editors\n- **Backgrounds & SVG Generators** — background generators and SVG pattern tools\n- **Branding & Identity** — logo tools, brand guidelines\n- **Color Palettes & Tools** — palette generators, pickers, and color tools\n- **Gradients & Color Assets** — gradient generators and color asset libraries\n- **Icons & SVG Assets** — icon sets and SVG asset libraries\n- **Image Edit & Background Tools** — general-purpose image editing utilities\n- **Mockups & Templates PSD** — mockups, templates, and PSD resources\n- **UI Design Inspiration** — galleries and inspiration for UI design\n- **UI/UX & Product Design** — process: design systems, UX writing, wireframing/prototyping\n\n*(v0.88.0 — the vault's Design tree grew from 4 declared subfolders to\nthese 11 real ones under LLM + owner review; \"Print & Editorial Design\"\nnever materialized on disk and was retired. The published directory's\ncategory tree now mirrors the vault's folders exactly — a declared\nfolder with no notes never publishes, an undeclared folder publishes\nwith safe defaults until it is declared here.)*\n\nExample tags: `#icons` `#mockup` `#illustration` `#vector` `#font` `#color-tool` `#gradient` `#ui-kit` `#free` `#paid` `#svg` `#3d-mockup` `#farsi-font` `#ai-powered` `#inspiration` `#design-system` `#ux-writing` `#wireframing` `#dark-mode` `#landing-page` `#mobile` `#dashboard` `#accessibility` `#brochure` `#catalogue` `#print-template` `#logo` `#brand-guideline`\n\n### AI Tools for Web & App Development 🌐 *(public-directory candidate)*\n- AI UI/Design Generation\n- AI Coding Assistants\n- AI Prototyping / No-Code\n\nExample tags: `#ui-generation` `#code-gen` `#no-code`\n\n### AI Tools (General)\n- AI Writing & Content\n- AI Research & Search Assistants\n- AI Audio & Voice Generation\n\nExample tags: `#tts` `#voice-cloning` `#research-ai`\n\n### Developer Tools\n*(no subcategories)*\nExample tags: `#cli` `#testing` `#formatting` `#reference`\n\n### Free Utilities & Everyday Tools\n*(no subcategories)*\nExample tags: `#pdf` `#converter` `#speed-test`\n\n### Knowledge, Research & Reference\n*(no subcategories)* — also the home for general, multi-topic learning platforms (Coursera, Udemy, Khan Academy). Tag with `#course`.\nExample tags: `#data` `#academic` `#archive` `#course`\n\n### Download Resources 🔒 *(the Torrent & Shadow Libraries subfolder is private)*\n- **Public Archives & Libraries** — legitimate, public-domain (Gutenberg, Library of Congress, Internet Archive)\n- **Torrent & Shadow Libraries** — Anna's Archive, libgen, sci-hub, Z-Library, torrent search engines\n\nExample tags: `#ebook` `#torrent` `#shadow-library`\n\n### Music & Audio Discovery\n*(no subcategories)*\nExample tags: `#radio` `#focus-music` `#sfx`\n\n### Security & Privacy Tools\n*(no subcategories)*\nExample tags: `#breach-check` `#anon`\n\n### Crypto & Markets\n*(no subcategories)*\nExample tags: `#tracker` `#exchange-rate`\n\n### English Learning & Career Prep\nGeneral English-test prep (IELTS, etc.) and general career/salary research — **not** tied to a specific country. Country-specific relocation content goes under Living Abroad instead.\nExample tags: `#ielts` `#immigration` `#salary`\n\n### Geography & Urban Planning\n*(empty for now — ready for future links)*\n- Urban Planning Courses & Learning\n- Maps, GIS & Data Tools\n- Case Studies & Reference\n\nExample tags: `#gis` `#zoning` `#transit` `#masterplan` `#course`\n\n### Living Abroad\n*(empty for now — ready for future links)*\nCountry-specific relocation content only: job boards, visa info, housing, cost of living for one particular country.\n- Australia\n\nExample tags: `#job-seeking` `#visa` `#housing` `#cost-of-living` `#salary`\n\n### Random / Curiosities\nCatch-all — use sparingly, only when nothing else genuinely fits.\n*(no subcategories)*\n\n---\n\n## Judgment-call rules\n*(these are also baked directly into `categorize_links.py`'s prompts, so the AI follows them automatically)*\n\n- A single-purpose AI tool that does a design task (background removal, image upscaling, vectorizing) → **Design**, not either AI Tools category — its job is design, AI is just the mechanism. Tag `#ai-powered`.\n- **AI Tools for Web & App Development** = tools that help *build* software (UI generation, code generation, no-code builders). **AI Tools (General)** = everything else AI-related with no build-a-product purpose.\n- General course platforms (Coursera, Udemy) → **Knowledge, Research & Reference** + `#course`. A topic-specific course stays in its own topic folder + `#course`.\n- Shadow libraries and piracy-adjacent sites → **Download Resources → Torrent & Shadow Libraries** (private). Legitimate public-domain archives → **Public Archives & Libraries**.\n\n## Not yet covered\n- ~~`*.github.io` sites and `gist.github.com` links~~ — **settled by the domain law (v0.28.0)**: the whole GitHub group is banned from the Websites vault; repo links keep going to the GitHub pipeline.\n",
+    "synthetic_parsed": [
+      [
+        "Zeta Cat",
+        [
+          "Sub Two",
+          "Sub Ten",
+          "Sub One"
+        ]
+      ],
+      [
+        "Alpha Cat",
+        [
+          "Only Sub",
+          "Bold Sub"
+        ]
+      ],
+      [
+        "Middle Cat",
+        []
+      ]
+    ],
+    "synthetic_source": "# Website Library — Synthetic Category System (golden fixture)\n\n## Categories\n\n### Zeta Cat\n- Sub Two\n- Sub Ten\n- Sub One\n\n### Alpha Cat\n- Only Sub\n- **Bold Sub** — with a definition\n\n### Middle Cat\n*(no subcategories)*\n\n## Judgment-call rules\n- Rule one.\n- Rule two.\n"
+  },
+  "trim": [
+    [
+      "short",
+      10,
+      "short"
+    ],
+    [
+      "exact-limit",
+      11,
+      "exact-limit"
+    ],
+    [
+      "word word word word tail",
+      15,
+      "word word word…"
+    ],
+    [
+      "wordwordwordword tail",
+      10,
+      "wordwordwo…"
+    ],
+    [
+      "nospaceatalljustletters",
+      10,
+      "nospaceata…"
+    ],
+    [
+      "",
+      10,
+      ""
+    ],
+    [
+      "   ",
+      10,
+      ""
+    ],
+    [
+      "punct tail ... , ; : . -",
+      12,
+      "punct tail…"
+    ],
+    [
+      "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé",
+      96,
+      "éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé…"
+    ],
+    [
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+      140,
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word…"
+    ],
+    [
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+      141,
+      "word word word word word word word word word word word word word word word word word word word word word word word word word word word word…"
+    ],
+    [
+      " bbbbbbbbbbbbbbbb",
+      1,
+      "b…"
+    ],
+    [
+      "anything",
+      0,
+      "…"
+    ],
+    [
+      "multi  inner   spaces kept",
+      12,
+      "multi…"
+    ]
+  ]
+}

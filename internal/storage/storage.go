@@ -129,6 +129,12 @@ func BuildNoteFilename(repoName, categoryKey string, tags []string) string {
 	return safeName + "_" + category + "_" + secondary + ".md"
 }
 
+// PySplitExt exposes os.path.splitext's (root, ext) split (the private
+// pySplitExt twin — T-41's directory-note title fallback needed the
+// primitive outside this package's own writers; promote, never
+// duplicate).
+func PySplitExt(path string) (string, string) { return pySplitExt(path) }
+
 // pySplitExt ports Python's os.path.splitext (posixpath semantics: '/' is
 // the only separator — the reference's goldens were generated under
 // posixpath; ntpath additionally treats '\\' as a separator, a

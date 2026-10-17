@@ -1,6 +1,10 @@
 package websitepipeline
 
-import "os"
+import (
+	"os"
+
+	"github.com/assadigit/second-brain-project/internal/helpers"
+)
 
 // pystrings.go — the Python string-shape helpers shared by this
 // package (splitlines' full boundary set; the bounded head read in
@@ -42,15 +46,21 @@ func pySplitLines(s string) []string {
 	return out
 }
 
-// readHeadRunes mirrors open(path, encoding='utf-8',
-// errors='replace') followed by f.read(n) — the first n DECODED
-// characters (Python's text-mode read counts characters, not bytes).
+// readHeadRunes mirrors open(path, encoding='utf-8', errors='replace')
+// followed by f.read(n) — the first n DECODED characters (Python's
+// text-mode read counts characters, not bytes). Text mode rides
+// universal newlines (newline=None): \r\n and a lone \r both become \n
+// BEFORE the read count (helpers.PyNewlines' own law — every reference
+// read of a note file translates identically); the rune cap applies to
+// the TRANSLATED stream, exactly where Python's read(n) stops. (T-41's
+// reality-wins fix: the reference's \r-only and \r\n notes parse through
+// translation; the raw read never saw the frontmatter terminator.)
 func readHeadRunes(path string, n int) (string, bool) {
 	data, err := os.ReadFile(path)
 	if err != nil {
 		return "", false
 	}
-	s := decodeUTF8Replace(string(data))
+	s := helpers.PyNewlines(decodeUTF8Replace(string(data)))
 	runes := []rune(s)
 	if len(runes) > n {
 		return string(runes[:n]), true

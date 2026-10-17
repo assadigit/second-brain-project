@@ -1,8 +1,9 @@
-# Module Spec — `app/gitcurator/core/website_pipeline.py` (with `website_state.py`, `website_directory.py`)
+# Module Spec — `app/gitcurator/core/website_pipeline.py` (with `website_state.py`)
 
-- **LOC**: 5,338 + 755 + 432 · **Go home**: `internal/websitepipeline` (+ `state.go`,
-  `directorynote.go`) · **Status**: port (merged group — the pipeline owns its state and the
-  directory-note regeneration)
+- **LOC**: 5,338 + 755 · **Go home**: `internal/websitepipeline` (+ `state.go`) ·
+  **Status**: port (the pipeline owns its state; the directory-note
+  regeneration lives in its own spec —
+  `spec-core-website-directory.md` — since T-41)
 - **Responsibility**: the complete Websites pipeline: per-link gates → five-door fetch →
   extraction → two-pass taxonomy classification → analysis → note write; plus the verdict
   grammar (master table, banishment + Telegram gate, consolidation, settled ledger) and the four
@@ -93,14 +94,13 @@ Dead: `settle_urls` (no callers).
 
 ## website_directory.py
 
-`sweep_banned_notes` (170-272): app-owned notes on banned domains → `.trash/banned-domains/`;
-platform `_inbox` tables quarantined when all platform domains banned. `build_website_directory`
-(308-432): regenerates `000 📚 Website Directory.md` — frontmatter `managed_by/kind: "directory"/
-generated`; `# 📚 Website Directory`; info callout with counts; `## Cat (n)` / `### Sub (n)`;
-entries `- [[path|alias ≤80]] — TL;DR ≤140 — pricing — [↗](url)` joined `" — "`, sorted by
-`(title.lower(), relpath.lower())`; taxonomy order then leftovers; `_review` todo callout;
-closing regeneration line. Read caps 512,000 bytes/note; walk skips `_inbox/_review/_missing/
-_moc/attachments/.obsidian/.trash/.git`.
+**Moved to its own spec at T-41 (SESSION-016, reality-wins): the task list and
+the state card had always referenced a standalone `spec-core-website-directory`
+that never existed — the content below was this file's whole coverage of the
+module. The full spec (sweep + directory + the light parse + the walk + the
+golden contract + the T-41 shipped record) now lives in
+`spec-core-website-directory.md`; `websitepipeline/directorynote.go` is its
+port.**
 
 ## Tests
 
@@ -136,9 +136,10 @@ Port from `test_banishment`, `test_phase*` selections, `test_websitesqueuefix`,
 > as T-40's dependency floor — T-43 completes that module (the Chrome
 > launch family, the batch-level pickers, its own battery); the
 > directorysync banish-gate helpers (LoadBanishList/IsBanished) ship
-> likewise ahead of T-49. The v0.28.0 banned-domains DISK sweep is a
-> documented seam (sweepBannedNotesSeam) until T-41 lands
-> directorynote; the DB-side purge is enforced now. The third door's
+> likewise ahead of T-49. The v0.28.0 banned-domains DISK sweep was a
+> documented seam (sweepBannedNotesSeam) until T-41 landed
+> directorynote (SESSION-016) — the constructor now runs the REAL
+> guarded sweep; the DB-side purge is enforced as before. The third door's
 > constructor ladder collapses to "armed" (tls-client is always
 > compiled in — ADR-0006 §4; the auto-pip leg is obsolete by
 > construction). state.go gained only the clock seam (nowSeconds reads
@@ -146,3 +147,21 @@ Port from `test_banishment`, `test_phase*` selections, `test_websitesqueuefix`,
 > unchanged); notebuilder gained SanitizeTagsMax (the reference's own
 > max_items parameter); storage.OrderedMap gained Delete (dict.pop —
 > the hand-delivery queue heal's own primitive).
+
+> **SESSION-016 (T-41) — the seam closed, and the golden it shipped
+> forced three reality-wins fixes in this package's shared
+> primitives.** directorynote.go landed (its own spec now:
+> spec-core-website-directory.md): the constructor's sweep seam became
+> the REAL guarded sweep, and the directorynote differential golden
+> (testdata/directorynote.golden.json) caught latent divergences the
+> T-40 fixtures never exercised: readHeadRunes now translates universal
+> newlines before the rune cap (helpers.PyNewlines — every reference
+> text-mode read of a note file does; CR-only and CRLF notes parse
+> through \r→\n translation), decodeUTF8Replace now collapses each
+> MAXIMAL SUBPART into one U+FFFD (notestate's own law; the previous
+> version emitted one per byte), and walkVault now yields a directory's
+> files before ANY of its subdirectories' files (os.walk's top-down
+> order — WalkDir interleaves lexically; the banishment scans' list
+> order rides the walk order). T-40's own golden recorded no U+FFFD and
+> no interleaving-case orders, so it passes unchanged on the fixed
+> primitives. 938 race-clean at the close.
