@@ -135,7 +135,30 @@ proxy legs with per-site route memory, and the fetch driver honesty
 bytes folded, generated from the unmodified reference; the pyurl
 lenient urlsplit is CPython 3.12's exact shapes incl. the bracket
 law) + the ported test_fifthdoor selections (63 module tests + 2
-pipeline legs). 1132 tests race-clean. Next: T-45 vaultscan.
+pipeline legs). **T-45 `internal/vaultscan` (SESSION-020) — THE VAULT
+SCAN COMPLETE** (spec-core-vault-scan.md, with the SESSION-020
+amendments): the radar (the inventory walk with the lock/curated
+counts, the move candidates, the CPython urlparse shapes
+hand-rolled), ONE NOTE PER SITE (the consolidation magnet, the keeper
+rank), the regex brain (declared home → the domain's settled siblings
+→ the taxonomy's vocabulary, the repos twin through CATEGORY_FOLDERS),
+THE WEIGHED EVIDENCE (the folder census, the 0.0-1.0 scale with
+banker's rounding, the CLOSE CALL verdict, the alignment door), the
+chunked LLM filing (the exact user message, per-chunk failure
+isolation, the honest review list), the validation door (the
+fresh-eyes absorption, the depth law, the landable move with the `_v`
+bend pre-computed as `as`), the picking door + the lock law, the
+census stamp, and the apply pass (verified landings, the spoken
+failure ledger, the deletions through the banishment machinery's own
+skip doors, the repos ledger re-point) — with THE GOLDEN (21
+sections, paths folded, generated from the unmodified reference) +
+the ported test_vaultscan/test_censusstamp/test_picklock/
+test_weighhomes/test_reposcan selections (215 tests; the repos
+banishment floor — the gate's eyes + the burial — landed with T-45 in
+`internal/repobanish`, its remaining doors stay T-46's); the
+pointer-threading law ([]*NoteRow — Go struct copies would break the
+reference's dict aliasing, found live). 1347 tests race-clean. Next:
+T-46 vaulthygiene + repobanish.
 
 ## Map
 

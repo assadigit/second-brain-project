@@ -164,3 +164,9 @@ func stringsLastPartition(s string, sep byte) (before, sepStr, after string) {
 	}
 	return "", "", s
 }
+
+// ValidPyNetloc exposes the netloc bracket law for the packages that
+// mirror CPython's urlparse netloc extraction (vaultscan's inventory
+// domain cell): unbalanced or non-IPv6 bracketed hosts read "no
+// parse" there, exactly as urlsplit's ValueError does.
+func ValidPyNetloc(netloc string) bool { return validPyNetloc(netloc) }

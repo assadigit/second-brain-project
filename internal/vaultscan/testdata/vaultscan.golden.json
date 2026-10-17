@@ -1,0 +1,1365 @@
+{
+  "absorb": {
+    "exact": "Design/Color_Tools",
+    "exact_case": "Design/Color_Tools",
+    "missing": null,
+    "no_parent": null,
+    "short_leaf": null,
+    "sibling": "Design/Color_Palettes",
+    "tree_roots": [
+      "A",
+      "A/B",
+      "A/B/C",
+      "X",
+      "X/Y",
+      "Z"
+    ]
+  },
+  "attach": {
+    "cands": [
+      {
+        "file": "tied.md",
+        "homes": [
+          {
+            "folder": "AI/Agents",
+            "reasons": [
+              "title words shared: agents",
+              "folder name matches the note's words"
+            ],
+            "weight": 0.16
+          },
+          {
+            "folder": "AI/Small",
+            "reasons": [
+              "1 of 3 settled sibling(s) of x.com vote there"
+            ],
+            "weight": 0.15
+          },
+          {
+            "folder": "Design/Color_Tools",
+            "reasons": [
+              "1 of 3 settled sibling(s) of x.com vote there"
+            ],
+            "weight": 0.15
+          }
+        ],
+        "homes_close": true
+      },
+      {
+        "file": "landslide.md",
+        "homes": [
+          {
+            "folder": "AI/Chatbots",
+            "reasons": [
+              "folder name matches the note's words",
+              "under its declared category (AI)",
+              "its declared subfolder (Chatbots)"
+            ],
+            "weight": 0.38
+          },
+          {
+            "folder": "AI/Agents",
+            "reasons": [
+              "title words shared: agents",
+              "folder name matches the note's words",
+              "under its declared category (AI)"
+            ],
+            "weight": 0.28
+          },
+          {
+            "folder": "AI/Small",
+            "reasons": [
+              "1 of 3 settled sibling(s) of x.com vote there",
+              "under its declared category (AI)"
+            ],
+            "weight": 0.27
+          }
+        ],
+        "homes_close": false
+      },
+      {
+        "file": "alien.md",
+        "homes": [],
+        "homes_close": false
+      }
+    ],
+    "count": 2,
+    "junk": [
+      0,
+      0
+    ]
+  },
+  "bend": {
+    "first": "<vault>/Design/Palettes/Name_v1.md",
+    "free": "<vault>/Design/Palettes/Fresh.md",
+    "second": "<vault>/Design/Palettes/Name_v2.md"
+  },
+  "candidate_reason": {
+    "broad": "filed in a too-broad folder (Design/Color_Tools)",
+    "no_folder": "orphaned at the vault root",
+    "none": "orphaned at the vault root",
+    "parked": "parked in Uncategorized",
+    "parked_sub": "parked in Uncategorized",
+    "root": "orphaned at the vault root",
+    "stray": "a stray at its category root (no subfolder of its own)"
+  },
+  "core_note": {
+    "exact": true,
+    "kind": [
+      true,
+      false,
+      false,
+      false
+    ],
+    "spelling": [
+      true,
+      true,
+      true,
+      false
+    ]
+  },
+  "digest_lines": {
+    "repos": [
+      " - whizzy — by acme — ⭐ 4,200 — 🔧 Rust — now: (vault root) — why: orphaned at the vault root — tags: rust,cli",
+      " - quiet — now: Tools — why: a stray at its category root (no subfolder of its own) — declares: Scraping / ?"
+    ],
+    "websites": [
+      " - A Site — a.example — now: (vault root) — why: orphaned at the vault root — tags: tool",
+      " - Stray — s.example — now: Design — why: a stray at its category root (no subfolder of its own) — declares: Design / Color Tools — tags: palette,more,than,eight,tags,x,y,z",
+      " - Homed — h.example — now: AI/Agents — why: filed in a too-broad folder (AI/Agents) — declares: AI / Agents — homes: 1) AI/Chatbots 0.31 (shared tags: tool) · 2) AI/Agents 0.25 (title words shared: homed)",
+      " - Tied — t.example — now: (vault root) — why: orphaned at the vault root — homes: 1) AI/Agents 0.06 · 2) AI/Chatbots 0.06 — CLOSE CALL: the top two weigh nearly the same, you break the tie on the note's own words"
+    ]
+  },
+  "disk_spell": {
+    "drift": "AI-Domain/Agents",
+    "exact": "AI-Domain/Agents",
+    "folded": "AI-Domain/Agents",
+    "gone": "",
+    "memo": {
+      "aidomain/agents": "AI-Domain/Agents",
+      "design/assetsresources": "Design/Assets & Resources",
+      "design/missing": null
+    },
+    "miss": null,
+    "safe_filename": "Design/Assets & Resources",
+    "walk": "AI-Domain/Agents"
+  },
+  "fold_laws": {
+    "fold": {
+      "": "",
+      " None-ish ": "",
+      "A/B": "a/b",
+      "AI-Domain/Agents": "aidomain/agents",
+      "A_B": "ab",
+      "Design/Color_Tools": "design/colortools",
+      "ai domain/AGENTS": "aidomain/agents",
+      "design/Color Tools": "design/colortools"
+    },
+    "segment": {
+      "Color_Tools": "colortools",
+      "color tools": "colortools",
+      "ÉMojis!": "mojis"
+    },
+    "tag": {
+      "": "",
+      "C L E A N": "clean",
+      "ColorTool": "colortool",
+      "None": "",
+      "color-tool": "colortool"
+    }
+  },
+  "folder_profiles": {
+    "AI/Agents": {
+      "note_count": 4,
+      "tags": {
+        "agents": 2,
+        "llm": 1
+      },
+      "title_tokens": [
+        "agents",
+        "two2"
+      ]
+    },
+    "AI/Chatbots": {
+      "note_count": 1,
+      "tags": {},
+      "title_tokens": []
+    },
+    "AI/Huge": {
+      "note_count": 1,
+      "tags": {
+        "agents": 1
+      },
+      "title_tokens": [
+        "agent",
+        "thing"
+      ]
+    },
+    "AI/Small": {
+      "note_count": 1,
+      "tags": {
+        "agents": 1
+      },
+      "title_tokens": [
+        "agent"
+      ]
+    },
+    "Design/Color_Tools": {
+      "note_count": 1,
+      "tags": {
+        "fonts": 1
+      },
+      "title_tokens": [
+        "color",
+        "palette",
+        "picker"
+      ]
+    }
+  },
+  "frontmatter": {
+    "block_tags": [
+      "one",
+      "two three",
+      "four"
+    ],
+    "empty": {
+      "category": "",
+      "category_locked": false,
+      "curated": false,
+      "fetch_status": "",
+      "kind": "",
+      "locked": false,
+      "managed_by": "",
+      "org": "",
+      "primary_language": "",
+      "source": "",
+      "stars": "",
+      "subcategory": "",
+      "tags": []
+    },
+    "flow_replace": [
+      "b"
+    ],
+    "head_cap": {
+      "category": "",
+      "category_locked": false,
+      "curated": false,
+      "fetch_status": "full",
+      "kind": "",
+      "locked": false,
+      "managed_by": "gitcurator",
+      "org": "",
+      "primary_language": "",
+      "source": "https://a.example/big",
+      "stars": "",
+      "subcategory": "",
+      "tags": [
+        "x"
+      ]
+    },
+    "lock_doors": {
+      "category_locked": true,
+      "curated": true,
+      "locked": true
+    },
+    "no_frontmatter": {
+      "category": "",
+      "category_locked": false,
+      "curated": false,
+      "fetch_status": "",
+      "kind": "",
+      "locked": false,
+      "managed_by": "",
+      "org": "",
+      "primary_language": "",
+      "source": "",
+      "stars": "",
+      "subcategory": "",
+      "tags": []
+    },
+    "plain": {
+      "category": "Y",
+      "category_locked": false,
+      "curated": false,
+      "fetch_status": "full",
+      "kind": "note",
+      "locked": false,
+      "managed_by": "gitcurator",
+      "org": "acme",
+      "primary_language": "Rust",
+      "source": "https://a.example/1",
+      "stars": "4200",
+      "subcategory": "S",
+      "tags": [
+        "b",
+        "c d"
+      ]
+    }
+  },
+  "homes_line": {
+    "close": "homes: 1) AI/Agents 0.06 · 2) AI/Chatbots 0.06 — CLOSE CALL: the top two weigh nearly the same, you break the tie on the note's own words",
+    "none": [
+      "",
+      "",
+      ""
+    ],
+    "two": "homes: 1) AI/Chatbots 0.62 (shared tags: chat; name match) · 2) AI/Agents 0.41 (shared tags: chat)"
+  },
+  "inventory": {
+    "candidates": [
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "o.example",
+        "fetch_status": "full",
+        "file": "orphan.md",
+        "folder": "",
+        "in_root": true,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/orphan.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "orphan.md",
+        "source": "https://o.example/1",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "orphan"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "github.com",
+        "fetch_status": "full",
+        "file": "repos-shape.md",
+        "folder": "",
+        "in_root": true,
+        "locked": false,
+        "org": "acme",
+        "path": "<vault>/repos-shape.md",
+        "primary_language": "Rust",
+        "protected": false,
+        "rel": "repos-shape.md",
+        "source": "https://github.com/o/r",
+        "stars": 4200,
+        "subcategory": "",
+        "tags": [],
+        "title": "repos-shape"
+      },
+      {
+        "app_owned": true,
+        "category": "Design",
+        "core": false,
+        "curated": false,
+        "domain": "s.example",
+        "fetch_status": "full",
+        "file": "stray.md",
+        "folder": "Design",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Design/stray.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Design/stray.md",
+        "source": "https://s.example/3",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "stray"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "u.example",
+        "fetch_status": "full",
+        "file": "parked.md",
+        "folder": "Uncategorized",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Uncategorized/parked.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Uncategorized/parked.md",
+        "source": "https://u.example/2",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "parked"
+      }
+    ],
+    "candidates_broad": [
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "o.example",
+        "fetch_status": "full",
+        "file": "orphan.md",
+        "folder": "",
+        "in_root": true,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/orphan.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "orphan.md",
+        "source": "https://o.example/1",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "orphan"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "github.com",
+        "fetch_status": "full",
+        "file": "repos-shape.md",
+        "folder": "",
+        "in_root": true,
+        "locked": false,
+        "org": "acme",
+        "path": "<vault>/repos-shape.md",
+        "primary_language": "Rust",
+        "protected": false,
+        "rel": "repos-shape.md",
+        "source": "https://github.com/o/r",
+        "stars": 4200,
+        "subcategory": "",
+        "tags": [],
+        "title": "repos-shape"
+      },
+      {
+        "app_owned": true,
+        "category": "Design",
+        "core": false,
+        "curated": false,
+        "domain": "s.example",
+        "fetch_status": "full",
+        "file": "stray.md",
+        "folder": "Design",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Design/stray.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Design/stray.md",
+        "source": "https://s.example/3",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "stray"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "b.example",
+        "fetch_status": "full",
+        "file": "b.md",
+        "folder": "Design/Palettes",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Design/Palettes/b.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Design/Palettes/b.md",
+        "source": "https://b.example/5",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "b"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "u.example",
+        "fetch_status": "full",
+        "file": "parked.md",
+        "folder": "Uncategorized",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Uncategorized/parked.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Uncategorized/parked.md",
+        "source": "https://u.example/2",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "parked"
+      }
+    ],
+    "counts": {
+      "core_notes": 1,
+      "curated_notes": 1,
+      "hand_notes": 1,
+      "locked_notes": 1,
+      "root_notes": 4,
+      "total_notes": 11,
+      "trash_notes": 1,
+      "uncategorized_notes": 1
+    },
+    "folders": [
+      {
+        "note_count": 1,
+        "rel": "AI-Domain/Agents"
+      },
+      {
+        "note_count": 1,
+        "rel": "Design"
+      },
+      {
+        "note_count": 2,
+        "rel": "Design/Palettes"
+      },
+      {
+        "note_count": 1,
+        "rel": "Uncategorized"
+      }
+    ],
+    "notes": [
+      {
+        "app_owned": true,
+        "category": "",
+        "core": true,
+        "curated": false,
+        "domain": "",
+        "fetch_status": "full",
+        "file": "000 📚 Website Directory.md",
+        "folder": "",
+        "in_root": true,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/000 📚 Website Directory.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "000 📚 Website Directory.md",
+        "source": "",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "000 📚 Website Directory"
+      },
+      {
+        "app_owned": false,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "",
+        "fetch_status": "full",
+        "file": "hand.md",
+        "folder": "",
+        "in_root": true,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/hand.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "hand.md",
+        "source": "",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "hand"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "o.example",
+        "fetch_status": "full",
+        "file": "orphan.md",
+        "folder": "",
+        "in_root": true,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/orphan.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "orphan.md",
+        "source": "https://o.example/1",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "orphan"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "github.com",
+        "fetch_status": "full",
+        "file": "repos-shape.md",
+        "folder": "",
+        "in_root": true,
+        "locked": false,
+        "org": "acme",
+        "path": "<vault>/repos-shape.md",
+        "primary_language": "Rust",
+        "protected": false,
+        "rel": "repos-shape.md",
+        "source": "https://github.com/o/r",
+        "stars": 4200,
+        "subcategory": "",
+        "tags": [],
+        "title": "repos-shape"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "d.example",
+        "fetch_status": "full",
+        "file": "deep.md",
+        "folder": "AI-Domain/Agents",
+        "in_root": false,
+        "locked": true,
+        "org": "",
+        "path": "<vault>/AI-Domain/Agents/deep.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "AI-Domain/Agents/deep.md",
+        "source": "https://d.example/6",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "deep"
+      },
+      {
+        "app_owned": true,
+        "category": "Design",
+        "core": false,
+        "curated": false,
+        "domain": "s.example",
+        "fetch_status": "full",
+        "file": "stray.md",
+        "folder": "Design",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Design/stray.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Design/stray.md",
+        "source": "https://s.example/3",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "stray"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": true,
+        "domain": "a.example",
+        "fetch_status": "full",
+        "file": "a.md",
+        "folder": "Design/Palettes",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Design/Palettes/a.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Design/Palettes/a.md",
+        "source": "https://a.example/4",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "a"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "b.example",
+        "fetch_status": "full",
+        "file": "b.md",
+        "folder": "Design/Palettes",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Design/Palettes/b.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Design/Palettes/b.md",
+        "source": "https://b.example/5",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "b"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "u.example",
+        "fetch_status": "full",
+        "file": "parked.md",
+        "folder": "Uncategorized",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/Uncategorized/parked.md",
+        "primary_language": "",
+        "protected": false,
+        "rel": "Uncategorized/parked.md",
+        "source": "https://u.example/2",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "parked"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "m.example",
+        "fetch_status": "full",
+        "file": "index.md",
+        "folder": "_moc",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/_moc/index.md",
+        "primary_language": "",
+        "protected": true,
+        "rel": "_moc/index.md",
+        "source": "https://m.example/8",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "index"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "r.example",
+        "fetch_status": "failed",
+        "file": "placeholder.md",
+        "folder": "_review",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/_review/placeholder.md",
+        "primary_language": "",
+        "protected": true,
+        "rel": "_review/placeholder.md",
+        "source": "https://r.example/7",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "placeholder"
+      }
+    ],
+    "repos_protected": [
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "m.example",
+        "fetch_status": "full",
+        "file": "index.md",
+        "folder": "_moc",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/_moc/index.md",
+        "primary_language": "",
+        "protected": true,
+        "rel": "_moc/index.md",
+        "source": "https://m.example/8",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "index"
+      },
+      {
+        "app_owned": true,
+        "category": "",
+        "core": false,
+        "curated": false,
+        "domain": "r.example",
+        "fetch_status": "failed",
+        "file": "placeholder.md",
+        "folder": "_review",
+        "in_root": false,
+        "locked": false,
+        "org": "",
+        "path": "<vault>/_review/placeholder.md",
+        "primary_language": "",
+        "protected": true,
+        "rel": "_review/placeholder.md",
+        "source": "https://r.example/7",
+        "stars": 0,
+        "subcategory": "",
+        "tags": [],
+        "title": "placeholder"
+      }
+    ]
+  },
+  "kind_doors": {
+    "labels": {
+      "'repos'": "GitHub Repos vault",
+      "'websites'": "Websites vault",
+      "None": "Websites vault"
+    },
+    "protected": {
+      "junk": [
+        "_review",
+        "_moc",
+        "_inbox"
+      ],
+      "repos": [
+        "_review",
+        "_moc",
+        "_inbox",
+        "_missing"
+      ],
+      "websites": [
+        "_review",
+        "_moc",
+        "_inbox"
+      ]
+    },
+    "repos_kind": [
+      true,
+      true,
+      true,
+      false,
+      false,
+      false
+    ]
+  },
+  "predicates": {
+    "curated": {
+      "independent": [
+        false,
+        false
+      ],
+      "junk": [
+        false,
+        false,
+        false
+      ],
+      "meta": {
+        "''": false,
+        "'1'": true,
+        "'false'": false,
+        "'true'": true,
+        "'yes'": true,
+        "None": false
+      },
+      "tags": {
+        "CURATED": true,
+        "Curated": true,
+        "curated": true,
+        "curated-ish": false
+      }
+    },
+    "locked": {
+      "cat_locked": {
+        "'false'": false,
+        "'true'": true
+      },
+      "junk": [
+        false,
+        false,
+        false,
+        false,
+        true
+      ],
+      "meta": {
+        "'\"true\"'": true,
+        "''": false,
+        "'1'": true,
+        "'false'": false,
+        "'true'": true,
+        "'yes'": true,
+        "None": false
+      },
+      "tags": {
+        "LOCK": true,
+        "Lock": true,
+        "Locked": true,
+        "design": false,
+        "lock": true,
+        "locked": true,
+        "notelock": false
+      }
+    },
+    "truthy": {
+      "\"'1'\"": true,
+      "' yes '": true,
+      "'\"true\"'": true,
+      "''": false,
+      "'0'": false,
+      "'1'": true,
+      "'TRUE'": true,
+      "'True'": true,
+      "'false'": false,
+      "'maybe'": false,
+      "'no'": false,
+      "'true'": true,
+      "None": false
+    }
+  },
+  "pyurl": {
+    "netloc": {
+      "'http://a.example/x'": "a.example",
+      "'https://A.example:8080/X;param?q#f'": "A.example:8080",
+      "'https://[x/y'": "<raise>",
+      "'https://a.example#f'": "a.example",
+      "'https://a.example'": "a.example",
+      "'https://a.example/'": "a.example",
+      "'https://a.example//'": "a.example",
+      "'https://a.example/p/;q'": "a.example",
+      "'https://a.example/x'": "a.example",
+      "'https://a.example/x;param'": "a.example",
+      "'https://a.example?q'": "a.example",
+      "'https://a\\tb.com/x'": "ab.com",
+      "'not a url'": ""
+    },
+    "path": {
+      "'http://a.example/x'": "/x",
+      "'https://A.example:8080/X;param?q#f'": "/X",
+      "'https://[x/y'": "<raise>",
+      "'https://a.example#f'": "",
+      "'https://a.example'": "",
+      "'https://a.example/'": "/",
+      "'https://a.example//'": "//",
+      "'https://a.example/p/;q'": "/p/",
+      "'https://a.example/x'": "/x",
+      "'https://a.example/x;param'": "/x",
+      "'https://a.example?q'": "",
+      "'https://a\\tb.com/x'": "/x",
+      "'not a url'": "not a url"
+    }
+  },
+  "sanitize": {
+    "": "",
+    " Design/Color_Tools ": "Design/Color_Tools",
+    ".": "",
+    "../escape": "",
+    ".hidden/X": "",
+    "/Design/Color_Tools/": "Design/Color_Tools",
+    "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/Sub": "",
+    "AI-Domain": "AI-Domain",
+    "AI-Domain/Agents": "AI-Domain/Agents",
+    "DESIGN/TRASH": "",
+    "Design": "Design",
+    "Design/-lead": "",
+    "Design/../Tools": "",
+    "Design/.git": "",
+    "Design//Tools": "",
+    "Design/1ok": "Design/1ok",
+    "Design/Assets & Resources": "Design/Assets & Resources",
+    "Design/Color_Tools": "Design/Color_Tools",
+    "Design/Color_Tools/": "Design/Color_Tools",
+    "Design/O'Brien's": "Design/O'Brien's",
+    "Design/Trash": "",
+    "Design/_review": "",
+    "Design/_review/Sub": "",
+    "Trash": "",
+    "Uncategorized": "",
+    "Uncategorized/Sub": "",
+    "_review/X": "",
+    "back\\slash/Sub": "back/slash/Sub",
+    "design/Color Tools": "design/Color Tools",
+    "trash": "",
+    "x/y": "x/y"
+  },
+  "selection": {
+    "empty": {
+      "consolidation_notes": 0,
+      "consolidations": 0,
+      "deletions": 0,
+      "moves": 0,
+      "new_folders": 0
+    },
+    "junk": [
+      {
+        "consolidation_notes": 3,
+        "consolidations": 2,
+        "deletions": 2,
+        "moves": 2,
+        "new_folders": 2
+      },
+      {
+        "consolidation_notes": 3,
+        "consolidations": 2,
+        "deletions": 2,
+        "moves": 2,
+        "new_folders": 2
+      },
+      {
+        "consolidation_notes": 3,
+        "consolidations": 2,
+        "deletions": 2,
+        "moves": 2,
+        "new_folders": 2
+      },
+      {
+        "consolidation_notes": 3,
+        "consolidations": 2,
+        "deletions": 2,
+        "moves": 2,
+        "new_folders": 2
+      },
+      {
+        "consolidation_notes": 3,
+        "consolidations": 2,
+        "deletions": 2,
+        "moves": 2,
+        "new_folders": 2
+      },
+      {
+        "consolidation_notes": 3,
+        "consolidations": 2,
+        "deletions": 2,
+        "moves": 2,
+        "new_folders": 2
+      }
+    ],
+    "none": {
+      "consolidations": null,
+      "deletions": null,
+      "moves": null,
+      "new_folders": null
+    },
+    "partial": {
+      "consolidation_notes": 1,
+      "consolidations": 1,
+      "deletions": 1,
+      "moves": 1,
+      "new_folders": 1
+    },
+    "shape_junk": {
+      "consolidations": null,
+      "deletions": null,
+      "moves": null,
+      "new_folders": null
+    },
+    "whole": {
+      "consolidation_notes": 3,
+      "consolidations": 2,
+      "deletions": 2,
+      "moves": 2,
+      "new_folders": 2
+    }
+  },
+  "settled_homes": {
+    "homes": {
+      "one.com": {
+        "ai/agents": 2
+      },
+      "split.com": {
+        "ai/agents": 2,
+        "ai/chatbots": 1
+      },
+      "x.com": {
+        "ai/huge": 1,
+        "ai/small": 1,
+        "design/colortools": 1
+      }
+    },
+    "spelling": {
+      "one.com\u0000ai/agents": "AI/Agents",
+      "split.com\u0000ai/agents": "AI/Agents",
+      "split.com\u0000ai/chatbots": "AI/Chatbots",
+      "x.com\u0000ai/huge": "AI/Huge",
+      "x.com\u0000ai/small": "AI/Small",
+      "x.com\u0000design/colortools": "Design/Color_Tools"
+    }
+  },
+  "validate": {
+    "cands_homes": {
+      "Same.md": [
+        {
+          "folder": "Design/Palettes",
+          "reasons": [
+            "under its declared category (Design)",
+            "its declared subfolder (Palettes)"
+          ],
+          "weight": 0.32
+        }
+      ],
+      "plain.md": []
+    },
+    "moves": [
+      {
+        "as": "",
+        "from": "(vault root)",
+        "low_confidence": false,
+        "note": "Same.md",
+        "path": "<vault>/Same.md",
+        "reason": "declared",
+        "title": "Same",
+        "to": "Design/Palettes"
+      },
+      {
+        "as": "",
+        "from": "(vault root)",
+        "low_confidence": false,
+        "note": "plain.md",
+        "path": "<vault>/plain.md",
+        "reason": "fits",
+        "title": "plain",
+        "to": "Design/Palettes"
+      }
+    ],
+    "new_folders": [
+      "Design/Palette_Tools",
+      "Design/color tools"
+    ],
+    "with_homes": 1
+  },
+  "weigh": {
+    "declared_echoes": [
+      {
+        "folder": "AI/Chatbots",
+        "reasons": [
+          "under its declared category (AI)",
+          "its declared subfolder (Chatbots)"
+        ],
+        "weight": 0.32
+      },
+      {
+        "folder": "AI/Agents",
+        "reasons": [
+          "under its declared category (AI)"
+        ],
+        "weight": 0.17
+      },
+      {
+        "folder": "AI/Small",
+        "reasons": [
+          "under its declared category (AI)"
+        ],
+        "weight": 0.17
+      }
+    ],
+    "folder_name": [
+      {
+        "folder": "AI/Chatbots",
+        "reasons": [
+          "folder name matches the note's words"
+        ],
+        "weight": 0.11
+      }
+    ],
+    "junk": [
+      [],
+      [],
+      []
+    ],
+    "kitchen_sink": [
+      {
+        "folder": "AI/Agents",
+        "reasons": [
+          "2 settled sibling(s) of one.com live there (unanimous)",
+          "shared tags: agents, llm",
+          "folder name matches the note's words",
+          "under its declared category (AI)",
+          "its declared subfolder (Agents)"
+        ],
+        "weight": 0.9
+      },
+      {
+        "folder": "AI/Small",
+        "reasons": [
+          "shared tags: agents",
+          "title words shared: agent",
+          "under its declared category (AI)"
+        ],
+        "weight": 0.28
+      },
+      {
+        "folder": "AI/Huge",
+        "reasons": [
+          "shared tags: agents",
+          "title words shared: agent",
+          "under its declared category (AI)",
+          "folder already TOO BROAD (a poor destination)"
+        ],
+        "weight": 0.18
+      }
+    ],
+    "no_evidence": [],
+    "shared_tags": [
+      {
+        "folder": "AI/Agents",
+        "reasons": [
+          "shared tags: agents, llm",
+          "folder name matches the note's words"
+        ],
+        "weight": 0.23
+      },
+      {
+        "folder": "AI/Small",
+        "reasons": [
+          "shared tags: agents",
+          "title words shared: agent"
+        ],
+        "weight": 0.16
+      },
+      {
+        "folder": "AI/Huge",
+        "reasons": [
+          "shared tags: agents",
+          "title words shared: agent",
+          "folder already TOO BROAD (a poor destination)"
+        ],
+        "weight": 0.06
+      }
+    ],
+    "split_domain": [
+      {
+        "folder": "AI/Agents",
+        "reasons": [
+          "2 of 3 settled sibling(s) of split.com vote there"
+        ],
+        "weight": 0.25
+      },
+      {
+        "folder": "AI/Chatbots",
+        "reasons": [
+          "1 of 3 settled sibling(s) of split.com vote there"
+        ],
+        "weight": 0.15
+      }
+    ],
+    "taxonomy": [
+      {
+        "folder": "Design/Fonts",
+        "reasons": [
+          "taxonomy word: fonts",
+          "folder name matches the note's words"
+        ],
+        "weight": 0.16
+      },
+      {
+        "folder": "Design/Color_Tools",
+        "reasons": [
+          "shared tags: fonts"
+        ],
+        "weight": 0.11
+      }
+    ],
+    "taxonomy_plural": [
+      {
+        "folder": "Design/Fonts",
+        "reasons": [
+          "taxonomy word: font"
+        ],
+        "weight": 0.1
+      }
+    ],
+    "title_words": [
+      {
+        "folder": "Design/Color_Tools",
+        "reasons": [
+          "title words shared: palette"
+        ],
+        "weight": 0.1
+      }
+    ],
+    "too_broad": [
+      {
+        "folder": "AI/Agents",
+        "reasons": [
+          "shared tags: agents",
+          "folder name matches the note's words"
+        ],
+        "weight": 0.17
+      },
+      {
+        "folder": "AI/Small",
+        "reasons": [
+          "shared tags: agents",
+          "title words shared: agent"
+        ],
+        "weight": 0.16
+      },
+      {
+        "folder": "AI/Huge",
+        "reasons": [
+          "shared tags: agents",
+          "title words shared: agent",
+          "folder already TOO BROAD (a poor destination)"
+        ],
+        "weight": 0.06
+      }
+    ],
+    "top_k": [
+      {
+        "folder": "AI/Agents",
+        "reasons": [
+          "title words shared: agents",
+          "folder name matches the note's words"
+        ],
+        "weight": 0.16
+      },
+      {
+        "folder": "AI/Small",
+        "reasons": [
+          "1 of 3 settled sibling(s) of x.com vote there"
+        ],
+        "weight": 0.15
+      },
+      {
+        "folder": "Design/Color_Tools",
+        "reasons": [
+          "1 of 3 settled sibling(s) of x.com vote there"
+        ],
+        "weight": 0.15
+      }
+    ],
+    "unanimous": [
+      {
+        "folder": "AI/Agents",
+        "reasons": [
+          "2 settled sibling(s) of one.com live there (unanimous)"
+        ],
+        "weight": 0.45
+      }
+    ]
+  },
+  "weighing_set": [
+    "AI/Agents",
+    "AI/Chatbots",
+    "AI/Huge",
+    "AI/Small",
+    "Design/Color_Tools",
+    "Design/Fonts"
+  ]
+}
