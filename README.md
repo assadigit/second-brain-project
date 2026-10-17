@@ -233,7 +233,34 @@ reference's whole suites) + the local-bare-repos publish-flow battery
 git-dates frozen — the Go port produces the reference's exact
 byte-deterministic publish sha `a300991`) + the 12-section radar
 golden. 1658 tests race-clean.
-Next: T-49 directorysync.
+**T-49 `internal/directorysync` (SESSION-024) — THE
+DIRECTORY SYNC COMPLETE** (spec-cloud-directory-sync.md, with the
+SESSION-024 amendments): the whole of cloud/directory_sync.py — the
+note-section parser (the drawer's grammar: the banner/footer/stray
+strips, the loose headings, the sign-up chip, the banish-tag filter),
+the config trio (ensure_system_files' create-once law + the embedded
+shipped synonyms at assets/directorysync), build_index (THE VAULT
+MIRROR LAW — the published tree IS the folder tree: ghosts drop,
+undeclared folders publish prettified, the case-insensitive folder-name
+translation, the folded private belt, the banish wall, the
+phantom-category tuples), the publish leg (Bearer + 1010 UA +
+json.dumps(ensure_ascii=False) wire bytes) + the read-back door's
+four truths, the admin command cycle (fetch → the idempotent
+failure-isolated vault appliers [the whole-body edit, the move
+collision suffix, trash-not-delete, the banish upsert] → mirror →
+publish → ack — the golden-rule-5 order; the down-Worker law), the
+standalone CLI (incl. the hand-rolled PBKDF2 owner-setup helper), and
+THE DRIFT SEAL'S PUBLISH DOOR WIRED
+(vaultseal.DriftSealDeps.PublishAfterBatch →
+directorysync.PublishAfterBatch — the honest not-wired warning
+retires) — with the ported test_directorysync selections (the
+reference's whole suite) + the read-back four truths + the loopback
+stub battery (the publish-before-ack order proof) + the local-bare
+mirror push + THE GOLDEN (22 sections, paths/clock/git-dates frozen —
+the byte-exact publish body 10,514 bytes + the deterministic mirror
+commit sha c28cc921; dump_directorysync.py imports the reference's own
+fixtures). 1736 tests race-clean.
+Next: T-50 mirror (M) if capacity remains, else Phase-4 close-out.
 
 ## Map
 

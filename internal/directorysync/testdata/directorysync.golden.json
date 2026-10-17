@@ -1,0 +1,1512 @@
+{
+  "appliers": {
+    "banish": {
+      "files": {
+        ".trash/Coolors-20260101T123400.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+        "_system/banished.json": "[\n  {\n    \"host\": \"coolors.co\",\n    \"reason\": \"gone paid\",\n    \"banished_at\": \"2026-01-01T12:34:00+00:00\"\n  }\n]\n"
+      },
+      "logs": [
+        "[directory] trashed note → .trash/Coolors-20260101T123400.md",
+        "[directory] banished host added: coolors.co"
+      ],
+      "results": [
+        {
+          "command_id": "c2",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        ".trash/Coolors-20260101T123400.md",
+        "_system/banished.json"
+      ]
+    },
+    "delete": {
+      "files": {
+        ".trash/Coolors-20260101T123400.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+      },
+      "logs": [
+        "[directory] trashed note → .trash/Coolors-20260101T123400.md"
+      ],
+      "results": [
+        {
+          "command_id": "c1",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        ".trash/Coolors-20260101T123400.md"
+      ]
+    },
+    "edit_body": {
+      "files": {
+        "Design/Assets & Resources/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n# Coolors Prime\n\n> **TL;DR:** rewritten from the admin area.\n\n## What it does\n- one new fact\n- another\n\n## Watch out\n- nothing"
+      },
+      "logs": [
+        "[directory] replaced note body Coolors.md",
+        "[directory] edited note Coolors.md"
+      ],
+      "results": [
+        {
+          "command_id": "b1",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Design/Assets & Resources/Coolors.md"
+      ]
+    },
+    "edit_body_crlf": {
+      "files": {
+        "Design/Assets & Resources/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n# X\n\n> **TL;DR:** y"
+      },
+      "logs": [
+        "[directory] replaced note body Coolors.md",
+        "[directory] edited note Coolors.md"
+      ],
+      "results": [
+        {
+          "command_id": "b2",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Design/Assets & Resources/Coolors.md"
+      ]
+    },
+    "edit_category": {
+      "files": {
+        "Dev_Tools/Assets_Resources/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Dev Tools\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+      },
+      "logs": [
+        "[directory] edited note Coolors.md",
+        "[directory] moved note → Dev_Tools/Assets_Resources/Coolors.md",
+        "[directory] edited note Coolors.md"
+      ],
+      "results": [
+        {
+          "command_id": "c7",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Dev_Tools/Assets_Resources/Coolors.md"
+      ]
+    },
+    "edit_fields": {
+      "files": {
+        "Design/Assets & Resources/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color, palette, new]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\nfeatured: true\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors Two\n\n> **TL;DR:** A newer summary line.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+      },
+      "logs": [
+        "[directory] edited note Coolors.md"
+      ],
+      "results": [
+        {
+          "command_id": "c6",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Design/Assets & Resources/Coolors.md"
+      ]
+    },
+    "feature": {
+      "files": {
+        "Design/Assets & Resources/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\nfeatured: true\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+      },
+      "logs": [
+        "[directory] edited note Coolors.md"
+      ],
+      "results": [
+        {
+          "command_id": "c8",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Design/Assets & Resources/Coolors.md"
+      ]
+    },
+    "move": {
+      "files": {
+        "Developer_Tools/Command_Line/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Developer Tools\"\nsubcategory: \"Command Line\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+      },
+      "logs": [
+        "[directory] moved note → Developer_Tools/Command_Line/Coolors.md",
+        "[directory] edited note Coolors.md"
+      ],
+      "results": [
+        {
+          "command_id": "c3",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Developer_Tools/Command_Line/Coolors.md"
+      ]
+    },
+    "move_collision": {
+      "files": {
+        "Fresh/Coolors 2.md": "---\nsource: https://twin.example/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Fresh\"\nsubcategory: \"\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://twin.example/](https://twin.example/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+        "Fresh/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Fresh\"\nsubcategory: \"\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+      },
+      "logs": [
+        "[directory] moved note → Fresh/Coolors.md",
+        "[directory] edited note Coolors.md",
+        "[directory] moved note → Fresh/Coolors 2.md",
+        "[directory] edited note Coolors 2.md"
+      ],
+      "results": [
+        {
+          "command_id": "c4",
+          "error": "",
+          "status": "applied"
+        },
+        {
+          "command_id": "c5",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Fresh/Coolors 2.md",
+        "Fresh/Coolors.md"
+      ]
+    },
+    "review": {
+      "files": {
+        "Design/Assets & Resources/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\nneeds_review: true\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+      },
+      "logs": [
+        "[directory] edited note Coolors.md"
+      ],
+      "results": [
+        {
+          "command_id": "r1",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Design/Assets & Resources/Coolors.md"
+      ]
+    },
+    "unban": {
+      "files": {
+        "Design/Assets & Resources/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+        "_system/banished.json": "[\n  {\n    \"host\": \"spam.example\",\n    \"reason\": \"spam\",\n    \"banished_at\": \"x\"\n  }\n]\n"
+      },
+      "logs": [
+        "[directory] banished host removed: coolors.co"
+      ],
+      "results": [
+        {
+          "command_id": "c10",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Design/Assets & Resources/Coolors.md",
+        "_system/banished.json"
+      ]
+    },
+    "unknown_type": {
+      "files": {
+        "Design/Assets & Resources/Coolors.md": "---\nsource: https://coolors.co/\naliases: []\ntags: [color-tool, palette]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"ok\"\npricing: \"freemium\"\nlogin_required: \"no\"\ndate_processed: 2026-09-28\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\nfeatured: true\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Coolors\n\n> **TL;DR:** The super-fast color scheme generator for designers.\n\n## What it does\n- Generates color palettes with a single spacebar press\n- Shows HEX, RGB and CSS values for every swatch\n- Exports palettes as PNG, PDF, SVG and URL\n- Contrast checking against WCAG standards\n\n## Best used for\nUse it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\n\n## Practical details\n- Pricing: freemium — the free tier covers most work\n- Sign-up required: no\n- Export formats: PNG, SVG, PDF, URL\n- Works fully in the browser\n\n## Watch out\n- The pro tier is required for some export formats and gradient tools\n\n## Similar tools\nAdobe Color, Khroma, Paletton\n\n---\n*Source: [https://coolors.co/](https://coolors.co/)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+      },
+      "logs": [
+        "[directory] edited note Coolors.md"
+      ],
+      "results": [
+        {
+          "command_id": "bad",
+          "error": "unknown command type: 'explode'",
+          "status": "failed"
+        },
+        {
+          "command_id": "good",
+          "error": "",
+          "status": "applied"
+        }
+      ],
+      "tree": [
+        "Design/Assets & Resources/Coolors.md"
+      ]
+    }
+  },
+  "banished_wall": {
+    "empty_host": [],
+    "leading_dots": [
+      "dotted.example"
+    ],
+    "shared_excluded": [
+      "realbad.org",
+      "spam.example"
+    ],
+    "subdomain_of_shared": []
+  },
+  "build_index": {
+    "banished_hosts": [
+      "banned.example",
+      "spam.example"
+    ],
+    "categories": [
+      {
+        "description": "Downloadable/usable design assets and process & inspiration resources.",
+        "icon": "palette",
+        "name": "Design",
+        "name_fa": "طراحی",
+        "order": 1,
+        "slug": "design",
+        "subcategories": [
+          {
+            "description": "Icons, mockups, fonts, illustrations, UI kits, color/gradient tools.",
+            "icon": null,
+            "name": "Assets & Resources",
+            "name_fa": "دارایی‌ها و منابع",
+            "slug": "assets-resources",
+            "visibility": "public"
+          },
+          {
+            "description": "Icon sets and SVG asset libraries.",
+            "icon": null,
+            "name": "Icons & SVG Assets",
+            "name_fa": "آیکون‌ها و دارایی‌های SVG",
+            "slug": "icons-svg-assets",
+            "visibility": "public"
+          },
+          {
+            "description": "",
+            "icon": null,
+            "name": "UI-UX",
+            "name_fa": "",
+            "slug": "ui-ux",
+            "visibility": "public"
+          },
+          {
+            "description": "",
+            "icon": null,
+            "name": "Wireframe Kits",
+            "name_fa": "",
+            "slug": "wireframe-kits",
+            "visibility": "public"
+          }
+        ],
+        "visibility": "public"
+      },
+      {
+        "description": "",
+        "icon": "code",
+        "name": "Developer Tools",
+        "name_fa": "ابزارهای توسعه‌دهنده",
+        "order": 4,
+        "slug": "developer-tools",
+        "subcategories": [],
+        "visibility": "public"
+      },
+      {
+        "description": "Public archives and libraries.",
+        "icon": "download",
+        "name": "Download Resources",
+        "name_fa": "منابع دانلود",
+        "order": 7,
+        "slug": "download-resources",
+        "subcategories": [
+          {
+            "description": "Legitimate, public-domain archives.",
+            "icon": null,
+            "name": "Public Archives & Libraries",
+            "name_fa": "آرشیوها و کتابخانه‌های عمومی",
+            "slug": "public-archives-libraries",
+            "visibility": "public"
+          }
+        ],
+        "visibility": "public"
+      },
+      {
+        "description": "Catch-all — use sparingly.",
+        "icon": "shuffle",
+        "name": "Random / Curiosities",
+        "name_fa": "گوناگون و کنجکاوی‌ها",
+        "order": 14,
+        "slug": "random-curiosities",
+        "subcategories": [],
+        "visibility": "public"
+      },
+      {
+        "description": "",
+        "icon": "bookmark",
+        "name": "Mystery Bucket",
+        "name_fa": "",
+        "order": 999,
+        "slug": "mystery-bucket",
+        "subcategories": [],
+        "visibility": "public"
+      }
+    ],
+    "counts": {
+      "categories": 5,
+      "sites": 10
+    },
+    "generated_at": "2026-01-01T12:34:00+00:00",
+    "new_days": 14,
+    "popular_tags": [
+      {
+        "count": 7,
+        "fa": "ابزار رنگ",
+        "tag": "color-tool"
+      },
+      {
+        "count": 7,
+        "fa": "",
+        "tag": "palette"
+      },
+      {
+        "count": 2,
+        "fa": "",
+        "tag": "speed-test"
+      },
+      {
+        "count": 1,
+        "fa": "",
+        "tag": "curiosity"
+      }
+    ],
+    "schema": "gitcurator-directory/1",
+    "sites": [
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "Use it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.",
+        "category": "Design",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "coolors.co",
+        "id": "1557d6500f286e52",
+        "name": "Coolors",
+        "needs_review": false,
+        "practical_details": [
+          "Pricing: freemium — the free tier covers most work",
+          "Export formats: PNG, SVG, PDF, URL",
+          "Works fully in the browser"
+        ],
+        "pricing": "freemium",
+        "signup_required": "no",
+        "similar_tools": "Adobe Color, Khroma, Paletton",
+        "slug": "coolors",
+        "subcategory": "Assets & Resources",
+        "summary": "The super-fast color scheme generator for designers.",
+        "tags": [
+          "color-tool",
+          "palette"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://coolors.co",
+        "watch_out": [
+          "The pro tier is required for some export formats and gradient tools"
+        ],
+        "what_it_does": [
+          "Generates color palettes with a single spacebar press",
+          "Shows HEX, RGB and CSS values for every swatch",
+          "Exports palettes as PNG, PDF, SVG and URL",
+          "Contrast checking against WCAG standards"
+        ]
+      },
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "",
+        "category": "Design",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "icons8.com",
+        "id": "cad3e2dcc97ae48a",
+        "name": "Icons8",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "freemium",
+        "signup_required": "no",
+        "similar_tools": "",
+        "slug": "icons8",
+        "subcategory": "Icons & SVG Assets",
+        "summary": "t",
+        "tags": [
+          "color-tool",
+          "palette"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://icons8.com",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "When you want one number, right now.",
+        "category": "Design",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "fast.com",
+        "id": "6d5da28b1bbddf0e",
+        "name": "Fast.com",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "unknown",
+        "signup_required": "unknown",
+        "similar_tools": "",
+        "slug": "fast-com",
+        "subcategory": "UI-UX",
+        "summary": "Netflix's simple internet speed test.",
+        "tags": [
+          "speed-test"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://fast.com",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "",
+        "category": "Design",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "whimsical.com",
+        "id": "5ae3fc3986df9b56",
+        "name": "Whimsical",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "freemium",
+        "signup_required": "no",
+        "similar_tools": "",
+        "slug": "whimsical",
+        "subcategory": "Wireframe Kits",
+        "summary": "t",
+        "tags": [
+          "color-tool",
+          "palette"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://whimsical.com",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "",
+        "category": "Developer Tools",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "a.example",
+        "id": "38612c965a9c4c35",
+        "name": "Same Name",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "freemium",
+        "signup_required": "no",
+        "similar_tools": "",
+        "slug": "same-name",
+        "subcategory": "",
+        "summary": "t",
+        "tags": [
+          "color-tool",
+          "palette"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://a.example",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "",
+        "category": "Developer Tools",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "b.example",
+        "id": "35b22c6cbc7988f8",
+        "name": "Same Name",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "freemium",
+        "signup_required": "no",
+        "similar_tools": "",
+        "slug": "same-name-2",
+        "subcategory": "",
+        "summary": "t",
+        "tags": [
+          "color-tool",
+          "palette"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://b.example",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "",
+        "category": "Developer Tools",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "someone.github.io",
+        "id": "fe12b548439dca4b",
+        "name": "Shared Good",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "freemium",
+        "signup_required": "no",
+        "similar_tools": "",
+        "slug": "shared-good",
+        "subcategory": "",
+        "summary": "t",
+        "tags": [
+          "color-tool",
+          "palette"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://someone.github.io/good",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "",
+        "category": "Download Resources",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "gutenberg.org",
+        "id": "56605f852ea008ba",
+        "name": "Gutenberg",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "freemium",
+        "signup_required": "no",
+        "similar_tools": "",
+        "slug": "gutenberg",
+        "subcategory": "Public Archives & Libraries",
+        "summary": "t",
+        "tags": [
+          "color-tool",
+          "palette"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://gutenberg.org",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      {
+        "added_at": "2026-09-28",
+        "best_used_for": "When you want one number, right now.",
+        "category": "Mystery Bucket",
+        "detail_markdown": "",
+        "extra_sections": [],
+        "featured": false,
+        "host": "thing.example",
+        "id": "6f97fe2a1e9b08cd",
+        "name": "Fast.com",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "unknown",
+        "signup_required": "unknown",
+        "similar_tools": "",
+        "slug": "fast-com-2",
+        "subcategory": "",
+        "summary": "Netflix's simple internet speed test.",
+        "tags": [
+          "speed-test"
+        ],
+        "updated_at": "2026-09-28",
+        "url": "https://thing.example",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      {
+        "added_at": "2026-10-10",
+        "best_used_for": "",
+        "category": "Random / Curiosities",
+        "detail_markdown": "# Window Swap\n\nThis is just prose. It has no sections at all, and the drawer must\nshow the full text as plain formatted content. See [the project](https://window-swap.com/).",
+        "extra_sections": [],
+        "featured": false,
+        "host": "window-swap.com",
+        "id": "af00b4acecb33bd0",
+        "name": "Window Swap",
+        "needs_review": false,
+        "practical_details": [],
+        "pricing": "free",
+        "signup_required": "no",
+        "similar_tools": "",
+        "slug": "window-swap",
+        "subcategory": "",
+        "summary": "",
+        "tags": [
+          "curiosity"
+        ],
+        "updated_at": "2026-10-10",
+        "url": "https://window-swap.com",
+        "watch_out": [],
+        "what_it_does": []
+      }
+    ],
+    "synonyms": {
+      "$comment": "GitCurator — search synonyms (v0.72.0). Keys expand to the listed words in the instant search (both directions at query time; the frontend also matches the raw terms). Kept with the app at app/taxonomy/, synced into the vault at Websites/_system/search-synonyms.json (the vault copy wins — the owner can extend it freely; UI spec §5.3: 'The synonym list is a simple file the owner can extend').",
+      "ai": [
+        "artificial intelligence",
+        "llm",
+        "gpt"
+      ],
+      "breach": [
+        "leak",
+        "security",
+        "pwned"
+      ],
+      "color": [
+        "colour",
+        "palette"
+      ],
+      "colour": [
+        "color",
+        "palette"
+      ],
+      "converter": [
+        "convert",
+        "transform"
+      ],
+      "course": [
+        "learning",
+        "tutorial",
+        "class"
+      ],
+      "crypto": [
+        "bitcoin",
+        "blockchain",
+        "token"
+      ],
+      "ebook": [
+        "book",
+        "library"
+      ],
+      "font": [
+        "typeface",
+        "typography"
+      ],
+      "gis": [
+        "maps",
+        "geo",
+        "mapping"
+      ],
+      "icons": [
+        "icon",
+        "svg"
+      ],
+      "image": [
+        "picture",
+        "photo",
+        "upscale"
+      ],
+      "learn": [
+        "learning",
+        "course",
+        "education"
+      ],
+      "llm": [
+        "ai",
+        "language model"
+      ],
+      "maps": [
+        "map",
+        "gis",
+        "geo"
+      ],
+      "market": [
+        "markets",
+        "price",
+        "chart"
+      ],
+      "mockup": [
+        "mockups",
+        "wireframe"
+      ],
+      "photo": [
+        "picture",
+        "image"
+      ],
+      "picture": [
+        "image",
+        "photo"
+      ],
+      "privacy": [
+        "anonymous",
+        "anon"
+      ],
+      "salary": [
+        "income",
+        "pay",
+        "wage"
+      ],
+      "security": [
+        "secure",
+        "privacy",
+        "breach"
+      ],
+      "speed": [
+        "fast",
+        "performance"
+      ],
+      "tts": [
+        "text to speech",
+        "voice"
+      ],
+      "tutorial": [
+        "course",
+        "guide",
+        "howto"
+      ],
+      "typeface": [
+        "font"
+      ],
+      "typography": [
+        "font"
+      ],
+      "visa": [
+        "immigration",
+        "relocation"
+      ],
+      "voice": [
+        "tts",
+        "speech",
+        "audio"
+      ],
+      "wireframe": [
+        "wireframing",
+        "mockup"
+      ]
+    },
+    "tag_aliases": {
+      "accessibility": "دسترس‌پذیری",
+      "ai-powered": "مبتنی بر هوش مصنوعی",
+      "color-tool": "ابزار رنگ",
+      "course": "دوره",
+      "design-system": "سیستم طراحی",
+      "font": "فونت",
+      "icons": "آیکون",
+      "inspiration": "الهام",
+      "mockup": "ماکاپ",
+      "research-ai": "پژوهش هوش مصنوعی",
+      "tts": "تبدیل متن به گفتار",
+      "ui-kit": "کیت رابط کاربری",
+      "video": "ویدیو"
+    }
+  },
+  "cli": {
+    "out_file": "{\n  \"schema\": \"gitcurator-directory/1\",\n  \"generated_at\": \"2026-01-01T12:34:00+00:00\",\n  \"counts\": {\n    \"sites\": 1,\n    \"categories\": 1\n  },\n  \"categories\": [\n    {\n      \"name\": \"Design\",\n      \"name_fa\": \"طراحی\",\n      \"slug\": \"design\",\n      \"icon\": \"palette\",\n      \"order\": 1,\n      \"visibility\": \"public\",\n      \"description\": \"Downloadable/usable design assets and process & inspiration resources.\",\n      \"subcategories\": [\n        {\n          \"name\": \"Assets & Resources\",\n          \"name_fa\": \"دارایی‌ها و منابع\",\n          \"slug\": \"assets-resources\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Icons, mockups, fonts, illustrations, UI kits, color/gradient tools.\"\n        }\n      ]\n    }\n  ],\n  \"sites\": [\n    {\n      \"id\": \"1557d6500f286e52\",\n      \"slug\": \"coolors\",\n      \"name\": \"Coolors\",\n      \"url\": \"https://coolors.co\",\n      \"host\": \"coolors.co\",\n      \"category\": \"Design\",\n      \"subcategory\": \"Assets & Resources\",\n      \"summary\": \"The super-fast color scheme generator for designers.\",\n      \"tags\": [\n        \"color-tool\",\n        \"palette\"\n      ],\n      \"featured\": false,\n      \"needs_review\": false,\n      \"added_at\": \"2026-09-28\",\n      \"updated_at\": \"2026-09-28\",\n      \"what_it_does\": [\n        \"Generates color palettes with a single spacebar press\",\n        \"Shows HEX, RGB and CSS values for every swatch\",\n        \"Exports palettes as PNG, PDF, SVG and URL\",\n        \"Contrast checking against WCAG standards\"\n      ],\n      \"best_used_for\": \"Use it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\",\n      \"practical_details\": [\n        \"Pricing: freemium — the free tier covers most work\",\n        \"Export formats: PNG, SVG, PDF, URL\",\n        \"Works fully in the browser\"\n      ],\n      \"watch_out\": [\n        \"The pro tier is required for some export formats and gradient tools\"\n      ],\n      \"similar_tools\": \"Adobe Color, Khroma, Paletton\",\n      \"extra_sections\": [],\n      \"signup_required\": \"no\",\n      \"pricing\": \"freemium\",\n      \"detail_markdown\": \"\"\n    }\n  ],\n  \"popular_tags\": [\n    {\n      \"tag\": \"color-tool\",\n      \"count\": 1,\n      \"fa\": \"ابزار رنگ\"\n    },\n    {\n      \"tag\": \"palette\",\n      \"count\": 1,\n      \"fa\": \"\"\n    }\n  ],\n  \"tag_aliases\": {\n    \"color-tool\": \"ابزار رنگ\",\n    \"font\": \"فونت\",\n    \"icons\": \"آیکون\",\n    \"mockup\": \"ماکاپ\",\n    \"ui-kit\": \"کیت رابط کاربری\",\n    \"video\": \"ویدیو\",\n    \"ai-powered\": \"مبتنی بر هوش مصنوعی\",\n    \"inspiration\": \"الهام\",\n    \"design-system\": \"سیستم طراحی\",\n    \"accessibility\": \"دسترس‌پذیری\",\n    \"tts\": \"تبدیل متن به گفتار\",\n    \"course\": \"دوره\",\n    \"research-ai\": \"پژوهش هوش مصنوعی\"\n  },\n  \"synonyms\": {\n    \"$comment\": \"GitCurator — search synonyms (v0.72.0). Keys expand to the listed words in the instant search (both directions at query time; the frontend also matches the raw terms). Kept with the app at app/taxonomy/, synced into the vault at Websites/_system/search-synonyms.json (the vault copy wins — the owner can extend it freely; UI spec §5.3: 'The synonym list is a simple file the owner can extend').\",\n    \"colour\": [\n      \"color\",\n      \"palette\"\n    ],\n    \"color\": [\n      \"colour\",\n      \"palette\"\n    ],\n    \"font\": [\n      \"typeface\",\n      \"typography\"\n    ],\n    \"typeface\": [\n      \"font\"\n    ],\n    \"typography\": [\n      \"font\"\n    ],\n    \"icons\": [\n      \"icon\",\n      \"svg\"\n    ],\n    \"mockup\": [\n      \"mockups\",\n      \"wireframe\"\n    ],\n    \"wireframe\": [\n      \"wireframing\",\n      \"mockup\"\n    ],\n    \"ai\": [\n      \"artificial intelligence\",\n      \"llm\",\n      \"gpt\"\n    ],\n    \"llm\": [\n      \"ai\",\n      \"language model\"\n    ],\n    \"voice\": [\n      \"tts\",\n      \"speech\",\n      \"audio\"\n    ],\n    \"tts\": [\n      \"text to speech\",\n      \"voice\"\n    ],\n    \"picture\": [\n      \"image\",\n      \"photo\"\n    ],\n    \"image\": [\n      \"picture\",\n      \"photo\",\n      \"upscale\"\n    ],\n    \"photo\": [\n      \"picture\",\n      \"image\"\n    ],\n    \"converter\": [\n      \"convert\",\n      \"transform\"\n    ],\n    \"speed\": [\n      \"fast\",\n      \"performance\"\n    ],\n    \"privacy\": [\n      \"anonymous\",\n      \"anon\"\n    ],\n    \"ebook\": [\n      \"book\",\n      \"library\"\n    ],\n    \"course\": [\n      \"learning\",\n      \"tutorial\",\n      \"class\"\n    ],\n    \"tutorial\": [\n      \"course\",\n      \"guide\",\n      \"howto\"\n    ],\n    \"learn\": [\n      \"learning\",\n      \"course\",\n      \"education\"\n    ],\n    \"security\": [\n      \"secure\",\n      \"privacy\",\n      \"breach\"\n    ],\n    \"breach\": [\n      \"leak\",\n      \"security\",\n      \"pwned\"\n    ],\n    \"crypto\": [\n      \"bitcoin\",\n      \"blockchain\",\n      \"token\"\n    ],\n    \"market\": [\n      \"markets\",\n      \"price\",\n      \"chart\"\n    ],\n    \"gis\": [\n      \"maps\",\n      \"geo\",\n      \"mapping\"\n    ],\n    \"maps\": [\n      \"map\",\n      \"gis\",\n      \"geo\"\n    ],\n    \"visa\": [\n      \"immigration\",\n      \"relocation\"\n    ],\n    \"salary\": [\n      \"income\",\n      \"pay\",\n      \"wage\"\n    ]\n  },\n  \"banished_hosts\": [],\n  \"new_days\": 14\n}",
+    "rc": 0,
+    "stdout": "[directory] created _system/banished.json\n[directory] created _system/directory-config.json\n[directory] created _system/search-synonyms.json\n[directory] built index: 1 sites, 1 categories, 2 popular tags\n[directory] index written to <vault>/index.json\n"
+  },
+  "cli_missing_vault": {
+    "rc": 2
+  },
+  "directory_config_load": {
+    "fallback_cats": 14,
+    "vault_copy_cats": 14
+  },
+  "effective_config": {
+    "cloudflare_fallback": {
+      "cloudflare_worker_url": "https://cf.example",
+      "directory_sync_token": "",
+      "directory_worker_url": "https://cf.example",
+      "website_vault_path": ""
+    },
+    "directory_wins": {
+      "cloudflare_worker_url": "https://cf.example",
+      "directory_sync_token": "",
+      "directory_worker_url": "https://dir.example",
+      "website_vault_path": ""
+    },
+    "empty_env_falls_through": {
+      "cloudflare_worker_url": "https://cf.example",
+      "directory_sync_token": "cfg-token",
+      "directory_worker_url": "https://cf.example",
+      "website_vault_path": ""
+    },
+    "env_token": {
+      "cloudflare_worker_url": "",
+      "directory_sync_token": "env-token",
+      "directory_worker_url": "",
+      "website_vault_path": ""
+    },
+    "env_url": {
+      "cloudflare_worker_url": "https://cf.example",
+      "directory_sync_token": "",
+      "directory_worker_url": "https://env.example",
+      "website_vault_path": ""
+    },
+    "env_vault": {
+      "cloudflare_worker_url": "",
+      "directory_sync_token": "",
+      "directory_worker_url": "",
+      "website_vault_path": "/env/vault"
+    },
+    "plain": {
+      "cloudflare_worker_url": "",
+      "directory_sync_token": "",
+      "directory_worker_url": "",
+      "website_vault_path": ""
+    }
+  },
+  "frontmatter_set": {
+    "case_insensitive": [
+      "source: new"
+    ],
+    "empty": [
+      "needs_review: false"
+    ],
+    "insert": [
+      "tags: [x]",
+      "featured: true"
+    ],
+    "replace": [
+      "source: https://b.example/",
+      "tags: [x]"
+    ]
+  },
+  "is_banished": {
+    "empty_list": false,
+    "host": true,
+    "lstrip_quirk": true,
+    "shared_hit": true,
+    "shared_miss": false,
+    "shared_other": false,
+    "subdomain": true,
+    "unrelated": false,
+    "www": true
+  },
+  "norm_host": {
+    "empty": "",
+    "no_scheme": "h.example",
+    "plain": "coolors.co",
+    "port": "host.example",
+    "query": "h.example",
+    "www": "banished.example"
+  },
+  "parse_note": {
+    "banish_tags": {
+      "added_at": "2026-09-28",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": false,
+      "name": "T",
+      "needs_review": false,
+      "pricing": "freemium",
+      "sections": {
+        "best_used_for": "",
+        "practical_details": [],
+        "similar_tools": "",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      "signup_required": "no",
+      "source": "https://t.example/",
+      "structured": true,
+      "summary": "x",
+      "tags": [
+        "ui"
+      ]
+    },
+    "empty": null,
+    "empty_bullet": {
+      "added_at": "2026-09-28",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": false,
+      "name": "v0",
+      "needs_review": false,
+      "pricing": "freemium",
+      "sections": {
+        "best_used_for": "",
+        "practical_details": [],
+        "similar_tools": "",
+        "watch_out": [
+          "The free tier is limited"
+        ],
+        "what_it_does": []
+      },
+      "signup_required": "yes",
+      "source": "https://v0.dev/",
+      "structured": true,
+      "summary": "Vercel's generative UI — describe a screen, get React code.",
+      "tags": [
+        "ai-powered",
+        "ui-generation"
+      ]
+    },
+    "featured": {
+      "added_at": "2026-09-28",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": true,
+      "name": "F",
+      "needs_review": false,
+      "pricing": "freemium",
+      "sections": {
+        "best_used_for": "",
+        "practical_details": [],
+        "similar_tools": "",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      "signup_required": "no",
+      "source": "https://f.example/",
+      "structured": true,
+      "summary": "pick me",
+      "tags": [
+        "color-tool",
+        "palette"
+      ]
+    },
+    "long": {
+      "added_at": "2026-09-28",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": false,
+      "name": "Coolors",
+      "needs_review": false,
+      "pricing": "freemium",
+      "sections": {
+        "best_used_for": "Use it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.",
+        "practical_details": [
+          "Pricing: freemium — the free tier covers most work",
+          "Export formats: PNG, SVG, PDF, URL",
+          "Works fully in the browser"
+        ],
+        "similar_tools": "Adobe Color, Khroma, Paletton",
+        "watch_out": [
+          "The pro tier is required for some export formats and gradient tools"
+        ],
+        "what_it_does": [
+          "Generates color palettes with a single spacebar press",
+          "Shows HEX, RGB and CSS values for every swatch",
+          "Exports palettes as PNG, PDF, SVG and URL",
+          "Contrast checking against WCAG standards"
+        ]
+      },
+      "signup_required": "no",
+      "source": "https://coolors.co/",
+      "structured": true,
+      "summary": "The super-fast color scheme generator for designers.",
+      "tags": [
+        "color-tool",
+        "palette"
+      ]
+    },
+    "loose": {
+      "added_at": "2026-09-28",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": false,
+      "name": "Loose",
+      "needs_review": false,
+      "pricing": "freemium",
+      "sections": {
+        "best_used_for": "Loose paragraph.",
+        "practical_details": [],
+        "similar_tools": "",
+        "watch_out": [],
+        "what_it_does": [
+          "one bullet"
+        ]
+      },
+      "signup_required": "no",
+      "source": "https://loose.example/",
+      "structured": true,
+      "summary": "Loose labels.",
+      "tags": [
+        "color-tool",
+        "palette"
+      ]
+    },
+    "missing": {
+      "added_at": "2026-09-28",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": false,
+      "name": "Mobbin",
+      "needs_review": false,
+      "pricing": "freemium",
+      "sections": {
+        "best_used_for": "Use it when you need real-world reference screens for a flow you are designing.",
+        "practical_details": [],
+        "similar_tools": "—",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      "signup_required": "yes",
+      "source": "https://mobbin.com/",
+      "structured": true,
+      "summary": "A browsable library of real mobile and web UI screens.",
+      "tags": [
+        "color-tool",
+        "palette"
+      ]
+    },
+    "no_frontmatter": null,
+    "private": {
+      "added_at": "2026-09-28",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": false,
+      "name": "Anna's Archive",
+      "needs_review": false,
+      "pricing": "free",
+      "sections": {
+        "best_used_for": "",
+        "practical_details": [],
+        "similar_tools": "",
+        "watch_out": [
+          "Never appears on the public site"
+        ],
+        "what_it_does": []
+      },
+      "signup_required": "no",
+      "source": "https://annas-archive.org/",
+      "structured": true,
+      "summary": "A shadow-library aggregator — PRIVATE, never published.",
+      "tags": [
+        "shadow-library",
+        "ebook"
+      ]
+    },
+    "short": {
+      "added_at": "2026-09-28",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": false,
+      "name": "Fast.com",
+      "needs_review": false,
+      "pricing": "unknown",
+      "sections": {
+        "best_used_for": "When you want one number, right now.",
+        "practical_details": [],
+        "similar_tools": "",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      "signup_required": "unknown",
+      "source": "https://fast.com/",
+      "structured": true,
+      "summary": "Netflix's simple internet speed test.",
+      "tags": [
+        "speed-test"
+      ]
+    },
+    "stray": {
+      "added_at": "2026-10-02",
+      "detail_markdown": "",
+      "extra_sections": [],
+      "featured": false,
+      "name": "Icons8",
+      "needs_review": false,
+      "pricing": "freemium",
+      "sections": {
+        "best_used_for": "Use it when one visual family must carry a whole product.",
+        "practical_details": [
+          "Pricing: freemium — free tier with attribution"
+        ],
+        "similar_tools": "",
+        "watch_out": [],
+        "what_it_does": [
+          "A large icon library across dozens of style families",
+          "Consistent companion illustration and photo sets"
+        ]
+      },
+      "signup_required": "no",
+      "source": "https://icons8.com/",
+      "structured": true,
+      "summary": "Icons, illustrations and photos with consistent styles.",
+      "tags": [
+        "icons",
+        "illustration"
+      ]
+    },
+    "unstructured": {
+      "added_at": "2026-10-10",
+      "detail_markdown": "# Window Swap\n\nThis is just prose. It has no sections at all, and the drawer must\nshow the full text as plain formatted content. See [the project](https://window-swap.com/).",
+      "extra_sections": [],
+      "featured": false,
+      "name": "Window Swap",
+      "needs_review": false,
+      "pricing": "free",
+      "sections": {
+        "best_used_for": "",
+        "practical_details": [],
+        "similar_tools": "",
+        "watch_out": [],
+        "what_it_does": []
+      },
+      "signup_required": "no",
+      "source": "https://window-swap.com/",
+      "structured": false,
+      "summary": "",
+      "tags": [
+        "curiosity"
+      ]
+    }
+  },
+  "prettify_folder_name": {
+    "empty": "",
+    "only_marks": "___",
+    "spaces": "Assets & Resources",
+    "underscores": "Icons Svg Assets"
+  },
+  "publish_body": "{\"schema\": \"gitcurator-directory/1\", \"generated_at\": \"2026-01-01T12:34:00+00:00\", \"counts\": {\"sites\": 10, \"categories\": 5}, \"categories\": [{\"name\": \"Design\", \"name_fa\": \"طراحی\", \"slug\": \"design\", \"icon\": \"palette\", \"order\": 1, \"visibility\": \"public\", \"description\": \"Downloadable/usable design assets and process & inspiration resources.\", \"subcategories\": [{\"name\": \"Assets & Resources\", \"name_fa\": \"دارایی‌ها و منابع\", \"slug\": \"assets-resources\", \"icon\": null, \"visibility\": \"public\", \"description\": \"Icons, mockups, fonts, illustrations, UI kits, color/gradient tools.\"}, {\"name\": \"Icons & SVG Assets\", \"name_fa\": \"آیکون‌ها و دارایی‌های SVG\", \"slug\": \"icons-svg-assets\", \"icon\": null, \"visibility\": \"public\", \"description\": \"Icon sets and SVG asset libraries.\"}, {\"name\": \"UI-UX\", \"name_fa\": \"\", \"slug\": \"ui-ux\", \"icon\": null, \"visibility\": \"public\", \"description\": \"\"}, {\"name\": \"Wireframe Kits\", \"name_fa\": \"\", \"slug\": \"wireframe-kits\", \"icon\": null, \"visibility\": \"public\", \"description\": \"\"}]}, {\"name\": \"Developer Tools\", \"name_fa\": \"ابزارهای توسعه‌دهنده\", \"slug\": \"developer-tools\", \"icon\": \"code\", \"order\": 4, \"visibility\": \"public\", \"description\": \"\", \"subcategories\": []}, {\"name\": \"Download Resources\", \"name_fa\": \"منابع دانلود\", \"slug\": \"download-resources\", \"icon\": \"download\", \"order\": 7, \"visibility\": \"public\", \"description\": \"Public archives and libraries.\", \"subcategories\": [{\"name\": \"Public Archives & Libraries\", \"name_fa\": \"آرشیوها و کتابخانه‌های عمومی\", \"slug\": \"public-archives-libraries\", \"icon\": null, \"visibility\": \"public\", \"description\": \"Legitimate, public-domain archives.\"}]}, {\"name\": \"Random / Curiosities\", \"name_fa\": \"گوناگون و کنجکاوی‌ها\", \"slug\": \"random-curiosities\", \"icon\": \"shuffle\", \"order\": 14, \"visibility\": \"public\", \"description\": \"Catch-all — use sparingly.\", \"subcategories\": []}, {\"name\": \"Mystery Bucket\", \"name_fa\": \"\", \"slug\": \"mystery-bucket\", \"icon\": \"bookmark\", \"order\": 999, \"visibility\": \"public\", \"description\": \"\", \"subcategories\": []}], \"sites\": [{\"id\": \"1557d6500f286e52\", \"slug\": \"coolors\", \"name\": \"Coolors\", \"url\": \"https://coolors.co\", \"host\": \"coolors.co\", \"category\": \"Design\", \"subcategory\": \"Assets & Resources\", \"summary\": \"The super-fast color scheme generator for designers.\", \"tags\": [\"color-tool\", \"palette\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [\"Generates color palettes with a single spacebar press\", \"Shows HEX, RGB and CSS values for every swatch\", \"Exports palettes as PNG, PDF, SVG and URL\", \"Contrast checking against WCAG standards\"], \"best_used_for\": \"Use it when you need a quick, harmonious palette for a landing page or a brand exploration, and you want to lock it fast.\", \"practical_details\": [\"Pricing: freemium — the free tier covers most work\", \"Export formats: PNG, SVG, PDF, URL\", \"Works fully in the browser\"], \"watch_out\": [\"The pro tier is required for some export formats and gradient tools\"], \"similar_tools\": \"Adobe Color, Khroma, Paletton\", \"extra_sections\": [], \"signup_required\": \"no\", \"pricing\": \"freemium\", \"detail_markdown\": \"\"}, {\"id\": \"cad3e2dcc97ae48a\", \"slug\": \"icons8\", \"name\": \"Icons8\", \"url\": \"https://icons8.com\", \"host\": \"icons8.com\", \"category\": \"Design\", \"subcategory\": \"Icons & SVG Assets\", \"summary\": \"t\", \"tags\": [\"color-tool\", \"palette\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [], \"best_used_for\": \"\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"no\", \"pricing\": \"freemium\", \"detail_markdown\": \"\"}, {\"id\": \"6d5da28b1bbddf0e\", \"slug\": \"fast-com\", \"name\": \"Fast.com\", \"url\": \"https://fast.com\", \"host\": \"fast.com\", \"category\": \"Design\", \"subcategory\": \"UI-UX\", \"summary\": \"Netflix's simple internet speed test.\", \"tags\": [\"speed-test\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [], \"best_used_for\": \"When you want one number, right now.\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"unknown\", \"pricing\": \"unknown\", \"detail_markdown\": \"\"}, {\"id\": \"5ae3fc3986df9b56\", \"slug\": \"whimsical\", \"name\": \"Whimsical\", \"url\": \"https://whimsical.com\", \"host\": \"whimsical.com\", \"category\": \"Design\", \"subcategory\": \"Wireframe Kits\", \"summary\": \"t\", \"tags\": [\"color-tool\", \"palette\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [], \"best_used_for\": \"\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"no\", \"pricing\": \"freemium\", \"detail_markdown\": \"\"}, {\"id\": \"38612c965a9c4c35\", \"slug\": \"same-name\", \"name\": \"Same Name\", \"url\": \"https://a.example\", \"host\": \"a.example\", \"category\": \"Developer Tools\", \"subcategory\": \"\", \"summary\": \"t\", \"tags\": [\"color-tool\", \"palette\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [], \"best_used_for\": \"\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"no\", \"pricing\": \"freemium\", \"detail_markdown\": \"\"}, {\"id\": \"35b22c6cbc7988f8\", \"slug\": \"same-name-2\", \"name\": \"Same Name\", \"url\": \"https://b.example\", \"host\": \"b.example\", \"category\": \"Developer Tools\", \"subcategory\": \"\", \"summary\": \"t\", \"tags\": [\"color-tool\", \"palette\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [], \"best_used_for\": \"\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"no\", \"pricing\": \"freemium\", \"detail_markdown\": \"\"}, {\"id\": \"fe12b548439dca4b\", \"slug\": \"shared-good\", \"name\": \"Shared Good\", \"url\": \"https://someone.github.io/good\", \"host\": \"someone.github.io\", \"category\": \"Developer Tools\", \"subcategory\": \"\", \"summary\": \"t\", \"tags\": [\"color-tool\", \"palette\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [], \"best_used_for\": \"\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"no\", \"pricing\": \"freemium\", \"detail_markdown\": \"\"}, {\"id\": \"56605f852ea008ba\", \"slug\": \"gutenberg\", \"name\": \"Gutenberg\", \"url\": \"https://gutenberg.org\", \"host\": \"gutenberg.org\", \"category\": \"Download Resources\", \"subcategory\": \"Public Archives & Libraries\", \"summary\": \"t\", \"tags\": [\"color-tool\", \"palette\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [], \"best_used_for\": \"\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"no\", \"pricing\": \"freemium\", \"detail_markdown\": \"\"}, {\"id\": \"6f97fe2a1e9b08cd\", \"slug\": \"fast-com-2\", \"name\": \"Fast.com\", \"url\": \"https://thing.example\", \"host\": \"thing.example\", \"category\": \"Mystery Bucket\", \"subcategory\": \"\", \"summary\": \"Netflix's simple internet speed test.\", \"tags\": [\"speed-test\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-09-28\", \"updated_at\": \"2026-09-28\", \"what_it_does\": [], \"best_used_for\": \"When you want one number, right now.\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"unknown\", \"pricing\": \"unknown\", \"detail_markdown\": \"\"}, {\"id\": \"af00b4acecb33bd0\", \"slug\": \"window-swap\", \"name\": \"Window Swap\", \"url\": \"https://window-swap.com\", \"host\": \"window-swap.com\", \"category\": \"Random / Curiosities\", \"subcategory\": \"\", \"summary\": \"\", \"tags\": [\"curiosity\"], \"featured\": false, \"needs_review\": false, \"added_at\": \"2026-10-10\", \"updated_at\": \"2026-10-10\", \"what_it_does\": [], \"best_used_for\": \"\", \"practical_details\": [], \"watch_out\": [], \"similar_tools\": \"\", \"extra_sections\": [], \"signup_required\": \"no\", \"pricing\": \"free\", \"detail_markdown\": \"# Window Swap\\n\\nThis is just prose. It has no sections at all, and the drawer must\\nshow the full text as plain formatted content. See [the project](https://window-swap.com/).\"}], \"popular_tags\": [{\"tag\": \"color-tool\", \"count\": 7, \"fa\": \"ابزار رنگ\"}, {\"tag\": \"palette\", \"count\": 7, \"fa\": \"\"}, {\"tag\": \"speed-test\", \"count\": 2, \"fa\": \"\"}, {\"tag\": \"curiosity\", \"count\": 1, \"fa\": \"\"}], \"tag_aliases\": {\"color-tool\": \"ابزار رنگ\", \"font\": \"فونت\", \"icons\": \"آیکون\", \"mockup\": \"ماکاپ\", \"ui-kit\": \"کیت رابط کاربری\", \"video\": \"ویدیو\", \"ai-powered\": \"مبتنی بر هوش مصنوعی\", \"inspiration\": \"الهام\", \"design-system\": \"سیستم طراحی\", \"accessibility\": \"دسترس‌پذیری\", \"tts\": \"تبدیل متن به گفتار\", \"course\": \"دوره\", \"research-ai\": \"پژوهش هوش مصنوعی\"}, \"synonyms\": {\"$comment\": \"GitCurator — search synonyms (v0.72.0). Keys expand to the listed words in the instant search (both directions at query time; the frontend also matches the raw terms). Kept with the app at app/taxonomy/, synced into the vault at Websites/_system/search-synonyms.json (the vault copy wins — the owner can extend it freely; UI spec §5.3: 'The synonym list is a simple file the owner can extend').\", \"colour\": [\"color\", \"palette\"], \"color\": [\"colour\", \"palette\"], \"font\": [\"typeface\", \"typography\"], \"typeface\": [\"font\"], \"typography\": [\"font\"], \"icons\": [\"icon\", \"svg\"], \"mockup\": [\"mockups\", \"wireframe\"], \"wireframe\": [\"wireframing\", \"mockup\"], \"ai\": [\"artificial intelligence\", \"llm\", \"gpt\"], \"llm\": [\"ai\", \"language model\"], \"voice\": [\"tts\", \"speech\", \"audio\"], \"tts\": [\"text to speech\", \"voice\"], \"picture\": [\"image\", \"photo\"], \"image\": [\"picture\", \"photo\", \"upscale\"], \"photo\": [\"picture\", \"image\"], \"converter\": [\"convert\", \"transform\"], \"speed\": [\"fast\", \"performance\"], \"privacy\": [\"anonymous\", \"anon\"], \"ebook\": [\"book\", \"library\"], \"course\": [\"learning\", \"tutorial\", \"class\"], \"tutorial\": [\"course\", \"guide\", \"howto\"], \"learn\": [\"learning\", \"course\", \"education\"], \"security\": [\"secure\", \"privacy\", \"breach\"], \"breach\": [\"leak\", \"security\", \"pwned\"], \"crypto\": [\"bitcoin\", \"blockchain\", \"token\"], \"market\": [\"markets\", \"price\", \"chart\"], \"gis\": [\"maps\", \"geo\", \"mapping\"], \"maps\": [\"map\", \"gis\", \"geo\"], \"visa\": [\"immigration\", \"relocation\"], \"salary\": [\"income\", \"pay\", \"wage\"]}, \"banished_hosts\": [\"banned.example\", \"spam.example\"], \"new_days\": 14}",
+  "push_mirror": {
+    "logs": [
+      "[directory] mirror repo pushed to GitHub"
+    ],
+    "pushed": true,
+    "remote_log": "c28cc921a5610d4cc5f5bcc6eab7cc3da56eab0b admin commands applied: 2026-01-01T12:34:00+00:00",
+    "remote_tree": "Design/Note.md"
+  },
+  "push_mirror_clean": {
+    "logs": [
+      "[directory] mirror push: nothing to push"
+    ],
+    "pushed": true
+  },
+  "push_mirror_plain": {
+    "logs": [
+      "[directory] git rev-parse --is-inside-work-tree failed: fatal: not a git repository (or any of the parent directories): .git",
+      "[directory] mirror push skipped: vault is not a git repo"
+    ],
+    "pushed": false
+  },
+  "section_key": {
+    "bold_colon": "best used for",
+    "caps": "watch out",
+    "marks": "similar tools",
+    "plain": "what it does",
+    "spaces": "practical details"
+  },
+  "slugify": {
+    "collapse": "a-b",
+    "emoji": "agents",
+    "empty": "site",
+    "marks": "eee",
+    "mixed": "ai-tools-for-web-app-development",
+    "persian": "ابزار-رنگ",
+    "plain": "coolors",
+    "punct": "what-really",
+    "spaces": "window-swap"
+  },
+  "synonyms_load": {
+    "fallback": {
+      "$comment": "GitCurator — search synonyms (v0.72.0). Keys expand to the listed words in the instant search (both directions at query time; the frontend also matches the raw terms). Kept with the app at app/taxonomy/, synced into the vault at Websites/_system/search-synonyms.json (the vault copy wins — the owner can extend it freely; UI spec §5.3: 'The synonym list is a simple file the owner can extend').",
+      "ai": [
+        "artificial intelligence",
+        "llm",
+        "gpt"
+      ],
+      "breach": [
+        "leak",
+        "security",
+        "pwned"
+      ],
+      "color": [
+        "colour",
+        "palette"
+      ],
+      "colour": [
+        "color",
+        "palette"
+      ],
+      "converter": [
+        "convert",
+        "transform"
+      ],
+      "course": [
+        "learning",
+        "tutorial",
+        "class"
+      ],
+      "crypto": [
+        "bitcoin",
+        "blockchain",
+        "token"
+      ],
+      "ebook": [
+        "book",
+        "library"
+      ],
+      "font": [
+        "typeface",
+        "typography"
+      ],
+      "gis": [
+        "maps",
+        "geo",
+        "mapping"
+      ],
+      "icons": [
+        "icon",
+        "svg"
+      ],
+      "image": [
+        "picture",
+        "photo",
+        "upscale"
+      ],
+      "learn": [
+        "learning",
+        "course",
+        "education"
+      ],
+      "llm": [
+        "ai",
+        "language model"
+      ],
+      "maps": [
+        "map",
+        "gis",
+        "geo"
+      ],
+      "market": [
+        "markets",
+        "price",
+        "chart"
+      ],
+      "mockup": [
+        "mockups",
+        "wireframe"
+      ],
+      "photo": [
+        "picture",
+        "image"
+      ],
+      "picture": [
+        "image",
+        "photo"
+      ],
+      "privacy": [
+        "anonymous",
+        "anon"
+      ],
+      "salary": [
+        "income",
+        "pay",
+        "wage"
+      ],
+      "security": [
+        "secure",
+        "privacy",
+        "breach"
+      ],
+      "speed": [
+        "fast",
+        "performance"
+      ],
+      "tts": [
+        "text to speech",
+        "voice"
+      ],
+      "tutorial": [
+        "course",
+        "guide",
+        "howto"
+      ],
+      "typeface": [
+        "font"
+      ],
+      "typography": [
+        "font"
+      ],
+      "visa": [
+        "immigration",
+        "relocation"
+      ],
+      "voice": [
+        "tts",
+        "speech",
+        "audio"
+      ],
+      "wireframe": [
+        "wireframing",
+        "mockup"
+      ]
+    },
+    "vault_copy": {
+      "$comment": "GitCurator — search synonyms (v0.72.0). Keys expand to the listed words in the instant search (both directions at query time; the frontend also matches the raw terms). Kept with the app at app/taxonomy/, synced into the vault at Websites/_system/search-synonyms.json (the vault copy wins — the owner can extend it freely; UI spec §5.3: 'The synonym list is a simple file the owner can extend').",
+      "ai": [
+        "artificial intelligence",
+        "llm",
+        "gpt"
+      ],
+      "breach": [
+        "leak",
+        "security",
+        "pwned"
+      ],
+      "color": [
+        "colour",
+        "palette"
+      ],
+      "colour": [
+        "color",
+        "palette"
+      ],
+      "converter": [
+        "convert",
+        "transform"
+      ],
+      "course": [
+        "learning",
+        "tutorial",
+        "class"
+      ],
+      "crypto": [
+        "bitcoin",
+        "blockchain",
+        "token"
+      ],
+      "ebook": [
+        "book",
+        "library"
+      ],
+      "font": [
+        "typeface",
+        "typography"
+      ],
+      "gis": [
+        "maps",
+        "geo",
+        "mapping"
+      ],
+      "icons": [
+        "icon",
+        "svg"
+      ],
+      "image": [
+        "picture",
+        "photo",
+        "upscale"
+      ],
+      "learn": [
+        "learning",
+        "course",
+        "education"
+      ],
+      "llm": [
+        "ai",
+        "language model"
+      ],
+      "maps": [
+        "map",
+        "gis",
+        "geo"
+      ],
+      "market": [
+        "markets",
+        "price",
+        "chart"
+      ],
+      "mockup": [
+        "mockups",
+        "wireframe"
+      ],
+      "photo": [
+        "picture",
+        "image"
+      ],
+      "picture": [
+        "image",
+        "photo"
+      ],
+      "privacy": [
+        "anonymous",
+        "anon"
+      ],
+      "salary": [
+        "income",
+        "pay",
+        "wage"
+      ],
+      "security": [
+        "secure",
+        "privacy",
+        "breach"
+      ],
+      "speed": [
+        "fast",
+        "performance"
+      ],
+      "tts": [
+        "text to speech",
+        "voice"
+      ],
+      "tutorial": [
+        "course",
+        "guide",
+        "howto"
+      ],
+      "typeface": [
+        "font"
+      ],
+      "typography": [
+        "font"
+      ],
+      "visa": [
+        "immigration",
+        "relocation"
+      ],
+      "voice": [
+        "tts",
+        "speech",
+        "audio"
+      ],
+      "wireframe": [
+        "wireframing",
+        "mockup"
+      ]
+    }
+  },
+  "system_files": {
+    "banished_json": "[]\n",
+    "created": [
+      "<vault>/_system/banished.json",
+      "<vault>/_system/directory-config.json",
+      "<vault>/_system/search-synonyms.json"
+    ],
+    "directory_config": "{\n  \"$comment\": \"GitCurator — Website Directory default config (v0.72.0). Kept with the app at app/taxonomy/ and synced into the vault at Websites/_system/directory-config.json on every directory sync (created if missing; the vault copy wins so the owner can customize). visibility 'private' nodes NEVER appear on the public site or in the published index. name_fa = the Farsi name (UI spec §11.2). icon = a name from the site's outline icon set. v0.89.0: local_only = note patterns the seals keep ON THIS MACHINE (never mirrored, never published) — the local-only belt the vault owner can extend.\",\n  \"categories\": [\n    {\n      \"name\": \"Design\",\n      \"name_fa\": \"طراحی\",\n      \"slug\": \"design\",\n      \"icon\": \"palette\",\n      \"order\": 1,\n      \"visibility\": \"public\",\n      \"description\": \"Downloadable/usable design assets and process & inspiration resources.\",\n      \"subcategories\": [\n        {\n          \"name\": \"Assets & Resources\",\n          \"name_fa\": \"دارایی‌ها و منابع\",\n          \"slug\": \"assets-resources\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Icons, mockups, fonts, illustrations, UI kits, color/gradient tools.\"\n        },\n        {\n          \"name\": \"Background Removal & Image Editors\",\n          \"name_fa\": \"حذف پس‌زمینه و ویرایشگرهای تصویر\",\n          \"slug\": \"background-removal-image-editors\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Background removers, upscalers, and image editors.\"\n        },\n        {\n          \"name\": \"Backgrounds & SVG Generators\",\n          \"name_fa\": \"پس‌زمینه‌ها و تولیدکننده‌های SVG\",\n          \"slug\": \"backgrounds-svg-generators\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Background generators and SVG pattern tools.\"\n        },\n        {\n          \"name\": \"Branding & Identity\",\n          \"name_fa\": \"برندینگ و هویت بصری\",\n          \"slug\": \"branding-identity\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Logo tools and brand guidelines.\"\n        },\n        {\n          \"name\": \"Color Palettes & Tools\",\n          \"name_fa\": \"پالت‌های رنگ و ابزارها\",\n          \"slug\": \"color-palettes-tools\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Palette generators, pickers, and color tools.\"\n        },\n        {\n          \"name\": \"Gradients & Color Assets\",\n          \"name_fa\": \"گرادیان‌ها و دارایی‌های رنگ\",\n          \"slug\": \"gradients-color-assets\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Gradient generators and color asset libraries.\"\n        },\n        {\n          \"name\": \"Icons & SVG Assets\",\n          \"name_fa\": \"آیکون‌ها و دارایی‌های SVG\",\n          \"slug\": \"icons-svg-assets\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Icon sets and SVG asset libraries.\"\n        },\n        {\n          \"name\": \"Image Edit & Background Tools\",\n          \"name_fa\": \"ابزارهای ویرایش تصویر و پس‌زمینه\",\n          \"slug\": \"image-edit-background-tools\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"General-purpose image editing utilities.\"\n        },\n        {\n          \"name\": \"Mockups & Templates PSD\",\n          \"name_fa\": \"ماکاپ‌ها و قالب‌های PSD\",\n          \"slug\": \"mockups-templates-psd\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Mockups, templates, and PSD resources.\"\n        },\n        {\n          \"name\": \"UI Design Inspiration\",\n          \"name_fa\": \"الهام طراحی رابط کاربری\",\n          \"slug\": \"ui-design-inspiration\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Galleries and inspiration for UI design.\"\n        },\n        {\n          \"name\": \"UI/UX & Product Design\",\n          \"name_fa\": \"رابط و تجربهٔ کاربری\",\n          \"slug\": \"ui-ux-product-design\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Galleries, design systems, UX writing, wireframing/prototyping.\"\n        }\n      ]\n    },\n    {\n      \"name\": \"AI Tools for Web & App Development\",\n      \"name_fa\": \"ابزارهای هوش مصنوعی برای توسعهٔ وب و اپ\",\n      \"slug\": \"ai-tools-web-app-dev\",\n      \"icon\": \"bot\",\n      \"order\": 2,\n      \"visibility\": \"public\",\n      \"description\": \"Tools that help BUILD software: UI generation, code generation, no-code builders.\",\n      \"subcategories\": [\n        {\n          \"name\": \"AI UI/Design Generation\",\n          \"name_fa\": \"تولید رابط و طراحی با هوش مصنوعی\",\n          \"slug\": \"ai-ui-design-generation\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        },\n        {\n          \"name\": \"AI Coding Assistants\",\n          \"name_fa\": \"دستیارهای کدنویسی هوش مصنوعی\",\n          \"slug\": \"ai-coding-assistants\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        },\n        {\n          \"name\": \"AI Prototyping / No-Code\",\n          \"name_fa\": \"نمونه‌سازی و بدون کد\",\n          \"slug\": \"ai-prototyping-no-code\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        }\n      ]\n    },\n    {\n      \"name\": \"AI Tools (General)\",\n      \"name_fa\": \"ابزارهای هوش مصنوعی (عمومی)\",\n      \"slug\": \"ai-tools-general\",\n      \"icon\": \"brain\",\n      \"order\": 3,\n      \"visibility\": \"public\",\n      \"description\": \"Everything else AI-related with no build-a-product purpose.\",\n      \"subcategories\": [\n        {\n          \"name\": \"AI Writing & Content\",\n          \"name_fa\": \"نگارش و محتوای هوش مصنوعی\",\n          \"slug\": \"ai-writing-content\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        },\n        {\n          \"name\": \"AI Research & Search Assistants\",\n          \"name_fa\": \"دستیارهای پژوهش و جستجو\",\n          \"slug\": \"ai-research-search\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        },\n        {\n          \"name\": \"AI Audio & Voice Generation\",\n          \"name_fa\": \"تولید صدا و گفتار\",\n          \"slug\": \"ai-audio-voice\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Developer Tools\",\n      \"name_fa\": \"ابزارهای توسعه‌دهنده\",\n      \"slug\": \"developer-tools\",\n      \"icon\": \"code\",\n      \"order\": 4,\n      \"visibility\": \"public\",\n      \"description\": \"\",\n      \"subcategories\": []\n    },\n    {\n      \"name\": \"Free Utilities & Everyday Tools\",\n      \"name_fa\": \"ابزارهای رایگان و کار روزمره\",\n      \"slug\": \"free-utilities\",\n      \"icon\": \"wrench\",\n      \"order\": 5,\n      \"visibility\": \"public\",\n      \"description\": \"\",\n      \"subcategories\": []\n    },\n    {\n      \"name\": \"Knowledge, Research & Reference\",\n      \"name_fa\": \"دانش، پژوهش و مرجع\",\n      \"slug\": \"knowledge-research-reference\",\n      \"icon\": \"book-open\",\n      \"order\": 6,\n      \"visibility\": \"public\",\n      \"description\": \"Also the home for general multi-topic learning platforms.\",\n      \"subcategories\": []\n    },\n    {\n      \"name\": \"Download Resources\",\n      \"name_fa\": \"منابع دانلود\",\n      \"slug\": \"download-resources\",\n      \"icon\": \"download\",\n      \"order\": 7,\n      \"visibility\": \"public\",\n      \"description\": \"Public archives and libraries.\",\n      \"subcategories\": [\n        {\n          \"name\": \"Public Archives & Libraries\",\n          \"name_fa\": \"آرشیوها و کتابخانه‌های عمومی\",\n          \"slug\": \"public-archives-libraries\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"Legitimate, public-domain archives.\"\n        },\n        {\n          \"name\": \"Torrent & Shadow Libraries\",\n          \"name_fa\": \"کتابخانه‌های تورنت و سایه\",\n          \"slug\": \"torrent-shadow-libraries\",\n          \"icon\": null,\n          \"visibility\": \"private\",\n          \"description\": \"NEVER shown on the public site or in the published index.\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Music & Audio Discovery\",\n      \"name_fa\": \"کشف موسیقی و صدا\",\n      \"slug\": \"music-audio-discovery\",\n      \"icon\": \"headphones\",\n      \"order\": 8,\n      \"visibility\": \"public\",\n      \"description\": \"\",\n      \"subcategories\": []\n    },\n    {\n      \"name\": \"Security & Privacy Tools\",\n      \"name_fa\": \"ابزارهای امنیت و حریم خصوصی\",\n      \"slug\": \"security-privacy-tools\",\n      \"icon\": \"shield\",\n      \"order\": 9,\n      \"visibility\": \"public\",\n      \"description\": \"\",\n      \"subcategories\": []\n    },\n    {\n      \"name\": \"Crypto & Markets\",\n      \"name_fa\": \"رمزارز و بازارها\",\n      \"slug\": \"crypto-markets\",\n      \"icon\": \"trending\",\n      \"order\": 10,\n      \"visibility\": \"public\",\n      \"description\": \"\",\n      \"subcategories\": []\n    },\n    {\n      \"name\": \"English Learning & Career Prep\",\n      \"name_fa\": \"یادگیری انگلیسی و آمادگی شغلی\",\n      \"slug\": \"english-learning-career-prep\",\n      \"icon\": \"graduation\",\n      \"order\": 11,\n      \"visibility\": \"public\",\n      \"description\": \"\",\n      \"subcategories\": []\n    },\n    {\n      \"name\": \"Geography & Urban Planning\",\n      \"name_fa\": \"جغرافیا و برنامه‌ریزی شهری\",\n      \"slug\": \"geography-urban-planning\",\n      \"icon\": \"map\",\n      \"order\": 12,\n      \"visibility\": \"public\",\n      \"description\": \"\",\n      \"subcategories\": [\n        {\n          \"name\": \"Urban Planning Courses & Learning\",\n          \"name_fa\": \"آموزش برنامه‌ریزی شهری\",\n          \"slug\": \"urban-planning-courses\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        },\n        {\n          \"name\": \"Maps, GIS & Data Tools\",\n          \"name_fa\": \"نقشه، GIS و ابزارهای داده\",\n          \"slug\": \"maps-gis-data-tools\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        },\n        {\n          \"name\": \"Case Studies & Reference\",\n          \"name_fa\": \"مطالعات موردی و مرجع\",\n          \"slug\": \"case-studies-reference\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Living Abroad\",\n      \"name_fa\": \"زندگی در خارج\",\n      \"slug\": \"living-abroad\",\n      \"icon\": \"plane\",\n      \"order\": 13,\n      \"visibility\": \"public\",\n      \"description\": \"Country-specific relocation content only.\",\n      \"subcategories\": [\n        {\n          \"name\": \"Australia\",\n          \"name_fa\": \"استرالیا\",\n          \"slug\": \"australia\",\n          \"icon\": null,\n          \"visibility\": \"public\",\n          \"description\": \"\"\n        }\n      ]\n    },\n    {\n      \"name\": \"Random / Curiosities\",\n      \"name_fa\": \"گوناگون و کنجکاوی‌ها\",\n      \"slug\": \"random-curiosities\",\n      \"icon\": \"shuffle\",\n      \"order\": 14,\n      \"visibility\": \"public\",\n      \"description\": \"Catch-all — use sparingly.\",\n      \"subcategories\": []\n    }\n  ],\n  \"tag_aliases\": {\n    \"color-tool\": \"ابزار رنگ\",\n    \"font\": \"فونت\",\n    \"icons\": \"آیکون\",\n    \"mockup\": \"ماکاپ\",\n    \"ui-kit\": \"کیت رابط کاربری\",\n    \"video\": \"ویدیو\",\n    \"ai-powered\": \"مبتنی بر هوش مصنوعی\",\n    \"inspiration\": \"الهام\",\n    \"design-system\": \"سیستم طراحی\",\n    \"accessibility\": \"دسترس‌پذیری\",\n    \"tts\": \"تبدیل متن به گفتار\",\n    \"course\": \"دوره\",\n    \"research-ai\": \"پژوهش هوش مصنوعی\"\n  },\n  \"shared_host_exceptions\": [\n    \"github.io\",\n    \"notion.site\",\n    \"vercel.app\",\n    \"blogspot.com\",\n    \"wordpress.com\",\n    \"netlify.app\",\n    \"pages.dev\",\n    \"gitlab.io\",\n    \"webflow.io\",\n    \"medium.com\",\n    \"substack.com\"\n  ],\n  \"local_only\": [\n    \"CakhiaTV*.md\",\n    \"1Music_cc*.md\",\n    \"cobalt*.md\",\n    \"Prowlarr*.md\",\n    \"Max_Effect*.md\",\n    \"Flac_Downloader*.md\"\n  ]\n}",
+    "synonyms": "{\n  \"$comment\": \"GitCurator — search synonyms (v0.72.0). Keys expand to the listed words in the instant search (both directions at query time; the frontend also matches the raw terms). Kept with the app at app/taxonomy/, synced into the vault at Websites/_system/search-synonyms.json (the vault copy wins — the owner can extend it freely; UI spec §5.3: 'The synonym list is a simple file the owner can extend').\",\n  \"colour\": [\"color\", \"palette\"],\n  \"color\": [\"colour\", \"palette\"],\n  \"font\": [\"typeface\", \"typography\"],\n  \"typeface\": [\"font\"],\n  \"typography\": [\"font\"],\n  \"icons\": [\"icon\", \"svg\"],\n  \"mockup\": [\"mockups\", \"wireframe\"],\n  \"wireframe\": [\"wireframing\", \"mockup\"],\n  \"ai\": [\"artificial intelligence\", \"llm\", \"gpt\"],\n  \"llm\": [\"ai\", \"language model\"],\n  \"voice\": [\"tts\", \"speech\", \"audio\"],\n  \"tts\": [\"text to speech\", \"voice\"],\n  \"picture\": [\"image\", \"photo\"],\n  \"image\": [\"picture\", \"photo\", \"upscale\"],\n  \"photo\": [\"picture\", \"image\"],\n  \"converter\": [\"convert\", \"transform\"],\n  \"speed\": [\"fast\", \"performance\"],\n  \"privacy\": [\"anonymous\", \"anon\"],\n  \"ebook\": [\"book\", \"library\"],\n  \"course\": [\"learning\", \"tutorial\", \"class\"],\n  \"tutorial\": [\"course\", \"guide\", \"howto\"],\n  \"learn\": [\"learning\", \"course\", \"education\"],\n  \"security\": [\"secure\", \"privacy\", \"breach\"],\n  \"breach\": [\"leak\", \"security\", \"pwned\"],\n  \"crypto\": [\"bitcoin\", \"blockchain\", \"token\"],\n  \"market\": [\"markets\", \"price\", \"chart\"],\n  \"gis\": [\"maps\", \"geo\", \"mapping\"],\n  \"maps\": [\"map\", \"gis\", \"geo\"],\n  \"visa\": [\"immigration\", \"relocation\"],\n  \"salary\": [\"income\", \"pay\", \"wage\"]\n}\n"
+  },
+  "system_files_again": {
+    "banished_json": "[{\"host\": \"edited.example\"}]",
+    "created": []
+  },
+  "walk_site_notes": {
+    "1557d6500f286e52": "<vault>/Design/Assets & Resources/Coolors.md",
+    "35b22c6cbc7988f8": "<vault>/Developer Tools/B.md",
+    "38612c965a9c4c35": "<vault>/Developer Tools/A.md",
+    "56605f852ea008ba": "<vault>/Download Resources/Public Archives & Libraries/Gutenberg.md",
+    "5ae3fc3986df9b56": "<vault>/Design/Wireframe_Kits/Whimsical.md",
+    "6d5da28b1bbddf0e": "<vault>/Design/UI-UX/Fast.md",
+    "6f97fe2a1e9b08cd": "<vault>/Mystery Bucket/Thing.md",
+    "af00b4acecb33bd0": "<vault>/Random_Curiosities/Window_Swap.md",
+    "bb14666170bcd353": "<vault>/Download Resources/Torrent & Shadow Libraries/Annas.md",
+    "c85d52f2c2947492": "<vault>/Banned Host/Banned.md",
+    "cad3e2dcc97ae48a": "<vault>/Design/Icons_Svg_Assets/Icons8.md",
+    "fe12b548439dca4b": "<vault>/Developer Tools/Shared Good.md"
+  }
+}

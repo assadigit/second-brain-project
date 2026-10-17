@@ -16,3 +16,12 @@ import _ "embed"
 //
 //go:embed directorysync/website-directory-config.json
 var WebsiteDirectoryConfig []byte
+
+// SearchSynonyms is the SHIPPED search-synonyms default
+// (app/taxonomy/search-synonyms.json in the reference), copied
+// verbatim — never hand-edited; sha256-pinned by the directorysync
+// golden (system_files section). The same embed convergence as
+// WebsiteDirectoryConfig above (T-49's config trio).
+//
+//go:embed directorysync/search-synonyms.json
+var SearchSynonyms []byte

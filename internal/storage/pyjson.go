@@ -49,6 +49,110 @@ func PyDumpsCompact(v any) string {
 	return b.String()
 }
 
+// PyDumpsUTF8 mirrors Python json.dumps(v, ensure_ascii=False) — the
+// WIRE shape directory_sync's publish leg puts on the network
+// (T-49): raw UTF-8 strings (no \uXXXX escapes), item separator
+// ", ", key separator ": ", no indent. Same type rules as PyDumps
+// (OrderedMap → insertion order, map → sorted keys, json.Number
+// verbatim, Python float repr).
+func PyDumpsUTF8(v any) string {
+	var b bytes.Buffer
+	pyEncodeUTF8Compact(&b, reflect.ValueOf(v))
+	return b.String()
+}
+
+func pyEncodeUTF8Compact(b *bytes.Buffer, v reflect.Value) {
+	if v.IsValid() {
+		if n, ok := v.Interface().(json.Number); ok {
+			b.WriteString(string(n))
+			return
+		}
+		if o, ok := v.Interface().(*OrderedMap); ok {
+			pyEncodeOrderedUTF8(b, o)
+			return
+		}
+	}
+	switch v.Kind() {
+	case reflect.Invalid:
+		b.WriteString("null")
+	case reflect.Bool:
+		if v.Bool() {
+			b.WriteString("true")
+		} else {
+			b.WriteString("false")
+		}
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		b.WriteString(strconv.FormatInt(v.Int(), 10))
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64:
+		b.WriteString(strconv.FormatUint(v.Uint(), 10))
+	case reflect.Float32, reflect.Float64:
+		b.WriteString(PyFloatRepr(v.Float()))
+	case reflect.String:
+		pyEncodeString(b, v.String())
+	case reflect.Slice, reflect.Array:
+		if v.Kind() == reflect.Slice && v.IsNil() {
+			b.WriteString("null") // Python None
+			return
+		}
+		b.WriteByte('[')
+		for i := 0; i < v.Len(); i++ {
+			if i != 0 {
+				b.WriteString(", ")
+			}
+			pyEncodeUTF8Compact(b, v.Index(i))
+		}
+		b.WriteByte(']')
+	case reflect.Map:
+		if v.Len() == 0 {
+			b.WriteString("{}")
+			return
+		}
+		keys := make([]string, 0, v.Len())
+		for _, k := range v.MapKeys() {
+			keys = append(keys, k.String())
+		}
+		sort.Strings(keys)
+		b.WriteByte('{')
+		for i, k := range keys {
+			if i != 0 {
+				b.WriteString(", ")
+			}
+			pyEncodeString(b, k)
+			b.WriteString(": ")
+			pyEncodeUTF8Compact(b, v.MapIndex(reflect.ValueOf(k)))
+		}
+		b.WriteByte('}')
+	case reflect.Pointer:
+		if v.IsNil() {
+			b.WriteString("null")
+			return
+		}
+		pyEncodeUTF8Compact(b, v.Elem())
+	case reflect.Interface:
+		pyEncodeUTF8Compact(b, v.Elem())
+	default:
+		panic("pyEncodeUTF8Compact: unsupported kind " + v.Kind().String())
+	}
+}
+
+func pyEncodeOrderedUTF8(b *bytes.Buffer, o *OrderedMap) {
+	if o.Len() == 0 {
+		b.WriteString("{}")
+		return
+	}
+	b.WriteByte('{')
+	for i, k := range o.Keys() {
+		if i != 0 {
+			b.WriteString(", ")
+		}
+		pyEncodeString(b, k)
+		b.WriteString(": ")
+		v, _ := o.Get(k)
+		pyEncodeUTF8Compact(b, reflect.ValueOf(v))
+	}
+	b.WriteByte('}')
+}
+
 func pyEncodeCompact(b *bytes.Buffer, v reflect.Value) {
 	if v.IsValid() {
 		if n, ok := v.Interface().(json.Number); ok {
@@ -342,6 +446,10 @@ func pyEncodeString(b *bytes.Buffer, s string) {
 			b.WriteString("\\r")
 		case '\t':
 			b.WriteString("\\t")
+		case '\b':
+			b.WriteString("\\b")
+		case '\f':
+			b.WriteString("\\f")
 		default:
 			if r < 0x20 {
 				fmt.Fprintf(b, "\\u%04x", r)

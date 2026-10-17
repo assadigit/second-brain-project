@@ -24,6 +24,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/assadigit/second-brain-project/internal/directorysync"
 	"github.com/assadigit/second-brain-project/internal/storage"
 )
 
@@ -117,14 +118,24 @@ type DriftSealDeps struct {
 }
 
 // DefaultDriftSealDeps binds the production legs (the vaultseal
-// bridges); the publish door stays unwired until T-49's
-// directorysync publish lands (the runner speaks the honest
-// not-wired warning when it is nil).
+// bridges) + the directory publish door (T-49's directorysync
+// surface — publish_after_batch, the full golden-rule-5 cycle).
 func DefaultDriftSealDeps() *DriftSealDeps {
 	return &DriftSealDeps{
 		SealRepos:    func(config any, log LogFn) *SealResult { return SealFromConfig(config, nil, log) },
 		SealWebsites: func(config any, log LogFn) *SealResult { return WebsitesSealFromConfig(config, nil, log) },
 		SealPersonal: func(config any, log LogFn) *SealResult { return ManualSealFromConfig(config, nil, log) },
+		PublishAfterBatch: func(config any, log LogFn) bool {
+			// the reference's backup_seal passes its (msg, level) log
+			// into publish_after_batch's (msg) log; the plain lines tag
+			// "info" (the documented adapter)
+			if log == nil {
+				return directorysync.PublishAfterBatch(config, nil)
+			}
+			return directorysync.PublishAfterBatch(config, func(msg string) {
+				log(msg, "info")
+			})
+		},
 	}
 }
 

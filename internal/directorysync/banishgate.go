@@ -100,7 +100,10 @@ func IsBanished(rawURL string, banished []BanishEntry, sharedHosts []string) boo
 	urlSet := map[string]bool{}
 	for _, b := range banished {
 		if b.Host != "" {
-			hosts = append(hosts, strings.TrimPrefix(strings.ToLower(b.Host), "www."))
+			// lstrip('www.') is a CHARACTER-SET strip in Python (any
+			// leading w/. chars go — 'wwww.example' → 'example'), not a
+			// prefix strip; T-49's reality-wins fix over TrimPrefix.
+			hosts = append(hosts, strings.TrimLeft(strings.ToLower(b.Host), "w."))
 		}
 		if b.URL != "" {
 			urlSet[links.NormalizeWebsiteURL(b.URL)] = true
