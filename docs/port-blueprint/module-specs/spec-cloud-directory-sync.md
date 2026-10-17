@@ -74,3 +74,15 @@ Index golden (tree-from-disk law, ghost/undeclared cases, folded belt); parser f
 publish payload shape (Bearer + non-ASCII body); read-back four truths; command cycle (order,
 idempotent applies, ack-after-publish, held-window invisibility, trash-not-delete); trio
 creation law; belts builders (port `test_localonly` + `test_directorysync` selections).
+
+## Belt floor shipped early — T-47 (SESSION-022)
+
+`internal/directorysync/belt.go` carries the v0.89 LOCAL-ONLY BELT's
+pattern builders (local_only_note_patterns, private_exclusion_
+patterns, load_directory_config + the pure helpers) because T-47's
+vaultseal config bridges consume them — the T-45 repobanish-floor
+precedent. The shipped directory-config default is EMBEDDED at
+`assets/directorysync/website-directory-config.json` (sha256-pinned
+by vaultseal's golden) where the reference reads app/taxonomy/ from
+disk — the doc 04 §1 assets layout. T-49 completes the module
+(build_index, publish, the command cycle, the config trio).

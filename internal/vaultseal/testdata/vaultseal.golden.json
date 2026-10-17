@@ -1,0 +1,560 @@
+{
+  "creation_guard": {
+    "allow_create": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/my-vault-bak",
+          null
+        ],
+        [
+          "POST",
+          "/user/repos",
+          {
+            "auto_init": false,
+            "description": "VaultSeal — automatic Obsidian vault backup (GitCurator)",
+            "has_issues": false,
+            "has_projects": false,
+            "has_wiki": false,
+            "name": "my-vault-bak",
+            "private": true
+          }
+        ]
+      ],
+      "err": null,
+      "ok": true
+    },
+    "api_error": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/my-vault-bak",
+          null
+        ]
+      ],
+      "err": "GitHub API error checking testuser/my-vault-bak: nope",
+      "ok": false
+    },
+    "create_race_422": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/my-vault-bak",
+          null
+        ],
+        [
+          "POST",
+          "/user/repos",
+          {
+            "auto_init": false,
+            "description": "VaultSeal — automatic Obsidian vault backup (GitCurator)",
+            "has_issues": false,
+            "has_projects": false,
+            "has_wiki": false,
+            "name": "my-vault-bak",
+            "private": true
+          }
+        ],
+        [
+          "GET",
+          "/repos/testuser/my-vault-bak",
+          null
+        ]
+      ],
+      "err": "could not create the private repo testuser/my-vault-bak: name already exists",
+      "ok": false
+    },
+    "empty_name": {
+      "calls": [],
+      "err": "no backup repo configured — vaultseal.repo_name is empty. Nothing was created or pushed. Set the repo name in Settings → Backup (it is remembered like credentials once you type it).",
+      "ok": false
+    },
+    "existing": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/my-vault-bak",
+          null
+        ]
+      ],
+      "err": null,
+      "ok": true
+    },
+    "no_opt_in": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/my-vault-bak",
+          null
+        ]
+      ],
+      "err": "repository testuser/my-vault-bak not found — GitCurator does NOT create repositories automatically (the duplicate-repo accident cure, v0.83.0). Create it yourself on GitHub — or set vaultseal.create_repo=true in config.json once, or pass --create-repo to the CLI — then re-run.",
+      "ok": false
+    }
+  },
+  "delta_counts": {
+    "head1_to_head": [
+      2,
+      1,
+      3
+    ],
+    "head_to_head1": [
+      2,
+      1,
+      3
+    ],
+    "junk_ref": [
+      0,
+      0,
+      0
+    ],
+    "self": [
+      0,
+      0,
+      0
+    ]
+  },
+  "describe": {
+    "failed": "failed — boom",
+    "failed_sealed": "failed — boom (commit kept locally)",
+    "resync_full": "resync: mirror follows the vault — 2 file(s) deleted, 1 added/updated → o/r (abc1234) [local only — no push]",
+    "resync_pushed": "resync: mirror follows the vault — 0 file(s) deleted, 0 added/updated → o/r (abc1234)",
+    "sealed_full": "sealed 5 file(s) → o/r (abc1234)",
+    "sealed_minimal": "sealed 5 file(s) [local only — no push]",
+    "skipped": "skipped — x"
+  },
+  "fetch_head_no_token": "https://x-access-token:SECRETTOKEN@github.com/o/r.git\n",
+  "fetch_head_scrub": "abc123\t\tbranch 'main' of https://x-access-token:***@github.com/o/r.git\n",
+  "fnmatch": [
+    [
+      "CakhiaTV twin.md",
+      "cakhiatv*.md",
+      false
+    ],
+    [
+      "a/b/CakhiaTV-x.md",
+      "cakhiatv*.md",
+      false
+    ],
+    [
+      "notes/cobalt.md",
+      "*/cobalt*.md",
+      true
+    ],
+    [
+      "notes/cobalt.md",
+      "cobalt*.md",
+      false
+    ],
+    [
+      "x/y/z",
+      "*z*",
+      true
+    ],
+    [
+      "torrent files/a.md",
+      "torrent files/",
+      false
+    ],
+    [
+      "torrent files/a.md",
+      "*torrent files/*",
+      true
+    ],
+    [
+      "a/b/c/d.md",
+      "*/c*",
+      true
+    ],
+    [
+      "abc",
+      "a[bc]c",
+      true
+    ],
+    [
+      "abc",
+      "a[!x]c",
+      true
+    ],
+    [
+      "abc",
+      "a[]c",
+      false
+    ],
+    [
+      "a!c",
+      "a[]!c",
+      false
+    ],
+    [
+      "a-c",
+      "a[-x]c",
+      true
+    ],
+    [
+      "azc",
+      "a[a-z]c",
+      true
+    ],
+    [
+      "a_c",
+      "a[a-x]c",
+      false
+    ],
+    [
+      "a?c",
+      "a?c",
+      true
+    ],
+    [
+      "xay",
+      "a?c",
+      false
+    ],
+    [
+      "weird[bracket",
+      "weird[bracket",
+      true
+    ],
+    [
+      "aXbXc",
+      "a*b*c",
+      true
+    ],
+    [
+      "abc",
+      "a*b*c",
+      true
+    ],
+    [
+      "",
+      "*",
+      true
+    ],
+    [
+      "",
+      "?",
+      false
+    ],
+    [
+      "BAK.md",
+      "bak*.md",
+      false
+    ],
+    [
+      "deep/path/Bak file.md",
+      "*bak*",
+      false
+    ],
+    [
+      "a]b",
+      "a]b",
+      true
+    ],
+    [
+      "a^b",
+      "a^b",
+      true
+    ],
+    [
+      "has&amp.md",
+      "has[&]amp.md",
+      true
+    ],
+    [
+      "abc",
+      "*",
+      true
+    ],
+    [
+      "abc",
+      "a**c",
+      true
+    ],
+    [
+      "a.c",
+      "a.c",
+      true
+    ],
+    [
+      "aXXc",
+      "a??c",
+      true
+    ],
+    [
+      "weird-x",
+      "weird[-x]",
+      false
+    ]
+  ],
+  "gitignore_merge": {
+    "crlf_text": "user\n\n# --- VaultSeal (machine-specific state — not backed up) ---\n.obsidian/workspace.json\n.obsidian/workspace-mobile.json\n.obsidian/workspace.json.bak\n.obsidian/cache\n.trash/\n__pycache__/\n*.pyc\n.DS_Store\nThumbs.db\ndesktop.ini\n*.tmp\n*.bak\n~$*\n",
+    "fresh_added": [
+      ".obsidian/workspace.json",
+      ".obsidian/workspace-mobile.json",
+      ".obsidian/workspace.json.bak",
+      ".obsidian/cache",
+      ".trash/",
+      "__pycache__/",
+      "*.pyc",
+      ".DS_Store",
+      "Thumbs.db",
+      "desktop.ini",
+      "*.tmp",
+      "*.bak",
+      "~$*"
+    ],
+    "fresh_text": "# --- VaultSeal (machine-specific state — not backed up) ---\n.obsidian/workspace.json\n.obsidian/workspace-mobile.json\n.obsidian/workspace.json.bak\n.obsidian/cache\n.trash/\n__pycache__/\n*.pyc\n.DS_Store\nThumbs.db\ndesktop.ini\n*.tmp\n*.bak\n~$*\n",
+    "idempotent_added": [],
+    "idempotent_text": "# --- VaultSeal (machine-specific state — not backed up) ---\n.obsidian/workspace.json\n.obsidian/workspace-mobile.json\n.obsidian/workspace.json.bak\n.obsidian/cache\n.trash/\n__pycache__/\n*.pyc\n.DS_Store\nThumbs.db\ndesktop.ini\n*.tmp\n*.bak\n~$*\nuser-rule/\n",
+    "user_added": [],
+    "user_text": "# --- VaultSeal (machine-specific state — not backed up) ---\n.obsidian/workspace.json\n.obsidian/workspace-mobile.json\n.obsidian/workspace.json.bak\n.obsidian/cache\n.trash/\n__pycache__/\n*.pyc\n.DS_Store\nThumbs.db\ndesktop.ini\n*.tmp\n*.bak\n~$*\nuser-rule/\n"
+  },
+  "local_only_for": {
+    "full_belt_disk": [
+      "Torrent_Shadow_Libraries/",
+      "Download_Resources/Torrent_Shadow_Libraries/",
+      "CakhiaTV*.md",
+      "1Music_cc*.md",
+      "cobalt*.md",
+      "Prowlarr*.md",
+      "Max_Effect*.md",
+      "Flac_Downloader*.md"
+    ],
+    "full_belt_extras": [
+      "Torrent_Shadow_Libraries/",
+      "Download_Resources/Torrent_Shadow_Libraries/",
+      "CakhiaTV*.md",
+      "1Music_cc*.md",
+      "cobalt*.md",
+      "Prowlarr*.md",
+      "Max_Effect*.md",
+      "Flac_Downloader*.md",
+      "Extra*.md"
+    ],
+    "full_belt_missing": [
+      "Torrent_Shadow_Libraries/",
+      "CakhiaTV*.md",
+      "1Music_cc*.md",
+      "cobalt*.md",
+      "Prowlarr*.md",
+      "Max_Effect*.md",
+      "Flac_Downloader*.md"
+    ],
+    "repos_extras": [
+      "CakhiaTV*.md",
+      "1Music_cc*.md",
+      "cobalt*.md",
+      "Prowlarr*.md",
+      "Max_Effect*.md",
+      "Flac_Downloader*.md",
+      "MyOwn*.md",
+      "7"
+    ],
+    "repos_seal": [
+      "CakhiaTV*.md",
+      "1Music_cc*.md",
+      "cobalt*.md",
+      "Prowlarr*.md",
+      "Max_Effect*.md",
+      "Flac_Downloader*.md"
+    ]
+  },
+  "local_only_gitignore": {
+    "both_blocks_text": "# --- VaultSeal (local-only notes — kept on this machine, never mirrored) ---\nProwlarr*.md\n\n# --- VaultSeal (machine-specific state — not backed up) ---\n.obsidian/workspace.json\n.obsidian/workspace-mobile.json\n.obsidian/workspace.json.bak\n.obsidian/cache\n.trash/\n__pycache__/\n*.pyc\n.DS_Store\nThumbs.db\ndesktop.ini\n*.tmp\n*.bak\n~$*\n",
+    "first_returned": [
+      "Torrent_Shadow_Libraries/",
+      "CakhiaTV*.md"
+    ],
+    "first_text": "# --- VaultSeal (local-only notes — kept on this machine, never mirrored) ---\nTorrent_Shadow_Libraries/\nCakhiaTV*.md\n",
+    "owner_lines_survive_text": "my-own-rule/\n\n\nowner-after-block/\n\n# --- VaultSeal (local-only notes — kept on this machine, never mirrored) ---\nProwlarr*.md\n",
+    "rebuilt_text": "# --- VaultSeal (local-only notes — kept on this machine, never mirrored) ---\nProwlarr*.md\n"
+  },
+  "messages": {
+    "curated": "seal: 3 note(s) curated (3/12 repos) — 2026-01-01 12:34 UTC",
+    "resync": "resync: mirror follows the vault — 1 file(s) deleted, 2 added/updated (2026-01-01 12:34 UTC)",
+    "snapshot_empty": "seal: vault snapshot — 2026-01-01 12:34 UTC",
+    "snapshot_none": "seal: vault snapshot — 2026-01-01 12:34 UTC"
+  },
+  "owner_login": {
+    "empty_login": [
+      null,
+      []
+    ],
+    "good": [
+      "testuser",
+      []
+    ],
+    "network": [
+      null,
+      [
+        [
+          "warning",
+          "VaultSeal: could not resolve the GitHub user for the token (0: timed out)"
+        ]
+      ]
+    ],
+    "server_error": [
+      null,
+      [
+        [
+          "warning",
+          "VaultSeal: could not resolve the GitHub user for the token (500: oops)"
+        ]
+      ]
+    ],
+    "unauthorized": [
+      null,
+      [
+        [
+          "warning",
+          "VaultSeal: could not resolve the GitHub user for the token (401: Bad credentials) — token invalid or expired; update it in Settings → Credentials → GitHub Token (then 'Test GitHub Token')"
+        ]
+      ]
+    ]
+  },
+  "slugify": {
+    "empty": "",
+    "github_projects": "github-projects-automated",
+    "none": "",
+    "numbers": "v2-0-beta",
+    "plain": "my-vault",
+    "spaces_dashes": "a-b",
+    "unicode": "repo"
+  },
+  "status": {
+    "clean": {
+      "dirty_count": 0,
+      "exists": true,
+      "has_commits": true,
+      "is_git_repo": true,
+      "last_commit": {
+        "date": "2026-01-01T12:34:56Z",
+        "sha": "2d9a251",
+        "subject": "the base commit"
+      },
+      "remote_url": null,
+      "repo_name": "mirror",
+      "vault_path": "<vault>"
+    },
+    "dirty": {
+      "dirty_count": 1,
+      "exists": true,
+      "has_commits": true,
+      "is_git_repo": true,
+      "last_commit": {
+        "date": "2026-01-01T12:34:56Z",
+        "sha": "2d9a251",
+        "subject": "the base commit"
+      },
+      "remote_url": null,
+      "repo_name": "mirror",
+      "vault_path": "<vault>"
+    },
+    "missing_vault": {
+      "dirty_count": null,
+      "exists": false,
+      "has_commits": false,
+      "is_git_repo": false,
+      "last_commit": null,
+      "remote_url": null,
+      "repo_name": "m",
+      "vault_path": "<vault>/nope"
+    },
+    "no_vault": {
+      "dirty_count": null,
+      "exists": false,
+      "has_commits": false,
+      "is_git_repo": false,
+      "last_commit": null,
+      "remote_url": null,
+      "repo_name": null,
+      "vault_path": null
+    }
+  },
+  "to_dict": {
+    "empty": {
+      "commit_message": "",
+      "commit_sha": null,
+      "duration_ms": 0,
+      "error": null,
+      "files_added": 0,
+      "files_changed": 0,
+      "files_deleted": 0,
+      "ok": false,
+      "private": true,
+      "pushed": false,
+      "repo_name": null,
+      "repo_url": null,
+      "sealed": false,
+      "skipped_reason": null
+    },
+    "full": {
+      "commit_message": "seal: vault snapshot — x",
+      "commit_sha": "abc1234",
+      "duration_ms": 12,
+      "error": null,
+      "files_added": 2,
+      "files_changed": 7,
+      "files_deleted": 1,
+      "ok": true,
+      "private": true,
+      "pushed": true,
+      "repo_name": "o/r",
+      "repo_url": "https://github.com/o/r",
+      "sealed": true,
+      "skipped_reason": null
+    },
+    "ok_laws": {
+      "error_not_ok": false,
+      "plain_ok": false,
+      "sealed_ok": true,
+      "skipped_ok": true
+    }
+  },
+  "untrack_belt": {
+    "disk_files": [
+      "Design_Icons.md",
+      "Download_Resources/CakhiaTV.md",
+      "Download_Resources/Torrent_Shadow_Libraries/Z-Library.md"
+    ],
+    "gitignore": "# --- VaultSeal (local-only notes — kept on this machine, never mirrored) ---\nTorrent_Shadow_Libraries/\nCakhiaTV*.md\n",
+    "tracked_after": [
+      "Design_Icons.md"
+    ],
+    "untracked_count": 2
+  },
+  "untrack_review_twin": {
+    "tracked_after": [
+      "Design_Icons.md",
+      "Download_Resources/CakhiaTV.md",
+      "Download_Resources/Torrent_Shadow_Libraries/Z-Library.md"
+    ],
+    "untracked_count": 1
+  }
+}

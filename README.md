@@ -178,8 +178,33 @@ back) + run_repo_banishment_pass (the confirmation-gate orchestration:
 the ungated revive, the count spoken before the ask over the injected
 channel factory, the verdict gates, the tally with the zero-run
 answer) + the ported test_repobanish selections incl. the never-fetch
-promise and the no-op-settle locking pin. 1464 tests race-clean.
-Next: T-47 vaultseal.
+promise and the no-op-settle locking pin. **T-47 `internal/vaultseal`
+(SESSION-022) — THE SEAL COMPLETE** (spec-integrations-vaultseal.md +
+ADR-0009, with the SESSION-022 amendments): the git-CLI-subprocess
+seal of a vault into a PRIVATE GitHub mirror — the construction (the
+v0.83 creation guard, the local-only belt, the autoPush/token
+degradation), status(), seal() (ensure_repo: the nested-repo guard →
+`git init -b main`, the managed .gitignore block, the local-only
+identity, the token-less remote add, the 422 race re-check; the belt:
+the second managed block REBUILT + the untrack law — `git rm -r
+--cached`, NEVER a disk delete; the unchanged skip; the commit-message
+doors), THE DIVERGENCE LADDER under push (plain push → fetch +
+FETCH_HEAD token redaction → stale-rejection retry / rebase /
+unrelated-histories merge / the seal-rescue branch — main is NEVER
+force-pushed), resync() (write-tree delta counts, the commit-tree
+reconciliation with both parents, the empty-tree baseline), the four
+config bridges (manual_seal's deliberately-NO-belt law), the standalone
+CLI, THE DRIFT SEAL's pure half (the plan + the runner with THE QUIET
+LAW; the publish door rides T-49's seam), CPython 3.12's fnmatch,
+env scrubbing + HideWindow + THE REDACTION LAW (the token masked in
+any captured output) — with THE GOLDEN (16 sections, paths + clock +
+git-dates frozen, generated from the unmodified reference; it caught
+the universal-newlines find live) + the ported
+test_sealfix/test_resyncfix/test_localonly/test_driftseal selections
++ the safety-law battery; the belt floor landed with it in
+`internal/directorysync` (the pattern builders + the shipped-config
+embed — T-49 completes the module). 1550 tests race-clean.
+Next: T-48 goodrepos + reporadar.
 
 ## Map
 

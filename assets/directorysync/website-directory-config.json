@@ -1,0 +1,371 @@
+{
+  "$comment": "GitCurator — Website Directory default config (v0.72.0). Kept with the app at app/taxonomy/ and synced into the vault at Websites/_system/directory-config.json on every directory sync (created if missing; the vault copy wins so the owner can customize). visibility 'private' nodes NEVER appear on the public site or in the published index. name_fa = the Farsi name (UI spec §11.2). icon = a name from the site's outline icon set. v0.89.0: local_only = note patterns the seals keep ON THIS MACHINE (never mirrored, never published) — the local-only belt the vault owner can extend.",
+  "categories": [
+    {
+      "name": "Design",
+      "name_fa": "طراحی",
+      "slug": "design",
+      "icon": "palette",
+      "order": 1,
+      "visibility": "public",
+      "description": "Downloadable/usable design assets and process & inspiration resources.",
+      "subcategories": [
+        {
+          "name": "Assets & Resources",
+          "name_fa": "دارایی‌ها و منابع",
+          "slug": "assets-resources",
+          "icon": null,
+          "visibility": "public",
+          "description": "Icons, mockups, fonts, illustrations, UI kits, color/gradient tools."
+        },
+        {
+          "name": "Background Removal & Image Editors",
+          "name_fa": "حذف پس‌زمینه و ویرایشگرهای تصویر",
+          "slug": "background-removal-image-editors",
+          "icon": null,
+          "visibility": "public",
+          "description": "Background removers, upscalers, and image editors."
+        },
+        {
+          "name": "Backgrounds & SVG Generators",
+          "name_fa": "پس‌زمینه‌ها و تولیدکننده‌های SVG",
+          "slug": "backgrounds-svg-generators",
+          "icon": null,
+          "visibility": "public",
+          "description": "Background generators and SVG pattern tools."
+        },
+        {
+          "name": "Branding & Identity",
+          "name_fa": "برندینگ و هویت بصری",
+          "slug": "branding-identity",
+          "icon": null,
+          "visibility": "public",
+          "description": "Logo tools and brand guidelines."
+        },
+        {
+          "name": "Color Palettes & Tools",
+          "name_fa": "پالت‌های رنگ و ابزارها",
+          "slug": "color-palettes-tools",
+          "icon": null,
+          "visibility": "public",
+          "description": "Palette generators, pickers, and color tools."
+        },
+        {
+          "name": "Gradients & Color Assets",
+          "name_fa": "گرادیان‌ها و دارایی‌های رنگ",
+          "slug": "gradients-color-assets",
+          "icon": null,
+          "visibility": "public",
+          "description": "Gradient generators and color asset libraries."
+        },
+        {
+          "name": "Icons & SVG Assets",
+          "name_fa": "آیکون‌ها و دارایی‌های SVG",
+          "slug": "icons-svg-assets",
+          "icon": null,
+          "visibility": "public",
+          "description": "Icon sets and SVG asset libraries."
+        },
+        {
+          "name": "Image Edit & Background Tools",
+          "name_fa": "ابزارهای ویرایش تصویر و پس‌زمینه",
+          "slug": "image-edit-background-tools",
+          "icon": null,
+          "visibility": "public",
+          "description": "General-purpose image editing utilities."
+        },
+        {
+          "name": "Mockups & Templates PSD",
+          "name_fa": "ماکاپ‌ها و قالب‌های PSD",
+          "slug": "mockups-templates-psd",
+          "icon": null,
+          "visibility": "public",
+          "description": "Mockups, templates, and PSD resources."
+        },
+        {
+          "name": "UI Design Inspiration",
+          "name_fa": "الهام طراحی رابط کاربری",
+          "slug": "ui-design-inspiration",
+          "icon": null,
+          "visibility": "public",
+          "description": "Galleries and inspiration for UI design."
+        },
+        {
+          "name": "UI/UX & Product Design",
+          "name_fa": "رابط و تجربهٔ کاربری",
+          "slug": "ui-ux-product-design",
+          "icon": null,
+          "visibility": "public",
+          "description": "Galleries, design systems, UX writing, wireframing/prototyping."
+        }
+      ]
+    },
+    {
+      "name": "AI Tools for Web & App Development",
+      "name_fa": "ابزارهای هوش مصنوعی برای توسعهٔ وب و اپ",
+      "slug": "ai-tools-web-app-dev",
+      "icon": "bot",
+      "order": 2,
+      "visibility": "public",
+      "description": "Tools that help BUILD software: UI generation, code generation, no-code builders.",
+      "subcategories": [
+        {
+          "name": "AI UI/Design Generation",
+          "name_fa": "تولید رابط و طراحی با هوش مصنوعی",
+          "slug": "ai-ui-design-generation",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        },
+        {
+          "name": "AI Coding Assistants",
+          "name_fa": "دستیارهای کدنویسی هوش مصنوعی",
+          "slug": "ai-coding-assistants",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        },
+        {
+          "name": "AI Prototyping / No-Code",
+          "name_fa": "نمونه‌سازی و بدون کد",
+          "slug": "ai-prototyping-no-code",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AI Tools (General)",
+      "name_fa": "ابزارهای هوش مصنوعی (عمومی)",
+      "slug": "ai-tools-general",
+      "icon": "brain",
+      "order": 3,
+      "visibility": "public",
+      "description": "Everything else AI-related with no build-a-product purpose.",
+      "subcategories": [
+        {
+          "name": "AI Writing & Content",
+          "name_fa": "نگارش و محتوای هوش مصنوعی",
+          "slug": "ai-writing-content",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        },
+        {
+          "name": "AI Research & Search Assistants",
+          "name_fa": "دستیارهای پژوهش و جستجو",
+          "slug": "ai-research-search",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        },
+        {
+          "name": "AI Audio & Voice Generation",
+          "name_fa": "تولید صدا و گفتار",
+          "slug": "ai-audio-voice",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Developer Tools",
+      "name_fa": "ابزارهای توسعه‌دهنده",
+      "slug": "developer-tools",
+      "icon": "code",
+      "order": 4,
+      "visibility": "public",
+      "description": "",
+      "subcategories": []
+    },
+    {
+      "name": "Free Utilities & Everyday Tools",
+      "name_fa": "ابزارهای رایگان و کار روزمره",
+      "slug": "free-utilities",
+      "icon": "wrench",
+      "order": 5,
+      "visibility": "public",
+      "description": "",
+      "subcategories": []
+    },
+    {
+      "name": "Knowledge, Research & Reference",
+      "name_fa": "دانش، پژوهش و مرجع",
+      "slug": "knowledge-research-reference",
+      "icon": "book-open",
+      "order": 6,
+      "visibility": "public",
+      "description": "Also the home for general multi-topic learning platforms.",
+      "subcategories": []
+    },
+    {
+      "name": "Download Resources",
+      "name_fa": "منابع دانلود",
+      "slug": "download-resources",
+      "icon": "download",
+      "order": 7,
+      "visibility": "public",
+      "description": "Public archives and libraries.",
+      "subcategories": [
+        {
+          "name": "Public Archives & Libraries",
+          "name_fa": "آرشیوها و کتابخانه‌های عمومی",
+          "slug": "public-archives-libraries",
+          "icon": null,
+          "visibility": "public",
+          "description": "Legitimate, public-domain archives."
+        },
+        {
+          "name": "Torrent & Shadow Libraries",
+          "name_fa": "کتابخانه‌های تورنت و سایه",
+          "slug": "torrent-shadow-libraries",
+          "icon": null,
+          "visibility": "private",
+          "description": "NEVER shown on the public site or in the published index."
+        }
+      ]
+    },
+    {
+      "name": "Music & Audio Discovery",
+      "name_fa": "کشف موسیقی و صدا",
+      "slug": "music-audio-discovery",
+      "icon": "headphones",
+      "order": 8,
+      "visibility": "public",
+      "description": "",
+      "subcategories": []
+    },
+    {
+      "name": "Security & Privacy Tools",
+      "name_fa": "ابزارهای امنیت و حریم خصوصی",
+      "slug": "security-privacy-tools",
+      "icon": "shield",
+      "order": 9,
+      "visibility": "public",
+      "description": "",
+      "subcategories": []
+    },
+    {
+      "name": "Crypto & Markets",
+      "name_fa": "رمزارز و بازارها",
+      "slug": "crypto-markets",
+      "icon": "trending",
+      "order": 10,
+      "visibility": "public",
+      "description": "",
+      "subcategories": []
+    },
+    {
+      "name": "English Learning & Career Prep",
+      "name_fa": "یادگیری انگلیسی و آمادگی شغلی",
+      "slug": "english-learning-career-prep",
+      "icon": "graduation",
+      "order": 11,
+      "visibility": "public",
+      "description": "",
+      "subcategories": []
+    },
+    {
+      "name": "Geography & Urban Planning",
+      "name_fa": "جغرافیا و برنامه‌ریزی شهری",
+      "slug": "geography-urban-planning",
+      "icon": "map",
+      "order": 12,
+      "visibility": "public",
+      "description": "",
+      "subcategories": [
+        {
+          "name": "Urban Planning Courses & Learning",
+          "name_fa": "آموزش برنامه‌ریزی شهری",
+          "slug": "urban-planning-courses",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        },
+        {
+          "name": "Maps, GIS & Data Tools",
+          "name_fa": "نقشه، GIS و ابزارهای داده",
+          "slug": "maps-gis-data-tools",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        },
+        {
+          "name": "Case Studies & Reference",
+          "name_fa": "مطالعات موردی و مرجع",
+          "slug": "case-studies-reference",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Living Abroad",
+      "name_fa": "زندگی در خارج",
+      "slug": "living-abroad",
+      "icon": "plane",
+      "order": 13,
+      "visibility": "public",
+      "description": "Country-specific relocation content only.",
+      "subcategories": [
+        {
+          "name": "Australia",
+          "name_fa": "استرالیا",
+          "slug": "australia",
+          "icon": null,
+          "visibility": "public",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Random / Curiosities",
+      "name_fa": "گوناگون و کنجکاوی‌ها",
+      "slug": "random-curiosities",
+      "icon": "shuffle",
+      "order": 14,
+      "visibility": "public",
+      "description": "Catch-all — use sparingly.",
+      "subcategories": []
+    }
+  ],
+  "tag_aliases": {
+    "color-tool": "ابزار رنگ",
+    "font": "فونت",
+    "icons": "آیکون",
+    "mockup": "ماکاپ",
+    "ui-kit": "کیت رابط کاربری",
+    "video": "ویدیو",
+    "ai-powered": "مبتنی بر هوش مصنوعی",
+    "inspiration": "الهام",
+    "design-system": "سیستم طراحی",
+    "accessibility": "دسترس‌پذیری",
+    "tts": "تبدیل متن به گفتار",
+    "course": "دوره",
+    "research-ai": "پژوهش هوش مصنوعی"
+  },
+  "shared_host_exceptions": [
+    "github.io",
+    "notion.site",
+    "vercel.app",
+    "blogspot.com",
+    "wordpress.com",
+    "netlify.app",
+    "pages.dev",
+    "gitlab.io",
+    "webflow.io",
+    "medium.com",
+    "substack.com"
+  ],
+  "local_only": [
+    "CakhiaTV*.md",
+    "1Music_cc*.md",
+    "cobalt*.md",
+    "Prowlarr*.md",
+    "Max_Effect*.md",
+    "Flac_Downloader*.md"
+  ]
+}
