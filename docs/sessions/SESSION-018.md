@@ -1,0 +1,224 @@
+# SESSION-018 — 2026-10-17 — Phase 4 continues: T-43 handdelivery landed at be688bd — 1058 tests race-clean (+74) — THE FOURTH DOOR COMPLETE (the module golden + the ported suites + the pipeline legs); the blank-body law + a latent T-42 map-order flake fixed; the thirteenth full environment wipe rebuilt before work
+
+## Goal (from NEXT-SESSION.md at start)
+
+SESSION-018 = Phase 4 continues: **T-43 `internal/handdelivery`** (L)
+per spec-core-hand-delivery.md — completes the module T-40 floored:
+core/hand_delivery.py:88-907 — the Chrome launch family, the
+queue/consume/harvest/stamps, the batch-level pickers. Acceptance:
+the ported test_handdelivery/test_handharvest cases (the reference's
+own suites; the house generator pattern if a golden is warranted).
+T-44 chrometabs (L) if capacity remained — with the standing
+instruction to close cleanly at a natural boundary.
+
+## What was done (task IDs, files, commits — cite hashes)
+
+- **The environment was fully wiped AGAIN (the thirteenth full
+  reset)** — the work repo, the GitCurator reference, the Go
+  toolchain, and the venv were all absent. Rebuilt per
+  docs/NEXT-SESSION.md §1: the remote discovered through the GitHub
+  API with the in-chat PAT (ephemerally as the Basic
+  `x-access-token:<PAT>` header — never stored), second-brain-project
+  re-cloned at `6e45596` = origin/main (the SESSION-017 close), the
+  reference checked out at
+  `98f4fc71cfb862cee7225d864636c08062724348` (exact match with
+  testdiff/PINNED-GITCURATOR-REV), **the clone-config PAT hazard
+  scrubbed in BOTH clones immediately** (`git config --unset-all
+  http.extraheader` — the SESSION-017 recipe, applied this time
+  BEFORE any work), symlinks recreated, go1.27.2 reinstalled (go.dev
+  tarball → /home/z/.local/go), the stdlib-only Python 3.12.15 venv
+  recreated. The go.mod pins verified (go 1.24.1 / sqlite v1.36.1 /
+  tls-client v1.16.0 / x-net v0.48.0 / x-text v0.32.0) and the
+  984-test baseline re-verified race-clean before work.
+
+- **T-43, commit `be688bd` (pushed the moment the battery went
+  green)** — `internal/handdelivery` completed (4 new files, extend
+  never duplicate of the T-40 floor) + the pipeline legs:
+  - *The Chrome launch family* (`chrome.go`): `FindChrome` (the
+    Windows chrome.exe ladder with LOCALAPPDATA expanded at call
+    time / POSIX `exec.LookPath` over the reference's exact name
+    ladder) + `OpenInChrome` (the honest open ladder: the found
+    Chrome detached via `exec.Start` — the app never waits, DEVNULL
+    stdio, home cwd; the system-browser fallback honestly named in
+    the log; LOOPBACK NEVER OPENS — localhost / 127.0.0.1 / ::1 /
+    .local; one except-path message for the failed Chrome launch and
+    the raising fallback, exactly the reference's single try/except).
+    The seams: `findChromeFn` / `subprocessPopen` / `webbrowserOpen`
+    / `chromeOSName` / `chromeIsFile` / `chromeWhich` — the
+    reference's own tests patch `hd.find_chrome`, `hd.subprocess.
+    Popen`, `hd.webbrowser.open`, `os.name`, `os.path.isfile`,
+    `shutil.which`; the port's battery patches these.
+  - *The pickers* (`pickers.go`): `WalledRetryRows` over the new
+    `RetryRowsState` seam (the picker's data; websitepipeline imports
+    this package, so the concrete StateDB adapter lives with the
+    future GUI/CLI call sites — the decomtable layering law) +
+    `PendingHandLinks` (the fifth door's to-do list; `isfile` is the
+    only gate — an EMPTY landed page counts as landed).
+  - *The batch consume* (`consume.go`): `ConsumeDelivered` (read,
+    stamp `consumed` on the queue, KEEP the file — the record; the
+    auto-door re-verify; dry-run takes the pages WITHOUT stamping)
+    + the **`PageIsRealFn` seam staged for T-44** (the honest
+    except-path degrade `(true, "")` — "a verdict that cannot be
+    asked is not a wall" — until internal/chrometabs wires the real
+    page_is_real; the ERROR-page discard battery lands with it) +
+    `discardAutoPage`.
+  - *The queue stamp* (`stamp.go`): `StampHandRows` — the
+    master-table 🖐 stamp with the RAW-URL `wanted` set (no canonical
+    folding, no status-grammar checks — the stronger verdicts are the
+    CALLER's first checks, exactly the reference's own split from
+    `stamp_hand_delivered_rows`).
+  - *The enqueue's openChrome leg*: `EnqueueHandDelivery` gained the
+    reference's fifth parameter (counts `report.Opened` through
+    OpenInChrome's ladder); the three websitepipeline call sites
+    updated (they pass false — the pipeline never asks for it).
+  - *THE GOLDEN*: `testdata/handdelivery.golden.json` (5 sections:
+    walled_retry_rows [the real reference WebsiteStateDB's rows as
+    input + the filtered output], consume_delivered [the five-link
+    flow — taken rows + queue.json bytes + the log lines],
+    stamp_hand_rows [count + table bytes + the Last-updated
+    refresh], pending_hand_links, hand_fetch_result [both wordings])
+    GENERATED by `testdiff/goldens/dump_handdelivery.py` from the
+    unmodified reference @ 98f4fc7 with `hd.time` frozen at
+    2026-10-17 12:00. hand_delivery is core/ and stdlib-only — the
+    PLAIN generator pattern, no GUI-layer stubs needed. The
+    auto-door golden page is a REAL page: the reference's own
+    page_is_real verdict (chrome_tabs imports cleanly in the venv)
+    and the port's honest degrade AGREE. The T-40 sections (enqueue
+    / README / take / redo / heal) stay pinned by websitepipeline's
+    golden — extend, never duplicate.
+  - *The behavior battery* (`handdelivery_test.go`, 50 tests): the
+    wall predicate (+ the erroring/panicking state fakes — the empty
+    picker), the suggested filename, the enqueue laws (write / noop
+    merge / consumed reset / non-http filtered / corrupt tolerated /
+    dry-run records / empty vault / the openChrome counting), the
+    Chrome ladder (the loopback family, the detached argv, the
+    fallback, the launch failure, the Windows candidates, the POSIX
+    which ladder), the consume laws (file kept + queue stamped +
+    second collect empty, missing file, empty page, orphans,
+    dry-run unstamped), the blank-body law, the gesture grammar,
+    StampHandRows's own laws, the pending legs (test_iconcolumn §6),
+    the harvest-stamp battery (test_handharvest §1), the queue
+    wire-format round-trip.
+  - *The pipeline legs* (`internal/websitepipeline/handpipeline_
+    test.go`, 20 tests): the reference suites' own §7/§4/§5
+    selections — the delivered page answers BEFORE any machine door
+    (the fetcher is never called, the note processed, the retry
+    resolved), the run's uninvited pull ("join this batch"), the
+    wall hint everywhere (error + log + note + the retry row's
+    last_error), the opt-out, the owner's exact
+    burned-out→gesture→delivery flow (retire + sweep + the
+    harvest/reborn logs + the row final for every scan), the
+    fresh-retry shape, the half-fetched exemption + its control, the
+    stored-link control, the burned-out control, the
+    delivered-page-alone reborn, the machine-success harvest, the
+    run-ends-with-refresh leg, and the three cached probes
+    (rowReadsHand / hasAppReviewNote + the mtime cache refresh).
+
+- **REALITY-WINS FIXES the task forced** (both with evidence, both
+  in the same commit):
+  1. **The blank-body law** (`pyBytesBlank`): Python's
+     `not body.strip()` on BYTES strips ASCII whitespace only — a
+     NBSP-only body is NOT blank for the reference (it gets
+     consumed). The T-40 floor used `strings.TrimSpace`
+     (Unicode-aware — it wrongly blanked the NBSP body). Fixed in
+     both `TakeHandDelivered` and `ConsumeDelivered`; pinned by
+     `TestTakeHandDeliveredBlankLaw` (NBSP → delivered, ASCII
+     whitespace → blank).
+  2. **A latent T-42 FLAKE root-caused** (githubpipeline, found
+     while verifying this session — surfaced as a one-in-N full-suite
+     failure of TestGoldenFinalReportRich/Minimal): the final
+     report's "Repos by Category" table iterated a Go MAP then
+     stable-sorted — **ties flipped randomly per run** (Python dicts
+     keep insertion order for `sorted(key=lambda x: -x[1])`; Go map
+     ranges are randomized). The tracked `categoryOrder` slice
+     existed but was ignored. Fixed to ride the slice; verified with
+     20 consecutive package runs + 6 full-suite `-p 16` runs, all
+     green. (The repro recipe: `go test -race -count=1 -p 16 ./...`
+     in a loop — the flake appeared ~1 in 7 before the fix.)
+
+- **T-44 `internal/chrometabs` (L) — NOT STARTED, deliberately.**
+  T-43's own scope (the module golden + two batteries + the pipeline
+  legs + the flake fix) filled the session, and T-44 is a full L
+  task (chrome_tabs.py:484-2563 — the CDP frame codec, the DevTools
+  socket, page_is_real, the load watch, the candidates, the Chrome
+  session, the fetch driver). The one-task law applied: one task
+  done properly with proof beats two half-done; closed cleanly at
+  the natural boundary. The `PageIsRealFn` seam is staged so T-44
+  plugs the real verdict in.
+
+## Gate evaluation (pass/fail/partial + EVIDENCE)
+
+- **T-43's task-list acceptance — PASS**: *the ported
+  test_handdelivery/test_handharvest cases* ✓ — the spec's own
+  selections all landed: enqueue merge/heal (behavior battery +
+  T-40's golden), suggested filename determinism, consume stamping
+  (file kept) + redo-consume (T-40 golden + the new battery's
+  second-collect/blank laws), gesture status grammar
+  (TestStatusIsHandGrammar), master-table stamp precedence (the
+  harvest battery + StampHandRows laws), queue corruption tolerance,
+  dry-run laws (enqueue + consume). Plus the golden the house
+  pattern warranted: 5 sections generated from the unmodified
+  reference, the consume flow byte-compared (the taken rows, the
+  queue.json bytes AFTER, the log lines) + the stamp table bytes +
+  both hand_fetch_result wordings.
+- **Full-suite evidence at close**: `go vet ./...` clean; `gofmt -l`
+  clean; `GOOS=windows go build ./...` clean; `go test -race
+  -count=1 ./...` → **21 packages ok, 1058/1058 tests PASS, race
+  detector clean, 0 failures** (was 984 at session start; +74 — 54
+  handdelivery + 20 websitepipeline pipeline legs; the arithmetic
+  closes exactly); the T-42 flake fixed and re-verified with 20
+  package runs + 6 full-suite `-p 16` runs; go.mod/go.sum UNCHANGED
+  (zero new dependencies — the authorized set untouched).
+- **Honest notes**: (1) the golden was generated ONCE and never
+  hand-edited; (2) the auto-door ERROR-page legs (the discard
+  battery: a challenge/crash/ERR page is discarded, the link
+  re-asks) are deliberately deferred to T-44 with the seam staged —
+  the golden's auto-door page is REAL so the reference verdict and
+  the port's degrade agree today, and the divergence only exists
+  for pages that FAIL page_is_real (recorded in the spec's shipped
+  record); (3) the githubpipeline fix was forced by evidence found
+  DURING this session's verification — a flaky test is a broken
+  test, and the root cause was a Go-map random-iteration divergence
+  from Python dict insertion order.
+
+## Spec updates made (file → what changed, why)
+
+- `docs/port-blueprint/module-specs/spec-core-hand-delivery.md` —
+  the dated SESSION-018 shipped record (the four new files, the
+  seams, the golden, the batteries, the two reality-wins fixes, the
+  T-44 deferral list).
+- `docs/port-blueprint/traceability-matrix.md` — the D6 row widened
+  (the Chrome family + the pickers + the blank-body law; the golden
+  + the ported suites; T-43 ✓).
+- `README.md` — the status paragraph (T-43 complete, the fixes,
+  1058 race-clean, next: T-44).
+- `internal/handdelivery/doc.go` + the package doc in
+  `handdelivery.go` — the module record updated from "T-40's floor +
+  what stays for T-43" to the complete surface.
+
+## Blockers & decisions needed
+
+- **The go-directive acknowledgement (STILL WAITING — seventh
+  session carrying it)**: the main module rides `go 1.24.1`, forced
+  by the owner-acknowledged tls-client v1.16.0 pin (ADR-0002 Am.2
+  has the record + the rollback path). A one-line acknowledgement
+  (or a rollback instruction) closes it.
+- **The x/net/html keep-or-swap (standing, not a blocker)**: T-32
+  shipped the hand-rolled tokenizer; nothing blocks on it.
+- The standing sandbox-reliability observation carries (thirteenth
+  full wipe; push-after-every-task remained the load-bearing
+  mitigation — T-43 was pushed the moment its battery went green).
+
+## Owner actions requested
+
+1. The go-directive acknowledgement (ADR-0002 Am.2) — a one-liner.
+2. Standing: keep the PAT available in chat when starting a session.
+
+## Handoff
+
+- Next session: **SESSION-019 = Phase 4 continues — T-44
+  `internal/chrometabs`** (L) per spec-core-chrome-tabs.md, then
+  T-45 vaultscan if capacity remains.
+- NEXT-SESSION.md rewritten: yes (v19).
+- The next prompt: see `docs/NEXT-SESSION.md` §5 — the owner copies
+  it verbatim.
