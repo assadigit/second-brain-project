@@ -1,0 +1,501 @@
+{
+  "apply_detections": {
+    "again": 0,
+    "applied": 2,
+    "cfg": {
+      "manual_repo_name": "per-repo",
+      "vaultseal": {
+        "repo_name": "gh-repo"
+      }
+    },
+    "garbage_cfg": 0,
+    "garbage_junk": 0,
+    "garbage_none": 0,
+    "owner_never": 2,
+    "plain_dicts": 2
+  },
+  "blob_sha": {
+    "empty": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "hello": "ce013625030ba8dba906f756967f9e9ca394464a",
+    "larger": "5a43346d68a16185e45a6afca380caa8ee2c03b7",
+    "same": "5a66c000ab56fb7018b5ec24cdb24c94c00e2142",
+    "unicode": "db49e6f4568aab94675d08382e986cfef07e114e"
+  },
+  "detect_backup_repo": {
+    "ambiguity": {
+      "detail": "ambiguous — the best candidate (twin-b) matches 4/4 sampled files, too close to another repo to call it; type the repo name once in Settings and it is remembered",
+      "kind": "github",
+      "matched": 4,
+      "repo_name": "",
+      "sampled": 4,
+      "vault_path": "<root>/v3"
+    },
+    "fingerprint_dominant": {
+      "confidence": "strong",
+      "detail": "6/6 sampled files already live in the-real-backup — the vault's content fingerprints to its mirror",
+      "kind": "github",
+      "matched": 6,
+      "method": "fingerprint",
+      "repo_name": "the-real-backup",
+      "sampled": 6,
+      "vault_path": "<root>/moved-vault"
+    },
+    "missing_folder_law": {
+      "detail": "no backup repo found for the github vault — nothing was created (the v0.83.0 law stands); create the repo on GitHub once and the next radar pass will find it",
+      "kind": "github",
+      "repo_name": "",
+      "vault_path": "<root>/no-such-vault-yet"
+    },
+    "name_certain": {
+      "confidence": "certain",
+      "detail": "a repo named github-projects-obsidian-vault exists on the account — the vault folder's own name",
+      "kind": "github",
+      "method": "name",
+      "repo_name": "github-projects-obsidian-vault",
+      "vault_path": "<root>/github-projects-obsidian-vault"
+    },
+    "name_not_yet_created": {
+      "confidence": "certain",
+      "detail": "a repo named my-awesome-websites-directory exists on the account — the vault folder's own name",
+      "kind": "websites",
+      "method": "name",
+      "repo_name": "my-awesome-websites-directory",
+      "vault_path": "<root>/my-awesome-websites-directory"
+    },
+    "no_match": {
+      "detail": "no repo on the account shares the vault's content fingerprint (4 files sampled) — no backup repo exists yet",
+      "kind": "github",
+      "repo_name": "",
+      "sampled": 4,
+      "vault_path": "<root>/v3"
+    },
+    "no_owner": {
+      "detail": "could not resolve the GitHub account for the token — nothing was detected",
+      "kind": "github",
+      "repo_name": "",
+      "vault_path": "/v"
+    },
+    "no_path": {
+      "detail": "no vault path configured — nothing to detect for the github vault",
+      "kind": "github",
+      "repo_name": "",
+      "vault_path": ""
+    },
+    "remote_certain": {
+      "confidence": "certain",
+      "detail": "the vault's own git remote points at assadigit/Ali-personal-obsidian-vault",
+      "kind": "personal",
+      "method": "remote",
+      "repo_name": "Ali-personal-obsidian-vault",
+      "vault_path": "<root>/Ali-personal-obsidian-vault"
+    },
+    "remote_unverifiable": {
+      "detail": "the vault's remote points at owner/ghost-repo but it could not be verified (HTTP 403)",
+      "kind": "github",
+      "repo_name": "",
+      "vault_path": "<root>/v"
+    },
+    "size_zero": {
+      "confidence": "strong",
+      "detail": "1/1 sampled files already live in Ali-personal-obsidian-vault — the vault's content fingerprints to its mirror",
+      "kind": "personal",
+      "matched": 1,
+      "method": "fingerprint",
+      "repo_name": "Ali-personal-obsidian-vault",
+      "sampled": 1,
+      "vault_path": "<root>/renamed-folder"
+    },
+    "weak": {
+      "detail": "the best candidate (solo) matches only 2/4 sampled files — not enough evidence to call it; type the repo name once in Settings and it is remembered",
+      "kind": "github",
+      "matched": 2,
+      "repo_name": "",
+      "sampled": 4,
+      "vault_path": "<root>/v3"
+    }
+  },
+  "fingerprint": {
+    "ambiguous": [
+      null,
+      4,
+      4,
+      [
+        "twin-b",
+        "twin-a"
+      ],
+      "ambiguous"
+    ],
+    "dominant": [
+      "the-real-backup",
+      6,
+      6,
+      [
+        "the-real-backup"
+      ],
+      "dominant"
+    ],
+    "empty_vault": [
+      null,
+      0,
+      0,
+      [],
+      "empty"
+    ],
+    "none": [
+      null,
+      0,
+      5,
+      [
+        "other"
+      ],
+      "none"
+    ],
+    "weak": [
+      null,
+      2,
+      5,
+      [
+        "solo"
+      ],
+      "weak"
+    ]
+  },
+  "fingerprint_candidates": {
+    "archived_fork_filtered": [
+      "live-backup"
+    ],
+    "crowding": [
+      "Ali-personal-obsidian-vault",
+      "filler-00-vault",
+      "filler-01-vault",
+      "filler-02-vault",
+      "filler-03-vault",
+      "filler-04-vault",
+      "filler-05-vault",
+      "filler-06-vault",
+      "filler-07-vault",
+      "filler-08-vault",
+      "filler-09-vault",
+      "filler-10-vault",
+      "filler-11-vault",
+      "filler-12-vault",
+      "filler-13-vault",
+      "filler-14-vault",
+      "filler-15-vault",
+      "filler-16-vault",
+      "filler-17-vault",
+      "filler-18-vault",
+      "filler-19-vault"
+    ],
+    "empty": [],
+    "name_overlap_ranks": [
+      "my-github-vault-notes",
+      "alpha-vault",
+      "beta-random",
+      "zeta-unrelated"
+    ]
+  },
+  "parse_remote_repo": {
+    "empty": null,
+    "git_at": "owner/repo",
+    "git_not_owner": null,
+    "gitlab": null,
+    "https": "owner/repo",
+    "https_git": "owner/repo",
+    "https_slash": "owner/repo",
+    "noise": null,
+    "owner_lower": "owner/Repo",
+    "ssh": "owner/repo"
+  },
+  "radar_all_vaults": {
+    "all_detected": {
+      "github": {
+        "confidence": "certain",
+        "detail": "a repo named github-projects-obsidian-vault exists on the account — the vault folder's own name",
+        "kind": "github",
+        "method": "name",
+        "repo_name": "github-projects-obsidian-vault",
+        "vault_path": "<root>/github-projects-obsidian-vault"
+      },
+      "personal": {
+        "confidence": "certain",
+        "detail": "a repo named Ali-personal-obsidian-vault exists on the account — the vault folder's own name",
+        "kind": "personal",
+        "method": "name",
+        "repo_name": "Ali-personal-obsidian-vault",
+        "vault_path": "<root>/Ali-personal-obsidian-vault"
+      },
+      "websites": {
+        "confidence": "certain",
+        "detail": "a repo named my-awesome-websites-directory exists on the account — the vault folder's own name",
+        "kind": "websites",
+        "method": "name",
+        "repo_name": "my-awesome-websites-directory",
+        "vault_path": "<root>/my-awesome-websites-directory"
+      }
+    },
+    "boom_later": {
+      "github": {
+        "detail": "detection failed: boom",
+        "kind": "github",
+        "repo_name": "",
+        "vault_path": "/v"
+      },
+      "personal": {
+        "detail": "no vault path configured — set it once and the radar does the rest",
+        "kind": "personal",
+        "repo_name": "",
+        "vault_path": ""
+      },
+      "websites": {
+        "detail": "no vault path configured — set it once and the radar does the rest",
+        "kind": "websites",
+        "repo_name": "",
+        "vault_path": ""
+      }
+    },
+    "boom_me": {
+      "github": {
+        "detail": "the GitHub token was rejected (invalid or expired) — nothing was detected (the account probe failed: boom)",
+        "kind": "github",
+        "repo_name": "",
+        "vault_path": "/v"
+      },
+      "personal": {
+        "detail": "no vault path configured",
+        "kind": "personal",
+        "repo_name": "",
+        "vault_path": ""
+      },
+      "websites": {
+        "detail": "no vault path configured",
+        "kind": "websites",
+        "repo_name": "",
+        "vault_path": ""
+      }
+    },
+    "missing_path": {
+      "github": {
+        "detail": "no vault path configured — set it once and the radar does the rest",
+        "kind": "github",
+        "repo_name": "",
+        "vault_path": ""
+      },
+      "personal": {
+        "detail": "no vault path configured — set it once and the radar does the rest",
+        "kind": "personal",
+        "repo_name": "",
+        "vault_path": ""
+      },
+      "websites": {
+        "detail": "no vault path configured — set it once and the radar does the rest",
+        "kind": "websites",
+        "repo_name": "",
+        "vault_path": ""
+      }
+    },
+    "no_token": {
+      "github": {
+        "detail": "no GitHub token — the radar sleeps (set it in Settings → Credentials)",
+        "kind": "github",
+        "repo_name": "",
+        "vault_path": "/v"
+      },
+      "personal": {
+        "detail": "no vault path configured",
+        "kind": "personal",
+        "repo_name": "",
+        "vault_path": ""
+      },
+      "websites": {
+        "detail": "no vault path configured",
+        "kind": "websites",
+        "repo_name": "",
+        "vault_path": ""
+      }
+    },
+    "owner_kept": {
+      "github": {
+        "confidence": "owner",
+        "detail": "already set by the owner: my-own-choice — never overwritten",
+        "kind": "github",
+        "method": "config",
+        "repo_name": "my-own-choice",
+        "vault_path": "<root>/github-projects-obsidian-vault"
+      },
+      "personal": {
+        "confidence": "certain",
+        "detail": "a repo named Ali-personal-obsidian-vault exists on the account — the vault folder's own name",
+        "kind": "personal",
+        "method": "name",
+        "repo_name": "Ali-personal-obsidian-vault",
+        "vault_path": "<root>/Ali-personal-obsidian-vault"
+      },
+      "websites": {
+        "confidence": "certain",
+        "detail": "a repo named my-awesome-websites-directory exists on the account — the vault folder's own name",
+        "kind": "websites",
+        "method": "name",
+        "repo_name": "my-awesome-websites-directory",
+        "vault_path": "<root>/my-awesome-websites-directory"
+      }
+    },
+    "rejected": {
+      "github": {
+        "detail": "the GitHub token was rejected (invalid or expired) — nothing was detected",
+        "kind": "github",
+        "repo_name": "",
+        "vault_path": "/v"
+      },
+      "personal": {
+        "detail": "no vault path configured",
+        "kind": "personal",
+        "repo_name": "",
+        "vault_path": ""
+      },
+      "websites": {
+        "detail": "no vault path configured",
+        "kind": "websites",
+        "repo_name": "",
+        "vault_path": ""
+      }
+    }
+  },
+  "radar_pending": {
+    "empty": false,
+    "fully_wired": false,
+    "no_paths": false,
+    "no_token": false,
+    "one_empty": true,
+    "token_path_empty_slot": true
+  },
+  "report_lines": {
+    "fingerprint_line": [
+      "🔗 Personal vault: r — detected via a content fingerprint"
+    ],
+    "mixed": [
+      "🔗 GitHub vault: gh (already set — kept)",
+      "🔗 Websites vault: web — detected via the vault folder's name",
+      "⚪ Personal vault: no backup repo found — nothing conclusive"
+    ],
+    "not_configured": [
+      "⚪ Personal vault: not configured (no vault path)"
+    ],
+    "plain": [
+      "🔗 GitHub vault: x — detected via its own git remote"
+    ]
+  },
+  "sample_vault_files": {
+    "all_small": [
+      "root.md",
+      "big/f00.md",
+      "notes/n.md",
+      "sml/a0.md",
+      "big/f01.md",
+      "sml/a1.md",
+      "big/f02.md",
+      "sml/a2.md",
+      "big/f03.md",
+      "big/f04.md",
+      "big/f05.md",
+      "big/f06.md",
+      "big/f07.md",
+      "big/f08.md",
+      "big/f09.md",
+      "big/f10.md",
+      "big/f11.md",
+      "big/f12.md",
+      "big/f13.md",
+      "big/f14.md",
+      "big/f15.md",
+      "big/f16.md",
+      "big/f17.md",
+      "big/f18.md",
+      "big/f19.md",
+      "big/f20.md",
+      "big/f21.md",
+      "big/f22.md",
+      "big/f23.md",
+      "big/f24.md",
+      "big/f25.md",
+      "big/f26.md",
+      "big/f27.md",
+      "big/f28.md",
+      "big/f29.md"
+    ],
+    "blank": [],
+    "default_cap": [
+      "root.md",
+      "big/f00.md",
+      "notes/n.md",
+      "sml/a0.md",
+      "big/f01.md",
+      "sml/a1.md",
+      "big/f02.md",
+      "sml/a2.md",
+      "big/f03.md",
+      "big/f04.md",
+      "big/f05.md",
+      "big/f06.md",
+      "big/f07.md",
+      "big/f08.md",
+      "big/f09.md",
+      "big/f10.md",
+      "big/f11.md",
+      "big/f12.md",
+      "big/f13.md",
+      "big/f14.md",
+      "big/f15.md",
+      "big/f16.md",
+      "big/f17.md",
+      "big/f18.md",
+      "big/f19.md",
+      "big/f20.md",
+      "big/f21.md",
+      "big/f22.md",
+      "big/f23.md",
+      "big/f24.md",
+      "big/f25.md",
+      "big/f26.md",
+      "big/f27.md",
+      "big/f28.md",
+      "big/f29.md"
+    ],
+    "missing": [],
+    "round_robin": [
+      "root.md",
+      "big/f00.md",
+      "notes/n.md",
+      "sml/a0.md",
+      "big/f01.md",
+      "sml/a1.md",
+      "big/f02.md",
+      "sml/a2.md",
+      "big/f03.md",
+      "big/f04.md"
+    ],
+    "spaces": []
+  },
+  "slot_set": {
+    "cfg": {
+      "vaultseal": {
+        "auto_push": false,
+        "enabled": true,
+        "repo_name": "set-twice"
+      }
+    },
+    "changed": true,
+    "flat_created": {
+      "manual_repo_name": "flat"
+    },
+    "unchanged": false
+  },
+  "slot_value": {
+    "absent": "",
+    "blank": "",
+    "flat": "x",
+    "nested": "y",
+    "nested_missing": "",
+    "nested_not_dict": ""
+  }
+}

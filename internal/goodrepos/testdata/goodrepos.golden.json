@@ -1,0 +1,599 @@
+{
+  "as_aliases": [
+    [
+      "a",
+      "a/b"
+    ],
+    [
+      "solo"
+    ],
+    [],
+    [],
+    []
+  ],
+  "as_tags": [
+    [
+      "cp",
+      "python"
+    ],
+    [
+      "cp",
+      "python"
+    ],
+    [
+      "solo"
+    ],
+    [
+      "not-a-list",
+      "malformed"
+    ],
+    [],
+    [],
+    [],
+    [
+      "a",
+      "b"
+    ],
+    [
+      "quoted",
+      "things"
+    ]
+  ],
+  "creation_guard": {
+    "allow_create": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/curated-dir",
+          null
+        ],
+        [
+          "POST",
+          "/user/repos",
+          {
+            "auto_init": false,
+            "description": "✨ A curated directory of good GitHub repositories — auto-maintained by GitCurator",
+            "has_issues": true,
+            "has_wiki": false,
+            "name": "curated-dir",
+            "private": true
+          }
+        ]
+      ],
+      "err": null,
+      "ok": true
+    },
+    "api_error": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/curated-dir",
+          null
+        ]
+      ],
+      "err": "GitHub API error checking testuser/curated-dir: nope",
+      "ok": false
+    },
+    "create_race_422": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/curated-dir",
+          null
+        ],
+        [
+          "POST",
+          "/user/repos",
+          {
+            "auto_init": false,
+            "description": "✨ A curated directory of good GitHub repositories — auto-maintained by GitCurator",
+            "has_issues": true,
+            "has_wiki": false,
+            "name": "curated-dir",
+            "private": true
+          }
+        ],
+        [
+          "GET",
+          "/repos/testuser/curated-dir",
+          null
+        ]
+      ],
+      "err": "could not create the private repo testuser/curated-dir: name already exists",
+      "ok": false
+    },
+    "empty_name": {
+      "calls": [],
+      "err": "no directory repo configured — goodrepos.repo_name is empty. Nothing was created or pushed.",
+      "ok": false
+    },
+    "existing": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/curated-dir",
+          null
+        ]
+      ],
+      "err": null,
+      "ok": true
+    },
+    "no_opt_in": {
+      "calls": [
+        [
+          "GET",
+          "/user",
+          null
+        ],
+        [
+          "GET",
+          "/repos/testuser/curated-dir",
+          null
+        ]
+      ],
+      "err": "repository testuser/curated-dir not found — GitCurator does NOT create repositories automatically (the duplicate-repo accident cure, v0.83.0). Create it yourself on GitHub — or set goodrepos.create_repo=true in config.json once, or pass --create-repo to the CLI — then re-run.",
+      "ok": false
+    }
+  },
+  "describe": {
+    "dry_run": "built a directory of 3 repos across 2 categories (dry-run — no git, no push) — staged at /tmp/gr-x",
+    "failed": "failed — boom",
+    "failed_published": "failed — boom (commit kept locally)",
+    "full": "published 3 repos across 2 categories → o/r (abc1234)",
+    "no_push": "published 3 repos across 2 categories [local only — no push]",
+    "skipped": "skipped — x"
+  },
+  "display_name": {
+    "ai": "AI Domain",
+    "empty": "",
+    "plain": "Tools",
+    "web": "Web Frameworks"
+  },
+  "dry_run": {
+    "describe": "built a directory of 9 repos across 6 categories (dry-run — no git, no push) — staged at <staging>",
+    "staging_tree": [
+      "AI-Domain/Agents/aaa_Agents_x.md",
+      "AI-Domain/Agents/bbb_Agents_y.md",
+      "AI-Domain/Agents/eee_Agents_t.md",
+      "AI-Domain/LLM-Tools/ltl_LLM-Tools_l.md",
+      "AI-Domain/Skills/skl_Skills_s.md",
+      "AI-Domain/direct_Agents_d.md",
+      "README.md",
+      "Tools/Automation/ccc_Automation_z.md",
+      "Uncategorized/xxx_Uncategorized_y.md",
+      "Uncategorized/zzz_Uncategorized_w.md",
+      "_index.md",
+      "links_manifest.json"
+    ],
+    "to_dict": {
+      "categories": 6,
+      "commit_message": "",
+      "commit_sha": null,
+      "dry_run": true,
+      "duration_ms": 0,
+      "entries": 9,
+      "error": null,
+      "files_changed": 12,
+      "ok": true,
+      "published": true,
+      "pushed": false,
+      "repo_name": "good-repos",
+      "repo_url": null,
+      "skipped_reason": null,
+      "staging_dir": "<staging>"
+    }
+  },
+  "emoji_for": {
+    "deepest": "🏗️",
+    "empty_components": "📁",
+    "fallback": "📁",
+    "single": "🤖"
+  },
+  "fetch_head_no_token": "https://x-access-token:SECRETTOKEN@github.com/o/r.git\n",
+  "fetch_head_scrub": "abc123\t\tbranch 'main' of https://x-access-token:***@github.com/o/r.git\n",
+  "format_stars": {
+    "comma": "1,234",
+    "comma2": "9,999",
+    "decimal": "86.8k",
+    "fourteen_k": "14k",
+    "large": "140.2k",
+    "none": "",
+    "plain": "999",
+    "rounds_up": "43k",
+    "string": "",
+    "ten_k": "10k",
+    "zero": "0"
+  },
+  "github_anchor": {
+    "agents_count": "-agents-2",
+    "ai_domain": "-ai-domain",
+    "automation": "-automation",
+    "empty": "",
+    "llm_tools": "-llm-tools-1",
+    "plain": "simple-heading",
+    "punct": "what-really",
+    "uncategorized": "-uncategorized",
+    "web_frameworks": "-web-frameworks-3"
+  },
+  "intro_name": {
+    "ai": "AI domain",
+    "long_caps": "HTTP server stuff",
+    "mixed": "the web frameworks",
+    "tools": "tools"
+  },
+  "owner_login": {
+    "empty_login": [
+      null,
+      []
+    ],
+    "good": [
+      "testuser",
+      []
+    ],
+    "network": [
+      null,
+      [
+        [
+          "warning",
+          "GoodRepos: could not resolve the GitHub user for the token (0: timed out)"
+        ]
+      ]
+    ],
+    "server_error": [
+      null,
+      [
+        [
+          "warning",
+          "GoodRepos: could not resolve the GitHub user for the token (500: oops)"
+        ]
+      ]
+    ],
+    "unauthorized": [
+      null,
+      [
+        [
+          "warning",
+          "GoodRepos: could not resolve the GitHub user for the token (401: Bad credentials) — token invalid or expired; update it in Settings → Credentials → GitHub Token (then 'Test GitHub Token')"
+        ]
+      ]
+    ]
+  },
+  "owner_repo_from_url": [
+    "owner/repo",
+    "owner/repo",
+    "owner/repo",
+    "",
+    "",
+    "",
+    "aaa/aaa"
+  ],
+  "parse_frontmatter": {
+    "block_after_scalar": {
+      "category": "Agents",
+      "tags": [
+        "solo"
+      ]
+    },
+    "block_after_string": {
+      "aliases": [
+        "x"
+      ],
+      "category": "Agents"
+    },
+    "block_list": {
+      "aliases": [
+        "one",
+        "two/and"
+      ]
+    },
+    "empty_list": {
+      "aliases": []
+    },
+    "inline_list": {
+      "tags": [
+        "alpha",
+        "beta"
+      ]
+    },
+    "inline_list_spaces": {
+      "tags": [
+        "alpha",
+        "beta"
+      ]
+    },
+    "malformed_tags": {
+      "tags": "not-a-list, malformed]"
+    },
+    "no_close": {
+      "category": "Agents"
+    },
+    "no_frontmatter": {},
+    "quoted_strip": {
+      "source": "padded"
+    },
+    "scalar_quoted": {
+      "source": "https://github.com/a/b"
+    },
+    "stars_comma": {
+      "stars": "1,402"
+    },
+    "stars_string": {
+      "stars": "14k"
+    }
+  },
+  "parse_note": {
+    "aaa_Agents_x": {
+      "category": "Agents",
+      "credibility": "78/100",
+      "date_processed": "2026-09-16",
+      "display": "aaa/aaa",
+      "language": "Python",
+      "rel_path": "AI-Domain/Agents/aaa_Agents_x.md",
+      "stars": 100,
+      "tags": [
+        "alpha",
+        "beta"
+      ],
+      "title": "aaa",
+      "tldr": "Does one thing well.",
+      "url": "https://github.com/aaa/aaa"
+    },
+    "bbb_Agents_y": {
+      "category": "Agents",
+      "credibility": "78/100",
+      "date_processed": "2026-09-16",
+      "display": "bbb/bbb",
+      "language": "Python",
+      "rel_path": "AI-Domain/Agents/bbb_Agents_y.md",
+      "stars": 100,
+      "tags": [
+        "alpha",
+        "beta"
+      ],
+      "title": "bbb",
+      "tldr": "Does one thing well.",
+      "url": ""
+    },
+    "ccc_Agents_z": {
+      "category": "Agents",
+      "credibility": "78/100",
+      "date_processed": "2026-09-16",
+      "display": "ccc",
+      "language": "Go",
+      "rel_path": "AI-Domain/Agents/ccc_Agents_z.md",
+      "stars": 7,
+      "tags": [
+        "t"
+      ],
+      "title": "ccc",
+      "tldr": "C summary.",
+      "url": ""
+    },
+    "ddd_Agents_w": {
+      "category": "",
+      "credibility": "",
+      "date_processed": "",
+      "display": "ddd",
+      "language": "",
+      "rel_path": "AI-Domain/Agents/ddd_Agents_w.md",
+      "stars": null,
+      "tags": [],
+      "title": "",
+      "tldr": "",
+      "url": ""
+    },
+    "eee_Agents_v": {
+      "category": "Agents",
+      "credibility": "78/100",
+      "date_processed": "2026-09-16",
+      "display": "eee/eee",
+      "language": "Python",
+      "rel_path": "AI-Domain/Agents/eee_Agents_v.md",
+      "stars": 100,
+      "tags": [
+        "alpha",
+        "beta"
+      ],
+      "title": "eee",
+      "tldr": "Fallback description sentence.",
+      "url": "https://github.com/eee/eee"
+    },
+    "fff_Agents_u": {
+      "category": "Agents",
+      "credibility": "78/100",
+      "date_processed": "2026-09-16",
+      "display": "fff/fff",
+      "language": "Python",
+      "rel_path": "AI-Domain/Agents/fff_Agents_u.md",
+      "stars": 100,
+      "tags": [
+        "solo",
+        "other"
+      ],
+      "title": "fff",
+      "tldr": "Does one thing well.",
+      "url": "https://github.com/fff/fff"
+    }
+  },
+  "publish_result": {
+    "git_config": "[core]\n\trepositoryformatversion = 0\n\tfilemode = true\n\tbare = false\n\tlogallrefupdates = true\n[user]\n\tname = GoodRepos Publisher\n\temail = goodrepos@users.noreply.github.com\n",
+    "staging_tree": [
+      "AI-Domain/Agents/aaa_Agents_x.md",
+      "AI-Domain/Agents/bbb_Agents_y.md",
+      "AI-Domain/Agents/eee_Agents_t.md",
+      "AI-Domain/LLM-Tools/ltl_LLM-Tools_l.md",
+      "AI-Domain/Skills/skl_Skills_s.md",
+      "AI-Domain/direct_Agents_d.md",
+      "README.md",
+      "Tools/Automation/ccc_Automation_z.md",
+      "Uncategorized/xxx_Uncategorized_y.md",
+      "Uncategorized/zzz_Uncategorized_w.md",
+      "_index.md",
+      "links_manifest.json"
+    ],
+    "to_dict": {
+      "categories": 6,
+      "commit_message": "publish: 9 repos across 6 categories — 2026-01-01 12:34 UTC",
+      "commit_sha": "a300991",
+      "dry_run": false,
+      "duration_ms": 0,
+      "entries": 9,
+      "error": null,
+      "files_changed": 12,
+      "ok": true,
+      "published": true,
+      "pushed": false,
+      "repo_name": "good-repos",
+      "repo_url": null,
+      "skipped_reason": null,
+      "staging_dir": "<staging>"
+    }
+  },
+  "publish_twice": {
+    "categories": 6,
+    "commit_message": "",
+    "commit_sha": null,
+    "dry_run": false,
+    "duration_ms": 0,
+    "entries": 9,
+    "error": null,
+    "files_changed": 0,
+    "ok": true,
+    "published": false,
+    "pushed": false,
+    "repo_name": "good-repos",
+    "repo_url": null,
+    "skipped_reason": "directory unchanged since the last publish",
+    "staging_dir": "<staging>"
+  },
+  "readme": {
+    "empty": "# 🗂️ Good Repos\n\n> ✨ A curated directory of quality GitHub repositories — auto-maintained by\n> [GitCurator](https://github.com/assadigit/GitCurator).\n\n📊 **0 repos** · 🗂️ **0 categories** · 🕰️ Updated 2026-01-01\n\n## 📇 Contents\n\n\n---\n\n_🤖 This directory is regenerated automatically after every GitCurator curation run. Browsing the category folders gives you the full curated notes._\n",
+    "main": "# 🗂️ Good Repos\n\n> ✨ A curated directory of quality GitHub repositories — auto-maintained by\n> [GitCurator](https://github.com/assadigit/GitCurator).\n\n📊 **9 repos** · 🗂️ **6 categories** · 🕰️ Updated 2026-01-01\n\n## 📇 Contents\n\n- [🤖 AI Domain](#-ai-domain)\n  - [🧠 Agents](#-agents-3)\n  - [🧰 LLM Tools](#-llm-tools-1)\n  - [✨ Skills](#-skills-1)\n- [🛠️ Tools](#-tools)\n  - [⚙️ Automation](#-automation-1)\n- [📦 Uncategorized](#-uncategorized)\n\n## 🤖 AI Domain\n\n_Curated repositories for the AI domain._\n\n- 📦 [direct/direct](https://github.com/direct/direct) — Direct child of the top. · ⭐ 42 · 🔧 Python · `alpha` `beta`\n\n### 🧠 Agents (3)\n\n- 📦 [bbb/bbb](https://github.com/bbb/bbb) — Second agent summary. · ⭐ 900 · 🔧 Python · `alpha` `beta`\n- 📦 [eee/eee](https://github.com/eee/eee) — Tie breaker rides the name. · ⭐ 900 · 🔧 Python · `alpha` `beta`\n- 📦 [aaa/aaa](https://github.com/aaa/aaa) — First agent summary. · ⭐ 100 · 🔧 Python · `alpha` `beta`\n\n### 🧰 LLM Tools (1)\n\n- 📦 [ltl/ltl](https://github.com/ltl/ltl) — The malformed-scalar note. · `not-a-list` `malformed]`\n\n### ✨ Skills (1)\n\n- 📦 [skl/skl](https://github.com/skl/skl) — Fallback description sentence. · ⭐ 5,000 · 🔧 Python · `alpha` `beta`\n\n## 🛠️ Tools\n\n_Curated repositories for the tools._\n\n### ⚙️ Automation (1)\n\n- 📦 [ccc/ccc](https://github.com/ccc/ccc) — Automation summary. · ⭐ 42 · 🔧 Go · `solo`\n\n## 📦 Uncategorized\n\n_Curated repositories for the uncategorized._\n\n- 📦 [xxx/xxx](https://github.com/xxx/xxx) — Weird frontmatter. · `not-a-list` `malformed`\n- 📦 zzz\n\n---\n\n_🤖 This directory is regenerated automatically after every GitCurator curation run. Browsing the category folders gives you the full curated notes._\n",
+    "single": "# 🗂️ Good Repos\n\n> ✨ A curated directory of quality GitHub repositories — auto-maintained by\n> [GitCurator](https://github.com/assadigit/GitCurator).\n\n📊 **1 repo** · 🗂️ **1 category** · 🕰️ Updated 2026-01-01\n\n## 📇 Contents\n\n- [🤖 AI Domain](#-ai-domain)\n  - [🧠 Agents](#-agents-1)\n\n## 🤖 AI Domain\n\n_Curated repositories for the AI domain._\n\n### 🧠 Agents (1)\n\n- 📦 [one/one](https://github.com/one/one) — The only curated repo. · ⭐ 3 · 🔧 Python · `alpha` `beta`\n\n---\n\n_🤖 This directory is regenerated automatically after every GitCurator curation run. Browsing the category folders gives you the full curated notes._\n"
+  },
+  "redact": {
+    "hit": "url https://x-access-token:***@github.com/o end",
+    "miss": "nothing here",
+    "no_token": "SECRETTOKEN stays"
+  },
+  "scan": {
+    "categories": 6,
+    "cats": {
+      "AI-Domain": [
+        "direct/direct"
+      ],
+      "AI-Domain/Agents": [
+        "aaa/aaa",
+        "bbb/bbb",
+        "eee/eee"
+      ],
+      "AI-Domain/LLM-Tools": [
+        "ltl/ltl"
+      ],
+      "AI-Domain/Skills": [
+        "skl/skl"
+      ],
+      "Tools/Automation": [
+        "ccc/ccc"
+      ],
+      "Uncategorized": [
+        "xxx/xxx",
+        "zzz"
+      ]
+    },
+    "entries": 9
+  },
+  "status": {
+    "auto_push": false,
+    "categories": 6,
+    "enabled": true,
+    "entries": 9,
+    "exists": true,
+    "generated": "2026-01-01",
+    "repo_name": "good-repos",
+    "repo_url": null,
+    "tree": {
+      "AI-Domain": 1,
+      "AI-Domain/Agents": 3,
+      "AI-Domain/LLM-Tools": 1,
+      "AI-Domain/Skills": 1,
+      "Tools/Automation": 1,
+      "Uncategorized": 2
+    },
+    "vault_path": "<vault>"
+  },
+  "to_dict": {
+    "empty": {
+      "categories": 0,
+      "commit_message": "",
+      "commit_sha": null,
+      "dry_run": false,
+      "duration_ms": 0,
+      "entries": 0,
+      "error": null,
+      "files_changed": 0,
+      "ok": false,
+      "published": false,
+      "pushed": false,
+      "repo_name": null,
+      "repo_url": null,
+      "skipped_reason": null,
+      "staging_dir": null
+    },
+    "full": {
+      "categories": 2,
+      "commit_message": "publish: x repos — y",
+      "commit_sha": "abc1234",
+      "dry_run": false,
+      "duration_ms": 12,
+      "entries": 3,
+      "error": null,
+      "files_changed": 7,
+      "ok": true,
+      "published": true,
+      "pushed": true,
+      "repo_name": "o/r",
+      "repo_url": "https://github.com/o/r",
+      "skipped_reason": null,
+      "staging_dir": null
+    },
+    "ok_laws": {
+      "error_not_ok": false,
+      "plain_ok": false,
+      "published_ok": true,
+      "skipped_ok": true
+    }
+  },
+  "to_int": [
+    42,
+    1234,
+    1402,
+    null,
+    null,
+    null,
+    null,
+    null,
+    -7
+  ],
+  "token_url": "https://x-access-token:TOK@github.com/owner/repo.git"
+}

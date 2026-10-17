@@ -203,8 +203,37 @@ the universal-newlines find live) + the ported
 test_sealfix/test_resyncfix/test_localonly/test_driftseal selections
 + the safety-law battery; the belt floor landed with it in
 `internal/directorysync` (the pattern builders + the shipped-config
-embed — T-49 completes the module). 1550 tests race-clean.
-Next: T-48 goodrepos + reporadar.
+embed — T-49 completes the module). **T-48 `internal/goodrepos` +
+`internal/reporadar` (SESSION-023) — THE PUBLISHER + THE RADAR
+COMPLETE** (spec-integrations-goodrepos.md + ADR-0009, with the
+SESSION-023 amendments): the curated vault published as its PUBLIC
+good-repos directory — the tiny frontmatter subset + the note parser
+(the display-name ladder url → aliases → filename stem, the TL;DR +
+"What is it?" fallback), the emoji README writer (the GitHub anchor
+math, the plural doors, the stars-desc sort, the display-name orders
+that beat the emoji code points), the staging lifetime (mkdtemp
+OUTSIDE any repository, reuse across publishes, the atexit →
+CleanupStaging convergence), THE CREATION GUARD (the empty-name
+fail-fast, the 404 never-creates-without-opt-in error, the private
+POST payload, the 422 race re-check), the fetch-alignment + the
+skip-when-unchanged cycle, the one-time-token push with the defensive
+remote removes, THE REDACTION LAW + the FETCH_HEAD scrub, the config
+bridge + the standalone CLI — and the read-only repo radar: the
+remote-URL grammar (configparser → the minimal INI scan), git's
+content-addressed blob SHA, the diversified round-robin sampler, the
+candidate ranking (archived/fork filtered, vault-ish first, size
+NEVER an emptiness signal — the live lesson), THE DOMINANCE LADDER
+(≥3 matches AND ≥2× the runner-up, else ambiguity/weakness = a
+report, never a guess), the DETECTION ladder (REMOTE → NAME →
+FINGERPRINT), the only-EMPTY-slots law, the quiet-startup gate, and
+the never-raises doors (a panicking API surface recovered and spoken)
+— with the ported test_goodrepos/test_reporadar selections (the
+reference's whole suites) + the local-bare-repos publish-flow battery
++ the safety-law battery + THE GOLDEN (25 sections, paths/clock/
+git-dates frozen — the Go port produces the reference's exact
+byte-deterministic publish sha `a300991`) + the 12-section radar
+golden. 1658 tests race-clean.
+Next: T-49 directorysync.
 
 ## Map
 
