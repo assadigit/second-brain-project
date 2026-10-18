@@ -8,6 +8,7 @@ package cli
 
 import (
 	"os"
+	"strings"
 	"syscall"
 	"unsafe"
 )
@@ -69,4 +70,45 @@ func setConsoleUTF8() {
 	in := kernel32DLL.NewProc("SetConsoleCP")
 	_, _, _ = out.Call(65001)
 	_, _, _ = in.Call(65001)
+}
+
+// spawnOllamaServe mirrors _autostart_ollama's Popen half on Windows:
+// CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS so the server survives
+// the app, stdout + stderr to DEVNULL. Returns the PID or the error
+// class token ("FileNotFoundError" when the binary is not on PATH).
+func spawnOllamaServe() (int, string) {
+	return spawnDetached("ollama", "serve")
+}
+
+// spawnDetached runs argv detached in a new process group.
+func spawnDetached(argv ...string) (int, string) {
+	devNull, err := os.OpenFile(os.DevNull, os.O_RDWR, 0)
+	if err != nil {
+		return 0, err.Error()
+	}
+	defer devNull.Close()
+	attr := &os.ProcAttr{
+		Files: []*os.File{devNull, devNull, devNull},
+		Sys: &syscall.SysProcAttr{
+			CreationFlags: syscall.CREATE_NEW_PROCESS_GROUP | 0x00000008, // DETACHED_PROCESS
+		},
+	}
+	proc, err := os.StartProcess(argv[0], argv, attr)
+	if err != nil {
+		return 0, pySpawnErrClassWin(err)
+	}
+	return proc.Pid, ""
+}
+
+// pySpawnErrClassWin maps the spawn failure to the reference's except
+// classes.
+func pySpawnErrClassWin(err error) string {
+	if err == nil {
+		return ""
+	}
+	if strings.Contains(err.Error(), "executable file not found") ||
+		strings.Contains(err.Error(), "The system cannot find the file specified") {
+		return "FileNotFoundError"
+	}
+	return err.Error()
 }

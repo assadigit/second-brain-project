@@ -297,6 +297,7 @@ func RenderBar(current, total, width int) string {
 // erases, prints a full log line, then repaints underneath.
 type StatusLine struct {
 	c       *CLI
+	mu      sync.Mutex // T-62: the heartbeat goroutine ticks while the engine writes — the paint is serialized (Qt's signal marshaling twin)
 	frame   int
 	active  bool
 	label   string
@@ -310,20 +311,24 @@ func NewStatusLine(c *CLI) *StatusLine { return &StatusLine{c: c} }
 
 // Start mirrors start().
 func (s *StatusLine) Start(label string, total int) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
 	s.label = label
 	s.total = total
 	s.current = 0
 	s.repo = ""
 	s.active = true
-	s.Tick()
+	s.tickLocked()
 }
 
 // Stop mirrors stop().
 func (s *StatusLine) Stop(final string) {
+	s.mu.Lock()
 	if s.active {
-		s.erase()
+		s.eraseLocked()
 	}
 	s.active = false
+	s.mu.Unlock()
 	if final != "" {
 		fmt.Fprint(s.c.Out, final+"\n")
 	}
@@ -331,20 +336,47 @@ func (s *StatusLine) Stop(final string) {
 
 // SetProgress mirrors set_progress().
 func (s *StatusLine) SetProgress(current, total int) {
+	s.mu.Lock()
 	s.current, s.total = current, total
+	s.mu.Unlock()
 }
 
 // SetRepo mirrors set_repo().
-func (s *StatusLine) SetRepo(repo string) { s.repo = repo }
+func (s *StatusLine) SetRepo(repo string) {
+	s.mu.Lock()
+	s.repo = repo
+	s.mu.Unlock()
+}
 
-func (s *StatusLine) erase() {
+// EraseIfActive pauses the live line (the model menu's paint law —
+// prompt_model_menu holds the paint lock so the spinner can't overwrite
+// the menu). The StatusPainter door.
+func (s *StatusLine) EraseIfActive() {
+	s.mu.Lock()
+	if s.active {
+		s.eraseLocked()
+	}
+	s.mu.Unlock()
+}
+
+func (s *StatusLine) erase() { s.eraseLocked() }
+
+func (s *StatusLine) eraseLocked() {
 	w := termWidth()
+	printMu.Lock()
+	defer printMu.Unlock()
 	fmt.Fprint(s.c.Out, "\r"+strings.Repeat(" ", w-1)+"\r")
 }
 
 // Tick mirrors tick(): one spinner frame (Python's slice on the PAINTED
 // line — escapes count as characters — is preserved via rune slicing).
 func (s *StatusLine) Tick() {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	s.tickLocked()
+}
+
+func (s *StatusLine) tickLocked() {
 	if !s.active {
 		return
 	}
@@ -368,15 +400,17 @@ func (s *StatusLine) Tick() {
 
 // Log mirrors log(): a log line ABOVE the live status line.
 func (s *StatusLine) Log(text, level string) {
-	printMu.Lock()
+	s.mu.Lock()
 	if s.active {
-		s.erase()
+		s.eraseLocked()
 	}
-	printMu.Unlock()
+	s.mu.Unlock()
 	s.c.CliPrint(text, level)
+	s.mu.Lock()
 	if s.active {
-		s.Tick()
+		s.tickLocked()
 	}
+	s.mu.Unlock()
 }
 
 // ---------------------------------------------------------------------------

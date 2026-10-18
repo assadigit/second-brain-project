@@ -130,7 +130,7 @@ func SmartModelPick(configured string, available []string) string {
 // (non-interactive runs must not fail batch-wide over a missing
 // model). Five tries, then "" (the give-up law).
 func (c *CLI) PromptModelMenu(configured string, available []string,
-	status *StatusLine, allowDecline bool) string {
+	status StatusPainter, allowDecline bool) string {
 	if len(available) == 0 {
 		return ""
 	}
@@ -149,11 +149,9 @@ func (c *CLI) PromptModelMenu(configured string, available []string,
 		return rec // piped / scheduled run: auto-pick, caller logs it
 	}
 
-	printMu.Lock()
-	if status != nil && status.active {
-		status.erase()
+	if status != nil {
+		status.EraseIfActive()
 	}
-	printMu.Unlock()
 	fmt.Fprint(c.Out, "\n")
 	c.CliPrint(fmt.Sprintf("Configured model '%s' is not installed.", configured), "warning")
 	fmt.Fprint(c.Out, Paint("  Models available in Ollama:", cBold)+"\n")

@@ -256,3 +256,15 @@ func (r *Runner) Finish() *batch.BatchSummary {
 
 // itoa is the strconv twin (kept for log-line brevity).
 func itoa(n int) string { return strconv.Itoa(n) }
+
+// SetBatchFiles feeds the engine's pre-batch snapshot into the runner
+// (the shell builds it via SnapshotBatchFiles before the loop; the
+// in-package tests set the field directly). Additive seam for the CLI
+// engine (T-62 slice 2).
+func (r *Runner) SetBatchFiles(files map[string]bool) { r.batchFiles = files }
+
+// SetWebsiteSummary feeds the websites phase's outcome into the runner
+// (the reference sets self._website_summary at the end of
+// _run_website_phase; Finish + the batch summary render from it).
+// Additive seam for the CLI engine (T-62 slice 2).
+func (r *Runner) SetWebsiteSummary(w *WebsiteSummary) { r.websites = w }

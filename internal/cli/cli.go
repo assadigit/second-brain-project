@@ -29,6 +29,7 @@ import (
 	"time"
 
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
+	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/storage"
 )
@@ -78,6 +79,31 @@ type CLI struct {
 	// response) — a disabled Worker is never attempted (the silent law).
 	WorkerMirrorPush func(cfg *storage.OrderedMap, entries,
 		decommissionEvents []any, vaultIndexHash string) (bool, bool, any)
+
+	// T-62 slice 2 — THE ENGINE'S DOORS (run_batch_visual's seam set;
+	// nil falls back to the production doors — the golden replay
+	// injects fakes so the engine runs offline + deterministically):
+	//
+	// NewStatusLineFn builds the engine's status painter (the default
+	// is the real StatusLine; the replay records the log sequence
+	// without the \r repaints).
+	NewStatusLineFn func() StatusPainter
+	// GHClientFactory mirrors the PyGithub client door (g = Github(auth)).
+	GHClientFactory func(token string) githubpipeline.RepoFetcher
+	// OllamaFactory mirrors ollama.Client(host=…).
+	OllamaFactory func(host string) llmclient.OllamaAPI
+	// AutostartServe spawns 'ollama serve' detached. The error strings
+	// mirror the reference's two except classes: "FileNotFoundError"
+	// (not on PATH) or a free-form spawn error.
+	AutostartServe func() (pid int, errClass string)
+	// WorkerFetch is the Worker /api/pending poll (the Option-B queue
+	// source — the Telethon fetch's replacement). Returns the honest
+	// state ("ok" | "disabled" | "error") + the pending item dicts.
+	WorkerFetch func(cfg *storage.OrderedMap) (string, []any)
+	// BannerDownload is the banner-download door (nil → the runner's
+	// real DownloadBanner; tests + the golden replay inject the fake
+	// banner so no network is touched).
+	BannerDownload func(owner, repoName, folder string) string
 }
 
 // NewCLI builds the default shell bound to the real streams and the
@@ -105,6 +131,23 @@ func NewCLI() *CLI {
 func Main(argv []string) int {
 	c := NewCLI()
 	return c.Run(argv)
+}
+
+// statusLineDoor / ollamaFactoryDoor are the engine-seam accessors (a
+// bare &CLI{} — the unit tests' shape — falls back to the production
+// doors).
+func (c *CLI) statusLineDoor() StatusPainter {
+	if c.NewStatusLineFn != nil {
+		return c.NewStatusLineFn()
+	}
+	return NewStatusLine(c)
+}
+
+func (c *CLI) ollamaFactoryDoor(host string) llmclient.OllamaAPI {
+	if c.OllamaFactory != nil {
+		return c.OllamaFactory(host)
+	}
+	return llmclient.NewOllamaClient(host)
 }
 
 // radarAllDoor / detectOllamaDoor / probeLlamaDoor / detectLlamaDoor

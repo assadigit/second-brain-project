@@ -181,12 +181,35 @@ func NewRunner(config map[string]any) *Runner {
 	}
 }
 
+// Start mirrors the worker __init__'s is_running = True (the engine
+// constructs the runner "running" — the Stop door is the only writer
+// that flips it back). Additive seam for the CLI engine.
+func (r *Runner) Start() { r.running = true }
+
 // Stop mirrors worker.stop(): the loop breaks at the next poll.
 func (r *Runner) Stop() { r.running = false }
 
 // RunningNow reports the is_running flag (atomic reads are fine; the
 // loop is single-goroutine and the Stop door is the only writer).
 func (r *Runner) RunningNow() bool { return r.running }
+
+// Position reports _current_position (the websites phase's bar re-base
+// reads it — v0.37.0's total = github_done + links + due). Additive
+// seam for the CLI engine (T-62 slice 2).
+func (r *Runner) Position() int { return r.position }
+
+// SetTotal re-bases the bar's denominator (the websites phase's own
+// honesty law). Additive seam for the CLI engine.
+func (r *Runner) SetTotal(total int) { r.Total = total }
+
+// AdvancePosition mirrors _wp_advance: the websites phase's per-link
+// step (position + status + progress, exactly like the GitHub loop).
+// Additive seam for the CLI engine.
+func (r *Runner) AdvancePosition(url string) {
+	r.position++
+	r.emitStatus(url)
+	r.emitProgress()
+}
 
 // ResumeAfterDiskFull mirrors the GUI's disk-full resume.
 func (r *Runner) ResumeAfterDiskFull() { r.diskFullPaused.Store(false) }

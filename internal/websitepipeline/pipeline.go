@@ -611,3 +611,7 @@ func (p *Pipeline) enforceBlockedDomains() {
 	}
 	enforceDomains(p.selfDomains, true)
 }
+
+// Taxonomy exposes the loaded taxonomy (the CLI engine's Website
+// Directory rebuild reads it — pipeline.taxonomy). Additive seam.
+func (p *Pipeline) Taxonomy() *taxonomy.Taxonomy { return p.tax }
