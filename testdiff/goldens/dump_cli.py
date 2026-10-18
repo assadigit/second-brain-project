@@ -86,6 +86,7 @@ OUT_DIR = REPO_ROOT / "internal" / "cli" / "testdata"
 OUT_FILE = OUT_DIR / "goldencli.golden.json"
 
 PAYLOAD = r'''
+import copy
 import io
 import json
 import os
@@ -889,6 +890,324 @@ for _name in ("queue.json", "README.txt"):
 _cr = _cap(lambda: cli_mod.cli_main(
     ["--chrome-retry", "--dry-run", "--config", CFG_PATH]))
 OUT["chrome_retry_dry_run"] = {"output": _cr[0], "rc": _cr[1]}
+
+# --- 9h. T-62 — the run-config card (cli_run.run_config_card) ------------
+# (pure rendering over crafted configs; the configs ride the sections —
+# the Go replay rebuilds them through its house decoder.)
+from gitcurator.cli import cli_run as run_mod  # noqa: E402
+
+RUN_CONFIG_CARDS = [
+    {"name": "rich", "config": dict(CONFIG)},
+    {"name": "llamacpp", "config": {
+        "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+        "llm_provider": "llamacpp",
+        "proxy": {"enabled": False},
+        "vault_path": os.path.join(VAULT_TMP, "vault"),
+    }},
+    {"name": "cloud", "config": {
+        "cloud_api_url": "https://api.openai.com/v1",
+        "cloud_model": "gpt-4o-mini",
+        "llm_provider": "cloud",
+        "github_token": "fake-github-token-0123456789",
+    }},
+    {"name": "empty", "config": {}},
+]
+OUT["run_config_cards"] = []
+for _rc_case in RUN_CONFIG_CARDS:
+    _rc_out = _cap0(lambda: run_mod.run_config_card(_rc_case["config"]))
+    OUT["run_config_cards"].append({
+        "name": _rc_case["name"], "config": _rc_case["config"],
+        "output": _rc_out,
+    })
+
+# --- 9i. T-62 — the preflights ------------------------------------------
+# _preflight_github: the fake PyGithub door swapped per case (the
+# reference's own lazy `from github import Auth, Github` consults
+# sys.modules at call time).
+class _FakeGHUser:
+    def __init__(self, login):
+        self.login = login
+
+
+class _FakeGHClient:
+    def __init__(self, auth=None, timeout=None):
+        pass
+
+    def get_user(self):
+        return _FakeGHUser("octo-owner")
+
+
+class _GHRejected(Exception):
+    status = 401
+
+    def __str__(self):
+        return "401 Bad credentials"
+
+
+_GHGatewayTimeout = type("GatewayTimeout", (Exception,),
+                         {"__str__": lambda self: "gateway timed out"})
+
+
+GITHUB_CASES = [
+    {"name": "ok", "reply": {"status": 200, "login": "octo-owner",
+                             "err_class": ""}},
+    {"name": "rejected", "reply": {"status": 401, "login": "",
+                                   "err_class": ""}},
+    {"name": "unreachable", "reply": {"status": 0, "login": "",
+                                      "err_class": "GatewayTimeout"}},
+]
+OUT["preflight_github"] = []
+for _gc in GITHUB_CASES:
+    if _gc["name"] == "ok":
+        _github_stub.Github = _FakeGHClient
+    elif _gc["name"] == "rejected":
+        def _raise_rejected(auth=None, timeout=None):
+            raise _GHRejected()
+        _github_stub.Github = _raise_rejected
+    else:
+        def _raise_timeout(auth=None, timeout=None):
+            raise _GHGatewayTimeout()
+        _github_stub.Github = _raise_timeout
+    _lvl, _txt = run_mod._preflight_github(dict(CONFIG))
+    OUT["preflight_github"].append({
+        "name": _gc["name"], "reply": _gc["reply"],
+        "level": _lvl, "detail": _txt,
+    })
+# the no-token warning (no stub needed)
+_lvl, _txt = run_mod._preflight_github({})
+OUT["preflight_github"].append({
+    "name": "notoken", "reply": {"status": -1, "login": "", "err_class": ""},
+    "level": _lvl, "detail": _txt,
+})
+
+# _preflight_proxy: the fake socket + the deterministic ms clock (the
+# fake time answers 1000.0 then 1000.042 → 42 ms, the reference's own
+# int((t1-t0)*1000) measure).
+_real_time_mod = run_mod.time
+_real_socket_mod = run_mod.socket
+
+
+class _FakeProxyTime:
+    answers = [1000.0, 1000.042]
+
+    @staticmethod
+    def time():
+        return _FakeProxyTime.answers.pop(0)
+
+
+class _FakeConn:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+
+# the crafted exception classes render their NAMES into the details —
+# type() spells them exactly (TimeoutError / ConnectionError).
+_FakeSocketTimeout = type("TimeoutError", (Exception,), {})
+_ConnError = type("ConnectionError", (Exception,), {"__str__": lambda self: "connection refused"})
+
+
+_fake_socket = types.ModuleType("socket_fake")
+_fake_socket.create_connection = lambda addr, timeout=None: _FakeConn()
+run_mod.time = _FakeProxyTime
+run_mod.socket = _fake_socket
+
+PROXY_CASES = [
+    {"name": "disabled", "config": {"proxy": {"enabled": False}}},
+    {"name": "reachable", "config": dict(CONFIG)},
+    {"name": "string-port", "config": {"proxy": {
+        "enabled": True, "type": "http", "host": "proxy.local",
+        "port": "1080"}}},
+]
+OUT["preflight_proxy"] = []
+for _pc in PROXY_CASES:
+    _FakeProxyTime.answers = [1000.0, 1000.042]
+    _lvl, _txt = run_mod._preflight_proxy(_pc["config"])
+    OUT["preflight_proxy"].append({
+        "name": _pc["name"], "config": _pc["config"],
+        "level": _lvl, "detail": _txt,
+    })
+# the unreachable case: create_connection raises TimeoutError
+_fake_socket.create_connection = (
+    lambda addr, timeout=None: (_ for _ in ()).throw(_FakeSocketTimeout()))
+_FakeProxyTime.answers = [1000.0, 1000.042]
+_lvl, _txt = run_mod._preflight_proxy(dict(CONFIG))
+OUT["preflight_proxy"].append({
+    "name": "unreachable", "config": dict(CONFIG),
+    "level": _lvl, "detail": _txt,
+})
+run_mod.time = _real_time_mod
+run_mod.socket = _real_socket_mod
+
+# _preflight_llm: the fake ollama Client swapped per case; the llama.cpp
+# probes re-stubbed per case (the established _reset_llama_stubs shape).
+LLM_OK_MODELS = ["llama3", "qwen2.5-coder:7b"]
+OUT["preflight_llm"] = []
+
+
+class _FakeOllamaUp:
+    def __init__(self, host=None, **kw):
+        pass
+
+    def list(self):
+        return {"models": [{"name": m} for m in LLM_OK_MODELS]}
+
+
+class _FakeOllamaDown:
+    def __init__(self, host=None, **kw):
+        pass
+
+    def list(self):
+        raise _ConnError("connection refused")
+
+
+class _FakeOllamaEmpty(_FakeOllamaUp):
+    def list(self):
+        return {"models": []}
+
+
+def _llm_case(name, config, stub, expect_rc, answer, path=None,
+              script=None, tty=False):
+    """answer: {"models": [...], "err": ""} — what the Go replay's
+    OllamaModels seam must return for this case ("" err = no error)."""
+    # snapshot BEFORE any mutation: _preflight_llm's apply_model_choice
+    # writes through the SHARED nested dicts (dict(config) is a shallow
+    # copy) — the recorded config must stay the pre-run input.
+    snapshot = copy.deepcopy(config)
+    ollama_stub.Client = stub
+    _stdin(script or [], tty=tty)
+    _out = _cap0(lambda: run_mod._preflight_llm(dict(config), path))
+    sys.stdin = sys.__stdin__
+    case = {"name": name, "config": snapshot, "output": _out,
+            "rc": bool(expect_rc), "answer": answer,
+            "script": script or [], "tty": tty}
+    if path:
+        with open(path, "r", encoding="utf-8") as fh:
+            case["saved_config"] = fh.read()
+        _reset_user_cfg()
+    OUT["preflight_llm"].append(case)
+
+
+_OK = {"models": LLM_OK_MODELS, "err": ""}
+_DOWN = {"models": [], "err": "ConnectionError"}
+_EMPTY = {"models": [], "err": ""}
+
+
+# ollama: ready (the menu never opens)
+_llm_case("ollama-ready", dict(CONFIG), _FakeOllamaUp, True, _OK)
+# ollama: unreachable (the class-name token is the builtin's)
+_llm_case("ollama-unreachable", dict(CONFIG), _FakeOllamaDown, True,
+          _DOWN)
+# ollama: no models
+_llm_case("ollama-empty", dict(CONFIG), _FakeOllamaEmpty, False, _EMPTY)
+# ollama: not pulled + the menu pick (scripted TTY) + the SAVE — the
+# config literal is ALPHABETICAL (the env record's sort_keys law).
+LLM_MENU_CFG = os.path.join(APP_TMP, "llm-menu-config.json")
+write_config_file(LLM_MENU_CFG, {
+    "github_token": "fake-github-token-0123456789",
+    "llm_provider": "ollama",
+    "ollama": {"base_url": "http://127.0.0.1:11434",
+               "model": "mistral"},
+})
+_llm_case("ollama-menu-pick", json.load(open(LLM_MENU_CFG, encoding="utf-8")), _FakeOllamaUp,
+          True, _OK, path=LLM_MENU_CFG, script=["2\n"], tty=True)
+# llamacpp: found + configured + listed
+_reset_llama_stubs()
+_llm_case("llamacpp-ready", {
+    "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+    "llm_provider": "llamacpp",
+    "llamacpp_model": "qwen2.5-coder:7b",
+}, _FakeOllamaUp, True, _OK)
+# llamacpp: the model auto-detected + SAVED (alphabetical literal)
+LLM_AUTOFILL_CFG = os.path.join(APP_TMP, "llm-autofill-config.json")
+write_config_file(LLM_AUTOFILL_CFG, {
+    "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+    "llm_provider": "llamacpp",
+})
+_llm_case("llamacpp-autofill", json.load(open(LLM_AUTOFILL_CFG, encoding="utf-8")),
+          _FakeOllamaUp, True, _OK, path=LLM_AUTOFILL_CFG)
+# llamacpp: not found anywhere → the error + false
+_llm_mod.probe_llamacpp = (
+    lambda url, key, timeout_s=None: {"found": False, "base_url": "",
+                                       "models": [], "detail": "no answer"})
+_llm_mod.detect_llamacpp = lambda key, ports=None, host=None: None
+_llm_case("llamacpp-notfound", {
+    "llamacpp_api_url": "http://127.0.0.1:9999/v1",
+    "llm_provider": "llamacpp",
+}, _FakeOllamaUp, False, _OK)
+# cloud: the pure success line
+_llm_case("cloud", {
+    "cloud_api_url": "https://api.openai.com/v1",
+    "cloud_model": "gpt-4o-mini",
+    "llm_provider": "cloud",
+}, _FakeOllamaUp, True, _OK)
+
+# preflight_checks: the composition (the card + the section + the
+# lines). The ok case: github ok + proxy reachable + ollama ready (the
+# fakes re-installed); the abort case: github rejected + non-TTY.
+_github_stub.Github = _FakeGHClient
+run_mod.time = _FakeProxyTime
+run_mod.socket = _fake_socket
+_fake_socket.create_connection = lambda addr, timeout=None: _FakeConn()
+ollama_stub.Client = _FakeOllamaUp
+_FakeProxyTime.answers = [1000.0, 1000.042]
+_pc_out = _cap(lambda: run_mod.preflight_checks(dict(CONFIG), card=True))
+OUT["preflight_checks"] = {
+    "name": "ok", "config": dict(CONFIG),
+    "github": "ok", "proxy": "reachable", "ollama": "ready",
+    "output": _pc_out[0], "rc": _pc_out[1],
+}
+
+
+def _raise_rejected(auth=None, timeout=None):
+    raise _GHRejected()
+
+
+_github_stub.Github = _raise_rejected
+_stdin([], tty=False)
+_pc_abort = _cap(lambda: run_mod.preflight_checks(dict(CONFIG), card=False))
+sys.stdin = sys.__stdin__
+OUT["preflight_checks_abort"] = {
+    "name": "github-rejected", "config": dict(CONFIG),
+    "github": "rejected", "proxy": "reachable", "ollama": "ready",
+    "output": _pc_abort[0], "rc": _pc_abort[1],
+}
+run_mod.time = _real_time_mod
+run_mod.socket = _real_socket_mod
+
+# --- 9j. T-62 — the dry-run report writer (_write_dryrun_report + the
+# reference's own record/render over the frozen clock) -------------------
+from gitcurator.core import dryrun as dryrun_mod  # noqa: E402
+
+dryrun_mod.datetime = _FrozenDT
+run_mod.datetime = _FrozenDT
+dryrun_mod.clear()
+dryrun_mod.record("write", os.path.join(VAULT_TMP, "vault", "note.md"),
+                 "the withheld content", "")
+dryrun_mod.record("makedirs", os.path.join(VAULT_TMP, "vault", "sub"),
+                 None, "create folder")
+dryrun_mod.record("remove", os.path.join(VAULT_TMP, "vault", "old.md"))
+_report_buf = io.StringIO()
+with redirect_stdout(_report_buf):
+    _report_path = run_mod._write_dryrun_report()
+with open(_report_path, "r", encoding="utf-8") as fh:
+    _report_body = fh.read()
+OUT["dryrun_report"] = {
+    "path": _report_path,
+    "body": _report_body,
+    "entries": [
+        {"op": "write", "path": os.path.join(VAULT_TMP, "vault", "note.md"),
+         "content": "the withheld content", "note": ""},
+        {"op": "makedirs", "path": os.path.join(VAULT_TMP, "vault", "sub"),
+         "content": None, "note": "create folder"},
+        {"op": "remove", "path": os.path.join(VAULT_TMP, "vault", "old.md"),
+         "content": None, "note": ""},
+    ],
+}
+dryrun_mod.clear()
+
 
 # --- 10. the env record (what the Go replay must rebuild) --------------
 OUT["env"] = {

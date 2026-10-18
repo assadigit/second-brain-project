@@ -21,10 +21,14 @@
   `--test-connection` battery wiring with the _section/_check_line renderers,
   `--detect-llm` with the model menu + set-and-save, cli_settings's
   model-menu half, `--hand-delivery` complete, and `--chrome-retry`'s
-  listing + dry-run rehearsal (the live leg is T-62's batch engine).
-  Remaining on T-60's books: only T-61's paint legs (the spinner under a
-  real loop; the Windows console live test is Phase 7's clean-VM
-  checklist).)
+  listing + dry-run rehearsal (the live leg is T-62's batch engine);
+  SESSION-029 landed T-62's first slice — THE RUN ENGINE'S DOORS: the
+  preflights + the run-config card + the dry-run report writer + THE
+  PHASE-5 CLEAR re-spec resolved on evidence and implemented.
+  Remaining on the CLI books: T-62's remainder (the engine shell +
+  the batch drivers + the SIGINT/heartbeat/exit law) + T-61's paint
+  legs (the spinner under a real loop; the Windows console live test
+  is Phase 7's clean-VM checklist).)
 - **THE HONEST FLAG SURFACE (T-60's decision, landed SESSION-027)**: the
   Telethon-only flags (`--login`, `--mark-read`, `--from-id/--to-id`,
   `--offset-start/--count`, `--single-id`) stay RECOGNIZED on the parser and
@@ -157,16 +161,60 @@ batch; no flag → friendly help card.
   GoodRepos publish → websites seal → manual seal (383-417) → **Phase-5 CLEAR** — only when
   every link verified (`tracker.get_all_clear()`) does it persist `last_processed_msg_id` to
   config.json and mark the queue read (425-469)
-  — **Dated note (2026-10-15, ADR-0004 Am.3 / R-0):** the msg-id cursor and the queue mark-read
-  step fall away with the Telethon fetch (the Worker queue is ledger-state-based, not
-  message-id-based; mirror-push is the ack). The all-clear gate itself survives as the
-  honest-completion law; its exact Phase-5 re-spec (what the all-clear now gates) is an open
-  item for T-62 (Phase 5), bounded by ADR-0004 Am.3 — do not improvise it before then.
+  — **RE-SPEC RESOLVED (2026-10-18, SESSION-029, T-62 — the bounded open item of ADR-0004
+  Am.3, closed on evidence, never improvised):** the msg-id cursor and the queue mark-read
+  fall away with the Telethon fetch (the Worker queue is ledger-state-based, not
+  message-id-based). What survives, on the evidence chain (ADR-0004 Am.3: "read-acknowledge
+  is dropped; mirror-push is the read acknowledgement"; spec-worker-contract §8.4:
+  "Mirror-push is the ack (idempotent by sync_id) — /api/vault_mirror/push remains the one
+  and only way items leave the pending queue"):
+  1. **The all-clear gate survives as the honest-completion law** — only a batch whose every
+     GitHub link verified (`tracker.GetAllClear()`) may speak the Phase-5 CLEAR verdict;
+     a not-verified batch speaks the ⏸️ verdict (the links stay PENDING, not acknowledged).
+  2. **The queue-consumption mechanics are per-link by LEDGER STATE** — a verified link has
+     a note → enters the vault index → the mirror push tells the Worker `in_vault` → it
+     leaves `/api/pending`; an unverified link has no note → stays pending → the next
+     `--auto` re-offers it. The anti-repeat law is preserved by the ledger itself, not by a
+     message cursor (a strictly finer-grained honesty than the reference's all-or-nothing
+     msg-id advance).
+  3. **The mirror push rides the batch-complete moment** — the reference's own intended
+     pattern: `CloudflareManager.on_batch_complete` (the `processing_finished` handler's
+     end, per the integration snippet's law) schedules the debounced `_do_batch_push` after
+     EVERY batch. REALITY-WINS RECORD: the pinned rev's MainWindow keeps `cf_manager = None`
+     — the manager ships as a library plus the documented integration pattern, never
+     live-wired, and `build_vault_mirror_entries` expects the `{url: {path, category,
+     title}}` dict the app's VaultIndex class never was (`dict(instance)` raises TypeError
+     inside the manager's own try/except). The port implements the pattern directly:
+     `cli.PhaseFiveClear` + `cli.PushVaultMirrorAfterBatch` build the entries from the
+     vault index's url→path map (`batch.VaultIndex.MirrorIndex()` — sorted-url order, the
+     documented deterministic-wire divergence), the decommission events from the cache, the
+     sha256 index hash over the sorted urls joined `|` (the manager's own recipe), and push
+     through `workerclient.Sync.PushVaultMirror` (idempotent by sync_id). Best-effort and
+     failure-isolated: a down Worker logs one line and never fails the batch; a disabled
+     Worker is silent (not an event — the reference's own `is_enabled()` early-return).
   dry-run skips all seals and writes the report
-  (`app/reports/dry-runs/dry_run_<stamp>.md`, 215-236); **SIGINT handler + 100 ms QTimer
-  heartbeat so Ctrl+C works inside the event loop** (477-494); exit code = batch success flag.
+  (`app/reports/dry-runs/dry_run_<stamp>.md`, 215-236) — **the report writer landed
+  (SESSION-029): `cli.writeDryrunReport` over the ported `dryrun.RenderReportMarkdown`,
+  the frozen-clock seam `dryrun.NowFn` added for the golden**; **SIGINT handler + 100 ms
+  QTimer heartbeat so Ctrl+C works inside the event loop** (477-494) — the synchronous Go
+  composition's twin (signal.Notify + the ticker driving `StatusLine.Tick`) lands with the
+  engine slice (T-62 remainder); exit code = batch success flag (the engine's law).
 - Preflights: `_preflight_github` (PyGithub `get_user().login`), `_preflight_proxy` (TCP 5 s),
   `_preflight_llm` (probe + interactive model picker).
+  **WIRED (SESSION-029, T-62's doors)**: `cli.PreflightChecks` + the three preflights are
+  ported with the model-picker bridge wired (`PromptModelMenu`/`SmartModelPick`/
+  `ApplyModelChoice` — landed SESSION-028 — now driven by the preflight's flow: the
+  not-pulled Ollama model opens the menu, the pick persists through the same save path).
+  `run_config_card` (524-562) is ported (`cli.RunConfigCard`, the raw-comparison laws: the
+  provider branches compare `llm_provider` RAW against "ollama"/"llamacpp" — no strip, no
+  lower; `cloud_model`/proxy host+port render through `.get(key, default)` — a present
+  null renders "None", an absent one the default; the token mask counts RUNES). The seams:
+  `CLI.PreflightGithub` (the PyGithub leg; the default door rides the connectioncheck
+  GitHub seam — the same GET /user the battery's check makes), `CLI.NetDial`
+  (`socket.create_connection`; the class-name token rides the seam exactly like the worker
+  check's OSError stand-in — the SHAPE is the contract), and the existing `CLI.OllamaModels`
+  (an error's string is the class-name token for the unreachable line). The GitHub-error
+  door asks "continue anyway? (y/N)" — only a TTY ever asks (the cron law).
 
 ## cli_settings.py
 
@@ -311,10 +359,73 @@ honestly hardened; the chrome-retry dry-run switch is the reality-wins
 fix (the reference forgot to flip it); the detect job runs
 synchronously (no GUI thread + spinner — the log lines are identical).
 
-Remaining on the CLI books: T-61's paint legs (the spinner under a
-real loop; the Windows console live test is Phase 7's clean-VM
-checklist), then T-62 (the --sync live beats + the --auto engine + the
-dry-run report writer + the SIGINT/exit-code law + the wrong-vault
-guard + the chrome-retry live leg + the preflight with the
-PromptModelMenu bridge), T-63 (launchers), T-64 (the full differential
-corpus run), T-65 (the release tag).
+## SESSION-029 shipped record — T-62 slice 1: THE RUN ENGINE'S DOORS
+
+Landed: `internal/cli/runconfig.go` (run_config_card — the boxed
+run-configuration snapshot with the raw-comparison laws: the provider
+branches compare RAW, `cloud_model`/proxy host+port render through
+`.get(key, default)` so a present null renders "None", the token mask
+counts runes), `internal/cli/preflight.go` (preflight_checks + the
+three preflights — the PyGithub token check over the new
+`CLI.PreflightGithub` seam whose default door rides the connectioncheck
+GitHub seam, the TCP proxy reach over the new `CLI.NetDial` seam with
+the class-name token, the provider branches with THE model-picker
+bridge wired: the not-pulled Ollama model opens the landed
+PromptModelMenu and the pick persists through ApplyModelChoice; the
+llamacpp auto-fill + save; the cloud line; the GitHub-error
+continue-anyway door with the TTY-only cron law), and
+`internal/cli/phase5.go` (THE PHASE-5 CLEAR re-spec implemented — the
+all-clear verdict speech + `PushVaultMirrorAfterBatch`, the
+batch-complete mirror push: the entries from
+`batch.VaultIndex.MirrorIndex()` (the new additive export, sorted-url
+order), the decommission events from the cache, the sha256 index hash
+over the sorted urls joined `|` — the manager's own recipe over
+`workerclient.Sync.PushVaultMirror`; plus `writeDryrunReport` — the
+report writer over the ported `dryrun.RenderReportMarkdown`).
+
+Engine-package touches (additive, no behavior change):
+`dryrun.NowFn` (the frozen-clock seam — the reference's generator
+freezes the module's datetime; both stamp sites now ride the seam) and
+`batch.VaultIndex.MirrorIndex()` (the url→path export in the mirror
+entries' shape).
+
+THE DIFFERENTIAL STONE GREW: dump_cli.py drives 10 more sections — the
+four run-config cards, the four _preflight_github cases (the fake
+PyGithub door swapped per case — ok / 401-rejected /
+GatewayTimeout-unreachable / no-token), the four _preflight_proxy
+cases (the fake socket.create_connection + the deterministic 42-ms
+fake clock — disabled / reachable / string-port / TimeoutError), the
+eight _preflight_llm cases (ollama ready / unreachable / empty / the
+menu-pick WITH ITS SAVED CONFIG bytes / llamacpp ready / auto-fill WITH
+ITS SAVED CONFIG / not-found / cloud), the preflight_checks
+composition (the ok card + the github-rejected abort), and the
+dry-run report (the reference's own record() over the frozen clock +
+the written file's path + body) — goldencli.golden.json at 69,028
+bytes, two-run byte-identical. The replay byte-compares every new
+section (the saved configs included); the FIXED-LENGTH ROOTS law:
+the run-config card's right-side padding bakes the path lengths into
+the golden's bytes, so buildEnv now uses roots whose lengths equal the
+generator's mkdtemp roots ("goreplay" = exactly the 8-rune suffix
+width). TWO GENERATOR BUGS THE DIFFERENTIAL ITSELF CAUGHT: the
+shallow-copy leak (apply_model_choice wrote through the shared nested
+dicts — the recorded config must snapshot BEFORE the call) and the
+ms-clock arithmetic (the fake answers must be 1000.0 → 1000.042 for
+the reference's int((t1-t0)*1000) to render 42). The mutation teeth
+grew with TestGoldenCLIMutationPreflights (the checks card, the LLM
+saved config, the dry-run report body — each bites).
+
+1877 tests race-clean over 31 packages (+11: the 10 preflight/phase5
+unit tests + the new mutation test; the arithmetic closes exactly).
+
+Remaining on T-62's books (SESSION-030+): the engine itself —
+run_batch_visual's synchronous shell (the setup: cache + shadow,
+note-state, dead/settled/dismissed, the vault index rebuild, the
+LinkTracker intake, the repo-banish pass; the warmup family: the
+Ollama warmup + autostart + the model_prompt_callback bridge, the
+llamacpp re-probe, the cloud /models pre-flight; the website-phase
+wiring over the ported Pipeline; the Finish chain; the seals + the
+Phase-5 CLEAR + the dry-run path + the SIGINT/heartbeat + the exit
+law) + the drivers (cmd_auto + cmd_sync's live beats over the Worker
+/api/pending fetch + the _bot_queue_job classification half, the
+wrong-vault guard, the >10 confirm, cmd_retry_failed, the import-file
+mode, the chrome-retry live leg) + T-61's spinner under a real loop.

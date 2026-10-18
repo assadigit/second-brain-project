@@ -19,6 +19,7 @@ import (
 
 	"github.com/assadigit/second-brain-project/internal/helpers"
 	"github.com/assadigit/second-brain-project/internal/links"
+	"github.com/assadigit/second-brain-project/internal/storage"
 )
 
 // pyS is Python's str-pattern \s class (Unicode whitespace) — the
@@ -247,6 +248,33 @@ func (v *VaultIndex) AddURL(url, path string) {
 // Count mirrors the count property.
 func (v *VaultIndex) Count() int {
 	return len(v.urlToPath)
+}
+
+// MirrorIndex exports the index in the vault-mirror entries' shape:
+// {url_normalized: {path: note_path}} as an OrderedMap. SORTED-URL
+// order (Go maps are unordered — the sorted order keeps the pushed
+// wire bytes deterministic; the reference iterates its dict in
+// insertion order, a documented divergence recorded at
+// workerclient.BuildVaultMirrorEntries). The category/title/
+// first_processed/last_updated fields the entries builder reads stay
+// absent — the builder's .get() defaults fill them, exactly like a
+// caller that only knows the paths (T-62's Phase-5 mirror push).
+func (v *VaultIndex) MirrorIndex() *storage.OrderedMap {
+	out := storage.NewOrderedMap()
+	if v == nil {
+		return out
+	}
+	urls := make([]string, 0, len(v.urlToPath))
+	for u := range v.urlToPath {
+		urls = append(urls, u)
+	}
+	sort.Strings(urls)
+	for _, u := range urls {
+		info := storage.NewOrderedMap()
+		info.Set("path", v.urlToPath[u])
+		out.Set(u, info)
+	}
+	return out
 }
 
 // ---------------------------------------------------------------------------

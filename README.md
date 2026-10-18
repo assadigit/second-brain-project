@@ -335,10 +335,36 @@ the two-run byte-identical proof + the mutation teeth stay part of every
 regeneration; a reality-wins find fixed in-commit (the reference's
 chrome-retry --dry-run forgot to flip the dry-run switch — the port flips
 it). 1866 tests race-clean over 31 packages (+14).
-Next: T-62 (the --sync live beats + the --auto engine + the dry-run report
-writer + the wrong-vault guard + the chrome-retry live leg), then T-61's
-remaining paint legs, T-63 (launchers), T-64 (the differential corpus
-run), T-65 (the release tag).
+**SESSION-029 — T-62 slice 1: THE RUN ENGINE'S DOORS landed**: the
+preflights (the PyGithub token check over the PreflightGithub seam, the
+TCP proxy reach over the NetDial seam, the provider branches with THE
+model-picker bridge wired — the not-pulled Ollama model opens the
+landed PromptModelMenu and persists through ApplyModelChoice; the
+GitHub-error continue-anyway door with the cron law), run_config_card
+(the boxed snapshot with the raw-comparison laws), the dry-run report
+writer (writeDryrunReport over the ported RenderReportMarkdown, the
+new dryrun.NowFn frozen-clock seam), and **THE PHASE-5 CLEAR RE-SPEC —
+the bounded open item of ADR-0004 Am.3 — RESOLVED ON EVIDENCE and
+implemented**: the all-clear gate survives as the honest-completion law
+(the ✓/⏸️ verdicts), the queue-consumption mechanics are per-link
+by LEDGER STATE, and the mirror push (the ack, per spec-worker-contract
+§8.4) rides the batch-complete moment — PhaseFiveClear +
+PushVaultMirrorAfterBatch over the new batch.VaultIndex.MirrorIndex()
+export, the decommission events from the cache, and
+workerclient.Sync.PushVaultMirror. The golden grew to 10 more sections
+(the cards, the preflight cases incl. two SAVED CONFIGS, the checks
+composition + abort, the dry-run report) — 69,028 bytes, two-run
+byte-identical; the fixed-length-roots law (the card's padding bakes
+path lengths); two generator bugs caught by the differential itself
+(the shallow-copy leak, the ms-clock arithmetic); the mutation teeth
+grew. 1877 tests race-clean over 31 packages (+11).
+Next: T-62's remainder (the engine shell — run_batch_visual's synchronous
+composition, the warmup family, the website-phase wiring, the
+SIGINT/heartbeat/exit law — and the batch drivers: --auto/--sync's
+Worker-queue fetch + classification, the wrong-vault guard, the >10
+confirm, --retry-failed/--import-file, the chrome-retry live leg),
+T-61's remaining paint legs, T-63 (launchers), T-64 (the differential
+corpus run), T-65 (the release tag).
 
 ## Map
 

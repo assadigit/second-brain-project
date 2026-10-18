@@ -92,6 +92,13 @@ rehearsal with the reality-wins dry-run-switch fix; the golden grew to 9 more se
 incl. the wizards' saved-config bytes + the enqueue's writes — 48,698 bytes two-run
 byte-identical, the mutation teeth grew; 1866 tests race-clean over 31 packages). Only
 T-61's remaining paint legs ride with T-62's engines.
+**Progress (SESSION-029)**: T-62 slice 1 LANDED — THE RUN ENGINE'S DOORS (the preflights
+with the model-picker bridge, run_config_card, the dry-run report writer, and THE
+PHASE-5 CLEAR RE-SPEC — ADR-0004 Am.3's bounded open item — resolved on the evidence
+chain and implemented: the all-clear verdict + the batch-complete mirror push as the
+ack; the golden grew to 10 more sections incl. two saved configs — 69,028 bytes
+two-run byte-identical; 1877 tests race-clean over 31 packages). T-62's remainder
+(the engine shell + the batch drivers + the SIGINT/heartbeat/exit law) follows.
 **Exit gate**: the owner can run the Go CLI alongside the Python app on real data (dry-run
 first); differential harness green on the full case list; **CLI parity release `0.92.0-go.1`**
 tagged with the zip artifact.

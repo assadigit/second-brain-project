@@ -64,6 +64,20 @@ type CLI struct {
 	// _quick_detect_job; the llamacpp legs ride ProbeLlama/DetectLlama
 	// above).
 	DetectOllama func(baseURL string, timeoutS float64) llmclient.DetectOllamaResult
+
+	// T-62 — the preflight seams (cli_run.py 565-719):
+	// PreflightGithub is the PyGithub get_user().login leg (the default
+	// door rides the connectioncheck GitHub seam — the same GET /user
+	// the battery's check makes); NetDial is socket.create_connection.
+	PreflightGithub func(token string) PreflightGHReply
+	NetDial         func(host string, port, timeoutS int) (elapsedMs int, errClass string)
+
+	// T-62 — THE PHASE-5 CLEAR's ack leg: the vault-mirror push seam
+	// (the default door builds workerclient.Sync over the config; the
+	// golden replay injects crafted outcomes). Returns (attempted, ok,
+	// response) — a disabled Worker is never attempted (the silent law).
+	WorkerMirrorPush func(cfg *storage.OrderedMap, entries,
+		decommissionEvents []any, vaultIndexHash string) (bool, bool, any)
 }
 
 // NewCLI builds the default shell bound to the real streams and the

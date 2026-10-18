@@ -13,6 +13,7 @@ package cli
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -21,6 +22,7 @@ import (
 	"time"
 
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
+	"github.com/assadigit/second-brain-project/internal/dryrun"
 	"github.com/assadigit/second-brain-project/internal/handdelivery"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/notestate"
@@ -223,6 +225,71 @@ type goldenHand struct {
 	ReadmeTxt string `json:"README.txt"`
 }
 
+// goldenRCCard is one run_config_card case.
+type goldenRCCard struct {
+	Name   string          `json:"name"`
+	Config json.RawMessage `json:"config"`
+	Output string          `json:"output"`
+}
+
+// goldenPreflightGH is one _preflight_github case.
+type goldenPreflightGH struct {
+	Name  string `json:"name"`
+	Reply struct {
+		Status   int    `json:"status"`
+		Login    string `json:"login"`
+		ErrClass string `json:"err_class"`
+	} `json:"reply"`
+	Level  string `json:"level"`
+	Detail string `json:"detail"`
+}
+
+// goldenPreflightProxy is one _preflight_proxy case.
+type goldenPreflightProxy struct {
+	Name   string          `json:"name"`
+	Config json.RawMessage `json:"config"`
+	Level  string          `json:"level"`
+	Detail string          `json:"detail"`
+}
+
+// goldenPreflightLLM is one _preflight_llm case (answer = what the
+// OllamaModels seam must return; script+tty drive the model menu).
+type goldenPreflightLLM struct {
+	Name   string          `json:"name"`
+	Config json.RawMessage `json:"config"`
+	Output string          `json:"output"`
+	RC     bool            `json:"rc"`
+	Answer struct {
+		Models []string `json:"models"`
+		Err    string   `json:"err"`
+	} `json:"answer"`
+	Script      []string `json:"script"`
+	TTY         bool     `json:"tty"`
+	SavedConfig string   `json:"saved_config"`
+}
+
+// goldenPreflightChecks is the composition case.
+type goldenPreflightChecks struct {
+	Name   string          `json:"name"`
+	Config json.RawMessage `json:"config"`
+	Output string          `json:"output"`
+	RC     bool            `json:"rc"`
+}
+
+// goldenDryrunReport is the report-writer case.
+type goldenDryrunReport struct {
+	Path    string              `json:"path"`
+	Body    string              `json:"body"`
+	Entries []goldenDryrunEntry `json:"entries"`
+}
+
+type goldenDryrunEntry struct {
+	Op      string `json:"op"`
+	Path    string `json:"path"`
+	Content string `json:"content"`
+	Note    string `json:"note"`
+}
+
 type goldenFile struct {
 	Banner            string            `json:"banner"`
 	PaintShapes       goldenPaint       `json:"paint_shapes"`
@@ -249,6 +316,16 @@ type goldenFile struct {
 	WizardOllama            goldenRCConfig     `json:"wizard_ollama"`
 	HandDelivery            goldenHand         `json:"hand_delivery"`
 	ChromeRetryDryRun       goldenRC           `json:"chrome_retry_dry_run"`
+
+	// SESSION-029 — T-62's doors: the run-config cards, the preflights,
+	// and the dry-run report.
+	RunConfigCards       []goldenRCCard         `json:"run_config_cards"`
+	PreflightGithub      []goldenPreflightGH    `json:"preflight_github"`
+	PreflightProxy       []goldenPreflightProxy `json:"preflight_proxy"`
+	PreflightLLM         []goldenPreflightLLM   `json:"preflight_llm"`
+	PreflightChecks      goldenPreflightChecks  `json:"preflight_checks"`
+	PreflightChecksAbort goldenPreflightChecks  `json:"preflight_checks_abort"`
+	DryrunReport         goldenDryrunReport     `json:"dryrun_report"`
 
 	Env goldenEnv `json:"env"`
 }
@@ -347,8 +424,25 @@ func replayCLI(t *testing.T, g *goldenFile, in string) (*CLI, *bytes.Buffer) {
 // answers live in the sections themselves).
 func buildEnv(t *testing.T, g *goldenFile) (appTmp, vaultsTmp string) {
 	t.Helper()
-	appTmp = t.TempDir()
-	vaultsTmp = t.TempDir()
+	// FIXED-LENGTH roots: the reference generator's mkdtemp suffixes are
+	// exactly 8 runes, and the run-config card's right-side padding bakes
+	// the path lengths into the golden's bytes — the replay's roots must
+	// be the same width ("goreplay" = 8) for the folded bytes to match.
+	appTmp = filepath.Join(os.TempDir(), "gc-cli-app-goreplay")
+	vaultsTmp = filepath.Join(os.TempDir(), "gc-cli-vaults-goreplay")
+	for _, d := range []string{appTmp, vaultsTmp} {
+		if err := os.RemoveAll(d); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.MkdirAll(d, 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	t.Cleanup(func() {
+		_ = os.RemoveAll(appTmp)
+		_ = os.RemoveAll(vaultsTmp)
+	})
+
 	t.Setenv("GITCURATOR_HOME", appTmp)
 	t.Setenv("GITCURATOR_USER_CONFIG", filepath.Join(appTmp, "user-config.json"))
 	t.Setenv("COLUMNS", "")
@@ -1121,6 +1215,189 @@ func TestGoldenCLI(t *testing.T) {
 		}
 		assertBytesEq(t, "chrome-retry dry-run card", fold(buf.String(), appTmp, vaultsTmp), g.ChromeRetryDryRun.Output)
 	})
+
+	// ---- SESSION-029: T-62's doors ----------------------------------
+
+	t.Run("RunConfigCards", func(t *testing.T) {
+		for _, card := range g.RunConfigCards {
+			card := card
+			t.Run(card.Name, func(t *testing.T) {
+				c, buf := replayCLI(t, g, "")
+				c.RunConfigCard(decodeConfig(t, card.Config, appTmp, vaultsTmp))
+				assertBytesEq(t, "run-config card",
+					fold(buf.String(), appTmp, vaultsTmp), card.Output)
+			})
+		}
+	})
+
+	t.Run("PreflightGithub", func(t *testing.T) {
+		for _, tc := range g.PreflightGithub {
+			tc := tc
+			t.Run(tc.Name, func(t *testing.T) {
+				c, _ := replayCLI(t, g, "")
+				c.PreflightGithub = func(string) PreflightGHReply {
+					return PreflightGHReply{Status: tc.Reply.Status,
+						Login: tc.Reply.Login, ErrClass: tc.Reply.ErrClass}
+				}
+				cfg := decodeConfig(t, g.Env.Config, appTmp, vaultsTmp)
+				if tc.Name == "notoken" {
+					cfg = storage.NewOrderedMap()
+				}
+				lvl, txt := c.preflightGithub(cfg)
+				if lvl != tc.Level || txt != tc.Detail {
+					t.Fatalf("got (%s, %q), want (%s, %q)",
+						lvl, txt, tc.Level, tc.Detail)
+				}
+			})
+		}
+	})
+
+	t.Run("PreflightProxy", func(t *testing.T) {
+		// the dial answers per case (the deterministic seam: the
+		// reachable cases measure 42 ms, the unreachable one
+		// raises TimeoutError).
+		for _, tc := range g.PreflightProxy {
+			tc := tc
+			t.Run(tc.Name, func(t *testing.T) {
+				c, _ := replayCLI(t, g, "")
+				c.NetDial = func(string, int, int) (int, string) {
+					if tc.Name == "unreachable" {
+						return 0, "TimeoutError"
+					}
+					return 42, ""
+				}
+				lvl, txt := c.preflightProxy(
+					decodeConfig(t, tc.Config, appTmp, vaultsTmp))
+				if lvl != tc.Level || txt != tc.Detail {
+					t.Fatalf("got (%s, %q), want (%s, %q)",
+						lvl, txt, tc.Level, tc.Detail)
+				}
+			})
+		}
+	})
+
+	t.Run("PreflightLLM", func(t *testing.T) {
+		for _, tc := range g.PreflightLLM {
+			tc := tc
+			t.Run(tc.Name, func(t *testing.T) {
+				c, buf := replayCLI(t, g, strings.Join(tc.Script, ""))
+				c.IsATTYIn = func() bool { return tc.TTY }
+				c.OllamaModels = func(string, float64) ([]string, error) {
+					if tc.Answer.Err != "" {
+						return nil, errors.New(tc.Answer.Err)
+					}
+					return tc.Answer.Models, nil
+				}
+				// the llama.cpp probe door (the reference's
+				// own stub answers, per case).
+				m := "qwen2.5-coder:7b"
+				ready := true
+				c.ProbeLlama = func(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult {
+					if tc.Name == "llamacpp-notfound" {
+						return &llmclient.ProbeResult{Found: false,
+							Detail: "no answer"}
+					}
+					return &llmclient.ProbeResult{Found: true,
+						BaseURL: "http://127.0.0.1:8080/v1",
+						Models:  []string{m}, Model: &m, Ready: &ready,
+						Detail: "props answered · model 'qwen2.5-coder:7b' · ready"}
+				}
+				c.DetectLlama = func(string) *llmclient.ProbeResult { return nil }
+
+				cfg := decodeConfig(t, tc.Config, appTmp, vaultsTmp)
+				path := ""
+				if tc.SavedConfig != "" {
+					path = filepath.Join(appTmp,
+						"llm-"+tc.Name+"-config.json")
+					if err := storage.WriteConfigFile(path, cfg); err != nil {
+						t.Fatalf("write llm config: %v", err)
+					}
+				}
+				got := c.preflightLLM(cfg, path)
+				if got != tc.RC {
+					t.Fatalf("rc = %v, want %v", got, tc.RC)
+				}
+				assertBytesEq(t, "preflight llm card",
+					fold(buf.String(), appTmp, vaultsTmp), tc.Output)
+				if tc.SavedConfig != "" {
+					raw, err := os.ReadFile(path)
+					if err != nil {
+						t.Fatal(err)
+					}
+					assertBytesEq(t, "preflight llm saved config",
+						fold(string(raw), appTmp, vaultsTmp), tc.SavedConfig)
+					resetUserConfig(t, appTmp)
+				}
+			})
+		}
+	})
+
+	t.Run("PreflightChecks", func(t *testing.T) {
+		// the ok composition: github ok + proxy reachable + ollama ready.
+		c, buf := replayCLI(t, g, "")
+		c.PreflightGithub = func(string) PreflightGHReply {
+			return PreflightGHReply{Status: 200, Login: "octo-owner"}
+		}
+		c.NetDial = func(string, int, int) (int, string) { return 42, "" }
+		c.OllamaModels = func(string, float64) ([]string, error) {
+			return g.Env.OllamaModels, nil
+		}
+		cfg := decodeConfig(t, g.PreflightChecks.Config, appTmp, vaultsTmp)
+		got := c.PreflightChecks(cfg, true)
+		if got != g.PreflightChecks.RC {
+			t.Fatalf("rc = %v, want %v", got, g.PreflightChecks.RC)
+		}
+		assertBytesEq(t, "preflight checks card",
+			fold(buf.String(), appTmp, vaultsTmp), g.PreflightChecks.Output)
+	})
+
+	t.Run("PreflightChecksAbort", func(t *testing.T) {
+		// github rejected + non-TTY: the abort door (never asks).
+		c, buf := replayCLI(t, g, "")
+		c.PreflightGithub = func(string) PreflightGHReply {
+			return PreflightGHReply{Status: 401}
+		}
+		c.NetDial = func(string, int, int) (int, string) { return 42, "" }
+		c.OllamaModels = func(string, float64) ([]string, error) {
+			return g.Env.OllamaModels, nil
+		}
+		cfg := decodeConfig(t, g.PreflightChecksAbort.Config, appTmp, vaultsTmp)
+		got := c.PreflightChecks(cfg, false)
+		if got != g.PreflightChecksAbort.RC {
+			t.Fatalf("rc = %v, want %v", got, g.PreflightChecksAbort.RC)
+		}
+		assertBytesEq(t, "preflight checks abort card",
+			fold(buf.String(), appTmp, vaultsTmp), g.PreflightChecksAbort.Output)
+	})
+
+	t.Run("DryrunReport", func(t *testing.T) {
+		oldNow := dryrun.NowFn
+		dryrun.NowFn = frozenClock
+		defer func() { dryrun.NowFn = oldNow }()
+		dryrun.Clear()
+		dryrun.Enable()
+		for _, e := range g.DryrunReport.Entries {
+			var content any
+			if e.Content != "" {
+				content = e.Content
+			}
+			dryrun.Record(e.Op, unfold(e.Path, appTmp, vaultsTmp), content, e.Note)
+		}
+		dryrun.Disable()
+		c, _ := replayCLI(t, g, "")
+		path := c.writeDryrunReport()
+		if path == "" {
+			t.Fatal("no report written")
+		}
+		assertBytesEq(t, "dryrun report path",
+			fold(path, appTmp, vaultsTmp), g.DryrunReport.Path)
+		raw, err := os.ReadFile(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		assertBytesEq(t, "dryrun report body",
+			fold(string(raw), appTmp, vaultsTmp), g.DryrunReport.Body)
+	})
 }
 
 // TestGoldenCLIMutation proves the differential has teeth: one byte
@@ -1253,5 +1530,115 @@ func TestGoldenCLIMutationWirings(t *testing.T) {
 	}
 	if gotCard != g.DetectOllama.Output {
 		t.Fatalf("the real detect card diverged from the unmutated golden")
+	}
+}
+
+// TestGoldenCLIMutationPreflights — the SESSION-029 sections' teeth:
+// one byte flipped in the preflight composition's output, in the LLM
+// preflight's SAVED CONFIG (apply_model_choice's own write), and in the
+// dry-run report's body each fail their replay comparison.
+func TestGoldenCLIMutationPreflights(t *testing.T) {
+	g := loadGoldenCLI(t)
+	appTmp, vaultsTmp := buildEnv(t, g)
+
+	// 1. the preflight_checks composition: one byte in the GitHub line.
+	mutatedChecks := strings.Replace(g.PreflightChecks.Output,
+		"authenticated as octo-owner", "authenticated as oct-ownex", 1)
+	if mutatedChecks == g.PreflightChecks.Output {
+		t.Fatalf("checks mutation did not bite (pattern missing)")
+	}
+	c, buf := replayCLI(t, g, "")
+	c.PreflightGithub = func(string) PreflightGHReply {
+		return PreflightGHReply{Status: 200, Login: "octo-owner"}
+	}
+	c.NetDial = func(string, int, int) (int, string) { return 42, "" }
+	c.OllamaModels = func(string, float64) ([]string, error) {
+		return g.Env.OllamaModels, nil
+	}
+	cfg := decodeConfig(t, g.PreflightChecks.Config, appTmp, vaultsTmp)
+	if !c.PreflightChecks(cfg, true) {
+		t.Fatal("checks rc = false, want true")
+	}
+	gotChecks := fold(buf.String(), appTmp, vaultsTmp)
+	if gotChecks == mutatedChecks {
+		t.Fatalf("the mutated checks card passed — no teeth")
+	}
+	if gotChecks != g.PreflightChecks.Output {
+		t.Fatalf("the real checks card diverged from the unmutated golden")
+	}
+
+	// 2. the LLM preflight's saved config: the switched model's byte.
+	var menuCase *goldenPreflightLLM
+	for i := range g.PreflightLLM {
+		if g.PreflightLLM[i].SavedConfig != "" &&
+			g.PreflightLLM[i].Name == "ollama-menu-pick" {
+			menuCase = &g.PreflightLLM[i]
+		}
+	}
+	if menuCase == nil {
+		t.Fatal("the menu-pick case is missing from the golden")
+	}
+	mutatedSaved := strings.Replace(menuCase.SavedConfig,
+		`"model": "llama3"`, `"model": "llamaX"`, 1)
+	if mutatedSaved == menuCase.SavedConfig {
+		t.Fatalf("llm mutation did not bite (pattern missing)")
+	}
+	c2, _ := replayCLI(t, g, strings.Join(menuCase.Script, ""))
+	c2.IsATTYIn = func() bool { return menuCase.TTY }
+	c2.OllamaModels = func(string, float64) ([]string, error) {
+		return menuCase.Answer.Models, nil
+	}
+	cfg2 := decodeConfig(t, menuCase.Config, appTmp, vaultsTmp)
+	path2 := filepath.Join(appTmp, "llm-menu-config.json")
+	if err := storage.WriteConfigFile(path2, cfg2); err != nil {
+		t.Fatalf("write llm config: %v", err)
+	}
+	if !c2.preflightLLM(cfg2, path2) {
+		t.Fatal("llm rc = false, want true")
+	}
+	raw2, err := os.ReadFile(path2)
+	if err != nil {
+		t.Fatal(err)
+	}
+	gotSaved := fold(string(raw2), appTmp, vaultsTmp)
+	if gotSaved == mutatedSaved {
+		t.Fatalf("the mutated llm config passed — no teeth")
+	}
+	if gotSaved != menuCase.SavedConfig {
+		t.Fatalf("the real llm write diverged from the unmutated golden")
+	}
+	resetUserConfig(t, appTmp)
+
+	// 3. the dry-run report's body: one byte in the preview cell.
+	mutatedBody := strings.Replace(g.DryrunReport.Body,
+		"the withheld content", "the withheld contenX", 1)
+	if mutatedBody == g.DryrunReport.Body {
+		t.Fatalf("report mutation did not bite (pattern missing)")
+	}
+	oldNow := dryrun.NowFn
+	dryrun.NowFn = frozenClock
+	defer func() { dryrun.NowFn = oldNow }()
+	dryrun.Clear()
+	dryrun.Enable()
+	for _, e := range g.DryrunReport.Entries {
+		var content any
+		if e.Content != "" {
+			content = e.Content
+		}
+		dryrun.Record(e.Op, unfold(e.Path, appTmp, vaultsTmp), content, e.Note)
+	}
+	dryrun.Disable()
+	c3, _ := replayCLI(t, g, "")
+	path3 := c3.writeDryrunReport()
+	raw3, err := os.ReadFile(path3)
+	if err != nil {
+		t.Fatal(err)
+	}
+	gotBody := fold(string(raw3), appTmp, vaultsTmp)
+	if gotBody == mutatedBody {
+		t.Fatalf("the mutated report passed — no teeth")
+	}
+	if gotBody != g.DryrunReport.Body {
+		t.Fatalf("the real report diverged from the unmutated golden")
 	}
 }

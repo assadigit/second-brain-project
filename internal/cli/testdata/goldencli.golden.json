@@ -22,6 +22,30 @@
     "rc": 0,
     "saved_config": "{\n  \"llm_provider\": \"ollama\",\n  \"ollama\": {\n    \"base_url\": \"http://127.0.0.1:11434\",\n    \"model\": \"qwen2.5-coder:7b\"\n  }\n}"
   },
+  "dryrun_report": {
+    "body": "# GitCurator dry-run report\n\n*Generated: 2026-10-17 12:00:00*\n\n**Nothing below was written.** Every operation was recorded instead of performed.\n\n**3 operation(s) would have been performed:**\n\n- makedirs: 1\n- remove: 1\n- write: 1\n\n| # | Time | Op | Target | Size | Preview / note |\n|---|------|----|--------|------|----------------|\n| 1 | 12:00:00 | write | `<vaults>/vault/note.md` | 20 B | the withheld content |\n| 2 | 12:00:00 | makedirs | `<vaults>/vault/sub` |  | create folder |\n| 3 | 12:00:00 | remove | `<vaults>/vault/old.md` |  |  |\n",
+    "entries": [
+      {
+        "content": "the withheld content",
+        "note": "",
+        "op": "write",
+        "path": "<vaults>/vault/note.md"
+      },
+      {
+        "content": null,
+        "note": "create folder",
+        "op": "makedirs",
+        "path": "<vaults>/vault/sub"
+      },
+      {
+        "content": null,
+        "note": "",
+        "op": "remove",
+        "path": "<vaults>/vault/old.md"
+      }
+    ],
+    "path": "<app>/reports/dry-runs/dry_run_20261017-120000.md"
+  },
   "env": {
     "ai_stub": {
       "detail": "Ollama up @ http://127.0.0.1:11434 · 2 model(s)",
@@ -535,10 +559,570 @@
       "red bold"
     ]
   },
+  "preflight_checks": {
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": true
+      },
+      "proxy": {
+        "enabled": true,
+        "host": "127.0.0.1",
+        "port": 10808,
+        "type": "socks5"
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault"
+    },
+    "github": "ok",
+    "name": "ok",
+    "ollama": "ready",
+    "output": "┌──────────────────────────── run configuration ─────────────────────────────┐\n│ Vault            <vaults>/vault                        │\n│ Bot queue        @curator_bot                                             │\n│ Proxy            127.0.0.1:10808 (on)                                     │\n│ LLM              Ollama · llama3                                          │\n│ GitHub token     fake••••••••6789                                         │\n└────────────────────────────────────────────────────────────────────────────┘\n────────────────────────────── pre-flight checks ───────────────────────────────\n  ✔ GitHub token    authenticated as octo-owner\n  ✔ Proxy           127.0.0.1:10808 reachable (socks5, 42 ms)\n  ✔ LLM provider    Ollama up @ http://127.0.0.1:11434 · 2 model(s) · 'llama3' ready\n\n",
+    "proxy": "reachable",
+    "rc": true
+  },
+  "preflight_checks_abort": {
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": true
+      },
+      "proxy": {
+        "enabled": true,
+        "host": "127.0.0.1",
+        "port": 10808,
+        "type": "socks5"
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault"
+    },
+    "github": "rejected",
+    "name": "github-rejected",
+    "ollama": "ready",
+    "output": "────────────────────────────── pre-flight checks ───────────────────────────────\n  ✖ GitHub token    token REJECTED (401) — make a new one at github.com/settings/tokens\n12:00:00 ✖ Aborting — fix the token (config.json / --init) and rerun.\n",
+    "proxy": "reachable",
+    "rc": false
+  },
+  "preflight_github": [
+    {
+      "detail": "authenticated as octo-owner",
+      "level": "success",
+      "name": "ok",
+      "reply": {
+        "err_class": "",
+        "login": "octo-owner",
+        "status": 200
+      }
+    },
+    {
+      "detail": "token REJECTED (401) — make a new one at github.com/settings/tokens",
+      "level": "error",
+      "name": "rejected",
+      "reply": {
+        "err_class": "",
+        "login": "",
+        "status": 401
+      }
+    },
+    {
+      "detail": "GitHub unreachable (GatewayTimeout) — check internet",
+      "level": "error",
+      "name": "unreachable",
+      "reply": {
+        "err_class": "GatewayTimeout",
+        "login": "",
+        "status": 0
+      }
+    },
+    {
+      "detail": "no token — running unauthenticated (60 req/h limit)",
+      "level": "warning",
+      "name": "notoken",
+      "reply": {
+        "err_class": "",
+        "login": "",
+        "status": -1
+      }
+    }
+  ],
+  "preflight_llm": [
+    {
+      "answer": {
+        "err": "",
+        "models": [
+          "llama3",
+          "qwen2.5-coder:7b"
+        ]
+      },
+      "config": {
+        "bot_username": "curator_bot",
+        "github_token": "fake-github-token-0123456789",
+        "llm_num_ctx": 8192,
+        "llm_provider": "ollama",
+        "manual_repo_name": "",
+        "manual_vault_path": "<vaults>/manual",
+        "models": {
+          "analyze": "llama3",
+          "classify": "llama3"
+        },
+        "notfound_strike_threshold": 3,
+        "ollama": {
+          "base_url": "http://127.0.0.1:11434",
+          "model": "llama3"
+        },
+        "pipelines": {
+          "github": true,
+          "websites": true
+        },
+        "proxy": {
+          "enabled": true,
+          "host": "127.0.0.1",
+          "port": 10808,
+          "type": "socks5"
+        },
+        "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+        "telegram_api_hash": "abcdef1234567890abcdef12",
+        "telegram_api_id": 12345,
+        "telegram_phone": "+989123456789",
+        "vault_path": "<vaults>/vault",
+        "vaultseal": {
+          "repo_name": "main-vault-backup"
+        },
+        "website_repo_name": "websites-backup",
+        "website_vault_path": "<vaults>/webvault"
+      },
+      "name": "ollama-ready",
+      "output": "  ✔ LLM provider    Ollama up @ http://127.0.0.1:11434 · 2 model(s) · 'llama3' ready\n",
+      "rc": true,
+      "script": [],
+      "tty": false
+    },
+    {
+      "answer": {
+        "err": "ConnectionError",
+        "models": []
+      },
+      "config": {
+        "bot_username": "curator_bot",
+        "github_token": "fake-github-token-0123456789",
+        "llm_num_ctx": 8192,
+        "llm_provider": "ollama",
+        "manual_repo_name": "",
+        "manual_vault_path": "<vaults>/manual",
+        "models": {
+          "analyze": "llama3",
+          "classify": "llama3"
+        },
+        "notfound_strike_threshold": 3,
+        "ollama": {
+          "base_url": "http://127.0.0.1:11434",
+          "model": "llama3"
+        },
+        "pipelines": {
+          "github": true,
+          "websites": true
+        },
+        "proxy": {
+          "enabled": true,
+          "host": "127.0.0.1",
+          "port": 10808,
+          "type": "socks5"
+        },
+        "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+        "telegram_api_hash": "abcdef1234567890abcdef12",
+        "telegram_api_id": 12345,
+        "telegram_phone": "+989123456789",
+        "vault_path": "<vaults>/vault",
+        "vaultseal": {
+          "repo_name": "main-vault-backup"
+        },
+        "website_repo_name": "websites-backup",
+        "website_vault_path": "<vaults>/webvault"
+      },
+      "name": "ollama-unreachable",
+      "output": "  ▲ LLM provider    Ollama not reachable at http://127.0.0.1:11434 (ConnectionError) — the pipeline will try to auto-start it\n",
+      "rc": true,
+      "script": [],
+      "tty": false
+    },
+    {
+      "answer": {
+        "err": "",
+        "models": []
+      },
+      "config": {
+        "bot_username": "curator_bot",
+        "github_token": "fake-github-token-0123456789",
+        "llm_num_ctx": 8192,
+        "llm_provider": "ollama",
+        "manual_repo_name": "",
+        "manual_vault_path": "<vaults>/manual",
+        "models": {
+          "analyze": "llama3",
+          "classify": "llama3"
+        },
+        "notfound_strike_threshold": 3,
+        "ollama": {
+          "base_url": "http://127.0.0.1:11434",
+          "model": "llama3"
+        },
+        "pipelines": {
+          "github": true,
+          "websites": true
+        },
+        "proxy": {
+          "enabled": true,
+          "host": "127.0.0.1",
+          "port": 10808,
+          "type": "socks5"
+        },
+        "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+        "telegram_api_hash": "abcdef1234567890abcdef12",
+        "telegram_api_id": 12345,
+        "telegram_phone": "+989123456789",
+        "vault_path": "<vaults>/vault",
+        "vaultseal": {
+          "repo_name": "main-vault-backup"
+        },
+        "website_repo_name": "websites-backup",
+        "website_vault_path": "<vaults>/webvault"
+      },
+      "name": "ollama-empty",
+      "output": "  ✖ LLM provider    Ollama up @ http://127.0.0.1:11434 but NO models installed — run `ollama pull <model>` first\n",
+      "rc": false,
+      "script": [],
+      "tty": false
+    },
+    {
+      "answer": {
+        "err": "",
+        "models": [
+          "llama3",
+          "qwen2.5-coder:7b"
+        ]
+      },
+      "config": {
+        "github_token": "fake-github-token-0123456789",
+        "llm_provider": "ollama",
+        "ollama": {
+          "base_url": "http://127.0.0.1:11434",
+          "model": "mistral"
+        }
+      },
+      "name": "ollama-menu-pick",
+      "output": "  ▲ LLM provider    Ollama up @ http://127.0.0.1:11434 · 2 model(s) — configured 'mistral' is NOT pulled\n\n12:00:00 ▲ Configured model 'mistral' is not installed.\n  Models available in Ollama:\n    1) qwen2.5-coder:7b   ← recommended\n    2) llama3\n  (q = abort the run; tip: `ollama pull <model>` installs the original)\n? Select a model [1] →   ✔ LLM provider    switched to 'llama3' — saved to config.json\n",
+      "rc": true,
+      "saved_config": "{\n  \"github_token\": \"fake-github-token-0123456789\",\n  \"llm_provider\": \"ollama\",\n  \"ollama\": {\n    \"base_url\": \"http://127.0.0.1:11434\",\n    \"model\": \"llama3\"\n  }\n}",
+      "script": [
+        "2\n"
+      ],
+      "tty": true
+    },
+    {
+      "answer": {
+        "err": "",
+        "models": [
+          "llama3",
+          "qwen2.5-coder:7b"
+        ]
+      },
+      "config": {
+        "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+        "llamacpp_model": "qwen2.5-coder:7b",
+        "llm_provider": "llamacpp"
+      },
+      "name": "llamacpp-ready",
+      "output": "  ✔ LLM provider    llama.cpp up @ http://127.0.0.1:8080/v1 · model 'qwen2.5-coder:7b'\n",
+      "rc": true,
+      "script": [],
+      "tty": false
+    },
+    {
+      "answer": {
+        "err": "",
+        "models": [
+          "llama3",
+          "qwen2.5-coder:7b"
+        ]
+      },
+      "config": {
+        "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+        "llm_provider": "llamacpp"
+      },
+      "name": "llamacpp-autofill",
+      "output": "  ✔ LLM provider    llama.cpp up @ http://127.0.0.1:8080/v1 · model 'qwen2.5-coder:7b' (auto-detected — saved to config.json)\n",
+      "rc": true,
+      "saved_config": "{\n  \"llamacpp_api_url\": \"http://127.0.0.1:8080/v1/v1\",\n  \"llm_provider\": \"llamacpp\",\n  \"llamacpp_model\": \"qwen2.5-coder:7b\"\n}",
+      "script": [],
+      "tty": false
+    },
+    {
+      "answer": {
+        "err": "",
+        "models": [
+          "llama3",
+          "qwen2.5-coder:7b"
+        ]
+      },
+      "config": {
+        "llamacpp_api_url": "http://127.0.0.1:9999/v1",
+        "llm_provider": "llamacpp"
+      },
+      "name": "llamacpp-notfound",
+      "output": "  ✖ LLM provider    llama.cpp server not detected (no answer) — start it with: llama-server -m <model>.gguf --port 8080\n",
+      "rc": false,
+      "script": [],
+      "tty": false
+    },
+    {
+      "answer": {
+        "err": "",
+        "models": [
+          "llama3",
+          "qwen2.5-coder:7b"
+        ]
+      },
+      "config": {
+        "cloud_api_url": "https://api.openai.com/v1",
+        "cloud_model": "gpt-4o-mini",
+        "llm_provider": "cloud"
+      },
+      "name": "cloud",
+      "output": "  ✔ LLM provider    OpenAI-compatible endpoint https://api.openai.com/v1 · model 'gpt-4o-mini'\n",
+      "rc": true,
+      "script": [],
+      "tty": false
+    }
+  ],
+  "preflight_proxy": [
+    {
+      "config": {
+        "proxy": {
+          "enabled": false
+        }
+      },
+      "detail": "disabled — connecting directly",
+      "level": "dim",
+      "name": "disabled"
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "github_token": "fake-github-token-0123456789",
+        "llm_num_ctx": 8192,
+        "llm_provider": "ollama",
+        "manual_repo_name": "",
+        "manual_vault_path": "<vaults>/manual",
+        "models": {
+          "analyze": "llama3",
+          "classify": "llama3"
+        },
+        "notfound_strike_threshold": 3,
+        "ollama": {
+          "base_url": "http://127.0.0.1:11434",
+          "model": "llama3"
+        },
+        "pipelines": {
+          "github": true,
+          "websites": true
+        },
+        "proxy": {
+          "enabled": true,
+          "host": "127.0.0.1",
+          "port": 10808,
+          "type": "socks5"
+        },
+        "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+        "telegram_api_hash": "abcdef1234567890abcdef12",
+        "telegram_api_id": 12345,
+        "telegram_phone": "+989123456789",
+        "vault_path": "<vaults>/vault",
+        "vaultseal": {
+          "repo_name": "main-vault-backup"
+        },
+        "website_repo_name": "websites-backup",
+        "website_vault_path": "<vaults>/webvault"
+      },
+      "detail": "127.0.0.1:10808 reachable (socks5, 42 ms)",
+      "level": "success",
+      "name": "reachable"
+    },
+    {
+      "config": {
+        "proxy": {
+          "enabled": true,
+          "host": "proxy.local",
+          "port": "1080",
+          "type": "http"
+        }
+      },
+      "detail": "proxy.local:1080 reachable (http, 42 ms)",
+      "level": "success",
+      "name": "string-port"
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "github_token": "fake-github-token-0123456789",
+        "llm_num_ctx": 8192,
+        "llm_provider": "ollama",
+        "manual_repo_name": "",
+        "manual_vault_path": "<vaults>/manual",
+        "models": {
+          "analyze": "llama3",
+          "classify": "llama3"
+        },
+        "notfound_strike_threshold": 3,
+        "ollama": {
+          "base_url": "http://127.0.0.1:11434",
+          "model": "llama3"
+        },
+        "pipelines": {
+          "github": true,
+          "websites": true
+        },
+        "proxy": {
+          "enabled": true,
+          "host": "127.0.0.1",
+          "port": 10808,
+          "type": "socks5"
+        },
+        "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+        "telegram_api_hash": "abcdef1234567890abcdef12",
+        "telegram_api_id": 12345,
+        "telegram_phone": "+989123456789",
+        "vault_path": "<vaults>/vault",
+        "vaultseal": {
+          "repo_name": "main-vault-backup"
+        },
+        "website_repo_name": "websites-backup",
+        "website_vault_path": "<vaults>/webvault"
+      },
+      "detail": "127.0.0.1:10808 UNREACHABLE (TimeoutError) — start the proxy app or disable it in config.json",
+      "level": "warning",
+      "name": "unreachable"
+    }
+  ],
   "reset_dead": {
     "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n12:00:00 ✔ ♻️ 404 quarantine reset — 2 link(s) will be processed again.\n",
     "rc": 0
   },
+  "run_config_cards": [
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "github_token": "fake-github-token-0123456789",
+        "llm_num_ctx": 8192,
+        "llm_provider": "ollama",
+        "manual_repo_name": "",
+        "manual_vault_path": "<vaults>/manual",
+        "models": {
+          "analyze": "llama3",
+          "classify": "llama3"
+        },
+        "notfound_strike_threshold": 3,
+        "ollama": {
+          "base_url": "http://127.0.0.1:11434",
+          "model": "llama3"
+        },
+        "pipelines": {
+          "github": true,
+          "websites": true
+        },
+        "proxy": {
+          "enabled": true,
+          "host": "127.0.0.1",
+          "port": 10808,
+          "type": "socks5"
+        },
+        "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+        "telegram_api_hash": "abcdef1234567890abcdef12",
+        "telegram_api_id": 12345,
+        "telegram_phone": "+989123456789",
+        "vault_path": "<vaults>/vault",
+        "vaultseal": {
+          "repo_name": "main-vault-backup"
+        },
+        "website_repo_name": "websites-backup",
+        "website_vault_path": "<vaults>/webvault"
+      },
+      "name": "rich",
+      "output": "┌──────────────────────────── run configuration ─────────────────────────────┐\n│ Vault            <vaults>/vault                        │\n│ Bot queue        @curator_bot                                             │\n│ Proxy            127.0.0.1:10808 (on)                                     │\n│ LLM              Ollama · llama3                                          │\n│ GitHub token     fake••••••••6789                                         │\n└────────────────────────────────────────────────────────────────────────────┘\n"
+    },
+    {
+      "config": {
+        "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+        "llm_provider": "llamacpp",
+        "proxy": {
+          "enabled": false
+        },
+        "vault_path": "<vaults>/vault"
+      },
+      "name": "llamacpp",
+      "output": "┌──────────────────────────── run configuration ─────────────────────────────┐\n│ Vault            <vaults>/vault                        │\n│ Bot queue        (not set)                                                │\n│ Proxy            disabled                                                 │\n│ LLM              llama.cpp · (auto-detect) @ http://127.0.0.1:8080/v1     │\n│ GitHub token     (not set)                                                │\n└────────────────────────────────────────────────────────────────────────────┘\n"
+    },
+    {
+      "config": {
+        "cloud_api_url": "https://api.openai.com/v1",
+        "cloud_model": "gpt-4o-mini",
+        "github_token": "fake-github-token-0123456789",
+        "llm_provider": "cloud"
+      },
+      "name": "cloud",
+      "output": "┌──────────────────────────── run configuration ─────────────────────────────┐\n│ Vault            (not set)                                                │\n│ Bot queue        (not set)                                                │\n│ Proxy            disabled                                                 │\n│ LLM              OpenAI-compatible · gpt-4o-mini                          │\n│ GitHub token     fake••••••••6789                                         │\n└────────────────────────────────────────────────────────────────────────────┘\n"
+    },
+    {
+      "config": {},
+      "name": "empty",
+      "output": "┌──────────────────────────── run configuration ─────────────────────────────┐\n│ Vault            (not set)                                                │\n│ Bot queue        (not set)                                                │\n│ Proxy            disabled                                                 │\n│ LLM              Ollama · ?                                               │\n│ GitHub token     (not set)                                                │\n└────────────────────────────────────────────────────────────────────────────┘\n"
+    }
+  ],
   "status_card": {
     "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nConfiguration (<app>/config.json)\n────────────────────────────────────────────────────────────────\n  Vault                  <vaults>/vault  ✓ exists\n  Websites vault           ◌ will be created\n  Manual vault             ✓ exists\n  Library mirror         tools/mirror_manual.py — dry-run first, then --apply\n  Vault repo             main-vault-backup\n  Websites repo          websites-backup\n  Personal repo          (not set — the radar detects it)\n  Pipelines              github ON · websites ON\n  Telegram API ID        12345\n  Telegram hash          abcd••••••••••••••••••••\n  Phone                  +9891••••••••\n  Bot                    @curator_bot\n  GitHub token           fake••••••••••••••••••••••••\n  LLM                    ollama · llama3 · num_ctx=8192 · classify='llama3' · analyze='llama3'\n  Proxy                  socks5://127.0.0.1:10808\n  404 quarantine threshold 3 (dead after N consecutive 404s)\n  Taxonomy               taxonomy.json  ✓ exists\n  Internet               ✓ online (1.1.1.1 · 42 ms)\n  AI engine              ✓ on — local (Ollama)\n    Ollama up @ http://127.0.0.1:11434 · 2 model(s)\n  Ollama                 2 model(s) installed · 'llama3' ready\n\nCache (cache.db)\n────────────────────────────────────────────────────────────────\n  Processed repos        2\n  Decommissioned (404)   2\n  Retry queue            1\n  404 quarantine         1 confirmed / 2 tracked\n      • https://github.com/owner/dead-repo  3 attempt(s) · 2026-10-17T12:00 ⛔\n      • https://github.com/owner/old-repo  1 attempt(s) · 2026-10-17T12:00\n\nNote state (moves-as-corrections record)\n────────────────────────────────────────────────────────────────\n  GitHub vault baseline  2 note(s) recorded\n  Websites vault record  1 note(s) recorded\n  Corrections applied    1 (github 1 · websites 0)\n  Dismissed URLs         1 (github 0 · websites 1)\n\nWebsites pipeline (cache.db)\n────────────────────────────────────────────────────────────────\n  Processed websites     3\n  Fetch retry queue      2 pending (1 exhausted, kept in _review)\n  Dismissed URLs         1\n\n",
     "rc": 0

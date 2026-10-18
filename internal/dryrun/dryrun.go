@@ -71,6 +71,12 @@ var d struct {
 // Enable turns dry-run ON. Starts a fresh log (previous entries are
 // dropped). NOTE (preserved quirk): the shadow DIR is intentionally NOT
 // reset — only the cached path is.
+// NowFn is the frozen-clock seam (the house law: every time.strftime
+// write rides a patchable clock). The reference's dryrun.py reads
+// datetime.now() at both stamp sites — the generator freezes the
+// module's datetime for the golden; the port's seam is this var.
+var NowFn = time.Now
+
 func Enable() {
 	d.mu.Lock()
 	defer d.mu.Unlock()
@@ -139,7 +145,7 @@ func Record(op, path string, content any, note string) {
 	}
 	d.mu.Lock()
 	d.entries = append(d.entries, Entry{
-		Time:    time.Now().Format("15:04:05"), // %H:%M:%S local
+		Time:    NowFn().Format("15:04:05"), // %H:%M:%S local
 		Op:      op,
 		Path:    path,
 		Size:    size,
@@ -389,7 +395,7 @@ func RenderReportMarkdown(title string) string {
 	counts := Summary()
 	var lines []string
 	lines = append(lines, "# "+title, "")
-	lines = append(lines, "*Generated: "+time.Now().Format("2006-01-02 15:04:05")+"*", "")
+	lines = append(lines, "*Generated: "+NowFn().Format("2006-01-02 15:04:05")+"*", "")
 	lines = append(lines, "**Nothing below was written.** Every operation was recorded instead of performed.", "")
 	if len(es) == 0 {
 		lines = append(lines, "No vault writes were attempted during this dry-run.", "")
