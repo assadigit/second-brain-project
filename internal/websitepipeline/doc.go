@@ -160,6 +160,22 @@
 //     the directory title fallback needed the primitive; promote,
 //     never duplicate).
 //
+// THE PHASE-4 CLOSER (SESSION-026): the 30-link offline golden runner
+// equivalent — the exit gate's last named artifact — lives here.
+// testdiff/goldens/dump_goldenwebsites.py drives the UNMODIFIED
+// reference's own tools/run_golden_websites.py --offline (CI's mode)
+// over its own tests/golden/websites.json corpus into a throwaway
+// vault; goldenrunner_test.go replays the same corpus through this
+// package byte-for-byte (the canned pages, the 90-call LLM
+// choreography — classify, classify, analyze per link, the analysis
+// prompt carrying no "Website: " line so its answer is the default
+// analysis, the quirk every golden note is named "Golden test site"
+// by — the per-link results, the 30 notes, the report, the console,
+// the exit-code law). The machinery needed ZERO port fixes to match —
+// T-40's port replayed the reference's own end-to-end run green on
+// the first try; the mutation test (one byte in the golden) fails
+// precisely.
+//
 // THE STANDING LAWS, honored here: atomic saves through the house
 // writer everywhere; the dry-run seam at every file mutation
 // (dryrun.Remove/MkdirAll/WriteText); store-adjacent columns read

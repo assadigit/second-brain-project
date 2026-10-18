@@ -53,6 +53,26 @@ integration behind the PoC verdict).
 **Exit gate**: differential cases: the 30-link golden set, banishment flows, scan-apply subset,
 seal ladder on temp repos — all matching (normalized) Python outputs; the offline-golden-runner
 equivalent passes in Go.
+**GATE CLOSED (SESSION-026, 2026-10-18)**: the task list T-40..T-50 all landed (T-51 removed by
+the Option-B stamp); SESSION-025's close-out evaluation — the stone-by-stone evidence table in
+`docs/sessions/SESSION-025.md` — recorded 8 of the 10 named differential stones green with ONE
+artifact outstanding (the table's last two rows are the SAME artifact: the 30-link golden set
+and the offline-golden-runner equivalent). The closer landed as
+`testdiff/goldens/dump_goldenwebsites.py` +
+`internal/websitepipeline/goldenrunner_test.go`: the generator drives the UNMODIFIED reference's
+own `tools/run_golden_websites.py --offline` (CI's mode) over its own
+`tests/golden/websites.json` corpus — the fake LLM answering from the golden file, canned pages
+feeding the fetch, a throwaway vault, clocks frozen at 2026-10-17 12:00:00, temp roots + the
+reference app dir folded by REPLACE — into
+`internal/websitepipeline/testdata/goldenwebsites.golden.json` (94,979 bytes, the generator
+runs the payload twice and refuses to write unless byte-identical); the Go replay runs the
+ported pipeline over the SAME corpus with the same seams and byte-compares the canned pages,
+the 90-call LLM choreography (classify/classify/analyze per link — the analysis prompt carries
+no `Website: ` line, so its answer is the default analysis: the quirk every golden note is
+named "Golden test site" by), the first three prompts, the per-link results, the 30 produced
+notes, the report, the console output, and the exit-code law — all green first run, the
+mutation test (one byte in the golden) fails precisely, 1828/1828 tests race-clean over 30
+packages. **Phase 4 CLOSED; Phase 5 (engine parity milestone per Amendment 1) OPENS.**
 
 ## Phase 5 — CLI parity milestone (first user-visible release)
 

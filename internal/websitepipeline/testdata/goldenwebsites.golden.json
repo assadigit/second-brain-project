@@ -1,0 +1,1027 @@
+{
+  "canned_fetch": [
+    {
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "elapsed_s": 0.0,
+      "final_url": "http://ui-skills.com/skills/emilkowalski/emil-design-eng",
+      "http_status": 200,
+      "reason": "",
+      "status": "full",
+      "text": "<!doctype html><html><head><title>Design-engineering skills page</title><meta name=\"description\" content=\"design-engineering skills page\"></head><body><p>Offline golden-run fixture page for the Websites pipeline. This body text stands in for the real page so the pipeline runs end to end without any network access at all.</p></body></html>",
+      "url": "http://ui-skills.com/skills/emilkowalski/emil-design-eng"
+    },
+    {
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "elapsed_s": 0.0,
+      "final_url": "https://designs.ai/graphicmaker",
+      "http_status": 200,
+      "reason": "",
+      "status": "full",
+      "text": "<!doctype html><html><head><title>Ai illustration maker — judgment rule: single-purpose ai design tool -> design, tag #ai-powered</title><meta name=\"description\" content=\"AI illustration maker — judgment rule: single-purpose AI design tool -> Design, tag #ai-powered\"></head><body><p>Offline golden-run fixture page for the Websites pipeline. This body text stands in for the real page so the pipeline runs end to end without any network access at all.</p></body></html>",
+      "url": "https://designs.ai/graphicmaker"
+    },
+    {
+      "charset": "utf-8",
+      "content_type": "text/html; charset=utf-8",
+      "elapsed_s": 0.0,
+      "final_url": "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading",
+      "http_status": 200,
+      "reason": "",
+      "status": "full",
+      "text": "<!doctype html><html><head><title>The huge multi-topic free-resources directory wiki</title><meta name=\"description\" content=\"the huge multi-topic free-resources directory wiki\"></head><body><p>Offline golden-run fixture page for the Websites pipeline. This body text stands in for the real page so the pipeline runs end to end without any network access at all.</p></body></html>",
+      "url": "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading"
+    }
+  ],
+  "console": "  [info] 🗑️ Run tally: 0 websites removed this run — no 🗑️ / delete / auto_delete marks in the library\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v1.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v2.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v3.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v4.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v1.md\n  [success] ✅ [websites] Golden test site processed and stored → Knowledge_Research_Reference/Golden_test_site.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v2.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v5.md\n  [success] ✅ [websites] Golden test site processed and stored → Free_Utilities_Everyday_Tools/Golden_test_site.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v6.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v7.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v8.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v3.md\n  [success] ✅ [websites] Golden test site processed and stored → AI_Tools_for_Web_App_Development/AI_UI_Design_Generation/Golden_test_site.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v9.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v10.md\n  [success] ✅ [websites] Golden test site processed and stored → Knowledge_Research_Reference/Golden_test_site_v1.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v4.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v11.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v5.md\n  [success] ✅ [websites] Golden test site processed and stored → AI_Tools_for_Web_App_Development/AI_Prototyping_No-Code/Golden_test_site.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v6.md\n  [success] ✅ [websites] Golden test site processed and stored → AI_Tools_for_Web_App_Development/AI_Prototyping_No-Code/Golden_test_site_v1.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v7.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v8.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v9.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/Assets_Resources/Golden_test_site_v12.md\n  [success] ✅ [websites] Golden test site processed and stored → Design/UI_UX_Product_Design/Golden_test_site_v10.md\n\nReport: <tmp>/report.md\nInvalid category names: 0 (must be 0)\nProcessed: 30/30\n",
+  "corpus": [
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "design-engineering skills page",
+      "url": "http://ui-skills.com/skills/emilkowalski/emil-design-eng"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "icon library",
+      "url": "https://icons8.com/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "AI illustration maker — judgment rule: single-purpose AI design tool -> Design, tag #ai-powered",
+      "url": "https://designs.ai/graphicmaker"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "stock photos/illustrations",
+      "url": "http://pixabay.com"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "icon library (was the t.co shortener entry; v0.28.0 law — t.co is banned, resolved target kept)",
+      "url": "https://phosphoricons.com/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "free stock video + music assets for projects",
+      "url": "http://mixkit.co"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "Figma design learning resources",
+      "url": "https://www.figma.com/resources/learn-design/"
+    },
+    {
+      "expected_category": "Knowledge, Research & Reference",
+      "expected_subcategory": "",
+      "notes": "the huge multi-topic free-resources directory wiki",
+      "url": "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "UI/UX animation inspiration gallery",
+      "url": "https://60fps.design/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "AI object removal from photos — design utility",
+      "url": "http://cleanup.pictures"
+    },
+    {
+      "expected_category": "Free Utilities & Everyday Tools",
+      "expected_subcategory": "",
+      "notes": "media downloader utility (no subcategories in that category)",
+      "url": "https://cobalt.tools/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "color palette generator (color tools live here per the taxonomy)",
+      "url": "http://colormind.io/bootstrap/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "color palettes",
+      "url": "https://colors.dopely.top/palettes"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "palette generator",
+      "url": "https://coolors.co/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "weekly podcast about design process and culture",
+      "url": "https://designdetails.fm/episodes"
+    },
+    {
+      "expected_category": "AI Tools for Web & App Development",
+      "expected_subcategory": "AI UI/Design Generation",
+      "notes": "generates DESIGN.md for AI coding agents — borderline (could be Design); owner adjudicates",
+      "url": "https://designmd.me/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "Apple fonts, UI kits, templates",
+      "url": "https://developer.apple.com/design/resources/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "icon marketplace",
+      "url": "https://iconscout.com/free-icons"
+    },
+    {
+      "expected_category": "Knowledge, Research & Reference",
+      "expected_subcategory": "",
+      "notes": "data/knowledge visualizations (#data is that category's tag)",
+      "url": "http://informationisbeautiful.net"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "animation reference library",
+      "url": "https://kinetics.colorion.co/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "AI image upscaler — named in the judgment rules as Design",
+      "url": "http://letsenhance.io"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "app UI design-pattern library",
+      "url": "https://mobbin.com/"
+    },
+    {
+      "expected_category": "AI Tools for Web & App Development",
+      "expected_subcategory": "AI Prototyping / No-Code",
+      "notes": "premium prompts for AI website builders (Lovable, Bolt, Cursor, Claude)",
+      "url": "http://motionsites.ai"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "name that UI element — design reference",
+      "url": "https://namethatui.com/"
+    },
+    {
+      "expected_category": "AI Tools for Web & App Development",
+      "expected_subcategory": "AI Prototyping / No-Code",
+      "notes": "AI HTML landing page builder",
+      "url": "https://neuform.ai/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "UX flows from real products",
+      "url": "http://pageflows.com"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "design posts gallery",
+      "url": "https://posts.design/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "recent design work gallery",
+      "url": "https://recent.design/"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "Assets & Resources",
+      "notes": "AI background removal — named in the judgment rules as Design",
+      "url": "http://remove.bg"
+    },
+    {
+      "expected_category": "Design",
+      "expected_subcategory": "UI/UX & Product Design",
+      "notes": "styles/references from real products",
+      "url": "https://styles.refero.design/"
+    }
+  ],
+  "exit_code": 0,
+  "invalid": 0,
+  "llm_calls": [
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://ui-skills.com/skills/emilkowalski/emil-design-eng"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://ui-skills.com/skills/emilkowalski/emil-design-eng"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://icons8.com"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://icons8.com"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://designs.ai/graphicmaker"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://designs.ai/graphicmaker"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://pixabay.com"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://pixabay.com"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://phosphoricons.com"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://phosphoricons.com"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://mixkit.co"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://mixkit.co"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://figma.com/resources/learn-design"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://figma.com/resources/learn-design"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Knowledge, Research & Reference\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading"
+    },
+    {
+      "reply": "{\"subcategory\": \"none\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://60fps.design"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://60fps.design"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://cleanup.pictures"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://cleanup.pictures"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Free Utilities & Everyday Tools\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://cobalt.tools"
+    },
+    {
+      "reply": "{\"subcategory\": \"none\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://cobalt.tools"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://colormind.io/bootstrap"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://colormind.io/bootstrap"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://colors.dopely.top/palettes"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://colors.dopely.top/palettes"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://coolors.co"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://coolors.co"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://designdetails.fm/episodes"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://designdetails.fm/episodes"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"AI Tools for Web & App Development\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://designmd.me"
+    },
+    {
+      "reply": "{\"subcategory\": \"AI UI/Design Generation\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://designmd.me"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://developer.apple.com/design/resources"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://developer.apple.com/design/resources"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://iconscout.com/free-icons"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://iconscout.com/free-icons"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Knowledge, Research & Reference\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://informationisbeautiful.net"
+    },
+    {
+      "reply": "{\"subcategory\": \"none\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://informationisbeautiful.net"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://kinetics.colorion.co"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://kinetics.colorion.co"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://letsenhance.io"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://letsenhance.io"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://mobbin.com"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://mobbin.com"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"AI Tools for Web & App Development\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://motionsites.ai"
+    },
+    {
+      "reply": "{\"subcategory\": \"AI Prototyping / No-Code\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://motionsites.ai"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://namethatui.com"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://namethatui.com"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"AI Tools for Web & App Development\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://neuform.ai"
+    },
+    {
+      "reply": "{\"subcategory\": \"AI Prototyping / No-Code\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://neuform.ai"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://pageflows.com"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://pageflows.com"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://posts.design"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://posts.design"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://recent.design"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://recent.design"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://remove.bg"
+    },
+    {
+      "reply": "{\"subcategory\": \"Assets & Resources\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://remove.bg"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    },
+    {
+      "reply": "{\"category\": \"Design\", \"confidence\": \"high\", \"reason\": \"golden offline mode\"}",
+      "task": "classify",
+      "url": "https://styles.refero.design"
+    },
+    {
+      "reply": "{\"subcategory\": \"UI/UX & Product Design\", \"confidence\": \"high\"}",
+      "task": "classify",
+      "url": "https://styles.refero.design"
+    },
+    {
+      "reply": "{\"name\": \"Golden test site\", \"one_line\": \"Offline golden-run placeholder description.\", \"core_offerings\": [\"Offline validation\", \"Report generation\", \"No network\"], \"standout_feature\": \"\", \"best_used_for\": \"Use when you need to validate the pipeline without network.\", \"pricing\": \"unknown\", \"login_required\": \"unknown\", \"similar_tools\": [], \"tags\": [\"golden\"], \"confidence\": \"high\"}",
+      "task": "analyze",
+      "url": ""
+    }
+  ],
+  "notes": {
+    "websites/AI_Tools_for_Web_App_Development/AI_Prototyping_No-Code/Golden_test_site.md": "---\nsource: \"https://motionsites.ai\"\naliases: []\ntags: [golden]\ncategory: \"AI Tools for Web & App Development\"\nsubcategory: \"AI Prototyping / No-Code\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://motionsites.ai](https://motionsites.ai)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/AI_Tools_for_Web_App_Development/AI_Prototyping_No-Code/Golden_test_site_v1.md": "---\nsource: \"https://neuform.ai\"\naliases: []\ntags: [golden]\ncategory: \"AI Tools for Web & App Development\"\nsubcategory: \"AI Prototyping / No-Code\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://neuform.ai](https://neuform.ai)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/AI_Tools_for_Web_App_Development/AI_UI_Design_Generation/Golden_test_site.md": "---\nsource: \"https://designmd.me\"\naliases: []\ntags: [golden]\ncategory: \"AI Tools for Web & App Development\"\nsubcategory: \"AI UI/Design Generation\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://designmd.me](https://designmd.me)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site.md": "---\nsource: \"https://icons8.com\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://icons8.com](https://icons8.com)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v1.md": "---\nsource: \"https://designs.ai/graphicmaker\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://designs.ai/graphicmaker](https://designs.ai/graphicmaker)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v10.md": "---\nsource: \"https://iconscout.com/free-icons\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://iconscout.com/free-icons](https://iconscout.com/free-icons)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v11.md": "---\nsource: \"https://letsenhance.io\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://letsenhance.io](https://letsenhance.io)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v12.md": "---\nsource: \"https://remove.bg\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://remove.bg](https://remove.bg)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v2.md": "---\nsource: \"https://pixabay.com\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://pixabay.com](https://pixabay.com)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v3.md": "---\nsource: \"https://phosphoricons.com\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://phosphoricons.com](https://phosphoricons.com)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v4.md": "---\nsource: \"https://mixkit.co\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://mixkit.co](https://mixkit.co)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v5.md": "---\nsource: \"https://cleanup.pictures\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://cleanup.pictures](https://cleanup.pictures)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v6.md": "---\nsource: \"https://colormind.io/bootstrap\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://colormind.io/bootstrap](https://colormind.io/bootstrap)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v7.md": "---\nsource: \"https://colors.dopely.top/palettes\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://colors.dopely.top/palettes](https://colors.dopely.top/palettes)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v8.md": "---\nsource: \"https://coolors.co\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://coolors.co](https://coolors.co)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/Assets_Resources/Golden_test_site_v9.md": "---\nsource: \"https://developer.apple.com/design/resources\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"Assets & Resources\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://developer.apple.com/design/resources](https://developer.apple.com/design/resources)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site.md": "---\nsource: \"https://ui-skills.com/skills/emilkowalski/emil-design-eng\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://ui-skills.com/skills/emilkowalski/emil-design-eng](https://ui-skills.com/skills/emilkowalski/emil-design-eng)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v1.md": "---\nsource: \"https://figma.com/resources/learn-design\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://figma.com/resources/learn-design](https://figma.com/resources/learn-design)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v10.md": "---\nsource: \"https://styles.refero.design\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://styles.refero.design](https://styles.refero.design)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v2.md": "---\nsource: \"https://60fps.design\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://60fps.design](https://60fps.design)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v3.md": "---\nsource: \"https://designdetails.fm/episodes\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://designdetails.fm/episodes](https://designdetails.fm/episodes)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v4.md": "---\nsource: \"https://kinetics.colorion.co\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://kinetics.colorion.co](https://kinetics.colorion.co)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v5.md": "---\nsource: \"https://mobbin.com\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://mobbin.com](https://mobbin.com)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v6.md": "---\nsource: \"https://namethatui.com\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://namethatui.com](https://namethatui.com)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v7.md": "---\nsource: \"https://pageflows.com\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://pageflows.com](https://pageflows.com)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v8.md": "---\nsource: \"https://posts.design\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://posts.design](https://posts.design)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Design/UI_UX_Product_Design/Golden_test_site_v9.md": "---\nsource: \"https://recent.design\"\naliases: []\ntags: [golden]\ncategory: \"Design\"\nsubcategory: \"UI/UX & Product Design\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://recent.design](https://recent.design)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Free_Utilities_Everyday_Tools/Golden_test_site.md": "---\nsource: \"https://cobalt.tools\"\naliases: []\ntags: [golden]\ncategory: \"Free Utilities & Everyday Tools\"\nsubcategory: \"\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://cobalt.tools](https://cobalt.tools)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Knowledge_Research_Reference/Golden_test_site.md": "---\nsource: \"https://reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading\"\naliases: []\ntags: [golden]\ncategory: \"Knowledge, Research & Reference\"\nsubcategory: \"\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading](https://reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n",
+    "websites/Knowledge_Research_Reference/Golden_test_site_v1.md": "---\nsource: \"https://informationisbeautiful.net\"\naliases: []\ntags: [golden]\ncategory: \"Knowledge, Research & Reference\"\nsubcategory: \"\"\nfetch_status: \"full\"\npricing: \"unknown\"\nlogin_required: \"unknown\"\ndate_processed: 2026-10-17\nmanaged_by: \"gitcurator\"\nschema_version: \"1\"\nprompt_version: \"web-v2\"\n---\n\n> [!info] Managed by GitCurator — machine-written note.\n\n# Golden test site\n\n> **TL;DR:** Offline golden-run placeholder description.\n\n## What it does\n- Offline validation\n- Report generation\n- No network\n\n## Best used for\nUse when you need to validate the pipeline without network.\n\n## Similar tools\n—\n\n---\n*Source: [https://informationisbeautiful.net](https://informationisbeautiful.net)*\n\n*Not useful anymore? Tag this note 🗑️ or delete / auto_delete —\ntyped inline anywhere in the note (Obsidian's own tag syntax) or\nadded in the tags property — the next run counts it, asks you to\nconfirm on Telegram, and on your 🗑️ Delete it leaves the library and\nnever fetches this site again (v0.60.0).*\n"
+  },
+  "processed_count": 30,
+  "prompt_samples": [
+    {
+      "content": "You are filing a website into a personal library. Choose exactly one category from the list. Follow the judgment rules.\n\nCategories:\n- Design — (v0.88.0 — the vault's Design tree grew from 4 declared subfolders to\n- AI Tools for Web & App Development\n- AI Tools (General)\n- Developer Tools\n- Free Utilities & Everyday Tools\n- Knowledge, Research & Reference — also the home for general, multi-topic learning platforms (Coursera, Udemy, Khan Academy). Tag with `#course`.\n- Download Resources\n- Music & Audio Discovery\n- Security & Privacy Tools\n- Crypto & Markets\n- English Learning & Career Prep — General English-test prep (IELTS, etc.) and general career/salary research — not tied to a specific country. Country-specific relocation content goes under Living Abroad instead.\n- Geography & Urban Planning — empty for now — ready for future links\n- Living Abroad — Country-specific relocation content only: job boards, visa info, housing, cost of living for one particular country.\n- Random / Curiosities — Catch-all — use sparingly, only when nothing else genuinely fits.\n\nJudgment rules:\nA single-purpose AI tool that does a design task (background removal, image upscaling, vectorizing) → **Design**, not either AI Tools category — its job is design, AI is just the mechanism. Tag `#ai-powered`.\n**AI Tools for Web & App Development** = tools that help *build* software (UI generation, code generation, no-code builders). **AI Tools (General)** = everything else AI-related with no build-a-product purpose.\nGeneral course platforms (Coursera, Udemy) → **Knowledge, Research & Reference** + `#course`. A topic-specific course stays in its own topic folder + `#course`.\nShadow libraries and piracy-adjacent sites → **Download Resources → Torrent & Shadow Libraries** (private). Legitimate public-domain archives → **Public Archives & Libraries**.\n\nPast corrections by the owner (the owner already re-filed these — a strong signal of their preferences; follow them when the site is similar):\n(none)\n\nWebsite: https://ui-skills.com/skills/emilkowalski/emil-design-eng\nTitle: Design-engineering skills page\nDescription: design-engineering skills page\nPage text (may be partial): Offline golden-run fixture page for the Websites pipeline. This body text stands in for the real page so the pipeline runs end to end without any network access at all.\n\nReturn only JSON: {\"category\": \"<exact name from the list>\", \"confidence\": \"high|medium|low\", \"reason\": \"<one short sentence>\"}\n",
+      "n_messages": 1,
+      "role": "user"
+    },
+    {
+      "content": "The website was filed under \"Design\". Choose the best subcategory from this list, or \"none\" if none fits well.\n\nSubcategories:\n- Assets & Resources — general downloadable/usable design assets\n- Background Removal & Image Editors — background removers, upscalers, and image editors\n- Backgrounds & SVG Generators — background generators and SVG pattern tools\n- Branding & Identity — logo tools, brand guidelines\n- Color Palettes & Tools — palette generators, pickers, and color tools\n- Gradients & Color Assets — gradient generators and color asset libraries\n- Icons & SVG Assets — icon sets and SVG asset libraries\n- Image Edit & Background Tools — general-purpose image editing utilities\n- Mockups & Templates PSD — mockups, templates, and PSD resources\n- UI Design Inspiration — galleries and inspiration for UI design\n- UI/UX & Product Design — process: design systems, UX writing, wireframing/prototyping\n\nWebsite: https://ui-skills.com/skills/emilkowalski/emil-design-eng\nTitle: Design-engineering skills page\nDescription: design-engineering skills page\nPage text (may be partial): Offline golden-run fixture page for the Websites pipeline. This body text stands in for the real page so the pipeline runs end to end without any network access at all.\n\nReturn only JSON: {\"subcategory\": \"<exact name or none>\", \"confidence\": \"high|medium|low\"}\n",
+      "n_messages": 1,
+      "role": "user"
+    },
+    {
+      "content": "You are cataloguing a website for a personal knowledge library. The reader is a designer-developer who will search this library later, when an idea comes up, to remember which tool or resource could help.\n\nRules:\n1. Use only what the provided text supports. If something is not stated or clearly implied, leave it out. Never guess features, prices, or names.\n2. Write plain, concrete English. No marketing words (\"revolutionary\", \"powerful\", \"seamless\") and no pitch claims (\"lifetime access\", \"easy integration\", \"everything you need\") — those describe the sales page, not the product.\n3. \"what_it_does\": 3 to 6 short bullets of factual capabilities — things the page shows, demonstrates, or clearly documents. Each bullet must be checkable against the page.\n4. \"best_used_for\" is the most important field. Write one sentence starting \"Use when you need to\" that names the READER'S task — what they are trying to get done — in the words someone would use when thinking about their own work. Do not restate the one_line.\n5. \"practical_details\": up to 4 short bullets of the concrete facts a person needs BEFORE trying the tool — exact price terms if stated (\"$60 one-time\", \"free for 3 projects\"), license, framework or tech (\"plain CSS\", \"React components\"), how you get it (download, npm, copy-paste), platform requirements. Only what the page states. Empty list if nothing concrete is stated.\n6. \"pricing\": free|freemium|paid|unknown. \"pricing_detail\": the actual terms as the page states them (e.g. \"$60 one-time\", \"free for 3 projects\"), else empty string.\n7. \"watch_out\": up to 2 honest caveats the page itself supports — a login wall before you can download, no public pricing, requires a build step, unclear license. Empty list if there is nothing.\n8. \"similar_tools\": list only tools you are confident exist and are genuinely similar. Otherwise return an empty list.\n9. \"tags\": up to 6, lowercase. Prefer these for the category: #icons #mockup #illustration #vector #font #color-tool #gradient #ui-kit #free #paid #svg #3d-mockup #farsi-font #ai-powered #inspiration #design-system #ux-writing #wireframing #dark-mode #landing-page #mobile #dashboard #accessibility #brochure #catalogue #print-template #logo #brand-guideline.\n10. Return only valid JSON in exactly this shape:\n\n{\n  \"name\": \"\",\n  \"one_line\": \"\",\n  \"what_it_does\": [],\n  \"best_used_for\": \"\",\n  \"practical_details\": [],\n  \"pricing\": \"free|freemium|paid|unknown\",\n  \"pricing_detail\": \"\",\n  \"login_required\": \"yes|no|unknown\",\n  \"watch_out\": [],\n  \"similar_tools\": [],\n  \"tags\": [],\n  \"confidence\": \"high|medium|low\"\n}\n\n(\"one_line\" is at most 25 words.)\n\nURL: https://ui-skills.com/skills/emilkowalski/emil-design-eng\nTitle: Design-engineering skills page\nDescription: design-engineering skills page\nPage text (may be partial): Offline golden-run fixture page for the Websites pipeline. This body text stands in for the real page so the pipeline runs end to end without any network access at all.\n",
+      "n_messages": 1,
+      "role": "user"
+    }
+  ],
+  "report": "# Golden-set report — Websites pipeline (offline mode)\n\n*Generated: 2026-10-17 12:00 · 30 links · taxonomy: 14 categories, 23 subcategories from <app>/taxonomy/website-library-categories.md*\n\n> A golden run writes to a throwaway vault and a throwaway cache — never to the real ones.\n\n## Summary\n\n| Verdict | Count |\n|---------|-------|\n| ✅ exact (category + subcategory) | 30 |\n| ◐ category match, subcategory differs | 0 |\n| ❌ category mismatch | 0 |\n| ⚠️ needs review / failed | 0 |\n\n**Model answers that were invalid taxonomy names: 0** (the pipeline validates every answer and falls back to _review, so this must be 0.)\n\n## Side by side\n\n| # | Link | Fetched | Expected | Actual | Verdict |\n|---|------|---------|----------|--------|---------|\n| 1 | [http://ui-skills.com/skills/emilkowalski/emil-design-eng](http://ui-skills.com/skills/emilkowalski/emil-design-eng) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 2 | [https://icons8.com/](https://icons8.com/) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 3 | [https://designs.ai/graphicmaker](https://designs.ai/graphicmaker) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 4 | [http://pixabay.com](http://pixabay.com) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 5 | [https://phosphoricons.com/](https://phosphoricons.com/) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 6 | [http://mixkit.co](http://mixkit.co) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 7 | [https://www.figma.com/resources/learn-design/](https://www.figma.com/resources/learn-design/) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 8 | [https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading](https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading) | full | Knowledge, Research & Reference | Knowledge, Research & Reference | ✅ exact |\n| 9 | [https://60fps.design/](https://60fps.design/) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 10 | [http://cleanup.pictures](http://cleanup.pictures) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 11 | [https://cobalt.tools/](https://cobalt.tools/) | full | Free Utilities & Everyday Tools | Free Utilities & Everyday Tools | ✅ exact |\n| 12 | [http://colormind.io/bootstrap/](http://colormind.io/bootstrap/) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 13 | [https://colors.dopely.top/palettes](https://colors.dopely.top/palettes) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 14 | [https://coolors.co/](https://coolors.co/) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 15 | [https://designdetails.fm/episodes](https://designdetails.fm/episodes) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 16 | [https://designmd.me/](https://designmd.me/) | full | AI Tools for Web & App Development / AI UI/Design Generation | AI Tools for Web & App Development / AI UI/Design Generation | ✅ exact |\n| 17 | [https://developer.apple.com/design/resources/](https://developer.apple.com/design/resources/) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 18 | [https://iconscout.com/free-icons](https://iconscout.com/free-icons) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 19 | [http://informationisbeautiful.net](http://informationisbeautiful.net) | full | Knowledge, Research & Reference | Knowledge, Research & Reference | ✅ exact |\n| 20 | [https://kinetics.colorion.co/](https://kinetics.colorion.co/) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 21 | [http://letsenhance.io](http://letsenhance.io) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 22 | [https://mobbin.com/](https://mobbin.com/) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 23 | [http://motionsites.ai](http://motionsites.ai) | full | AI Tools for Web & App Development / AI Prototyping / No-Code | AI Tools for Web & App Development / AI Prototyping / No-Code | ✅ exact |\n| 24 | [https://namethatui.com/](https://namethatui.com/) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 25 | [https://neuform.ai/](https://neuform.ai/) | full | AI Tools for Web & App Development / AI Prototyping / No-Code | AI Tools for Web & App Development / AI Prototyping / No-Code | ✅ exact |\n| 26 | [http://pageflows.com](http://pageflows.com) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 27 | [https://posts.design/](https://posts.design/) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 28 | [https://recent.design/](https://recent.design/) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n| 29 | [http://remove.bg](http://remove.bg) | full | Design / Assets & Resources | Design / Assets & Resources | ✅ exact |\n| 30 | [https://styles.refero.design/](https://styles.refero.design/) | full | Design / UI/UX & Product Design | Design / UI/UX & Product Design | ✅ exact |\n\n## Notes\n\nOffline mode: the \"actual\" answers COME FROM the golden file via a fake LLM — this validates the machinery (prompts, validation, note building), not the model. Run --live for the real comparison.\n\n",
+  "results": [
+    {
+      "canonical": "https://ui-skills.com/skills/emilkowalski/emil-design-eng",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "http://ui-skills.com/skills/emilkowalski/emil-design-eng"
+    },
+    {
+      "canonical": "https://icons8.com",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "https://icons8.com/"
+    },
+    {
+      "canonical": "https://designs.ai/graphicmaker",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v1.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "https://designs.ai/graphicmaker"
+    },
+    {
+      "canonical": "https://pixabay.com",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v2.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "http://pixabay.com"
+    },
+    {
+      "canonical": "https://phosphoricons.com",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v3.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "https://phosphoricons.com/"
+    },
+    {
+      "canonical": "https://mixkit.co",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v4.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "http://mixkit.co"
+    },
+    {
+      "canonical": "https://figma.com/resources/learn-design",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v1.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://www.figma.com/resources/learn-design/"
+    },
+    {
+      "canonical": "https://reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading",
+      "category": "Knowledge, Research & Reference",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Knowledge_Research_Reference/Golden_test_site.md",
+      "outcome": "processed",
+      "subcategory": "",
+      "url": "https://www.reddit.com/r/FREEMEDIAHECKYEAH/wiki/reading"
+    },
+    {
+      "canonical": "https://60fps.design",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v2.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://60fps.design/"
+    },
+    {
+      "canonical": "https://cleanup.pictures",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v5.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "http://cleanup.pictures"
+    },
+    {
+      "canonical": "https://cobalt.tools",
+      "category": "Free Utilities & Everyday Tools",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Free_Utilities_Everyday_Tools/Golden_test_site.md",
+      "outcome": "processed",
+      "subcategory": "",
+      "url": "https://cobalt.tools/"
+    },
+    {
+      "canonical": "https://colormind.io/bootstrap",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v6.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "http://colormind.io/bootstrap/"
+    },
+    {
+      "canonical": "https://colors.dopely.top/palettes",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v7.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "https://colors.dopely.top/palettes"
+    },
+    {
+      "canonical": "https://coolors.co",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v8.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "https://coolors.co/"
+    },
+    {
+      "canonical": "https://designdetails.fm/episodes",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v3.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://designdetails.fm/episodes"
+    },
+    {
+      "canonical": "https://designmd.me",
+      "category": "AI Tools for Web & App Development",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/AI_Tools_for_Web_App_Development/AI_UI_Design_Generation/Golden_test_site.md",
+      "outcome": "processed",
+      "subcategory": "AI UI/Design Generation",
+      "url": "https://designmd.me/"
+    },
+    {
+      "canonical": "https://developer.apple.com/design/resources",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v9.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "https://developer.apple.com/design/resources/"
+    },
+    {
+      "canonical": "https://iconscout.com/free-icons",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v10.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "https://iconscout.com/free-icons"
+    },
+    {
+      "canonical": "https://informationisbeautiful.net",
+      "category": "Knowledge, Research & Reference",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Knowledge_Research_Reference/Golden_test_site_v1.md",
+      "outcome": "processed",
+      "subcategory": "",
+      "url": "http://informationisbeautiful.net"
+    },
+    {
+      "canonical": "https://kinetics.colorion.co",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v4.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://kinetics.colorion.co/"
+    },
+    {
+      "canonical": "https://letsenhance.io",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v11.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "http://letsenhance.io"
+    },
+    {
+      "canonical": "https://mobbin.com",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v5.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://mobbin.com/"
+    },
+    {
+      "canonical": "https://motionsites.ai",
+      "category": "AI Tools for Web & App Development",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/AI_Tools_for_Web_App_Development/AI_Prototyping_No-Code/Golden_test_site.md",
+      "outcome": "processed",
+      "subcategory": "AI Prototyping / No-Code",
+      "url": "http://motionsites.ai"
+    },
+    {
+      "canonical": "https://namethatui.com",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v6.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://namethatui.com/"
+    },
+    {
+      "canonical": "https://neuform.ai",
+      "category": "AI Tools for Web & App Development",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/AI_Tools_for_Web_App_Development/AI_Prototyping_No-Code/Golden_test_site_v1.md",
+      "outcome": "processed",
+      "subcategory": "AI Prototyping / No-Code",
+      "url": "https://neuform.ai/"
+    },
+    {
+      "canonical": "https://pageflows.com",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v7.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "http://pageflows.com"
+    },
+    {
+      "canonical": "https://posts.design",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v8.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://posts.design/"
+    },
+    {
+      "canonical": "https://recent.design",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v9.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://recent.design/"
+    },
+    {
+      "canonical": "https://remove.bg",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/Assets_Resources/Golden_test_site_v12.md",
+      "outcome": "processed",
+      "subcategory": "Assets & Resources",
+      "url": "http://remove.bg"
+    },
+    {
+      "canonical": "https://styles.refero.design",
+      "category": "Design",
+      "error": "",
+      "fetch_status": "full",
+      "note_path": "<tmp>/websites/Design/UI_UX_Product_Design/Golden_test_site_v10.md",
+      "outcome": "processed",
+      "subcategory": "UI/UX & Product Design",
+      "url": "https://styles.refero.design/"
+    }
+  ]
+}

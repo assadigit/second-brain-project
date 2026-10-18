@@ -56,7 +56,7 @@ ported: verifyHmac byte-for-byte, the golden signature vectors, the
 directory doors T-49 reuses). 872 tests race-clean; the exit gate's
 five stones all laid (payload goldens, ladder/redirect parity,
 fixture parity, result shapes + UA table, HMAC loopback rig).**
-**Phase 4 OPENED (SESSION-015)**: T-40 `internal/websitepipeline`
+**Phase 4 CLOSED (SESSION-015–026)**: T-40 `internal/websitepipeline`
 (the engine room, commit below) — the per-link state machine on top of
 T-23's state layer: the note builders + the review scans + the
 consolidation (ONE NOTE PER SITE) + the master table's full grammar
@@ -281,9 +281,26 @@ ported test_phase5 + test_phase6 core selections (79) + THE GOLDEN
 (39 sections, generated from the unmodified reference's own fixtures
 via importlib, run twice byte-identical — the exact mirror-note
 bytes, the refusal messages, the full mirror flow, the resync
-integration). 1826 tests race-clean. **Phase 4's task list is now
-complete (T-40..T-50 all landed).**
-Next: the Phase-4 close-out evaluation + Phase 5 (CLI parity, T-60).
+integration). 1826 tests race-clean at T-50's landing.
+**THE PHASE-4 CLOSER (SESSION-026) — THE EXIT GATE'S LAST ARTIFACT,
+THE 30-LINK OFFLINE GOLDEN RUNNER EQUIVALENT — LANDED GREEN**: the
+generator `testdiff/goldens/dump_goldenwebsites.py` drives the
+UNMODIFIED reference's own `tools/run_golden_websites.py --offline`
+(CI's mode) over its own `tests/golden/websites.json` corpus (30
+links; the fake LLM answering from the golden file; canned pages
+feeding the fetch; a throwaway vault; clocks frozen; paths folded by
+REPLACE) into `internal/websitepipeline/testdata/
+goldenwebsites.golden.json` — and `internal/websitepipeline/
+goldenrunner_test.go` replays the SAME corpus through the ported
+pipeline with the same seams, byte-comparing the canned pages, the
+90-call LLM choreography + prompts, the per-link results, the 30
+produced notes, the report, the console, and the exit-code law (all
+green first run; the mutation test bites; the generator's two-run
+byte-identical proof is part of every regeneration). **Phase 4's exit
+gate is CLOSED — all 10 named differential stones landed (the stone
+table: SESSION-025.md §gate; the closer's stamp:
+12-migration-roadmap.md §Phase 4). 1828 tests race-clean.**
+Next: Phase 5 — the engine parity milestone (the CLI surface, T-60).
 
 ## Map
 

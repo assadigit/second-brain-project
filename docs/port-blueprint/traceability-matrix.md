@@ -54,7 +54,7 @@ Legend — Evidence `app/…:line` at v0.91.0 · Spec `module-specs/…` · Go `
 
 | # | Behavior | Evidence | Spec | Go | Tests | Task | AC |
 |---|---|---|---|---|---|---|---|
-| D1 | Websites per-link state machine (gates→fetch→classify→analyze→write) | `core/website_pipeline.py:4370-4875` | spec-core-website-pipeline | `websitepipeline` | table tests + golden set | T-40 | AC-2 |
+| D1 | Websites per-link state machine (gates→fetch→classify→analyze→write) | `core/website_pipeline.py:4370-4875` | spec-core-website-pipeline | `websitepipeline` | table tests + golden set; **the Phase-4 closer (SESSION-026): the 30-link offline golden runner equivalent — dump_goldenwebsites.py drives the reference's own `tools/run_golden_websites.py --offline` over its own corpus, goldenrunner_test.go replays it byte-for-byte (canned pages, 90-call LLM choreography, results, notes, report, console, exit-code law)** | T-40 ✓ | AC-2 |
 | D2 | Banishment grammar + Telegram gate + tally | `core/website_pipeline.py:2243-3154` | spec-core-website-pipeline | `websitepipeline` | verdict flows | T-40 | AC-2 |
 | D3 | One-note-per-site consolidation + site_links rewrite | `core/website_pipeline.py:294-418, 4490-4523` | spec-core-website-pipeline | `websitepipeline` | idempotence | T-40 | AC-2 |
 | D4 | THE LAW disk sweep (banned domains → .trash/banned-domains; platform tables quarantine) + Website Directory note regeneration | `core/website_directory.py:170-432` | spec-core-website-directory | `websitepipeline/directorynote` | output golden + sweep flows | T-41 | AC-13 |

@@ -165,3 +165,34 @@ Port from `test_banishment`, `test_phase*` selections, `test_websitesqueuefix`,
 > order rides the walk order). T-40's own golden recorded no U+FFFD and
 > no interleaving-case orders, so it passes unchanged on the fixed
 > primitives. 938 race-clean at the close.
+
+> **SESSION-026 — the Phase-4 closer landed in this package: the
+> 30-link offline golden runner equivalent (the exit gate's last named
+> artifact).** testdiff/goldens/dump_goldenwebsites.py drives the
+> UNMODIFIED reference's own `tools/run_golden_websites.py --offline`
+> (CI's mode) over its own tests/golden/websites.json corpus — the
+> fake LLM answering from the golden file, canned pages feeding the
+> fetch, a throwaway vault, every clock frozen at 2026-10-17 12:00:00
+> local, temp roots + the reference app dir folded by REPLACE — into
+> testdata/goldenwebsites.golden.json (94,979 bytes; the generator
+> runs its payload twice and refuses to write unless the two dumps are
+> byte-identical — the determinism proof is part of every
+> regeneration). goldenrunner_test.go replays the SAME corpus through
+> this package with the same seams and byte-compares: the canned pages
+> (Python str.capitalize's rest-lowercased quirk included — "AI
+> illustration maker — …" titles as "Ai illustration maker — …"), the
+> 90-call LLM choreography (classify, classify, analyze per link; the
+> analysis prompt carries no `Website: ` line, so the fake's URL scan
+> misses and every analysis answer is the DEFAULT dict — the quirk
+> every golden note is named "Golden test site" by), the first three
+> prompts, the per-link results, the 30 produced notes (the
+> unique_path v-suffixes included), the report (the runner's own
+> renderer ported byte-exactly; the taxonomy summary path folds
+> `<repo>/assets` → `<app>` on the Go side), the console (the log
+> lines + the runner's stats prints), and the exit-code law (0 iff no
+> invalid taxonomy answer). ZERO port fixes were needed — T-40's
+> machinery replayed the reference's own end-to-end run green on the
+> first try; the mutation test (one byte in the golden's report
+> section) fails with a precise diff. 1828 race-clean at the close.
+> Phase 4's exit gate: CLOSED (the stamp + the stone table citation:
+> 12-migration-roadmap.md §Phase 4).
