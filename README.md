@@ -300,7 +300,27 @@ byte-identical proof is part of every regeneration). **Phase 4's exit
 gate is CLOSED — all 10 named differential stones landed (the stone
 table: SESSION-025.md §gate; the closer's stamp:
 12-migration-roadmap.md §Phase 4). 1828 tests race-clean.**
-Next: Phase 5 — the engine parity milestone (the CLI surface, T-60).
+**Phase 5 OPENED (SESSION-027) — T-60's first slice: THE CLI SHELL landed**:
+`internal/cli` grew from the Phase-0 seed into the honest Option-B surface —
+the paint box (the C ANSI system + NO_COLOR/TTY/--no-color, level styles,
+term_width, mask, rule, cli_print over the frozen clock, banner, render_bar,
+StatusLine, strip-ANSI, the Windows 65001 hardening), the settings halves
+(config load/save over the T-12 port, _ask, the token mask, the save
+cleaner), THE SYNC DOOR's pure halves (the failure card,
+sync_missing_essentials, the Enter-button with the cron law) + beat 1a
+wired, the full flag surface + dispatch + refusal cards for the Telethon
+accepted losses (ADR-0004 Am.3) + in-development cards naming their landing
+tasks, the FULL --status card (16 config rows + taxonomy + the sentinel
+rows + the Ollama/llama.cpp checks + the CacheDB/NoteStateDB/
+WebsiteStateDB stats), and --list-dead/--reset-dead. The differential
+golden: dump_cli.py drives the reference's own CLI shapes (the gui.app door
+stubbed to the REAL CacheDB, net_guard stubbed, a fake ollama module, APP_DIR
+patched, the clock frozen) → goldencli.golden.json (two-run byte-identical)
+→ the Go replay green on the first run; the mutation test bites. 1852 tests
+race-clean over 31 packages (+24).
+Next: T-60's remainder (the wizard, test-connection, detect-llm,
+hand-delivery, chrome-retry wiring), then T-62 (the sync/auto engines +
+the dry-run report).
 
 ## Map
 

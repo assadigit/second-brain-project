@@ -1,0 +1,573 @@
+{
+  "banner": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n",
+  "cliprint_lines": [
+    "12:00:00 • hello\n",
+    "12:00:00 ✔ it worked\n",
+    "12:00:00 ▲ be careful\n",
+    "12:00:00 ✖ it broke\n",
+    "12:00:00 · quiet note\n",
+    "12:00:00 • \n"
+  ],
+  "env": {
+    "ai_stub": {
+      "detail": "Ollama up @ http://127.0.0.1:11434 · 2 model(s)",
+      "engine": "Ollama",
+      "kind": "local",
+      "short": "on — local (Ollama)",
+      "state": "on"
+    },
+    "bad_config": {
+      "llm_provider": "ollama",
+      "ollama": {},
+      "vault_path": ""
+    },
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": true
+      },
+      "proxy": {
+        "enabled": true,
+        "host": "127.0.0.1",
+        "port": 10808,
+        "type": "socks5"
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault"
+    },
+    "db": {
+      "failed": [
+        {
+          "error": "HTTP 502",
+          "url": "https://github.com/owner/flaky"
+        }
+      ],
+      "note_state": {
+        "corrections": [
+          [
+            "github",
+            "https://github.com/owner/one",
+            "libraries",
+            "tools",
+            "Library/one.md",
+            "Tools/one.md",
+            "moved by owner"
+          ]
+        ],
+        "dismissed": [
+          [
+            "websites",
+            "https://example.com/beta"
+          ]
+        ],
+        "upserts": [
+          [
+            "github",
+            "https://github.com/owner/one",
+            "Library/one.md",
+            "fp-one",
+            "libraries"
+          ],
+          [
+            "github",
+            "https://github.com/owner/two",
+            "Tools/two.md",
+            "fp-two",
+            "tools"
+          ],
+          [
+            "websites",
+            "https://example.com/alpha",
+            "Web/alpha.md",
+            "fp-alpha",
+            "web-tools"
+          ]
+        ]
+      },
+      "processed": [
+        {
+          "category": "libraries",
+          "note_path": "Library/one.md",
+          "owner": "owner",
+          "repo": "one",
+          "repo_id": 111,
+          "url": "https://github.com/owner/one"
+        },
+        {
+          "category": "tools",
+          "note_path": "Tools/two.md",
+          "owner": "owner",
+          "repo": "two",
+          "repo_id": 222,
+          "url": "https://github.com/owner/two"
+        }
+      ],
+      "quarantine": [
+        {
+          "at": "2026-10-17T12:00:00",
+          "count": 3,
+          "reason": "404 Not Found",
+          "url": "https://github.com/owner/dead-repo"
+        },
+        {
+          "at": "2026-10-17T12:00:00",
+          "count": 1,
+          "reason": "404 Not Found",
+          "url": "https://github.com/owner/old-repo"
+        }
+      ],
+      "websites": {
+        "dismissed": [
+          [
+            "https://example.com/eta",
+            "note deleted by owner"
+          ]
+        ],
+        "processed": [
+          [
+            "https://example.com/alpha",
+            "Web/alpha.md",
+            "web-tools",
+            "makers",
+            "ok"
+          ],
+          [
+            "https://example.com/gamma",
+            "Web/gamma.md",
+            "web-tools",
+            "reading",
+            "ok"
+          ],
+          [
+            "https://example.com/delta",
+            "Web/delta.md",
+            "web-tools",
+            "learning",
+            "ok"
+          ]
+        ],
+        "retries": [
+          [
+            "https://example.com/epsilon",
+            "HTTP 403",
+            1
+          ],
+          [
+            "https://example.com/zeta",
+            "TLS handshake error",
+            3
+          ]
+        ]
+      }
+    },
+    "dirs": {
+      "manual": true,
+      "vault": true,
+      "webvault": false
+    },
+    "net_stub": {
+      "detail": "https://1.1.1.1 answered HTTP 200 in 42 ms",
+      "endpoint": "https://1.1.1.1",
+      "latency_ms": 42,
+      "online": true,
+      "status": 200
+    },
+    "ollama_models": [
+      "llama3",
+      "qwen2.5-coder:7b"
+    ],
+    "taxonomy_exists": true
+  },
+  "help_card_reference": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nNothing to do — pick a mode:\n\n  --init                   first-run wizard (saves credentials locally)\n  --login                  Telegram login: enter the verification code\n  --auto                   fully automatic run (SYNC → PROCESS → SEAL)\n  --sync                   the fast lane: check → one Enter → sync (add --yes for cron)\n  --status                 vault map + config + cache + note-state summary\n  --test-connection        vaults · LLM · GitHub · Telegram — is everything up and ready?\n  --detect-llm X           Detect & Set a local engine (ollama | llamacpp) — probe, pick, save\n  --list-dead              list the 404 quarantine (dead links)\n  --reset-dead             clear the 404 quarantine\n  --hand-delivery          the fourth door — open walled links in your real Chrome\n  --retry-failed           reprocess the retry queue\n  --import-file F          curate URLs from a text file\n  --from-id A --to-id B    curate a Telegram ID range\n  --offset-start A --count N curate N messages from an offset\n  --single-id N            curate one Telegram message\n  --mark-read              clear the bot's unread queue\n\nWindows tip: double-click GitCurator-SYNC.bat for the fast sync lane,\nor GitCurator-CLI.bat for the automatic run (both live in gitcurator/cli/).\n",
+    "rc": 0
+  },
+  "list_dead": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n404 quarantine (threshold 3)\n────────────────────────────────────────────────────────────────\n  • https://github.com/owner/dead-repo\n      attempt 3/3 · since 2026-10-17 · 404 Not Found  ⛔ QUARANTINED\n  • https://github.com/owner/old-repo\n      attempt 1/3 · since 2026-10-17 · 404 Not Found\n\nReset with: --cli --reset-dead\n",
+    "rc": 0
+  },
+  "paint_shapes": {
+    "codes_off": {
+      "bold": "x",
+      "cyan_bold": "x",
+      "plain": "x"
+    },
+    "codes_on": {
+      "bold": "\u001b[1mx\u001b[0m",
+      "cyan_bold": "\u001b[36m\u001b[1mx\u001b[0m",
+      "dim": "\u001b[2mx\u001b[0m",
+      "empty_codes": "x",
+      "green": "\u001b[32mx\u001b[0m",
+      "magenta": "\u001b[35mx\u001b[0m",
+      "plain": "x",
+      "red": "\u001b[31mx\u001b[0m",
+      "yellow": "\u001b[33mx\u001b[0m"
+    },
+    "level_styles": {
+      "dim": [
+        "",
+        "·"
+      ],
+      "error": [
+        "",
+        "✖"
+      ],
+      "info": [
+        "",
+        "•"
+      ],
+      "success": [
+        "",
+        "✔"
+      ],
+      "unknown": [
+        "",
+        "•"
+      ],
+      "warning": [
+        "",
+        "▲"
+      ]
+    },
+    "mask": [
+      "(not set)",
+      "•••",
+      "••••",
+      "abcd••••",
+      "abcd••••••••••••",
+      "abcd••••••••••••••••••••••••"
+    ],
+    "mask_token": [
+      "(not set)",
+      "•••",
+      "abcd••••••••hijk",
+      "fake••••••••6789"
+    ],
+    "render_bar": [
+      "░░░░░░░░░░░░░░░░░░░░ 0/1 (0%)",
+      "░░░░░░░░░░░░░░░░░░░░ 0/40 (0%)",
+      "░░░░░░░░░░░░░░░░░░░░ 1/40 (2%)",
+      "██████░░░░░░░░░░░░░░ 12/40 (30%)",
+      "███████████████░░░░░ 30/40 (75%)",
+      "████████████████████ 40/40 (100%)",
+      "████████████████████ 40/40 (100%)",
+      "████████████████████ 50/40 (100%)",
+      "██░░░░░ 12/40 (30%)"
+    ],
+    "rule": "────────────────────────────────────────────────────────────────",
+    "spin_frames": "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏",
+    "strip_ansi": [
+      "plain",
+      "bold plain",
+      "red bold"
+    ]
+  },
+  "reset_dead": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n12:00:00 ✔ ♻️ 404 quarantine reset — 2 link(s) will be processed again.\n",
+    "rc": 0
+  },
+  "status_card": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nConfiguration (<app>/config.json)\n────────────────────────────────────────────────────────────────\n  Vault                  <vaults>/vault  ✓ exists\n  Websites vault           ◌ will be created\n  Manual vault             ✓ exists\n  Library mirror         tools/mirror_manual.py — dry-run first, then --apply\n  Vault repo             main-vault-backup\n  Websites repo          websites-backup\n  Personal repo          (not set — the radar detects it)\n  Pipelines              github ON · websites ON\n  Telegram API ID        12345\n  Telegram hash          abcd••••••••••••••••••••\n  Phone                  +9891••••••••\n  Bot                    @curator_bot\n  GitHub token           fake••••••••••••••••••••••••\n  LLM                    ollama · llama3 · num_ctx=8192 · classify='llama3' · analyze='llama3'\n  Proxy                  socks5://127.0.0.1:10808\n  404 quarantine threshold 3 (dead after N consecutive 404s)\n  Taxonomy               taxonomy.json  ✓ exists\n  Internet               ✓ online (1.1.1.1 · 42 ms)\n  AI engine              ✓ on — local (Ollama)\n    Ollama up @ http://127.0.0.1:11434 · 2 model(s)\n  Ollama                 2 model(s) installed · 'llama3' ready\n\nCache (cache.db)\n────────────────────────────────────────────────────────────────\n  Processed repos        2\n  Decommissioned (404)   2\n  Retry queue            1\n  404 quarantine         1 confirmed / 2 tracked\n      • https://github.com/owner/dead-repo  3 attempt(s) · 2026-10-17T12:00 ⛔\n      • https://github.com/owner/old-repo  1 attempt(s) · 2026-10-17T12:00\n\nNote state (moves-as-corrections record)\n────────────────────────────────────────────────────────────────\n  GitHub vault baseline  2 note(s) recorded\n  Websites vault record  1 note(s) recorded\n  Corrections applied    1 (github 1 · websites 0)\n  Dismissed URLs         1 (github 0 · websites 1)\n\nWebsites pipeline (cache.db)\n────────────────────────────────────────────────────────────────\n  Processed websites     3\n  Fetch retry queue      2 pending (1 exhausted, kept in _review)\n  Dismissed URLs         1\n\n",
+    "rc": 0
+  },
+  "status_no_config": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n12:00:00 ▲ No config at <app>/missing-config.json — run `--cli --init` first.\n",
+    "rc": 1
+  },
+  "sync_bad_config": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n\n12:00:00 ✖ SYNC refused — the setup is not ready:\n12:00:00 ✖   · Telegram api id is missing\n12:00:00 ✖   · Telegram api hash is missing\n12:00:00 ✖   · Telegram phone is missing\n12:00:00 ✖   · the bot username is missing (the queue cannot be read)\n12:00:00 ✖   · the vault path is empty\n12:00:00 ✖   · the Ollama model is not configured\n\n12:00:00 ▲ Open the GUI version (GitCurator.bat) -> Settings and add the credentials and essentials again, then run Sync once more.\n\n",
+    "rc": 1
+  },
+  "sync_button": [
+    {
+      "answer": "",
+      "assume_yes": false,
+      "eof": false,
+      "prompts": [
+        "? Press [Enter] to SYNC now — anything else quits: "
+      ],
+      "sync": true,
+      "tty": true
+    },
+    {
+      "answer": "q",
+      "assume_yes": false,
+      "eof": false,
+      "prompts": [
+        "? Press [Enter] to SYNC now — anything else quits: "
+      ],
+      "sync": false,
+      "tty": true
+    },
+    {
+      "answer": "x",
+      "assume_yes": false,
+      "eof": false,
+      "prompts": [
+        "? Press [Enter] to SYNC now — anything else quits: "
+      ],
+      "sync": false,
+      "tty": true
+    },
+    {
+      "answer": "  Q  ",
+      "assume_yes": false,
+      "eof": false,
+      "prompts": [
+        "? Press [Enter] to SYNC now — anything else quits: "
+      ],
+      "sync": false,
+      "tty": true
+    },
+    {
+      "answer": "boom-if-asked",
+      "assume_yes": true,
+      "eof": false,
+      "prompts": [],
+      "sync": true,
+      "tty": true
+    },
+    {
+      "answer": "q",
+      "assume_yes": false,
+      "eof": false,
+      "prompts": [],
+      "sync": true,
+      "tty": false
+    },
+    {
+      "answer": "",
+      "assume_yes": false,
+      "eof": true,
+      "prompts": [
+        "? Press [Enter] to SYNC now — anything else quits: "
+      ],
+      "sync": false,
+      "tty": true
+    }
+  ],
+  "sync_essentials": [
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "llm_provider": "ollama",
+        "ollama": {
+          "model": "llama3"
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": []
+    },
+    {
+      "config": {
+        "bot_username": "",
+        "llm_provider": "ollama",
+        "ollama": {
+          "model": "llama3"
+        },
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": [
+        "Telegram api hash is missing",
+        "the bot username is missing (the queue cannot be read)"
+      ]
+    },
+    {
+      "config": {
+        "bot_username": "@",
+        "llm_provider": "ollama",
+        "ollama": {
+          "model": "llama3"
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": [
+        "the bot username is missing (the queue cannot be read)"
+      ]
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "llm_provider": "ollama",
+        "ollama": {
+          "model": "llama3"
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": false,
+      "problems": [
+        "the vault is not on disk: /vaults/main"
+      ]
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "llm_provider": "ollama",
+        "ollama": {
+          "model": "llama3"
+        },
+        "pipelines": {
+          "websites": false
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": []
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "llm_provider": "ollama",
+        "ollama": {
+          "model": "llama3"
+        },
+        "pipelines": {
+          "websites": true
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": [
+        "the websites pipeline is ON but its vault path is empty"
+      ]
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "llm_provider": "ollama",
+        "ollama": {
+          "model": "llama3"
+        },
+        "pipelines": {
+          "websites": true
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main",
+        "website_vault_path": "/vaults/web"
+      },
+      "isdir": false,
+      "problems": [
+        "the vault is not on disk: /vaults/main",
+        "the websites vault is not on disk: /vaults/web"
+      ]
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "llm_provider": "ollama",
+        "ollama": {},
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": [
+        "the Ollama model is not configured"
+      ]
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "llm_provider": "llamacpp",
+        "ollama": {
+          "model": "llama3"
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": [
+        "the llama.cpp model is not configured"
+      ]
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "llm_provider": "anthropic",
+        "ollama": {
+          "model": "llama3"
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": [
+        "the cloud LLM model is not configured",
+        "the cloud LLM API URL is not configured"
+      ]
+    },
+    {
+      "config": {
+        "bot_username": "curator_bot",
+        "cloud_model": "claude",
+        "llm_provider": "anthropic",
+        "ollama": {
+          "model": "llama3"
+        },
+        "telegram_api_hash": "deadbeef",
+        "telegram_api_id": "12345",
+        "telegram_phone": "+98765",
+        "vault_path": "/vaults/main"
+      },
+      "isdir": true,
+      "problems": [
+        "the cloud LLM API URL is not configured"
+      ]
+    }
+  ],
+  "sync_failure_card": "\n12:00:00 ✖ SYNC refused — the setup is not ready:\n12:00:00 ✖   · the vault path is empty\n12:00:00 ✖   · the Ollama model is not configured\n\n12:00:00 ▲ Open the GUI version (GitCurator.bat) -> Settings and add the credentials and essentials again, then run Sync once more.\n\n",
+  "sync_no_config": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n\n12:00:00 ✖ SYNC refused — the setup is not ready:\n12:00:00 ✖   · no config at <app>/missing-config.json — the GUI's Settings writes it on its first save\n\n12:00:00 ▲ Open the GUI version (GitCurator.bat) -> Settings and add the credentials and essentials again, then run Sync once more.\n\n",
+    "rc": 1
+  }
+}

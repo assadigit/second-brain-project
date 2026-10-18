@@ -13,7 +13,20 @@
 
 - **LOC**: cli.py 1,777 + cli_run.py 719 + cli_sync.py 381 + cli_settings.py 211 +
   cli_terminal.py 321 + shims 33 · **Go home**: `internal/cli` + `cmd/gitcurator-cli` ·
-  **Status**: port (Telegram legs re-scoped per the banner above)
+  **Status**: port in progress (Telegram legs re-scoped per the banner above;
+  SESSION-027 landed T-60's first slice — THE CLI SHELL: the paint box, the
+  settings halves, the sync door's pure halves, the honest flag surface +
+  dispatch, the FULL --status card, --list-dead/--reset-dead; the wizard,
+  --test-connection, --detect-llm, --hand-delivery, --chrome-retry and the
+  batch engines follow).
+- **THE HONEST FLAG SURFACE (T-60's decision, landed SESSION-027)**: the
+  Telethon-only flags (`--login`, `--mark-read`, `--from-id/--to-id`,
+  `--offset-start/--count`, `--single-id`) stay RECOGNIZED on the parser and
+  answer explicit refusal cards citing ADR-0004 Am.3 (exit 1) — never a
+  silent no-op, never an unknown-flag crash; they are dropped from the
+  teaching surfaces (the friendly card and --help). Commands whose engines
+  land later answer explicit in-development cards naming the task (the rest
+  of T-60 / T-62), exit 1.
 - **Responsibility**: the visual terminal client — full command surface, wizard, status/detect
   commands, `--auto` and manual batch modes — running the exact same pipeline via
   `QCoreApplication` (in Go: the same `internal/app` commands, no Qt anywhere).
@@ -39,7 +52,13 @@ batch; no flag → friendly help card.
   no login is ever offered (accepted loss); the wizard still *collects* the Telegram keys for
   compatibility (the compat law) — the engine never uses them.
 - **`--status`** (423-678): config summary rows (vault map ✓/◌/✗, repo slots, pipelines, masked
-  secrets), sentinel probes, CacheDB/NoteStateDB/WebsiteStateDB stats; never creates state.
+  secrets), sentinel probes, CacheDB/NoteStateDB/WebsiteStateDB stats. **REALITY CORRECTION
+  (SESSION-027, found at implementation time)**: "never creates state" is true only for the
+  note-state and websites blocks (they open the db file only when it already exists) — the
+  CacheDB block calls `CacheDB()` with its default path UNCONDITIONALLY, and the reference's
+  CacheDB constructor CREATES the file + tables when missing (the v0.09.4 APP_DIR-anchored
+  default): a `--status` run on a fresh install does create APP_DIR/cache.db. The port
+  preserves the behavior (the store's NewCacheDB over the same path).
 - **`--test-connection`**: the battery + one LIVE Telegram probe (bot queue if bot configured,
   else account preview; non-interactive leg)
   — **re-scoped in the Go port (2026-10-15, ADR-0004 Am.3 / R-0):** the live Telegram probe is
@@ -98,6 +117,11 @@ default, `q` abort, non-TTY auto-picks, 5 tries) / `apply_model_choice` (provide
 
 - `C` ANSI class: `enable()` honors NO_COLOR / TTY / colorama `just_fix_windows_console()`
   fallback `os.system("")` VT trick; `paint`.
+  **GO NOTE (the dead-level-color quirk, pinned by the golden)**: the reference builds
+  `_LEVEL_STYLE` at MODULE IMPORT while C's codes are still the pre-enable empty strings —
+  `enable()` mutates the class attributes but never the already-built dict, so the level
+  COLORS are dead code in the reference (cli_print's icons and level text stay plain even
+  with colors on; only the timestamp dims). The port freezes the same empty level colors.
 - **`_harden_stdio` (runs at import)**: stdout/stderr → UTF-8 `errors="replace"`;
   Windows `SetConsoleOutputCP(65001)` + `SetConsoleCP(65001)` (the "CLI is not running"
   UnicodeEncodeError fix).
@@ -126,3 +150,49 @@ Flag-surface snapshot (help text); wizard flow (fake stdin); status card renderi
 `--sync` door beats (Enter/other/`--yes`/non-TTY); wrong-vault guard; Phase-5 gating of msg-id
 persist + mark-read; dry-run report equality (differential case); Ctrl+C exit code; terminal
 paint (ANSI/NO_COLOR); UTF-8 hardening on Windows.
+
+---
+
+## SESSION-027 shipped record — T-60's first slice: THE CLI SHELL
+
+Landed (commit at the session close): `internal/cli` grew from the Phase-0
+seed into the shell — `terminal.go` (the paint box: the C ANSI system with
+the NO_COLOR/TTY/--no-color law, level styles, `term_width`'s COLUMNS law,
+`mask`/`_mask_token`, `rule`, `cli_print` over the frozen-clock seam,
+`banner`, `render_bar` with banker's rounding, `StatusLine`, `_strip_ansi`,
+the Windows 65001 console hardening via syscall), `settings.go`
+(`_config_path`/`load_config`/`save_config` over the T-12 config port, `_ask`
+with the EOF law, `_mask_token`, `_clean_config_for_save`),
+`syncdoor.go` (GUI_INSTRUCTION, `sync_failure_card`,
+`sync_missing_essentials` with the isdir seam, `sync_confirm_prompt` with
+the cron law) + cmd_sync's BEAT 1a wired, `cli.go` (the honest Option-B
+flag surface + the dispatch order + the friendly card + `--help` + the
+refusal/not-yet cards), `status.go` (the FULL card: 16 config rows, the
+taxonomy row, the sentinel rows over the connectioncheck port's seams, the
+Ollama/llama.cpp model checks, the CacheDB/NoteStateDB/WebsiteStateDB
+stats), `dead.go` (--list-dead/--reset-dead).
+
+The differential stone: `testdiff/goldens/dump_cli.py` (the generator —
+drives the reference's own CLI shapes with the house seams: the gui.icons
+stub unblocking the stdlib import chain, the gui.app stub exposing the REAL
+CacheDB/dead_link_threshold, the net_guard stub, the fake ollama module,
+APP_DIR patched before the cache_db import, the frozen clock, both temp
+roots folded) → `internal/cli/testdata/goldencli.golden.json` (two-run
+byte-identical) → `goldencli_test.go` (the replay: banner, paint shapes
+with colors on AND off, cli_print lines, the essentials matrix, the button
+beats, the failure card, the full status card over the rebuilt crafted env
+(config + cache.db through the ported store's own methods + the pinned
+quarantine rows), the no-config paths, list-dead, reset-dead; the mutation
+test bites; the reference's no-flag help card kept as the pre-Option-B
+RECORD, not byte-compared — the divergence is asserted, documented, and
+pinned by the Go-side snapshots).
+
+Remaining on T-60's books (SESSION-028+): the `--init` wizard (the repo
+radar is ported; the llamacpp probe rides the seam), `--test-connection`
+wiring (the battery port exists — `connectioncheck.RunLocalChecks` +
+`Summarize`), `--detect-llm`, `--hand-delivery`, `--chrome-retry` (the
+engines are ported; the CLI wiring follows), `smart_model_pick`/
+`prompt_model_menu`/`apply_model_choice` (cli_settings's model-menu half —
+the batch engine's model-picker bridge, T-62's books), then T-62 (--sync's
+live beats + --auto + the dry-run report writer), T-63 (launchers), T-64
+(the full differential corpus run), T-65 (the release tag).

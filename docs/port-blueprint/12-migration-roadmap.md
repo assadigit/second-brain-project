@@ -78,6 +78,13 @@ packages. **Phase 4 CLOSED; Phase 5 (engine parity milestone per Amendment 1) OP
 
 **Work**: `internal/cli` full flag surface, terminal paint (ANSI/UTF-8 Windows hardening), the
 `--sync` door, dry-run reports, `cmd/gitcurator-cli` packaging; `.bat` launcher equivalents.
+**Progress (SESSION-027)**: T-60's first slice LANDED — THE CLI SHELL (the paint box, the
+settings halves, the sync door's pure halves + beat 1a, the honest Option-B flag surface with
+refusal cards for the Telethon accepted losses, the FULL --status card, --list-dead/
+--reset-dead; the differential golden dump_cli.py → goldencli.golden.json → the Go replay
+green, mutation bites; 1852 tests race-clean over 31 packages). T-60's remainder (the wizard,
+test-connection, detect-llm, hand-delivery, chrome-retry wiring) + T-61's remaining paint
+legs ride with it; T-62's engines follow.
 **Exit gate**: the owner can run the Go CLI alongside the Python app on real data (dry-run
 first); differential harness green on the full case list; **CLI parity release `0.92.0-go.1`**
 tagged with the zip artifact.

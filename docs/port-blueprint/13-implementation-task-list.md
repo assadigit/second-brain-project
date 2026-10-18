@@ -68,7 +68,7 @@
 
 | ID | Task | Spec refs | Effort | Acceptance |
 |---|---|---|---|---|
-| T-60 | `internal/cli`: full flag surface, wizard, status/test/detect/hand/chrome/retry commands | spec-cli | L | flag-surface tests; output snapshots |
+| T-60 | `internal/cli`: full flag surface, wizard, status/test/detect/hand/chrome/retry commands — **slice 1 landed (SESSION-027): the CLI shell (paint box + settings halves + sync pure halves + the honest Option-B surface + the FULL status card + list/reset-dead + the differential golden); the wizard/test/detect/hand/chrome wiring remains** | spec-cli (SESSION-027 shipped record) | L | flag-surface tests; output snapshots (slice 1: the golden replay + snapshots, green) |
 | T-61 | Terminal paint: ANSI, UTF-8 console hardening (65001), NO_COLOR, spinner/bar | spec-cli §terminal | S | Windows console test |
 | T-62 | `--sync` door + `--auto` engine + dry-run report writer | spec-cli; spec-gui-processing | M | differential `--sync --dry-run` case vs Python |
 | T-63 | `cmd/gitcurator-cli` + launcher `.bat`s (ASCII/CRLF) + `1-INSTALL` equivalent checks | 10 §2-6 | S | clean-VM smoke passes |

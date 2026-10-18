@@ -1,9 +1,11 @@
 // Command gitcurator-cli is the CLI entry point (console subsystem) of the
 // Go port of GitCurator.
 //
-// Phase 0 implements only the surface the differential harness drives
-// (status with a missing config file). The full flag surface, terminal
-// paint and sync door land in Phase 5 (task T-60, spec-cli).
+// Phase 5 (T-60): the CLI shell — the paint box, the honest Option-B
+// flag surface with the dispatch order, the full --status card,
+// --list-dead/--reset-dead, and THE SYNC DOOR's pure check half. The
+// wizard, the test/detect/hand/chrome commands and the batch engines
+// land with the rest of T-60 / T-62 (spec-cli).
 package main
 
 import (
