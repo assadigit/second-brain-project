@@ -912,6 +912,7 @@ func (e *batchEngine) buildRunner(cache *store.CacheDB,
 
 	r := githubpipeline.NewRunner(cfgPlainMap(e.cfg))
 	r.Start()         // is_running = True (the __init__ law)
+	r.Clock = e.c.Now // the reports' stamps ride the CLI's clock seam
 	r.Headless = true // the CLI: non-blocking defaults everywhere
 	r.Cache = cache
 	r.NoteStateDB = noteStateDB
@@ -957,22 +958,25 @@ func (e *batchEngine) buildRunner(cache *store.CacheDB,
 	return r
 }
 
-// hygienePass wires the vaulthygiene module (T-46).
+// hygienePass wires the vaulthygiene module (T-46): the batch's own
+// closing pass runs run_vault_hygiene over the GITHUB vault ONLY (the
+// reference's _vault_hygiene_pass — NOT heal_machine_vaults, which is
+// the startup heal's both-vaults door). Best-effort — never a killer.
 func (e *batchEngine) hygienePass() {
-	// _vault_hygiene_pass delegates to core/vault_hygiene; the Go port
-	// (T-46) exposes HealMachineVaults. Best-effort — never a killer.
 	func() {
 		defer func() { recover() }()
-		cfgPlain := cfgPlainMap(e.cfg)
-		vaulthygiene.HealMachineVaults(cfgPlain, e.log, nil, nil)
+		vaulthygiene.RunVaultHygiene(cfgOrStr(e.cfg, "vault_path"),
+			e.log, nil, nil)
 	}()
 }
 
-// runStartCheckGithub mirrors the GitHub vault's §4.4 pass.
+// runStartCheckGithub mirrors the GitHub vault's §4.4 pass (the dry-run
+// branch needs the db PATH even with no connection — the reference's
+// run_start_check derives it when db is None).
 func (e *batchEngine) runStartCheckGithub(vaultPath string,
 	db *notestate.DB) *notestate.RunResult {
 	res, err := notestate.RunStartCheck(notestate.VaultGithub, vaultPath,
-		db, e.log, nil, "")
+		db, e.log, nil, cacheDBPath())
 	if err != nil {
 		return nil // never break a run
 	}

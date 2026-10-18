@@ -24,6 +24,7 @@ import (
 	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/storage"
+	"github.com/assadigit/second-brain-project/internal/store"
 )
 
 // recStatus is the StatusPainter recorder (the golden replay's twin —
@@ -425,9 +426,21 @@ func TestEngineDryRunPath(t *testing.T) {
 	if strings.Contains(out, "✓ Bot queue synced") {
 		t.Fatalf("a dry-run must not speak the Phase-5 CLEAR verdict:\n%s", out)
 	}
-	// the shadow cache exists (the rehearsal's numbers are truthful).
-	if _, err := os.Stat(filepath.Join(e.appDir, "cache.db")); err == nil {
-		t.Fatalf("a dry-run must not create the real cache.db")
+	// the rehearsal records NOTHING: the real cache (the §4.4 classify
+	// may open + schema-create it — the reference's own quirk, its
+	// classify_changes constructs the full NoteStateDB) carries no
+	// processed marks, no failures, no quarantine.
+	if cache, err := store.NewCacheDB(filepath.Join(e.appDir, "cache.db")); err == nil {
+		if got := len(cache.GetAllProcessedURLs()); got != 0 {
+			t.Fatalf("a dry-run leaked %d processed row(s)", got)
+		}
+		if got := cache.GetFailedCount(); got != 0 {
+			t.Fatalf("a dry-run leaked %d failed row(s)", got)
+		}
+		if got := len(cache.GetQuarantineStats()); got != 0 {
+			t.Fatalf("a dry-run leaked %d quarantine row(s)", got)
+		}
+		cache.Close()
 	}
 }
 

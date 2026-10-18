@@ -1,4 +1,162 @@
 {
+  "auto_confirm": {
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": true
+      },
+      "proxy": {
+        "enabled": false
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/confirm-vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault"
+    },
+    "name": "over10-n",
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n┌──────────────────────────── run configuration ─────────────────────────────┐\n│ Vault            <vaults>/confirm-vault                │\n│ Bot queue        @curator_bot                                             │\n│ Proxy            disabled                                                 │\n│ LLM              Ollama · llama3                                          │\n│ GitHub token     fake••••••••6789                                         │\n└────────────────────────────────────────────────────────────────────────────┘\n────────────────────────────── pre-flight checks ───────────────────────────────\n  ✔ GitHub token    authenticated as octo-owner\n  · Proxy           disabled — connecting directly\n  ✔ LLM provider    Ollama up @ http://127.0.0.1:11434 · 2 model(s) · 'llama3' ready\n\nPhase 1 — SYNC: fetching undone items from the bot queue…\n\n\nQueue: 11 repo(s) pending · 0 already in vault · 0 decommissioned · 0 website(s) pending · 0 non-GitHub\nDedup ground truth — vault index: 1 note(s) · cache: 2 processed repo(s)\n? 11 item(s) ready (11 repo(s) + 0 website(s)) — process them all? [Y/n] 12:00:00 ▲ Cancelled — nothing was processed.\n",
+    "rc": 0,
+    "stdin": [
+      "n"
+    ],
+    "urls": [
+      "https://github.com/octo-owner/repo-0",
+      "https://github.com/octo-owner/repo-1",
+      "https://github.com/octo-owner/repo-2",
+      "https://github.com/octo-owner/repo-3",
+      "https://github.com/octo-owner/repo-4",
+      "https://github.com/octo-owner/repo-5",
+      "https://github.com/octo-owner/repo-6",
+      "https://github.com/octo-owner/repo-7",
+      "https://github.com/octo-owner/repo-8",
+      "https://github.com/octo-owner/repo-9",
+      "https://github.com/octo-owner/repo-10"
+    ]
+  },
+  "auto_guard": {
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": true
+      },
+      "proxy": {
+        "enabled": false
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault"
+    },
+    "fetch": {
+      "duplicates_removed": 0,
+      "max_message_id": 9,
+      "non_github_urls": [],
+      "raw_url_count": 1,
+      "success": true,
+      "total_messages": 1,
+      "urls": [
+        "https://github.com/octo-owner/fresh-repo"
+      ]
+    },
+    "name": "wrong-vault-n",
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n┌──────────────────────────── run configuration ─────────────────────────────┐\n│ Vault            <vaults>/vault                        │\n│ Bot queue        @curator_bot                                             │\n│ Proxy            disabled                                                 │\n│ LLM              Ollama · llama3                                          │\n│ GitHub token     fake••••••••6789                                         │\n└────────────────────────────────────────────────────────────────────────────┘\n────────────────────────────── pre-flight checks ───────────────────────────────\n  ✔ GitHub token    authenticated as octo-owner\n  · Proxy           disabled — connecting directly\n  ✔ LLM provider    Ollama up @ http://127.0.0.1:11434 · 2 model(s) · 'llama3' ready\n\nPhase 1 — SYNC: fetching undone items from the bot queue…\n\n\nQueue: 1 repo(s) pending · 0 already in vault · 0 decommissioned · 0 website(s) pending · 0 non-GitHub\nDedup ground truth — vault index: 0 note(s) · cache: 2 processed repo(s)\n\n12:00:00 ▲ This looks like a WRONG VAULT PATH, so I stopped before processing:\n12:00:00 •   · the vault at <vaults>/vault indexed 0 notes (no 'source:' frontmatter found)\n12:00:00 •   · the cache knows 2 already-processed repos — your notes live somewhere else\n12:00:00 •   · processing now would duplicate ~all 1 link(s) into that empty vault\n\n12:00:00 • Fix: point vault_path at the vault your notes are actually written to —\n12:00:00 •   · re-run python main.py --cli --init (Enter keeps every current value; fix only the vault), or\n12:00:00 •   · run once with --vault C:\\path\\to\\your\\real\\vault to test it, or\n12:00:00 •   · fix \"vault_path\" in config.json directly.\n? Process all 1 links into this empty vault anyway? [y/N] 12:00:00 ▲ Cancelled — nothing was processed. Fix vault_path first.\n",
+    "rc": 1,
+    "stdin": [
+      "n"
+    ]
+  },
+  "auto_guard_yes": {
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": true
+      },
+      "proxy": {
+        "enabled": false
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault"
+    },
+    "fetch": {
+      "duplicates_removed": 0,
+      "max_message_id": 9,
+      "non_github_urls": [],
+      "raw_url_count": 1,
+      "success": true,
+      "total_messages": 1,
+      "urls": [
+        "https://github.com/octo-owner/fresh-repo"
+      ]
+    },
+    "name": "wrong-vault-yes",
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n┌──────────────────────────── run configuration ─────────────────────────────┐\n│ Vault            <vaults>/vault                        │\n│ Bot queue        @curator_bot                                             │\n│ Proxy            disabled                                                 │\n│ LLM              Ollama · llama3                                          │\n│ GitHub token     fake••••••••6789                                         │\n└────────────────────────────────────────────────────────────────────────────┘\n────────────────────────────── pre-flight checks ───────────────────────────────\n  ✔ GitHub token    authenticated as octo-owner\n  · Proxy           disabled — connecting directly\n  ✔ LLM provider    Ollama up @ http://127.0.0.1:11434 · 2 model(s) · 'llama3' ready\n\nPhase 1 — SYNC: fetching undone items from the bot queue…\n\n\nQueue: 1 repo(s) pending · 0 already in vault · 0 decommissioned · 0 website(s) pending · 0 non-GitHub\nDedup ground truth — vault index: 0 note(s) · cache: 2 processed repo(s)\n\n12:00:00 ▲ This looks like a WRONG VAULT PATH, so I stopped before processing:\n12:00:00 •   · the vault at <vaults>/vault indexed 0 notes (no 'source:' frontmatter found)\n12:00:00 •   · the cache knows 2 already-processed repos — your notes live somewhere else\n12:00:00 •   · processing now would duplicate ~all 1 link(s) into that empty vault\n\n12:00:00 • Fix: point vault_path at the vault your notes are actually written to —\n12:00:00 •   · re-run python main.py --cli --init (Enter keeps every current value; fix only the vault), or\n12:00:00 •   · run once with --vault C:\\path\\to\\your\\real\\vault to test it, or\n12:00:00 •   · fix \"vault_path\" in config.json directly.\n\n12:00:00 • (--yes mode never re-processes on this signature. If you REALLY want a fresh vault re-run, start the same command without --yes and confirm.)\n",
+    "rc": 1
+  },
   "banner": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n",
   "chrome_retry_dry_run": {
     "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nFailed links waiting for the fifth door (your real Chrome, one tab each)\n────────────────────────────────────────────────────────────────\n  • https://example.com/epsilon\n      HTTP 403\n  • https://example.com/zeta\n      TLS handshake error\n\n12:00:00 ✔ 🤖 Dry-run — Chrome is never launched; the fifth door rehearsed 2 link(s), delivered 0.\n",
@@ -45,6 +203,167 @@
       }
     ],
     "path": "<app>/reports/dry-runs/dry_run_20261017-120000.md"
+  },
+  "engine_dryrun": {
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": false
+      },
+      "proxy": {
+        "enabled": false
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault"
+    },
+    "logs": [
+      [
+        "warning",
+        "🧪 DRY-RUN: every vault write this batch would perform is logged and skipped. Nothing will be written, sealed or marked read."
+      ],
+      [
+        "info",
+        "📋 Manifest created: 1 GitHub + 0 non-GitHub links recorded"
+      ],
+      [
+        "info",
+        "🔥 Warming up Ollama model 'llama3'..."
+      ],
+      [
+        "success",
+        "✅ Model warmed up"
+      ],
+      [
+        "info",
+        "📚 Vault index: 0 notes indexed"
+      ],
+      [
+        "info",
+        "🔍 [dry-run] note state (github vault): deleted=2 — nothing applied, nothing recorded"
+      ],
+      [
+        "info",
+        "   📄 README fetched (56 chars)"
+      ],
+      [
+        "info",
+        "🤖 Analyzing 'curated-repo' with LLM (attempt 1: json format)..."
+      ],
+      [
+        "success",
+        "✅ LLM analysis complete for 'curated-repo'"
+      ],
+      [
+        "info",
+        "   📦 Latest release: v1.0.0 (2026-01-01)"
+      ],
+      [
+        "warning",
+        "⚠️ Low quality (uncategorized) — note sent to _review/ folder"
+      ],
+      [
+        "info",
+        "   ⚠️ No banner (will retry later) — note still written"
+      ],
+      [
+        "success",
+        "✅ [vault] octo-owner/curated-repo processed and stored → _review/curated-repo_Uncategorized_go.md"
+      ],
+      [
+        "info",
+        "=================================================="
+      ],
+      [
+        "info",
+        "🔍 VERIFICATION REPORT"
+      ],
+      [
+        "info",
+        "=================================================="
+      ],
+      [
+        "info",
+        "   Total links: 1"
+      ],
+      [
+        "success",
+        "   GitHub processed: 1"
+      ],
+      [
+        "info",
+        "   GitHub skipped (dedup): 0"
+      ],
+      [
+        "info",
+        "   GitHub failed: 0"
+      ],
+      [
+        "info",
+        "   🧮 Accounting: 1/1 links accounted for ✓"
+      ],
+      [
+        "success",
+        "✅ ALL LINKS VERIFIED — no data loss!"
+      ],
+      [
+        "info",
+        "=================================================="
+      ],
+      [
+        "info",
+        "🧹 Vault hygiene: clean — no index scaffold, no stray empty notes, no legacy reports in the vault."
+      ],
+      [
+        "success",
+        "📊 Final report saved: <app>/reports/_processing_report_20261017_120000.md"
+      ],
+      [
+        "warning",
+        "🧪 DRY-RUN COMPLETE — 12 vault operation(s) were logged, not performed. VaultSeal, Good Repos publish, bot-queue mark-read and last_processed_msg_id were all skipped."
+      ],
+      [
+        "info",
+        "🧪 Dry-run report: <app>/reports/dry-runs/dry_run_20261017-120000.md"
+      ],
+      [
+        "info",
+        "🏁 Done. Processed 1 repos."
+      ],
+      [
+        "success",
+        "📝 Summary log saved: <app>/reports/processing_summary_20261017_120000.txt"
+      ]
+    ],
+    "name": "one-link-dryrun",
+    "output": "\n────────────────────────────────────────────────────────────────\n  ✔ BATCH DONE in 0m 01s\n  Processed 1 out of 1 repos. Summary log: <app>/reports/processing_summary_20261017_120000.txt\n────────────────────────────────────────────────────────────────\n\n",
+    "rc": 0,
+    "report_body": "# GitCurator dry-run report\n\n*Generated: 2026-10-17 12:00:00*\n\n**Nothing below was written.** Every operation was recorded instead of performed.\n\n**12 operation(s) would have been performed:**\n\n- atomic-write: 1\n- makedirs: 5\n- write: 6\n\n| # | Time | Op | Target | Size | Preview / note |\n|---|------|----|--------|------|----------------|\n| 1 | 12:00:00 | write | `<vaults>/vault/links_manifest.json` |  | links_manifest.json (link tracker) |\n| 2 | 12:00:00 | makedirs | `<vaults>/vault/Uncategorized` |  | create folder |\n| 3 | 12:00:00 | makedirs | `<vaults>/vault/Uncategorized` |  | create folder |\n| 4 | 12:00:00 | makedirs | `<vaults>/vault/_review` |  | create folder |\n| 5 | 12:00:00 | atomic-write | `<vaults>/vault/_review/curated-repo_Uncategorized_go.md` | 1,633 B | ---⏎source: \"https://github.com/octo-owner/curated-repo\"⏎aliases:⏎  - curated-repo⏎  - octo-owner/curated-repo⏎⏎tags: [go, testing, python]⏎category: \"Uncategor… |\n| 6 | 12:00:00 | write | `<vaults>/vault/links_manifest.json` |  | links_manifest.json (link tracker) |\n| 7 | 12:00:00 | write | `<vaults>/vault/_undo_last_batch.txt` | 0 B |  |\n| 8 | 12:00:00 | write | `<vaults>/vault/links_manifest.json` |  | links_manifest.json (link tracker) |\n| 9 | 12:00:00 | makedirs | `<app>/reports` |  | folder exists |\n| 10 | 12:00:00 | write | `<app>/reports/processing_summary_20261017_120000.txt` | 739 B | ============================================================⏎GITHUB PROJECT CURATOR - PROCESSING SUMMARY⏎=======================================================… |\n| 11 | 12:00:00 | makedirs | `<app>/reports` |  | folder exists |\n| 12 | 12:00:00 | write | `<app>/reports/_processing_report_20261017_120000.md` | 941 B | # 📊 Processing Report — 2026-10-17 12:00⏎⏎> Source: `bot` \\| Batch size: 1 \\| Worker v25⏎⏎## 📈 Summary⏎⏎\\| Metric \\| Count \\|⏎\\|--------\\|-------\\|⏎\\| 📬 Total links in b… |\n",
+    "urls": [
+      "https://github.com/octo-owner/curated-repo"
+    ]
   },
   "env": {
     "ai_stub": {

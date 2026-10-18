@@ -97,8 +97,21 @@ with the model-picker bridge, run_config_card, the dry-run report writer, and TH
 PHASE-5 CLEAR RE-SPEC — ADR-0004 Am.3's bounded open item — resolved on the evidence
 chain and implemented: the all-clear verdict + the batch-complete mirror push as the
 ack; the golden grew to 10 more sections incl. two saved configs — 69,028 bytes
-two-run byte-identical; 1877 tests race-clean over 31 packages). T-62's remainder
-(the engine shell + the batch drivers + the SIGINT/heartbeat/exit law) follows.
+two-run byte-identical; 1877 tests race-clean over 31 packages).
+**Progress (SESSION-030)**: T-62 slice 2 LANDED — THE ENGINE + THE
+DRIVERS — **T-62 COMPLETE**: run_batch_visual's synchronous shell over
+the ported engines (the setup family, the warmup family, the websites
+phase per website_phase.py's wiring, the Finish chain + the seals in
+the reference's exact order, the Phase-5 CLEAR, the dry-run path, the
+SIGINT drain + the 100 ms heartbeat ticker, the exit-code law) + the
+Worker-queue fetch + the _bot_queue_job classification half + the
+batch drivers (cmd_auto's wrong-vault guard + the >10 confirm,
+cmd_sync's live beats, cmd_retry_failed, the import mode, the
+chrome-retry live leg) + internal/platformintake. The golden drove the
+reference's own engine over a fake Qt event loop — 86,570 bytes,
+two-run byte-identical, eight reality-wins finds fixed in-commit;
+1911 tests race-clean over 32 packages. Only T-61's remaining paint
+legs ride ahead of T-63 (launchers).
 **Exit gate**: the owner can run the Go CLI alongside the Python app on real data (dry-run
 first); differential harness green on the full case list; **CLI parity release `0.92.0-go.1`**
 tagged with the zip artifact.

@@ -429,3 +429,130 @@ law) + the drivers (cmd_auto + cmd_sync's live beats over the Worker
 /api/pending fetch + the _bot_queue_job classification half, the
 wrong-vault guard, the >10 confirm, cmd_retry_failed, the import-file
 mode, the chrome-retry live leg) + T-61's spinner under a real loop.
+
+## SESSION-030 shipped record — T-62 slice 2: THE ENGINE + THE DRIVERS
+
+Landed: `internal/cli/engine.go` (run_batch_visual as the synchronous
+Go shell — the mode dispatch incl. the import grammar + the
+review/master backlog modes, the setup family [the LinkTracker intake
+with the banned/self drops + the per-platform _inbox tables over the
+new `internal/platformintake` port, the cache open with the dry-run
+shadow, note-state, the dead set, THE REPOS BANISHMENT pass, the
+settled ledger, the vault index rebuild + SetVaultIndex, the
+missing-note backfill, the §4.4 start-of-run for BOTH vaults, the
+dismissed set, the batch snapshot], the warmup family [the Ollama
+list/timeout + the detached autostart ladder with the platform split
+(setsid / DETACHED), the warmup + the auto-switch/stand-in ladder over
+the model_prompt_callback bridge, the llama.cpp re-probe + the model
+resolution + save, the cloud /models pre-flight with the CloudLLMError
+info-line law], the GitHub loop over the ported Runner (started via the
+new `Start()` seam — the is_running __init__ law), the websites phase
+per website_phase.py's exact wiring (the intake drops, the shadow
+state, SettleTheLedger, the websites VaultIndex, the LLM router with
+the per-task overrides, the Worker-mediated banish channel ported over
+the propose/poll/result trio, SplitDismissedLinks, the bar re-base,
+the backlog modes, the manifest marking, the Website Directory
+rebuild, the _inbox prune, the done tally), the close + the Finish
+chain, the finish seals in the reference's exact order, THE PHASE-5
+CLEAR, the dry-run path, the SIGINT drain + the 100 ms heartbeat
+ticker driving StatusLine.Tick (T-61's spinner under a real loop; the
+StatusLine grew the paint mutex — Qt's signal-marshaling twin), and
+the exit-code law); `internal/cli/fetchqueue.go` (the Option-B fetch —
+the Worker /api/pending honest poll — + the _bot_queue_job
+CLASSIFICATION half as its own coherent piece: the URL routing, the
+vault filter with THE SETTLEMENT at the queue's own door, the
+dead/decommissioned buckets, and the v0.24.1 websites ladder);
+`internal/cli/autocmd.go` (cmd_auto with the wrong-vault guard +
+the >10 confirm + the queue card + the dedup line, cmd_retry_failed,
+the import-file mode); `internal/cli/syncbeats.go` (cmd_sync's live
+beats 1b/2/3 — the battery's Worker leg IS the queue check, the
+non-interactive wrong-vault guard answers the failure card); the
+chrome-retry LIVE leg in hands.go (preflight → the real
+DeliverPagesViaChrome → run_batch_visual with the pages as non_github);
+and `internal/platformintake/` (gui/platform_intake.py's port: the
+per-platform _inbox table writers + the pruner + the table-vault law,
+the Clock seam).
+
+Additive engine-package touches: Runner.Start/Position/SetTotal/
+AdvancePosition/SetBatchFiles/SetWebsiteSummary;
+websitepipeline.Pipeline.Taxonomy(); StatusLine's paint mutex +
+EraseIfActive + the PromptModelMenu StatusPainter interface; the CLI's
+engine doors (NewStatusLineFn / GHClientFactory / OllamaFactory /
+AutostartServe / WorkerFetch / BannerDownload).
+
+THE DIFFERENTIAL GREW: dump_cli.py drives four more sections —
+auto_guard (the wrong-vault card over the monkeypatched Telethon fetch
++ scripted stdin "n"), auto_guard_yes (--yes never re-processes),
+auto_confirm (the >10 TTY confirm with 11 links over an indexed vault),
+and engine_dryrun (THE ENGINE'S OWN COMPOSITION: the reference's
+run_batch_visual over a fake Qt event loop [pyqtSignal as callback
+lists, QThread running inline, QCoreApplication.exec returning 0 — the
+synchronous Go shell's exact twin], the fake PyGithub repo surface +
+the fake ollama chat, one github link, dry-run — capturing the 29-line
+structured log sequence, the BATCH DONE card, the exit code, and the
+12-entry dry-run report body) → goldencli.golden.json at 86,570 bytes,
+two-run byte-identical. The replay byte-compares every section; the
+mutation teeth grew (TestGoldenCLIMutationDrivers).
+
+REALITY-WINS FINDS the differential forced (fixed in-commit):
+1. linktracker's verify report logs "GitHub processed: N" with level
+   success when N > 0 (the reference's conditional — the port had
+   always-info).
+2. The engine's §4.4 start-of-run must pass the DB PATH even with no
+   connection (the reference's run_start_check derives it when db is
+   None; the dry-run detect branch needs it).
+3. The batch's closing hygiene pass runs run_vault_hygiene over the
+   GITHUB vault ONLY (the reference's _vault_hygiene_pass — NOT
+   heal_machine_vaults, the startup heal's both-vaults door).
+4. NewWebsiteStateDB("") is NOT the default path — the literal
+   "cache.db" is (AppDir-anchored); "" opened a stray pragma-named
+   file (caught by the classification tests).
+5. The runner's is_running was never set by construction — the engine
+   now calls the new Start() (the __init__ law).
+6. The model-changed sync: the Go runner holds a plain-map copy of the
+   config — the engine's onModelChanged mirrors the in-place write onto
+   the shared OrderedMap before the save (the reference's
+   ONE-shared-dict law).
+7. The §4.4 classify CREATES the (empty) real cache.db even in a
+   dry-run (the reference's classify_changes constructs the full
+   NoteStateDB — the file's creation is not a recorded change; the
+   test's law is "no rows leak", matching the reference).
+8. The primary-language tag insert's case-sensitive membership quirk
+   ("Go" not in [go, …] → 'go' inserted TWICE) is preserved on both
+   sides; the golden's fake repos carry the full PyGithub surface
+   (language/has_issues/license/has_wiki) so the reference's doc-score
+   try-block runs to completion and both sides compute the same
+   credibility.
+
+Option-B divergences (asserted or documented, never silent): the
+cmd_auto missing-settings check keeps the reference's five (the
+wizard's compat law); the fetch-failure tip that pointed at --login is
+dropped (the login door is an accepted loss); bot_queue_max_id is not
+passed (mirror-push is the ack); the fetch's Telethon chatter fell
+away (the Worker poll has no log lines — the spinner wraps a silent
+call).
+
+GO NOTES (the new house laws the engine golden taught):
+- THE STATE-CHAIN LAW for isolated replays: the four SESSION-030
+  sections are ONE state chain in the payload's own order (the
+  settlement primes right before the drivers; each cmd_auto's
+  classification writes feed the engine). A replay in a FRESH env
+  (the mutation test) must reproduce the payload's own pre-state —
+  the --reset-dead run (it clears the dead set; without it the
+  engine's banish pass records a missing-note backfill the golden
+  never saw) and the dry-run report writer's real <app>/reports dirs
+  (without them the engine's makedirs rows say "create folder"
+  instead of "folder exists") — or the engine's report body
+  diverges. replayDriverScenarios carries the chain; the mutation
+  test's preamble carries the pre-state.
+- THE MUTATION-TEETH LAW: the drivers' mutation test must run the
+  REAL replay against the mutated golden (a mutated guard card, a
+  mutated report body, a mutated log sequence each FAIL the replay;
+  the unmutated golden must still PASS — the harness guard) — a
+  mutation test that only proves the pattern strings exist has no
+  teeth (the SESSION-030 close caught exactly that and fixed it).
+
+Remaining on T-62's books: nothing — the task is COMPLETE (the engine,
+the drivers, the SIGINT/heartbeat/exit law, the chrome-retry live leg
+all landed with the differential proof). T-61's remaining paint legs
+and T-63 (launchers) follow.

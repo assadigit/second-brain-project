@@ -196,6 +196,7 @@ app_stub.CacheDB = CacheDB
 app_stub.DEAD_LINK_THRESHOLD = DEAD_LINK_THRESHOLD
 app_stub.dead_link_threshold = dead_link_threshold
 app_stub._quick_detect_job = _worker_jobs._quick_detect_job
+app_stub._bot_queue_job = _worker_jobs._bot_queue_job
 app_stub.ProcessingWorker = _ProcessingWorkerStub
 sys.modules["gitcurator.gui.app"] = app_stub
 _gui_pkg.app = app_stub
@@ -1208,6 +1209,444 @@ OUT["dryrun_report"] = {
 }
 dryrun_mod.clear()
 
+
+
+# --- 9k. T-62 slice 2 — THE BATCH DRIVERS' DOORS + THE ENGINE ---------
+# cmd_auto's interactive doors over the monkeypatched Telethon fetch
+# (the reference's own _bot_queue_job classification runs REAL over the
+# crafted vault + cache), and run_batch_visual's dry-run composition
+# over the fake Qt event loop (the signals are callback lists, the
+# QThread runs inline — the synchronous Go shell's exact twin).
+
+# the fake Qt core: pyqtSignal (callback lists), QThread (inline run),
+# QCoreApplication (exec returns once quit fires), QTimer (no-op — the
+# recorder's ticks are invisible).
+class _FakeSignal:
+    def __init__(self, *types):
+        self._slots = []
+
+    def connect(self, fn):
+        self._slots.append(fn)
+
+    def emit(self, *args):
+        for fn in list(self._slots):
+            fn(*args)
+
+
+def _pyqtSignal(*types):
+    return _FakeSignal(*types)
+
+
+class _FakeQThread:
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def start(self):
+        # the synchronous composition: run inline (the signal emissions
+        # fire through the callback lists — deterministic, no threads;
+        # the Go engine runs the same composition inline).
+        self.run()
+
+    def wait(self, ms=None):
+        pass
+
+    def isRunning(self):
+        return False
+
+
+_qtcore_stub = sys.modules["PyQt6.QtCore"]
+_qtcore_stub.pyqtSignal = _pyqtSignal
+_qtcore_stub.QThread = _FakeQThread
+
+
+class _FakeQCoreApplication:
+    _instance = None
+
+    def __init__(self, argv=None):
+        _FakeQCoreApplication._instance = self
+        self._quit = False
+
+    @classmethod
+    def instance(cls):
+        return cls._instance
+
+    def exec(self):
+        return 0  # the composition already ran synchronously
+
+    def quit(self):
+        self._quit = True
+
+    def processEvents(self):
+        pass
+
+
+_qtcore_stub.QCoreApplication = _FakeQCoreApplication
+
+
+class _FakeQTimer:
+    def __init__(self, *args, **kwargs):
+        self.timeout = _FakeSignal()
+
+    def start(self, ms):
+        pass
+
+    def stop(self):
+        pass
+
+
+_qtcore_stub.QTimer = _FakeQTimer
+
+# the fake PyGithub engine surface (the loop's exact attribute grammar):
+# rate limit, repo, topics, commits, readme (base64), languages,
+# releases.
+class _FakeRateLimitCore:
+    def __init__(self):
+        self.remaining = 5000
+        self.reset = datetime(2026, 10, 17, 13, 0, 0)
+
+
+class _FakeRateLimit:
+    def __init__(self):
+        self.core = _FakeRateLimitCore()
+
+
+class _FakeOrg:
+    def __init__(self, login):
+        self.login = login
+
+
+class _FakeRepo:
+    def __init__(self, full_name):
+        self.full_name = full_name
+        _owner, _name = full_name.split("/", 1)
+        self.name = _name
+        self.id = 4242
+        self.fork = False
+        self.parent = None
+        self.stargazers_count = 12500
+        self.forks_count = 12
+        self.description = "A curated offline fixture repo."
+        self.owner = _FakeOrg(_owner)
+        self.organization = None
+        self.language = "Go"
+        self.has_issues = False
+        self.license = None
+        self.has_wiki = False
+
+    def get_topics(self):
+        return ["go", "testing"]
+
+    def get_commits(self, since=None):
+        import base64 as _b64
+        return type("CommitList", (), {
+            "totalCount": 42})()
+
+    def get_readme(self):
+        import base64 as _b64
+        raw = "A fixture readme with enough words for the summary gate."
+        return type("ReadmeFile", (), {
+            "content": _b64.b64encode(raw.encode()).decode()})()
+
+    def get_languages(self):
+        return {"Go": 42000, "Python": 800}
+
+    def get_releases(self):
+        return type("ReleaseList", (), {
+            "totalCount": 1,
+            "__getitem__": staticmethod(lambda i: type("Rel", (), {
+                "tag_name": "v1.0.0",
+                "published_at": datetime(2026, 1, 1, 0, 0, 0)})())})()
+
+
+class _FakeEngineGithub:
+    """The Github() constructor twin: get_user + get_repo + rate limit."""
+
+    def __init__(self, auth=None, *args, **kwargs):
+        self.auth = auth
+
+    def get_user(self):
+        return _FakeGHUser("octo-owner")
+
+    def get_user_login(self):
+        return "octo-owner"
+
+    def get_repo(self, full_name):
+        if full_name == "octo-owner/curated-repo":
+            return _FakeRepo(full_name)
+        raise _FakeGithubException("404")
+
+
+# the fake ollama client with the chat door (the analysis JSON the
+# loop's contract wants — summary/how_it_works/core_value/features/
+# difference/category/confidence/tags).
+ENGINE_ANALYSIS = {
+    "summary": "A curated offline fixture repo for the engine golden.",
+    "how_it_works": "It answers canned data deterministically.",
+    "core_value": "The offline differential proof.",
+    "features": "fixtures, determinism, parity",
+    "difference": "none — it is a fixture",
+    "category": "developer-tools",
+    "confidence": 95,
+    "tags": ["go", "testing"],
+}
+
+
+class _FakeOllamaChatClient:
+    def __init__(self, host=None, **kwargs):
+        self.host = host
+
+    def list(self):
+        return {"models": [{"name": "llama3"},
+                           {"name": "qwen2.5-coder:7b"}]}
+
+    def chat(self, model=None, messages=None, options=None, format=None,
+             **kwargs):
+        return {"model": model,
+                "message": {"role": "assistant",
+                            "content": json.dumps(ENGINE_ANALYSIS)}}
+
+
+# the monkeypatched Telethon fetch: _bot_queue_job's classification
+# runs REAL over whatever this door answers.
+def _fake_telethon_worker(config, log_signal, code_callback=None):
+    return dict(FAKE_FETCH_RESULT)
+
+
+_worker_jobs_mod = sys.modules["gitcurator.gui.worker_jobs"]
+_real_telethon_worker = _worker_jobs_mod._run_telegram_worker
+_worker_jobs_mod._run_telegram_worker = _fake_telethon_worker
+
+# the driver config: the crafted env + the proxy OFF (the preflight's
+# proxy leg must not touch the network) + github_token present.
+DRIVER_CFG = dict(CONFIG)
+DRIVER_CFG["proxy"] = {"enabled": False}
+DRIVER_CFG_PATH = os.path.join(APP_TMP, "driver-config.json")
+write_config_file(DRIVER_CFG_PATH, DRIVER_CFG)
+
+# THE SETTLEMENT primed: the machine already ran its first --auto (the
+# fetched history settled once) — the classification below answers like
+# every LATER run.
+_prime_cache = CacheDB()
+_prime_cache.settle_existing_repos()
+_prime_cache.close()
+
+# the banner download door: the offline fixture (no opengraph fetch —
+# the mixin method patched, exactly the golden runner's own law).
+from gitcurator.gui.worker.github_meta import (  # noqa: E402
+    WorkerGithubMetaMixin,
+)
+from gitcurator.gui.worker import reports as _reports_mod  # noqa: E402
+_real_reports_dt = _reports_mod.datetime
+_reports_mod.datetime = _FrozenDT
+_real_download_banner = WorkerGithubMetaMixin._download_banner
+WorkerGithubMetaMixin._download_banner = (
+    lambda self, owner, repo, folder: None)
+
+# --- the wrong-vault guard (interactive n) ------------------------------
+FAKE_FETCH_RESULT = {
+    "success": True,
+    "urls": ["https://github.com/octo-owner/fresh-repo"],
+    "non_github_urls": [],
+    "total_messages": 1,
+    "max_message_id": 9,
+    "duplicates_removed": 0,
+    "raw_url_count": 1,
+}
+_github_stub.Github = _FakeEngineGithub
+ollama_stub.Client = _FakeOllamaChatClient
+_stdin(["n"], tty=True)
+_guard_out = _cap(lambda: cli_mod.cmd_auto(
+    type("A", (), {"config": DRIVER_CFG_PATH, "vault": None, "strikes": None,
+                   "yes": False, "dry_run": False})()))
+sys.stdin = sys.__stdin__
+OUT["auto_guard"] = {
+    "name": "wrong-vault-n",
+    "config": DRIVER_CFG,
+    "fetch": FAKE_FETCH_RESULT,
+    "stdin": ["n"],
+    "output": _guard_out[0],
+    "rc": _guard_out[1],
+}
+
+# --- the wrong-vault guard (--yes never re-processes) -------------------
+_stdin([], tty=False)
+_guard_yes_out = _cap(lambda: cli_mod.cmd_auto(
+    type("A", (), {"config": DRIVER_CFG_PATH, "vault": None, "strikes": None,
+                   "yes": True, "dry_run": False})()))
+sys.stdin = sys.__stdin__
+OUT["auto_guard_yes"] = {
+    "name": "wrong-vault-yes",
+    "config": DRIVER_CFG,
+    "fetch": FAKE_FETCH_RESULT,
+    "output": _guard_yes_out[0],
+    "rc": _guard_yes_out[1],
+}
+
+# --- the >10 confirm (a vault WITH a note: the guard never trips) ------
+CONFIRM_VAULT = os.path.join(VAULT_TMP, "confirm-vault")
+os.makedirs(CONFIRM_VAULT, exist_ok=True)
+with open(os.path.join(CONFIRM_VAULT, "indexed.md"), "w",
+          encoding="utf-8") as fh:
+    fh.write("---\nsource: https://github.com/owner/one\ncategory: "
+             "libraries\n---\n\n# Indexed\n")
+CONFIRM_CFG = dict(DRIVER_CFG)
+CONFIRM_CFG["vault_path"] = CONFIRM_VAULT
+CONFIRM_CFG_PATH = os.path.join(APP_TMP, "confirm-config.json")
+write_config_file(CONFIRM_CFG_PATH, CONFIRM_CFG)
+_confirm_urls = [f"https://github.com/octo-owner/repo-{i}"
+                 for i in range(11)]
+FAKE_FETCH_RESULT = {
+    "success": True,
+    "urls": _confirm_urls,
+    "non_github_urls": [],
+    "total_messages": 11,
+    "max_message_id": 99,
+    "duplicates_removed": 2,
+    "raw_url_count": 13,
+}
+_stdin(["n"], tty=True)
+_confirm_out = _cap(lambda: cli_mod.cmd_auto(
+    type("A", (), {"config": CONFIRM_CFG_PATH, "vault": None,
+                   "strikes": None, "yes": False,
+                   "dry_run": False})()))
+sys.stdin = sys.__stdin__
+OUT["auto_confirm"] = {
+    "name": "over10-n",
+    "config": CONFIRM_CFG,
+    "urls": _confirm_urls,
+    "stdin": ["n"],
+    "output": _confirm_out[0],
+    "rc": _confirm_out[1],
+}
+
+# --- THE ENGINE dry-run composition (run_batch_visual) -----------------
+ENGINE_CFG = dict(DRIVER_CFG)
+ENGINE_CFG["ollama"] = {"base_url": "http://127.0.0.1:11434",
+                        "model": "llama3"}
+ENGINE_CFG["pipelines"] = {"github": True, "websites": False}
+ENGINE_CFG_PATH = os.path.join(APP_TMP, "engine-config.json")
+write_config_file(ENGINE_CFG_PATH, ENGINE_CFG)
+FAKE_FETCH_RESULT = {
+    "success": True,
+    "urls": ["https://github.com/octo-owner/curated-repo"],
+    "non_github_urls": [],
+    "total_messages": 1,
+    "max_message_id": 9,
+    "duplicates_removed": 0,
+    "raw_url_count": 1,
+}
+
+
+class _RecordingStatusLine:
+    """The structured (msg, level) recorder — the Go replay's twin
+    (the \r repaints are invisible nondeterminism; the sequence is
+    the contract)."""
+
+    def __init__(self):
+        self.logs = []
+
+    def start(self, label, total=0):
+        pass
+
+    def tick(self):
+        pass
+
+    def stop(self, final=None):
+        pass
+
+    def set_progress(self, current, total):
+        pass
+
+    def set_repo(self, repo):
+        pass
+
+    def log(self, msg, lvl="info"):
+        self.logs.append([lvl, str(msg)])
+
+
+from gitcurator.cli import cli_run as run_engine_mod  # noqa: E402
+from gitcurator.gui.processing_worker import (  # noqa: E402
+    ProcessingWorker as _RealProcessingWorker,
+)
+_real_pw = app_stub.ProcessingWorker
+app_stub.ProcessingWorker = _RealProcessingWorker
+_real_run_status_line = run_engine_mod.StatusLine
+run_engine_mod.StatusLine = _RecordingStatusLine
+_real_engine_time = run_engine_mod.time
+
+
+class _EngineTime:
+    @staticmethod
+    def time():
+        return 1000.0
+
+
+run_engine_mod.time = _EngineTime
+
+
+class _EngineArgTime:
+    """the started/elapsed pair: 1000.0 → 1001.0 renders 1s."""
+
+    @staticmethod
+    def time():
+        return 1001.0
+
+
+_run_visual_status = _RecordingStatusLine()
+
+
+def _engine_status_line():
+    return _run_visual_status
+
+
+run_engine_mod.StatusLine = _engine_status_line
+# run_batch_visual's elapsed uses the module's time.time (frozen at
+# 1000.0 via _EngineTime above → the started read; the finish's read
+# needs +1s — patch time.time per phase with a two-answer ladder).
+class _EngineClock:
+    answers = [1000.0, 1001.0]
+
+    @staticmethod
+    def time():
+        if len(_EngineClock.answers) > 1:
+            return _EngineClock.answers.pop(0)
+        return _EngineClock.answers[0]
+
+
+run_engine_mod.time = _EngineClock
+dryrun_mod.clear()
+_engine_out = _cap(lambda: run_engine_mod.run_batch_visual(
+    ENGINE_CFG, "direct",
+    urls=["https://github.com/octo-owner/curated-repo"],
+    bot_source=True, non_github=None,
+    intake_duplicates=0, raw_url_count=1,
+    vault_arg=None, bot_queue_max_id=9, dry_run=True))
+sys.stdin = sys.__stdin__
+run_engine_mod.StatusLine = _real_run_status_line
+run_engine_mod.time = _real_engine_time
+_engine_report_dir = os.path.join(APP_TMP, "reports", "dry-runs")
+_engine_report_path = None
+for _fname in sorted(os.listdir(_engine_report_dir)):
+    if _fname.startswith("dry_run_"):
+        _engine_report_path = os.path.join(_engine_report_dir, _fname)
+with open(_engine_report_path, "r", encoding="utf-8") as fh:
+    _engine_report_body = fh.read()
+OUT["engine_dryrun"] = {
+    "name": "one-link-dryrun",
+    "config": ENGINE_CFG,
+    "urls": ["https://github.com/octo-owner/curated-repo"],
+    "logs": _run_visual_status.logs,
+    "output": _engine_out[0],
+    "rc": _engine_out[1],
+    "report_body": _engine_report_body,
+}
+dryrun_mod.clear()
+WorkerGithubMetaMixin._download_banner = _real_download_banner
+_reports_mod.datetime = _real_reports_dt
+_worker_jobs_mod._run_telegram_worker = _real_telethon_worker
+app_stub.ProcessingWorker = _real_pw
+_github_stub.Github = _FakeGHClient
+ollama_stub.Client = _FakeOllamaUp
 
 # --- 10. the env record (what the Go replay must rebuild) --------------
 OUT["env"] = {

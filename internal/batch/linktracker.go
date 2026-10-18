@@ -442,8 +442,12 @@ func (t *LinkTracker) Verify(logSignal func(msg, level string),
 		logSignal("🔍 VERIFICATION REPORT", "info")
 		logSignal(strings.Repeat("=", 50), "info")
 		logSignal(fmt.Sprintf("   Total links: %d", rep.Total), "info")
+		processedLevel := "info" // the reference: success when any link processed
+		if rep.GithubProcessed > 0 {
+			processedLevel = "success"
+		}
 		logSignal(fmt.Sprintf("   GitHub processed: %d",
-			rep.GithubProcessed), "info")
+			rep.GithubProcessed), processedLevel)
 		logSignal(fmt.Sprintf("   GitHub skipped (dedup): %d",
 			rep.GithubSkipped), "info")
 		if rep.GithubPending > 0 {

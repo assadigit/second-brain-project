@@ -153,7 +153,7 @@ func (c *CLI) cmdAuto(a *Args) int {
 	totalBatch := len(pending) + len(pendingWeb)
 	if !a.Yes && totalBatch > 10 && c.IsATTYIn() {
 		ans := c.askPainted(fmt.Sprintf(
-			"? %d item(s) ready (%d repo(s) + %d website(s)) — process them all? ",
+			"%d item(s) ready (%d repo(s) + %d website(s)) — process them all? ",
 			totalBatch, len(pending), len(pendingWeb)), "[Y/n] ")
 		if strings.HasPrefix(strings.ToLower(ans), "n") {
 			c.CliPrint("Cancelled — nothing was processed.", "warning")

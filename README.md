@@ -335,6 +335,28 @@ the two-run byte-identical proof + the mutation teeth stay part of every
 regeneration; a reality-wins find fixed in-commit (the reference's
 chrome-retry --dry-run forgot to flip the dry-run switch — the port flips
 it). 1866 tests race-clean over 31 packages (+14).
+**SESSION-030 — T-62 slice 2: THE ENGINE + THE DRIVERS landed — T-62
+COMPLETE**: run_batch_visual's synchronous shell (the setup family +
+the warmup family + the websites phase over the ported Pipeline + the
+GitHub loop + the Finish chain + the seals in the reference's exact
+order + THE PHASE-5 CLEAR + the dry-run path + the SIGINT drain + the
+100 ms heartbeat ticker driving StatusLine.Tick (T-61's spinner under
+a real loop) + the exit-code law), the Worker-queue fetch +
+the _bot_queue_job classification half (its own coherent piece), the
+batch drivers (cmd_auto with THE WRONG-VAULT GUARD + the >10 confirm,
+cmd_sync's live beats 1b/2/3, cmd_retry_failed, the import-file mode,
+the chrome-retry LIVE leg), and `internal/platformintake` (the
+per-platform _inbox tables). The differential golden drove the
+reference's own engine over a fake Qt event loop (the signals as
+callback lists, the worker inline — the synchronous Go shell's twin):
+the 29-line log sequence + the BATCH DONE card + the exit code + the
+12-entry dry-run report byte-compared — 86,570 bytes, two-run
+byte-identical; eight reality-wins finds fixed in-commit (the
+tracker's processed level, the §4.4 db-path law, the hygiene
+github-vault-only law, the "cache.db" default-path law, the is_running
+Start law, the model-changed sync, the dry-run's empty-cache creation
+quirk, the case-sensitive tag-insert quirk). **1911 tests race-clean
+over 32 packages (+34).**
 **SESSION-029 — T-62 slice 1: THE RUN ENGINE'S DOORS landed**: the
 preflights (the PyGithub token check over the PreflightGithub seam, the
 TCP proxy reach over the NetDial seam, the provider branches with THE
@@ -358,13 +380,8 @@ byte-identical; the fixed-length-roots law (the card's padding bakes
 path lengths); two generator bugs caught by the differential itself
 (the shallow-copy leak, the ms-clock arithmetic); the mutation teeth
 grew. 1877 tests race-clean over 31 packages (+11).
-Next: T-62's remainder (the engine shell — run_batch_visual's synchronous
-composition, the warmup family, the website-phase wiring, the
-SIGINT/heartbeat/exit law — and the batch drivers: --auto/--sync's
-Worker-queue fetch + classification, the wrong-vault guard, the >10
-confirm, --retry-failed/--import-file, the chrome-retry live leg),
-T-61's remaining paint legs, T-63 (launchers), T-64 (the differential
-corpus run), T-65 (the release tag).
+Next: T-61's remaining paint legs, T-63 (launchers), T-64 (the
+differential corpus run), T-65 (the release tag).
 
 ## Map
 

@@ -12,6 +12,7 @@ package cli
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -21,8 +22,10 @@ import (
 	"testing"
 	"time"
 
+	"github.com/assadigit/second-brain-project/internal/config"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/dryrun"
+	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/handdelivery"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/notestate"
@@ -327,6 +330,12 @@ type goldenFile struct {
 	PreflightChecksAbort goldenPreflightChecks  `json:"preflight_checks_abort"`
 	DryrunReport         goldenDryrunReport     `json:"dryrun_report"`
 
+	// SESSION-030 — T-62 slice 2: the drivers' doors + the engine.
+	AutoGuard    goldenDriverCase `json:"auto_guard"`
+	AutoGuardYes goldenDriverCase `json:"auto_guard_yes"`
+	AutoConfirm  goldenDriverCase `json:"auto_confirm"`
+	EngineDryrun goldenEngineCase `json:"engine_dryrun"`
+
 	Env goldenEnv `json:"env"`
 }
 
@@ -579,6 +588,37 @@ func buildEnv(t *testing.T, g *goldenFile) (appTmp, vaultsTmp string) {
 	if err := storage.WriteConfigFile(
 		filepath.Join(appTmp, "wizard2-config.json"), wizard2); err != nil {
 		t.Fatalf("write wizard2 config: %v", err)
+	}
+
+	// SESSION-030 — the drivers' doors: the driver config (proxy OFF —
+	// the preflight's proxy leg must not touch the network), the
+	// confirm vault (one indexed note so the wrong-vault guard never
+	// trips), the engine config, and THE SETTLEMENT primed (the
+	// machine already ran its first --auto — the classification
+	// answers like every LATER run).
+	driver := decodeConfig(t, g.AutoGuard.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(
+		filepath.Join(appTmp, "driver-config.json"), driver); err != nil {
+		t.Fatalf("write driver config: %v", err)
+	}
+	confirm := decodeConfig(t, g.AutoConfirm.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(
+		filepath.Join(appTmp, "confirm-config.json"), confirm); err != nil {
+		t.Fatalf("write confirm config: %v", err)
+	}
+	confirmVault := filepath.Join(vaultsTmp, "confirm-vault")
+	if err := os.MkdirAll(confirmVault, 0o755); err != nil {
+		t.Fatalf("mkdir confirm vault: %v", err)
+	}
+	if err := os.WriteFile(filepath.Join(confirmVault, "indexed.md"), []byte(
+		"---\nsource: https://github.com/owner/one\ncategory: "+
+			"libraries\n---\n\n# Indexed\n"), 0o644); err != nil {
+		t.Fatalf("write confirm note: %v", err)
+	}
+	engine := decodeConfig(t, g.EngineDryrun.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(
+		filepath.Join(appTmp, "engine-config.json"), engine); err != nil {
+		t.Fatalf("write engine config: %v", err)
 	}
 	return appTmp, vaultsTmp
 }
@@ -1398,6 +1438,61 @@ func TestGoldenCLI(t *testing.T) {
 		assertBytesEq(t, "dryrun report body",
 			fold(string(raw), appTmp, vaultsTmp), g.DryrunReport.Body)
 	})
+
+	// -----------------------------------------------------------------
+	// SESSION-030 — the drivers' doors + THE ENGINE's dry-run (ONE
+	// state chain replayed once — the payload's own order; the
+	// subtests assert its four outputs against the golden).
+	// -----------------------------------------------------------------
+	rep := replayDriverScenarios(t, g, appTmp, vaultsTmp)
+	t.Run("AutoGuard", func(t *testing.T) {
+		assertBytesEq(t, "auto guard output", rep.GuardOut, g.AutoGuard.Output)
+		if rep.GuardRC != g.AutoGuard.RC {
+			t.Fatalf("auto guard rc = %d, want %d", rep.GuardRC, g.AutoGuard.RC)
+		}
+	})
+
+	t.Run("AutoGuardYes", func(t *testing.T) {
+		assertBytesEq(t, "auto guard --yes output",
+			rep.GuardYesOut, g.AutoGuardYes.Output)
+		if rep.GuardYesRC != g.AutoGuardYes.RC {
+			t.Fatalf("auto guard --yes rc = %d, want %d",
+				rep.GuardYesRC, g.AutoGuardYes.RC)
+		}
+	})
+
+	t.Run("AutoConfirm", func(t *testing.T) {
+		assertBytesEq(t, "auto confirm output", rep.ConfirmOut, g.AutoConfirm.Output)
+		if rep.ConfirmRC != g.AutoConfirm.RC {
+			t.Fatalf("auto confirm rc = %d, want %d", rep.ConfirmRC, g.AutoConfirm.RC)
+		}
+	})
+
+	t.Run("EngineDryrun", func(t *testing.T) {
+		assertBytesEq(t, "engine dry-run output",
+			rep.EngineOut, g.EngineDryrun.Output)
+		if rep.EngineRC != g.EngineDryrun.RC {
+			t.Fatalf("engine rc = %d, want %d", rep.EngineRC, g.EngineDryrun.RC)
+		}
+		// the structured log sequence (the [level, msg] pairs).
+		gotLogs := rep.EngineLogs
+		wantLogs := g.EngineDryrun.Logs
+		if len(gotLogs) != len(wantLogs) {
+			t.Fatalf("engine log count = %d, want %d\n--- got ---\n%v",
+				len(gotLogs), len(wantLogs), gotLogs)
+		}
+		for i, want := range wantLogs {
+			got := gotLogs[i]
+			wMsg := unfold(want[1], appTmp, vaultsTmp)
+			if got[0] != want[0] || got[1] != wMsg {
+				t.Fatalf("engine log[%d] = %v, want [%s %s]", i, got,
+					want[0], wMsg)
+			}
+		}
+		// the dry-run report's body (the recorded entries' bytes).
+		assertBytesEq(t, "engine dry-run report",
+			rep.EngineReport, g.EngineDryrun.ReportBody)
+	})
 }
 
 // TestGoldenCLIMutation proves the differential has teeth: one byte
@@ -1641,4 +1736,344 @@ func TestGoldenCLIMutationPreflights(t *testing.T) {
 	if gotBody != g.DryrunReport.Body {
 		t.Fatalf("the real report diverged from the unmutated golden")
 	}
+}
+
+// ---------------------------------------------------------------------------
+// SESSION-030 — T-62 slice 2: the batch drivers' doors + THE ENGINE's
+// dry-run composition.
+// ---------------------------------------------------------------------------
+
+// goldenDriverCase mirrors the cmd_auto door sections (the guard + the
+// confirm): the crafted config + the console bytes + the exit code.
+type goldenDriverCase struct {
+	Name   string          `json:"name"`
+	Config json.RawMessage `json:"config"`
+	Output string          `json:"output"`
+	RC     int             `json:"rc"`
+}
+
+// goldenEngineCase mirrors the engine dry-run section: the config, the
+// structured log sequence, the console bytes (the finish card), the
+// exit code, and the dry-run report's body.
+type goldenEngineCase struct {
+	Name       string          `json:"name"`
+	Config     json.RawMessage `json:"config"`
+	URLs       []string        `json:"urls"`
+	Logs       [][]string      `json:"logs"`
+	Output     string          `json:"output"`
+	RC         int             `json:"rc"`
+	ReportBody string          `json:"report_body"`
+}
+
+// driverScenarioResult carries the four SESSION-030 replay outputs:
+// the folded console bytes + the exit codes + the engine's structured
+// log sequence (REAL paths — the golden's msgs are unfolded before
+// compare) + the folded dry-run report body. Nothing is asserted
+// inside the chain — the callers assert (the golden test against the
+// golden; the mutation test against the mutated golden).
+type driverScenarioResult struct {
+	GuardOut     string
+	GuardRC      int
+	GuardYesOut  string
+	GuardYesRC   int
+	ConfirmOut   string
+	ConfirmRC    int
+	EngineOut    string
+	EngineRC     int
+	EngineLogs   [][]string
+	EngineReport string
+}
+
+// replayDriverScenarios replays the four SESSION-030 sections in the
+// payload's own order — ONE state chain (the settlement primes right
+// before the driver sections, after the earlier sections' state; each
+// cmd_auto's classification writes feed the engine's composition).
+// The webvault exists by this point in the payload (the hand-delivery
+// section's enqueue created it) — created here so the isolated chain
+// answers the same shape.
+func replayDriverScenarios(t *testing.T, g *goldenFile,
+	appTmp, vaultsTmp string) *driverScenarioResult {
+	t.Helper()
+	res := &driverScenarioResult{}
+
+	_ = os.MkdirAll(filepath.Join(vaultsTmp, "webvault"), 0o755)
+	{
+		cache, err := store.NewCacheDB(filepath.Join(appTmp, "cache.db"))
+		if err != nil {
+			t.Fatalf("open cache for priming: %v", err)
+		}
+		if _, err := cache.SettleExistingRepos(nil); err != nil {
+			t.Fatalf("prime the settlement: %v", err)
+		}
+		cache.Close()
+	}
+
+	// --- the wrong-vault guard (interactive n) ------------------------
+	c, buf := replayCLI(t, g, "n\n")
+	c.IsATTYIn = func() bool { return true }
+	c.WorkerFetch = func(*storage.OrderedMap) (string, []any) {
+		return "ok", []any{map[string]any{
+			"url": "https://github.com/octo-owner/fresh-repo"}}
+	}
+	c.PreflightGithub = func(string) PreflightGHReply {
+		return PreflightGHReply{Status: 200, Login: "octo-owner"}
+	}
+	c.NewStatusLineFn = func() StatusPainter { return &recStatus{} }
+	c.AutostartServe = func() (int, string) { return 0, "FileNotFoundError" }
+	res.GuardRC = c.cmdAuto(&Args{Config: filepath.Join(appTmp, "driver-config.json")})
+	res.GuardOut = fold(buf.String(), appTmp, vaultsTmp)
+
+	// --- the wrong-vault guard (--yes never re-processes) --------------
+	c, buf = replayCLI(t, g, "")
+	c.IsATTYIn = func() bool { return false }
+	c.WorkerFetch = func(*storage.OrderedMap) (string, []any) {
+		return "ok", []any{map[string]any{
+			"url": "https://github.com/octo-owner/fresh-repo"}}
+	}
+	c.PreflightGithub = func(string) PreflightGHReply {
+		return PreflightGHReply{Status: 200, Login: "octo-owner"}
+	}
+	c.NewStatusLineFn = func() StatusPainter { return &recStatus{} }
+	c.AutostartServe = func() (int, string) { return 0, "FileNotFoundError" }
+	res.GuardYesRC = c.cmdAuto(&Args{
+		Config: filepath.Join(appTmp, "driver-config.json"), Yes: true})
+	res.GuardYesOut = fold(buf.String(), appTmp, vaultsTmp)
+
+	// --- the >10 confirm (a vault WITH a note: the guard never trips) --
+	c, buf = replayCLI(t, g, "n\n")
+	c.IsATTYIn = func() bool { return true }
+	var items []any
+	for i := 0; i < 11; i++ {
+		items = append(items, map[string]any{
+			"url": fmt.Sprintf("https://github.com/octo-owner/repo-%d", i)})
+	}
+	c.WorkerFetch = func(*storage.OrderedMap) (string, []any) {
+		return "ok", items
+	}
+	c.PreflightGithub = func(string) PreflightGHReply {
+		return PreflightGHReply{Status: 200, Login: "octo-owner"}
+	}
+	c.NewStatusLineFn = func() StatusPainter { return &recStatus{} }
+	c.AutostartServe = func() (int, string) { return 0, "FileNotFoundError" }
+	res.ConfirmRC = c.cmdAuto(&Args{Config: filepath.Join(appTmp, "confirm-config.json")})
+	res.ConfirmOut = fold(buf.String(), appTmp, vaultsTmp)
+
+	// --- THE ENGINE dry-run composition --------------------------------
+	// the offline engine surface: the fake GH client (the reference's
+	// _FakeRepo grammar), the fake Ollama (the analysis JSON contract),
+	// the banner stub (the reference's banner thread records the
+	// Uncategorized makedirs before its patched download answers None —
+	// the stub mirrors it), and the structured status recorder (the
+	// reference's _RecordingStatusLine twin).
+	oldNow := dryrun.NowFn
+	dryrun.NowFn = frozenClock
+	defer func() { dryrun.NowFn = oldNow }()
+	rec := &recStatus{}
+	c, buf = replayCLI(t, g, "")
+	c.NewStatusLineFn = func() StatusPainter { return rec }
+	c.GHClientFactory = func(string) githubpipeline.RepoFetcher {
+		return &engineFakeFetcher{}
+	}
+	c.OllamaFactory = func(string) llmclient.OllamaAPI {
+		return &engineFakeOllama{}
+	}
+	c.BannerDownload = func(owner, repoName, folder string) string {
+		return ""
+	}
+	cfg, err := config.Load(filepath.Join(appTmp, "engine-config.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	cfg.Set("__config_path__", filepath.Join(appTmp, "engine-config.json"))
+	res.EngineRC = c.RunBatchVisual(cfg, RunBatchOptions{
+		Mode:      "direct",
+		URLs:      []string{"https://github.com/octo-owner/curated-repo"},
+		BotSource: true,
+		DryRun:    true,
+	})
+	res.EngineOut = fold(buf.String(), appTmp, vaultsTmp)
+	for _, l := range rec.logLines() {
+		level, msg, _ := strings.Cut(l, "|")
+		res.EngineLogs = append(res.EngineLogs, []string{level, msg})
+	}
+	dir := filepath.Join(appTmp, "reports", "dry-runs")
+	entries, err := os.ReadDir(dir)
+	if err != nil || len(entries) == 0 {
+		t.Fatalf("no dry-run report: %v", err)
+	}
+	raw, err := os.ReadFile(filepath.Join(dir, entries[0].Name()))
+	if err != nil {
+		t.Fatal(err)
+	}
+	res.EngineReport = fold(string(raw), appTmp, vaultsTmp)
+	return res
+}
+
+// TestGoldenCLIMutationDrivers — the SESSION-030 sections' teeth: one
+// byte changed in the guard's ground-truth line, in the engine's
+// report body, and in the engine's log sequence must each FAIL the
+// replay (and the unmutated golden must still pass — the harness
+// guard, exactly like TestGoldenCLIMutationPreflights).
+func TestGoldenCLIMutationDrivers(t *testing.T) {
+	g := loadGoldenCLI(t)
+	appTmp, vaultsTmp := buildEnv(t, g)
+
+	// The state the payload's earlier sections left before the driver
+	// sections (their order): the --reset-dead run (it clears the dead
+	// set — the engine's banish pass then finds nothing to backfill;
+	// without it the isolated chain would record a missing-note the
+	// golden never saw) + the dry-run report writer's real dirs (the
+	// DryrunReport section created <app>/reports/dry-runs — the
+	// engine's makedirs rows then say "folder exists").
+	{
+		c, buf := replayCLI(t, g, "")
+		if rc := c.Run([]string{"--reset-dead"}); rc != g.ResetDead.RC {
+			t.Fatalf("reset-dead rc = %d, want %d", rc, g.ResetDead.RC)
+		}
+		if got, want := fold(buf.String(), appTmp, vaultsTmp),
+			g.ResetDead.Output; got != want {
+			t.Fatalf("reset-dead diverged — the preamble is not the " +
+				"golden's own run")
+		}
+	}
+	if err := os.MkdirAll(filepath.Join(appTmp, "reports", "dry-runs"),
+		0o755); err != nil {
+		t.Fatal(err)
+	}
+
+	rep := replayDriverScenarios(t, g, appTmp, vaultsTmp)
+
+	// 1. the wrong-vault guard card: one byte in the ground-truth line.
+	mutatedGuard := strings.Replace(g.AutoGuard.Output,
+		"the cache knows 2 already-processed repos",
+		"the cache knows 3 already-processed repos", 1)
+	if mutatedGuard == g.AutoGuard.Output {
+		t.Fatalf("guard mutation did not bite (pattern missing)")
+	}
+	if rep.GuardOut == mutatedGuard {
+		t.Fatalf("the mutated guard card passed the replay — no teeth")
+	}
+	if rep.GuardOut != g.AutoGuard.Output {
+		t.Fatalf("the real guard card diverged from the unmutated golden")
+	}
+
+	// 2. the engine's dry-run report: the operation-count line.
+	mutatedReport := strings.Replace(g.EngineDryrun.ReportBody,
+		"12 operation(s) would have been performed",
+		"13 operation(s) would have been performed", 1)
+	if mutatedReport == g.EngineDryrun.ReportBody {
+		t.Fatalf("report mutation did not bite (pattern missing)")
+	}
+	if rep.EngineReport == mutatedReport {
+		t.Fatalf("the mutated report passed the replay — no teeth")
+	}
+	if rep.EngineReport != g.EngineDryrun.ReportBody {
+		t.Fatalf("the real report diverged from the unmutated golden\n--- got ---\n%s\n--- want ---\n%s",
+			rep.EngineReport, g.EngineDryrun.ReportBody)
+	}
+
+	// 3. the engine's log sequence: one byte in the manifest line (the
+	// mutated sequence must fail the per-line compare; the unmutated
+	// must pass it — unfolded to the real roots first).
+	mutatedLogs := make([][]string, len(g.EngineDryrun.Logs))
+	bit := false
+	for i, l := range g.EngineDryrun.Logs {
+		msg := l[1]
+		if !bit && strings.Contains(msg, "Manifest created: 1 GitHub") {
+			msg = strings.Replace(msg, "Manifest created: 1 GitHub",
+				"Manifest created: 2 GitHub", 1)
+			bit = true
+		}
+		mutatedLogs[i] = []string{l[0], unfold(msg, appTmp, vaultsTmp)}
+	}
+	if !bit {
+		t.Fatalf("the manifest line is missing from the golden — the " +
+			"mutation surface is gone")
+	}
+	equalSeq := func(a, b [][]string) bool {
+		if len(a) != len(b) {
+			return false
+		}
+		for i := range a {
+			if a[i][0] != b[i][0] || a[i][1] != b[i][1] {
+				return false
+			}
+		}
+		return true
+	}
+	if equalSeq(rep.EngineLogs, mutatedLogs) {
+		t.Fatalf("the mutated log sequence passed the replay — no teeth")
+	}
+	wantUnmutated := make([][]string, len(g.EngineDryrun.Logs))
+	for i, l := range g.EngineDryrun.Logs {
+		wantUnmutated[i] = []string{l[0], unfold(l[1], appTmp, vaultsTmp)}
+	}
+	if !equalSeq(rep.EngineLogs, wantUnmutated) {
+		t.Fatalf("the real log sequence diverged from the unmutated golden")
+	}
+}
+
+type engineFakeFetcher struct{}
+
+func (f *engineFakeFetcher) GetRateLimit() (*githubpipeline.RateLimit, error) {
+	// the reference's payload fake lacks get_rate_limit — the
+	// reference's own `except Exception: pass` swallows it; the error
+	// answers the same silent skip.
+	return nil, errors.New("no get_rate_limit on the fake")
+}
+
+func (f *engineFakeFetcher) GetRepo(fullName string) (*githubpipeline.Repo, error) {
+	if fullName != "octo-owner/curated-repo" {
+		return nil, &githubpipeline.GHError{Status: 404, Message: "404"}
+	}
+	return &githubpipeline.Repo{
+		ID: 4242, FullName: "octo-owner/curated-repo", Name: "curated-repo",
+		Fork: false, StargazersCount: 12500, ForksCount: 12,
+		Description:       "A curated offline fixture repo.",
+		OwnerLogin:        "octo-owner",
+		OrganizationLogin: "",
+		Language:          "Go",
+	}, nil
+}
+
+func (f *engineFakeFetcher) GetTopics(string) ([]string, error) {
+	return []string{"go", "testing"}, nil
+}
+
+func (f *engineFakeFetcher) CountCommitsSince(string, time.Time) (int, error) {
+	return 42, nil
+}
+
+func (f *engineFakeFetcher) GetReadme(string) (*githubpipeline.ReadmeResult, error) {
+	return &githubpipeline.ReadmeResult{
+		Content:  "A fixture readme with enough words for the summary gate.",
+		RawChars: 56}, nil
+}
+
+func (f *engineFakeFetcher) GetLanguages(string) ([]string, error) {
+	return []string{"Go", "Python"}, nil
+}
+
+func (f *engineFakeFetcher) LatestRelease(string) (*githubpipeline.Release, error) {
+	return &githubpipeline.Release{TagName: "v1.0.0",
+		PublishedAt: time.Date(2026, 1, 1, 0, 0, 0, 0, time.Local)}, nil
+}
+
+// engineFakeOllama answers the reference's ENGINE_ANALYSIS JSON.
+type engineFakeOllama struct{}
+
+func (f *engineFakeOllama) List(ctx context.Context) ([]string, error) {
+	return []string{"llama3", "qwen2.5-coder:7b"}, nil
+}
+
+func (f *engineFakeOllama) Chat(ctx context.Context,
+	req *llmclient.OllamaChatRequest) (*llmclient.OllamaChatResponse, error) {
+	analysis := `{"confidence": 95, "core_value": "The offline differential proof.", ` +
+		`"difference": "none — it is a fixture", "features": "fixtures, determinism, parity", ` +
+		`"how_it_works": "It answers canned data deterministically.", "summary": ` +
+		`"A curated offline fixture repo for the engine golden.", "tags": ["go", "testing"]}`
+	return &llmclient.OllamaChatResponse{
+		Model:   req.Model,
+		Message: &llmclient.OllamaChatMessage{Role: "assistant", Content: analysis},
+	}, nil
 }
