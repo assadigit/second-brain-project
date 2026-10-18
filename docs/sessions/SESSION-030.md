@@ -1,4 +1,4 @@
-# SESSION-030 — 2026-10-18 — Phase 5: T-62 COMPLETE (slice 2: THE ENGINE + THE DRIVERS + THE DIFFERENTIAL GOLDEN) — 1911 tests race-clean over 32 packages; the twenty-fourth full wipe repaired before work + THE CONTEXT DEATH survived mid-session (the first continuation-from-in-flight-work; the SESSION-021 law applied: git evidence over the lossy summary); THE PUSH IS PENDING (the PAT was lost with the context — never stored, the law held)
+# SESSION-030 — 2026-10-18 — Phase 5: T-62 COMPLETE (slice 2: THE ENGINE + THE DRIVERS + THE DIFFERENTIAL GOLDEN) — 1911 tests race-clean over 32 packages; the twenty-fourth full wipe repaired before work + THE CONTEXT DEATH survived mid-session (the first continuation-from-in-flight-work; the SESSION-021 law applied: git evidence over the lossy summary); THE PUSH DEBT cleared by the session's SECOND continuation (the PAT was lost with the first context death — never stored, the law held; re-supplied ephemerally after — see the Postscript)
 
 ## Goal (from NEXT-SESSION.md at start)
 
@@ -177,7 +177,9 @@ Ctrl+C exit code; the drivers' contracts"):
   clean; zero new dependencies.
 
 **Honest limits**:
-- **THE PUSH IS PENDING** — origin/main stands at `6ccf184` (pushed
+- **THE PUSH WAS PENDING AT CLOSE — CLEARED by the session's second
+  continuation with the owner's re-supplied ephemeral PAT (see the
+  Postscript)** — origin/main stood at `6ccf184` (pushed
   by the first incarnation BEFORE the context death); `e0cef51` and
   this report's close commit are LOCAL and ready. The PAT was
   delivered in the kickoff for ephemeral use and CORRECTLY never
@@ -216,6 +218,8 @@ Ctrl+C exit code; the drivers' contracts"):
 1. **Push the session's commits** (or hand the PAT to SESSION-031's
    kickoff for ephemeral use — the exact `git -c http.extraheader=…`
    push command is in NEXT-SESSION §1; never store the PAT).
+   **DONE — the second continuation pushed `6ccf184..e175619`,
+   server-verified (see the Postscript).**
 2. The go-directive acknowledgement (ADR-0002 Am.2) still waits
    (twentieth session carrying it) — informational, not a blocker.
 
@@ -228,10 +232,35 @@ Ctrl+C exit code; the drivers' contracts"):
   `gitcurator-cli.sh`, the `1-INSTALL`-equivalent checks (git on
   PATH), the VERSION stamp — then T-64 (the differential corpus
   run) and T-65 (the tag) close Phase 5.
-- PUSH FIRST (see §1 of NEXT-SESSION v31) — the session must not
-  begin push-pending.
+- The push debt is CLEARED (origin/main at the close commit — see
+  the Postscript); SESSION-031 verifies sync per NEXT-SESSION v31 §1
+  and never ends its own close push-pending.
 - The newest laws to carry: THE STATE-CHAIN LAW + THE
   MUTATION-TEETH LAW (spec-cli's GO NOTES) — plus the
   context-death continuation recipe that WORKED this session: git
   status + log + timestamps, audit the in-flight work, repair, run
   the full battery, land.
+
+## Postscript — the push, by the session's SECOND continuation
+
+- The PAT was re-supplied ephemerally in the continuation's kickoff
+  (the exact push the §4 owner-action asked for). Order of operations:
+  **byte-level secret scan BEFORE the push** (the two-commit diff
+  `origin/main..HEAD` + the whole working tree + `.git/config` —
+  every credential value fixed-string-scanned clean; the golden's
+  only github_token is the deliberate `fake-github-token-0123456789`
+  fixture; the five `x-access-token` diff hits are all the benign
+  `$PAT`-placeholder command patterns in the docs), then `git -c
+  http.extraheader=… push origin main` → `6ccf184..e175619`.
+- **Server-verified**: authenticated `ls-remote refs/heads/main` →
+  `e175619616e3f70f0397dbadb751aea8f4a1c2d1`, byte-equal to local
+  HEAD; `git status` shows `main...origin/main` in sync; the PAT
+  never persisted (`.git/config` re-checked: 0 extraheader bytes —
+  `git -c` is per-invocation by construction, verified anyway).
+- **The battery re-verified AT THE PUSHED HEAD**: the full suite
+  `-count=1 -race` → exit 0, **32 packages ok, 0 FAIL / 0 SKIP**;
+  the count re-confirmed by the top-level `=== RUN` convention →
+  **1911** — the report's arithmetic closes on fresh evidence, not
+  trust. This postscript + the NEXT-SESSION v31 amendments (the
+  push-pending blocks rewritten as the cleared record) ride the
+  same close-out commit, pushed immediately after.

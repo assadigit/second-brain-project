@@ -48,21 +48,22 @@
   BATCH DONE card + the exit codes + the 12-entry report
   byte-compared, REAL mutation teeth, two-run byte-identical).
   **1911 tests race-clean over 32 packages** at the close.
-- **THE PUSH IS PENDING (the one debt SESSION-031 must clear FIRST)**:
-  SESSION-030 survived a mid-session CONTEXT DEATH — the first
-  incarnation landed and PUSHED `6ccf184` (origin/main stands there),
-  then the context was exhausted with the differential golden in
-  flight; the continuation landed `e0cef51` (the golden close) + the
-  session's close commit LOCALLY. The PAT was ephemeral (correctly
-  never stored) and its value was lost with the context. **SESSION-031
-  starts by pushing** (the owner supplies the PAT ephemerally, or
-  pushed personally in between): `cd /home/z/my-project/
-  second-brain-project && git -c http.extraheader="Authorization:
-  Basic $(printf 'x-access-token:%s' "$PAT" | base64)" push origin
-  main` — then verify `git status` shows "up to date with
-  'origin/main'" and NEVER store the PAT (if the push was already
-  done by the owner, `git fetch` first and reconcile — local main
-  must contain e0cef51 + the close commit at its tip).
+- **THE PUSH DEBT IS CLEARED** (by SESSION-030's SECOND
+  continuation, immediately after the close, with the owner's
+  re-supplied ephemeral PAT): the pre-push byte-level secret scan ran
+  first (the two-commit diff + the working tree + .git/config — all
+  clean), then `git -c http.extraheader=… push origin main` landed
+  `6ccf184..e175619`. Server-verified via authenticated ls-remote
+  (`refs/heads/main` → `e175619616e3…`, byte-equal to local HEAD);
+  the PAT never persisted (config re-checked: 0 extraheader bytes).
+  The battery RE-VERIFIED at the pushed HEAD: **1911/1911 top-level
+  tests race-clean over 32 packages** (`-count=1 -race`, exit 0,
+  0 FAIL / 0 SKIP). SESSION-031 starts from a clean push state —
+  after the environment check, verify `git status` shows up to date
+  with 'origin/main' at `e175619` (if the sandbox wiped the clone,
+  re-clone and reconcile; never end a session push-pending — that is
+  the PUSH-AFTER-EVERY-TASK law below, whose cautionary tale this
+  debt became and then was paid).
 - **Remaining on Phase 5's books**: T-61's remaining paint legs (the
   close-out audit — the paint box, the NO_COLOR/TTY law, the spinner
   under the heartbeat, and the 65001 hardening are all LANDED; the
@@ -144,7 +145,11 @@
 
 ## 2. Next session: SESSION-031 — T-61's close-out audit + T-63 the launchers
 
-- **PUSH FIRST** (§1) — the session must not begin push-pending.
+- **Verify the push state first** (§1): SESSION-030's debt was
+  cleared by its second continuation — origin/main stands at
+  `e175619` — so the session does NOT begin push-pending; confirm
+  `git status` is in sync before work (and keep pushing after every
+  task).
 - **T-61 (S) — the terminal-paint close-out**: the paint box, the
   NO_COLOR/TTY/--no-color law, `term_width`'s COLUMNS law, the
   spinner + bar under the heartbeat, and the Windows 65001 console
@@ -220,12 +225,14 @@
 
 ## 4. Known constraints / owner actions for SESSION-031
 
-- **PUSH-PENDING DEBT (FIRST ACTION)**: local main carries `e0cef51`
-  + the SESSION-030 close commit; origin/main stands at `6ccf184`.
-  The owner either pushed personally (then `git fetch` + reconcile)
-  or supplies the PAT ephemerally at the session's start (the exact
-  push command is in §1) — never store it, never echo it into any
-  file or command log that persists.
+- **Push state: CLEAN** — SESSION-030's push debt (`e0cef51` + the
+  close commit, stranded local by the mid-session context death) was
+  cleared by the session's second continuation with the owner's
+  re-supplied ephemeral PAT: pushed, server-verified, and the battery
+  re-verified at the pushed HEAD (1911/1911). The PAT was never
+  stored and never echoed into any file or command log that
+  persists. No first-action push is needed — keep the
+  PUSH-AFTER-EVERY-TASK law.
 - **The go-directive acknowledgement (STILL WAITING — twentieth
   session carrying it)**: the main module rides `go 1.24.1`, forced
   by the owner-acknowledged tls-client v1.16.0 pin (ADR-0002 Am.2
@@ -282,20 +289,21 @@ code alongside you. You are the single writer on the repo.
    golang.org/x/net v0.48.0 + golang.org/x/text v0.32.0 direct, and the go
    directive at 1.24.1 (the tls-client-forced floor — ADR-0002 Am.2; do not
    bump any of these). Then check `git status` and `git log --oneline -3`:
-   SESSION-030 landed T-62 COMPLETE — the engine+drivers at 6ccf184 (PUSHED —
-   origin/main stands there) and the differential golden's close at e0cef51 plus
-   the session's close commit (LOCAL — THE PUSH IS PENDING: a context death
-   between the task and its push lost the ephemeral PAT). PUSH FIRST: ask me
-   for the GitHub PAT now (or I pushed personally in between — then git fetch
-   and reconcile; local main must contain e0cef51 + the close commit at its
-   tip) and push with git -c http.extraheader="Authorization: Basic $(printf
-   'x-access-token:%s' "$PAT" | base64)" push origin main — never store the
-   PAT, and if you ever clone with it, `git config --unset-all http.extraheader`
-   in BOTH clones right after (the header PERSISTS into .git/config); Currena
+   SESSION-030 landed T-62 COMPLETE and PUSHED everything — the engine+drivers
+   at 6ccf184, the differential golden's close at e0cef51, and the session's
+   close commit e175619 (the push debt stranded by the mid-session context
+   death was cleared by the session's SECOND continuation with the owner's
+   re-supplied ephemeral PAT; server-verified; battery re-verified at the
+   pushed HEAD: 1911 tests race-clean over 32 packages). origin/main stands at
+   e175619 — verify git status shows up to date with origin/main. Use the PAT
+   only ephemerally: git -c http.extraheader="Authorization: Basic $(printf
+   'x-access-token:%s' "$PAT" | base64)" and never store it — AND SCRUB IT if
+   you ever CLONE with it: `git clone -c http.extraheader=…` PERSISTS the
+   header into the new clone's .git/config, so `git config --unset-all
+   http.extraheader` in BOTH clones right after; Currena
    is an UNRELATED sibling; a mid-session mode-flip is repaired with
-   `git checkout-index -f -a` after `git fsck`. The baseline after the push:
-   1911 tests race-clean over 32 packages — re-verify the suite before work if
-   anything looks off. SESSION-030's operational laws (newest first): THE
+   `git checkout-index -f -a` after `git fsck`. Re-verify the suite before work
+   if anything looks off. SESSION-030's operational laws (newest first): THE
    STATE-CHAIN LAW — a golden replay of sequential sections is ONE state chain
    and an ISOLATED replay (a mutation test with a fresh buildEnv) must
    reproduce the payload's own pre-state (the --reset-dead run clears the dead
@@ -331,7 +339,8 @@ code alongside you. You are the single writer on the repo.
    commit — the engine's record is in the status) → docs/SESSION-PROTOCOL.md
    (the working law) → docs/NEXT-SESSION.md (your state card — §1 records
    SESSION-030's close: T-62 COMPLETE, 1911 tests race-clean over 32
-   packages, the push-PENDING debt, the newest laws incl. the state-chain +
+   packages, the push debt CLEARED by the second continuation, the newest laws
+   incl. the state-chain +
    mutation-teeth ones) → docs/sessions/SESSION-030.md (the most recent
    report — the context-death continuation's audit + the golden's evidence).
 
