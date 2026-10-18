@@ -241,6 +241,30 @@ var workerDirectGet WorkerHTTPGet = func(u string, timeoutS float64) (any, error
 	return payload, nil
 }
 
+// HTTPGetJSONFn is the battery's _http_get_json seam: the reference's
+// own suites monkeypatch the module attribute (mock.patch.object(cc,
+// "_http_get_json", …)), and the CLI golden replay injects the same
+// way — the exported var is that mock surface (production: the real
+// probe above; nothing else changes).
+var HTTPGetJSONFn = httpGetJSON
+
+// GitHubReply is _github_get's return triple as the seam's shape:
+// Status 0 means transport failure.
+type GitHubReply struct {
+	Status  int
+	Payload any
+	Err     string
+}
+
+// GitHubGetFn is the _github_get seam: (path, token, apiBase,
+// timeoutS) → the reply triple (the reference's tests monkeypatch the
+// module attribute the same way; the CLI golden replay injects the
+// same way — production: the real probe above).
+var GitHubGetFn = func(path, token, apiBase string, timeoutS float64) GitHubReply {
+	r := githubGet(path, token, apiBase, timeoutS)
+	return GitHubReply{Status: r.status, Payload: r.payload, Err: r.err}
+}
+
 // secondsDur mirrors llmclient's seconds convention (kept local: a
 // tiny, obvious helper — the package never imports unexported state).
 func secondsDur(seconds float64) time.Duration {

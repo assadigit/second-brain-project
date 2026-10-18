@@ -18,24 +18,24 @@ func CheckGitHub(config any, apiBase string, timeoutS float64) []Result {
 				"vault seals need a token)"))
 		return out
 	}
-	r := githubGet("/user", token, apiBase, timeoutS)
-	if r.status == 0 {
+	r := GitHubGetFn("/user", token, apiBase, timeoutS)
+	if r.Status == 0 {
 		out = append(out, result("GitHub token", LevelError,
-			"GitHub unreachable ("+r.err+") — check internet / proxy"))
+			"GitHub unreachable ("+r.Err+") — check internet / proxy"))
 		return out
 	}
-	if r.status == 401 {
+	if r.Status == 401 {
 		out = append(out, result("GitHub token", LevelError,
 			"REJECTED (401 Bad credentials) — make a fresh token "+
 				"at github.com/settings/tokens (classic, 'repo' scope)"))
 		return out
 	}
-	if r.status != 200 || !isDictLike(r.payload) {
+	if r.Status != 200 || !isDictLike(r.Payload) {
 		out = append(out, result("GitHub token", LevelError,
-			"unexpected response (HTTP "+itoa(r.status)+")"))
+			"unexpected response (HTTP "+itoa(r.Status)+")"))
 		return out
 	}
-	login := pyStr(pyOr(dictValue(r.payload, "login"), "?"))
+	login := pyStr(pyOr(dictValue(r.Payload, "login"), "?"))
 	out = append(out, result("GitHub token", LevelOK,
 		"valid — account "+login+" (5000 req/h)"))
 	// The vault backup repos.
@@ -73,10 +73,10 @@ func CheckGitHub(config any, apiBase string, timeoutS float64) []Result {
 		repos = append(repos, repoRow{"Personal repo", repo})
 	}
 	for _, rr := range repos {
-		r2 := githubGet("/repos/"+login+"/"+rr.repo, token, apiBase, timeoutS)
+		r2 := GitHubGetFn("/repos/"+login+"/"+rr.repo, token, apiBase, timeoutS)
 		switch {
-		case r2.status == 200 && isDictLike(r2.payload):
-			if pyTruthy(dictDefault(r2.payload, "private", true)) {
+		case r2.Status == 200 && isDictLike(r2.Payload):
+			if pyTruthy(dictDefault(r2.Payload, "private", true)) {
 				out = append(out, result(rr.label, LevelOK,
 					rr.repo+" ready (private)"))
 			} else {
@@ -84,7 +84,7 @@ func CheckGitHub(config any, apiBase string, timeoutS float64) []Result {
 					rr.repo+" is PUBLIC — vault backups should be "+
 						"private (github.com/"+login+"/"+rr.repo+"/settings)"))
 			}
-		case r2.status == 404:
+		case r2.Status == 404:
 			out = append(out, result(rr.label, LevelInfo,
 				rr.repo+" not on GitHub yet — GitCurator never "+
 					"creates repos automatically (v0.83.0): create "+
@@ -94,11 +94,11 @@ func CheckGitHub(config any, apiBase string, timeoutS float64) []Result {
 					"start once it exists"))
 		default:
 			extra := ""
-			if r2.status == 0 && r2.err != "" {
-				extra = ", " + r2.err
+			if r2.Status == 0 && r2.Err != "" {
+				extra = ", " + r2.Err
 			}
 			out = append(out, result(rr.label, LevelWarn,
-				rr.repo+" could not be checked (HTTP "+itoa(r2.status)+
+				rr.repo+" could not be checked (HTTP "+itoa(r2.Status)+
 					extra+")"))
 		}
 	}

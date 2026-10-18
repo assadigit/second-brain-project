@@ -4,15 +4,15 @@ package cli
 // cli_main, the Option-B honest surface per ADR-0004 Am.3 / rider R-0).
 //
 // THE HONEST FLAG SURFACE (T-60's decision, never a silent no-op):
-//   - IMPLEMENTED in this slice: --status, --list-dead, --reset-dead,
-//     --config, --vault, --yes/-y, --no-color, --dry-run, --strikes
-//     (the last four parsed everywhere; the batch engines that consume
-//     them land with T-62).
-//   - NOT-YET cards (explicit, exit 1): --init (the wizard), the
-//     --sync door's live beats (its pure CHECK half runs now; the
-//     battery/button/fetch engine lands with T-62), --auto,
-//     --retry-failed, --import-file, --test-connection, --detect-llm,
-//     --hand-delivery, --chrome-retry.
+//   - IMPLEMENTED: --init (the wizard), --status, --test-connection,
+//     --detect-llm, --list-dead, --reset-dead, --hand-delivery,
+//     --chrome-retry (the listing + the dry-run rehearsal; the live
+//     run is T-62's batch engine), --sync beat 1a (the pure check;
+//     the live beats land with T-62), --config, --vault, --yes/-y,
+//     --no-color, --dry-run, --strikes.
+//   - NOT-YET cards (explicit, exit 1): the --sync door's live beats,
+//     --auto, --retry-failed, --import-file, the chrome-retry live
+//     leg — naming T-62, their landing task.
 //   - REFUSAL cards (ADR-0004 Am.3 accepted losses, exit 1): --login,
 //     --mark-read, --from-id/--to-id, --offset-start/--count,
 //     --single-id — the Telethon-only modes; the Go app ships no
@@ -30,11 +30,12 @@ import (
 
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
+	"github.com/assadigit/second-brain-project/internal/storage"
 )
 
 // CLI carries the shell's seams: the output/input streams, the clock
-// (the frozen-clock law), the TTY doors, and the status card's probe
-// seams (the instance-seam pattern).
+// (the frozen-clock law), the TTY doors, and the command doors'
+// probe seams (the instance-seam pattern).
 type CLI struct {
 	Out       io.Writer // stdout
 	ErrW      io.Writer // stderr (the argparse error path)
@@ -53,6 +54,16 @@ type CLI struct {
 	OllamaModels  func(baseURL string, timeoutS float64) ([]string, error)
 	ProbeLlama    func(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult
 	DetectLlama   func(apiKey string) *llmclient.ProbeResult
+
+	// The wizard's radar door (repo_radar.radar_all_vaults — the
+	// golden replay injects crafted detections; apply/report/pending
+	// are the ported pure halves and always run real).
+	RadarAll func(cfg any) map[string]any
+
+	// The --detect-llm probe seam (detect_ollama — the ollama leg of
+	// _quick_detect_job; the llamacpp legs ride ProbeLlama/DetectLlama
+	// above).
+	DetectOllama func(baseURL string, timeoutS float64) llmclient.DetectOllamaResult
 }
 
 // NewCLI builds the default shell bound to the real streams and the
@@ -71,6 +82,8 @@ func NewCLI() *CLI {
 		OllamaModels:  defaultOllamaModels,
 		ProbeLlama:    defaultProbeLlama,
 		DetectLlama:   defaultDetectLlama,
+		RadarAll:      defaultRadarAll,
+		DetectOllama:  llmclient.DetectOllama,
 	}
 }
 
@@ -78,6 +91,38 @@ func NewCLI() *CLI {
 func Main(argv []string) int {
 	c := NewCLI()
 	return c.Run(argv)
+}
+
+// radarAllDoor / detectOllamaDoor / probeLlamaDoor / detectLlamaDoor
+// are the nil-safe seam accessors (a bare &CLI{} — the unit tests'
+// shape — falls back to the production doors; the seams stay
+// injectable for the golden replay).
+func (c *CLI) radarAllDoor(cfg *storage.OrderedMap) map[string]any {
+	if c.RadarAll != nil {
+		return c.RadarAll(cfg)
+	}
+	return defaultRadarAll(cfg)
+}
+
+func (c *CLI) detectOllamaDoor(base string, timeoutS float64) llmclient.DetectOllamaResult {
+	if c.DetectOllama != nil {
+		return c.DetectOllama(base, timeoutS)
+	}
+	return llmclient.DetectOllama(base, timeoutS)
+}
+
+func (c *CLI) probeLlamaDoor(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult {
+	if c.ProbeLlama != nil {
+		return c.ProbeLlama(baseURL, apiKey, timeoutS)
+	}
+	return defaultProbeLlama(baseURL, apiKey, timeoutS)
+}
+
+func (c *CLI) detectLlamaDoor(apiKey string) *llmclient.ProbeResult {
+	if c.DetectLlama != nil {
+		return c.DetectLlama(apiKey)
+	}
+	return defaultDetectLlama(apiKey)
 }
 
 // Args is the parsed surface (argparse's Namespace twin).
@@ -223,24 +268,24 @@ func (c *CLI) Run(argv []string) int {
 
 	switch {
 	case a.Init:
-		return c.notYetCard("--init", "the first-run wizard lands with the rest of T-60 (Phase 5)")
+		return c.cmdInit(&a)
 	case a.Login:
 		return c.refusalCard("--login",
 			"the Telegram (MTProto) login flow was dropped in the Go port — the bot queue rides the Cloudflare Worker HTTP API, and no Telegram session is ever needed")
 	case a.Status:
 		return c.cmdStatus(&a)
 	case a.TestConnection:
-		return c.notYetCard("--test-connection", "the connection battery's CLI wiring lands with the rest of T-60 (Phase 5)")
+		return c.cmdTestConnection(&a)
 	case a.DetectLLM != "":
-		return c.notYetCard("--detect-llm", "the Detect & Set engine lands with the rest of T-60 (Phase 5)")
+		return c.cmdDetectLLM(&a)
 	case a.ListDead:
 		return c.cmdListDead(&a)
 	case a.ResetDead:
 		return c.cmdResetDead(&a)
 	case a.HandDelivery:
-		return c.notYetCard("--hand-delivery", "the fourth door lands with the rest of T-60 (Phase 5)")
+		return c.cmdHandDelivery(&a)
 	case a.ChromeRetry:
-		return c.notYetCard("--chrome-retry", "the fifth door lands with the rest of T-60 (Phase 5)")
+		return c.cmdChromeRetry(&a)
 	case a.MarkRead:
 		return c.refusalCard("--mark-read",
 			"marking the Telethon bot messages read was dropped in the Go port — mirror-push is the read acknowledgement (spec-worker-contract §8.4)")

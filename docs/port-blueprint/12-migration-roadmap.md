@@ -82,9 +82,16 @@ packages. **Phase 4 CLOSED; Phase 5 (engine parity milestone per Amendment 1) OP
 settings halves, the sync door's pure halves + beat 1a, the honest Option-B flag surface with
 refusal cards for the Telethon accepted losses, the FULL --status card, --list-dead/
 --reset-dead; the differential golden dump_cli.py → goldencli.golden.json → the Go replay
-green, mutation bites; 1852 tests race-clean over 31 packages). T-60's remainder (the wizard,
-test-connection, detect-llm, hand-delivery, chrome-retry wiring) + T-61's remaining paint
-legs ride with it; T-62's engines follow.
+green, mutation bites; 1852 tests race-clean over 31 packages).
+**Progress (SESSION-028)**: T-60's remainder LANDED — THE COMMAND WIRINGS (the --init
+wizard with the repo radar over the RadarAll seam + the honest Option-B closing card,
+--test-connection over the ported battery with the _section/_check_line renderers and
+every Option-B divergence asserted, --detect-llm with the model menu + cli_settings's
+model-menu half, --hand-delivery complete, --chrome-retry's listing + full dry-run
+rehearsal with the reality-wins dry-run-switch fix; the golden grew to 9 more sections
+incl. the wizards' saved-config bytes + the enqueue's writes — 48,698 bytes two-run
+byte-identical, the mutation teeth grew; 1866 tests race-clean over 31 packages). Only
+T-61's remaining paint legs ride with T-62's engines.
 **Exit gate**: the owner can run the Go CLI alongside the Python app on real data (dry-run
 first); differential harness green on the full case list; **CLI parity release `0.92.0-go.1`**
 tagged with the zip artifact.

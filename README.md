@@ -316,11 +316,29 @@ WebsiteStateDB stats), and --list-dead/--reset-dead. The differential
 golden: dump_cli.py drives the reference's own CLI shapes (the gui.app door
 stubbed to the REAL CacheDB, net_guard stubbed, a fake ollama module, APP_DIR
 patched, the clock frozen) → goldencli.golden.json (two-run byte-identical)
-→ the Go replay green on the first run; the mutation test bites. 1852 tests
-race-clean over 31 packages (+24).
-Next: T-60's remainder (the wizard, test-connection, detect-llm,
-hand-delivery, chrome-retry wiring), then T-62 (the sync/auto engines +
-the dry-run report).
+→ the Go replay green on the first run; the mutation test bites.
+**SESSION-028 — T-60's remainder: THE COMMAND WIRINGS landed**: the `--init`
+wizard (the full _ask sequence + the repo radar over the RadarAll seam +
+the provider branches with the probe seam + the honest Option-B closing
+card), `--test-connection` (the battery over the ported connectioncheck
+with the _section/_check_line renderers — the Worker leg IS the queue
+check; every Option-B divergence asserted), `--detect-llm` (the probe job
++ the numbered menu + set-and-save) with cli_settings's model-menu half
+(SmartModelPick/PromptModelMenu/ApplyModelChoice), `--hand-delivery`
+complete (the walled listing + the enqueue + the folder card), and
+`--chrome-retry`'s listing + full dry-run rehearsal (the live leg waits
+for T-62's batch engine — an honest boundary card). The golden grew to 9
+more sections (the wizard runs with their SAVED CONFIG bytes, the battery
+with the stubbed net doors, the detect cards, the model-menu matrix over
+the REAL mixin picker, the hand-delivery writes, the chrome-retry card) —
+the two-run byte-identical proof + the mutation teeth stay part of every
+regeneration; a reality-wins find fixed in-commit (the reference's
+chrome-retry --dry-run forgot to flip the dry-run switch — the port flips
+it). 1866 tests race-clean over 31 packages (+14).
+Next: T-62 (the --sync live beats + the --auto engine + the dry-run report
+writer + the wrong-vault guard + the chrome-retry live leg), then T-61's
+remaining paint legs, T-63 (launchers), T-64 (the differential corpus
+run), T-65 (the release tag).
 
 ## Map
 

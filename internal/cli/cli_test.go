@@ -9,9 +9,13 @@ package cli
 
 import (
 	"bytes"
+	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"testing"
+
+	"github.com/assadigit/second-brain-project/internal/llmclient"
 )
 
 func testCLI(out *bytes.Buffer, in string) *CLI {
@@ -53,21 +57,41 @@ func TestFlagSurfaceRecognized(t *testing.T) {
 
 // TestDispatchOrder mirrors cli_main's if-chain: the earlier flag wins.
 func TestDispatchOrder(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("GITCURATOR_HOME", home)
+	t.Setenv("GITCURATOR_USER_CONFIG", filepath.Join(home, "user-config.json"))
+	cfgPath := filepath.Join(home, "dispatch-config.json")
+	// a minimal config that needs no network through the battery:
+	// the cloud provider with no URL (the error row), no GitHub token
+	// (the warn row), the temp vault (the ok row).
+	if err := os.WriteFile(cfgPath, []byte(
+		`{"vault_path": `+strconv.Quote(home)+`, "llm_provider": "cloud"}`+"\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
 	cases := []struct {
 		argv []string
 		want string
 	}{
 		{[]string{"--status", "--list-dead", "--reset-dead"}, "No config at"},
 		{[]string{"--list-dead", "--reset-dead"}, "404 quarantine (threshold "},
-		{[]string{"--init", "--auto", "--sync"}, "first-run wizard"},
+		{[]string{"--init", "--auto", "--sync", "--config", cfgPath}, "First-run setup"},
 		{[]string{"--login", "--status"}, "Telegram (MTProto)"},
 		{[]string{"--mark-read", "--auto"}, "mirror-push is the read acknowledgement"},
 		{[]string{"--auto", "--sync"}, "the batch engine lands with T-62"},
 		{[]string{"--sync", "--retry-failed"}, "SYNC refused"},
+		{[]string{"--test-connection", "--sync", "--config", cfgPath}, "Test Connection — is everything up and ready?"},
+		{[]string{"--detect-llm", "ollama", "--sync", "--config", cfgPath}, "Detect & Set Ollama — probing"},
+		{[]string{"--hand-delivery", "--chrome-retry", "--config", cfgPath}, "website_vault_path is not set"},
+		{[]string{"--chrome-retry", "--auto", "--config", cfgPath}, "website_vault_path is not set"},
 	}
 	for _, tc := range cases {
 		buf := &bytes.Buffer{}
 		c := testCLI(buf, "")
+		c.DetectOllama = func(string, float64) llmclient.DetectOllamaResult {
+			return llmclient.DetectOllamaResult{Found: false,
+				BaseURL: "http://127.0.0.1:11434",
+				Detail:  "URLError: refused"}
+		}
 		c.Run(tc.argv)
 		if !strings.Contains(buf.String(), tc.want) {
 			t.Errorf("dispatch %v: output missing %q", tc.argv, tc.want)
@@ -172,20 +196,17 @@ func TestRefusalCards(t *testing.T) {
 	}
 }
 
-// TestNotYetCards — the in-development doors name their landing task.
+// TestNotYetCards — the in-development doors name their landing task
+// (the T-60 remainder is IMPLEMENTED now — only the batch-engine
+// doors remain).
 func TestNotYetCards(t *testing.T) {
 	cases := []struct {
 		argv []string
 		want string
 	}{
-		{[]string{"--init"}, "the first-run wizard lands with the rest of T-60 (Phase 5)"},
 		{[]string{"--auto"}, "the batch engine lands with T-62 (Phase 5)"},
 		{[]string{"--retry-failed"}, "the batch engine lands with T-62 (Phase 5)"},
 		{[]string{"--import-file", "urls.txt"}, "the batch engine lands with T-62 (Phase 5)"},
-		{[]string{"--test-connection"}, "the connection battery's CLI wiring lands with the rest of T-60 (Phase 5)"},
-		{[]string{"--detect-llm", "ollama"}, "the Detect & Set engine lands with the rest of T-60 (Phase 5)"},
-		{[]string{"--hand-delivery"}, "the fourth door lands with the rest of T-60 (Phase 5)"},
-		{[]string{"--chrome-retry"}, "the fifth door lands with the rest of T-60 (Phase 5)"},
 	}
 	for _, tc := range cases {
 		buf := &bytes.Buffer{}

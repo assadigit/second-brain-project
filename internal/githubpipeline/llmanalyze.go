@@ -453,9 +453,9 @@ func (r *Runner) waitLLMDecision(repoName string, attempt int,
 
 var embedNameHints = []string{"embed", "bert-", "clip"}
 
-// isEmbedModel mirrors _is_embed_model: embedding models can't run
+// IsEmbedModel mirrors _is_embed_model: embedding models can't run
 // chat completions — never auto-pick one for analysis.
-func isEmbedModel(name string) bool {
+func IsEmbedModel(name string) bool {
 	low := strings.ToLower(name)
 	for _, h := range embedNameHints {
 		if strings.Contains(low, h) {
@@ -508,7 +508,7 @@ func PickBestModel(configured string, available []string) string {
 	}
 	chat := make([]string, 0, len(models))
 	for _, m := range models {
-		if !isEmbedModel(m) {
+		if !IsEmbedModel(m) {
 			chat = append(chat, m)
 		}
 	}

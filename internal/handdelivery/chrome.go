@@ -54,11 +54,11 @@ var (
 	}
 )
 
-// findChromeFn is the open ladder's finder seam (the reference's
+// FindChromeFn is the open ladder's finder seam (the reference's
 // own tests patch hd.find_chrome directly; the port's battery patches
 // this — the finder itself stays testable through the three seams
 // below).
-var findChromeFn = FindChrome
+var FindChromeFn = FindChrome
 
 // FindChrome mirrors find_chrome: the real Chrome's executable, when
 // one can be found — well-known chrome.exe paths on Windows,
@@ -87,12 +87,12 @@ func FindChrome() string {
 	return ""
 }
 
-// subprocessPopen is the detached-launch seam (subprocess.Popen in
+// SubprocessPopenFn is the detached-launch seam (subprocess.Popen in
 // the reference). argv[0] is the executable; the real implementation
 // starts the browser and never waits (stdout/stderr/stdin ride the
 // null device, the home dir is the cwd, close_fds is Go's default —
 // the detached child keeps running after the app exits).
-var subprocessPopen = func(argv []string) error {
+var SubprocessPopenFn = func(argv []string) error {
 	cmd := exec.Command(argv[0], argv[1:]...)
 	cmd.Stdout, cmd.Stderr, cmd.Stdin = nil, nil, nil
 	if home, err := os.UserHomeDir(); err == nil {
@@ -101,12 +101,12 @@ var subprocessPopen = func(argv []string) error {
 	return cmd.Start()
 }
 
-// webbrowserOpen is the system-browser fallback seam
+// WebbrowserOpenFn is the system-browser fallback seam
 // (webbrowser.open). The real implementation asks the OS's default
 // browser door; an error mirrors Python's webbrowser raising (the
 // reference's except path answers the same warning as a Chrome
 // launch failure).
-var webbrowserOpen = func(u string) (bool, error) {
+var WebbrowserOpenFn = func(u string) (bool, error) {
 	var cmd *exec.Cmd
 	switch runtime.GOOS {
 	case "windows":
@@ -147,9 +147,9 @@ func OpenInChrome(rawURL string, log LogFn) string {
 			return ""
 		}
 	}
-	exe := findChromeFn()
+	exe := FindChromeFn()
 	if exe != "" {
-		if err := subprocessPopen([]string{exe, u}); err != nil {
+		if err := SubprocessPopenFn([]string{exe, u}); err != nil {
 			// the reference's except path — the same honest warning
 			// for a failed launch and a failed fallback.
 			log(fmt.Sprintf("⚠️ Chrome could not be launched (%v) — open %s by hand", err, u), "warning")
@@ -158,7 +158,7 @@ func OpenInChrome(rawURL string, log LogFn) string {
 		log(fmt.Sprintf("🖐 Opened in your real Chrome: %s", u), "info")
 		return "chrome"
 	}
-	opened, err := webbrowserOpen(u)
+	opened, err := WebbrowserOpenFn(u)
 	if err != nil {
 		log(fmt.Sprintf("⚠️ Chrome could not be launched (%v) — open %s by hand", err, u), "warning")
 		return ""

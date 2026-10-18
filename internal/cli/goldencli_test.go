@@ -13,6 +13,7 @@ package cli
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -20,7 +21,10 @@ import (
 	"time"
 
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
+	"github.com/assadigit/second-brain-project/internal/handdelivery"
+	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/notestate"
+	"github.com/assadigit/second-brain-project/internal/reporadar"
 	"github.com/assadigit/second-brain-project/internal/storage"
 	"github.com/assadigit/second-brain-project/internal/store"
 	"github.com/assadigit/second-brain-project/internal/websitepipeline"
@@ -68,6 +72,67 @@ type goldenEnv struct {
 	OllamaModels []string        `json:"ollama_models"`
 	DB           goldenDB        `json:"db"`
 	Dirs         map[string]bool `json:"dirs"`
+
+	Battery goldenBatteryEnv `json:"battery"`
+	Detect  goldenDetectEnv  `json:"detect"`
+	Wizard  goldenWizardEnv  `json:"wizard"`
+}
+
+type goldenBatteryEnv struct {
+	Config                json.RawMessage           `json:"config"`
+	GithubUser            map[string]string         `json:"github_user"`
+	GithubRepos           map[string]map[string]any `json:"github_repos"`
+	OllamaModels          []string                  `json:"ollama_models"`
+	ExpectedWorkerVersion string                    `json:"expected_worker_version"`
+}
+
+type goldenDetectEnv struct {
+	Ollama struct {
+		Config json.RawMessage `json:"config"`
+		Probe  struct {
+			Found   bool     `json:"found"`
+			BaseURL string   `json:"base_url"`
+			Models  []string `json:"models"`
+			Detail  string   `json:"detail"`
+		} `json:"probe"`
+	} `json:"ollama"`
+	Llamacpp struct {
+		Config        json.RawMessage `json:"config"`
+		ProbeNotFound struct {
+			Found  bool   `json:"found"`
+			Detail string `json:"detail"`
+		} `json:"probe_not_found"`
+		DetectFound struct {
+			Found   bool     `json:"found"`
+			BaseURL string   `json:"base_url"`
+			Via     string   `json:"via"`
+			Models  []string `json:"models"`
+			Detail  string   `json:"detail"`
+		} `json:"detect_found"`
+	} `json:"llamacpp"`
+	MenuModels []string `json:"menu_models"`
+}
+
+type goldenWizardEnv struct {
+	Llamacpp struct {
+		Config json.RawMessage           `json:"config"`
+		Script []string                  `json:"script"`
+		Radar  map[string]map[string]any `json:"radar"`
+		Probe  goldenLlamaProbe          `json:"probe"`
+	} `json:"llamacpp"`
+	Ollama struct {
+		Config json.RawMessage `json:"config"`
+		Script []string        `json:"script"`
+	} `json:"ollama"`
+}
+
+type goldenLlamaProbe struct {
+	Found      bool     `json:"found"`
+	BaseURL    string   `json:"base_url"`
+	Models     []string `json:"models"`
+	Model      *string  `json:"model"`
+	Detail     string   `json:"detail"`
+	PropsModel *string  `json:"props_model"`
 }
 
 type goldenDB struct {
@@ -123,6 +188,41 @@ type goldenButton struct {
 	Sync      bool     `json:"sync"`
 }
 
+// goldenRow is one battery result row {'name', 'level', 'detail'}.
+type goldenRow struct {
+	Name   string `json:"name"`
+	Level  string `json:"level"`
+	Detail string `json:"detail"`
+}
+
+type goldenRCConfig struct {
+	Output      string `json:"output"`
+	RC          int    `json:"rc"`
+	SavedConfig string `json:"saved_config"`
+}
+
+type goldenMenuCase struct {
+	Configured string   `json:"configured"`
+	TTY        bool     `json:"tty"`
+	Script     []string `json:"script"`
+	Output     string   `json:"output"`
+	Choice     *string  `json:"choice"`
+}
+
+type goldenWorkerCase struct {
+	URL     string     `json:"url"`
+	Enabled *bool      `json:"enabled"`
+	Answer  string     `json:"answer"`
+	Result  *goldenRow `json:"result"`
+}
+
+type goldenHand struct {
+	Output    string `json:"output"`
+	RC        int    `json:"rc"`
+	QueueJSON string `json:"queue.json"`
+	ReadmeTxt string `json:"README.txt"`
+}
+
 type goldenFile struct {
 	Banner            string            `json:"banner"`
 	PaintShapes       goldenPaint       `json:"paint_shapes"`
@@ -137,7 +237,20 @@ type goldenFile struct {
 	ListDead          goldenRC          `json:"list_dead"`
 	ResetDead         goldenRC          `json:"reset_dead"`
 	HelpCardReference goldenRC          `json:"help_card_reference"`
-	Env               goldenEnv         `json:"env"`
+
+	// SESSION-028 — the command wirings' sections.
+	TestConnectionReference goldenRC           `json:"test_connection_reference"`
+	TestConnectionRows      [][]any            `json:"test_connection_rows"`
+	WorkerCheckRows         []goldenWorkerCase `json:"worker_check_rows"`
+	DetectOllama            goldenRCConfig     `json:"detect_ollama"`
+	DetectLlamacpp          goldenRCConfig     `json:"detect_llamacpp"`
+	ModelMenu               []goldenMenuCase   `json:"model_menu"`
+	WizardLlamacpp          goldenRCConfig     `json:"wizard_llamacpp"`
+	WizardOllama            goldenRCConfig     `json:"wizard_ollama"`
+	HandDelivery            goldenHand         `json:"hand_delivery"`
+	ChromeRetryDryRun       goldenRC           `json:"chrome_retry_dry_run"`
+
+	Env goldenEnv `json:"env"`
 }
 
 func loadGoldenCLI(t *testing.T) *goldenFile {
@@ -226,14 +339,18 @@ func replayCLI(t *testing.T, g *goldenFile, in string) (*CLI, *bytes.Buffer) {
 
 // buildEnv rebuilds the crafted environment from the golden's env
 // record: the vault dirs, the taxonomy file, config.json +
-// bad-config.json, and cache.db with every row the reference's own
+// bad-config.json, cache.db with every row the reference's own
 // methods produced (the quarantine rows pin the reference's frozen
-// stamps — the replay's cache.db is fixture state, inserted directly).
+// stamps — the replay's cache.db is fixture state, inserted directly),
+// and the SESSION-028 wirings' crafted files (the battery config + the
+// session file, the detect configs, the wizard configs — the scripted
+// answers live in the sections themselves).
 func buildEnv(t *testing.T, g *goldenFile) (appTmp, vaultsTmp string) {
 	t.Helper()
 	appTmp = t.TempDir()
 	vaultsTmp = t.TempDir()
 	t.Setenv("GITCURATOR_HOME", appTmp)
+	t.Setenv("GITCURATOR_USER_CONFIG", filepath.Join(appTmp, "user-config.json"))
 	t.Setenv("COLUMNS", "")
 
 	for name, exists := range g.Env.Dirs {
@@ -338,8 +455,53 @@ func buildEnv(t *testing.T, g *goldenFile) (appTmp, vaultsTmp string) {
 		}
 	}
 	ws.Close()
+
+	// the SESSION-028 wirings' crafted files.
+	if err := os.WriteFile(filepath.Join(appTmp, "session.session"),
+		[]byte{}, 0o644); err != nil {
+		t.Fatalf("write session file: %v", err)
+	}
+	battery := decodeConfig(t, g.Env.Battery.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(
+		filepath.Join(appTmp, "battery-config.json"), battery); err != nil {
+		t.Fatalf("write battery config: %v", err)
+	}
+	detectOllama := decodeConfig(t, g.Env.Detect.Ollama.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(
+		filepath.Join(appTmp, "detect-ollama-config.json"), detectOllama); err != nil {
+		t.Fatalf("write detect-ollama config: %v", err)
+	}
+	detectLlama := decodeConfig(t, g.Env.Detect.Llamacpp.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(
+		filepath.Join(appTmp, "detect-llamacpp-config.json"), detectLlama); err != nil {
+		t.Fatalf("write detect-llamacpp config: %v", err)
+	}
+	wizard1 := decodeConfig(t, g.Env.Wizard.Llamacpp.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(
+		filepath.Join(appTmp, "wizard1-config.json"), wizard1); err != nil {
+		t.Fatalf("write wizard1 config: %v", err)
+	}
+	wizard2 := decodeConfig(t, g.Env.Wizard.Ollama.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(
+		filepath.Join(appTmp, "wizard2-config.json"), wizard2); err != nil {
+		t.Fatalf("write wizard2 config: %v", err)
+	}
 	return appTmp, vaultsTmp
 }
+
+// resetUserConfig drops the mirrored user config after a saving
+// section — the generator's own discipline (every load stays clean).
+func resetUserConfig(t *testing.T, appTmp string) {
+	t.Helper()
+	_ = os.Remove(filepath.Join(appTmp, "user-config.json"))
+}
+
+// OSError is the worker /health fetch's stand-in for Python's OSError
+// (the class token renders through errClass's %T last segment — the
+// type NAME is the token, so it must be spelled exactly).
+type OSError struct{}
+
+func (OSError) Error() string { return "connection refused" }
 
 // assertBytesEq fails with a display-safe diff: the raw strings are
 // dumped with Go %q quoting (every control byte — including the ANSI
@@ -600,6 +762,365 @@ func TestGoldenCLI(t *testing.T) {
 			t.Errorf("reference help rc = %d, want 0", g.HelpCardReference.RC)
 		}
 	})
+
+	t.Run("TestConnection", func(t *testing.T) {
+		// The battery's net doors — the reference's own mock surface
+		// (its suites monkeypatch _http_get_json / _github_get), routed
+		// by URL/path exactly like the generator's stubs.
+		prevGet := connectioncheck.HTTPGetJSONFn
+		prevGH := connectioncheck.GitHubGetFn
+		defer func() {
+			connectioncheck.HTTPGetJSONFn = prevGet
+			connectioncheck.GitHubGetFn = prevGH
+		}()
+		connectioncheck.HTTPGetJSONFn = func(u string, timeoutS float64) (any, error) {
+			if strings.HasSuffix(strings.TrimRight(u, "/"), "/api/tags") {
+				om := storage.NewOrderedMap()
+				var models []any
+				for _, m := range g.Env.Battery.OllamaModels {
+					mo := storage.NewOrderedMap()
+					mo.Set("name", m)
+					models = append(models, mo)
+				}
+				om.Set("models", models)
+				return om, nil
+			}
+			return nil, fmt.Errorf("unexpected probe URL %s", u)
+		}
+		connectioncheck.GitHubGetFn = func(path, token, apiBase string, timeoutS float64) connectioncheck.GitHubReply {
+			if path == "/user" {
+				om := storage.NewOrderedMap()
+				om.Set("login", g.Env.Battery.GithubUser["login"])
+				return connectioncheck.GitHubReply{Status: 200, Payload: om}
+			}
+			if strings.HasPrefix(path, "/repos/") {
+				rest := strings.TrimPrefix(path, "/repos/")
+				_, repo, _ := strings.Cut(rest, "/")
+				if rr, ok := g.Env.Battery.GithubRepos[repo]; ok {
+					om := storage.NewOrderedMap()
+					if pv, isB := rr["private"].(bool); isB {
+						om.Set("private", pv)
+					}
+					return connectioncheck.GitHubReply{Status: 200, Payload: om}
+				}
+			}
+			return connectioncheck.GitHubReply{Status: 404}
+		}
+		c, buf := replayCLI(t, g, "")
+		rc := c.Run([]string{"--test-connection", "--config",
+			filepath.Join(appTmp, "battery-config.json")})
+		if rc != g.TestConnectionReference.RC {
+			t.Fatalf("rc = %d, want %d (the exit-code law: warnings don't fail)", rc, g.TestConnectionReference.RC)
+		}
+		goOut := fold(buf.String(), appTmp, vaultsTmp)
+		refOut := g.TestConnectionReference.Output
+		// the shared surface: the banner + title + sections [1/4]..[3/4]
+		// with their rows, byte-for-byte (the divergence starts at the
+		// subtitle line and section 4).
+		titleRef := strings.Index(refOut, "Test Connection — is everything up and ready?")
+		titleGo := strings.Index(goOut, "Test Connection — is everything up and ready?")
+		if titleRef < 0 || titleGo < 0 {
+			t.Fatalf("the card title line missing (ref %d, go %d)", titleRef, titleGo)
+		}
+		if refOut[:titleRef] != goOut[:titleGo] {
+			t.Errorf("the banner diverged before the title")
+		}
+		refSec4 := strings.Index(refOut, "[4/4]")
+		goSec4 := strings.Index(goOut, "[4/4]")
+		if refSec4 < 0 || goSec4 < 0 {
+			t.Fatalf("the [4/4] section marker missing (ref %d, go %d)", refSec4, goSec4)
+		}
+		// cut at the START of the [4/4] line — the section divider's
+		// dash counts depend on the title length (Worker vs Telegram),
+		// so the [4/4] line itself is part of the divergence. The span
+		// starts at [1/4]: the subtitle line is the documented
+		// divergence too (our Worker wording vs Telegram (live)).
+		refLine4 := strings.LastIndex(refOut[:refSec4], "\n") + 1
+		goLine4 := strings.LastIndex(goOut[:goSec4], "\n") + 1
+		ref1 := strings.Index(refOut, "[1/4]")
+		go1 := strings.Index(goOut, "[1/4]")
+		if ref1 < 0 || go1 < 0 {
+			t.Fatalf("the [1/4] section marker missing")
+		}
+		assertBytesEq(t, "battery shared sections [1/4]..[3/4]",
+			goOut[go1:goLine4], refOut[ref1:refLine4])
+		// the documented Option-B divergences — asserted, never silent.
+		if !strings.Contains(refOut, "[4/4] Telegram") {
+			t.Errorf("the reference record lost its Telegram section title")
+		}
+		if !strings.Contains(refOut, "Live connection") {
+			t.Errorf("the reference record lost its live Telegram line")
+		}
+		if !strings.Contains(refOut, "vaults · LLM · GitHub · Telegram (live)") {
+			t.Errorf("the reference record lost its pre-Option-B subtitle")
+		}
+		if !strings.Contains(goOut, "[4/4] Worker") {
+			t.Errorf("the Go card lost its Worker section title")
+		}
+		if strings.Contains(goOut, "Telegram (live)") || strings.Contains(goOut, "[4/4] Telegram") {
+			t.Errorf("the Go card rendered the reference's Telegram surface")
+		}
+		if !strings.Contains(goOut, "vaults · LLM · GitHub · the sync queue (the Worker)") {
+			t.Errorf("the Go card lost its honest Worker subtitle")
+		}
+		// the verdict: the reference's is the pre-Option-B record; the
+		// Go one is the ported Summarize over the Go sections (the
+		// dropped telegram rows change the counts — the same warn
+		// level here). Assert both levels + each verdict line's shape.
+		if !strings.Contains(refOut, "▲ VERDICT") {
+			t.Errorf("the reference record lost its verdict line")
+		}
+		if !strings.Contains(goOut, "▲ VERDICT") {
+			t.Errorf("the Go card lost its verdict line")
+		}
+		if !strings.Contains(refOut, "1/4 subsystems ready — 3 warning(s)") {
+			t.Errorf("the reference record's verdict numbers changed")
+		}
+		if !strings.Contains(goOut, "2/4 subsystems ready — 2 warning(s)") {
+			t.Errorf("the Go verdict numbers changed: %q",
+				goOut[strings.LastIndex(goOut, "VERDICT"):])
+		}
+	})
+
+	t.Run("WorkerCheckRows", func(t *testing.T) {
+		for i, tc := range g.WorkerCheckRows {
+			cfg := map[string]any{"cloudflare_worker_url": tc.URL}
+			if tc.Enabled != nil {
+				cfg["cloudflare_enabled"] = *tc.Enabled
+			}
+			var fetch connectioncheck.WorkerHTTPGet
+			switch tc.Answer {
+			case "boom":
+				fetch = func(u string, timeoutS float64) (any, error) {
+					return nil, OSError{}
+				}
+			case "none":
+				fetch = nil
+			default:
+				fetch = func(u string, timeoutS float64) (any, error) {
+					om := storage.NewOrderedMap()
+					om.Set("version", tc.Answer)
+					return om, nil
+				}
+			}
+			got := connectioncheck.CheckWorkerVersion(cfg, fetch)
+			if tc.Result == nil {
+				if got != nil {
+					t.Fatalf("case %d (%s): got a row, want nil", i, tc.Answer)
+				}
+				continue
+			}
+			if got == nil {
+				t.Fatalf("case %d (%s): got nil, want the row", i, tc.Answer)
+			}
+			if got.Name != tc.Result.Name || got.Level != tc.Result.Level ||
+				got.Detail != tc.Result.Detail {
+				t.Errorf("case %d (%s) = %q/%q/%q, want %q/%q/%q",
+					i, tc.Answer, got.Name, got.Level, got.Detail,
+					tc.Result.Name, tc.Result.Level, tc.Result.Detail)
+			}
+		}
+	})
+
+	t.Run("DetectOllama", func(t *testing.T) {
+		c, buf := replayCLI(t, g, "2\n")
+		p := g.Env.Detect.Ollama.Probe
+		c.DetectOllama = func(base string, timeoutS float64) llmclient.DetectOllamaResult {
+			return llmclient.DetectOllamaResult{
+				Found: p.Found, BaseURL: p.BaseURL,
+				Models: p.Models, Detail: p.Detail,
+			}
+		}
+		rc := c.Run([]string{"--detect-llm", "ollama", "--config",
+			filepath.Join(appTmp, "detect-ollama-config.json")})
+		if rc != g.DetectOllama.RC {
+			t.Fatalf("rc = %d, want %d", rc, g.DetectOllama.RC)
+		}
+		assertBytesEq(t, "detect-ollama card", fold(buf.String(), appTmp, vaultsTmp), g.DetectOllama.Output)
+		saved, err := os.ReadFile(filepath.Join(appTmp, "detect-ollama-config.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		assertBytesEq(t, "detect-ollama saved config", fold(string(saved), appTmp, vaultsTmp), g.DetectOllama.SavedConfig)
+		resetUserConfig(t, appTmp)
+	})
+
+	t.Run("DetectLlamacpp", func(t *testing.T) {
+		c, buf := replayCLI(t, g, "\n")
+		nf := g.Env.Detect.Llamacpp.ProbeNotFound
+		df := g.Env.Detect.Llamacpp.DetectFound
+		c.ProbeLlama = func(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult {
+			return &llmclient.ProbeResult{Found: nf.Found, BaseURL: baseURL,
+				Models: []string{}, Detail: nf.Detail}
+		}
+		c.DetectLlama = func(apiKey string) *llmclient.ProbeResult {
+			return &llmclient.ProbeResult{Found: df.Found, BaseURL: df.BaseURL,
+				Via: df.Via, Models: df.Models, Detail: df.Detail}
+		}
+		rc := c.Run([]string{"--detect-llm", "llamacpp", "--config",
+			filepath.Join(appTmp, "detect-llamacpp-config.json")})
+		if rc != g.DetectLlamacpp.RC {
+			t.Fatalf("rc = %d, want %d", rc, g.DetectLlamacpp.RC)
+		}
+		assertBytesEq(t, "detect-llamacpp card", fold(buf.String(), appTmp, vaultsTmp), g.DetectLlamacpp.Output)
+		saved, err := os.ReadFile(filepath.Join(appTmp, "detect-llamacpp-config.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		assertBytesEq(t, "detect-llamacpp saved config", fold(string(saved), appTmp, vaultsTmp), g.DetectLlamacpp.SavedConfig)
+		resetUserConfig(t, appTmp)
+	})
+
+	t.Run("ModelMenu", func(t *testing.T) {
+		for i, tc := range g.ModelMenu {
+			in := strings.Join(tc.Script, "")
+			c, buf := replayCLI(t, g, in)
+			c.IsATTYIn = func() bool { return tc.TTY }
+			got := c.PromptModelMenu(tc.Configured, g.Env.Detect.MenuModels, nil, true)
+			want := ""
+			if tc.Choice != nil {
+				want = *tc.Choice
+			}
+			if got != want {
+				t.Errorf("menu case %d: choice = %q, want %q", i, got, want)
+			}
+			assertBytesEq(t, "model menu output", buf.String(), tc.Output)
+		}
+	})
+
+	t.Run("WizardLlamacpp", func(t *testing.T) {
+		c, buf := replayCLI(t, g, unfold(strings.Join(g.Env.Wizard.Llamacpp.Script, ""), appTmp, vaultsTmp))
+		radar := map[string]any{}
+		for kind, det := range g.Env.Wizard.Llamacpp.Radar {
+			pairs := []any{}
+			for _, k := range []string{"kind", "vault_path", "repo_name", "confidence", "method", "detail"} {
+				if v, ok := det[k]; ok && v != nil {
+					pairs = append(pairs, k, v)
+				}
+			}
+			radar[kind] = reporadar.NewDetection(pairs...)
+		}
+		c.RadarAll = func(cfg any) map[string]any { return radar }
+		p := g.Env.Wizard.Llamacpp.Probe
+		c.ProbeLlama = func(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult {
+			return &llmclient.ProbeResult{Found: p.Found, BaseURL: p.BaseURL,
+				Models: p.Models, Model: p.Model, Detail: p.Detail}
+		}
+		rc := c.Run([]string{"--init", "--config", filepath.Join(appTmp, "wizard1-config.json")})
+		if rc != g.WizardLlamacpp.RC {
+			t.Fatalf("rc = %d, want %d", rc, g.WizardLlamacpp.RC)
+		}
+		out := fold(buf.String(), appTmp, vaultsTmp)
+		// the shared prefix: everything through the saved box + the
+		// two blank lines (the closing card diverges — the reference
+		// teaches the dropped Telegram login; the Go card speaks the
+		// honest Option-B truth).
+		refOut := g.WizardLlamacpp.Output
+		refTail := strings.Index(refOut, "Setup complete")
+		goTail := strings.Index(out, "Setup complete")
+		if refTail < 0 || goTail < 0 {
+			t.Fatalf("the Setup-complete marker missing (ref %d, go %d)", refTail, goTail)
+		}
+		assertBytesEq(t, "wizard shared prefix", out[:goTail], refOut[:refTail])
+		// the divergence — asserted, never silent.
+		if !strings.Contains(refOut, "Log in before the first run when convenient:") {
+			t.Errorf("the reference record lost its login teaching line")
+		}
+		if !strings.Contains(refOut, "python main.py --cli --login") {
+			t.Errorf("the reference record lost its login command line")
+		}
+		if strings.Contains(out, "Log in before the first run") || strings.Contains(out, "--login") {
+			t.Errorf("the Go wizard still teaches the dropped Telegram login")
+		}
+		if !strings.Contains(out, "no Telegram login is needed in the Go port") {
+			t.Errorf("the Go wizard lost its honest closing line")
+		}
+		if !strings.Contains(out, "gitcurator-cli --auto") || strings.Contains(out, "python main.py") {
+			t.Errorf("the Go wizard's run hint diverged from the honest surface")
+		}
+		// the saved config — the wizard's writes, byte-for-byte.
+		saved, err := os.ReadFile(filepath.Join(appTmp, "wizard1-config.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		assertBytesEq(t, "wizard saved config", fold(string(saved), appTmp, vaultsTmp), g.WizardLlamacpp.SavedConfig)
+		resetUserConfig(t, appTmp)
+	})
+
+	t.Run("WizardOllama", func(t *testing.T) {
+		c, buf := replayCLI(t, g, unfold(strings.Join(g.Env.Wizard.Ollama.Script, ""), appTmp, vaultsTmp))
+		rc := c.Run([]string{"--init", "--config", filepath.Join(appTmp, "wizard2-config.json")})
+		if rc != g.WizardOllama.RC {
+			t.Fatalf("rc = %d, want %d", rc, g.WizardOllama.RC)
+		}
+		out := fold(buf.String(), appTmp, vaultsTmp)
+		refOut := g.WizardOllama.Output
+		refTail := strings.Index(refOut, "Setup complete")
+		goTail := strings.Index(out, "Setup complete")
+		if refTail < 0 || goTail < 0 {
+			t.Fatalf("the Setup-complete marker missing")
+		}
+		assertBytesEq(t, "wizard2 shared prefix", out[:goTail], refOut[:refTail])
+		if strings.Contains(out, "Log in before the first run") {
+			t.Errorf("the Go wizard still teaches the dropped Telegram login")
+		}
+		saved, err := os.ReadFile(filepath.Join(appTmp, "wizard2-config.json"))
+		if err != nil {
+			t.Fatal(err)
+		}
+		assertBytesEq(t, "wizard2 saved config", fold(string(saved), appTmp, vaultsTmp), g.WizardOllama.SavedConfig)
+		resetUserConfig(t, appTmp)
+	})
+
+	t.Run("HandDelivery", func(t *testing.T) {
+		// the enqueue's stamps ride the frozen clock; the open ladder
+		// finds no browser (the sandbox's honest state on the
+		// reference side; the replay injects the same answers so the
+		// bytes hold on every machine).
+		prevClock := handdelivery.Clock
+		prevFind := handdelivery.FindChromeFn
+		prevWOpen := handdelivery.WebbrowserOpenFn
+		defer func() {
+			handdelivery.Clock = prevClock
+			handdelivery.FindChromeFn = prevFind
+			handdelivery.WebbrowserOpenFn = prevWOpen
+		}()
+		handdelivery.Clock = frozenClock
+		handdelivery.FindChromeFn = func() string { return "" }
+		handdelivery.WebbrowserOpenFn = func(u string) (bool, error) {
+			return false, fmt.Errorf("no browser")
+		}
+		c, buf := replayCLI(t, g, "")
+		rc := c.Run([]string{"--hand-delivery", "--config",
+			filepath.Join(appTmp, "config.json")})
+		if rc != g.HandDelivery.RC {
+			t.Fatalf("rc = %d, want %d", rc, g.HandDelivery.RC)
+		}
+		assertBytesEq(t, "hand-delivery card", fold(buf.String(), appTmp, vaultsTmp), g.HandDelivery.Output)
+		vault := filepath.Join(vaultsTmp, "webvault")
+		queueRaw, err := os.ReadFile(filepath.Join(
+			handdelivery.HandDeliveryDir(vault), "queue.json"))
+		if err != nil {
+			t.Fatalf("queue.json not written: %v", err)
+		}
+		assertBytesEq(t, "hand-delivery queue.json", fold(string(queueRaw), appTmp, vaultsTmp), g.HandDelivery.QueueJSON)
+		readmeRaw, err := os.ReadFile(filepath.Join(
+			handdelivery.HandDeliveryDir(vault), "README.txt"))
+		if err != nil {
+			t.Fatalf("README.txt not written: %v", err)
+		}
+		assertBytesEq(t, "hand-delivery README.txt", fold(string(readmeRaw), appTmp, vaultsTmp), g.HandDelivery.ReadmeTxt)
+	})
+
+	t.Run("ChromeRetryDryRun", func(t *testing.T) {
+		c, buf := replayCLI(t, g, "")
+		rc := c.Run([]string{"--chrome-retry", "--dry-run", "--config",
+			filepath.Join(appTmp, "config.json")})
+		if rc != g.ChromeRetryDryRun.RC {
+			t.Fatalf("rc = %d, want %d", rc, g.ChromeRetryDryRun.RC)
+		}
+		assertBytesEq(t, "chrome-retry dry-run card", fold(buf.String(), appTmp, vaultsTmp), g.ChromeRetryDryRun.Output)
+	})
 }
 
 // TestGoldenCLIMutation proves the differential has teeth: one byte
@@ -624,5 +1145,113 @@ func TestGoldenCLIMutation(t *testing.T) {
 	}
 	if got != g.StatusCard.Output {
 		t.Fatalf("the real replay diverged from the unmutated golden")
+	}
+}
+
+// TestGoldenCLIMutationWirings — the SESSION-028 sections' teeth: one
+// byte flipped in the wizard's SAVED CONFIG (the wizard's own write),
+// in the hand-delivery queue.json (the enqueue's write), and in the
+// detect card each fail their replay comparison.
+func TestGoldenCLIMutationWirings(t *testing.T) {
+	g := loadGoldenCLI(t)
+	appTmp, vaultsTmp := buildEnv(t, g)
+
+	// 1. the wizard's saved config: the detected model's tag byte.
+	mutatedSaved := strings.Replace(g.WizardLlamacpp.SavedConfig,
+		`"llamacpp_model": "qwen2.5-coder:7b"`,
+		`"llamacpp_model": "qwen2.5-coder:7x"`, 1)
+	if mutatedSaved == g.WizardLlamacpp.SavedConfig {
+		t.Fatalf("wizard mutation did not bite (pattern missing)")
+	}
+	c, _ := replayCLI(t, g, unfold(strings.Join(g.Env.Wizard.Llamacpp.Script, ""), appTmp, vaultsTmp))
+	radar := map[string]any{}
+	for kind, det := range g.Env.Wizard.Llamacpp.Radar {
+		pairs := []any{}
+		for _, k := range []string{"kind", "vault_path", "repo_name", "confidence", "method", "detail"} {
+			if v, ok := det[k]; ok && v != nil {
+				pairs = append(pairs, k, v)
+			}
+		}
+		radar[kind] = reporadar.NewDetection(pairs...)
+	}
+	c.RadarAll = func(cfg any) map[string]any { return radar }
+	p := g.Env.Wizard.Llamacpp.Probe
+	c.ProbeLlama = func(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult {
+		return &llmclient.ProbeResult{Found: p.Found, BaseURL: p.BaseURL,
+			Models: p.Models, Model: p.Model, Detail: p.Detail}
+	}
+	if rc := c.Run([]string{"--init", "--config", filepath.Join(appTmp, "wizard1-config.json")}); rc != 0 {
+		t.Fatalf("wizard rc = %d, want 0", rc)
+	}
+	saved, err := os.ReadFile(filepath.Join(appTmp, "wizard1-config.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	gotSaved := fold(string(saved), appTmp, vaultsTmp)
+	if gotSaved == mutatedSaved {
+		t.Fatalf("the mutated wizard config passed — no teeth")
+	}
+	if gotSaved != g.WizardLlamacpp.SavedConfig {
+		t.Fatalf("the real wizard write diverged from the unmutated golden")
+	}
+	resetUserConfig(t, appTmp)
+
+	// 2. the hand-delivery queue.json: one byte in a stamp.
+	mutatedQueue := strings.Replace(g.HandDelivery.QueueJSON,
+		`"queued": "2026-10-17 12:00"`, `"queued": "2026-10-17 12:01"`, 1)
+	if mutatedQueue == g.HandDelivery.QueueJSON {
+		t.Fatalf("queue mutation did not bite (pattern missing)")
+	}
+	prevClock, prevFind, prevWOpen := handdelivery.Clock, handdelivery.FindChromeFn, handdelivery.WebbrowserOpenFn
+	defer func() {
+		handdelivery.Clock = prevClock
+		handdelivery.FindChromeFn = prevFind
+		handdelivery.WebbrowserOpenFn = prevWOpen
+	}()
+	handdelivery.Clock = frozenClock
+	handdelivery.FindChromeFn = func() string { return "" }
+	handdelivery.WebbrowserOpenFn = func(u string) (bool, error) {
+		return false, fmt.Errorf("no browser")
+	}
+	c2, _ := replayCLI(t, g, "")
+	if rc := c2.Run([]string{"--hand-delivery", "--config",
+		filepath.Join(appTmp, "config.json")}); rc != 0 {
+		t.Fatalf("hand-delivery rc = %d, want 0", rc)
+	}
+	vault := filepath.Join(vaultsTmp, "webvault")
+	queueRaw, err := os.ReadFile(filepath.Join(handdelivery.HandDeliveryDir(vault), "queue.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	gotQueue := fold(string(queueRaw), appTmp, vaultsTmp)
+	if gotQueue == mutatedQueue {
+		t.Fatalf("the mutated queue.json passed — no teeth")
+	}
+	if gotQueue != g.HandDelivery.QueueJSON {
+		t.Fatalf("the real enqueue write diverged from the unmutated golden")
+	}
+
+	// 3. the detect card: one byte in the SET line.
+	mutatedCard := strings.Replace(g.DetectOllama.Output,
+		"model 'qwen2.5-coder:7b'", "model 'qwen2.5-coder:7x'", 1)
+	if mutatedCard == g.DetectOllama.Output {
+		t.Fatalf("detect mutation did not bite (pattern missing)")
+	}
+	c3, buf3 := replayCLI(t, g, "2\n")
+	pr := g.Env.Detect.Ollama.Probe
+	c3.DetectOllama = func(base string, timeoutS float64) llmclient.DetectOllamaResult {
+		return llmclient.DetectOllamaResult{Found: pr.Found, BaseURL: pr.BaseURL,
+			Models: pr.Models, Detail: pr.Detail}
+	}
+	if rc := c3.Run([]string{"--detect-llm", "ollama", "--config",
+		filepath.Join(appTmp, "detect-ollama-config.json")}); rc != 0 {
+		t.Fatalf("detect rc = %d, want 0", rc)
+	}
+	gotCard := fold(buf3.String(), appTmp, vaultsTmp)
+	if gotCard == mutatedCard {
+		t.Fatalf("the mutated detect card passed — no teeth")
+	}
+	if gotCard != g.DetectOllama.Output {
+		t.Fatalf("the real detect card diverged from the unmutated golden")
 	}
 }

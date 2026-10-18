@@ -16,9 +16,15 @@
   **Status**: port in progress (Telegram legs re-scoped per the banner above;
   SESSION-027 landed T-60's first slice — THE CLI SHELL: the paint box, the
   settings halves, the sync door's pure halves, the honest flag surface +
-  dispatch, the FULL --status card, --list-dead/--reset-dead; the wizard,
-  --test-connection, --detect-llm, --hand-delivery, --chrome-retry and the
-  batch engines follow).
+  dispatch, the FULL --status card, --list-dead/--reset-dead; SESSION-028
+  landed THE COMMAND WIRINGS: the `--init` wizard with the repo radar, the
+  `--test-connection` battery wiring with the _section/_check_line renderers,
+  `--detect-llm` with the model menu + set-and-save, cli_settings's
+  model-menu half, `--hand-delivery` complete, and `--chrome-retry`'s
+  listing + dry-run rehearsal (the live leg is T-62's batch engine).
+  Remaining on T-60's books: only T-61's paint legs (the spinner under a
+  real loop; the Windows console live test is Phase 7's clean-VM
+  checklist).)
 - **THE HONEST FLAG SURFACE (T-60's decision, landed SESSION-027)**: the
   Telethon-only flags (`--login`, `--mark-read`, `--from-id/--to-id`,
   `--offset-start/--count`, `--single-id`) stay RECOGNIZED on the parser and
@@ -51,6 +57,19 @@ batch; no flag → friendly help card.
   — **DROPPED in the Go port (2026-10-15, ADR-0004 Am.3 / R-0):** no MTProto client ships, so
   no login is ever offered (accepted loss); the wizard still *collects* the Telegram keys for
   compatibility (the compat law) — the engine never uses them.
+  **WIRED (SESSION-028)**: `cmdInit` ports the whole _ask sequence (the YOUR_ placeholder
+  empty-start law, the isdir retry loop, the api-id digit law, the provider branches with the
+  probe seam offering the detected model, the proxy block with the n-branch raw-keep law, the
+  2–10 clamp), the radar wires (RadarPending/ApplyDetections/ReportLines run REAL over the
+  `RadarAll` seam — the radar legs ride seams), save_config, and the saved box (the reference's
+  `.ljust(64)`-on-the-painted-string quirk preserved). The closing card speaks the honest
+  Option-B truth (no login line; `gitcurator-cli --auto`); the golden keeps the reference's
+  non-interactive closing card as the pre-Option-B RECORD with the shared prefix (everything
+  through the box) byte-compared and the divergence asserted.
+  **GO NOTES**: the reference's `int()` edges (a non-decimal isdigit answer, a non-integer
+  proxy port) crash the whole wizard — the port answers 0 / the or-door default instead
+  (the happy paths are byte-identical); underscore integer literals and arbitrary-precision
+  answers are likewise not mirrored (int64).
 - **`--status`** (423-678): config summary rows (vault map ✓/◌/✗, repo slots, pipelines, masked
   secrets), sentinel probes, CacheDB/NoteStateDB/WebsiteStateDB stats. **REALITY CORRECTION
   (SESSION-027, found at implementation time)**: "never creates state" is true only for the
@@ -68,6 +87,21 @@ batch; no flag → friendly help card.
   Saved-Messages/keyword/single-id/preview modes) are accepted losses and do not function;
   T-60 decides the honest flag surface (drop, or honest "unavailable" refusal), never a
   silent no-op.
+  **WIRED (SESSION-028)**: `cmdTestConnection` runs `connectioncheck.RunLocalChecks` +
+  `Summarize` over the loaded config with cli_run.py's own `_section`/`_check_line`
+  renderers ported into the paint box; the exit-code law (error → 1, warn → 0) holds.
+  **GO NOTES (the Option-B divergences, all asserted by the golden — never silent):**
+  the card's subtitle says "the sync queue (the Worker)" where the reference says
+  "Telegram (live)"; the fourth section is titled "Worker" (its one row the /health
+  verdict) where the reference's is "Telegram" (the local rows + the live line) — the
+  reference's card is kept in the golden as the pre-Option-B RECORD with the shared
+  sections [1/4]..[3/4] byte-compared; the verdict's ready/warning counts differ when
+  the dropped telegram rows carried levels (the level + the exit code still match over
+  the same crafted env); the battery's net doors ride the exported
+  `connectioncheck.HTTPGetJSONFn` / `GitHubGetFn` seams (the reference's own monkeypatch
+  surface — `_http_get_json` / `_github_get`), and the Worker /health verdict
+  differential drives `check_worker_version`'s own injectable `http_get` over four
+  crafted cases (match / older / unreachable / no-URL).
 - **`--auto`** (1252-1440): preflight → fetch with `min_id = last_processed_msg_id` →
   classification printout → **wrong-vault guard** (pending>0, in_vault=0, index=0, cache>0 →
   stop — 1374-1409) → optional >10 confirm (skipped by `--yes`) → `run_batch_visual`.
@@ -83,6 +117,33 @@ batch; no flag → friendly help card.
 - **`--detect-llm`**: probe → model menu (auto-pick with `--yes`) → set provider/model/URL →
   save. `--hand-delivery` / `--chrome-retry`: queue walled links / auto-scrape via a throwaway
   profile. `--list-dead`/`--reset-dead`: 404 quarantine. `--mark-read`.
+  **WIRED (SESSION-028)**: `--detect-llm` is complete — `runDetectJob` mirrors
+  worker_jobs._quick_detect_job's composition synchronously over the CLI's probe seams
+  (DetectOllama / ProbeLlama / DetectLlama; the reference rides a GUI thread + StatusLine
+  spinner — the paint box is already ported, the log lines ride cli_print exactly as the
+  drain loop printed them), the numbered menu (the only-one line, the ← current mark, the
+  --yes auto-pick, the invalid-choice abort), set + save through `_clean_config_for_save`, and
+  the SET card. cli_settings's model-menu half landed with it: `SmartModelPick` (the
+  githubpipeline.PickBestModel twin — same heuristic as the pipeline, the recommendation and
+  the headless auto-pick always agree), `PromptModelMenu` (the numbered picker with the
+  recommendation as entry 1, the embedding tag override, q-decline, the five-try give-up,
+  the non-TTY auto-pick), `ApplyModelChoice` (the provider-aware write+save). `--hand-delivery`
+  is complete (the walled-rows listing over the StateDB adapter — the decomtable law keeps
+  the concrete adapter at the call site —, the enqueue with queue.json + README.txt, the
+  open-Chrome ladder, the folder card). `--chrome-retry` wires the listing (retry rows +
+  the 🖐 hand rows + the redo set) and the FULL dry-run rehearsal; the live leg (preflight →
+  the real Chrome delivery → `run_batch_visual` processing the delivered pages in the same
+  run) waits for T-62's batch engine — an honest boundary card naming T-62, never a silent
+  no-op (splitting the deliver from the process would diverge from the reference's one-run
+  contract).
+  **REALITY-WINS FIND (SESSION-028, fixed in-commit)**: the reference's `cmd_chrome_retry
+  --dry-run` leg calls `deliver_pages_via_chrome` WITHOUT flipping the global dry-run switch
+  (only the batch worker ever flips it) — the pinned rev's dry-run would launch the real
+  Chrome while the card says "Chrome is never launched". The port flips the switch around
+  the delivery (the card's own words + the deliver's rehearsal law are the contract) and
+  restores + clears it right after; the golden's reference side stubs the deliver (the
+  rehearsal's engine — its bytes are already pinned by T-44's chrometabs golden) so both
+  sides answer the same card.
 
 ## cli_run.py — the visual run engine
 
@@ -196,3 +257,64 @@ engines are ported; the CLI wiring follows), `smart_model_pick`/
 the batch engine's model-picker bridge, T-62's books), then T-62 (--sync's
 live beats + --auto + the dry-run report writer), T-63 (launchers), T-64
 (the full differential corpus run), T-65 (the release tag).
+
+## SESSION-028 shipped record — T-60's remainder: THE COMMAND WIRINGS
+
+Landed: `internal/cli/wizard.go` (cmd_init — the full _ask sequence with
+the YOUR_ empty-start law + the isdir retry loop + the api-id digit law
++ the provider branches with the llamacpp probe seam + the proxy block
+with the n-branch raw-keep law + the 2–10 clamp + the radar wires over
+the RadarAll seam + save_config + the saved box with the .ljust(64)
+painted-string quirk + the honest Option-B closing card),
+`testconn.go` (cmd_test_connection — the battery over
+connectioncheck.RunLocalChecks + Summarize with cli_run.py's
+_section/_check_line renderers; the Worker leg IS the queue check; the
+Option-B divergences asserted), `detectllm.go` (cmd_detect_llm — the
+synchronous _quick_detect_job composition over the probe seams, the
+numbered menu, set + save, the SET card), settings.go's model-menu half
+(SmartModelPick/PromptModelMenu/ApplyModelChoice — the preflight's
+model-picker bridge for T-62), `hands.go` (cmd_hand_delivery complete —
+the walled listing over the StateDB adapter + the enqueue + the folder
+card; cmd_chrome_retry — the listing + the full dry-run rehearsal + the
+honest T-62 boundary card for the live leg), and the dispatch updates
+(the not-yet cards retire for every implemented command).
+
+Engine-package touches (additive, no behavior change):
+connectioncheck's `_http_get_json`/`_github_get` mock surface exported
+as HTTPGetJSONFn/GitHubGetFn (+ GitHubReply — the reference's own
+monkeypatch surface, now injectable cross-package); githubpipeline's
+`_is_embed_model` exported as IsEmbedModel; handdelivery's open-ladder
+seams exported (FindChromeFn/SubprocessPopenFn/WebbrowserOpenFn).
+
+The differential stone grew: dump_cli.py's payload now drives 9 more
+sections — the battery card (the stubbed net doors + the live-telegram
+stub; the RECORD) + the structured rows + the worker /health cases (the
+reference's own http_get injection), the two detect cards with their
+SAVED CONFIG bytes, the model-menu matrix (the REAL WorkerLlmMixin
+picker behind the fake PyQt6/PyGithub guards — the reference's own
+class, its import doors stubbed), the two wizard runs (scripted stdin +
+the stubbed radar + the probe seams; the SAVED CONFIG bytes are the
+wizard's own writes), the hand-delivery card + queue.json + README.txt
+(frozen hd.time, the open ladder's no-browser answers), and the
+chrome-retry dry-run card — 48,698 bytes, two-run byte-identical. The
+replay byte-compares: the battery's shared sections [1/4]..[3/4] + the
+worker rows + both detect cards + their saved configs + the model-menu
+matrix + both wizard shared prefixes + both wizard saved configs + the
+hand-delivery card + queue.json + README.txt + the chrome-retry card;
+every Option-B divergence (the battery's subtitle/section-4/verdict
+counts, the wizard's closing card) is asserted, never silent; the
+mutation teeth grew with TestGoldenCLIMutationWirings (the wizard's
+saved config, the enqueue's queue.json, the detect card — each bites).
+
+Standing Go notes recorded above: the wizard's int() crash edges are
+honestly hardened; the chrome-retry dry-run switch is the reality-wins
+fix (the reference forgot to flip it); the detect job runs
+synchronously (no GUI thread + spinner — the log lines are identical).
+
+Remaining on the CLI books: T-61's paint legs (the spinner under a
+real loop; the Windows console live test is Phase 7's clean-VM
+checklist), then T-62 (the --sync live beats + the --auto engine + the
+dry-run report writer + the SIGINT/exit-code law + the wrong-vault
+guard + the chrome-retry live leg + the preflight with the
+PromptModelMenu bridge), T-63 (launchers), T-64 (the full differential
+corpus run), T-65 (the release tag).

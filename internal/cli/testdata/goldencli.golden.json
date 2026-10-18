@@ -1,5 +1,9 @@
 {
   "banner": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n",
+  "chrome_retry_dry_run": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nFailed links waiting for the fifth door (your real Chrome, one tab each)\n────────────────────────────────────────────────────────────────\n  • https://example.com/epsilon\n      HTTP 403\n  • https://example.com/zeta\n      TLS handshake error\n\n12:00:00 ✔ 🤖 Dry-run — Chrome is never launched; the fifth door rehearsed 2 link(s), delivered 0.\n",
+    "rc": 0
+  },
   "cliprint_lines": [
     "12:00:00 • hello\n",
     "12:00:00 ✔ it worked\n",
@@ -8,6 +12,16 @@
     "12:00:00 · quiet note\n",
     "12:00:00 • \n"
   ],
+  "detect_llamacpp": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n🦙 Detect & Set llama.cpp — probing the local engine…\n\n12:00:00 • 🦙 Detecting llama.cpp — http://127.0.0.1:8080/v1 first, then the running llama-server process + common ports…\n✅ llama.cpp detected at http://127.0.0.1:8081 (found via the running llama-server process)\n   2 models detected — pick one:\n   1. llama-2-7b-chat.Q5_K_M.gguf\n   2. tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf\n? Model number [1-2] (Enter = llama-2-7b-chat.Q5_K_M.gguf): \n✅ LLM provider SET to llama.cpp — http://127.0.0.1:8081/v1 · model 'llama-2-7b-chat.Q5_K_M.gguf'\n   saved to <app>/detect-llamacpp-config.json — the next batch uses it immediately.\n",
+    "rc": 0,
+    "saved_config": "{\n  \"llamacpp_api_url\": \"http://127.0.0.1:8081/v1\",\n  \"llamacpp_model\": \"llama-2-7b-chat.Q5_K_M.gguf\",\n  \"llm_provider\": \"llamacpp\"\n}"
+  },
+  "detect_ollama": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n🧠 Detect & Set Ollama — probing the local engine…\n\n12:00:00 • 🧠 Detecting Ollama at http://127.0.0.1:11434…\n✅ Ollama detected at http://127.0.0.1:11434\n   2 models detected — pick one:\n   1. llama3\n   2. qwen2.5-coder:7b\n? Model number [1-2] (Enter = llama3): \n✅ LLM provider SET to Ollama — http://127.0.0.1:11434 · model 'qwen2.5-coder:7b'\n   saved to <app>/detect-ollama-config.json — the next batch uses it immediately.\n",
+    "rc": 0,
+    "saved_config": "{\n  \"llm_provider\": \"ollama\",\n  \"ollama\": {\n    \"base_url\": \"http://127.0.0.1:11434\",\n    \"model\": \"qwen2.5-coder:7b\"\n  }\n}"
+  },
   "env": {
     "ai_stub": {
       "detail": "Ollama up @ http://127.0.0.1:11434 · 2 model(s)",
@@ -20,6 +34,55 @@
       "llm_provider": "ollama",
       "ollama": {},
       "vault_path": ""
+    },
+    "battery": {
+      "config": {
+        "bot_username": "curator_bot",
+        "github_token": "fake-github-token-0123456789",
+        "llm_provider": "ollama",
+        "manual_vault_path": "<vaults>/manual",
+        "ollama": {
+          "base_url": "http://127.0.0.1:11434",
+          "model": "mistral"
+        },
+        "pipelines": {
+          "github": true,
+          "websites": true
+        },
+        "telegram_api_hash": "abcdef1234567890abcdef12",
+        "telegram_api_id": 12345,
+        "telegram_phone": "+989123456789",
+        "vault_path": "<vaults>/vault",
+        "vaultseal": {
+          "repo_name": "main-vault-backup"
+        },
+        "website_repo_name": "websites-backup",
+        "website_vault_path": "<vaults>/webvault"
+      },
+      "expected_worker_version": "0.40.0",
+      "github_repos": {
+        "main-vault-backup": {
+          "private": true
+        },
+        "websites-backup": {
+          "private": false
+        }
+      },
+      "github_user": {
+        "login": "octo-owner"
+      },
+      "live_telegram": {
+        "max_message_id": 9,
+        "success": true,
+        "urls": [
+          "u1"
+        ]
+      },
+      "ollama_models": [
+        "llama3",
+        "qwen2.5-coder:7b"
+      ],
+      "session_file": true
     },
     "config": {
       "bot_username": "curator_bot",
@@ -183,6 +246,57 @@
         ]
       }
     },
+    "detect": {
+      "llamacpp": {
+        "config": {
+          "llamacpp_api_url": "http://127.0.0.1:8080/v1",
+          "llamacpp_model": "",
+          "llm_provider": "ollama"
+        },
+        "detect_found": {
+          "base_url": "http://127.0.0.1:8081",
+          "detail": "up @ http://127.0.0.1:8081 · 2 model(s)",
+          "found": true,
+          "model": null,
+          "models": [
+            "llama-2-7b-chat.Q5_K_M.gguf",
+            "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"
+          ],
+          "props_model": null,
+          "ready": true,
+          "via": "process"
+        },
+        "probe_not_found": {
+          "base_url": "",
+          "detail": "no answer",
+          "found": false,
+          "models": []
+        }
+      },
+      "menu_models": [
+        "llama3",
+        "qwen2.5-coder:7b",
+        "nomic-embed-text"
+      ],
+      "ollama": {
+        "config": {
+          "llm_provider": "cloud",
+          "ollama": {
+            "base_url": "http://127.0.0.1:11434",
+            "model": "qwen2.5:7b"
+          }
+        },
+        "probe": {
+          "base_url": "http://127.0.0.1:11434",
+          "detail": "up · 2 model(s)",
+          "found": true,
+          "models": [
+            "llama3",
+            "qwen2.5-coder:7b"
+          ]
+        }
+      }
+    },
     "dirs": {
       "manual": true,
       "vault": true,
@@ -199,7 +313,101 @@
       "llama3",
       "qwen2.5-coder:7b"
     ],
-    "taxonomy_exists": true
+    "taxonomy_exists": true,
+    "wizard": {
+      "llamacpp": {
+        "config": {
+          "bot_username": "curator_bot",
+          "github_token": "fake-github-token-0123456789",
+          "telegram_api_hash": "abcdef1234567890abcdef12",
+          "telegram_api_id": 12345,
+          "telegram_phone": "+989123456789",
+          "vault_path": "YOUR_OBSIDIAN_VAULT_HERE"
+        },
+        "probe": {
+          "base_url": "http://127.0.0.1:8080/v1",
+          "detail": "props answered · model 'qwen2.5-coder:7b' · ready",
+          "found": true,
+          "model": "qwen2.5-coder:7b",
+          "models": [
+            "qwen2.5-coder:7b"
+          ],
+          "props_model": null,
+          "ready": true
+        },
+        "radar": {
+          "github": {
+            "confidence": "high",
+            "detail": "3 of 4 sampled files match",
+            "kind": "github",
+            "method": "remote",
+            "repo_name": "main-vault-backup",
+            "vault_path": ""
+          },
+          "personal": {
+            "detail": "no vault path configured",
+            "kind": "personal",
+            "repo_name": "",
+            "vault_path": ""
+          },
+          "websites": {
+            "detail": "no dominant match — 2 candidates too close",
+            "kind": "websites",
+            "repo_name": "",
+            "vault_path": ""
+          }
+        },
+        "script": [
+          "/no/such/dir\n",
+          "<vaults>/vault\n",
+          "\n",
+          "\n",
+          "\n",
+          "\n",
+          "\n",
+          "<vaults>/webvault\n",
+          "<vaults>/manual\n",
+          "3\n",
+          "\n",
+          "\n",
+          "\n",
+          "y\n",
+          "\n",
+          "\n",
+          "\n",
+          "15\n"
+        ]
+      },
+      "ollama": {
+        "config": {
+          "cloud_api_url": "https://api.openai.com/v1",
+          "llm_provider": "cloud",
+          "telegram_api_id": "not-a-number",
+          "vault_path": "<vaults>/vault"
+        },
+        "script": [
+          "\n",
+          "abc\n",
+          "\n",
+          "\n",
+          "\n",
+          "\n",
+          "\n",
+          "\n",
+          "1\n",
+          "\n",
+          "\n",
+          "n\n",
+          "7\n"
+        ]
+      }
+    }
+  },
+  "hand_delivery": {
+    "README.txt": "GitCurator - the fourth door: hand-delivered pages\n====================================================\n\nThese links were walled for every machine door (403 / bot\ndefense / TLS fingerprint). Your real Chrome can open them.\n\nFor each link below:\n  1. open it in Chrome (More > 'Hand-deliver walled links'\n     does it for you),\n  2. save the page here: Ctrl+S, format\n     'Webpage, HTML Only', filename = the suggested name,\n  3. run the next batch (SYNC) - the page is consumed as a\n     real fetch, the note is written, the retry clears.\n\nQueued links:\n  - https://example.com/epsilon\n    save as: hand-example-com-37b191ab.html\n    the wall: HTTP 403\n  - https://example.com/zeta\n    save as: hand-example-com-35a28ec6.html\n    the wall: TLS handshake error\n\nSaved pages already consumed are marked in queue.json\n(consumed: true) - do not delete them; they are the record.\nDelete this README freely - it regenerates on the next\nhand-delivery enqueue.\n",
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nWalled links (the fourth door — your real Chrome)\n────────────────────────────────────────────────────────────────\n  • https://example.com/epsilon\n      attempt 1 · the wall: HTTP 403\n  • https://example.com/zeta\n      attempt 3 · the wall: TLS handshake error\n\n12:00:00 ✔ 🖐 2 link(s) queued for hand-delivery, 0 opened in your browser.\nNext: in Chrome, Ctrl+S → 'Webpage, HTML Only' → the suggested filename → this folder:\n  <vaults>/webvault/_review/hand-delivered\nThe next --auto / --retry-failed run consumes every delivered page as a REAL fetch.\n",
+    "queue.json": "{\n  \"links\": {\n    \"https://example.com/epsilon\": {\n      \"wall\": \"HTTP 403\",\n      \"queued\": \"2026-10-17 12:00\",\n      \"suggested\": \"hand-example-com-37b191ab.html\"\n    },\n    \"https://example.com/zeta\": {\n      \"wall\": \"TLS handshake error\",\n      \"queued\": \"2026-10-17 12:00\",\n      \"suggested\": \"hand-example-com-35a28ec6.html\"\n    }\n  }\n}",
+    "rc": 0
   },
   "help_card_reference": {
     "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nNothing to do — pick a mode:\n\n  --init                   first-run wizard (saves credentials locally)\n  --login                  Telegram login: enter the verification code\n  --auto                   fully automatic run (SYNC → PROCESS → SEAL)\n  --sync                   the fast lane: check → one Enter → sync (add --yes for cron)\n  --status                 vault map + config + cache + note-state summary\n  --test-connection        vaults · LLM · GitHub · Telegram — is everything up and ready?\n  --detect-llm X           Detect & Set a local engine (ollama | llamacpp) — probe, pick, save\n  --list-dead              list the 404 quarantine (dead links)\n  --reset-dead             clear the 404 quarantine\n  --hand-delivery          the fourth door — open walled links in your real Chrome\n  --retry-failed           reprocess the retry queue\n  --import-file F          curate URLs from a text file\n  --from-id A --to-id B    curate a Telegram ID range\n  --offset-start A --count N curate N messages from an offset\n  --single-id N            curate one Telegram message\n  --mark-read              clear the bot's unread queue\n\nWindows tip: double-click GitCurator-SYNC.bat for the fast sync lane,\nor GitCurator-CLI.bat for the automatic run (both live in gitcurator/cli/).\n",
@@ -209,6 +417,48 @@
     "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n404 quarantine (threshold 3)\n────────────────────────────────────────────────────────────────\n  • https://github.com/owner/dead-repo\n      attempt 3/3 · since 2026-10-17 · 404 Not Found  ⛔ QUARANTINED\n  • https://github.com/owner/old-repo\n      attempt 1/3 · since 2026-10-17 · 404 Not Found\n\nReset with: --cli --reset-dead\n",
     "rc": 0
   },
+  "model_menu": [
+    {
+      "choice": "qwen2.5-coder:7b",
+      "configured": "llama3",
+      "output": "\n12:00:00 ▲ Configured model 'llama3' is not installed.\n  Models available in Ollama:\n    1) llama3   ← recommended\n    2) qwen2.5-coder:7b\n    3) nomic-embed-text   (embedding — cannot analyze)\n  (q = abort the run; tip: `ollama pull <model>` installs the original)\n? Select a model [1] → ",
+      "script": [
+        "2\n"
+      ],
+      "tty": true
+    },
+    {
+      "choice": null,
+      "configured": "mistral",
+      "output": "\n12:00:00 ▲ Configured model 'mistral' is not installed.\n  Models available in Ollama:\n    1) qwen2.5-coder:7b   ← recommended\n    2) llama3\n    3) nomic-embed-text   (embedding — cannot analyze)\n  (q = abort the run; tip: `ollama pull <model>` installs the original)\n? Select a model [1] → ",
+      "script": [
+        "q\n"
+      ],
+      "tty": true
+    },
+    {
+      "choice": null,
+      "configured": "mistral",
+      "output": "\n12:00:00 ▲ Configured model 'mistral' is not installed.\n  Models available in Ollama:\n    1) qwen2.5-coder:7b   ← recommended\n    2) llama3\n    3) nomic-embed-text   (embedding — cannot analyze)\n  (q = abort the run; tip: `ollama pull <model>` installs the original)\n? Select a model [1] →   ✖ Not a number or unique name — try again (1–3 or q).\n? Select a model [1] →   ✖ Not a number or unique name — try again (1–3 or q).\n? Select a model [1] →   ✖ Not a number or unique name — try again (1–3 or q).\n? Select a model [1] →   ✖ Not a number or unique name — try again (1–3 or q).\n? Select a model [1] →   ✖ Not a number or unique name — try again (1–3 or q).\n",
+      "script": [
+        "zz\n",
+        "zz\n",
+        "zz\n",
+        "zz\n",
+        "zz\n"
+      ],
+      "tty": true
+    },
+    {
+      "choice": "qwen2.5-coder:7b",
+      "configured": "mistral",
+      "output": "",
+      "script": [
+        ""
+      ],
+      "tty": false
+    }
+  ],
   "paint_shapes": {
     "codes_off": {
       "bold": "x",
@@ -569,5 +819,134 @@
   "sync_no_config": {
     "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\n\n12:00:00 ✖ SYNC refused — the setup is not ready:\n12:00:00 ✖   · no config at <app>/missing-config.json — the GUI's Settings writes it on its first save\n\n12:00:00 ▲ Open the GUI version (GitCurator.bat) -> Settings and add the credentials and essentials again, then run Sync once more.\n\n",
     "rc": 1
-  }
+  },
+  "test_connection_reference": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nTest Connection — is everything up and ready?\nvaults · LLM · GitHub · Telegram (live)\n\n───────────────────────────────── [1/4] Vaults ─────────────────────────────────\n  ✔ GitHub vault    found · writable — ready to receive notes (<vaults>/vault)\n  • Websites vault  not on disk yet — created by the pipeline on its first run (<vaults>/webvault)\n  ✔ Manual vault    found · writable — ready to receive notes (<vaults>/manual)\n────────────────────────────────── [2/4] LLM ───────────────────────────────────\n  ▲ Ollama          up @ http://127.0.0.1:11434 · 2 model(s) — configured 'mistral' is NOT pulled (the app will prompt at run time)\n───────────────────────────────── [3/4] GitHub ─────────────────────────────────\n  ✔ GitHub token    valid — account octo-owner (5000 req/h)\n  ✔ Vault repo      main-vault-backup ready (private)\n  ▲ Websites repo   websites-backup is PUBLIC — vault backups should be private (github.com/octo-owner/websites-backup/settings)\n──────────────────────────────── [4/4] Telegram ────────────────────────────────\n  ✔ Credentials     API id/hash set · phone +9891•••\n  ✔ Account session session file found — logged in on this machine (session.session)\n  ✔ Bot             @curator_bot configured — the queue is read through your account session\n  ▲ Proxy           disabled — Telegram connects directly (fine outside Iran, blocked inside)\n  ✔ Live connection connected — account login OK · bot queue readable (1 link(s) waiting · newest message id 9)\n\n  ▲ VERDICT         1/4 subsystems ready — 3 warning(s) (see the lines above)\n",
+    "rc": 0
+  },
+  "test_connection_rows": [
+    [
+      "Vaults",
+      [
+        [
+          "ok",
+          "GitHub vault",
+          "found · writable — ready to receive notes (<vaults>/vault)"
+        ],
+        [
+          "info",
+          "Websites vault",
+          "not on disk yet — created by the pipeline on its first run (<vaults>/webvault)"
+        ],
+        [
+          "ok",
+          "Manual vault",
+          "found · writable — ready to receive notes (<vaults>/manual)"
+        ]
+      ]
+    ],
+    [
+      "LLM",
+      [
+        [
+          "warn",
+          "Ollama",
+          "up @ http://127.0.0.1:11434 · 2 model(s) — configured 'mistral' is NOT pulled (the app will prompt at run time)"
+        ]
+      ]
+    ],
+    [
+      "GitHub",
+      [
+        [
+          "ok",
+          "GitHub token",
+          "valid — account octo-owner (5000 req/h)"
+        ],
+        [
+          "ok",
+          "Vault repo",
+          "main-vault-backup ready (private)"
+        ],
+        [
+          "warn",
+          "Websites repo",
+          "websites-backup is PUBLIC — vault backups should be private (github.com/octo-owner/websites-backup/settings)"
+        ]
+      ]
+    ],
+    [
+      "Telegram",
+      [
+        [
+          "ok",
+          "Credentials",
+          "API id/hash set · phone +9891•••"
+        ],
+        [
+          "ok",
+          "Account session",
+          "session file found — logged in on this machine (session.session)"
+        ],
+        [
+          "ok",
+          "Bot",
+          "@curator_bot configured — the queue is read through your account session"
+        ],
+        [
+          "warn",
+          "Proxy",
+          "disabled — Telegram connects directly (fine outside Iran, blocked inside)"
+        ]
+      ]
+    ]
+  ],
+  "wizard_llamacpp": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nFirst-run setup — answers are saved to <app>/wizard1-config.json\nPress Enter to keep the [current] value. Secrets stay on this machine.\n\n? Obsidian vault folder → 12:00:00 ▲ That folder does not exist — try again (or leave empty to skip).\n? Obsidian vault folder → \n— Telegram (api.telegram.org credentials) —\n? API ID [12345] → ? API hash [abcdef1234567890abcdef12] → ? Phone (+98…) [+989123456789] → \n— Bot queue (your dedicated bot chat) —\n? Bot username (without @) [curator_bot] → \n— GitHub (higher API rate limit with a token) —\n    create one at github.com/settings/tokens (public_repo read is enough)\n? GitHub token [fake-github-token-0123456789] → \n— The other two vaults (Enter to skip) —\n? Websites vault folder → ? Personal (Manual Notes) vault folder → \n📡 Repo radar — looking for the vaults' backup repos on your GitHub account (read-only)…\n  🔗 GitHub vault: main-vault-backup — detected via its own git remote\n  ⚪ Websites vault: not configured (no vault path)\n  ⚪ Personal vault: not configured (no vault path)\n  → 1 backup repo name(s) set automatically — nothing to type, nothing created\n\n— LLM provider —\n? Provider: 1) ollama  2) OpenAI-compatible endpoint (llama.cpp, vLLM, LM Studio, cloud)  3) llama.cpp (local, auto-detected) [ollama] → ? llama.cpp server URL (llama-server default http://127.0.0.1:8080) [http://127.0.0.1:8080/v1] → ? API key (empty unless llama-server was started with --api-key) → 12:00:00 ✔ llama.cpp detected: props answered · model 'qwen2.5-coder:7b' · ready\n? Model (detected: qwen2.5-coder:7b) [qwen2.5-coder:7b] → \n— Proxy (leave disabled if Telegram is reachable directly) —\n? Enable proxy? (y/N) [n] → ? Proxy type (socks5/http) [socks5] → ? Proxy host [127.0.0.1] → ? Proxy port [10808] → \n— Deleted-repo policy —\n? Quarantine a repo as dead after N consecutive 404s (2–10) [3] → \n┌─ saved ─────────────────────────────────────────┐\n│ config.json written — credentials stay local                               │\n└──────────────────────────────────────────────────┘\n\n\n12:00:00 ✔ Setup complete. Log in before the first run when convenient:\n      python main.py --cli --login\n12:00:00 • then double-click gitcurator\\cli\\GitCurator-CLI.bat (Windows) or run:\n      python main.py --cli --auto\n",
+    "rc": 0,
+    "saved_config": "{\n  \"bot_username\": \"curator_bot\",\n  \"github_token\": \"fake-github-token-0123456789\",\n  \"telegram_api_hash\": \"abcdef1234567890abcdef12\",\n  \"telegram_api_id\": 12345,\n  \"telegram_phone\": \"+989123456789\",\n  \"vault_path\": \"<vaults>/vault\",\n  \"website_vault_path\": \"<vaults>/webvault\",\n  \"manual_vault_path\": \"<vaults>/manual\",\n  \"vaultseal\": {\n    \"repo_name\": \"main-vault-backup\"\n  },\n  \"llm_provider\": \"llamacpp\",\n  \"llamacpp_api_url\": \"http://127.0.0.1:8080/v1\",\n  \"llamacpp_api_key\": \"\",\n  \"llamacpp_model\": \"qwen2.5-coder:7b\",\n  \"proxy\": {\n    \"enabled\": true,\n    \"type\": \"socks5\",\n    \"host\": \"127.0.0.1\",\n    \"port\": 10808\n  },\n  \"notfound_strike_threshold\": 10\n}"
+  },
+  "wizard_ollama": {
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nFirst-run setup — answers are saved to <app>/wizard2-config.json\nPress Enter to keep the [current] value. Secrets stay on this machine.\n\n? Obsidian vault folder [<vaults>/vault] → \n— Telegram (api.telegram.org credentials) —\n? API ID [not-a-number] → ? API hash → ? Phone (+98…) → \n— Bot queue (your dedicated bot chat) —\n? Bot username (without @) → \n— GitHub (higher API rate limit with a token) —\n    create one at github.com/settings/tokens (public_repo read is enough)\n? GitHub token → \n— The other two vaults (Enter to skip) —\n? Websites vault folder → ? Personal (Manual Notes) vault folder → \n— LLM provider —\n? Provider: 1) ollama  2) OpenAI-compatible endpoint (llama.cpp, vLLM, LM Studio, cloud)  3) llama.cpp (local, auto-detected) [cloud] → ? Ollama base URL [http://127.0.0.1:11434] → ? Ollama model [qwen2.5-coder:7b] → \n— Proxy (leave disabled if Telegram is reachable directly) —\n? Enable proxy? (y/N) [n] → \n— Deleted-repo policy —\n? Quarantine a repo as dead after N consecutive 404s (2–10) [3] → \n┌─ saved ─────────────────────────────────────────┐\n│ config.json written — credentials stay local                               │\n└──────────────────────────────────────────────────┘\n\n\n12:00:00 ✔ Setup complete. Log in before the first run when convenient:\n      python main.py --cli --login\n12:00:00 • then double-click gitcurator\\cli\\GitCurator-CLI.bat (Windows) or run:\n      python main.py --cli --auto\n",
+    "rc": 0,
+    "saved_config": "{\n  \"cloud_api_url\": \"https://api.openai.com/v1\",\n  \"llm_provider\": \"ollama\",\n  \"telegram_api_id\": 0,\n  \"vault_path\": \"<vaults>/vault\",\n  \"telegram_api_hash\": \"\",\n  \"telegram_phone\": \"\",\n  \"bot_username\": \"\",\n  \"github_token\": \"\",\n  \"website_vault_path\": \"\",\n  \"manual_vault_path\": \"\",\n  \"ollama\": {\n    \"base_url\": \"http://127.0.0.1:11434\",\n    \"model\": \"qwen2.5-coder:7b\"\n  },\n  \"proxy\": {\n    \"enabled\": false,\n    \"type\": \"socks5\",\n    \"host\": \"127.0.0.1\",\n    \"port\": 10808\n  },\n  \"notfound_strike_threshold\": 7\n}"
+  },
+  "worker_check_rows": [
+    {
+      "answer": "0.40.0",
+      "enabled": null,
+      "result": {
+        "detail": "v0.40.0 — matches this app (expected v0.40.0)",
+        "level": "ok",
+        "name": "Bot Worker"
+      },
+      "url": "https://bot.example"
+    },
+    {
+      "answer": "0.22.0",
+      "enabled": null,
+      "result": {
+        "detail": "v0.22.0 deployed, this app expects v0.40.0 — an older bot may miss newer link handling; update it: cd app/cloudflare-bot && bash deploy-latest.sh (Windows: .\\deploy-latest.ps1)",
+        "level": "warn",
+        "name": "Bot Worker"
+      },
+      "url": "https://bot.example"
+    },
+    {
+      "answer": "boom",
+      "enabled": true,
+      "result": {
+        "detail": "reachable check failed (OSError) — https://bot.example/health",
+        "level": "error",
+        "name": "Bot Worker"
+      },
+      "url": "https://bot.example"
+    },
+    {
+      "answer": "none",
+      "enabled": null,
+      "result": null,
+      "url": ""
+    }
+  ]
 }

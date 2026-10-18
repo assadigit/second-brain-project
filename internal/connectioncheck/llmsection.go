@@ -26,7 +26,7 @@ var (
 func CheckOllama(baseURL any, configuredModel any) Result {
 	base := trimPySpace(pyStr(pyOr(baseURL, "http://127.0.0.1:11434")))
 	u := strings.TrimRight(base, "/") + "/api/tags"
-	raw, err := httpGetJSON(u, 6.0)
+	raw, err := HTTPGetJSONFn(u, 6.0)
 	if err != nil {
 		return result("Ollama", LevelError,
 			"not reachable at "+base+" ("+errClass(err)+") — "+

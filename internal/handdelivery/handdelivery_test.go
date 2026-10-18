@@ -312,8 +312,8 @@ func TestEnqueueOpenChromeLegCountsTheOpened(t *testing.T) {
 
 // --- 4. the real Chrome (test_handdelivery §4) -------------------------
 
-// patchChromeSeams patches the open ladder's seams (findChromeFn /
-// subprocessPopen / webbrowserOpen — the reference patches
+// patchChromeSeams patches the open ladder's seams (FindChromeFn /
+// SubprocessPopenFn / WebbrowserOpenFn — the reference patches
 // hd.find_chrome, hd.subprocess.Popen and hd.webbrowser.open) and
 // restores them at cleanup.
 func patchChromeSeams(t *testing.T,
@@ -322,16 +322,16 @@ func patchChromeSeams(t *testing.T,
 	wopen func(u string) (bool, error),
 ) {
 	t.Helper()
-	origFind, origPopen, origWopen := findChromeFn, subprocessPopen, webbrowserOpen
-	findChromeFn = find
+	origFind, origPopen, origWopen := FindChromeFn, SubprocessPopenFn, WebbrowserOpenFn
+	FindChromeFn = find
 	if popen != nil {
-		subprocessPopen = popen
+		SubprocessPopenFn = popen
 	}
 	if wopen != nil {
-		webbrowserOpen = wopen
+		WebbrowserOpenFn = wopen
 	}
 	t.Cleanup(func() {
-		findChromeFn, subprocessPopen, webbrowserOpen = origFind, origPopen, origWopen
+		FindChromeFn, SubprocessPopenFn, WebbrowserOpenFn = origFind, origPopen, origWopen
 	})
 }
 
