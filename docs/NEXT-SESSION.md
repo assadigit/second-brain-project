@@ -60,8 +60,8 @@
   tests race-clean over 32 packages** (`-count=1 -race`, exit 0,
   0 FAIL / 0 SKIP). SESSION-031 starts from a clean push state —
   after the environment check, verify `git status` shows up to date
-  with 'origin/main' at `02d4ed8` (the post-close commit; if the
-  sandbox wiped the clone,
+  with 'origin/main' (the tip at or beyond the SESSION-030 post-close
+  record `02d4ed8`; if the sandbox wiped the clone,
   re-clone and reconcile; never end a session push-pending — that is
   the PUSH-AFTER-EVERY-TASK law below, whose cautionary tale this
   debt became and then was paid).
@@ -147,8 +147,9 @@
 ## 2. Next session: SESSION-031 — T-61's close-out audit + T-63 the launchers
 
 - **Verify the push state first** (§1): SESSION-030's debt was
-  cleared by its second continuation — origin/main stands at
-  `02d4ed8` — so the session does NOT begin push-pending; confirm
+  cleared by its second continuation — origin/main carries the
+  SESSION-030 record through the post-close commit `02d4ed8` — so
+  the session does NOT begin push-pending; confirm
   `git status` is in sync before work (and keep pushing after every
   task).
 - **T-61 (S) — the terminal-paint close-out**: the paint box, the
@@ -295,9 +296,10 @@ code alongside you. You are the single writer on the repo.
    close commit e175619 (the push debt stranded by the mid-session context
    death was cleared by the session's SECOND continuation with the owner's
    re-supplied ephemeral PAT; server-verified; battery re-verified at the
-   pushed HEAD: 1911 tests race-clean over 32 packages). origin/main stands at
-   the post-close commit 02d4ed8 — verify git status shows up to date with
-   origin/main (local main's tip must be 02d4ed8 or newer). Use the PAT
+   pushed HEAD: 1911 tests race-clean over 32 packages). origin/main carries
+   SESSION-030's full record through the post-close commit 02d4ed8 — verify
+   git status shows up to date with origin/main (local main's tip must be at
+   02d4ed8 or newer). Use the PAT
    only ephemerally: git -c http.extraheader="Authorization: Basic $(printf
    'x-access-token:%s' "$PAT" | base64)" and never store it — AND SCRUB IT if
    you ever CLONE with it: `git clone -c http.extraheader=…` PERSISTS the
