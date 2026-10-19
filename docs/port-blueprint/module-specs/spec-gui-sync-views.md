@@ -69,3 +69,39 @@ Port `test_syncdisplay` (65): classify split; §5 arithmetic edges (shrink, neve
 unreachable); honest read doors (get_pending_result three truths; fetch_published_index four);
 first-show-once; consented worker; never-stacking re-render. Port `test_syncreview`-driven UX
 cases: cell paint states, banner precedence, modal disabled-until, reopen flows.
+
+## Dated note (2026-10-20, SESSION-038 — T-75's landing)
+
+Landed complete: the pure halves in `internal/syncreview`
+(core/sync_review.py's port — see spec-core-sync-review's own dated
+note) + `internal/app/syncdisplay.go`/`syncview.go` (the display
+model, the gather, the page doors) + the shell
+(`webui/syncuib.go` + `frontend/settings.js`'s Sync page). Three
+port-level decisions, recorded per the reality-wins law:
+
+1. **ONE payload, ONE gather**: the reference's convergence wires the
+   flow's Refresh button to BOTH gathers (two workers, each half
+   keeping its own measured-at note; a shared single gather recorded
+   as the known v2 follow-up). The port takes the v2 shape NOW —
+   `RefreshSyncView` answers one payload (the facts + the model + the
+   snapshot + the banner) — the spec's own sentence ("one Refresh for
+   both") is the authority.
+2. **The queue stages ride the Bot page's own check**: the gather's
+   queue cells consume the CLASSIFIED gap (the vault-filtered pending
+   lists + the in-vault counts the Check Queue door produces), never
+   the display poll's raw pending — a raw poll would count
+   already-in-vault items as the gap. The Bot page's check lands the
+   session's queue state (`SetSyncQueueState`), and the matrix's own
+   fix door runs the same engine.
+3. **The snake_case field law**: the payload structs' JSON tags mirror
+   the Python dict keys verbatim (`dot_tone`, `status_text`,
+   `display_number`, `calm_line`, `measured_at`…) — the frontend
+   reads the tagged names. The first render's "Not measured yet" note
+   that never flipped (the JS read `measuredAt` against the tag
+   `measured_at`) was the bug that taught the law; the screenshots
+   now show the live measured-at line.
+
+The engine legs the page wires were already live per the task card
+(batchwire's retry modes stay T-77's hero machine; the drift-seal
+family + SyncFetchQueue ride the existing Commands). The `refresh`
+glyph was already in the locked pack (T-72's 28-glyph table).

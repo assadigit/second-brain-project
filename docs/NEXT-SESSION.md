@@ -17,175 +17,177 @@
   `v0.92.0-go.1` (tag at `a39cb3d`, release 416838956, the zip asset
   sha-verified + round-trip verified); the differential corpus full run
   (all 31 generators × two passes GREEN — now 33 with theme+icons).
-- **Phase 6 OPEN (SESSION-033–037)** — T-70 COMPLETE (the entry gate),
+- **Phase 6 OPEN (SESSION-033–038)** — T-70 COMPLETE (the entry gate),
   T-71 COMPLETE (`internal/app`, SESSION-034), T-72 COMPLETE (the
   frontend foundation, SESSION-035), T-73 COMPLETE (the Settings
-  pages A, SESSION-036), and now **T-74 COMPLETE: THE SETTINGS PAGES
-  B + THE CLI-PARITY SHELL WIRING** (SESSION-037, three slices: `a4619fe`
-  — internal/app/batchwire.go, engine.go's runImpl composition
-  re-hosted on the app surface (the warmup family, the inputs
-  fetchers, the full intake, the banishment + settled ledger +
-  backfill + the §4.4 passes, THE WEBSITES PHASE, THE FINISH CHAIN's
-  seals + THE PHASE-5 CLEAR + the dry-run law) over the App's six new
-  seams — THE DEBT T-73 CARRIED, CLOSED with 19 wiring tests; `6d479fb`
-  — internal/app/settingsb.go, the pages' engines (THE QUEUE REPORT
-  RENDERING from canned reports + the zinc ⏳/mint ✅ badge + the
-  dashboard engines + the undo engine + the sources fetch over its
-  seam + the backup ladders + the save groups) — 21 tests; `3091d76`
-  — webui/settingsuib.go the third bound struct + frontend/
-  settings.js's four pages at the reference's own sidebar order
-  (Dashboard after Input, Bot, Sources, Backup — every label verbatim;
-  the Restore button honestly disabled with its landing note; the
-  SB_POC_OPEN_SETTINGS section probe) — 5 shell tests). **The
-  acceptance GREEN: the wiring slice's own tests + the queue report
-  rendering tests + the fast-sync laws (the already-tested pure
-  halves) — 2060 main-battery tests race-clean over 35 packages
-  (2020 + 19 + 21) + 28 webui tests over 4 (23 + 5).** The gate leg
-  re-run GREEN (first frame 283/942 ms; the 10k flood 476,190
-  lines/s, 0 drops); the screenshots VLM-verified (all TEN sidebar
-  rows in the reference's order; the Backup page's groups with every
-  button/checkbox/placeholder/status dot). The 32nd full wipe was
-  absorbed before work (see build/TOOLCHAIN.md Am.4 — the
-  symlink-syscall degradation + the hardlink fallback).
-- **Push state: CLEAN** — SESSION-037 pushed after every task; verify
-  `git status` is in sync at the start (the tip at or beyond
-  `3091d76`).
+  pages A, SESSION-036), T-74 COMPLETE (the Settings pages B + the
+  CLI-parity shell wiring, SESSION-037), and now **T-75 COMPLETE:
+  THE SYNC VIEW** (SESSION-038, three slices: `6eea74d` —
+  internal/syncreview, core/sync_review.py PORTED — the placeholder
+  seat T-71 recorded finally filled: the four-state model + the
+  named verdict + the micro-copy captions + the DeferredLog over
+  the SQLITE LAW + the three read-only doors, 101 tests;
+  `04768e7` — internal/app/syncdisplay.go + syncview.go: THE VISUAL
+  SYNC DISPLAY's pure model (the four cards verbatim, the §5
+  arithmetic's every edge) + the gather + the Settings doors
+  (RefreshSyncView — ONE payload, both desks) , 50 tests;
+  `478101c` — the shell: the FOURTH bound struct + the Sync page at
+  the reference's own sidebar order (the 2×2 flow grid, the
+  four-state matrix, the differences modal with the disabled-until
+  law, the first-show door, the fix doors), 5 shell tests). **The
+  acceptance GREEN: the four-state rendering tests + the
+  deferred-ledger UX tests — 2211 main-battery tests race-clean
+  over 36 packages (2060 + 101 + 50) + 33 webui tests over 4
+  (28 + 5).** The gate leg GREEN over the 6th webkit rebuild (first
+  frame 292/730 ms ≤ 1.5 s; the 10k flood 588,235 lines/s, 0
+  drops); the screenshots VLM-verified (the four cards' honest
+  not-set grammar; the live measured-at line; the dashed unknown
+  matrix). The 33rd full wipe was absorbed before work (see the
+  session report — Am.4's hardlink fallback again, symlink(2)
+  still blocked).
+- **Push state: CLEAN** — SESSION-038 pushed after every slice;
+  verify `git status` is in sync at the start (the tip at or beyond
+  `478101c`).
 - **The environment recipe** (GUI edition): work repo at
   /home/z/my-project/second-brain-project (symlinked
-  /home/z/second-brain-project), read-only reference
-  /home/z/my-project/GitCurator @ `98f4fc7` (symlinked /home/z/GitCurator;
-  must match testdiff/PINNED-GITCURATOR-REV), toolchain go1.27.2 →
-  /home/z/.local/go (go.dev tarball, sha256
+  /home/z/second-brain-project **only when symlink(2) works — it is
+  currently BLOCKED, use the real path**), read-only reference
+  /home/z/my-project/GitCurator @ `98f4fc7` (symlinked /home/z/GitCurator
+  — same caveat; must match testdiff/PINNED-GITCURATOR-REV), toolchain
+  go1.27.2 → /home/z/.local/go (go.dev tarball, sha256
   `ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5` — 64
-  hex chars, verified against go.dev's published JSON), venv
-  /home/z/venvs/gitcurator (Python 3.12, stdlib-only), the wails CLI
-  v2.16.0 (`GOBIN=/home/z/.local/go/bin go install
-  github.com/wailsapp/wails/v2/cmd/wails@v2.16.0` — build-time only),
-  and the rootless webkit tree (~/.local/lib-wails: apt
+  hex chars, verified against go.dev's published JSON — BEWARE: the
+  chat-prompt copies of this string keep losing a character, the same
+  transcription corruption TOOLCHAIN.md Am.2 pinned; the committed pin
+  is the authority), venv /home/z/venvs/gitcurator (Python 3.12,
+  stdlib-only), the wails CLI v2.16.0 (`GOBIN=/home/z/.local/go/bin go
+  install github.com/wailsapp/wails/v2/cmd/wails@v2.16.0` — build-time
+  only), and the rootless webkit tree (~/.local/lib-wails: apt
   --download-only + dpkg -x of libwebkit2gtk-4.1-dev + libgtk-3-dev,
   the .pc prefix rewrites, the 26 dev-symlink relinks — **if the
   sandbox blocks symlink(2) again, TOOLCHAIN.md Am.4's hardlink
   fallback: hardlink each dangling dev link to its RESOLVED system
-  target**), all per build/TOOLCHAIN.md Am.3 + Am.4; the MAIN go.mod
-  exactly modernc.org/sqlite v1.36.1 + bogdanfinn/tls-client v1.16.0 +
-  golang.org/x/net v0.48.0 + golang.org/x/text v0.32.0 + the go
-  directive at 1.24.1 (never bump; ADR-0002 Am.2). The NESTED webui
-  module rides go 1.25.0 (wails v2.16.0's floor) + the wails require +
-  the transitive requires the direct internal/app import pulls
-  (indirect via the parent replace — ADR-0002 Am.5; the MAIN go.mod
-  stays byte-unchanged).
+  target** — NOTE the link's readlink target is the versioned .so,
+  resolve THAT against the system tree), all per build/TOOLCHAIN.md
+  Am.3 + Am.4; the MAIN go.mod exactly modernc.org/sqlite v1.36.1 +
+  bogdanfinn/tls-client v1.16.0 + golang.org/x/net v0.48.0 +
+  golang.org/x/text v0.32.0 + the go directive at 1.24.1 (never
+  bump; ADR-0002 Am.2). The NESTED webui module rides go 1.25.0
+  (wails v2.16.0's floor) + the wails require + the transitive
+  requires the direct internal/app import pulls (indirect via the
+  parent replace — ADR-0002 Am.5; the MAIN go.mod stays
+  byte-unchanged).
 - **The operational laws, newest first** (each was paid for in
   evidence — carry ALL of them):
+  - **THE FIELD-TAG LAW** (SESSION-038): the payload structs' JSON
+    tags mirror the Python dict keys verbatim (snake_case:
+    `dot_tone`, `display_number`, `measured_at`…) — the frontend
+    reads the TAGGED names, never the camelCase guesses; the first
+    render's stuck "Not measured yet" note was this bug exactly.
+  - **THE DISPLAY-PIPELINE CORRUPTION LESSON** (SESSION-038): this
+    sandbox's tool-output rendering occasionally drops the two
+    characters `[h` (the sha pin's lost character in chat prompts,
+    `[hidden]` selectors reading as `idden]` are the same family) —
+    settle every suspect reading with byte-level counts/hex before
+    "fixing" anything.
   - **THE SYMLINK-BLOCK FALLBACK** (SESSION-037, TOOLCHAIN.md Am.4):
     a wipe rebuild on a symlink-blocking sandbox relinks the 26 dev
-    .so links as hardlinks to the RESOLVED system targets (readlink -f
-    first); the wails build over the tree is the proof.
+    .so links as hardlinks to the RESOLVED system targets (readlink
+    -f the LINK'S TARGET against the system tree); the wails build
+    over the tree is the proof.
   - **THE RENDER-CONTEXT LAW** (SESSION-037): a pure renderer that
-    reads config context (the websites switch, the vault path) takes
-    the CONFIG as an argument — a dead local `websiteVault := ""`
-    silently dropped the whole websites sub-table until the tests
-    caught it; the canned-result tests must assert the context-fed
-    lines.
-  - **THE ONE-SLICE-PROPERLY RECORD** (SESSION-036) — paid again this
-    session: the wiring slice landed complete with its own proof
-    before the pages.
-  - **THE LIVE-CONFIG LAW** (SESSION-036): the session-held map, the
-    in-place saves; new pages build on it.
-  - **THE GROUP-POINTER LAW** (SESSION-036): a page's save group
-    carries ONLY its own keys; the merge never whitelist-rebuilds.
-  - **THE DISSOLUTION-PROBE RECORD** (SESSION-035, ADR-0002 Am.5):
-    probe, record, never improvise past a blocker.
-  - **THE GOLDEN-MARSHAL-ORDER TRAP** (SESSION-035): Go maps marshal
-    keys SORTED; structs emit DECLARATION order.
-  - **THE SUITE-REVERIFICATION DIVIDEND** (SESSION-035): re-verifying
-    the suite after a wipe catches REAL production races.
-  - **THE WAILS-BUILD MODE FLIPS** (SESSION-035): every `wails build`
+    reads config context takes the CONFIG as an argument.
+  - **THE ONE-SLICE-PROPERLY RECORD** (SESSION-036, paid again in
+    037 and 038) — the wiring slice lands complete with its own
+    proof before the pages.
+  - **THE LIVE-CONFIG LAW** (SESSION-036); **THE GROUP-POINTER LAW**
+    (SESSION-036); **THE DISSOLUTION-PROBE RECORD** (SESSION-035,
+    ADR-0002 Am.5); **THE GOLDEN-MARSHAL-ORDER TRAP** (SESSION-035);
+    **THE SUITE-REVERIFICATION DIVIDEND** (SESSION-035); **THE
+    WAILS-BUILD MODE FLIPS** (SESSION-035: every `wails build`
     re-flips the wailsjs bindings to 755; a stray `go build .` in
     webui/ leaves a 22 MB `webui` binary — check `git diff --raw`
-    after every build, restore via chmod, never commit the binary.
-  - **THE HERMETIC-SEAM LAW** (SESSION-034); **THE
-    RESUMED-CONTEXT RE-VERIFICATION LAW** (SESSION-034); **THE
-    MODE-FLIP DEGRADATION LAW** (SESSION-033); **THE
-    MODULE-BOUNDARY PROBE LAW** (SESSION-033, ADR-0002 Am.4); **THE
-    FRONTEND-MODULE LESSON** (SESSION-033: ES modules need
-    `<script type="module">` + explicit `.js` extensions); **THE
-    TIMER-CLAMP INSTRUMENT CAVEAT** (SESSION-033); **THE
-    TOOLCHAIN-ROUND-2/3 PROOF** (SESSION-033/035); THE T-65
-    ZIP-COMPOSITION RESOLUTION; THE CORPUS-REGENERATION LAW; THE
-    DISPATCH-COMPLETION LAW; THE STATE-CHAIN + MUTATION-TEETH laws;
-    THE CONTEXT-DEATH CONTINUATION recipe; THE DSN-EMPTY-PATH HAZARD;
-    THE FIXED-LENGTH ROOTS; THE SHALLOW-COPY SNAPSHOT; the fake-clock
+    after every build, restore via chmod, never commit the binary);
+    **THE HERMETIC-SEAM LAW** (SESSION-034); **THE RESUMED-CONTEXT
+    RE-VERIFICATION LAW** (SESSION-034); **THE MODE-FLIP
+    DEGRADATION LAW** (SESSION-033); **THE MODULE-BOUNDARY PROBE
+    LAW** (SESSION-033, ADR-0002 Am.4); **THE FRONTEND-MODULE
+    LESSON** (SESSION-033); **THE TIMER-CLAMP INSTRUMENT CAVEAT**
+    (SESSION-033); **THE TOOLCHAIN-ROUND-2/3 PROOF** (SESSION-033/
+    035); THE T-65 ZIP-COMPOSITION RESOLUTION; THE
+    CORPUS-REGENERATION LAW; THE DISPATCH-COMPLETION LAW; THE
+    STATE-CHAIN + MUTATION-TEETH laws; THE CONTEXT-DEATH
+    CONTINUATION recipe; THE DSN-EMPTY-PATH HAZARD; THE
+    FIXED-LENGTH ROOTS; THE SHALLOW-COPY SNAPSHOT; the fake-clock
     arithmetic; the exception class-name tokens; the
     stdout-capture-helper limit.
   - **THE CD-DISCIPLINE LAW** (every git/go command carries its own
-    cd — the sandbox's shell resets cwd between calls; never commit
-    outside the work repo; never checkout blindly); **THE
-    RENDERER-EATS-ESCAPE-PAIRS lesson** (commit messages via -F
-    FILE); **THE WRITE-TOOL REDACTION lesson** (byte-level secret-scan
-    before every commit); **THE BACKGROUND-PROCESS lesson** (long
-    suites in FOREGROUND CHUNKS); **PUSH AFTER EVERY TASK** (ask for
-    the PAT the moment a push is due; never store it).
+    cd — the sandbox's shell resets cwd between calls; the NESTED
+    webui module needs its own cd; never commit outside the work
+    repo; never checkout blindly); **THE RENDERER-EATS-ESCAPE-PAIRS
+    lesson** (commit messages via -F FILE); **THE WRITE-TOOL
+    REDACTION lesson** (byte-level secret-scan before every commit);
+    **THE BACKGROUND-PROCESS lesson** (long suites in FOREGROUND
+    CHUNKS); **PUSH AFTER EVERY TASK** (ask for the PAT the moment
+    a push is due; never store it).
 
-## 2. Next session: SESSION-038 — T-75 (L): Sync view — the flow cards + the matrix + the differences modal
+## 2. Next session: SESSION-039 — T-76 (M): the Scan flow — the picker → the plan modal (the masters + the arm-guard) → the scorecard
 
-- **Verify the push state first** (§1): confirm the tip is at or beyond
-  `3091d76`.
-- **T-75 per doc 13's row**: the v0.87.0 GRAND CONVERGENCE page — ONE
-  Sync page, two desks: THE VISUAL SYNC DISPLAY (the four-element
-  flow: 🤖 bot → 📓 vault → ☁️ GitHub → 🌐 the site, read-only,
-  refreshed on demand — the click is the consent for every network
-  leg) ABOVE THE DEFERRED LEDGER (the stage-by-stage gap matrix —
-  what is waiting, every gap fixed or explained); one Refresh
-  measures both. Plus the differences modal (spec-gui-sync-views is
-  the authority). ACCEPTANCE: the four-state rendering tests + the
-  deferred-ledger UX tests.
-- **The engine legs already live**: batchwire.go's review_retry +
-  master_retry modes (the retry doors' engines), Commands.SyncFetchQueue
-  (the queue stage's data), the drift-seal family (FastSync), and the
-  queue check's classification counts (the Sync matrix's Queue →
-  Vault cells feed off them — _bot_queue_counts' twin). The Sync
-  page's UI (the sidebar row between Dashboard and Bot — the 'refresh'
-  glyph is in the pack) wires to these.
-- The Settings window is the established host (settingsui.go +
-  settingsuib.go + settings.js); the Sync page joins SECTIONS at the
-  reference's own order.
+- **Verify the push state first** (§1): confirm the tip is at or
+  beyond `478101c`.
+- **T-76 per doc 13's row**: the Scan flow's three UI legs over the
+  engine that already lives (T-71's scanjob.go — the _vault_scan_job
+  port: the one-open cache, the scope picker's four miss variants,
+  BOTH confirm doors, the picking arithmetic, the merged verdict):
+  1. **THE VAULT PICKER** (vault_pick_dialog.py — its PURE model
+     halves are ALREADY PORTED at T-75: `DetectScanVaults` lives in
+     internal/app/syncdisplay.go, rows + statuses + the Personal
+     read-only law; `pick_display_model` still to port);
+  2. **THE PLAN MODAL** (scan_plan_dialog.py — the masters
+     (select-all row states), the arm-guard, the plan list);
+  3. **THE SCORECARD** (scan_result_dialog.py).
+  ACCEPTANCE: workflow tests; selection semantics.
+- The Settings window is the established host (the Scan flow is a
+  MAIN-WINDOW flow in the reference — read spec-gui-dialogs +
+  spec-gui-pages-a's vault_scan_ui section for the real host; the
+  shell's Scan button + hero ride T-77, the modal may ride its own
+  window or the settings overlay per the spec's own words).
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-037.md` — the most recent report (T-74
-   COMPLETE; the wiring re-host; the symlink-block fallback).
-2. `docs/port-blueprint/module-specs/spec-gui-sync-views.md` — THE
-   AUTHORITY for T-75 (the four-element flow + the gap matrix + the
-   differences modal + the v0.87.0 convergence record).
-3. `internal/app/batchwire.go` + `batchwire_test.go` — the retry
-   modes' engines (review_retry / master_retry) the Sync page wires.
-4. `internal/app/commands.go` (SyncFetchQueue / the drift-seal
-   family) + `internal/app/queue.go` (the classification counts the
-   matrix consumes).
-5. `webui/settingsuib.go` + `frontend/settings.js` — the established
-   page-binding + builder patterns (the third struct + the pages B's
-   own builders; the Sync page rides the same shapes).
-6. The reference's `gui/main_window/sync_view.py` + `sync_flow.py` +
-   `sync_display.py` + `core/sync_review.py` — the convergence page's
-   own source (read at /home/z/GitCurator).
-7. `docs/port-blueprint/13-implementation-task-list.md` — the T-75
+1. `docs/sessions/SESSION-038.md` — the most recent report (T-75
+   COMPLETE; the placeholder filled; the field-tag law).
+2. `docs/port-blueprint/module-specs/spec-gui-dialogs.md` — THE
+   AUTHORITY for the plan modal + the picker + the scorecard.
+3. `docs/port-blueprint/module-specs/spec-gui-pages-a.md` — the
+   vault_scan_ui section (the Scan button's own flow).
+4. `internal/app/scanjob.go` + `scanjob_test.go` — the engine that
+   already lives (T-71's port: the confirm doors, the scope picker,
+   the picking arithmetic, the merged verdict).
+5. `internal/app/syncdisplay.go` — `DetectScanVaults` (the picker's
+   first pure half, already ported at T-75).
+6. The reference's `gui/vault_pick_dialog.py` (the dialog + the
+   second pure half) + `gui/scan_plan_dialog.py` +
+   `gui/scan_result_dialog.py` (read at /home/z/my-project/GitCurator
+   — the symlink is down while symlink(2) is blocked).
+7. `docs/port-blueprint/13-implementation-task-list.md` — the T-76
    row + Phase 6's book.
 
-## 4. Known constraints / owner actions for SESSION-038
+## 4. Known constraints / owner actions for SESSION-039
 
 - **Push state: CLEAN** — keep the PUSH-AFTER-EVERY-TASK law; ask for
   the PAT the moment a push is due (never stored, never written).
 - The dissolution call (the owner's, ADR-0002 Am.5): (a) amend the
-  authorized set vs (b) keep the nested boundary — no rush; T-75
+  authorized set vs (b) keep the nested boundary — no rush; T-76
   proceeds on (b) either way.
 - The vanilla-vs-vite call (the owner's): vanilla is landed and
   proven; a flip needs only an ADR + the build step.
 - **The authorized runtime set is UNCHANGED** (the four; the MAIN
-  go.mod byte-unchanged — the nested webui module carries wails + the
-  indirect transitive requires per Am.5).
-- **The go-directive acknowledgement (STILL WAITING — twenty-eighth
-  session carrying it)**: the main module rides `go 1.24.1`, forced by
-  the owner-acknowledged tls-client v1.16.0 pin (ADR-0002 Am.2).
+  go.mod byte-unchanged — the nested webui module carries wails +
+  the indirect transitive requires per Am.5).
+- **The go-directive acknowledgement (STILL WAITING — twenty-ninth
+  session carrying it)**: the main module rides `go 1.24.1`, forced
+  by the owner-acknowledged tls-client v1.16.0 pin (ADR-0002 Am.2).
 - The x/net/html question is a KEEP-OR-SWAP, not a blocker.
 - **After every `wails build`**: check `git diff --raw` for mode flips
   (the bindings re-flip to 755) and never commit a stray `webui/webui`
@@ -193,14 +195,16 @@
   remove it before staging.**
 - **If the sandbox blocks symlink(2) during a wipe rebuild**:
   TOOLCHAIN.md Am.4's hardlink fallback for the 26 dev links.
+- **The field-tag law** (SESSION-038): new payload structs' JSON tags
+  mirror the Python dict keys; the frontend reads the tagged names.
 - **Deferred test debt on the books** (evidence-recorded, not
   blockers): test_noteredo's remaining un-ported selections; the
   note_state SURGERY path's CRLF round-trip differential (Phase 4+);
   the Windows live legs + the launchers' clean-VM smoke + the
   bootstrapper leg (Phase 7 checklist, doc 10 §7); the sound WAV
   assets (not yet committed — the preview's missing-asset notice is
-  the parity behavior until T-77/T-80 ship the files); **the Backup
-  page's Restore button** (honestly disabled — the safety-net restore
+  the parity behavior until T-77/T-80 ship the files); the Backup
+  page's Restore button (honestly disabled — the safety-net restore
   + export-zip engines ride the packaging phase, recorded in
   spec-gui-pages-b's dated note).
 - **Single-writer law**: the fresh session is the ONLY writer; the
@@ -214,105 +218,102 @@
   (hash-level, not display).
 - **Push after every task** — never end a session push-pending.
 
-## 5. THE PROMPT TO COPY (SESSION-038)
+## 5. THE PROMPT TO COPY (SESSION-039)
 
 ```
-You are starting SESSION-038 of the second-brain-project — the multi-session Go
+You are starting SESSION-039 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
 code alongside you. You are the single writer on the repo.
 
-1. The environment is REBUILDABLE, not persistent (thirty-two wipe events across
-   SESSION-005..037 — SESSION-037 absorbed the thirty-second full wipe BEFORE
-   work: both repos, the toolchain, the venv, the module cache, AND the
+1. The environment is REBUILDABLE, not persistent (thirty-three wipe events
+   across SESSION-005..038 — SESSION-038 absorbed the thirty-third full wipe
+   BEFORE work: both repos, the toolchain, the venv, the module cache, AND the
    rootless webkit tree all gone, everything rebuilt from the committed recipes
-   — the fifth webkit rebuild; NOTE the new Am.4: mid-rebuild the sandbox began
-   BLOCKING symlink(2) outright, so the 26 dev .so links landed as HARDLINKS to
-   the RESOLVED system runtime targets (readlink -f first — same bytes, same
-   link resolution, the wails build + the gate leg the proof); the committed
-   recipe stays the symlink form, Am.4 is the fallback record; the continuation
-   recipe is PROVEN at all levels: git status + git log --oneline -5 + file
-   timestamps tell what ACTUALLY survived; a preserved commit or in-flight
-   draft is continued and AUDITED — never blindly trusted, never restarted
-   from zero; a resumed context re-verifies from scratch (the full battery +
-   the hygiene scans) before committing; a wipe event may flip tracked files'
-   MODES 644->755 while preserving content — diagnose via 'git diff --raw' and
-   restore via chmod off the parsed list, NEVER git checkout; and the standing
-   addendum: after every `wails build` the wailsjs bindings re-flip to 755,
-   and a stray `go build .` in webui/ leaves a 22 MB binary named `webui` —
-   never commit it). FIRST verify with evidence: work repo at
-   /home/z/my-project/second-brain-project (symlinked /home/z/second-brain-project),
-   read-only reference /home/z/my-project/GitCurator @ 98f4fc7 (symlinked
-   /home/z/GitCurator; must match testdiff/PINNED-GITCURATOR-REV), toolchain
+   — the sixth webkit rebuild, Am.4's hardlink fallback again: symlink(2) is
+   STILL blocked, the 26 dev .so links land as hardlinks to the RESOLVED
+   system targets (readlink -f the LINK'S TARGET — the versioned .so — against
+   the system tree; the wails build + the gate leg the proof); NOTE the new
+   lesson: this sandbox's tool-output rendering occasionally drops the two
+   characters '[h' — the sha pin's lost character in chat prompts and
+   '[hidden]' selectors reading as 'idden]' are the same family — settle every
+   suspect reading with byte-level counts/hex before "fixing" anything; the
+   continuation recipe is PROVEN at all levels: git status + git log --oneline
+   -5 + file timestamps tell what ACTUALLY survived; a preserved commit or
+   in-flight draft is continued and AUDITED — never blindly trusted, never
+   restarted from zero; a resumed context re-verifies from scratch (the full
+   battery + the hygiene scans) before committing; a wipe event may flip
+   tracked files' MODES 644->755 while preserving content — diagnose via 'git
+   diff --raw' and restore via chmod off the parsed list, NEVER git checkout;
+   and the standing addendum: after every `wails build` the wailsjs bindings
+   re-flip to 755, and a stray `go build .` in webui/ leaves a 22 MB binary
+   named `webui` — never commit it). FIRST verify with evidence: work repo at
+   /home/z/my-project/second-brain-project (the /home/z/second-brain-project
+   symlink is DOWN while symlink(2) is blocked — use the real path), read-only
+   reference /home/z/my-project/GitCurator @ 98f4fc7 (symlinked /home/z/GitCurator
+   — same caveat; must match testdiff/PINNED-GITCURATOR-REV), toolchain
    go1.27.2 -> /home/z/.local/go (go.dev tarball, sha256
    ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5 — 64 hex
-   chars, verified against go.dev's published JSON), venv /home/z/venvs/gitcurator
-   (Python 3.12, stdlib-only) per build/TOOLCHAIN.md, the wails CLI v2.16.0
-   (GOBIN=/home/z/.local/go/bin go install github.com/wailsapp/wails/v2/cmd/wails@v2.16.0
-   — build-time only), and the rootless webkit tree (~/.local/lib-wails per
-   webui/README.md + docs/poc-artifacts/t-70-gate.md) per build/TOOLCHAIN.md
-   Am.3 + Am.4. The MAIN go.mod: modernc.org/sqlite at v1.36.1, bogdanfinn/tls-client
-   at v1.16.0, golang.org/x/net v0.48.0 + golang.org/x/text v0.32.0 direct, and
+   chars, verified against go.dev's published JSON; BEWARE the transcription
+   corruption — the committed pin in build/TOOLCHAIN.md Am.2 is the authority),
+   venv /home/z/venvs/gitcurator (Python 3.12, stdlib-only) per
+   build/TOOLCHAIN.md, the wails CLI v2.16.0 (GOBIN=/home/z/.local/go/bin go
+   install github.com/wailsapp/wails/v2/cmd/wails@v2.16.0 — build-time only),
+   and the rootless webkit tree (~/.local/lib-wails per webui/README.md +
+   docs/poc-artifacts/t-70-gate.md) per build/TOOLCHAIN.md Am.3 + Am.4. The
+   MAIN go.mod: modernc.org/sqlite at v1.36.1, bogdanfinn/tls-client at
+   v1.16.0, golang.org/x/net v0.48.0 + golang.org/x/text v0.32.0 direct, and
    the go directive at 1.24.1 (the tls-client-forced floor — ADR-0002 Am.2; do
    not bump any of these). The NESTED webui module rides go 1.25.0 (wails
    v2.16.0's floor) + the wails require + the transitive requires the direct
-   internal/app import pulls (indirect via the parent replace — ADR-0002 Am.5);
-   the MAIN go.mod stays byte-unchanged. Then check `git status` and
-   `git log --oneline -3`: SESSION-037 landed T-74 COMPLETE in three slices
-   (a4619fe — internal/app/batchwire.go THE CLI-PARITY SHELL WIRING, the debt
-   T-73 carried closed: engine.go's runImpl composition re-hosted on the app
-   surface over six new seams — the warmup family, the inputs fetchers, the
-   full intake, the banishment + settled ledger + backfill + the §4.4 passes,
-   THE WEBSITES PHASE, THE FINISH CHAIN's seals + THE PHASE-5 CLEAR + the
-   dry-run law, with BatchOptions' new Mode + ImportFile; 19 wiring tests;
-   6d479fb — internal/app/settingsb.go the pages' engines (THE QUEUE REPORT
-   RENDERING from canned QueueReports + the zinc ⏳/mint ✅ badge + the
-   dashboard engines + the undo engine + the sources fetch over its seam +
-   the backup ladders + the save groups; 21 tests; 3091d76 — webui/
-   settingsuib.go the third bound struct + frontend/settings.js's four pages
-   at the reference's own sidebar order (Dashboard after Input, Bot, Sources,
-   Backup — every label verbatim, the Restore button honestly disabled with
-   its landing note, the SB_POC_OPEN_SETTINGS section probe; 5 shell tests)
-   and PUSHED everything after every task — 2060 main-battery tests race-clean
-   over 35 packages + 28 webui tests over 4. Verify git status shows up to date
-   with origin/main (the tip at or beyond 3091d76). Use the PAT only
-   ephemerally: git -c http.extraheader=
+   internal/app import pulls (indirect via the parent replace — ADR-0002
+   Am.5); the MAIN go.mod stays byte-unchanged. Then check `git status` and
+   `git log --oneline -3`: SESSION-038 landed T-75 COMPLETE in three slices
+   (6eea74d — internal/syncreview core/sync_review.py PORTED, the placeholder
+   seat T-71 recorded finally filled: the four-state model + the named
+   verdict + the micro-copy captions + the DeferredLog over the SQLITE LAW +
+   the three read-only doors, 101 tests; 04768e7 — internal/app/syncdisplay.go
+   + syncview.go: THE VISUAL SYNC DISPLAY's pure model + the gather + the
+   Settings doors (ONE Refresh payload for both desks), 50 tests; 478101c —
+   webui/syncuib.go the fourth bound struct + frontend/settings.js's Sync
+   page at the reference's own sidebar order (the 2×2 flow grid, the
+   four-state matrix, the differences modal with the disabled-until law, the
+   first-show door, the fix doors), 5 shell tests) and PUSHED everything after
+   every slice — 2211 main-battery tests race-clean over 36 packages + 33
+   webui tests over 4. Verify git status shows up to date with origin/main
+   (the tip at or beyond 478101c). Use the PAT only ephemerally: git -c
+   http.extraheader=
    "Authorization: Basic $(printf 'x-access-token:%s' "$PAT" | base64)" and
    never store it — AND SCRUB IT if you ever CLONE with it (the
    GIT_CONFIG_COUNT env-var form avoids the persistence entirely).
    Re-verify the suite before work if anything looks off — the law pays in
    bugs, not just safety.
 
-2. Read, in order: the repo README.md (Phase 6 OPEN — T-74 at 3091d76) →
+2. Read, in order: the repo README.md (Phase 6 OPEN — T-75 at 478101c) →
    docs/SESSION-PROTOCOL.md (the working law) → docs/NEXT-SESSION.md (your
-   state card — §1 records SESSION-037's close: T-74 COMPLETE, the newest
-   laws — THE SYMLINK-BLOCK FALLBACK, THE RENDER-CONTEXT LAW, the
-   ONE-SLICE-PROPERLY record, the LIVE-CONFIG law, the GROUP-POINTER law) →
-   docs/sessions/SESSION-037.md (the most recent report) → the T-75 spec
-   (spec-gui-sync-views.md — THE AUTHORITY: the v0.87.0 GRAND CONVERGENCE
-   page, ONE Sync page two desks — the four-element flow above the
-   stage-by-stage gap matrix, one Refresh measures both) → internal/app/
-   batchwire.go (the review_retry/master_retry engines the page wires) +
-   commands.go + queue.go → webui/settingsuib.go + frontend/settings.js
-   (the established page-binding + builder patterns) → the reference's
-   gui/main_window/sync_view.py + sync_flow.py + sync_display.py +
-   core/sync_review.py.
+   state card — §1 records SESSION-038's close: T-75 COMPLETE, the newest
+   laws — THE FIELD-TAG LAW, THE DISPLAY-PIPELINE CORRUPTION LESSON, the
+   SYMLINK-BLOCK FALLBACK, the RENDER-CONTEXT LAW) → docs/sessions/
+   SESSION-038.md (the most recent report) → the T-76 spec
+   (spec-gui-dialogs.md — THE AUTHORITY: the vault picker + the plan modal
+   (the masters + the arm-guard) + the scorecard) + spec-gui-pages-a.md's
+   vault_scan_ui section → internal/app/scanjob.go (the engine that already
+   lives — T-71's _vault_scan_job port) + internal/app/syncdisplay.go (the
+   picker's first pure half: DetectScanVaults, already ported) → webui/
+   settingsui*.go + frontend/settings.js (the established binding + builder
+   patterns; THE FIELD-TAG LAW) → the reference's gui/vault_pick_dialog.py +
+   gui/scan_plan_dialog.py + gui/scan_result_dialog.py.
 
-3. THIS SESSION IS T-75 (L): SYNC VIEW per doc 13's row — the flow cards +
-   the matrix + the differences modal (spec-gui-sync-views): THE VISUAL
-   SYNC DISPLAY (🤖 bot → 📓 vault → ☁️ GitHub → 🌐 the site — read-only,
-   refreshed on demand, the click is the consent for every network leg)
-   above THE DEFERRED LEDGER (the stage-by-stage gap matrix — what is
-   waiting, every gap fixed or explained) + the differences modal. The
-   page joins the Settings window's SECTIONS at the reference's own order
-   (between Dashboard and Bot; the 'refresh' glyph is in the pack). The
-   engine legs already live: batchwire.go's retry modes,
-   Commands.SyncFetchQueue, the drift-seal family, the queue check's
-   classification counts. ACCEPTANCE: the four-state rendering tests +
-   the deferred-ledger UX tests. If capacity runs short: one slice done
-   properly with proof beats two half-done; close cleanly at a natural
-   boundary.
+3. THIS SESSION IS T-76 (M): THE SCAN FLOW per doc 13's row — the picker →
+   the plan modal (the masters + the arm-guard) → the scorecard
+   (spec-gui-dialogs + spec-gui-pages-a's vault_scan_ui): the three UI legs
+   over the engine that already lives (scanjob.go's confirm doors + the
+   scope picker + the picking arithmetic + the merged verdict). The picker's
+   first pure half (DetectScanVaults) is already ported at T-75 — build on
+   it, never re-invent. ACCEPTANCE: workflow tests; selection semantics. If
+   capacity runs short: one slice done properly with proof beats two
+   half-done; close cleanly at a natural boundary.
 
 4. Standing laws: reality wins over specs (fix the spec in the same commit);
    tests are never weakened; no secrets or owner data in git (byte-level
@@ -325,17 +326,19 @@ code alongside you. You are the single writer on the repo.
    (hash-level, not display) instead of improvising past them; probe before
    claiming any module-boundary rule (ADR-0002 Am.4); fake every
    network-touching seam in tests at construction (the HERMETIC-SEAM law);
-   after every wails build, check `git diff --raw` for mode flips and never
-   commit a stray webui/webui binary; every git/go command carries its own cd
-   (the sandbox shell resets cwd between calls).
+   the payload structs' JSON tags mirror the Python dict keys and the
+   frontend reads the tagged names (THE FIELD-TAG LAW); after every wails
+   build, check `git diff --raw` for mode flips and never commit a stray
+   webui/webui binary; every git/go command carries its own cd (the sandbox
+   shell resets cwd between calls; the NESTED webui module needs its own cd).
 
-5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (T-75's
-   own acceptance: the four-state rendering tests + the deferred-ledger UX
-   tests), commit + push everything (ask me for the GitHub PAT the moment a
-   push is due — never store it anywhere; never end the session push-pending),
-   write docs/sessions/SESSION-038.md, rewrite docs/NEXT-SESSION.md with the
-   next session's prompt, and end your reply with a plain-language report plus
-   the prompt I should copy to start SESSION-039.
+5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (T-76's
+   own acceptance: workflow tests + selection semantics), commit + push
+   everything (ask me for the GitHub PAT the moment a push is due — never
+   store it anywhere; never end the session push-pending), write
+   docs/sessions/SESSION-039.md, rewrite docs/NEXT-SESSION.md with the next
+   session's prompt, and end your reply with a plain-language report plus
+   the prompt I should copy to start SESSION-040.
 
 One slice done properly with proof beats two half-done; close cleanly at a
 natural boundary when capacity runs out.

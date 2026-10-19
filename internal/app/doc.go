@@ -32,6 +32,16 @@
 //     law), the dashboard engines (the frontmatter scan, the quarantine
 //     table/reset, the undo engine), the sources fetch over its seam,
 //     and the Backup page's ladders + save groups.
+//   - syncdisplay.go — THE VISUAL SYNC DISPLAY's engines (T-75): the
+//     pure four-card model (the §5 arithmetic, the four states
+//     ok/not_set/error/never), the picker's own vault walk
+//     (DetectScanVaults), the local facts (the seal rows + the
+//     public-ready count), and the friendly clock.
+//   - syncview.go — the Sync page's view half (T-75): the matrix
+//     tables, the six-stage gather over injectable walks, the
+//     code-aware published door, the recompute-from-ledger, and the
+//     Settings doors (RefreshSyncView's ONE payload for both desks,
+//     the differences modal's mark/reopen engines).
 //   - batchwire.go — THE CLI-PARITY SHELL WIRING (T-74, the debt T-73
 //     carried closed): engine.go's runImpl composition re-hosted on
 //     this surface — the warmup family, the inputs fetchers, the full

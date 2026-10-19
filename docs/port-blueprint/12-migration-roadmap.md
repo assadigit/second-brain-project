@@ -299,6 +299,29 @@ plan → scorecard) → Backup page → sounds/theme toggle/dialogs polish.
 confirm → apply; sync-view refresh); performance criteria met (doc 07 §B.4); side-by-side lock
 verified against the Python app.
 
+> **SESSION-038 (2026-10-20): T-75 COMPLETE — the Sync view (the flow
+> cards + the matrix + the differences modal), the placeholder seat
+> filled.** The thirty-third full wipe absorbed before work (both repos
+> re-cloned with the ephemeral GIT_CONFIG_COUNT PAT form, go1.27.2
+> sha-verified against the committed 64-char pin, the venv, the wails
+> CLI, and the rootless webkit tree rebuilt — the 6th webkit rebuild,
+> Am.4's hardlink fallback again, symlink(2) still blocked). T-75 in
+> three slices: (a) internal/syncreview — core/sync_review.py PORTED
+> (the four-state model, the named verdict + the setup/measure split,
+> the micro-copy captions, the DeferredLog over the SQLITE LAW, the
+> three read-only doors) — 101 tests; (b) internal/app's syncdisplay +
+> syncview — the display model (the §5 arithmetic's every edge, the
+> four cards verbatim) + the gather + the Settings doors (ONE Refresh
+> payload for both desks — the shared single gather the reference
+> defers to v2, taken now) — 50 tests; (c) the shell — the fourth
+> bound struct + the Sync page at the reference's own sidebar order +
+> the differences modal with the disabled-until law + the fix doors
+> with the queue-state hook — 5 shell tests. The acceptance GREEN
+> (the four-state rendering tests + the deferred-ledger UX tests):
+> 2211 main-battery tests race-clean over 36 packages + 33 webui over
+> 4; the gate leg GREEN (first frame 292/730 ms; the 10k flood
+> 588,235 lines/s, 0 drops); the screenshots VLM-verified.
+
 ## Phase 7 — Packaging, release, cutover
 
 **Work**: deterministic zip builder, `1-INSTALL` equivalent, clean-machine checklist (doc 10 §7),

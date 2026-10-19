@@ -42,3 +42,31 @@ automatically (row kept forever; flip-back when the gap returns); NOTHING is eve
 Port `test_syncreview` (143): truth table, banner precedence incl. the setup/measure split, chip
 grammar, ledger lifecycle + concurrency, relative clock, vault/git/published helpers, never-
 delete law.
+
+## Dated note (2026-10-20, SESSION-038 — the placeholder filled)
+
+Landed at T-75 (the seat T-71 recorded as a placeholder): every
+symbol in the table above, in `internal/syncreview`. Port-level
+decisions, per the reality-wins law:
+
+- **The SQLite law rides `store.Open`** (the DSN pragmas:
+  busy_timeout 30000 + WAL + synchronous NORMAL, MaxOpenConns(1))
+  plus the ledger's own `sync.Mutex` — the RLock's twin for a
+  single-connection ledger; the concurrency test runs four writers
+  × 20 marks on the same file (80 rows, zero errors).
+- **`fetch_published_index`'s seam is request-level** (`httpDo`):
+  the production door builds the GET with the 1010 UA worn; the
+  tests inspect the request and answer canned responses without a
+  socket. The DISPLAY's read-back door (`FetchPublishedFacts`, the
+  four-truths shape with the Worker's 404 = never_published) lives
+  in `internal/app` — it mirrors cloud/directory_sync's own door,
+  distinct from this core one (the reference splits them the same
+  way).
+- **The vault-side reuse**: `vault_site_items` rides
+  `directorysync`'s own filters through the new `export.go`
+  wrappers (`IterNotes`/`ReadText`/`NormHost`/`SharedHostsOf`) —
+  reuse, never re-invented, exactly the reference's own law.
+- The GUI-wiring test families (the mixin joins the window, the QSS
+  rules, the 44px laws) ported at the shell level (T-75 slice (c)'s
+  sidebar/modal laws); the marriage-books family is the reference's
+  repo-meta, not the port's.

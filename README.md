@@ -673,3 +673,44 @@ modified by this migration; differential tests run both apps side by side.
 - Preserve observable behavior, including quirks; only the five pre-classified fixes are allowed.
 - Never commit credentials, session files, or the owner's real `config.json` / `cache.db`.
 - Tests are never weakened, skipped, or deleted to get green.
+
+**SESSION-038 — T-75 COMPLETE: THE SYNC VIEW (the flow cards + the matrix
++ the differences modal), the placeholder seat filled**: the
+thirty-third full wipe absorbed before work (both repos re-cloned with
+the ephemeral GIT_CONFIG_COUNT PAT form, go1.27.2 sha-verified against
+the committed 64-char pin, the venv, the wails CLI, and the rootless
+webkit tree rebuilt — the 6th webkit rebuild, Am.4's hardlink fallback
+again, symlink(2) still blocked). Three slices, each committed+pushed:
+**(a) `6eea74d` — internal/syncreview, core/sync_review.py PORTED** (the
+placeholder seat T-71 recorded, finally filled): the four-state truth
+table, the banner verdict with v0.91.0's named verdict + the
+setup/measure split, the micro-copy captions (the owner's own 720/710
+example), the relative clock, the chip grammar, the DeferredLog over
+the SQLITE LAW (never a delete), the three read-only doors (the ONE
+network door with the 1010 UA + the hermetic seam, the vault site walk
+over build_index's own filters, the read-only git backup gap) — 101
+tests. **(b) `04768e7` — internal/app's syncdisplay.go + syncview.go**:
+THE VISUAL SYNC DISPLAY's pure model (the four cards in the owner's
+flow order with every line verbatim, the §5 arithmetic's every edge —
+shrink/never-published/unreachable/not-configured — the calm line law,
+total junk tolerance) + the view half (the six-stage gather over
+injectable walks with the queue stages riding the Bot page's OWN
+classified check, the recompute-from-ledger, the code-aware published
+door with the Worker's 404 = never_published, the Settings doors with
+ONE Refresh payload for both desks — the shared single gather the
+reference defers to v2, taken now) — 50 tests. **(c) `478101c` — the
+shell**: the fourth bound struct + the Sync page at the reference's
+own sidebar order (between Dashboard and Bot, the 'refresh' glyph):
+the 2×2 flow grid, the banner + the four-state matrix, the differences
+modal (the chips + the disabled-until law + the ONE inline
+confirmation + the log tab with Reopen), the first-show door, the fix
+doors — 5 shell tests. **The acceptance GREEN (the four-state
+rendering tests + the deferred-ledger UX tests): 2211 main-battery
+tests race-clean over 36 packages (2060 + 101 + 50) + 33 webui tests
+over 4 (28 + 5); the gate leg GREEN over the rebuilt tree (first
+frame 292/730 ms ≤ 1.5 s; the 10k flood 588,235 lines/s, 0 drops);
+the screenshots VLM-verified** (the four cards' honest not-set grammar
+— queue not measured / no vault connected / no backup repos / vault
+not set; "measured at 18:49:32 — the numbers are as fresh as this
+line"; the dashed unknown matrix; the desk living underneath). The
+MAIN go.mod byte-unchanged all session.

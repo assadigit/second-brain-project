@@ -27,6 +27,13 @@ seam RETIRED at this landing, deleted with its tests):
   plus the native pickers (the import-file + vault-folder dialogs).
   Bound as the second wails struct; the generated bindings
   live in frontend/wailsjs/go/main/SettingsUI.js.
+- `syncuib.go` — T-75's Sync page binding wrapper (the FOURTH bound
+  struct): the ONE Refresh door (one payload, both desks — the flow
+  cards + the stage matrix), the differences modal's doors (the
+  stage data, Mark as intentional + Reopen with the recompute, the
+  deferred-log reads), the fix doors (the queue-check leg that lands
+  the session's queue state, SealNow, PublishNow), and the per-row
+  Open note door.
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
   over internal/app's pages B engines + the Commands surface (the
   queue check + render + badge, Process All, the dashboard refresh +
