@@ -438,6 +438,32 @@ ecebb**, tag `v0.92.0-go.1`, GitHub release 416838956 with the zip
 asset (round-trip verified). **1927 tests race-clean over 34 packages
 (+5). PHASE 5 CLOSED — the books are empty; Phase 6 (the GUI shell)
 opens next.**
+**SESSION-033 — PHASE 6'S ENTRY GATE GREEN: T-70 COMPLETE (the PoC C
+re-run with ONE REAL JOB)**: the recovery first (the twenty-seventh full
+wipe + a mid-session degradation — the toolchain, module cache, and
+webkit tree wiped twice; everything rebuilt from the committed recipes;
+a latent test-side TOCTOU in the webfetch fake SOCKS5 server fixed
+in-commit — 1927/1927 verified at the pushed HEAD before work). Then
+the Wails toolchain record surfaced BEFORE the first wails invocation
+(ADR-0002 Am.3: the pinned CLI v2.16.0, the NESTED webui/ module —
+the main module's runtime set stays the authorized four — the vanilla
+frontend step, the CGO story; + Am.4: the internal-boundary claim
+disproved by probe, reality wins, fixed in-commit). THE SHELL: webui/
+with the themed window (the spec-gui-theme-icons LIGHT tokens), THE
+COALESCED LOG full contract (the deskbus Go half + the cache-mirror
+frontend half — cap 1000, filter from cache, per-row tooltips, batched
+fragment appends), and ONE REAL JOB wired through the guibridge/ seam
+(the note-state baseline — the real ScanVault walk + fingerprints +
+SQLite upserts over a deterministic 800-note fixture vault; 5 main-
+battery contract tests). THE MEASURED VERDICT over two runs: first
+frame 266/679 ms (gate ≤ 1.5 s), the 10k flood 458,695/454,133 lines/s
+with 0 drops and 23–25 ms max handler time per batch, the real job 800
+notes in 94–101 ms, the Windows exe CGO-free at 14.95 MB; the desk's
+cap law VLM-verified off the screenshot. Evidence:
+docs/poc-artifacts/t-70-gate.md (+ two results JSONs + the screenshot);
+the verdict: ADR-0001 Am.3. **1932 tests race-clean over 35 packages
+(+5 guibridge) + 12 webui tests (deskbus + fixture, from the nested
+module).**
 
 ## Map
 

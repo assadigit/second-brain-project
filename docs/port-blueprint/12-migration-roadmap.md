@@ -176,6 +176,18 @@ tagged with the zip artifact.
 
 **Entry**: Phase 5 exit + **PoC C: Wails** (ADR-0001 gate: themed window + log desk + one job;
 startup ≤ 1.5 s; log flood smooth).
+
+> **SESSION-033 (2026-10-19): the Phase-6 entry gate is GREEN — T-70
+> COMPLETE.** The gate re-run with ONE REAL JOB wired through (the
+> note-state baseline over a 800-note fixture vault, via the guibridge/
+> seam): first frame 266/679 ms over two runs (gate ≤ 1.5 s), the 10k
+> flood 458,695/454,133 lines/s with 0 drops and 23–25 ms max handler
+> time per batch, the real job 800 notes in 94–101 ms, the Windows exe
+> CGO-free at 14.95 MB. Verdict: ADR-0001 Am.3; evidence:
+> docs/poc-artifacts/t-70-gate.md. The Wails toolchain record (the pinned
+> CLI v2.16.0, the nested webui/ module, the vanilla frontend step, the
+> CGO story) surfaced BEFORE the first wails invocation: ADR-0002 Am.3
+> (+ Am.4's boundary correction). Phase 6's work (T-71…) may proceed.
 **Work**: `internal/app` commands/event bus completion; frontend pages in dependency order:
 main window chrome + log desk → settings pages (Vault, Credentials, LLM, Proxy, Input) → Bot
 queue + Dashboard → Sync view (flow cards + matrix + differences modal) → Scan flow (picker →

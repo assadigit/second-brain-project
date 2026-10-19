@@ -147,3 +147,40 @@ Evidence (full detail: `docs/poc-artifacts/t-70-wails-poc.md`, screenshot
 - PoC environment note: Fyne fallback remains unnecessary; the PoC found
   no Wails blocker on the Linux leg, and the Windows runtime leg is an
   owner-VM verification, not a library risk.
+
+## Amendment 3 — The Phase-6 entry gate re-run verdict (T-70, SESSION-033, 2026-10-19)
+
+**Status: PASS — the Phase-6 entry gate is GREEN (Wails v2.16.0 confirmed
+again, now with ONE REAL JOB wired through the engine).**
+
+The roadmap gates Phase 6's entry on "PoC C: Wails (ADR-0001 gate: themed
+window + log desk + one job; startup ≤ 1.5 s; log flood smooth)". Am.2
+(SESSION-001) had proven the framework with a synthetic worker loop; the
+SESSION-033 mandate re-ran the gate as Phase 6's entry with the substantial
+upgrade: **ONE REAL JOB** — the note-state baseline (the
+`record_baseline_if_empty` composition, `note_state.py:443-474`) wired
+through the `guibridge/` seam into the shell, running the real ScanVault
+walk + per-note read + sha256 fingerprint + SQLite upserts over a
+deterministic 800-note fixture vault.
+
+Evidence (full table + caveats: `docs/poc-artifacts/t-70-gate.md`): first
+frame **266 ms / 679 ms** (two runs — the second after a mid-session
+degradation + full toolchain rebuild from the committed recipe; both far
+under the 1.5 s gate); the 10k flood at **458,695 / 454,133 lines/s, 0
+drops**, the flood's whole DOM-append cost to the main thread **23–25 ms
+max per batch**; the real job **800 notes in 94–101 ms**; the Windows exe
+cross-compiled CGO-free at **14.95 MB**.
+
+Standing caveats (unchanged in kind from Am.2): the Windows runtime leg +
+the silent Evergreen-bootstrapper verification on a WebView2-less VM remain
+the owner's (Phase 7's clean-VM checklist); the WM-less-Xvfb timer clamp
+makes the task-gap instrument read throttling — the interactivity evidence
+is the handler-time instrument + the rendered desk (both recorded).
+
+Decisions riding this verdict (recorded elsewhere, cited here):
+- The Wails build-time toolchain + the nested `webui/` module +
+  the vanilla frontend step: **ADR-0002 Am.3** (surfaced BEFORE the first
+  wails invocation) + its **Am.4** boundary correction (the internal-rule
+  claim disproved by probe).
+- The seam's retirement law: `guibridge/` retires at T-72 when webui/
+  dissolves into the main module.
