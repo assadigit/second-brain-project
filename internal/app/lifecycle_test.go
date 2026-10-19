@@ -55,8 +55,11 @@ func TestAppLockFreshAcquire(t *testing.T) {
 	if err != nil {
 		t.Fatalf("the lock file never landed: %v", err)
 	}
-	if got := strings.TrimSpace(string(raw)); got != strconv.Itoa(os.Getpid()) {
-		t.Fatalf("lock content = %q, want our PID %d", got, os.Getpid())
+	// T-78: the BYTES law, exact — str(os.getpid()).encode() with no
+	// newline, no padding; the cross-binary file is byte-comparable.
+	if got := string(raw); got != strconv.Itoa(os.Getpid()) {
+		t.Fatalf("lock bytes = %q (len %d), want the bare decimal PID %q",
+			got, len(got), strconv.Itoa(os.Getpid()))
 	}
 	l.Release()
 	if _, err := os.Stat(path); !os.IsNotExist(err) {
@@ -105,10 +108,10 @@ func TestAppLockHealsStaleLock(t *testing.T) {
 	if !strings.Contains(out, "no longer running") {
 		t.Fatalf("the healing line lost its reason: %q", out)
 	}
-	// The healed lock carries OUR pid now.
+	// The healed lock carries OUR pid now — bare bytes (T-78's law).
 	raw, _ := os.ReadFile(path)
-	if got := strings.TrimSpace(string(raw)); got != strconv.Itoa(os.Getpid()) {
-		t.Fatalf("healed lock carries %q, want our PID", got)
+	if got := string(raw); got != strconv.Itoa(os.Getpid()) {
+		t.Fatalf("healed lock bytes = %q, want the bare decimal PID", got)
 	}
 }
 

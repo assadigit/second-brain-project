@@ -16,20 +16,34 @@ import (
 	"syscall"
 )
 
-// isProcessRunning reports whether pid is a live process. Signal 0
-// performs the kernel's permission+existence check: EPERM means the
-// process exists but belongs to someone else (alive); ESRCH means
-// no such process.
+// isProcessRunning reports whether pid is a live process, mirroring
+// _is_process_running's non-Windows branch (gui/headless.py:246-289):
+// the plain signal-0 probe wrapped in the reference's blanket except —
+// EVERY failure (no such process, not ours to signal, bad pid) reads
+// as not-running. T-78's side-by-side audit caught the divergence this
+// corrects: the port had treated EPERM (exists, another user's process)
+// as alive, but the reference's `except (OSError, …): return False`
+// swallows the PermissionError and reports DEAD — a lock file whose
+// stale PID was recycled to a stranger's process is take-over-able in
+// Python, so it must be in Go too (the same lock semantics, ADR-0008;
+// the cross-binary differential pins it).
 func isProcessRunning(pid int) bool {
 	if pid <= 0 {
 		return false
 	}
-	err := syscall.Kill(pid, 0)
+	return killVerdict(syscall.Kill(pid, 0))
+}
+
+// killVerdict is the except-ladder as a pure function: nil (the signal
+// was permitted — the process is ours and alive) ⇒ true; ANY error —
+// ESRCH (no such process) and EPERM (exists but not ours to signal)
+// both included — ⇒ false, exactly Python's blanket except.
+func killVerdict(err error) bool {
 	switch {
 	case err == nil:
 		return true
 	case errors.Is(err, syscall.EPERM):
-		return true // exists, not ours to signal
+		return false // the reference's except swallows PermissionError
 	default:
 		return false
 	}
