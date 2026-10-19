@@ -232,3 +232,21 @@ decoration, it is the completion proof.
 - NEXT-SESSION.md rewritten: yes (v32).
 - The next prompt: (verbatim block in NEXT-SESSION.md §5 — T-64 first,
   T-65 second; the push state CLEAN; PUSH AFTER EVERY TASK).
+
+## Post-close correction (SESSION-032, the reality-wins law)
+
+The go1.27.2 tarball sha256 recorded above (`ecadb99091…`, 63 chars) is
+a one-character-short transcription of the true hash — a sha256 is 64
+hex chars. The TRUE, go.dev-published value (verified in SESSION-032
+byte-equal against go.dev's `?mode=json` listing AND against the
+locally-computed sha256 of the downloaded tarball) is:
+
+    ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5
+
+SESSION-031's verification itself was sound (the downloaded tarball WAS
+the genuine go1.27.2 — the toolchain self-reports go1.27.2 and the
+whole 1922-test battery ran on it); only the recorded string dropped
+one character ('b', position 3). The corrected sha is now recorded in
+NEXT-SESSION.md §1 and build/TOOLCHAIN.md Am.2. The transcription
+corruption propagated through the session prompts since SESSION-031;
+this note stops it.

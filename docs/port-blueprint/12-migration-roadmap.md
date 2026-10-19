@@ -132,6 +132,22 @@ bytes recorded raw; shared grammar byte-compared; divergences asserted
 both ways; mutation teeth on three surfaces) — 101,777 bytes two-run
 byte-identical; 1922 tests race-clean over 33 packages. Only T-64 (the
 corpus full run) and T-65 (the tag + zip) remain on Phase 5's books.
+**Progress (SESSION-032)**: **T-64 COMPLETE** — THE DIFFERENTIAL CORPUS
+FULL RUN: all 31 golden generators driven twice end-to-end against the
+unmodified reference by the new corpus driver (testdiff/run_corpus.py);
+every generator exit-0 both passes with the pinned-rev line; the
+two-run byte-identical proof held (empty full-tree diff beyond the four
+atomic pairs' documented timestamp churn); committed == regenerated
+(the tree clean after pass 2). The fix loop's five finds were ALL
+generator-side determinism bugs (three generators recorded raw mkdtemp
+roots — folded to <TMP> now; dump_mirror's duplicate fixture had two
+stems — the os.walk-order quirk, one stem now; the pair-stability
+digest learned the notereads mtime_ns/epoch/scratch masks + the
+websitestate dismissed-ledger tie order, unspecified on both sides) —
+ZERO Go-port divergences; 1922 tests race-clean over 33 packages; the
+harness case PASS; the report archived at
+docs/poc-artifacts/t-64-corpus-full-run-report.md. Only T-65 (the
+v0.92.0-go.1 tag + zip) remains on Phase 5's books.
 **Exit gate**: the owner can run the Go CLI alongside the Python app on real data (dry-run
 first); differential harness green on the full case list; **CLI parity release `0.92.0-go.1`**
 tagged with the zip artifact.

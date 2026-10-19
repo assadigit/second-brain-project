@@ -403,8 +403,26 @@ the shared grammar byte-compared, every divergence asserted both ways
 (the python ladder gone, main.py → VERSION, the exe direct), mutation
 teeth on three surfaces — 101,777 bytes, two-run byte-identical.
 **1922 tests race-clean over 33 packages (+11).**
-Next: T-64 (the differential corpus full run), T-65 (the
-`v0.92.0-go.1` tag + zip).
+**SESSION-032 — T-64 COMPLETE: THE DIFFERENTIAL CORPUS FULL RUN**: all
+31 golden generators under testdiff/goldens/ driven twice end-to-end
+against the unmodified reference @ 98f4fc7 by the new corpus driver
+(testdiff/run_corpus.py — per-generator health + THE TWO-RUN
+BYTE-IDENTICAL PROOF + COMMITTED == REGENERATED, with the four atomic
+pairs' own law: PAIR TIE + normalized-content stability + the
+committed pairs stay canonical). The fix loop's five finds were ALL
+generator-side determinism bugs — three generators recorded raw mkdtemp
+roots (githubpipeline/websitepipeline/directorynote — folded to <TMP>,
+the replays' own fold regexes make it a no-op), dump_mirror's duplicate
+fixture had two stems (the os.walk-order quirk flipped the recorded
+winner between machines — one stem now, the Go replay fixture
+mirrored), and the pair-stability digest learned the notereads
+mtime_ns/epoch/scratch masks + the websitestate dismissed-ledger tie
+order (unspecified on BOTH sides — the reference purges a Python SET
+under a tied seconds-precision dismissed_at; the Go port faithfully
+mirrors with a map). ZERO Go-port divergences; 1922 tests race-clean
+over 33 packages; the harness case PASS; the report archived at
+docs/poc-artifacts/t-64-corpus-full-run-report.md.
+Next: T-65 (the `v0.92.0-go.1` tag + zip) — Phase 5's last book.
 
 ## Map
 

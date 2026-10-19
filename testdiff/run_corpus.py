@@ -123,6 +123,61 @@ ATOMIC_PAIRS = {
 _TS_RX = re.compile(
     r"\b\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:?\d{2})?\b")
 
+# The per-run value masks for the pair-stability proof (the goldens stay
+# RAW — the Go replays prove each pair's internal consistency through the
+# exact frozen values; these masks apply ONLY to the corpus runner's
+# cross-run stability digest):
+#   - the generators' mkdtemp scratch roots (/tmp/curator-XXXX-…)
+#   - nanosecond file mtimes (mtime_ns ints ≥ 1e15 — the notereads rows)
+#   - epoch-second floats (scanned_at — the reference's time.time() shape)
+_NS_RX = re.compile(r"/tmp/[A-Za-z0-9_-]*curator-[A-Za-z0-9_-]+")
+_EPOCH_S_RANGE = (1.5e9, 3.0e9)
+
+
+def _pair_norm_value(v):
+    """Mask one leaf value for the stability digest."""
+    if isinstance(v, str):
+        v = _TS_RX.sub("<TS>", v)
+        v = _NS_RX.sub("<TMP>", v)
+        return v
+    if isinstance(v, bool):
+        return v
+    if isinstance(v, int) and abs(v) >= 10 ** 15:
+        return "<NS>"
+    if isinstance(v, float) and _EPOCH_S_RANGE[0] <= v <= _EPOCH_S_RANGE[1]:
+        return "<EPOCH>"
+    return v
+
+
+def _pair_norm_tree(o, key_path=""):
+    """Normalize a pair golden's tree for the stability digest.
+
+    websitestate: the dismissed ledger's row order among same-second
+    batch dismissals is UNSPECIFIED ON BOTH SIDES (the reference's
+    purge iterates a Python SET; the Go port iterates a map — the tie
+    order is set-iteration order under a tied seconds-precision
+    dismissed_at). The pair TIE proves each run's internal consistency;
+    the stability digest compares the rows as a sorted multiset.
+    """
+    if isinstance(o, dict):
+        out = {}
+        for k, v in o.items():
+            if k == "fixture_sha256":
+                # the .db bytes change every run (timestamps) — the tie
+                # check covers the sha's own consistency
+                out[k] = "<SHA>"
+            else:
+                out[k] = _pair_norm_tree(v, key_path + "/" + k)
+        return out
+    if isinstance(o, list):
+        out = [_pair_norm_tree(v, key_path) for v in o]
+        if key_path.endswith("/dismissed_rows_all") or \
+                key_path.endswith("/dismissed_rows_auto_prefix"):
+            return sorted(json.dumps(x, sort_keys=True, ensure_ascii=False)
+                          for x in out)
+        return out
+    return _pair_norm_value(o)
+
 
 def pair_facts(gen_name: str) -> dict:
     """Compute the tie + normalized digest for an atomic pair (post-run)."""
@@ -133,9 +188,8 @@ def pair_facts(gen_name: str) -> dict:
         return {"tie_ok": False, "error": "pair file missing"}
     doc = json.loads(golden_path.read_text())
     tie = sha256_file(db_path) == doc.get("fixture_sha256")
-    norm = json.dumps(doc, sort_keys=True, ensure_ascii=False)
-    norm = _TS_RX.sub("<TS>", norm)
-    norm = norm.replace(doc.get("fixture_sha256", "<none>"), "<SHA>")
+    norm_tree = _pair_norm_tree(doc)
+    norm = json.dumps(norm_tree, sort_keys=True, ensure_ascii=False)
     return {
         "tie_ok": tie,
         "norm_digest": hashlib.sha256(norm.encode()).hexdigest(),
@@ -343,10 +397,12 @@ def build_report() -> int:
 
     porcelain2 = p2["git_status_after"]
     # The documented exception: the four atomic pairs are EXPECTED to churn
-    # (fresh now() timestamps every run — the pair law). Everything else
-    # must leave the tree clean.
+    # (fresh now() timestamps every run — the pair law), and the corpus
+    # driver's own source may evolve mid-flight (this file). Everything
+    # else must leave the tree clean.
+    driver_file = "testdiff/run_corpus.py"
     unexpected = [ln for ln in porcelain2.splitlines()
-                  if ln[3:] not in pair_files]
+                  if ln[3:] not in pair_files and ln[3:] != driver_file]
     if unexpected:
         failures.append("tree NOT clean after pass 2 beyond the four atomic "
                         "pairs (committed goldens diverge from regenerated): "

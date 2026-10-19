@@ -70,7 +70,9 @@
   /home/z/my-project/GitCurator @ `98f4fc7` (symlinked /home/z/GitCurator;
   must match testdiff/PINNED-GITCURATOR-REV), toolchain go1.27.2 →
   /home/z/.local/go (go.dev tarball, sha256
-  `ecadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5`),
+  `ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5`
+  — 64 hex chars, verified byte-equal to go.dev's published JSON in
+  SESSION-032; earlier cards carried a 63-char transcription of it),
   venv /home/z/venvs/gitcurator (Python 3.12, stdlib-only) per
   build/TOOLCHAIN.md, go.mod exactly modernc.org/sqlite v1.36.1 +
   bogdanfinn/tls-client v1.16.0 + golang.org/x/net v0.48.0 +

@@ -31,3 +31,23 @@
   `modernc.org/sqlite` stays pinned at `v1.36.1` (untouched
   throughout); our own source keeps the 1.22 language floor. See
   ADR-0002 Am.2 for the full decision record and the rollback path.
+
+## Amendment 2 — the exact tarball sha256 (2026-10-19, SESSION-032)
+
+| When | Toolchain | Where |
+|---|---|---|
+| 2026-10-19 (SESSION-032, T-64) | go1.27.2 linux/amd64 (unchanged) | sandbox rebuild #26 (the twenty-sixth full wipe) |
+
+- The exact sha256 of the go1.27.2.linux-amd64.tar.gz tarball, verified
+  byte-equal to go.dev's published `?mode=json` listing AND to the
+  locally-computed hash of the downloaded file:
+
+  `ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5`
+
+- **The transcription-corruption fix (reality wins)**: the session
+  cards and SESSION-031's report had carried a 63-character rendering
+  (`ecadb99091…` — one dropped character). The verification procedure
+  itself was always sound (download from go.dev over HTTPS + compare
+  against go.dev's published sha); the recorded STRING was wrong. This
+  amendment pins the 64-character truth so future rebuilds compare
+  against the right bytes.
