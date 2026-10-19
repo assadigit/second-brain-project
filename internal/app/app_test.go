@@ -43,10 +43,20 @@ func TestNewWiresTheProductionSeams(t *testing.T) {
 	if !h.Bus.Headless {
 		t.Fatal("the headless flag never reached the bus")
 	}
-	// A missing config file loads as the empty config.
+	// A missing config file loads as the GUI load path's example base
+	// (vaults_config.py load_config: copy.deepcopy(CONFIG_EXAMPLE) when
+	// the file is missing — the T-73 live-config law; the map is the
+	// SESSION-HELD instance every door shares).
 	cfg := a.loadConfig()
-	if cfg == nil || len(cfg.Keys()) != 0 {
-		t.Fatalf("missing config = %v, want empty", cfg)
+	if cfg == nil || len(cfg.Keys()) == 0 {
+		t.Fatalf("missing config = %v, want the example base", cfg)
+	}
+	if v, ok := cfg.Get("llm_provider"); !ok || v != "ollama" {
+		t.Fatalf("missing config's llm_provider = %v, want the example's ollama", v)
+	}
+	// The live-config law: every load returns the SAME instance.
+	if cfg2 := a.loadConfig(); cfg2 != cfg {
+		t.Fatal("loadConfig re-read the file — the session-held instance must be returned")
 	}
 }
 

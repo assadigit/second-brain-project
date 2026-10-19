@@ -23,11 +23,15 @@ package app
 import (
 	"context"
 	"fmt"
+	"os/exec"
+	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/assadigit/second-brain-project/internal/batch"
 	"github.com/assadigit/second-brain-project/internal/config"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
+	"github.com/assadigit/second-brain-project/internal/constants"
 	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/goodrepos"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
@@ -44,8 +48,8 @@ import (
 )
 
 // App is the composition root: the config source, the event bus, the
-// command surface, the lifecycle, and the injectable doors the
-// engine compositions read.
+// command surface, the settings surface, the lifecycle, and the
+// injectable doors the engine compositions read.
 type App struct {
 	// ConfigPath is the live config file (the config store's home).
 	ConfigPath string
@@ -54,8 +58,21 @@ type App struct {
 	Bus *Bus
 	// Commands is the command surface (doc 04 §5).
 	Commands *Commands
+	// Settings is the Settings pages' command surface (T-73).
+	Settings *Settings
 	// Lifecycle owns the startup passes + the watchdog + shutdown.
 	Lifecycle *Lifecycle
+
+	// liveCfg is the SESSION-HELD config map (the reference's
+	// self.config): loaded ONCE at New() through the GUI load path
+	// (config.LoadAppConfig — fresh detection, the example base, THE
+	// FILL, the credential strip heal), read by every door, mutated IN
+	// PLACE by every save (vaults_config.py's MainWindow semantics).
+	liveCfg *storage.OrderedMap
+
+	// configFilled is the user-memory fill count (the one quiet
+	// desk line after the UI exists — window.py:155-173).
+	configFilled int
 
 	// The engine doors (the hermetic law — New() wires the production
 	// defaults; tests and staged shells may swap them BEFORE any
@@ -68,12 +85,32 @@ type App struct {
 	appLock *AppLock
 }
 
+// LiveConfig returns the session-held config map (the GUI load path's
+// one load; save doors mutate this instance in place — the running
+// workers see saves through it).
+func (a *App) LiveConfig() *storage.OrderedMap {
+	if a.liveCfg == nil {
+		a.liveCfg = storage.NewOrderedMap()
+	}
+	return a.liveCfg
+}
+
 // New builds the whole composition over the config at configPath.
 // headless mirrors the launch mode: no GUI will ever answer a gate.
 func New(configPath string, headless bool) *App {
 	a := &App{ConfigPath: configPath}
 	a.Bus = NewBus()
 	a.Bus.Headless = headless
+
+	// THE LIVE-CONFIG LOAD (the GUI path, once per session):
+	// config.LoadAppConfig — fresh detection, the example base, THE
+	// FILL (the fill count for the one quiet desk line), the v0.07.1
+	// credential strip heal. Every door reads this instance; every
+	// save mutates it in place.
+	loadRes := config.LoadAppConfig(configPath)
+	a.liveCfg = loadRes.Config
+	a.configFilled = loadRes.Filled
+
 	a.GHClientFactory = func(token string) githubpipeline.RepoFetcher {
 		return githubpipeline.NewClient(token)
 	}
@@ -106,17 +143,94 @@ func New(configPath string, headless bool) *App {
 		BacklogCheck: a.backlogNotice,
 		Radar:        a.quietRadar,
 	})
+	a.Settings = NewSettings(a.Bus, a.liveCfg, &a.Commands.batchLock, SettingsDeps{
+		Config: a.loadConfig,
+		Write: func(cfg *storage.OrderedMap) bool {
+			return config.Save(configPath, cfg)
+		},
+		DiscoverVaults: batch.FindObsidianVaults,
+		UserConfigStatus: func() string {
+			return config.StatusLine("")
+		},
+		UserConfigPath: config.GlobalConfigPath,
+		OpenFileLocation: func(path string) {
+			openFileLocationOS(path)
+		},
+		GitHubGet:    connectioncheck.GitHubGetFn,
+		DetectOllama: llmclient.DetectOllama,
+		ProbeLlama:   llmclient.ProbeLlamaCpp,
+		DetectLlama: func(apiKey string) *llmclient.ProbeResult {
+			return llmclient.DetectLlamaCpp(apiKey, llmclient.LLamaCppScanPorts,
+				"127.0.0.1", llmclient.LLamaCppProbeTimeoutS, true)
+		},
+		SpawnOllamaServe: spawnOllamaServe,
+		SoundDir: func() string {
+			return filepath.Join(constants.AppDir(), "assets", "sounds")
+		},
+		SentinelRefresh: func() {
+			if a.Lifecycle != nil {
+				a.Lifecycle.RunSentinelPass()
+			}
+		},
+	})
 	return a
 }
 
-// loadConfig is the live-config door (a missing file reads as the
-// empty config — the reference's load_config(path) or {}).
+// loadConfig is the live-config door: the ONE session-held map (the
+// GUI load at New()) — never a re-read; saves mutate it in place, so
+// every caller (commands, passes, the settings surface) reads the
+// same truth a running worker holds (vaults_config.py's law).
 func (a *App) loadConfig() *storage.OrderedMap {
-	cfg, err := config.Load(a.ConfigPath)
-	if err != nil || cfg == nil {
-		return storage.NewOrderedMap()
+	if a.liveCfg == nil {
+		loadRes := config.LoadAppConfig(a.ConfigPath)
+		a.liveCfg = loadRes.Config
+		a.configFilled = loadRes.Filled
 	}
-	return cfg
+	return a.liveCfg
+}
+
+// TheFillLine is the one quiet desk line after the UI exists
+// (window.py:155-173): when THIS launch restored credentials from the
+// user memory, the owner sees that the fields filled themselves, and
+// from where. Empty string = nothing was restored (the common case).
+func (a *App) TheFillLine() string {
+	if a.configFilled <= 0 {
+		return ""
+	}
+	plural := "s"
+	if a.configFilled == 1 {
+		plural = ""
+	}
+	where := config.GlobalConfigPath()
+	if where == "" {
+		where = "the user config file"
+	}
+	return fmt.Sprintf("🔑 %d credential%s restored from %s — the user config file remembers them across versions.",
+		a.configFilled, plural, where)
+}
+
+// openFileLocationOS opens the OS file manager at path (the file
+// selected when the platform supports it) — open_user_config_location's
+// platform legs. Best-effort: a failed opener is never an error.
+func openFileLocationOS(path string) {
+	defer func() { _ = recover() }()
+	folder := filepath.Dir(path)
+	switch runtime.GOOS {
+	case "windows":
+		if fileExistsAt(path) {
+			_ = exec.Command("explorer", "/select,", path).Start()
+		} else {
+			_ = exec.Command("explorer", folder).Start()
+		}
+	case "darwin":
+		if fileExistsAt(path) {
+			_ = exec.Command("open", "-R", path).Start()
+		} else {
+			_ = exec.Command("open", folder).Start()
+		}
+	default:
+		_ = exec.Command("xdg-open", folder).Start()
+	}
 }
 
 // queueFetch is the Worker /api/pending poll (workerclient.Sync's

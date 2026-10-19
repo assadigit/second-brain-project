@@ -230,6 +230,16 @@ func NewLifecycle(bus *Bus, lock *OpLock, passes StartupPasses) *Lifecycle {
 	}
 }
 
+// RunSentinelPass asks for ONE extra sentinel pass NOW (the save law's
+// 250 ms re-arm — vaults_config.py's QTimer.singleShot(250,
+// _run_sentinel_pass)): provider / proxy / URL edits reach the top-bar
+// cues (Net · AI · Proxy) within a second, not at the next 60 s tick.
+// The pass itself is all background — this only asks for it; it never
+// raises and never blocks the caller.
+func (l *Lifecycle) RunSentinelPass() {
+	go runPass("sentinel-refresh", l.Passes.Sentinel)
+}
+
 // TrackWorker registers an in-flight worker's done channel (the
 // _active_test_workers list's Go twin) so Shutdown can drain it
 // inside its grace window.
