@@ -59,9 +59,18 @@
 //     surface's production seams; the live-config load + the fill
 //     line).
 //   - queue.go — the _bot_queue_job classification half.
-//   - scanjob.go — the _vault_scan_job engine (both confirm doors).
+//   - scanjob.go — the _vault_scan_job engine (both confirm doors;
+//     the per-vault ScanStory + the out-dict assembly — T-76's
+//     extension).
+//   - scandialogs.go — T-76's Scan flow pure engines: the picker's
+//     display model + the live arithmetic, the plan modal's display
+//     model (the four sections + the landable move + the freeze
+//     guard), PlanPickState (the picking semantics state machine),
+//     the scorecard's model (the landed counts, the K-of-N tones,
+//     the named failures, the per-vault sections).
 //   - backupjob.go — the BackupWorker port (the vault zip).
 //
 // Spec: docs/port-blueprint/04-target-go-architecture.md §2/§5; task
-// T-71 (Phase 6), landed SESSION-034; task T-73 landed SESSION-036.
+// T-71 (Phase 6), landed SESSION-034; task T-73 landed SESSION-036;
+// task T-76 landed SESSION-039.
 package app

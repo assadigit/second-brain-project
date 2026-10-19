@@ -127,11 +127,20 @@ func RunVaultScan(cfg *storage.OrderedMap, vaults []string, ev ScanEvents) *Scan
 	}, readCache)
 	hygieneChanged := vaulthygiene.HygieneTotal(hygiene) > 0
 	story.HygieneTotal = vaulthygiene.HygieneTotal(hygiene)
+	story.Hygiene = hygiene
 
 	wvault := strings.TrimSpace(pyStrCfg(cfg, "website_vault_path"))
 	rvault := strings.TrimSpace(pyStrCfg(cfg, "vault_path"))
 	hasWv := wvault != "" && fsIsDirPath(wvault)
 	hasRv := rvault != "" && fsIsDirPath(rvault)
+
+	// the out dict's own vault seats (worker_jobs.py:920-926): the
+	// Websites vault is the story's default home; a repos-only scan
+	// promotes the repos story to the top further down.
+	story.Vault = wvault
+	story.VaultKind = "websites"
+	story.VaultLabel = "Websites vault"
+	story.GitHubVault = rvault
 
 	// v0.84.0 — THE VAULT PICKER's scope: junk-tolerant (a string
 	// rides as one choice; unknown kinds fall away; anything broken
@@ -186,10 +195,18 @@ func RunVaultScan(cfg *storage.OrderedMap, vaults []string, ev ScanEvents) *Scan
 	// The confirm door: 'gui' (the bus gate) is the desktop default;
 	// 'telegram' rides the Worker trio; an unpaired telegram defers.
 	door := strings.ToLower(strings.TrimSpace(pyStrCfg(cfg, "scan_confirm_door")))
+	timeoutS := scanConfirmTimeoutSOf(cfg)
 	confirm := func(plan *vaultscan.Plan, label string) (string, map[string][]string) {
 		if door == scanDoorTelegram {
 			return telegramScanConfirm(cfg, plan, log)
 		}
+		// the GUI door's own opening line (worker_jobs.py:950-954,
+		// byte-for-byte): the plan is on the owner's screen — the
+		// ask rides the bus's gate while the modal holds the desk.
+		log(fmt.Sprintf("🗂️ Vault scan review (%s) — the plan is on "+
+			"your screen now (tick what you want, untick what you "+
+			"deny; the vault stays untouched until you answer; "+
+			"up to %ds)", label, int(timeoutS)), "info")
 		ans := ev.Confirm(plan)
 		return ans.Verdict, ans.Selection
 	}
@@ -197,6 +214,7 @@ func RunVaultScan(cfg *storage.OrderedMap, vaults []string, ev ScanEvents) *Scan
 	// The per-vault stories.
 	verdicts := []string{}
 	if websitesRan {
+		story.VaultsRan = append(story.VaultsRan, "websites")
 		statePath := cacheDBPathOf(cfg)
 		if dryrun.IsEnabled() {
 			statePath = dryrun.ShadowCachePath(statePath)
@@ -210,16 +228,27 @@ func RunVaultScan(cfg *storage.OrderedMap, vaults []string, ev ScanEvents) *Scan
 			"your auto-delete marks, and the LLM's filing eyes…", "info")
 		v := scanOneVault(cfg, wvault, "websites", "Websites vault",
 			scanLLMRouter(cfg, log), log, prog, readCache, state, nil, nil, confirm)
-		verdicts = append(verdicts, v.Verdict)
+		verdicts = append(verdicts, v.Story.Verdict)
 		story.Lines = append(story.Lines, v.Lines...)
+		story.Story = &v.Story
 		if state != nil {
 			func() {
 				defer func() { recover() }()
 				state.Close()
 			}()
 		}
+	} else if wantWv && hasRv {
+		// the line speaks only when the Websites vault was WANTED
+		// (the both-vaults default) and is not connected while the
+		// repos leg runs — a repos-only choice never speaks it
+		// (worker_jobs.py:1210-1219).
+		log("ℹ️ Vault scan: no Websites vault is set — the GitHub "+
+			"Repos vault gets the whole scan (one grammar, two "+
+			"libraries; Settings → 📁 Vault to add the Websites "+
+			"vault)", "info")
 	}
 	if reposRan {
+		story.VaultsRan = append(story.VaultsRan, "repos")
 		var reposState *notestate.DB
 		if nd, nerr := notestate.New(cacheDBPathOf(cfg)); nerr == nil {
 			reposState = nd
@@ -235,8 +264,20 @@ func RunVaultScan(cfg *storage.OrderedMap, vaults []string, ev ScanEvents) *Scan
 		}
 		v := scanOneVault(cfg, rvault, "repos", "GitHub Repos vault",
 			scanLLMRouter(cfg, log), log, prog, readCache, nil, reposCache, reposState, confirm)
-		verdicts = append(verdicts, v.Verdict)
+		verdicts = append(verdicts, v.Story.Verdict)
 		story.Lines = append(story.Lines, v.Lines...)
+		story.Repos = &v.Story
+		if !websitesRan {
+			// the websites leg did not run (not chosen at the
+			// picker, or not connected) — the repos story IS
+			// the story (worker_jobs.py:1246-1261: the
+			// scorecard reads the top-level keys).
+			r := v.Story
+			story.Story = &r
+			story.Vault = rvault
+			story.VaultKind = "repos"
+			story.VaultLabel = "GitHub Repos vault"
+		}
 	}
 
 	// The merged verdict: the worst word wins (error > timeout/defer >
@@ -244,6 +285,17 @@ func RunVaultScan(cfg *storage.OrderedMap, vaults []string, ev ScanEvents) *Scan
 	story.Verdict = mergeScanVerdicts(verdicts)
 	story.Success = story.Verdict != "error"
 	return story
+}
+
+// scanConfirmTimeoutSOf reads scan_confirm_timeout_s (the reference's
+// own lenient reader: junk degrades to the 300 s default).
+func scanConfirmTimeoutSOf(cfg *storage.OrderedMap) float64 {
+	if v, ok := cfg.Get("scan_confirm_timeout_s"); ok {
+		if f, is := v.(float64); is && f > 0 {
+			return f
+		}
+	}
+	return 300.0
 }
 
 // scanOneVault is _scan_one_vault (worker_jobs.py:1000-1160): the
@@ -256,10 +308,12 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 	state *websitepipeline.WebsiteStateDB, cacheDB *store.CacheDB,
 	noteStateDB *notestate.DB,
 	confirm func(plan *vaultscan.Plan, label string) (string, map[string][]string)) (story struct {
-	Verdict string
-	Lines   []string
+	Story ScanStory
+	Lines []string
 }) {
 	lines := []string{}
+	st := ScanStory{Verdict: "defer", Vault: vaultPath, VaultKind: kind,
+		VaultLabel: label, Failed: []vaultscan.FailedMove{}}
 	say := func(msg, level string) {
 		log(msg, level)
 		lines = append(lines, level+"|"+msg)
@@ -267,7 +321,8 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 	defer func() {
 		if r := recover(); r != nil {
 			say(fmt.Sprintf("💥 Vault scan (%s) failed: %s", label, pyCrashText(r)), "error")
-			story.Verdict = "error"
+			st.Verdict = "error"
+			story.Story = st
 		}
 	}()
 
@@ -289,6 +344,11 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 	for _, c := range plan.Consolidations {
 		consolidationNotes += len(c.Merge)
 	}
+	st.Deletions = deletions
+	st.Moves = moves
+	st.NewFolders = newFolders
+	st.Consolidations = consolidations
+	st.ConsolidationNotes = consolidationNotes
 	inv := plan.Inventory
 	say(fmt.Sprintf("🔍 Vault scan (%s): the vault holds %d note(s) in "+
 		"%d folder(s) — %d orphaned, %d uncategorized",
@@ -301,7 +361,9 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 		say(fmt.Sprintf("🔍 Vault scan (%s): the library is clean — no "+
 			"auto-delete marks, no duplicate notes, no filing to propose. "+
 			"Nothing to ask, nothing to do.", label), "info")
-		story.Verdict = "clean"
+		st.Verdict = "clean"
+		story.Story = st
+		story.Lines = lines
 		return story
 	}
 	if hasDeletions {
@@ -337,7 +399,7 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 	// ---- the gate: nothing moves or deletes without the owner ----
 	verdict, selection := confirm(&plan, label)
 	verdict = normalizeScanVerdictWord(verdict)
-	story.Verdict = verdict
+	st.Verdict = verdict
 	if verdict != "confirmed" {
 		why := map[string]string{
 			"declined": "you said keep everything",
@@ -349,6 +411,8 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 		}
 		say(fmt.Sprintf("👌 Vault scan (%s): nothing moved, nothing deleted "+
 			"(%s) — the vault stays exactly as it is", label, why), "info")
+		story.Story = st
+		story.Lines = lines
 		return story
 	}
 
@@ -362,6 +426,14 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 		say(fmt.Sprintf("🧹 You picked %d of %d proposal row(s) — applying "+
 			"only the ticked ones (the rest wait for the next scan)",
 			pickedN, proposed), "info")
+		// the story's planned counts speak the PICKED units from
+		// here on (worker_jobs.py:1130-1136 — the scorecard's
+		// 'K of N' line never reads an unticked row as a failure).
+		st.Deletions = picked["deletions"]
+		st.NewFolders = picked["new_folders"]
+		st.Moves = picked["moves"]
+		st.Consolidations = picked["consolidations"]
+		st.ConsolidationNotes = picked["consolidation_notes"]
 	}
 	say(fmt.Sprintf("✅ You confirmed the plan (%s) — applying it now "+
 		"(nothing is rewritten, only moved)", label), "info")
@@ -369,6 +441,12 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 	sel := vaultscan.NormalizeSelection(selection)
 	rep := vaultscan.ApplyScanPlan(&plan, vaultPath, state, log, sel,
 		kind, cacheDB, noteStateDB)
+	st.Applied = rep.Banished
+	st.Moved = rep.NotesMoved
+	st.FoldersCreated = rep.FoldersCreated
+	st.NotesConsolidated = rep.Consolidated
+	st.FailedMoves = rep.FailedMoves
+	st.Failed = rep.Failed
 	say(fmt.Sprintf("🔍 Vault scan (%s) done — %d note(s) removed (resting "+
 		"in .trash/banished, never to be fetched again), %d duplicate "+
 		"note(s) merged into their site's note (resting in "+
@@ -376,9 +454,11 @@ func scanOneVault(cfg *storage.OrderedMap, vaultPath, kind, label string,
 		"%d new folder(s) created",
 		label, rep.Banished, rep.Consolidated, rep.NotesMoved,
 		rep.FoldersCreated), "info")
-	if story.Verdict == "" {
-		story.Verdict = "confirmed"
+	if st.Verdict == "" {
+		st.Verdict = "confirmed"
 	}
+	story.Story = st
+	story.Lines = lines
 	return story
 }
 

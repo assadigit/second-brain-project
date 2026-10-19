@@ -930,10 +930,10 @@ func truncateStr(s string, n int) string {
 // SyncStageTables is the matrix's shape for the frontend (the defs +
 // the layout + the columns — the reference's own tables, rendered).
 type SyncStageTables struct {
-	Defs    []SyncStageDef    `json:"defs"`
+	Defs    []SyncStageDef      `json:"defs"`
 	Layout  map[string][]string `json:"layout"`
-	Streams []string          `json:"streams"`
-	Columns []string          `json:"columns"`
+	Streams []string            `json:"streams"`
+	Columns []string            `json:"columns"`
 }
 
 // TheSyncStageTables answers the matrix's shape (one payload).

@@ -27,6 +27,7 @@ import (
 
 	"github.com/assadigit/second-brain-project/internal/goodrepos"
 	"github.com/assadigit/second-brain-project/internal/storage"
+	"github.com/assadigit/second-brain-project/internal/vaulthygiene"
 	"github.com/assadigit/second-brain-project/internal/vaultscan"
 	"github.com/assadigit/second-brain-project/internal/vaultseal"
 )
@@ -156,18 +157,59 @@ type BatchResult struct {
 	Error   string
 }
 
+// ScanStory is one vault's scan story (the reference's per-vault story
+// dict): the planned counts — spoken in PICKED units once a confirmed
+// selection rides (the 'K of N' line never reads an unticked row as a
+// failure) — the landed counts, and the failed moves BY NAME (v0.82.0's
+// honesty ledger).
+type ScanStory struct {
+	Verdict            string                 `json:"verdict"`
+	Deletions          int                    `json:"deletions"`
+	Moves              int                    `json:"moves"`
+	NewFolders         int                    `json:"new_folders"`
+	Consolidations     int                    `json:"consolidations"`
+	ConsolidationNotes int                    `json:"consolidation_notes"`
+	Applied            int                    `json:"applied"`
+	Moved              int                    `json:"moved"`
+	FoldersCreated     int                    `json:"folders_created"`
+	NotesConsolidated  int                    `json:"notes_consolidated"`
+	FailedMoves        int                    `json:"failed_moves"`
+	Failed             []vaultscan.FailedMove `json:"failed"`
+	Vault              string                 `json:"vault"`
+	VaultKind          string                 `json:"vault_kind"`
+	VaultLabel         string                 `json:"vault_label"`
+}
+
 // ScanResult is the _vault_scan_job story dict: the hygiene pass, the
-// per-scope verdict, and the closing report lines.
+// per-scope verdict, and the closing report lines — plus the full story
+// shape the scorecard reads (the reference's out dict: the top-level
+// story belongs to the Websites vault, the repos sub-story rides Repos,
+// and a repos-only scan promotes its story to the top).
 type ScanResult struct {
-	Success       bool
-	Verdict       string // clean | confirmed | declined | timeout | error
-	HygieneTotal  int
-	WebsitesRan   bool
-	ReposRan      bool
-	Lines         []string
-	AppliedCounts map[string]int
-	Crashed       bool
-	Error         string
+	Success      bool
+	Verdict      string // clean | confirmed | declined | timeout | error
+	HygieneTotal int
+	// Hygiene is the per-vault heal counts ('websites' / 'github'
+	// keys — the scorecard's 🧹 rows read these).
+	Hygiene     map[string]vaulthygiene.HygieneCounts `json:"hygiene"`
+	WebsitesRan bool
+	ReposRan    bool
+	Lines       []string
+	Crashed     bool
+	Error       string
+
+	// The story shape (v0.67/0.70/0.83 — the applied scorecard's
+	// own data). Story is the TOP-LEVEL vault's story (the Websites
+	// vault when both ride; the promoted repos story when repos
+	// rides alone); Repos is the repos sub-story (nil when the
+	// repos leg never ran).
+	Story       *ScanStory `json:"story"`
+	Repos       *ScanStory `json:"repos"`
+	VaultsRan   []string   `json:"vaults"`
+	Vault       string     `json:"vault"`
+	GitHubVault string     `json:"github_vault"`
+	VaultKind   string     `json:"vault_kind"`
+	VaultLabel  string     `json:"vault_label"`
 }
 
 // ApplyResult is the apply door's report (apply_scan_plan's verdict,
@@ -275,6 +317,13 @@ func (c *Commands) cfg() *storage.OrderedMap {
 		return cfg
 	}
 	return storage.NewOrderedMap()
+}
+
+// BatchBusy answers whether a batch holds the one-batch lock (the
+// Scan flow's own guard reads it — the reference's "a batch is
+// running" check).
+func (c *Commands) BatchBusy() bool {
+	return c.batchLock.Busy()
 }
 
 // guardCommand is the BaseException-safe wrapper: the seam runs
