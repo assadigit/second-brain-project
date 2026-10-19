@@ -2113,6 +2113,7 @@ type launcherContract struct {
 	diverge [][2]string // {referenceLine, goLine} — each in its own side, absent from the other
 	refOnly []string    // the python world's lines (absent from the Go side)
 	goOnly  []string    // the exe world's lines (absent from the reference)
+	goPath  string      // the Go side's file (empty = goLauncherDir/name)
 }
 
 // launcherLineSet builds the set of full lines (CRLF normalized away).
@@ -2321,6 +2322,104 @@ var launcherContracts = map[string]launcherContract{
 			`echo                (or GitCurator-SYNC.bat for the fast sync lane).`,
 		},
 	},
+	// T-65 — the GUI-side pair at the app root / the Go repo root.
+	"GitCurator.bat": {
+		shared: []string{
+			`@echo off`,
+			`REM ============================================================`,
+			`REM  GitCurator.bat - double-click to start the desktop app.`,
+			`REM  (Run 1-INSTALL.bat once first.)`,
+			`REM`,
+			`REM  A console window opens BEHIND the app - that is normal; it`,
+			`REM  shows the app's log lines. If something breaks, screenshot`,
+			`REM  that window: it has the exact error.`,
+			`setlocal`,
+			`title GitCurator`,
+			`cd /d "%~dp0"`,
+			`:run`,
+			`if errorlevel 1 (`,
+			`    echo  [GitCurator] The app exited with an error - the message is above.`,
+			`    echo                Screenshot this window if you need help with it.`,
+			`    pause`,
+			`)`,
+			`endlocal`,
+		},
+		diverge: [][2]string{
+			{`REM v0.14.1: PURE ASCII, never changes the codepage (v0.09.1 lesson).`,
+				`REM PURE ASCII, never changes the codepage (the v0.09.1 lesson).`},
+			{`%PY% main.py`, `GitCurator.exe`},
+		},
+		refOnly: []string{
+			`if exist ".venv\Scripts\python.exe" goto :run`,
+			`set "PY=python"`,
+			`where python >nul 2>nul`,
+			`    set "PY=py -3"`,
+			`%PY% --version >nul 2>nul`,
+			`    echo  [GitCurator] Python was not found.`,
+			`    echo                Double-click 1-INSTALL.bat first - it sets up`,
+			`    echo                everything ^(and tells you what to do if Python`,
+			`    echo                is missing^).`,
+		},
+		goOnly: []string{
+			`if not exist "GitCurator.exe" (`,
+			`    echo  [GitCurator] The desktop app (GitCurator.exe) is not in this`,
+			`    echo                folder yet - it ships with the GUI milestone.`,
+		},
+		goPath: filepath.Join("..", "..", "GitCurator.bat"),
+	},
+	"GitCurator-DRY-RUN.bat": {
+		shared: []string{
+			`@echo off`,
+			`REM ============================================================`,
+			`REM  GitCurator-DRY-RUN.bat - the SAFE first run.`,
+			`REM  writes NOTHING: no notes, no vault changes, no backup pushes,`,
+			`REM  no queue consumption. Everything it WOULD have done is`,
+			`REM  printed so you can read the plan first.`,
+			`REM`,
+			`REM ============================================================`,
+			`setlocal`,
+			`title GitCurator - dry run (writes nothing)`,
+			`cd /d "%~dp0"`,
+			`:run`,
+			`echo.`,
+			`echo  [GitCurator] Dry run finished - nothing was written. Read the plan`,
+			`echo                above; when you are happy with it, the real run is`,
+			`echo.`,
+			`pause`,
+			`endlocal`,
+		},
+		diverge: [][2]string{
+			{`REM  The same fully-automatic run as gitcurator\cli\GitCurator-CLI.bat, but it`,
+				`REM  The same fully-automatic run as GitCurator-CLI.bat, but it`},
+			{`REM  Needs config first: double-click gitcurator\cli\GitCurator-CLI-Setup.bat`,
+				`REM  Needs config first: double-click GitCurator-CLI-Setup.bat`},
+			{`REM  (or configure in the app: Settings).`,
+				`REM  (the desktop app arrives with the GUI milestone).`},
+			{`REM v0.14.1: PURE ASCII, never changes the codepage (v0.09.1 lesson).`,
+				`REM PURE ASCII, never changes the codepage (the v0.09.1 lesson).`},
+			{`%PY% main.py --cli --auto --yes --dry-run`,
+				`GitCurator-cli.exe --cli --auto --yes --dry-run`},
+			{`echo                gitcurator\cli\GitCurator-CLI.bat.`,
+				`echo                GitCurator-CLI.bat.`},
+		},
+		refOnly: []string{
+			`if exist ".venv\Scripts\python.exe" goto :run`,
+			`set "PY=python"`,
+			`where python >nul 2>nul`,
+			`    set "PY=py -3"`,
+			`%PY% --version >nul 2>nul`,
+			`    echo  [GitCurator] Python was not found.`,
+			`    echo                Double-click 1-INSTALL.bat first - it sets up`,
+			`    echo                everything ^(and tells you what to do if Python`,
+			`    echo                is missing^).`,
+		},
+		goOnly: []string{
+			`if not exist "GitCurator-cli.exe" (`,
+			`    echo  [GitCurator] GitCurator-cli.exe was not found next to this`,
+			`    echo                file - run me from the unzipped folder.`,
+		},
+		goPath: filepath.Join("..", "..", "GitCurator-DRY-RUN.bat"),
+	},
 }
 
 // goLauncherDir — the Go repo's launcher home (the test runs with cwd
@@ -2361,7 +2460,11 @@ func compareLaunchers(t *testing.T, g *goldenFile) []string {
 		}
 
 		// --- the Go side's bytes ----------------------------------
-		raw, err := os.ReadFile(filepath.Join(goLauncherDir, name))
+		goFile := contract.goPath
+		if goFile == "" {
+			goFile = filepath.Join(goLauncherDir, name)
+		}
+		raw, err := os.ReadFile(goFile)
 		if err != nil {
 			problems = append(problems, name+": "+err.Error())
 			continue
@@ -2482,5 +2585,18 @@ func TestGoldenCLIMutationLaunchers(t *testing.T) {
 	mutated.Launchers["GitCurator-CLI.bat"] = cliBat
 	if problems := compareLaunchers(t, mutated); len(problems) == 0 {
 		t.Fatalf("a mutated byte-level fact passed the differential — no teeth")
+	}
+
+	// 4. T-65's GUI-side pair: the DRY-RUN launcher's recorded run line
+	// mutated (--dry-run dropped) — the divergence assertion must lose
+	// its anchor.
+	mutated = loadGoldenCLI(t)
+	dryBat := mutated.Launchers["GitCurator-DRY-RUN.bat"]
+	dryBat.Text = strings.Replace(dryBat.Text,
+		`%PY% main.py --cli --auto --yes --dry-run`,
+		`%PY% main.py --cli --auto --yes`, 1)
+	mutated.Launchers["GitCurator-DRY-RUN.bat"] = dryBat
+	if problems := compareLaunchers(t, mutated); len(problems) == 0 {
+		t.Fatalf("a mutated GUI-side dry-run line passed the differential — no teeth")
 	}
 }

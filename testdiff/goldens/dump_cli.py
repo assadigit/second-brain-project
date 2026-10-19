@@ -1755,6 +1755,13 @@ LAUNCHER_FILES = {
     "Start-GitCurator-CLI.bat": "gitcurator/cli/Start-GitCurator-CLI.bat",
     "gitcurator-cli.sh": "gitcurator/cli/gitcurator-cli.sh",
     "1-INSTALL.bat": "1-INSTALL.bat",
+    # T-65: the GUI-side pair at the app root — GitCurator.bat (the
+    # desktop door; the Go equivalent targets GitCurator.exe, the GUI
+    # milestone) + GitCurator-DRY-RUN.bat (the safe first run — the Go
+    # equivalent runs GitCurator-cli.exe --cli --auto --yes --dry-run).
+    # Same recording law: the reference's own bytes, raw.
+    "GitCurator.bat": "GitCurator.bat",
+    "GitCurator-DRY-RUN.bat": "GitCurator-DRY-RUN.bat",
 }
 OUT["launchers"] = {}
 for _lname, _lrel in LAUNCHER_FILES.items():
