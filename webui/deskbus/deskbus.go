@@ -138,10 +138,24 @@ func (b *LogBus) Start() {
 }
 
 // Push accepts one line. It BLOCKS while the channel is full — backpressure
-// instead of silent drops — and returns false (counting the drop) only when
-// the bus has stopped.
+// instead of silent drops — and returns false (counting the drop) when the
+// bus has stopped.
+//
+// The stop-check runs BEFORE the send: with the channel below cap, a ready
+// buffered send and a ready closed stop are BOTH selectable and select picks
+// uniformly at random — a post-Stop push would then succeed ~50% of the time
+// and the line would sit in a channel nobody drains (silently lost, drop
+// counter and all). The pre-check makes the refusal deterministic; a push
+// racing the stop-drain window still either lands (delivered by the drain)
+// or is refused — never silently lost either way.
 func (b *LogBus) Push(line LogLine) bool {
 	b.ingested.Add(1)
+	select {
+	case <-b.stop:
+		b.dropped.Add(1)
+		return false
+	default:
+	}
 	select {
 	case b.ch <- line:
 		return true
