@@ -151,6 +151,23 @@
   door, progress emitter, selection door, vaults scope); finished routing: clean (+healed strays
   ⇒ scorecard), confirmed ⇒ scorecard (repos sub-story line), error ⇒ 💥; scorecard skipped
   when closing/hidden (logged instead).
+  — **Dated note (2026-10-20, T-76/SESSION-039 — the Scan flow landed):**
+    the mixin's whole flow is ONE binding door (webui/scanui.go's
+    `StartScan`): the guards verbatim (the batch-busy check over
+    `Commands.BatchBusy()` + the one-scan flag), the picker's safe
+    cancel spoken as the quiet line by the door itself (the frontend
+    picker answers through it — Cancel/Esc/✕ all ride `StartScan(nil)`),
+    the start line with the chosen-vault names, the blocking job over
+    the chosen scope (the desk events flow on their own transport
+    while the JS promise waits — the TestWorker law's transport twin),
+    and `_vault_scan_finished`'s routing verbatim (clean+healed ⇒ the
+    scorecard; confirmed ⇒ the complete line + the repos sub-story
+    line + the scorecard; error ⇒ 💥; declined/timeout already spoke
+    in the job). The progress emitter rides the bus's JobProgress →
+    `bus:job-progress` (landed T-72). The "scorecard skipped when
+    closing/hidden" law is the WINDOW's law — it rides T-77's window
+    lifecycle (the port's shell never blocks on the scorecard: it is
+    an overlay with a 12 s self-close, never a gate).
 
 ## Go parity requirements
 

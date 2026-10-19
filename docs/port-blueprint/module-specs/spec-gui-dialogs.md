@@ -65,3 +65,48 @@
 Picker: safe-cancel, nothing-pre-checked, live arithmetic. Plan: master sweep counts, arm-guard
 (timed), timeout verdict, selection-only-on-confirm, low-confidence pre-uncheck, bent-name
 display. Scorecard: K-of-N tones, named failures, self-close. Connection dialog: all-ok gate.
+
+> **Dated note (2026-10-20, T-76/SESSION-039 — the landing record).**
+> The three dialogs landed as two slices: the pure engines in
+> `internal/app/scandialogs.go` (PickDisplayModelOf / PlanDisplayModelOf
+> / **PlanPickState** — the picking semantics as a pure state machine,
+> so the masters + the arm-guard's enable law + the four-key selection
+> are main-battery-testable — / ResultDisplayModelOf) and the shell
+> (webui/scanui.go the fifth bound struct + frontend/scanflow.js the
+> three modals' renderers). Port-level decisions, all verified against
+> the reference at 98f4fc7:
+> 1. **The elide-middle twin**: Qt's pixel-metric ElideMiddle becomes a
+>    char-budget `elideMiddle` (the full story on the tooltip) — the
+>    browser has no middle-elide primitive; the one-line law + the
+>    tooltip law are the parity.
+> 2. **The repos-only double-section quirk PRESERVED**: the reference's
+>    out dict carries `out['repos']` unconditionally and the finished
+>    routing hands the raw dict to the scorecard, so a repos-only scan
+>    renders the promoted section AND the repos sub-story section BOTH
+>    (verified by running the reference's `result_display_model` over
+>    the repos-only shape; pinned by the port's test with the probe
+>    citation). A visual dedupe would be a behavior change — the
+>    five-fix law forbids it here.
+> 3. **The scan story extension**: the T-71 ScanResult grew the
+>    reference's out-dict shape (Story/Repos/VaultsRan/Hygiene + the
+>    vault seats; the planned counts speak PICKED units once a
+>    confirmed selection rides). The never-read `AppliedCounts` field
+>    was replaced by the real shape.
+> 4. **The Scan CTA rides its own machine** (ui.py's scan_btn is wired
+>    in vault_scan_ui.py, not hero.py): the button is live from T-76 —
+>    the picker → the plan modal over the bus gate → the scorecard; the
+>    SYNC / Fast Sync / Test Connectivity buttons stay T-77's hero
+>    machine.
+> 5. **The answering windows**: the modal's countdown ticks the
+>    configured `scan_confirm_timeout_s` (the ask payload carries it);
+>    the bus's own 300 s window is the belt under it (a dead modal
+>    still defers safely). A configured window LONGER than 300 s would
+>    be cut by the bus's belt — an edge the reference does not have
+>    (its worker waits the same config value); recorded as a known
+>    divergence for the owner's call.
+> 6. **The evidence doors**: ProbeAskSample / ProbeScorecardSample
+>    (canned fixture shapes, no owner data) + the SB_POC_OPEN_SCAN
+>    probes (picker / plan / scorecard / flow) — the T-70 law
+>    (screenshot-provable) applied to the modals.
+> The ConnectionTestDialog's own row stays T-77's (the hero machine's
+> "Start Syncing" door).

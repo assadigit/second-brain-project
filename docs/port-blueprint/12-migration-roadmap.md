@@ -322,6 +322,35 @@ verified against the Python app.
 > 4; the gate leg GREEN (first frame 292/730 ms; the 10k flood
 > 588,235 lines/s, 0 drops); the screenshots VLM-verified.
 
+> **SESSION-039 (2026-10-20): T-76 COMPLETE — the Scan flow (the
+> vault picker → the plan modal → the applied scorecard).** The
+> thirty-fourth full wipe absorbed before work (both repos re-cloned
+> with the ephemeral GIT_CONFIG_COUNT PAT form, go1.27.2 sha-verified
+> against both the committed pin and go.dev's JSON, the venv, the
+> wails CLI, and the rootless webkit tree rebuilt — the 7th webkit
+> rebuild, Am.4's hardlink fallback again). T-76 in two slices:
+> (a) internal/app's scandialogs.go + the scanjob story extension —
+> the three dialogs' pure engines (the picker's display model + the
+> live arithmetic, the plan's display model with the four sections +
+> the landable move + the freeze guard, PlanPickState the selection
+> semantics as a state machine (the masters, the low-confidence
+> pre-uncheck, the arm-guard's enable law, the four-key selection),
+> the scorecard's model (the landed counts, the K-of-N warnings, the
+> named failures, the per-vault sections) — the reference's
+> repos-only double-section quirk preserved by direct probe at
+> 98f4fc7) — 19 tests; (b) the shell — the FIFTH bound struct
+> (StartScan the whole CTA flow: the guards, the quiet cancel, the
+> start line, the blocking job over the bus gate, the finished
+> routing + the scorecard event; ScanAnswer the held gate's answer
+> door) + shell.go's AskScanConfirm wiring + frontend/scanflow.js's
+> three modals (the 350 ms fresh-click door, the pinned verdict row,
+> the 12 s self-close) + the Scan CTA's own machine (the reference's
+> own scan_btn, NOT the hero's) — 7 shell tests. The acceptance
+> GREEN (workflow tests + selection semantics): 2230 main-battery
+> tests race-clean over 36 packages + 40 webui over 4; the gate leg
+> GREEN (first frame 339/283/280 ms; the 10k flood, 0 drops); the
+> screenshots VLM-verified.
+
 ## Phase 7 — Packaging, release, cutover
 
 **Work**: deterministic zip builder, `1-INSTALL` equivalent, clean-machine checklist (doc 10 §7),

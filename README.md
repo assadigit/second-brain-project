@@ -714,3 +714,57 @@ the screenshots VLM-verified** (the four cards' honest not-set grammar
 not set; "measured at 18:49:32 — the numbers are as fresh as this
 line"; the dashed unknown matrix; the desk living underneath). The
 MAIN go.mod byte-unchanged all session.
+
+**SESSION-039 — T-76 COMPLETE: THE SCAN FLOW (the vault picker → the
+plan modal → the applied scorecard)**: the thirty-fourth full wipe
+absorbed before work (both repos re-cloned with the ephemeral
+GIT_CONFIG_COUNT PAT form, go1.27.2 sha-verified against BOTH the
+committed 64-char pin AND go.dev's published JSON, the venv, the wails
+CLI, and the rootless webkit tree rebuilt — the 7th webkit rebuild,
+Am.4's hardlink fallback again: symlink(2) blocked at boot, the 26
+dev links as hardlinks to the resolved system targets; the FULL
+battery re-verified green pre-work, exactly the recorded 2211 + 33).
+Two slices: **(a) `internal/app/scandialogs.go` + the scanjob story
+extension — the three dialogs' pure engines**: the ScanStory (the
+reference's per-vault story dict: the planned counts spoken in PICKED
+units once a confirmed selection rides, the landed counts, the failed
+moves BY NAME; ScanResult grows the out-dict shape — Story/Repos/
+VaultsRan/Hygiene + the vault seats; the GUI door's ask line
+byte-for-byte) + PickDisplayModelOf (the status lines in the owner's
+voice, the hint law) + PickScanButtonLabel (the live arithmetic) +
+PlanDisplayModelOf (the four sections with the reference's own washes,
+every row's stable id + one-line grammar + full tooltip story — the
+deletion door words, the one-note-per-site grammar, THE LANDABLE
+MOVE's "(as …)", the inventory block, the MAX_ROWS 500 freeze guard)
++ **PlanPickState** (the selection semantics as a pure state machine:
+the low-confidence pre-uncheck, the master sweep, the three-state
+master mirror, the live Apply label, THE ARM-GUARD'S ENABLE LAW, the
+four-key Selection) + ResultDisplayModelOf (the LANDED counts, the
+'K of N' warning tones, the named failures cap-3, the three-way
+heading law, the per-vault sections; **the reference's repos-only
+double-section quirk preserved — verified by RUNNING the reference's
+result_display_model at 98f4fc7**) — 19 tests. **(b) the shell**:
+webui/scanui.go the FIFTH bound struct (StartScan THE CTA's whole
+flow — the guards verbatim, the quiet cancel, the start line, the
+blocking job over the bus gate, the finished routing + the scorecard
+event; ScanAnswer the held gate's answer door; the two evidence
+doors) + shell.go's AskScanConfirm wiring (the scan:ask event with
+the answering window; the bus's 300 s window the belt) +
+frontend/scanflow.js's three modals (the picker nothing-pre-checked
+with the live-arithmetic button; THE PLAN MODAL with the 350 ms
+fresh-click door, the masters with the indeterminate partial, the
+char-budget elideMiddle twin, the m:ss countdown, the four-key
+selection riding ONLY confirmed; THE SCORECARD with the per-vault
+sections, the 12 s self-close) + the Scan CTA's own machine (the
+reference's scan_btn tooltip verbatim — ui.py wires it in
+vault_scan_ui.py, NOT the hero machine; the SYNC/Fast/Test buttons
+stay T-77's) — 7 shell tests. **The acceptance GREEN (workflow tests
++ selection semantics): 2230 main-battery tests race-clean over 36
+packages (2211 + 19) + 40 webui tests over 4 (33 + 7); the wails
+build links clean over the 7th webkit rebuild; the gate leg GREEN
+(first frame 339/283/280 ms ≤ 1.5 s; the 10k flood 0 drops); the
+screenshots VLM-verified** (the plan modal: the four wash sections +
+the masters + the LOW-CONFIDENCE ROW PRE-UNCHECKED + the landable
+"(as C_v1.md)" row + the pinned verdict row + the ticking window;
+the picker + the scorecard legs). The MAIN go.mod byte-unchanged all
+session.

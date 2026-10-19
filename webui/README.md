@@ -34,6 +34,15 @@ seam RETIRED at this landing, deleted with its tests):
   deferred-log reads), the fix doors (the queue-check leg that lands
   the session's queue state, SealNow, PublishNow), and the per-row
   Open note door.
+- `scanui.go` — T-76's Scan flow binding wrapper (the FIFTH bound
+  struct): the vault picker's data door, StartScan THE CTA's whole
+  flow (the guards → the quiet cancel → the start line → the blocking
+  job over the bus gate → the finished routing + the scorecard
+  event), ScanAnswer the held gate's answer door, and the two
+  evidence doors (the canned ask + the canned scorecard). The three
+  modals' renderers live in `frontend/scanflow.js` (the 350 ms
+  fresh-click door, the master boxes, the 12 s self-close; the Scan
+  CTA's own machine — NOT the hero's).
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
   over internal/app's pages B engines + the Commands surface (the
   queue check + render + badge, Process All, the dashboard refresh +
