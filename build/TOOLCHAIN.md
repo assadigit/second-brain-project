@@ -51,3 +51,30 @@
   against go.dev's published sha); the recorded STRING was wrong. This
   amendment pins the 64-character truth so future rebuilds compare
   against the right bytes.
+
+## Amendment 3 — the Wails build-time toolchain (2026-10-19, SESSION-033, T-70)
+
+| When | Toolchain | Where |
+|---|---|---|
+| 2026-10-19 (SESSION-033, T-70) | go1.27.2 linux/amd64 + **wails CLI v2.16.0** (GOBIN=/home/z/.local/go/bin) | sandbox rebuild #27 (the twenty-seventh full wipe) |
+
+- **Build tool**: `GOBIN=/home/z/.local/go/bin go install
+  github.com/wailsapp/wails/v2/cmd/wails@v2.16.0` (with go1.27.2). The pin is
+  ADR-0001 Am.2's confirmed version; v2.17.0 exists on the proxy and is
+  deliberately NOT taken. Build-time only — never a runtime dependency of the
+  main module.
+- **The runtime story**: the PoC shell is the NESTED module `webui/`
+  (`go 1.25.0` — wails v2.16.0's own floor, verified from the proxy's
+  published .mod; `require github.com/wailsapp/wails/v2 v2.16.0` +
+  `replace` to the parent). The MAIN module's runtime set stays the
+  authorized four, byte-level unchanged. Full decision record: ADR-0002 Am.3
+  (surfaced BEFORE the first `wails` invocation, per the session mandate).
+- **Linux build legs**: CGO + the rootless webkit2gtk-4.1 tree
+  (~/.local/lib-wails) per docs/poc-artifacts/t-70-wails-poc.md's recipe
+  (apt --download-only + dpkg -x + the .pc rewrites + the LD_PRELOAD
+  libexec shim; WEBKIT_DISABLE_COMPOSITING_MODE=1 under Xvfb).
+  **Windows exe**: CGO-free cross-compile (`wails build -platform
+  windows/amd64` — the WebView2 loader is pure Go).
+- **Frontend step**: none for the PoC (vanilla assets; wails.json's
+  `frontend:install`/`frontend:build` empty). The production T-72+ frontend
+  tooling question (vanilla vs vite) is OPEN for the owner.

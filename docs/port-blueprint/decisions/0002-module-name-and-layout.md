@@ -102,3 +102,62 @@ verified empirically: `go build` refuses, `go mod tidy` rewrites).
   pin to a ≤go-1.22 era version (needs a re-PoC of the fingerprint
   substitution) or drop the in-process door (contradicts ADR-0006 §4).
   One line from the owner resolves it.
+
+## Amendment 3 — The Wails build-time toolchain + the webui nested module (2026-10-19, SESSION-033, T-70)
+
+**Status: applied — surfaced BEFORE the first `wails` invocation per the session
+mandate ("surface the pinned-version + frontend-step + CGO-story record
+BEFORE adding anything").**
+
+Phase 6's entry (T-70, the PoC C GUI-shell gate) needs the Wails toolchain.
+The record:
+
+- **The wails CLI (build-time only)**:
+  `GOBIN=/home/z/.local/go/bin go install github.com/wailsapp/wails/v2/cmd/wails@v2.16.0`
+  with the session toolchain go1.27.2 (installed into the toolchain tree next
+  to go itself — rebuilt per wipe from this record; the sha256-verified
+  go1.27.2 tarball is TOOLCHAIN.md Am.2's). v2.17.0 exists on the proxy; the
+  pin deliberately stays **v2.16.0** — ADR-0001 Am.2's
+  confirmed-by-working-PoC version (the same stability-over-novelty law as
+  every other pin in this repo). The CLI is a build tool; it is NEVER a
+  runtime dependency of the main module.
+- **The runtime dependency story (the authorized-four law holds
+  byte-level)**: the PoC shell lives at `webui/` as a NESTED Go module
+  (`module github.com/assadigit/second-brain-project/webui`) whose go.mod
+  requires `github.com/wailsapp/wails/v2 v2.16.0` (+ its transitive closure —
+  authorized by ADR-0001, the accepted framework decision, and Am.2's pin)
+  with `replace github.com/assadigit/second-brain-project => ../`. The MAIN
+  module's go.mod stays EXACTLY the authorized four (modernc.org/sqlite
+  v1.36.1, bogdanfinn/tls-client v1.16.0, golang.org/x/net v0.48.0,
+  golang.org/x/text v0.32.0) — unchanged this session. Go's module-graph rule
+  forces the webui module's `go` directive to ride wails v2.16.0's own floor
+  (`go 1.25.0`, verified from the module proxy's published .mod) — the
+  tls-client/1.24.1 precedent (Am.2) applied again at the module boundary.
+- **The internal-package boundary + the interim seam**: Go forbids the nested
+  webui module from importing the main module's `internal/` packages, so the
+  PoC's real job is exposed through `guibridge/` — a NON-internal main-module
+  package shaped like doc 04 §2's event seam (LogLine/Progress callbacks +
+  one command method). It RETIRES at T-72, when the production shell lands:
+  webui/ dissolves into the main module and webui/bindings.go imports
+  internal/app directly — the wails require THEN enters the main go.mod via
+  its own amendment (the recorded next decision; deliberately not taken now).
+- **The frontend step (the PoC: none)**: `webui/frontend/` is vanilla
+  HTML/CSS/JS served as-is (wails.json's `frontend:install`/`frontend:build`
+  are empty strings — the wails CLI skips the frontend build). The
+  SESSION-001 PoC had used npm+vite; the re-gate goes vanilla so the build
+  stays hermetic across the wipe-rebuild cycle (no node_modules fetch per
+  wipe; node exists in the sandbox but is NOT part of the build). The
+  vanilla-vs-vite choice for the PRODUCTION frontend (T-72+) stays OPEN for
+  the owner — both work under wails v2.
+- **The CGO story**: Linux dev legs need CGO + webkit2gtk-4.1 + gtk3 via
+  SESSION-001's rootless recipe (apt --download-only + dpkg -x →
+  ~/.local/lib-wails, the .pc prefix rewrites, the runtime LD_PRELOAD shim
+  for WebKit's compile-time libexec path, WEBKIT_DISABLE_COMPOSITING_MODE=1
+  under Xvfb — the full recipe: docs/poc-artifacts/t-70-wails-poc.md). The
+  WINDOWS production exe is CGO-FREE: wails' WebView2 loader is pure Go, so
+  `wails build -platform windows/amd64` cross-compiles from this Linux box
+  (proven in SESSION-001; re-proven this session).
+- **The nested module and the battery**: `go test ./...` at the repo root
+  does not descend into nested modules — the main battery stays the main
+  battery; webui's own tests run from webui/ (recorded in the session
+  report).
