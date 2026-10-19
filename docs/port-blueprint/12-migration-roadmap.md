@@ -112,6 +112,26 @@ reference's own engine over a fake Qt event loop — 86,570 bytes,
 two-run byte-identical, eight reality-wins finds fixed in-commit;
 1911 tests race-clean over 32 packages. Only T-61's remaining paint
 legs ride ahead of T-63 (launchers).
+**Progress (SESSION-031)**: **T-61 COMPLETE** (the close-out audit:
+the paint box + NO_COLOR/TTY law + the spinner under the heartbeat +
+the 65001 hardening all landed with tests — the runtime Windows-console
+legs recorded as Phase 7's clean-VM items; ADR-0007 Am.2 records the
+re-instatement of the CLI-facing legs) + **T-63 COMPLETE** — THE
+LAUNCHERS: cmd/gitcurator-cli (the --cli strip law ported from main.py,
+the --version stamp door, the exit pass-through), VERSION (0.92.0-go.1),
+the launcher set in cmd/gitcurator-cli/ (the four .bats + gitcurator-cli.sh
++ the 1-INSTALL equivalent: ASCII+CRLF at byte level, the walk-up with
+landmark VERSION, the exe run DIRECT with the reference's own --cli
+defaults, EXITCODE echo + pause, the git-only install check — no
+registry writes, no PATH mutations), and THE DISPATCH FLIP — the
+session's reality-wins find: the T-62 drivers had landed but Run's
+dispatch still answered not-yet cards for --auto/--sync/--retry-failed/
+--import-file; the flip routes them to the real drivers. The
+differential stone grew the launchers section (the reference's own
+bytes recorded raw; shared grammar byte-compared; divergences asserted
+both ways; mutation teeth on three surfaces) — 101,777 bytes two-run
+byte-identical; 1922 tests race-clean over 33 packages. Only T-64 (the
+corpus full run) and T-65 (the tag + zip) remain on Phase 5's books.
 **Exit gate**: the owner can run the Go CLI alongside the Python app on real data (dry-run
 first); differential harness green on the full case list; **CLI parity release `0.92.0-go.1`**
 tagged with the zip artifact.

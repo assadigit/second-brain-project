@@ -95,7 +95,7 @@ Legend — Evidence `app/…:line` at v0.91.0 · Spec `module-specs/…` · Go `
 | F2 | Naive-local vs UTC timestamp shapes | store specs | store specs | `store` | format goldens | T-20 | AC-13 |
 | F3 | Backup zip laws (excludes, FIFO, sync_review rider) | `gui/main_window/backup_seal.py:548-640` | spec-gui-pages-b | `app` | zip content tests | T-74 | AC-5 |
 | F4 | Deterministic release zip | `tools/build_zip.py:126-217` | spec-tools; doc 10 | `build/mkzip` | double-build sha256 | T-80 | AC-22 |
-| F5 | Windows launch contract (ASCII .bat, no console for GUI) | `app/*.bat`; ADR-0010 | spec-cli; doc 10 | `build` | clean-VM checklist | T-63/T-82 | AC-21 |
+| F5 | Windows launch contract (ASCII .bat, no console for GUI) | `app/*.bat`; ADR-0010 | spec-cli; doc 10 | `build` — T-63 LANDED (SESSION-031): the CLI launcher set (4 .bats + sh + 1-INSTALL equivalent) in cmd/gitcurator-cli/ with the byte laws asserted (ASCII+CRLF, the walk-up, the direct exe run, EXITCODE+pause) + the differential golden's launchers section (the reference's own bytes, shared grammar byte-compared, divergences asserted, mutation teeth); the GUI-side launchers (GitCurator.bat / DRY-RUN) + the zip flattening are T-65's packaging | clean-VM checklist (Phase 7 — the runtime legs recorded) | T-63 ✓ (T-65's zip + T-82's clean-VM legs follow) | AC-21 |
 | F6 | Token redaction everywhere (git URLs, FETCH_HEAD, logs) | `vaultseal.py:606-623`; `goodrepos.py:531-535` | spec-integrations-vaultseal | seals | redaction asserts | T-47 | AC-5 |
 
 ## Coverage assertion

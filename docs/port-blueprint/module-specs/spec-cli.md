@@ -598,3 +598,105 @@ spinner/bar — acceptance "Windows console test". The audit's findings:
   instruction line re-instated it (the paint is load-bearing golden
   surface; the launchers + the v0.92.0-go.1 tag are the owner's
   commanded books T-63/T-65). The ADR now says what the practice does.
+
+## SESSION-031 shipped record — T-63: THE LAUNCHERS (cmd + the .bat set + the sh + the 1-INSTALL equivalent + the VERSION stamp + THE DISPATCH FLIP)
+
+Landed:
+
+- `cmd/gitcurator-cli/main.go` — the main package as the twin of
+  main.py's CLI routing: the **--cli strip law ported verbatim**
+  (main.py: `[a for a in sys.argv[1:] if a != "--cli"]` — the
+  launchers keep the reference's own `--cli --auto --yes` run lines
+  byte-close, and muscle memory keeps working; the strip is proven by
+  main_test.go), the **--version stamp door** (doc 10 §5: the Go
+  packaging addition — `gitcurator-cli <version>` to stdout, exit 0,
+  wins before the CLI's parser; a documented divergence: the
+  reference's argparse has no --version and answers the unknown-flag
+  error), the `version` var stamped via `-ldflags "-X
+  main.version=$(cat VERSION)"` (fallback "dev"), and the exit code
+  passing straight through from `cli.Main`.
+- `VERSION` (repo root): `0.92.0-go.1` — the milestone T-65's tag will
+  carry; the build command shape is in doc 10 §2 + main.go's stamp
+  comment (`GOFLAGS=-trimpath CGO_ENABLED=0 go build -o
+  bin/GitCurator-cli.exe ./cmd/gitcurator-cli`).
+- **THE LAUNCHER SET** in `cmd/gitcurator-cli/` (the owner's folder
+  law — everything CLI with the CLI exe; T-65's mkzip flattens them to
+  the zip root): `GitCurator-CLI.bat` (`--cli --auto --yes`),
+  `GitCurator-SYNC.bat` (`--cli --sync %*`),
+  `GitCurator-CLI-Setup.bat` (`--cli --init`),
+  `Start-GitCurator-CLI.bat` (`--cli --auto --yes %*` — plus the
+  owner's EXITCODE-card normalization the reference's v0.09 alias
+  lacked), `gitcurator-cli.sh` (set -euo pipefail, the walk-up, the
+  exe guard card, the same default + the flag pass-through),
+  `1-INSTALL.bat` (the Go equivalent: `where git` + `git --version` +
+  the next-steps card; NO registry writes, NO PATH mutations, nothing
+  to install — the app is a native exe).
+- **THE DISPATCH FLIP** (the session's reality-wins find): the T-62
+  drivers had landed but Run's dispatch still routed `--auto`,
+  `--sync`, `--retry-failed`, `--import-file` to not-yet cards — the
+  shipped binary would have refused its flagship mode (the unit
+  battery called the cmd* methods directly, so the suite stayed
+  green). Flipped to the real drivers; the not-yet cards and the
+  beat-1a `cmdSync` stub retired (the golden's sync_no_config /
+  sync_bad_config sections byte-unchanged — cmdSyncLive opens with
+  the same beat-1a check).
+
+THE DIFFERENTIAL STONE GREW: dump_cli.py's payload now reads the
+reference's OWN launcher bytes (the six files: the four cli-folder
+.bats, gitcurator-cli.sh, the app-root 1-INSTALL.bat) and records
+them raw — the full text with CRLF preserved inside the JSON strings
++ the byte-level facts (bytes/ascii_only/crlf/bare_lf) — goldencli
+.golden.json at **101,777 bytes** (the growth line 48,698 → 69,028 →
+86,570 → 101,777), two-run byte-identical. The Go replay
+(TestGoldenCLILaunchers) reads the Go repo's own launcher files and
+enforces the per-file CONTRACT: the SHARED lines byte-compared (the
+skeleton: @echo off / setlocal / the title / `cd /d "%~dp0"` / :run /
+`set EXITCODE=%ERRORLEVEL%` / the exit-card lines / pause / endlocal;
+the .sh's usage block + set -euo pipefail + cd + the if/fi + exit 1), the
+DIVERGENT pairs asserted BOTH ways (each present in its own side and
+absent from the other — the walk-up's landmark main.py → VERSION, the
+python invocation → the direct exe run, 1-INSTALL's Using/version
+lines, the sh's exec lines), the ref-only python-world lines banned
+from the Go side (the venv/python/py ladder, the pip installs, the
+not-found cards), and the go-only exe-world lines (the git check, the
+exe guard, Start's EXITCODE card). The reference's own laws are
+checked on its recorded facts (every .bat ASCII + CRLF; the .sh
+LF-only UTF-8); the Go side's laws are recomputed from the raw bytes.
+The mutation teeth (TestGoldenCLIMutationLaunchers): a mutated
+reference run line, a mutated shared card line, and a flipped
+byte-level fact each FAIL the real comparison while the unmutated
+golden still passes it (the harness guard) — three surfaces, verified
+biting.
+
+Tests: cmd/gitcurator-cli/launchers_test.go (the self-side byte laws:
+ASCII+CRLF for every .bat with the final CRLF, LF-only + executable
+for the .sh, the grammar skeleton with the walk-up landmark VERSION,
+every python-discovery command line banned, chcp banned, the EXITCODE
+echo + pause + endlocal tail, the 1-INSTALL git-only checks with the
+no-mutation bans) + main_test.go (the version door + the stamp feeds
+it + the strip law) + internal/cli TestBatchDispatchSmoke (the four
+doors route to the REAL drivers — their own honest cards answer, never
+a not-yet card). **1922 tests race-clean over 33 packages** (1911 at
+SESSION-030's close; −1 retired +10 new +2 golden tests; the
+arithmetic closes exactly). GOOS=windows build + vet clean; gofmt
+clean; zero new dependencies.
+
+Option-B divergences (asserted, never silent): the python-discovery
+ladder is GONE by design (the exe runs direct — every discovery
+command line is banned from the Go bytes and the reference's lines are
+pinned as ref-only); the walk-up's landmark is VERSION (the Go app
+root's marker — the exe embeds everything else); Setup's re-login
+pointer is replaced by the re-run-the-wizard line (the --login door
+answers the ADR-0004 Am.3 refusal card); Start's bare tail is
+normalized to the EXITCODE card (the owner's NEXT-SESSION v31 line:
+the whole set carries the echo + pause tail); main.py's --cli selector
+is stripped by the exe's main (the two-exe law, ADR-0010); the
+reference's GUI-side launchers (GitCurator.bat, GitCurator-DRY-RUN.bat
+at the app root) are NOT in T-63's set — they ship with T-65's zip
+(the DRY-RUN one runs the same `--cli --auto --yes --dry-run` the Go
+CLI already supports; recorded for the packaging task).
+
+Remaining on T-63's books: nothing — the task is COMPLETE (the
+clean-VM smoke of the acceptance column is Phase 7's checklist, per
+the same scoping as T-61's runtime legs). T-64 (the differential
+corpus full run) and T-65 (the tag + zip) follow.

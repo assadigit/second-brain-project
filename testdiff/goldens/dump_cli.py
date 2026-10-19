@@ -1741,7 +1741,37 @@ OUT["env"] = {
     },
 }
 
-# --- 11. the fold + cleanup --------------------------------------------
+# --- 11. the launchers: the reference's own .bat/.sh bytes (T-63's
+# byte-anchored differential stone). The full text is recorded raw
+# (CRLF preserved inside the JSON strings) + the byte-level facts;
+# the Go replay reads the Go repo's own launcher bytes and compares
+# the SHARED GRAMMAR byte-for-byte while ASSERTING the divergences
+# (the python-discovery ladder replaced by the direct exe run; the
+# walk-up's landmark main.py -> VERSION) — never silent.
+LAUNCHER_FILES = {
+    "GitCurator-CLI.bat": "gitcurator/cli/GitCurator-CLI.bat",
+    "GitCurator-SYNC.bat": "gitcurator/cli/GitCurator-SYNC.bat",
+    "GitCurator-CLI-Setup.bat": "gitcurator/cli/GitCurator-CLI-Setup.bat",
+    "Start-GitCurator-CLI.bat": "gitcurator/cli/Start-GitCurator-CLI.bat",
+    "gitcurator-cli.sh": "gitcurator/cli/gitcurator-cli.sh",
+    "1-INSTALL.bat": "1-INSTALL.bat",
+}
+OUT["launchers"] = {}
+for _lname, _lrel in LAUNCHER_FILES.items():
+    with open(os.path.join(os.environ["GC_APP_DIR"], _lrel), "rb") as _lf:
+        _lraw = _lf.read()
+    _stripped = _lraw.replace(b"\r\n", b"")
+    OUT["launchers"][_lname] = {
+        "bytes": len(_lraw),
+        "ascii_only": _lraw.isascii(),
+        # crlf: every newline in the file is a CRLF pair (no bare LF)
+        "crlf": b"\r" in _lraw and b"\n" not in _stripped,
+        # bare_lf: at least one newline is NOT part of a CRLF pair
+        "bare_lf": b"\n" in _stripped,
+        "text": _lraw.decode("utf-8"),
+    }
+
+# --- 12. the fold + cleanup --------------------------------------------
 def fold(obj):
     if isinstance(obj, str):
         obj = obj.replace(APP_TMP, '<app>')

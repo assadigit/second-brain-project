@@ -336,6 +336,10 @@ type goldenFile struct {
 	AutoConfirm  goldenDriverCase `json:"auto_confirm"`
 	EngineDryrun goldenEngineCase `json:"engine_dryrun"`
 
+	// SESSION-031 — T-63: the launchers' differential stone (the
+	// reference's own .bat/.sh bytes + the byte-level facts).
+	Launchers map[string]goldenLauncher `json:"launchers"`
+
 	Env goldenEnv `json:"env"`
 }
 
@@ -2076,4 +2080,407 @@ func (f *engineFakeOllama) Chat(ctx context.Context,
 		Model:   req.Model,
 		Message: &llmclient.OllamaChatMessage{Role: "assistant", Content: analysis},
 	}, nil
+}
+
+// ---------------------------------------------------------------------------
+// SESSION-031 — T-63: THE LAUNCHERS' DIFFERENTIAL STONE
+//
+// The golden's launchers section records the REFERENCE's own launcher
+// bytes (the full text, CRLF preserved, + the byte-level facts). The
+// replay reads the Go repo's own launcher files (cmd/gitcurator-cli/)
+// and enforces the per-file CONTRACT: the lines the two sides SHARE
+// byte-for-byte (the grammar skeleton + the user-facing cards), the
+// DIVERGENT pairs (each present in its own file and absent from the
+// other — the never-silent law: the walk-up's landmark main.py →
+// VERSION, the python invocation → the direct exe run), and the
+// one-sided lines (the reference's venv/pip discovery ladder vs the
+// Go side's git check + the Start launcher's EXITCODE-card
+// normalization). The mutation test gives it teeth.
+// ---------------------------------------------------------------------------
+
+// goldenLauncher — one entry of the golden's launchers section.
+type goldenLauncher struct {
+	Bytes     int    `json:"bytes"`
+	AsciiOnly bool   `json:"ascii_only"`
+	CRLF      bool   `json:"crlf"`
+	BareLF    bool   `json:"bare_lf"`
+	Text      string `json:"text"`
+}
+
+// launcherContract — the per-file grammar contract.
+type launcherContract struct {
+	shared  []string    // full lines present in BOTH sides, byte-for-byte
+	diverge [][2]string // {referenceLine, goLine} — each in its own side, absent from the other
+	refOnly []string    // the python world's lines (absent from the Go side)
+	goOnly  []string    // the exe world's lines (absent from the reference)
+}
+
+// launcherLineSet builds the set of full lines (CRLF normalized away).
+func launcherLineSet(text string) map[string]bool {
+	set := map[string]bool{}
+	for _, l := range strings.Split(strings.ReplaceAll(text, "\r\n", "\n"), "\n") {
+		set[l] = true
+	}
+	return set
+}
+
+// The python-discovery command lines every Go .bat must NOT carry
+// (checked per-file through the contract's refOnly lists; this shared
+// ladder is the spine of the divergence).
+const (
+	refVenvProbe   = `if exist ".venv\Scripts\python.exe" goto :run`
+	refSetPyPython = `set "PY=python"`
+	refSetPyPy3    = `    set "PY=py -3"`
+	refWherePython = `where python >nul 2>nul`
+	refPyVersion   = `%PY% --version >nul 2>nul`
+	refPyNotFound  = `    echo  [GitCurator] Python was not found on PATH.`
+	refWalkUp      = `if not exist "main.py" cd /d "%~dp0\..\.."`
+	goWalkUp       = `if not exist "VERSION" cd /d "%~dp0\..\.."`
+	refShWalkUp    = `[ -f main.py ] || cd ../..`
+	goShWalkUp     = `[ -f VERSION ] || cd ../..`
+	refShPyGuard   = `if ! command -v python3 >/dev/null 2>&1; then`
+	refShPyCard    = `    echo "[GitCurator] python3 not found — install Python 3.10+ first." >&2`
+	goShExeGuard   = `if [ ! -x "./GitCurator-cli" ]; then`
+	goShExeCard    = `    echo "[GitCurator] GitCurator-cli not found next to this file — run me from the unzipped folder." >&2`
+)
+
+// launcherContracts — the byte-anchored grammar, per launcher.
+var launcherContracts = map[string]launcherContract{
+	"GitCurator-CLI.bat": {
+		shared: []string{
+			`@echo off`,
+			`setlocal`,
+			`title GitCurator CLI - automatic run`,
+			`cd /d "%~dp0"`,
+			`:run`,
+			`echo.`,
+			`set EXITCODE=%ERRORLEVEL%`,
+			`if "%EXITCODE%"=="0" (`,
+			`    echo  [GitCurator] Finished. You can close this window.`,
+			`) else (`,
+			`    echo  [GitCurator] Exited with code %EXITCODE%.`,
+			`    echo                If credentials are missing, run GitCurator-CLI-Setup.bat first.`,
+			`    echo                For the fast sync lane, run GitCurator-SYNC.bat.`,
+			`)`,
+			`pause`,
+			`endlocal`,
+		},
+		diverge: [][2]string{
+			{refWalkUp, goWalkUp},
+			{`%PY% main.py --cli --auto --yes`, `GitCurator-cli.exe --cli --auto --yes`},
+		},
+		refOnly: []string{refVenvProbe, refSetPyPython, refWherePython,
+			refSetPyPy3, refPyVersion, refPyNotFound},
+	},
+	"GitCurator-SYNC.bat": {
+		shared: []string{
+			`@echo off`,
+			`setlocal`,
+			`title GitCurator SYNC - the fast lane`,
+			`cd /d "%~dp0"`,
+			`:run`,
+			`echo.`,
+			`set EXITCODE=%ERRORLEVEL%`,
+			`if "%EXITCODE%"=="0" (`,
+			`    echo  [GitCurator] Sync finished. You can close this window.`,
+			`) else (`,
+			`    echo  [GitCurator] Sync exited with code %EXITCODE%.`,
+			`    echo                If a check failed, open the GUI ^(GitCurator.bat^),`,
+			`    echo                fix the credentials and essentials in Settings,`,
+			`    echo                then run this file again.`,
+			`)`,
+			`pause`,
+			`endlocal`,
+		},
+		diverge: [][2]string{
+			{refWalkUp, goWalkUp},
+			{`%PY% main.py --cli --sync %*`, `GitCurator-cli.exe --cli --sync %*`},
+		},
+		refOnly: []string{refVenvProbe, refSetPyPython, refWherePython,
+			refSetPyPy3, refPyVersion, refPyNotFound},
+	},
+	"GitCurator-CLI-Setup.bat": {
+		shared: []string{
+			`@echo off`,
+			`setlocal`,
+			`title GitCurator CLI - first-run setup`,
+			`cd /d "%~dp0"`,
+			`:run`,
+			`echo.`,
+			`set EXITCODE=%ERRORLEVEL%`,
+			`if "%EXITCODE%"=="0" (`,
+			`    echo  [GitCurator] Setup complete! Next: double-click GitCurator-SYNC.bat`,
+			`    echo                (the fast sync lane - check, confirm, sync) or`,
+			`    echo                GitCurator-CLI.bat (the fully-automatic run).`,
+			`    echo  [GitCurator] Setup exited with code %EXITCODE%.`,
+			`)`,
+			`pause`,
+			`endlocal`,
+		},
+		diverge: [][2]string{
+			{refWalkUp, goWalkUp},
+			{`%PY% main.py --cli --init`, `GitCurator-cli.exe --cli --init`},
+		},
+		refOnly: []string{refVenvProbe, refSetPyPython, refWherePython,
+			refSetPyPy3, refPyVersion, refPyNotFound,
+			// the re-login pointer is an Option-B accepted loss (--login
+			// answers the refusal card); the Go card teaches re-running
+			// the wizard instead.
+			`    echo                for the fully-automatic run. Re-login any time:`,
+			`    echo                    python main.py --cli --login`},
+		goOnly: []string{
+			`    echo                Re-run this file any time to change your credentials.`,
+		},
+	},
+	"Start-GitCurator-CLI.bat": {
+		shared: []string{
+			`@echo off`,
+			`setlocal`,
+			`title GitCurator CLI`,
+			`cd /d "%~dp0"`,
+			`:run`,
+			`echo.`,
+			`pause`,
+		},
+		diverge: [][2]string{
+			{refWalkUp, goWalkUp},
+			{`%PY% main.py --cli --auto --yes %*`, `GitCurator-cli.exe --cli --auto --yes %*`},
+		},
+		refOnly: []string{refVenvProbe, refSetPyPython, refWherePython,
+			refSetPyPy3, refPyVersion,
+			`    echo [ERROR] Python was not found on PATH.`},
+		// the owner's normalization (NEXT-SESSION v31: the whole .bat set
+		// carries the EXITCODE echo + pause tail): the reference's v0.09
+		// alias ended at the bare pause — the Go twin carries the card.
+		goOnly: []string{
+			`set EXITCODE=%ERRORLEVEL%`,
+			`    echo  [GitCurator] Finished. You can close this window.`,
+			`    echo  [GitCurator] Exited with code %EXITCODE%.`,
+			`endlocal`,
+		},
+	},
+	"gitcurator-cli.sh": {
+		shared: []string{
+			`#!/usr/bin/env bash`,
+			`set -euo pipefail`,
+			`cd "$(dirname "$0")"`,
+			`#  ./gitcurator-cli.sh            → fully automatic run (--auto --yes)`,
+			`#  ./gitcurator-cli.sh --sync     → the fast sync lane (check → confirm → sync)`,
+			`#  ./gitcurator-cli.sh --init     → first-run wizard`,
+			`#  ./gitcurator-cli.sh --status   → config + cache + strike summary`,
+			`#  ./gitcurator-cli.sh ...        → any flag is forwarded to the CLI`,
+			`if [ "$#" -eq 0 ]; then`,
+			`fi`,
+			`    exit 1`,
+		},
+		diverge: [][2]string{
+			{refShWalkUp, goShWalkUp},
+			{`    exec python3 main.py --cli --auto --yes`, `    exec ./GitCurator-cli --cli --auto --yes`},
+			{`exec python3 main.py --cli "$@"`, `exec ./GitCurator-cli --cli "$@"`},
+		},
+		refOnly: []string{refShPyGuard, refShPyCard},
+		goOnly:  []string{goShExeGuard, goShExeCard},
+	},
+	"1-INSTALL.bat": {
+		shared: []string{
+			`@echo off`,
+			`setlocal`,
+			`title GitCurator - first install`,
+			`cd /d "%~dp0"`,
+			`echo  ------------------------------------------------------------`,
+			`echo                Next: double-click GitCurator.bat`,
+			`pause`,
+			`endlocal`,
+		},
+		diverge: [][2]string{
+			{`echo  [GitCurator] Using Python:`, `echo  [GitCurator] Using git:`},
+			{`%PY% --version`, `git --version`},
+			{`echo  [GitCurator] Install complete.`,
+				`echo  [GitCurator] Everything the app needs is in place.`},
+		},
+		refOnly: []string{
+			`set "PY="`,
+			refWherePython,
+			`if not defined PY (`,
+			`    where py >nul 2>nul`,
+			`    python -c "import sys; sys.exit(0 if sys.version_info>=(3,10) else 1)" >nul 2>nul`,
+			`        py -3 -c "import sys; sys.exit(0 if sys.version_info>=(3,10) else 1)" >nul 2>nul`,
+			`    if not errorlevel 1 set "PY=python"`,
+			`        if not errorlevel 1 set "PY=py -3"`,
+			`%PY% -m venv .venv`,
+			`".venv\Scripts\python.exe" -m pip install --upgrade pip`,
+			`".venv\Scripts\python.exe" -m pip install -r requirements.txt`,
+			`echo  [GitCurator] Creating the private environment (.venv) ...`,
+			`echo  [GitCurator] Installing the app's packages (1-2 minutes) ...`,
+			`    echo  [GitCurator] Python 3.10 or newer was not found on this computer.`,
+			`echo  [GitCurator] Using Python:`,
+		},
+		goOnly: []string{
+			`where git >nul 2>nul`,
+			`    echo  [GitCurator] git.exe was not found on this computer.`,
+			`echo                (or GitCurator-SYNC.bat for the fast sync lane).`,
+		},
+	},
+}
+
+// goLauncherDir — the Go repo's launcher home (the test runs with cwd
+// = internal/cli; cmd/gitcurator-cli is the owner's folder law: the
+// launchers live with the CLI exe; T-65's mkzip flattens them to the
+// zip root).
+var goLauncherDir = filepath.Join("..", "..", "cmd", "gitcurator-cli")
+
+// compareLaunchers runs the FULL launcher differential and returns
+// every mismatch (the golden test wants none; the mutation test wants
+// its share). The golden's own recorded facts are checked too — the
+// reference's laws must hold on the reference's bytes.
+func compareLaunchers(t *testing.T, g *goldenFile) []string {
+	t.Helper()
+	var problems []string
+	if len(g.Launchers) != len(launcherContracts) {
+		problems = append(problems, fmt.Sprintf(
+			"the golden records %d launchers, the contract table has %d",
+			len(g.Launchers), len(launcherContracts)))
+	}
+	for name, ref := range g.Launchers {
+		contract, ok := launcherContracts[name]
+		if !ok {
+			problems = append(problems, name+": no contract entry")
+			continue
+		}
+		isBat := strings.HasSuffix(name, ".bat")
+
+		// --- the reference's own laws (its recorded facts) ---------
+		if isBat {
+			if !ref.AsciiOnly || !ref.CRLF || ref.BareLF {
+				problems = append(problems, name+
+					": the reference's own bytes broke the .bat laws (ascii/CRLF)")
+			}
+		} else if ref.CRLF || !ref.BareLF {
+			problems = append(problems, name+
+				": the reference's own bytes broke the .sh law (LF-only)")
+		}
+
+		// --- the Go side's bytes ----------------------------------
+		raw, err := os.ReadFile(filepath.Join(goLauncherDir, name))
+		if err != nil {
+			problems = append(problems, name+": "+err.Error())
+			continue
+		}
+		goText := string(raw)
+		if isBat {
+			for i, b := range raw {
+				if b > 0x7F {
+					problems = append(problems, fmt.Sprintf(
+						"%s: byte %d non-ASCII (0x%02X)", name, i, b))
+					break
+				}
+			}
+			if bytes.Count(raw, []byte("\n")) != bytes.Count(raw, []byte("\r\n")) {
+				problems = append(problems, name+": bare LF in a .bat (CRLF law)")
+			}
+		} else if bytes.Contains(raw, []byte("\r")) {
+			problems = append(problems, name+": CR in a .sh (LF-only law)")
+		}
+
+		refSet := launcherLineSet(ref.Text)
+		goSet := launcherLineSet(goText)
+
+		for _, l := range contract.shared {
+			if !refSet[l] {
+				problems = append(problems, name+": shared line not in the REFERENCE: "+l)
+			}
+			if !goSet[l] {
+				problems = append(problems, name+": shared line not in the GO side: "+l)
+			}
+		}
+		for _, pair := range contract.diverge {
+			refLine, goLine := pair[0], pair[1]
+			if !refSet[refLine] {
+				problems = append(problems, name+": divergent reference line missing: "+refLine)
+			}
+			if !goSet[goLine] {
+				problems = append(problems, name+": divergent Go line missing: "+goLine)
+			}
+			if goSet[refLine] {
+				problems = append(problems, name+": the reference's line leaked into the GO side: "+refLine)
+			}
+			if refSet[goLine] {
+				problems = append(problems, name+": the Go line leaked into the REFERENCE: "+goLine)
+			}
+		}
+		for _, l := range contract.refOnly {
+			if !refSet[l] {
+				problems = append(problems, name+": ref-only line missing from the reference: "+l)
+			}
+			if goSet[l] {
+				problems = append(problems, name+": python-world line leaked into the GO side: "+l)
+			}
+		}
+		for _, l := range contract.goOnly {
+			if !goSet[l] {
+				problems = append(problems, name+": Go-only line missing: "+l)
+			}
+			if refSet[l] {
+				problems = append(problems, name+": Go-only line already in the reference: "+l)
+			}
+		}
+	}
+	return problems
+}
+
+// TestGoldenCLILaunchers — T-63's differential: every launcher's
+// shared grammar byte-compared, every divergence asserted.
+func TestGoldenCLILaunchers(t *testing.T) {
+	g := loadGoldenCLI(t)
+	for _, problem := range compareLaunchers(t, g) {
+		t.Errorf("launchers differential: %s", problem)
+	}
+}
+
+// TestGoldenCLIMutationLaunchers — the teeth: a mutated golden
+// (the reference's recorded run line / a shared card line / a
+// byte-level fact) must FAIL the REAL comparison, while the unmutated
+// golden must still PASS it (the harness guard).
+func TestGoldenCLIMutationLaunchers(t *testing.T) {
+	g := loadGoldenCLI(t)
+
+	// the harness guard: the unmutated golden must be clean.
+	if problems := compareLaunchers(t, g); len(problems) != 0 {
+		t.Fatalf("the unmutated golden already fails the launcher differential: %v", problems)
+	}
+
+	// 1. the reference's run line: --auto mutated to --manual in the
+	// recorded bytes — the divergence assertion must lose its anchor.
+	mutated := loadGoldenCLI(t)
+	cliBat := mutated.Launchers["GitCurator-CLI.bat"]
+	cliBat.Text = strings.Replace(cliBat.Text,
+		`%PY% main.py --cli --auto --yes`,
+		`%PY% main.py --cli --manual --yes`, 1)
+	mutated.Launchers["GitCurator-CLI.bat"] = cliBat
+	if problems := compareLaunchers(t, mutated); len(problems) == 0 {
+		t.Fatalf("a mutated reference run line passed the differential — no teeth")
+	}
+
+	// 2. a shared card line: the Finished sentence mutated — the
+	// shared-grammar compare must fail.
+	mutated = loadGoldenCLI(t)
+	syncBat := mutated.Launchers["GitCurator-SYNC.bat"]
+	syncBat.Text = strings.Replace(syncBat.Text,
+		`    echo  [GitCurator] Sync finished. You can close this window.`,
+		`    echo  [GitCurator] Sync finished. You may close this window.`, 1)
+	mutated.Launchers["GitCurator-SYNC.bat"] = syncBat
+	if problems := compareLaunchers(t, mutated); len(problems) == 0 {
+		t.Fatalf("a mutated shared card line passed the differential — no teeth")
+	}
+
+	// 3. a byte-level fact: a .bat recorded as CRLF-only flipped to
+	// bare-LF — the reference's own law check must fail.
+	mutated = loadGoldenCLI(t)
+	cliBat = mutated.Launchers["GitCurator-CLI.bat"]
+	cliBat.CRLF = false
+	cliBat.BareLF = true
+	mutated.Launchers["GitCurator-CLI.bat"] = cliBat
+	if problems := compareLaunchers(t, mutated); len(problems) == 0 {
+		t.Fatalf("a mutated byte-level fact passed the differential — no teeth")
+	}
 }

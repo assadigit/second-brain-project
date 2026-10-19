@@ -380,8 +380,31 @@ byte-identical; the fixed-length-roots law (the card's padding bakes
 path lengths); two generator bugs caught by the differential itself
 (the shallow-copy leak, the ms-clock arithmetic); the mutation teeth
 grew. 1877 tests race-clean over 31 packages (+11).
-Next: T-61's remaining paint legs, T-63 (launchers), T-64 (the
-differential corpus run), T-65 (the release tag).
+**SESSION-031 — T-61 COMPLETE (the close-out audit) + T-63 COMPLETE
+(THE LAUNCHERS)**: T-61's row closed with evidence (the paint box +
+the NO_COLOR/TTY law + the spinner under the engine's heartbeat + the
+65001 hardening all landed with tests + GOOS=windows build/vet clean;
+the runtime Windows-console legs recorded as Phase 7's clean-VM items;
+ADR-0007 Am.2 records the owner's re-instatement of the CLI-facing
+legs). T-63: `cmd/gitcurator-cli` (the --cli strip law ported from
+main.py's routing, the --version stamp door per doc 10 §5, the exit
+pass-through) + VERSION (0.92.0-go.1) + THE LAUNCHER SET in
+cmd/gitcurator-cli/ (GitCurator-CLI/SYNC/Setup/Start .bats +
+gitcurator-cli.sh + 1-INSTALL.bat — ASCII+CRLF asserted at byte level,
+the walk-up with landmark VERSION, the exe run DIRECT with the
+reference's own --cli defaults, EXITCODE echo + pause, the git-only
+install check with NO registry writes and NO PATH mutations) + THE
+DISPATCH FLIP (the reality-wins find: the T-62 drivers had landed but
+Run's dispatch still answered not-yet cards for
+--auto/--sync/--retry-failed/--import-file — now flipped to the real
+drivers, the stale cards retired). The differential stone grew the
+launchers section — the reference's OWN launcher bytes recorded raw,
+the shared grammar byte-compared, every divergence asserted both ways
+(the python ladder gone, main.py → VERSION, the exe direct), mutation
+teeth on three surfaces — 101,777 bytes, two-run byte-identical.
+**1922 tests race-clean over 33 packages (+11).**
+Next: T-64 (the differential corpus full run), T-65 (the
+`v0.92.0-go.1` tag + zip).
 
 ## Map
 
