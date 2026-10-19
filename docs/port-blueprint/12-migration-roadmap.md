@@ -203,6 +203,31 @@ startup ≤ 1.5 s; log flood smooth).
 > race-clean; the acceptance (the command contract tests + the
 > lock/watchdog tests) GREEN. T-72 (the frontend foundation) is the
 > next session's primary task.
+>
+> **SESSION-035 (2026-10-19): T-72 COMPLETE — the frontend foundation.**
+> The thirtieth full wipe absorbed before work (everything rebuilt from
+> the committed recipes; the webkit tree rebuilt + proven at both
+> levels). The suite re-verification caught a REAL production race
+> (deskbus's post-Stop push coin flip) — fixed deterministically, plus
+> hygiene (52 mode flips, the orphan wails binary). T-72 in two slices:
+> (a) the theme-token CSS golden + the icon-pack golden — three twins
+> (Go tables, the CSS var dump, the JS pack) locked against two
+> reference-generated goldens (dump_theme.py + dump_icons.py, CORPUS
+> 33); (b) the production shell binding internal/app DIRECTLY
+> (guibridge/ retired with its tests; the T-70 gate legs retired), the
+> typed Bus → the deskbus → the cache-mirror desk, the startup passes'
+> real lines, the single-instance lock before the window
+> (AppLock.Refused added), the sync_card CTA band. The dissolution
+> probe (Am.4's law, run FIRST): wails into the MAIN module forces
+> x/net v0.56.0 + the 1.25.0 directive — BLOCKED by the authorized-pins
+> law; the boundary stays nested, the owner's call in ADR-0002 Am.5.
+> The acceptance GREEN: the token golden (6 uitheme tests) + the log
+> perf test (headless transport: ≥1.07M lines/s through the REAL Bus,
+> 0 drops; the gate leg end-to-end: first frame 283 ms, the 10k flood
+> 434,782 lines/s producer-side, 22 ms max handler, 0 drops). 1994
+> main-battery tests over 35 packages race-clean + 21 webui tests over
+> 4 packages. T-73 (Settings pages A) is the next session's task; the
+> vanilla-vs-vite call + the dissolution question remain the owner's.
 **Work**: `internal/app` commands/event bus completion; frontend pages in dependency order:
 main window chrome + log desk → settings pages (Vault, Credentials, LLM, Proxy, Input) → Bot
 queue + Dashboard → Sync view (flow cards + matrix + differences modal) → Scan flow (picker →

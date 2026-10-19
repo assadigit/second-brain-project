@@ -9,6 +9,4 @@ export function MarkFirstFrame():Promise<string>;
 
 export function ReportFloodUI(arg1:Record<string, any>):Promise<void>;
 
-export function RunBaselineJob():Promise<string>;
-
 export function Stats():Promise<string>;

@@ -1,18 +1,23 @@
-// Command webui is the T-70 PoC C GUI-shell gate (Phase 6's entry):
-// the themed Wails window (the spec-gui-theme-icons LIGHT tokens), the
-// coalesced log desk (deskbus + the frontend's cap/filter/tooltip laws),
-// and ONE REAL JOB wired through — the note-state baseline job over a
-// generated fixture vault, via the guibridge interim seam.
+// Command webui is the production Wails shell (T-72): the themed
+// window over the production composition — internal/app bound DIRECTLY
+// (the guibridge/ interim seam retired at this landing; the nested
+// webui module may import the parent's internal/ packages, ADR-0002
+// Am.4's probe). The window's colors ride the golden-locked token
+// tables (webui/uitheme); the desk rides the deskbus + the cache-mirror
+// frontend half (THE COALESCED LOG contract).
 //
-// It is a NESTED Go module (module github.com/assadigit/second-brain-
-// project/webui) so the main module's runtime dependency set stays exactly
-// the authorized four (ADR-0002 Am.3). The production shell (T-72)
-// dissolves this module into the main tree.
+// It is still a NESTED Go module (module github.com/assadigit/second-
+// brain-project/webui): the T-72 dissolution probe (ADR-0002 Am.5)
+// found wails v2.16.0's own go.mod demands x/net v0.56.0 + the 1.25.0
+// directive — bumps the authorized runtime set forbids — so the
+// boundary stays nested and the direct binding rides Am.4's probe.
 package main
 
 import (
 	"embed"
 	"time"
+
+	"github.com/assadigit/second-brain-project/webui/uitheme"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -23,16 +28,17 @@ import (
 //go:embed all:frontend
 var assets embed.FS
 
-// t0 is process start — the cold-start clock for the T-70 gate
-// (startup ≤ 1.5 s to first frame, measured to the frontend's
-// DOMContentLoaded → MarkFirstFrame round-trip).
+// t0 is process start — the cold-start clock (startup ≤ 1.5 s to the
+// first frame, measured to the frontend's DOMContentLoaded →
+// MarkFirstFrame round-trip).
 var t0 = time.Now()
 
 func main() {
-	app := NewApp(t0)
+	shell := NewShell(t0)
 
+	r, g, b, a := uitheme.RGBA(uitheme.Light, "window")
 	err := wails.Run(&options.App{
-		Title:     "GitCurator — T-70 GUI Shell Gate",
+		Title:     "GitCurator",
 		Width:     1000,
 		Height:    750,
 		MinWidth:  760,
@@ -40,21 +46,21 @@ func main() {
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		// GitCurator LIGHT token "window" — the cream background
-		// (gui/theme.py:58-237, spec-gui-theme-icons §1); the whole point
-		// of the gate: the themed window.
-		BackgroundColour: &options.RGBA{R: 251, G: 248, B: 242, A: 1},
+		// The LIGHT token table's "window" — the cream background
+		// (gui/theme.py:58-237, golden-locked); the dark theme's
+		// window is the frontend's [data-theme] flip (T-77's toggle).
+		BackgroundColour: &options.RGBA{R: r, G: g, B: b, A: a},
 		Windows: &windows.Options{
 			// The production exe ships as a windowsgui-subsystem binary
-			// (doc 04 §1); the PoC window carries the same no-console
-			// intent on the Windows cross-build leg.
+			// (doc 04 §1); the no-console intent carries to the
+			// Windows cross-build leg.
 			WebviewIsTransparent: false,
 			WindowIsTranslucent:  false,
 		},
-		OnStartup:  app.startup,
-		OnShutdown: app.shutdown,
+		OnStartup:  shell.startup,
+		OnShutdown: shell.shutdown,
 		Bind: []interface{}{
-			app,
+			shell,
 		},
 	})
 	if err != nil {

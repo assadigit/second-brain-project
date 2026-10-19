@@ -76,6 +76,11 @@ html, body {
 }
 .btn-hero:hover { background: var(--hero-hover); }
 .btn-hero:disabled { background: var(--text-disabled); cursor: default; }
+.btn-hero-lg {
+  /* the sync_card's 56px start_btn (ui.py:179-2100's CTA band) */
+  min-height: 56px;
+  padding: var(--sp-3) var(--sp-5);
+}
 .btn-secondary {
   /* secondary: accent outline */
   background: transparent;

@@ -1,4 +1,4 @@
-// app.js — the T-70 desk's frontend half: THE COALESCED LOG contract
+// app.js — the production desk's frontend half: THE COALESCED LOG contract
 // (spec-gui-ui, ui.py:65-86 + 2374-2794) as the HTML twin —
 //   · one log:batch event = ONE DocumentFragment append + ONE tail scroll
 //     (the single cursor-edit-block law);
@@ -9,13 +9,16 @@
 //     the desk at ≤1000 rows whatever the flood;
 //   · the row: level glyph (shape-coded, level-colored; the message ink is
 //     ONE muted tone — the v0.32 law) · [ts] · elided message, with the
-//     full text on the row tooltip;
-//   · the flood's interactivity probe: a setTimeout chain sampling the
-//     event loop's task-queue latency between flood:start and flood:done.
-// The glyphs ride the lucide-static pack (icons.js — the reference's
-// _LOG_LEVEL_ICONS law: info=dot, success=check, warning=triangle-alert,
-// error=circle-x; tint via currentColor).
-import { MarkFirstFrame, RunBaselineJob, FloodLines, Stats, ReportFloodUI, ClearDesk } from './wailsjs/go/main/App.js';
+//     full text on the row tooltip.
+// The shell (T-72) binds internal/app directly: the typed events cross
+// as bus:* wails events; the desk's rows ride the deskbus's coalesced
+// log:batch batches. The glyphs ride the lucide-static pack (icons.js —
+// the reference's _LOG_LEVEL_ICONS law: info=dot, success=check,
+// warning=triangle-alert, error=circle-x; tint via currentColor).
+// The flood probe is the perf-test instrument (the log perf test's
+// interactivity evidence — handler-time + the task-gap sampler with
+// the Xvfb timer-clamp caveat).
+import { MarkFirstFrame, FloodLines, Stats, ReportFloodUI, ClearDesk } from './wailsjs/go/main/Shell.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
 import { LEVEL_ICONS, svgEl } from './icons.js';
 
@@ -26,10 +29,6 @@ const cacheEl = document.getElementById('log-cache');
 const barFill = document.getElementById('bar-fill');
 const barLabel = document.getElementById('bar-label');
 const sentinels = document.querySelector('.sentinels');
-const btnJob = document.getElementById('btn-job');
-const btnFlood = document.getElementById('btn-flood');
-const btnStats = document.getElementById('btn-stats');
-const btnClear = document.getElementById('btn-clear');
 const search = document.getElementById('log-search');
 
 const LOG_CAP = 1000;          // _LOG_CAP (ui.py:86)
@@ -116,15 +115,35 @@ function rerenderFromCache() {
   updateCounters();
 }
 
+// the desk's rows: the deskbus's coalesced batches (log:batch).
 EventsOn('log:batch', (rows) => {
   measureHandler(rows || [], () => appendRows(rows || []));
 });
 
-// the progress row (SegmentBar twin + the reference's terminal formats)
-EventsOn('job:progress', (p) => {
+// the typed bus events (the production transport): the batch progress
+// fills the segment bar; the honest pipeline row carries its own label.
+EventsOn('bus:progress', (p) => {
+  if (!p || !p.total) return;
   barFill.style.width = ((p.pos / p.total) * 100).toFixed(1) + '%';
   barLabel.textContent = p.pos + ' / ' + p.total;
   barLabel.className = 'progress-count';
+});
+EventsOn('bus:job-progress', (jp) => {
+  if (!jp) return;
+  if (jp.max > 0) {
+    barFill.style.width = ((jp.value / jp.max) * 100).toFixed(1) + '%';
+    barLabel.textContent = jp.label + ' — ' + jp.value + ' / ' + jp.max;
+    barLabel.className = 'progress-count';
+  }
+});
+EventsOn('bus:status', (st) => {
+  if (st && st.text) appendRows([{ ts: nowTs(), level: 'info', msg: st.text }]);
+});
+EventsOn('bus:batch-finished', (bf) => {
+  if (!bf) return;
+  barLabel.textContent = bf.ok ? '✅ Done' : '❌ Failed';
+  barLabel.className = 'progress-count ' + (bf.ok ? 'done' : 'failed');
+  appendRows([{ ts: nowTs(), level: bf.ok ? 'success' : 'error', msg: 'batch: ' + (bf.summary || '') }]);
 });
 
 // the flood probe — TWO honest instruments:
@@ -195,45 +214,6 @@ MarkFirstFrame().then((d) => {
   sentinels.appendChild(badge);
 });
 
-// THE hero: the real job (one job at a time — the batch law)
-btnJob.addEventListener('click', async () => {
-  btnJob.disabled = true;
-  btnFlood.disabled = true;
-  barLabel.textContent = 'Scanning…';
-  try {
-    const summary = await RunBaselineJob();
-    barLabel.textContent = '✅ Done';
-    barLabel.className = 'progress-count done';
-    appendRows([{ ts: nowTs(), level: 'info', msg: 'job: ' + summary }]);
-  } catch (e) {
-    barLabel.textContent = '❌ Failed';
-    barLabel.className = 'progress-count failed';
-    appendRows([{ ts: nowTs(), level: 'error', msg: 'job failed: ' + e }]);
-  }
-  btnJob.disabled = false;
-  btnFlood.disabled = false;
-});
-
-btnFlood.addEventListener('click', async () => {
-  btnFlood.disabled = true;
-  try {
-    const stats = await FloodLines(10000);
-    appendRows([{ ts: nowTs(), level: 'info', msg: 'flood: ' + stats }]);
-  } catch (e) {
-    appendRows([{ ts: nowTs(), level: 'error', msg: 'flood failed: ' + e }]);
-  }
-  btnFlood.disabled = false;
-});
-
-btnStats.addEventListener('click', async () => {
-  try {
-    const s = await Stats();
-    appendRows([{ ts: nowTs(), level: 'info', msg: 'stats: ' + s.replace(/\s+/g, ' ') }]);
-  } catch (e) {
-    appendRows([{ ts: nowTs(), level: 'error', msg: 'stats failed: ' + e }]);
-  }
-});
-
 // the chips + search + clear doors
 document.querySelectorAll('.chip').forEach((c) => {
   c.addEventListener('click', () => {
@@ -249,7 +229,7 @@ search.addEventListener('input', () => {
   rerenderFromCache();
 });
 
-btnClear.addEventListener('click', async () => {
+document.getElementById('btn-clear').addEventListener('click', async () => {
   try { await ClearDesk(); } catch (e) { /* the local wipe still happens */ }
   cache = [];
   showEmpty();

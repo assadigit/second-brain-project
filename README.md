@@ -495,6 +495,57 @@ landed-shape note (the deltas the port's own laws forced — recorded,
 not improvised). T-72 (the frontend foundation: the theme-token CSS
 golden + the production log desk) is the next session's primary task.
 
+**SESSION-035 — T-72 COMPLETE: THE FRONTEND FOUNDATION (the
+theme-token golden + the production log desk + the production shell
+binding internal/app directly)**: the recovery first (the THIRTIETH
+full wipe BEFORE work — everything rebuilt from the committed recipes
+again: both repos re-cloned at the pinned revs, go1.27.2 sha-verified,
+the venv, the wails CLI, and THE ROOTLESS WEBKIT TREE rebuilt + the
+dev-symlink relinking for the fresh base image, PROVEN at both levels
+— the CGO build + the headless gate re-run GREEN). The suite
+re-verification then caught a REAL production race: deskbus's
+post-Stop push was a ~50/50 select coin flip (a below-cap send and a
+closed stop both ready) — a line could be silently swallowed after
+Stop; fixed deterministically (the stop-check before the send, commit
+`cc89cb0`; the test untouched, `-count=50 -race` green), plus hygiene
+(52 wipe-era mode flips restored to 644, the orphan 5.7 MB wails
+binary removed — `2502e7a`). Then T-72 in two slices, each
+committed+pushed: **(a) `88e5c6b` — the theme-token CSS golden + the
+icon-pack golden**: dump_theme.py + dump_icons.py (the reference-driven
+generators; harness-side PyQt6 stubs — the venv is stdlib-only;
+registered in the corpus, 33 generators) → TWO goldens locking THREE
+twins: the Go tables (webui/uitheme — 76 LIGHT + 76 DARK tokens + the
+28-glyph lucide-static pack), the CSS var dump (frontend/theme.css,
+the FULL tables incl. the `[data-theme="dark"]` plum night), and the
+JS pack (frontend/icons.js, currentColor tint, the reference's
+_LOG_LEVEL_ICONS law) — a struct-marshal-order trap caught on the
+first run (maps sort keys; structs emit declaration order); the spec's
+"30 glyphs" corrected to the real 28; **(b) the production shell**:
+webui/shell.go binds internal/app DIRECTLY (guibridge/ RETIRED,
+deleted with its tests; the T-70 gate legs retired with it), the typed
+Bus → the shell's one subscriber → the deskbus (120 ms/≤250) → the
+cache-mirror desk, the startup passes speaking their real lines through
+the same transport, the single-instance lock before the window
+(AppLock.Refused added — the alive-PID refusal exits 1, every other
+failure CONTINUES WITHOUT), the sync_card CTA band (the 56px SYNC
+hero, honestly disabled until T-77's hero machine). The DISSOLUTION
+probe ran FIRST per Am.4's law: importing wails into the MAIN module
+forces x/net v0.56.0 + x/text v0.39.0 + the 1.25.0 directive —
+BLOCKED by the authorized-pins law; fully reverted, the boundary stays
+nested, the owner's call recorded in **ADR-0002 Am.5** (the direct
+binding rides Am.4's probe; the nested go.mod gained the transitive
+requires as indirect, the MAIN go.mod byte-unchanged). **The acceptance
+GREEN: the token golden + the log perf test** — the headless transport
+test (10k lines through the REAL internal/app Bus at ≥1.07M lines/s,
+0 drops, every batch ≤250) + the end-to-end gate leg (first frame
+283 ms ≤ 1.5 s; the 10k flood through the FULL production chain at
+434,782 lines/s producer-side / 173 ms drain, 0 drops, 41 batches,
+22 ms max handler — the main thread free ~93%, all 10,001 rows
+rendered). **1994 main-battery tests race-clean over 35 packages
+(1999 − 5 guibridge, arithmetic closed) + 21 webui tests over 4
+packages (12 + 6 uitheme + 3 shell).** T-73 (Settings pages A) opens
+next.
+
 ## Map
 
 | What | Where |

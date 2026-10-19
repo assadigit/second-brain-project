@@ -40,6 +40,13 @@ type AppLock struct {
 	// false — and the reference's law is CONTINUE WITHOUT IT (never
 	// exit on a lock failure).
 	Held bool
+	// Refused is true ONLY on the alive-PID path — another instance is
+	// running right now. That is the ONE not-held case whose reference
+	// behavior is sys.exit(1) (app.py: "Another instance is already
+	// running. Exiting."); every other failure CONTINUES WITHOUT the
+	// lock. Exposed so the shells can honor the distinction (added at
+	// T-72; the callers before it had no way to tell the paths apart).
+	Refused bool
 	// exclusive is false on the last-resort overwrite path (the
 	// reference: "we don't have an exclusive lock, but that's OK").
 	exclusive bool
@@ -80,6 +87,7 @@ func AcquireAppLock(path string) *AppLock {
 	oldPID, readable := readLockPID(path)
 	if readable && oldPID > 0 && isProcessRunning(oldPID) {
 		fmt.Printf(anotherInstanceLine+"\n", oldPID)
+		l.Refused = true
 		return l
 	}
 

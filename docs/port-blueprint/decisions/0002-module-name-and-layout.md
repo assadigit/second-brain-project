@@ -202,3 +202,76 @@ UNDER the parent-of-internal prefix
   decision must run the probe first (the ten-line file above) — the rule's
   edge at local-`replace` nested modules bites in the OTHER direction than
   Am.3 assumed.
+
+## Amendment 5 — the T-72 dissolution probe: the boundary STAYS nested (2026-10-19, SESSION-035, T-72)
+
+**Status: applied — the mandate's own module-boundary law (Am.4: probe
+before claiming) was run BEFORE any move; the probe's evidence blocks the
+dissolution as mandated, and the session landed the rest of T-72 on the
+nested shape.**
+
+The T-72 mandate (per the state card v35): "webui/ dissolves into the
+main module and binds internal/app DIRECTLY … the module-boundary moves
+need ADR-0002's next amendment (probe before claiming any boundary
+rule — Am.4's law)."
+
+**The probe** (run in the MAIN module, go1.27.2, then fully reverted —
+git restore go.mod go.sum; the tree ended byte-identical to HEAD):
+
+```sh
+go mod edit -require=github.com/wailsapp/wails/v2@v2.16.0
+go get github.com/wailsapp/wails/v2@v2.16.0   # exit 0
+go build ./internal/probe/                    # exit 0 (after the sum)
+```
+
+- wails v2.16.0's own go.mod (the module cache copy) declares:
+  `go 1.25.0`, `golang.org/x/net v0.56.0` (direct),
+  `golang.org/x/crypto v0.53.0 // indirect`,
+  `golang.org/x/text v0.39.0 // indirect`.
+- `go get` therefore rewrote the MAIN go.mod: the directive
+  1.24.1 → **1.25.0**, and the authorized pins were BUMPED:
+  x/net v0.48.0 → **v0.56.0**, x/text v0.32.0 → **v0.39.0**,
+  x/crypto v0.46.0 → v0.53.0, x/sys v0.39.0 → v0.46.0.
+
+**The blocker:** the authorized runtime set is EXACTLY
+"modernc.org/sqlite v1.36.1, tls-client v1.16.0, x/net v0.48.0,
+x/text v0.32.0 — do not bump any" (the session mandate, carrying
+ADR-0002 Am.2). Importing wails into the MAIN module is impossible
+without bumping x/net and x/text past their authorized pins — MVS
+resolves to wails' own requirements, and a `replace` downgrade would
+compile wails' code against older APIs than its go.mod declares (the
+improvise-past-a-blocker path the standing laws forbid). This is a
+decision for the OWNER, not a call for the session:
+
+  (a) amend the authorized set (accept wails' forced pins in the MAIN
+      module) — then the dissolution can proceed exactly as mandated;
+  (b) keep the nested module (this session's working shape) — the
+      boundary costs one `replace` line, and Am.4's probe already
+      proved the nested module may import the parent's internal/
+      packages, so the DIRECT binding loses nothing.
+
+**What landed on (b) at T-72** (the rest of the mandate, unblocked):
+
+- `guibridge/` RETIRED (deleted with its tests, per the retirement law
+  — "when the production shell replaces its wiring"); webui/shell.go
+  binds `internal/app` DIRECTLY: the typed Bus → the shell's one
+  subscriber (LogLine → the deskbus's coalescing push; the progress/
+  status/batch events cross to the frontend as wails events), the
+  startup passes speak their real lines through the same transport,
+  and the single-instance lock is taken before the window (the
+  alive-PID refusal now distinguishable via AppLock.Refused — additive,
+  added at T-72; the OS-error path still CONTINUES WITHOUT the lock).
+- The nested module's go.mod gained the transitive requires the direct
+  internal/app import pulls (tls-client etc. as INDIRECT requires via
+  the parent replace — the nested module's own DIRECT requires stay
+  wails + the parent; nothing in the MAIN module's go.mod changed).
+- The CLI-parity shell wiring (warmup family, inputs fetchers, websites
+  phase, Phase-5 CLEAR) still lands on the app surface at a later
+  binding (T-73+ per the task list); T-72's scope was the frontend
+  foundation and it is COMPLETE without it.
+
+If the owner later picks (a), the move is mechanical: the webui module
+dissolves into the main tree (the shell at webui/ in the main module +
+the GUI entry at cmd/gitcurator/main.go per doc 04 §1), the wails
+require enters the main go.mod, and this amendment gains a successor
+recording the authorized-set change.

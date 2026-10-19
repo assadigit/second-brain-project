@@ -5,29 +5,48 @@ from Phase 6 onward (ADR-0001: workflow-preserving HTML replica; no visual
 redesign — `docs/port-blueprint/07-ui-and-performance-assessment.md` Part D
 marks the boundary).
 
-## What lives here now (T-70, the PoC C GUI-shell gate)
+## What lives here now (T-72, the frontend foundation)
 
-The **T-70 gate shell** — the themed window + the coalesced log desk + ONE
-REAL JOB wired through (the note-state baseline over a generated fixture
-vault, via the `guibridge/` seam in the parent module):
+The **production shell** — the themed window over the production
+composition, binding `internal/app` DIRECTLY (the `guibridge/` interim
+seam RETIRED at this landing, deleted with its tests):
 
-- `main.go` + `app.go` + `job.go` — the wails shell: the LIGHT-token window
-  (1000×750, cream `BackgroundColour`), the desk bus wiring, the cold-start
-  clock, the real job, the 10k flood leg, the honest measurement file.
+- `main.go` + `shell.go` — the wails shell: the golden-locked token
+  tables drive the window (uitheme.RGBA), the typed Bus fans the
+  engines' events to this shell's ONE subscriber (LogLine → the
+  deskbus's coalescing push; progress/status/batch events cross to the
+  frontend as wails events), the startup passes (sentinel, llama
+  autodetect, quiet heal, backlog, radar) speak their real lines onto
+  the desk through the same transport, the single-instance app.lock is
+  taken before the window (the alive-PID refusal exits 1 — the
+  AppLock.Refused distinction added at T-72; every other lock failure
+  CONTINUES WITHOUT the lock), and the shutdown drains the desk then
+  runs the graces.
 - `deskbus/` — THE COALESCED LOG's Go half (pure, headless-tested): the
   120 ms flush beat, the ≤250-row batches, the cap-1024 backpressure
-  channel, the synchronous clear door.
-- `fixture/` — the deterministic synthetic vault (no owner data).
+  channel, the synchronous clear door, and (T-72's fix) the
+  deterministic post-Stop refusal.
+- `uitheme/` — the theme-token + icon-pack twins, golden-locked against
+  the reference (testdiff/goldens/dump_theme.py + dump_icons.py →
+  testdata/*.golden.json): the Go tables (76 LIGHT + 76 DARK tokens),
+  the 28-glyph lucide-static pack, and the tests that also lock the
+  CSS twin (frontend/theme.css) and the JS twin (frontend/icons.js)
+  against the same goldens.
 - `frontend/` — vanilla HTML/CSS/JS (no npm step; `wails.json`'s
-  install/build commands are empty): the spec-gui-theme-icons LIGHT token
-  table as CSS vars, the btn_kind grammar (one filled primary), the
-  SegmentBar twin, the chips + search + clear doors, the cache-mirror desk
-  (cap 1000, filter re-render from cache, per-row tooltip), the four
-  lucide-static glyphs, and the flood probe (handler-time + task-gap).
+  install/build commands are empty): `theme.css` (the FULL token
+  tables, LIGHT + the `[data-theme="dark"]` plum night), `style.css`
+  (the §2 type-scale + component classes), `icons.js` (the pack, tinted
+  via currentColor; the reference's _LOG_LEVEL_ICONS law), the
+  cache-mirror desk (cap 1000, filter re-render from cache, per-row
+  tooltip), the layout shell (the sync_card CTA band — the 56px SYNC
+  hero + Fast Sync + Scan + Test Connectivity, honestly disabled until
+  T-77's hero button machine), and the flood probe instruments.
+- `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
-  path shim (committed this time) + `run-gate.sh` (the Xvfb autorun leg).
+  path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's
+  end-to-end evidence).
 
-## The module laws (ADR-0002 Am.3 + Am.4)
+## The module laws (ADR-0002 Am.3 + Am.4 + Am.5)
 
 - This is a **nested Go module**
   (`module github.com/assadigit/second-brain-project/webui`) requiring
@@ -36,15 +55,17 @@ vault, via the `guibridge/` seam in the parent module):
   four. Build with the pinned wails CLI (v2.16.0 — see
   `build/TOOLCHAIN.md` Am.3 for the full record).
 - The nested module CAN import the parent's `internal/` packages (Am.4's
-  boundary-probe correction) — the `guibridge/` seam is kept for its
-  architectural value (doc 04 §2's event-seam shape, main-battery tested),
-  not as a forced boundary.
-- **THE RETIREMENT LAW**: this module dissolves at T-72, when the
-  production shell lands in the main module (`webui/bindings.go` importing
-  `internal/app` directly; the wails require enters the main `go.mod` via
-  its own ADR-0002 amendment) and `guibridge/` retires with it.
+  boundary-probe correction) — and at T-72 it DOES: `shell.go` binds
+  `internal/app` directly (the guibridge seam retired). The nested
+  module's go.mod gained the transitive requires that import pulls
+  (indirect, via the parent replace); the MAIN module's go.mod is
+  byte-unchanged.
+- **The T-72 dissolution probe (Am.5)**: importing wails into the MAIN
+  module forces x/net v0.56.0 + x/text v0.39.0 + the 1.25.0 directive —
+  bumps the authorized-pins law forbids. The boundary STAYS nested; the
+  owner's call (amend the set vs keep the boundary) is recorded there.
 
-## Build & run (the gate's own recipe)
+## Build & run (the committed recipe)
 
 ```sh
 # Linux dev leg (CGO + the rootless webkit tree — ADR-0002 Am.3's CGO story):
@@ -59,8 +80,9 @@ cd build-support && ./run-gate.sh
 wails build -platform windows/amd64
 ```
 
-The gate's verdict + measurements: `docs/poc-artifacts/t-70-gate.md` (the
-artifacts: `t-70-gate-results.json`, `t-70-gate-screenshot.png`).
+The T-70 gate's verdict + measurements: `docs/poc-artifacts/t-70-gate.md`.
+The T-72 perf evidence (the log perf test through the production
+transport): SESSION-035's report + `t70-gate-results.json` shapes.
 
 The build output (`build/bin/`) never enters git; the exe icon is the wails
 default — the brand-mark swap (`assets/icons/gitcurator.ico`) is the

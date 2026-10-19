@@ -12,7 +12,7 @@ set -eu
 
 TREE=${HOME}/.local/lib-wails
 HERE=$(cd "$(dirname "$0")" && pwd)
-BIN=$(cd "$HERE/../build/bin" && pwd)/gitcurator-t70-gate
+BIN=$(cd "$HERE/../build/bin" && pwd)/gitcurator-shell
 RESULTS=${SB_POC_RESULTS:-/tmp/t70-gate-results.json}
 SHOT=${SB_SCREENSHOT:-/tmp/t70-gate-screenshot.png}
 WAIT=${1:-6}

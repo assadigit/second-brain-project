@@ -7,9 +7,13 @@
 //
 // It is the production evolution of the guibridge/ seam (T-70, the
 // Phase-6 entry gate's real-job wiring) and webui/deskbus (the
-// coalescing log desk's Go half); guibridge RETIRES at T-72, when
-// webui/ dissolves into the main module and binds internal/app
-// directly.
+// coalescing log desk's Go half); guibridge RETIRED at T-72
+// (SESSION-035, deleted with its tests): the shell binds this
+// package DIRECTLY from the nested webui module (ADR-0002 Am.4's
+// probe). The full dissolution into the main module is BLOCKED by the
+// authorized-pins law — wails v2.16.0's own go.mod demands x/net
+// v0.56.0 + the 1.25.0 directive; the probe record + the owner's
+// pending call live in ADR-0002 Am.5.
 //
 // The files:
 //
