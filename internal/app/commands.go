@@ -115,6 +115,13 @@ type BatchOptions struct {
 	URLs []string
 	// Source is the intake source label: "bot" | "direct" | "import".
 	Source string
+	// Mode is the engine's dispatch mode: "direct" (the default) |
+	// "import" | "review_retry" | "master_retry" (the T-74 wiring's
+	// re-host; the Sync view's retry doors ride the retry modes).
+	Mode string
+	// ImportFile is the import-mode file path (the inputs fetcher's
+	// subject — the Input page's PROCESS door hands it here).
+	ImportFile string
 	// NonGithub is the non-GitHub intake (inbox notes / the websites
 	// phase's list).
 	NonGithub []string

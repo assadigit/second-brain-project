@@ -5,19 +5,15 @@
 // the contract tests in commands_test.go already proved the
 // transport; a wiring smoke test proves the composition below).
 //
-// THE BATCH WIRING'S HONEST SCOPE (recorded per the mandate's own
-// one-slice-properly law): the app's batch default is the direct
-// engine composition — the pre-loop state (the manifest tracker, the
-// vault index, the note-state DB, the cache), the runner with its
-// events wired bus-ward (LLMDecision → the 600 s gate — the GUI's
-// failure-modal path, NOT the CLI's headless warmup ladder), the
-// GitHub loop, the closes, and the Finish chain. The CLI-parity
-// shell wiring (the warmup family, the inputs fetchers, the websites
-// phase, the Phase-5 CLEAR) remains the CLI's own composition and
-// lands on the app's surface at T-72's binding (webui/ dissolving
-// in) — until then the app's batch runs the runner's own laws, and
-// the reference's GUI batch ran exactly this shape before its mixins
-// grew.
+// THE BATCH WIRING (T-74, slice 1 — the CLI-parity re-host): the app's
+// batch engine is now engine.go's runImpl composition re-hosted on
+// this surface (batchwire.go): the warmup family, the inputs fetchers,
+// the setup family's full intake (the banned/self drops + the _inbox
+// tables), the repos banishment + settled ledger + backfill + the §4.4
+// both-vault passes, the websites phase, the finish seals + THE
+// PHASE-5 CLEAR + the dry-run law. The honest-scope debt T-73 carried
+// is closed; the shell (webui) drives exactly the composition the CLI
+// drives, over the same engine packages.
 package app
 
 import (
@@ -81,6 +77,28 @@ type App struct {
 	OllamaFactory   func(host string) llmclient.OllamaAPI
 	BannerDownload  func(owner, repoName, folder string) string
 
+	// The batch wiring's own doors (T-74, slice 1 — batchwire.go's
+	// seams; the warmup family + the Phase-5 CLEAR's network legs,
+	// fakeable at construction per the hermetic law):
+	// ProbeLlama is the one-address llama.cpp probe
+	// (llmclient.ProbeLlamaCpp).
+	ProbeLlama func(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult
+	// DetectLlama is the process-ports + common-ports scan
+	// (llmclient.DetectLlamaCpp).
+	DetectLlama func(apiKey string) *llmclient.ProbeResult
+	// AutostartServe spawns `ollama serve` detached ((pid, "") or
+	// (0, errClass)).
+	AutostartServe func() (int, string)
+	// CloudListModels is the cloud /models pre-flight door (the
+	// Anthropic/OpenAI flavor split by URL).
+	CloudListModels func(apiURL, apiKey string, timeoutS float64) ([]string, error)
+	// WorkerMirrorPush is THE PHASE-5 CLEAR's ack leg (the disabled
+	// Worker is silent — the (false,false,nil) law).
+	WorkerMirrorPush func(cfg *storage.OrderedMap, entries, decommissionEvents []any, vaultIndexHash string) (bool, bool, any)
+	// WriteLiveConfig persists the live map (config.Save's atomic +
+	// mirror law); the model-changed saves ride it.
+	WriteLiveConfig func(cfg *storage.OrderedMap) bool
+
 	// appLock is the single-instance lock (nil until Acquire).
 	appLock *AppLock
 }
@@ -116,6 +134,33 @@ func New(configPath string, headless bool) *App {
 	}
 	a.OllamaFactory = func(host string) llmclient.OllamaAPI {
 		return llmclient.NewOllamaClient(host)
+	}
+	a.BannerDownload = nil // the runner's real DownloadBanner
+
+	// The batch wiring's production doors (T-74, slice 1).
+	a.ProbeLlama = llmclient.ProbeLlamaCpp
+	a.DetectLlama = func(apiKey string) *llmclient.ProbeResult {
+		return llmclient.DetectLlamaCpp(apiKey, llmclient.LLamaCppScanPorts,
+			"127.0.0.1", llmclient.LLamaCppProbeTimeoutS, true)
+	}
+	a.AutostartServe = spawnOllamaServe
+	a.CloudListModels = func(apiURL, apiKey string, timeoutS float64) ([]string, error) {
+		if llmclient.IsAnthropicURL(apiURL) {
+			return llmclient.AnthropicListModels(apiURL, apiKey, timeoutS)
+		}
+		return llmclient.OpenAIListModels(apiURL, apiKey, timeoutS)
+	}
+	a.WorkerMirrorPush = func(cfg *storage.OrderedMap, entries,
+		decommissionEvents []any, vaultIndexHash string) (bool, bool, any) {
+		s := workerclient.NewSync(cfgPlainMap(cfg))
+		if !s.IsEnabled() {
+			return false, false, nil
+		}
+		ok, resp := s.PushVaultMirror(entries, decommissionEvents, vaultIndexHash)
+		return true, ok, resp
+	}
+	a.WriteLiveConfig = func(cfg *storage.OrderedMap) bool {
+		return config.Save(configPath, cfg)
 	}
 	a.Commands = NewCommands(a.Bus, Deps{
 		Config:        a.loadConfig,
@@ -340,136 +385,13 @@ func (a *App) radar(cfg *storage.OrderedMap, log LogFn) *RadarResult {
 }
 
 // ---------------------------------------------------------------------------
-// The batch composition (the runner over the pre-loop state).
+// The batch composition — batchwire.go's CLI-parity re-host (T-74).
 // ---------------------------------------------------------------------------
 
-// runBatch is the app's batch engine: the manifest tracker, the
-// vault index, the note-state DB, the cache, the runner with its
-// events wired bus-ward (LLMDecision → the gate when a GUI answers;
-// the runner's own headless ladder otherwise), the GitHub loop, the
-// closes, the Finish chain.
+// runBatch is the app's batch engine: the runImpl composition
+// re-hosted (see batchwire.go's file doc for the full law).
 func (a *App) runBatch(ctx context.Context, cfg *storage.OrderedMap, opts BatchOptions, ev BatchEvents) *BatchResult {
-	cfgPlain := cfgPlainMap(cfg)
-	vaultPath := pyStrCfg(cfg, "vault_path")
-	urls := opts.URLs
-	total := len(urls)
-
-	// The manifest tracker (the batch's own bookkeeping).
-	tracker := batch.NewLinkTracker(vaultPath)
-	source := opts.Source
-	if source == "" {
-		source = "direct"
-	}
-	tracker.SetSource(source)
-	tracker.Intake(urls, opts.NonGithub)
-	if ev.Log != nil {
-		ev.Log(fmt.Sprintf("📋 Manifest created: %d GitHub + %d non-GitHub "+
-			"links recorded", len(urls), len(opts.NonGithub)), "info")
-	}
-
-	// The vault index + the note-state DB + the cache.
-	vi := batch.NewVaultIndex(vaultPath, nil)
-	vi.Rebuild(nil)
-	var noteStateDB *notestate.DB
-	if vaultPath != "" {
-		if nd, err := notestate.New(cacheDBPathOf(cfg)); err == nil {
-			noteStateDB = nd
-		}
-	}
-	cachePath := cacheDBPathOf(cfg)
-	var cache *store.CacheDB
-	if cc, err := store.NewCacheDB(cachePath); err == nil {
-		cache = cc
-	}
-
-	// The dead + settled sets (the loop's own gates).
-	deadURLs := map[string]bool{}
-	settled := map[string]bool{}
-	if cache != nil {
-		deadURLs = cache.GetDeadURLSet(store.DeadLinkThreshold)
-		settled = cache.GetSettledRepoSet()
-	}
-	dismissed := map[string]bool{}
-	if noteStateDB != nil {
-		if ds, err := noteStateDB.DismissedSet(notestate.VaultGithub); err == nil {
-			dismissed = ds
-		}
-	}
-
-	// The runner (the GUI shape: NOT headless — the LLM failure door
-	// rides the bus's gate when a subscriber answers).
-	r := githubpipeline.NewRunner(cfgPlain)
-	r.Start()
-	// The LLM collaborators resolved from the config (the GUI shape —
-	// no CLI warmup ladder: a dead server surfaces through the
-	// runner's own LLM failure door, exactly like the reference's
-	// ProcessingWorker).
-	r.LLMProvider = strings.ToLower(strings.TrimSpace(pyStrCfg(cfg, "llm_provider")))
-	if r.LLMProvider == "" {
-		r.LLMProvider = "ollama"
-	}
-	if r.LLMProvider == "ollama" {
-		base := strings.TrimRight(cfgNestedStr(cfg, "ollama", "base_url",
-			"http://localhost:11434"), "/")
-		if a.OllamaFactory != nil {
-			r.OllamaClient = a.OllamaFactory(base)
-		} else {
-			r.OllamaClient = llmclient.NewOllamaClient(base)
-		}
-		r.Model = cfgNestedStr(cfg, "ollama", "model", "")
-	}
-	r.Cache = cache
-	r.NoteStateDB = noteStateDB
-	r.VaultIndex = vi
-	r.LinkTracker = tracker
-	r.Total = total
-	r.NonGithubURLs = opts.NonGithub
-	r.IntakeDuplicates = opts.IntakeDuplicates
-	r.RawURLCount = opts.RawURLCount
-	r.BotSource = source == "bot"
-	r.NewGHClient = a.GHClientFactory
-	if a.BannerDownload != nil {
-		r.BannerFn = a.BannerDownload
-	}
-	r.Log = ev.Log
-	r.OnStatus = ev.Status
-	r.OnProgress = ev.Progress
-	r.OnDiskFull = ev.DiskFull
-	r.OnModelChanged = ev.ModelChange
-	if ev.LLMDecision != nil {
-		r.LLMDecisionFn = func(repoName string, attempt int, err error,
-			client llmclient.OllamaAPI, model string) string {
-			return ev.LLMDecision(repoName)
-		}
-	}
-	if ev.ModelPrompt != nil {
-		r.ModelPromptFn = ev.ModelPrompt
-	}
-	fin := &BatchResult{}
-	r.Finished = func(ok bool, msg string) {
-		fin.Success = ok
-		fin.Message = msg
-		fin.Processed = r.Processed
-		fin.Total = r.Total
-	}
-
-	r.RunGitHubLoop(urls, deadURLs, dismissed, settled, store.DeadLinkThreshold)
-
-	if cache != nil {
-		_ = cache.Close()
-	}
-	if noteStateDB != nil {
-		func() {
-			defer func() { recover() }()
-			_ = noteStateDB.Close()
-		}()
-	}
-	r.Finish()
-	if fin.Message == "" {
-		fin.Success = false
-		fin.Message = "the batch engine finished without a verdict"
-	}
-	return fin
+	return a.runBatchEngine(cfg, opts, ev)
 }
 
 // ---------------------------------------------------------------------------
