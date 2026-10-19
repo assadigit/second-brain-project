@@ -228,6 +228,41 @@ startup ≤ 1.5 s; log flood smooth).
 > main-battery tests over 35 packages race-clean + 21 webui tests over
 > 4 packages. T-73 (Settings pages A) is the next session's task; the
 > vanilla-vs-vite call + the dissolution question remain the owner's.
+> **SESSION-036 (2026-10-19): T-73 COMPLETE — the Settings pages A.**
+> The thirty-first full wipe absorbed before work (both repos re-cloned
+> with the ephemeral GIT_CONFIG_COUNT PAT form, the toolchain + venv +
+> wails CLI + webkit tree rebuilt — the 26 dev-symlink relinks again;
+> the full battery re-verified green pre-work). T-73 in two slices:
+> (a) internal/app/settings.go — THE LIVE-CONFIG LAW (config.json loads
+> ONCE at construction through the GUI load path; the session-held
+> *storage.OrderedMap, saves mutate IN PLACE — the reference's
+> self.config semantics; the old missing-file→empty-map wiring
+> assertion corrected to the reference's own deepcopy(CONFIG_EXAMPLE)
+> behavior) + the six pages' engines over injectable SettingsDeps: the
+> ONE merge save (all four v30 laws — MERGE never whitelist-rebuilds,
+> absent groups keep config, in-place clear+update, atomic write +
+> mirror BEFORE the mutation, the 250 ms sentinel re-arm), the
+> five-rung vault ladder, the snapshot (populate_vaults' dedupe +
+> no-pre-selection), TestGitHubToken as-typed, the About Me wizard,
+> Ollama Refresh/Start Server, llama.cpp Detect/Refresh + THE SERVER
+> CONFIG GRAB, the Detect & Set fast lane (guard/menu/cancel/SET + the
+> live-fields overlay), the Sound preview gate (BatchSound's
+> one-notice law) — 26 settings tests incl. the save-law battery; (b)
+> the window on the shell: webui/settingsui.go (the thin-shell
+> wrapper + the two native pickers), frontend/settings.js (the gear
+> door, the 190px sidebar with the six rows + the TAB_INFO hints, the
+> six pages rendered from the snapshot, every label/tooltip/help
+> verbatim; THE SAVE-ON-CHANGE law — the commit-cadence dated note:
+> the port commits all six pages per edit where the reference saves
+> creds/proxy/LLM at closeEvent; the mini-dialog kit), the fill line at
+> startup. The acceptance GREEN: the page workflow tests + the
+> save-law tests (35 main packages + 4 webui packages race-clean; the
+> gate leg GREEN — first frame 963 ms, the 10k flood 526,315 lines/s, 0
+> drops; the screenshot VLM-verified: all six rows, the quiet-truth
+> line VERBATIM). The CLI-parity shell wiring (warmup family, inputs
+> fetchers, websites phase, Phase-5 CLEAR) carried honestly to the
+> T-74+ binding — the one-slice-properly law; it gates T-77's hero
+> batch, not the pages.
 **Work**: `internal/app` commands/event bus completion; frontend pages in dependency order:
 main window chrome + log desk → settings pages (Vault, Credentials, LLM, Proxy, Input) → Bot
 queue + Dashboard → Sync view (flow cards + matrix + differences modal) → Scan flow (picker →

@@ -543,8 +543,65 @@ test (10k lines through the REAL internal/app Bus at ≥1.07M lines/s,
 22 ms max handler — the main thread free ~93%, all 10,001 rows
 rendered). **1994 main-battery tests race-clean over 35 packages
 (1999 − 5 guibridge, arithmetic closed) + 21 webui tests over 4
-packages (12 + 6 uitheme + 3 shell).** T-73 (Settings pages A) opens
+packages (12 + 6 uitheme + 3 shell).** T-73 (Settings pages A) opened
 next.
+**SESSION-036 — T-73 COMPLETE: THE SETTINGS PAGES A (the six pages live
+on the production shell)**: the thirty-first full wipe
+absorbed before work (everything rebuilt from the committed recipes,
+the full battery re-verified green pre-work), then two slices, each
+committed+pushed: **(a) `595a362` — internal/app/settings.go, the
+settings command surface**: THE LIVE-CONFIG LAW (config.json loads ONCE
+at construction through the GUI load path — the fresh detection, the
+example base, THE FILL, the credential strip heal — and the app holds
+the SAME map for the session, the reference's self.config; saves mutate
+it IN PLACE, never a rebind; the missing-file case loads the example
+base like the reference's deepcopy(CONFIG_EXAMPLE), the old wiring
+assertion corrected to pin it) + the six pages' engines over injectable
+SettingsDeps (the hermetic law): the ONE merge-based save with ALL FOUR
+v30 laws (MERGE never whitelist-rebuilds — unknown/tuning keys survive;
+a page group carries only its keys, an absent group keeps config — the
+hasattr pattern as the group-pointer law; the LIVE map mutates in
+place, observed by a running-worker fake through the SAME instance; the
+atomic write + the credentials mirror BEFORE the mutation; the 250 ms
+sentinel re-arm; log_level keeps the hardcoded-INFO quirk), the
+five-rung vault status ladder, the snapshot (populate_vaults' dedupe +
+the no-pre-selection law + the blocked/self fields showing the
+LAW+extras union), TestGitHubToken as-typed (the 401/403/network
+lines verbatim), the About Me wizard's pure template + the CWD write,
+RefreshOllamaModels (the v30 in-place ollama.model sync), StartOllamaServer
+(the detached spawn twins on both platforms), llama.cpp Detect/Refresh +
+THE SERVER CONFIG GRAB (the /props limits ride every probe), the Detect
+& Set fast lane (the batch guard, the live-URL snapshot law, the
+single-model auto-apply, the several-models menu door, the honest
+cancel line, the SET law with the live-fields overlay), PreviewSound
+(the exact batch gate's decision half + BatchSound's one-notice
+missing-asset law) — **26 settings tests incl. the save-law battery**;
+**(b) `48157da` — the Settings window on the production shell**:
+webui/settingsui.go (the thin-shell binding wrapper + the two native
+pickers with the reference's dialog titles), frontend/settings.js +
+index.html + style.css (the gear door with the reference's tooltip
+verbatim, the 880×640 window, the 190px sidebar — six rows in the
+reference's order: Credentials, Proxy, Vault, LLM, Input, Sound — the
+icon pack's section glyphs with the two-mode tint, the TAB_INFO hints;
+the six pages rendered from the snapshot with every label/tooltip/
+help text verbatim; THE SAVE-ON-CHANGE law editingFinished/toggled →
+the page savers — the commit-cadence dated note in the spec: the port
+commits all six pages per edit where the reference saves creds/proxy/
+LLM only at closeEvent, every reference-persisted value persists, some
+a commit earlier; the mini-dialog kit for the remove-confirm/wizard/
+model-menu), the v0.69 fill line at startup, the SB_POC_OPEN_SETTINGS
+evidence probe. **The acceptance GREEN: the page workflow tests + the
+save-law (merge/in-place) tests** — 35 main packages + 4 webui
+packages race-clean; the gate leg re-run GREEN (first frame 963 ms ≤
+1.5 s; the 10k flood 526,315 lines/s, 0 drops); the screenshot
+VLM-verified: all six sidebar rows (Credentials selected on the accent
+fill), the Credentials page's fields + buttons, the example-base values
+(API ID "0" — the str() render parity), the user-config quiet-truth
+line VERBATIM. **The CLI-parity shell wiring (warmup family, inputs
+fetchers, websites phase, Phase-5 CLEAR) carried honestly to the T-74+
+binding** — the one-slice-properly law; it gates T-77's hero batch,
+not the pages. T-74 (Settings pages B: Bot, Dashboard, Sources,
+Backup) opens next.
 
 ## Map
 
