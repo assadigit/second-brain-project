@@ -73,6 +73,7 @@ import (
 	"github.com/assadigit/second-brain-project/internal/links"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/storage"
+	"github.com/assadigit/second-brain-project/internal/syncreview"
 )
 
 // GitHubAPIBase is the public GitHub REST root the token test probes
@@ -158,6 +159,15 @@ type Settings struct {
 	// injected doors (T-74 — settingsb.go; nil → the production doors).
 	pagesBSourcesFetchDoor func(url string) (string, error)
 	pagesBOpenURLDoor      func(url string)
+
+	// The Sync page's own state (T-75 — syncview.go): the injected
+	// seams, the lazy ledger instance, the session's queue state (the
+	// Bot page's own check lands it), and the last snapshot (the
+	// modal's + the recompute's fuel).
+	syncDeps      SyncDeps
+	syncLedgerIns *syncreview.DeferredLog
+	syncQueue     *SyncQueueState
+	syncSnapshot  *SyncSnapshot
 }
 
 // NewSettings builds the surface. cfg is the LIVE map the app holds
