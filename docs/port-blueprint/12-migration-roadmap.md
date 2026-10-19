@@ -148,6 +148,26 @@ ZERO Go-port divergences; 1922 tests race-clean over 33 packages; the
 harness case PASS; the report archived at
 docs/poc-artifacts/t-64-corpus-full-run-report.md. Only T-65 (the
 v0.92.0-go.1 tag + zip) remains on Phase 5's books.
+**Progress (SESSION-032, part 2)**: **T-65 COMPLETE — THE CLI PARITY
+RELEASE**: the zip-composition question resolved per the specs (the
+minimal deterministic mkzip slice landed now — build/mkzip with doc 10
+§2's laws + 5 law tests incl. byte-identity; T-80/Phase 7 keeps the
+full builder per F4); the GUI-side launcher pair at the repo root
+(GitCurator.bat with the honest GUI-milestone card,
+GitCurator-DRY-RUN.bat running the CLI exe's safe first run; the
+golden's launchers section grown to the reference's own app-root pair,
+105,092 payload bytes two-run byte-identical, a fourth mutation
+surface); config.example.json (the reference's own bytes) + the Go
+WINDOWS-QUICKSTART.md; the exe built twice byte-identical (760942e4…)
+and the zip built twice byte-identical — GitCurator-v0.92.0-go.1-
+windows.zip, 12 files, 15,988,399 bytes, sha256 d2679a1d…; the tag
+v0.92.0-go.1 at a39cb3d pushed; GitHub release 416838956 published
+with the zip asset (the round-trip download verified byte-identical);
+1927 tests race-clean over 34 packages. **PHASE 5's BOOKS ARE EMPTY
+— the exit gate is GREEN**: the CLI parity release 0.92.0-go.1 is
+tagged with the zip artifact, the differential corpus is green, and
+the owner can run the Go CLI alongside the Python app on real data
+(dry-run first).
 **Exit gate**: the owner can run the Go CLI alongside the Python app on real data (dry-run
 first); differential harness green on the full case list; **CLI parity release `0.92.0-go.1`**
 tagged with the zip artifact.

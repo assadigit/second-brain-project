@@ -422,7 +422,22 @@ under a tied seconds-precision dismissed_at; the Go port faithfully
 mirrors with a map). ZERO Go-port divergences; 1922 tests race-clean
 over 33 packages; the harness case PASS; the report archived at
 docs/poc-artifacts/t-64-corpus-full-run-report.md.
-Next: T-65 (the `v0.92.0-go.1` tag + zip) — Phase 5's last book.
+**SESSION-032 part 2 — T-65 COMPLETE: THE CLI PARITY RELEASE
+`v0.92.0-go.1`**: the zip-composition question resolved per the specs
+(the minimal deterministic mkzip slice — build/mkzip with doc 10 §2's
+laws + 5 law tests; T-80 keeps the full builder per F4) + the GUI-side
+launcher pair at the repo root (GitCurator.bat with the honest
+GUI-milestone card; GitCurator-DRY-RUN.bat — the safe first run via
+the CLI exe; the golden's launchers section grown to the reference's
+own app-root pair, two-run byte-identical, a fourth mutation surface)
++ config.example.json + the Go WINDOWS-QUICKSTART.md. The release: the
+exe double-build identical (760942e4…), the zip double-build identical
+— **GitCurator-v0.92.0-go.1-windows.zip, 12 files, 15,988,399 bytes,
+sha256 d2679a1de9d600e11d2e590016ed5359ca3fe0f841802289506f4cdd43fec
+ecebb**, tag `v0.92.0-go.1`, GitHub release 416838956 with the zip
+asset (round-trip verified). **1927 tests race-clean over 34 packages
+(+5). PHASE 5 CLOSED — the books are empty; Phase 6 (the GUI shell)
+opens next.**
 
 ## Map
 
