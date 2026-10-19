@@ -45,7 +45,7 @@ func (r *recLog) find(msgPart string) (LogLine, bool) {
 }
 
 func TestNewPinsTheReferenceTimeouts(t *testing.T) {
-	b := New()
+	b := NewBus()
 	if b.CodeTimeout != 300*time.Second {
 		t.Fatalf("CodeTimeout = %v, want the reference's 300 s", b.CodeTimeout)
 	}

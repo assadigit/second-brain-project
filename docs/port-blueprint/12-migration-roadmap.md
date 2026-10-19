@@ -188,6 +188,21 @@ startup ≤ 1.5 s; log flood smooth).
 > CLI v2.16.0, the nested webui/ module, the vanilla frontend step, the
 > CGO story) surfaced BEFORE the first wails invocation: ADR-0002 Am.3
 > (+ Am.4's boundary correction). Phase 6's work (T-71…) may proceed.
+>
+> **SESSION-034 (2026-10-19): T-71 COMPLETE — `internal/app` is real.**
+> The composition layer landed in four slices (events/commands+lifecycle
+> seams/DI root, commits 5453214 → 00f4cdb → eb74171 → this row's
+> slice): the typed bus + the three ask-gates (the reference's
+> identical 300/300/600 s windows, the headless + no-reader
+> fail-fasts), the command surface over injected seams with the
+> crash-safety wrapper and the one-batch law, the single-instance
+> app.lock with PID healing, the watchdog, the startup passes at the
+> reference's delays, the shutdown graces, and the production engines
+> (the queue classification, the scan job with both confirm doors, the
+> backup zip, the batch composition). 67 internal/app tests
+> race-clean; the acceptance (the command contract tests + the
+> lock/watchdog tests) GREEN. T-72 (the frontend foundation) is the
+> next session's primary task.
 **Work**: `internal/app` commands/event bus completion; frontend pages in dependency order:
 main window chrome + log desk → settings pages (Vault, Credentials, LLM, Proxy, Input) → Bot
 queue + Dashboard → Sync view (flow cards + matrix + differences modal) → Scan flow (picker →

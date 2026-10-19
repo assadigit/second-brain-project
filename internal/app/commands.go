@@ -81,12 +81,20 @@ type QueueReport struct {
 	PendingURLs     []string
 	PendingWebsites []string
 
+	// SettledList is the settled-repos ledger (the sync display's
+	// dedupe reads it).
+	SettledList map[string]bool
+
 	InVault        int
 	Decommissioned int
 	Blocked        int
 	Self           int
 	Settled        int
 	VaultIndex     *int
+
+	// WebsitesVaultMissing marks the configured-but-missing websites
+	// vault (every non-GitHub link reads as pending).
+	WebsitesVaultMissing bool
 
 	WebsitesInVault   int
 	WebsitesProcessed int

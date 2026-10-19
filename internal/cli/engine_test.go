@@ -214,7 +214,15 @@ func newEngineEnv(t *testing.T) *engineEnv {
 		NewStatusLineFn: func() StatusPainter { return e.rec },
 		GHClientFactory: func(string) githubpipeline.RepoFetcher { return e.fetcher },
 		OllamaFactory:   func(string) llmclient.OllamaAPI { return e.ollama },
-		WorkerFetch:     func(*storage.OrderedMap) (string, []any) { return "disabled", nil },
+		// THE HERMETIC BANNER STUB: without it every engine test ran
+		// the REAL DownloadBanner — a live 500 KB network fetch whose
+		// goroutine could outlive the test (the 15 s join's escape
+		// hatch) and record a late atomic-write into a LATER test's
+		// dry-run window (SESSION-034's root cause of the golden's
+		// intermittent 13th entry — the runner's own doc: "the tests
+		// inject the fake banner"; the golden harness always did).
+		BannerDownload: func(_, _, _ string) string { return "" },
+		WorkerFetch:    func(*storage.OrderedMap) (string, []any) { return "disabled", nil },
 	}
 	return e
 }

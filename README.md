@@ -465,6 +465,36 @@ the verdict: ADR-0001 Am.3. **1932 tests race-clean over 35 packages
 (+5 guibridge) + 12 webui tests (deskbus + fixture, from the nested
 module).**
 
+**SESSION-034 — T-71 COMPLETE: `internal/app` IS REAL (the composition
+layer — doc 04 §2/§5's Qt-replacement seam)**: the recovery first (the
+twenty-ninth full wipe BEFORE work — both repos, the toolchain, the
+venv, and the module cache all gone; everything rebuilt from the
+committed recipes: go1.27.2 sha-verified, both repos re-cloned at the
+pinned revs with the ephemeral GIT_CONFIG_COUNT form, the venv, the
+wails CLI v2.16.0; the rootless webkit tree DEFERRED — T-71 is pure
+Go, the committed recipe rebuilds it when T-72's build legs need it).
+Then T-71 in four slices, each committed+pushed: **(a)** events.go —
+the typed fan-out Bus (the 8 queued Qt signals' transport) + the three
+ask-gates with the reference's IDENTICAL timeouts (300/300/600 s), the
+headless + NO-READER fail-fasts (the hang-bomb law's Go twin); **(b)**
+commands.go + lock.go — the command surface (Sync.FetchQueue/RunBatch/
+FastSync/DriftSeal, Scan.Run/ApplyPlan, Backup.SealVault/Resync/Now/
+Publish, Radar.Detect) over injected seams, every command crash-safe
+with BatchFinished exactly once, + the OpLock (the TelegramLockManager
+port) and the one-batch law; **(c)** lifecycle.go — the single-instance
+app.lock with PID-liveness healing, the watchdog, the startup passes
+at the reference's exact delays, the shutdown graces; **(d)** app.go +
+queue.go + scanjob.go + backupjob.go — the DI root wiring every
+production seam (the queue classification with the settlement at the
+door, the scan job with BOTH confirm doors — the bus gate + the Worker
+scan trio, the backup zip's exclude/FIFO laws, the batch composition
+with LLMDecision→the 600 s gate). **The acceptance (the command
+contract tests + the lock/watchdog tests) GREEN: 67 internal/app tests
+race-clean; the full battery at the close.** doc 04 §2 gained the
+landed-shape note (the deltas the port's own laws forced — recorded,
+not improvised). T-72 (the frontend foundation: the theme-token CSS
+golden + the production log desk) is the next session's primary task.
+
 ## Map
 
 | What | Where |

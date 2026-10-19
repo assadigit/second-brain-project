@@ -146,7 +146,7 @@ func TestIsProcessRunningAliveAndDead(t *testing.T) {
 // ---------------------------------------------------------------------------
 
 func TestWatchdogForceReleasesStuckLock(t *testing.T) {
-	b := New()
+	b := NewBus()
 	tinyTimeouts(b)
 	rec := &recLog{}
 	b.Subscribe(&Handlers{LogLine: rec.log})
@@ -183,7 +183,7 @@ func TestWatchdogForceReleasesStuckLock(t *testing.T) {
 }
 
 func TestWatchdogLeavesFreshLocksAlone(t *testing.T) {
-	b := New()
+	b := NewBus()
 	l := &OpLock{}
 	lc := NewLifecycle(b, l, StartupPasses{})
 	lc.WatchdogInterval = 5 * time.Millisecond
@@ -202,7 +202,7 @@ func TestWatchdogLeavesFreshLocksAlone(t *testing.T) {
 // ---------------------------------------------------------------------------
 
 func TestStartupPassesRunAtTheirCadences(t *testing.T) {
-	b := New()
+	b := NewBus()
 	var mu sync.Mutex
 	seen := map[string]int{}
 	pass := func(name string) func() {
@@ -253,7 +253,7 @@ func TestStartupPassesRunAtTheirCadences(t *testing.T) {
 }
 
 func TestStartupPassOrderObserved(t *testing.T) {
-	b := New()
+	b := NewBus()
 	var mu sync.Mutex
 	var order []string
 	pass := func(name string) func() {
@@ -297,7 +297,7 @@ func TestStartupPassOrderObserved(t *testing.T) {
 }
 
 func TestStartupPassCrashIsolated(t *testing.T) {
-	b := New()
+	b := NewBus()
 	done := make(chan struct{})
 	lc := NewLifecycle(b, &OpLock{}, StartupPasses{
 		Heal:  func() { panic("heal exploded") },
@@ -322,7 +322,7 @@ func TestStartupPassCrashIsolated(t *testing.T) {
 }
 
 func TestStartupCancelledBeforeDelay(t *testing.T) {
-	b := New()
+	b := NewBus()
 	ran := make(chan struct{})
 	lc := NewLifecycle(b, &OpLock{}, StartupPasses{
 		Radar: func() { close(ran) },
@@ -350,7 +350,7 @@ func TestStartupCancelledBeforeDelay(t *testing.T) {
 // ---------------------------------------------------------------------------
 
 func TestShutdownWaitsBatchThenReleases(t *testing.T) {
-	b := New()
+	b := NewBus()
 	l := &OpLock{}
 	lc := NewLifecycle(b, l, StartupPasses{})
 	lc.SentinelDelay = time.Hour
@@ -381,7 +381,7 @@ func TestShutdownWaitsBatchThenReleases(t *testing.T) {
 }
 
 func TestShutdownBatchGraceExpires(t *testing.T) {
-	b := New()
+	b := NewBus()
 	l := &OpLock{}
 	lc := NewLifecycle(b, l, StartupPasses{})
 	lc.SentinelDelay = time.Hour
@@ -412,7 +412,7 @@ func TestShutdownBatchGraceExpires(t *testing.T) {
 }
 
 func TestShutdownDrainsWorkersSequentially(t *testing.T) {
-	b := New()
+	b := NewBus()
 	lc := NewLifecycle(b, &OpLock{}, StartupPasses{})
 	lc.SentinelDelay = time.Hour
 	lc.LlamaDetectDelay = time.Hour
@@ -448,7 +448,7 @@ func TestShutdownDrainsWorkersSequentially(t *testing.T) {
 }
 
 func TestLifecycleTrackWorkerUntrack(t *testing.T) {
-	lc := NewLifecycle(New(), &OpLock{}, StartupPasses{})
+	lc := NewLifecycle(NewBus(), &OpLock{}, StartupPasses{})
 	done := make(chan struct{})
 	un := lc.TrackWorker(done)
 	un()

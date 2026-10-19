@@ -80,7 +80,7 @@ func tinyTimeouts(b *Bus) {
 // ---------------------------------------------------------------------------
 
 func TestSyncFetchQueueHappyPath(t *testing.T) {
-	b := New()
+	b := NewBus()
 	tinyTimeouts(b)
 	rec := &busRec{}
 	rec.subscribe(b)
@@ -121,7 +121,7 @@ func TestSyncFetchQueueStateWords(t *testing.T) {
 		{"disabled", "not configured"},
 		{"error", "poll failed"},
 	} {
-		b := New()
+		b := NewBus()
 		cmds := NewCommands(b, Deps{
 			QueueFetch: func(*storage.OrderedMap) (string, []any) { return tc.state, nil },
 		})
@@ -136,7 +136,7 @@ func TestSyncFetchQueueStateWords(t *testing.T) {
 }
 
 func TestSyncFetchQueueNilSeamRefusesHonestly(t *testing.T) {
-	b := New()
+	b := NewBus()
 	cmds := NewCommands(b, Deps{})
 	rep := cmds.SyncFetchQueue(context.Background())
 	if rep.Success || rep.State != "error" {
@@ -152,7 +152,7 @@ func TestSyncFetchQueueNilSeamRefusesHonestly(t *testing.T) {
 // ---------------------------------------------------------------------------
 
 func TestSyncRunBatchEventWiringAndFinish(t *testing.T) {
-	b := New()
+	b := NewBus()
 	tinyTimeouts(b)
 	rec := &busRec{}
 	rec.subscribe(b)
@@ -210,7 +210,7 @@ func TestSyncRunBatchEventWiringAndFinish(t *testing.T) {
 }
 
 func TestSyncRunBatchOneAtATime(t *testing.T) {
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	started := make(chan struct{})
@@ -269,7 +269,7 @@ func TestSyncRunBatchOneAtATime(t *testing.T) {
 }
 
 func TestSyncRunBatchCrashSafetyAndFinishExactlyOnce(t *testing.T) {
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	cmds := NewCommands(b, Deps{
@@ -305,7 +305,7 @@ func TestSyncRunBatchCrashSafetyAndFinishExactlyOnce(t *testing.T) {
 }
 
 func TestSyncRunBatchNilSeamRefusedButLockClean(t *testing.T) {
-	b := New()
+	b := NewBus()
 	cmds := NewCommands(b, Deps{})
 	res := cmds.SyncRunBatch(context.Background(), BatchOptions{})
 	if res.Success || !strings.Contains(res.Message, "not wired") {
@@ -322,7 +322,7 @@ func TestSyncRunBatchNilSeamRefusedButLockClean(t *testing.T) {
 
 func TestDriftSealManualAndAutoDoors(t *testing.T) {
 	var gotManual []bool
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	cmds := NewCommands(b, Deps{
@@ -349,7 +349,7 @@ func TestDriftSealManualAndAutoDoors(t *testing.T) {
 }
 
 func TestDriftSealQuietLawAndWarningPath(t *testing.T) {
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	cmds := NewCommands(b, Deps{
@@ -369,7 +369,7 @@ func TestDriftSealQuietLawAndWarningPath(t *testing.T) {
 	}
 	// The manual door with an empty verdict refuses honestly (the
 	// explicit press always deserves its verdict).
-	b2 := New()
+	b2 := NewBus()
 	cmds2 := NewCommands(b2, Deps{
 		DriftSeal: func(cfg *storage.OrderedMap, manual bool, log LogFn) (string, string) {
 			return "", ""
@@ -379,7 +379,7 @@ func TestDriftSealQuietLawAndWarningPath(t *testing.T) {
 		t.Fatalf("silent manual door = %+v, want the honest refusal", r)
 	}
 	// The warning verdict lands at warning level.
-	b3 := New()
+	b3 := NewBus()
 	rec3 := &busRec{}
 	rec3.subscribe(b3)
 	cmds3 := NewCommands(b3, Deps{
@@ -400,7 +400,7 @@ func TestDriftSealQuietLawAndWarningPath(t *testing.T) {
 // ---------------------------------------------------------------------------
 
 func TestScanRunConfirmGateRoundTrip(t *testing.T) {
-	b := New()
+	b := NewBus()
 	tinyTimeouts(b)
 	rec := &busRec{}
 	rec.subscribe(b)
@@ -438,7 +438,7 @@ func TestScanRunConfirmGateRoundTrip(t *testing.T) {
 }
 
 func TestScanRunNilSeamAndCrash(t *testing.T) {
-	b := New()
+	b := NewBus()
 	cmds := NewCommands(b, Deps{})
 	if res := cmds.ScanRun(context.Background(), nil); res.Success || res.Verdict != "error" {
 		t.Fatalf("nil-seam scan = %+v", res)
@@ -455,7 +455,7 @@ func TestScanRunNilSeamAndCrash(t *testing.T) {
 }
 
 func TestScanApplyPlanCarriesThePickingDoor(t *testing.T) {
-	b := New()
+	b := NewBus()
 	var gotKind string
 	var gotSel map[string][]string
 	var gotPlan *vaultscan.Plan
@@ -481,7 +481,7 @@ func TestScanApplyPlanCarriesThePickingDoor(t *testing.T) {
 
 func TestBackupSealVaultKindRouting(t *testing.T) {
 	var kinds []string
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	cmds := NewCommands(b, Deps{
@@ -512,7 +512,7 @@ func TestBackupSealVaultKindRouting(t *testing.T) {
 }
 
 func TestBackupResyncNowPublishVerdicts(t *testing.T) {
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	cmds := NewCommands(b, Deps{
@@ -544,7 +544,7 @@ func TestBackupResyncNowPublishVerdicts(t *testing.T) {
 }
 
 func TestBackupNilSeamsRefuseHonestly(t *testing.T) {
-	b := New()
+	b := NewBus()
 	cmds := NewCommands(b, Deps{})
 	for name, r := range map[string]*SealResultRow{
 		"seal":   cmds.BackupSealVault(context.Background(), "repos"),
@@ -563,7 +563,7 @@ func TestBackupNilSeamsRefuseHonestly(t *testing.T) {
 // ---------------------------------------------------------------------------
 
 func TestRadarDetectStarterGuards(t *testing.T) {
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	cmds := NewCommands(b, Deps{
@@ -598,7 +598,7 @@ func TestRadarDetectStarterGuards(t *testing.T) {
 }
 
 func TestRadarDetectHappyPath(t *testing.T) {
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	cfg := storage.NewOrderedMap()
@@ -630,7 +630,7 @@ func TestRadarDetectHappyPath(t *testing.T) {
 // ---------------------------------------------------------------------------
 
 func TestEveryCommandRecoversPanics(t *testing.T) {
-	b := New()
+	b := NewBus()
 	rec := &busRec{}
 	rec.subscribe(b)
 	boom := func() { panic("boom") }

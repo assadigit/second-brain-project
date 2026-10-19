@@ -94,6 +94,20 @@ type App struct {
 - **One batch at a time**: an app-level mutex + running flag mirrors the TelegramLockManager law
   (owner-scoped acquire/release, 35 min watchdog, `gui/telegram_lock.py`).
 
+> **Landed-shape note (2026-10-19, T-71/SESSION-034 — reality wins, recorded in the landing
+> commit):** the sketch above was indicative; the landed `internal/app` differs where the port's
+> own laws forced it. `Cfg *config.Store` → `App.ConfigPath` + a load door (no `config.Store`
+> type exists — the config package's `Load` returns the live `*storage.OrderedMap`); `Cache
+> *store.DB` → no persistent handle: every composition opens its stores per command and closes
+> them (the store law — one `*sql.DB` per store instance per operation); `Events *events.Bus`
+> → `App.Bus` (`app.Bus`, the same fan-out + the ask-gates with the identical timeouts);
+> `Telegram telegram.Client` → absent by ADR-0004 Am.3/Option B (the MTProto client retired;
+> the queue source is the Worker `/api/pending` poll wired as the `QueueFetch` seam);
+> `LLM llmclient.Router` → the per-provider routing composed in the scan/batch adapters (the
+> task overrides ride `llmclient.ResolveTaskModel`). The batch composition's CLI-parity shell
+> wiring (warmup family, inputs fetchers, websites phase, Phase-5 CLEAR) stays the CLI's own
+> until T-72's binding lands it on the app surface — recorded in the task-list row.
+
 ## 3. Package responsibilities and dependency rules
 
 - `constants`, `links`, `storage`, `dryrun`, `prompts`, `taxonomy` — leaves; import nothing above

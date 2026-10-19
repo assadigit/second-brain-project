@@ -255,8 +255,8 @@ type Bus struct {
 	LLMTimeout  time.Duration
 }
 
-// New builds the bus with the reference's identical timeouts.
-func New() *Bus {
+// NewBus builds the bus with the reference's identical timeouts.
+func NewBus() *Bus {
 	return &Bus{
 		CodeTimeout: CodeAskTimeout,
 		ScanTimeout: ScanAskTimeout,
