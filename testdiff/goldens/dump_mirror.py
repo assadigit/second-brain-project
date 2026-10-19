@@ -517,8 +517,14 @@ _write(ghv, 'Dev Tools/a.md', _rc.insert_recall_block(
     p6._github_note('a', 'https://github.com/a/a'), 'Use when you need to a.'))
 _write(ghv, 'Dev Tools/unmanaged.md', '# nothing\n')
 wsv = os.path.join(TMP, 'cfweb')
+# T-64's corpus law: the duplicate keeps the SAME STEM in a different
+# folder — collect_note_fields keeps the FIRST hit over raw os.walk
+# order (filesystem-dependent, doc 09 §5's quirk law), so a differently
+# named duplicate makes the recorded winner's stem flip between
+# machines. With one stem there is nothing to flip; the duplicate count
+# (the real contract) is unaffected.
 _write(wsv, 'Design/Color Tools/p.md', p6._website_note())
-_write(wsv, 'Design/Color Tools/p-dup.md', p6._website_note())
+_write(wsv, 'Design/Misc/p.md', p6._website_note())
 by_key = _lk.collect_note_fields({'github': ghv, 'websites': wsv})
 OUT['collect_note_fields'] = {
     'duplicates': by_key.get('__duplicate__', {}).get('count', 0),

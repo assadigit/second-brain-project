@@ -791,7 +791,13 @@ func TestGoldenCollectNoteFields(t *testing.T) {
 		{"Design/Color Tools/p.md", websiteNote6(
 			"Palette Gen", "https://palette.example.com",
 			"Use when you need to build a color scheme fast.")},
-		{"Design/Color Tools/p-dup.md", websiteNote6(
+		// T-64: the duplicate keeps the SAME STEM in a different folder —
+		// the reference's collect_note_fields keeps the FIRST hit over raw
+		// os.walk order (filesystem-dependent; doc 09 §5), so a differently
+		// named duplicate made the golden's recorded winner flip between
+		// machines. One stem = nothing to flip; the duplicate count (the
+		// contract) is unchanged.
+		{"Design/Misc/p.md", websiteNote6(
 			"Palette Gen", "https://palette.example.com",
 			"Use when you need to build a color scheme fast.")},
 	})

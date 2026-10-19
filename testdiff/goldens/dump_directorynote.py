@@ -679,6 +679,22 @@ OUT["build_regenerate"] = {
     "identical": file_one == file_two,
 }
 
+# T-64's corpus law (the two-run byte-identical proof): fold the scratch
+# root to <TMP> so the golden regenerates byte-identically on every
+# machine. The Go replay's fold (dirgoldenRootRE -> <TMP>, plus its own
+# root replace) treats the folded prefix as a no-op and folds its own
+# root the same way — both sides converge on <TMP>/... and the replay
+# stays byte-exact.
+def _fold(o):
+    if isinstance(o, dict):
+        return {k: _fold(v) for k, v in o.items()}
+    if isinstance(o, (list, tuple)):
+        return [_fold(v) for v in o]
+    if isinstance(o, str):
+        return o.replace(TMP, "<TMP>")
+    return o
+OUT = _fold(OUT)
+
 print(canon(OUT))
 '''
 

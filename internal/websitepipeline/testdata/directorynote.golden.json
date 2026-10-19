@@ -34,7 +34,7 @@
     "logs": [],
     "report": {
       "categories": 1,
-      "path": "/tmp/dirgolden-5yckl6v1/build-config_extras/000 📚 Website Directory.md",
+      "path": "<TMP>/build-config_extras/000 📚 Website Directory.md",
       "review": 0,
       "sites": 1
     }
@@ -44,7 +44,7 @@
     "logs": [],
     "report": {
       "categories": 1,
-      "path": "/tmp/dirgolden-5yckl6v1/build-config_load/000 📚 Website Directory.md",
+      "path": "<TMP>/build-config_load/000 📚 Website Directory.md",
       "review": 0,
       "sites": 1
     }
@@ -54,7 +54,7 @@
     "logs": [],
     "report": {
       "categories": 1,
-      "path": "/tmp/dirgolden-5yckl6v1/build-config_load_failure/000 📚 Website Directory.md",
+      "path": "<TMP>/build-config_load_failure/000 📚 Website Directory.md",
       "review": 0,
       "sites": 1
     }
@@ -72,7 +72,7 @@
     "logs": [],
     "report": {
       "categories": 5,
-      "path": "/tmp/dirgolden-5yckl6v1/build-main/000 📚 Website Directory.md",
+      "path": "<TMP>/build-main/000 📚 Website Directory.md",
       "review": 2,
       "sites": 25
     }
@@ -86,7 +86,7 @@
     "logs": [],
     "report": {
       "categories": 2,
-      "path": "/tmp/dirgolden-5yckl6v1/build-no_taxonomy/000 📚 Website Directory.md",
+      "path": "<TMP>/build-no_taxonomy/000 📚 Website Directory.md",
       "review": 0,
       "sites": 2
     }
@@ -96,7 +96,7 @@
     "logs": [],
     "report": {
       "categories": 3,
-      "path": "/tmp/dirgolden-5yckl6v1/build-real/000 📚 Website Directory.md",
+      "path": "<TMP>/build-real/000 📚 Website Directory.md",
       "review": 0,
       "sites": 4
     }
@@ -106,7 +106,7 @@
       "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 1 website(s) across 1 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Zeta Cat (1)\n\n### Sub Two (1)\n\n- [[Design/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
       "report": {
         "categories": 1,
-        "path": "/tmp/dirgolden-5yckl6v1/build-regenerate/000 📚 Website Directory.md",
+        "path": "<TMP>/build-regenerate/000 📚 Website Directory.md",
         "review": 0,
         "sites": 1
       }
@@ -116,7 +116,7 @@
       "file": "---\nmanaged_by: \"gitcurator\"\nkind: \"directory\"\ngenerated: \"2026-10-17\"\n---\n\n# 📚 Website Directory\n\n> [!info] Auto-generated index of the curated library — 1 website(s) across 1 categor(ies). Click a name to open its note (details inside); ↗ opens the site in your browser.\n\n## Zeta Cat (1)\n\n### Sub Two (1)\n\n- [[Design/One|One]] — A test page. — free — [↗](https://one.example/)\n\n*Regenerated automatically after every curation run — edits here are overwritten.*\n",
       "report": {
         "categories": 1,
-        "path": "/tmp/dirgolden-5yckl6v1/build-regenerate/000 📚 Website Directory.md",
+        "path": "<TMP>/build-regenerate/000 📚 Website Directory.md",
         "review": 0,
         "sites": 1
       }
@@ -127,7 +127,7 @@
     "logs": [],
     "report": {
       "categories": 1,
-      "path": "/tmp/dirgolden-5yckl6v1/build-uncat_only/000 📚 Website Directory.md",
+      "path": "<TMP>/build-uncat_only/000 📚 Website Directory.md",
       "review": 0,
       "sites": 1
     }
@@ -447,13 +447,13 @@
       "moved": [
         [
           "https://x.com/1b",
-          "/tmp/dirgolden-5yckl6v1/sweep-collision/Design/x_com_1.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-collision/.trash/banned-domains/x_com_1.md"
+          "<TMP>/sweep-collision/Design/x_com_1.md",
+          "<TMP>/sweep-collision/.trash/banned-domains/x_com_1.md"
         ],
         [
           "https://x.com/1",
-          "/tmp/dirgolden-5yckl6v1/sweep-collision/_review/x_com_1.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-collision/.trash/banned-domains/x_com_1_v1.md"
+          "<TMP>/sweep-collision/_review/x_com_1.md",
+          "<TMP>/sweep-collision/.trash/banned-domains/x_com_1_v1.md"
         ]
       ],
       "moved_tables": [],
@@ -478,30 +478,30 @@
       "moved": [
         [
           "https://x.com/1",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_review/x_com_1.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/x_com_1.md"
+          "<TMP>/sweep-dryrun/_review/x_com_1.md",
+          "<TMP>/sweep-dryrun/.trash/banned-domains/x_com_1.md"
         ]
       ],
       "moved_tables": [
         [
           "x_twitter",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_inbox/x_twitter_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/x_twitter_links.md"
+          "<TMP>/sweep-dryrun/_inbox/x_twitter_links.md",
+          "<TMP>/sweep-dryrun/.trash/banned-domains/x_twitter_links.md"
         ],
         [
           "youtube",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_inbox/youtube_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/youtube_links.md"
+          "<TMP>/sweep-dryrun/_inbox/youtube_links.md",
+          "<TMP>/sweep-dryrun/.trash/banned-domains/youtube_links.md"
         ],
         [
           "linkedin",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_inbox/linkedin_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/linkedin_links.md"
+          "<TMP>/sweep-dryrun/_inbox/linkedin_links.md",
+          "<TMP>/sweep-dryrun/.trash/banned-domains/linkedin_links.md"
         ],
         [
           "huggingface",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/_inbox/huggingface_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-dryrun/.trash/banned-domains/huggingface_links.md"
+          "<TMP>/sweep-dryrun/_inbox/huggingface_links.md",
+          "<TMP>/sweep-dryrun/.trash/banned-domains/huggingface_links.md"
         ]
       ],
       "scanned": 1
@@ -557,18 +557,18 @@
       "moved": [
         [
           "https://x.com/i/status/2011934783064826",
-          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/_review/x_com_i_status_2011934783064826.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011934783064826.md"
+          "<TMP>/sweep-legacy_pile/_review/x_com_i_status_2011934783064826.md",
+          "<TMP>/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011934783064826.md"
         ],
         [
           "https://x.com/i/status/2011943712111707",
-          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/_review/x_com_i_status_2011943712111707.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011943712111707.md"
+          "<TMP>/sweep-legacy_pile/_review/x_com_i_status_2011943712111707.md",
+          "<TMP>/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011943712111707.md"
         ],
         [
           "https://x.com/i/status/2011947543668256",
-          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/_review/x_com_i_status_2011947543668256.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011947543668256.md"
+          "<TMP>/sweep-legacy_pile/_review/x_com_i_status_2011947543668256.md",
+          "<TMP>/sweep-legacy_pile/.trash/banned-domains/x_com_i_status_2011947543668256.md"
         ]
       ],
       "moved_tables": [],
@@ -607,33 +607,33 @@
       "moved_tables": [
         [
           "x_twitter",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/x_twitter_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/x_twitter_links.md"
+          "<TMP>/sweep-order_pin/_inbox/x_twitter_links.md",
+          "<TMP>/sweep-order_pin/.trash/banned-domains/x_twitter_links.md"
         ],
         [
           "youtube",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/youtube_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/youtube_links.md"
+          "<TMP>/sweep-order_pin/_inbox/youtube_links.md",
+          "<TMP>/sweep-order_pin/.trash/banned-domains/youtube_links.md"
         ],
         [
           "linkedin",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/linkedin_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/linkedin_links.md"
+          "<TMP>/sweep-order_pin/_inbox/linkedin_links.md",
+          "<TMP>/sweep-order_pin/.trash/banned-domains/linkedin_links.md"
         ],
         [
           "huggingface",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/huggingface_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/huggingface_links.md"
+          "<TMP>/sweep-order_pin/_inbox/huggingface_links.md",
+          "<TMP>/sweep-order_pin/.trash/banned-domains/huggingface_links.md"
         ],
         [
           "arxiv",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/arxiv_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/arxiv_links.md"
+          "<TMP>/sweep-order_pin/_inbox/arxiv_links.md",
+          "<TMP>/sweep-order_pin/.trash/banned-domains/arxiv_links.md"
         ],
         [
           "package_registry",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/_inbox/package_registry_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-order_pin/.trash/banned-domains/package_registry_links.md"
+          "<TMP>/sweep-order_pin/_inbox/package_registry_links.md",
+          "<TMP>/sweep-order_pin/.trash/banned-domains/package_registry_links.md"
         ]
       ],
       "scanned": 0
@@ -665,8 +665,8 @@
       "moved_tables": [
         [
           "x_twitter",
-          "/tmp/dirgolden-5yckl6v1/sweep-partial_ban/_inbox/x_twitter_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-partial_ban/.trash/banned-domains/x_twitter_links.md"
+          "<TMP>/sweep-partial_ban/_inbox/x_twitter_links.md",
+          "<TMP>/sweep-partial_ban/.trash/banned-domains/x_twitter_links.md"
         ]
       ],
       "scanned": 0
@@ -698,23 +698,23 @@
       "moved_tables": [
         [
           "x_twitter",
-          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/_inbox/x_twitter_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/.trash/banned-domains/x_twitter_links.md"
+          "<TMP>/sweep-platform_tables/_inbox/x_twitter_links.md",
+          "<TMP>/sweep-platform_tables/.trash/banned-domains/x_twitter_links.md"
         ],
         [
           "youtube",
-          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/_inbox/youtube_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/.trash/banned-domains/youtube_links.md"
+          "<TMP>/sweep-platform_tables/_inbox/youtube_links.md",
+          "<TMP>/sweep-platform_tables/.trash/banned-domains/youtube_links.md"
         ],
         [
           "linkedin",
-          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/_inbox/linkedin_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/.trash/banned-domains/linkedin_links.md"
+          "<TMP>/sweep-platform_tables/_inbox/linkedin_links.md",
+          "<TMP>/sweep-platform_tables/.trash/banned-domains/linkedin_links.md"
         ],
         [
           "huggingface",
-          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/_inbox/huggingface_links.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-platform_tables/.trash/banned-domains/huggingface_links.md"
+          "<TMP>/sweep-platform_tables/_inbox/huggingface_links.md",
+          "<TMP>/sweep-platform_tables/.trash/banned-domains/huggingface_links.md"
         ]
       ],
       "scanned": 0
@@ -742,18 +742,18 @@
       "moved": [
         [
           "https://huggingface.co/org/model",
-          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/AI_Tools_(General)/hf_note.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/.trash/banned-domains/hf_note.md"
+          "<TMP>/sweep-real_notes/AI_Tools_(General)/hf_note.md",
+          "<TMP>/sweep-real_notes/.trash/banned-domains/hf_note.md"
         ],
         [
           "https://t.co/abc",
-          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/Design/Tools/tco_note.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/.trash/banned-domains/tco_note.md"
+          "<TMP>/sweep-real_notes/Design/Tools/tco_note.md",
+          "<TMP>/sweep-real_notes/.trash/banned-domains/tco_note.md"
         ],
         [
           "https://www.instagram.com/p/xyz/",
-          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/Random__Curiosities/ig_note.md",
-          "/tmp/dirgolden-5yckl6v1/sweep-real_notes/.trash/banned-domains/ig_note.md"
+          "<TMP>/sweep-real_notes/Random__Curiosities/ig_note.md",
+          "<TMP>/sweep-real_notes/.trash/banned-domains/ig_note.md"
         ]
       ],
       "moved_tables": [],
@@ -791,8 +791,8 @@
         "moved": [
           [
             "https://x.com/1",
-            "/tmp/dirgolden-5yckl6v1/sweep-twice/_review/x_com_1.md",
-            "/tmp/dirgolden-5yckl6v1/sweep-twice/.trash/banned-domains/x_com_1.md"
+            "<TMP>/sweep-twice/_review/x_com_1.md",
+            "<TMP>/sweep-twice/.trash/banned-domains/x_com_1.md"
           ]
         ],
         "moved_tables": [],

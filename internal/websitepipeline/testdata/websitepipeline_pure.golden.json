@@ -86,7 +86,7 @@
       "processed": [
         [
           "https://proper.example",
-          "/tmp/wpgolden-_2iyc13d/flowA/Design/Assets & Resources/proper.md",
+          "<TMP>/flowA/Design/Assets & Resources/proper.md",
           "full"
         ]
       ],
@@ -431,7 +431,7 @@
     {
       "prior": {
         "fetch_status": "full",
-        "note_path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/proper.md",
+        "note_path": "<TMP>/websites/Design/Assets & Resources/proper.md",
         "url": "https://proper.example/"
       },
       "res": [
@@ -785,21 +785,21 @@
       "app_owned": true,
       "door": "note tag",
       "marker": "#auto-delete",
-      "path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/body-marked.md",
+      "path": "<TMP>/websites/Design/Assets & Resources/body-marked.md",
       "url": "https://bodymarked.example/"
     },
     {
       "app_owned": true,
       "door": "note tag",
       "marker": "delete",
-      "path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/marked.md",
+      "path": "<TMP>/websites/Design/Assets & Resources/marked.md",
       "url": "https://marked.example/"
     },
     {
       "app_owned": true,
       "door": "trash folder",
       "marker": "Trash folder",
-      "path": "/tmp/wpgolden-_2iyc13d/websites/Trash/moved.md",
+      "path": "<TMP>/websites/Trash/moved.md",
       "url": "https://moved.example/"
     }
   ],
@@ -817,7 +817,7 @@
     {
       "kind": "eyes",
       "notes": "",
-      "path": "/tmp/wpgolden-_2iyc13d/websites/_review/low-confidence.md",
+      "path": "<TMP>/websites/_review/low-confidence.md",
       "status": "unreviewed",
       "url": "https://low.example/"
     }
@@ -828,7 +828,7 @@
         "canonical": "https://bodymarked.example",
         "door": "note tag",
         "marker": "#auto-delete",
-        "path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/body-marked.md",
+        "path": "<TMP>/websites/Design/Assets & Resources/body-marked.md",
         "title": "body-marked",
         "url": "https://bodymarked.example/"
       },
@@ -836,7 +836,7 @@
         "canonical": "https://marked.example",
         "door": "note tag",
         "marker": "delete",
-        "path": "/tmp/wpgolden-_2iyc13d/websites/Design/Assets & Resources/marked.md",
+        "path": "<TMP>/websites/Design/Assets & Resources/marked.md",
         "title": "marked",
         "url": "https://marked.example/"
       },
@@ -844,7 +844,7 @@
         "canonical": "https://moved.example",
         "door": "trash folder",
         "marker": "Trash folder",
-        "path": "/tmp/wpgolden-_2iyc13d/websites/Trash/moved.md",
+        "path": "<TMP>/websites/Trash/moved.md",
         "title": "moved",
         "url": "https://moved.example/"
       }
@@ -853,19 +853,19 @@
   },
   "scan_review_backlog": [
     {
-      "path": "/tmp/wpgolden-_2iyc13d/websites/_review/failed-placeholder.md",
+      "path": "<TMP>/websites/_review/failed-placeholder.md",
       "url": "https://failed.example/"
     }
   ],
   "scan_review_notes": [
     {
       "fetch_status": "failed",
-      "path": "/tmp/wpgolden-_2iyc13d/websites/_review/failed-placeholder.md",
+      "path": "<TMP>/websites/_review/failed-placeholder.md",
       "url": "https://failed.example/"
     },
     {
       "fetch_status": "partial",
-      "path": "/tmp/wpgolden-_2iyc13d/websites/_review/low-confidence.md",
+      "path": "<TMP>/websites/_review/low-confidence.md",
       "url": "https://low.example/"
     }
   ],
