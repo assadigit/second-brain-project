@@ -96,6 +96,12 @@ import (
 // round-trip's poll beat).
 const banishPollIntervalS = 3.0
 
+// batchStopHandle is one armed cooperative-stop door (the App's
+// batchStop seat; the pointer identity is the arm token).
+type batchStopHandle struct {
+	fn func()
+}
+
 // batchEngine carries the worker-side state of one batch (the CLI's
 // batchEngine twin, the app's transport).
 type batchEngine struct {
@@ -107,6 +113,12 @@ type batchEngine struct {
 	nonGithub        []string
 	intakeDuplicates int
 	rawURLCount      int
+
+	// stopRequested: the cooperative stop's flag (stop_processing's
+	// engine half — v0.32). The runner's own flag covers the loops; this
+	// seat keeps a stop that arrived during the warmup (before the
+	// runner exists) from being lost.
+	stopRequested bool
 
 	// The review-backlog modes' state (v0.42/v0.51).
 	reviewBacklogItems []websitepipeline.BacklogItem
@@ -127,6 +139,18 @@ type batchEngine struct {
 	finished bool
 }
 
+// requestStop is the cooperative, between-items stop (v0.32): the
+// runner's flag flips — the GitHub loop, the rate-limit waits, and the
+// websites phase all check it between items; the finish chain still
+// runs; the tracker's unfinished links surface for retry exactly like
+// the reference's (no partial state, no confirmation dialog needed).
+func (e *batchEngine) requestStop() {
+	e.stopRequested = true
+	if e.runner != nil {
+		e.runner.Stop()
+	}
+}
+
 // runBatchEngine is the App's batch engine door (runBatch delegates
 // here): the dry-run flip + the crash wrapper around runImpl.
 func (a *App) runBatchEngine(cfg *storage.OrderedMap, opts BatchOptions, ev BatchEvents) *BatchResult {
@@ -143,6 +167,13 @@ func (a *App) runBatchEngine(cfg *storage.OrderedMap, opts BatchOptions, ev Batc
 		rawURLCount:      opts.RawURLCount,
 		fin:              &BatchResult{},
 	}
+	// The cooperative-stop door: while this engine runs, the App's
+	// StopBatch reaches requestStop (T-77 — hero.py's Stop leg). The
+	// handle is the arm token — the deferred clear only disarms THIS
+	// engine's door, never a newer batch's.
+	stop := &batchStopHandle{fn: e.requestStop}
+	a.setBatchStop(stop)
+	defer a.clearBatchStop(stop)
 	if opts.DryRun {
 		dryrun.Enable()
 		e.log("🧪 DRY-RUN: every vault write this batch would perform is "+
@@ -542,6 +573,12 @@ func (e *batchEngine) finish(success bool, message string) {
 	if e.runner != nil {
 		e.fin.Processed = e.runner.Processed
 		e.fin.Total = e.runner.Total
+	}
+	// The retry-chime selector (T-77): the tracker's failed count at
+	// finish — a batch that finished WITH failed links plays the softer
+	// descending retry voice (v0.40.0).
+	if e.tracker != nil {
+		e.fin.FailedLinks = len(e.tracker.GetFailedLinks())
 	}
 	if e.opts.DryRun {
 		// A dry-run batch is side-effect free EVERYWHERE: no git seal,
@@ -1290,6 +1327,11 @@ func (e *batchEngine) buildRunner(noteStateDB *notestate.DB,
 
 	r := githubpipeline.NewRunner(cfgPlainMap(e.cfg))
 	r.Start() // is_running = True (the __init__ law)
+	// A stop that arrived during the warmup reaches the runner now (the
+	// lost-stop window closes — requestStop's own law).
+	if e.stopRequested {
+		r.Stop()
+	}
 	r.Cache = e.cache
 	r.NoteStateDB = noteStateDB
 	r.VaultIndex = e.vaultIndex

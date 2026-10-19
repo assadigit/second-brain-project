@@ -11,3 +11,17 @@ import _ "embed"
 //
 //go:embed icons/gitcurator.ico
 var IconICO []byte
+
+// SoundSuccessWav / SoundRetryWav are the batch-finish chimes
+// (T-77 ships the files — the deferred-debt note's "until T-77/T-80
+// ship the files" closes here). Synthesized assets (sine partials +
+// exponential envelopes — see sounds/README.txt, no third-party
+// material); the disk copy in APP_DIR/assets/sounds still WINS when
+// present, so an owner can swap the chime by dropping a file (the
+// embed is the fallback, never the override).
+//
+//go:embed sounds/success.wav
+var SoundSuccessWav []byte
+
+//go:embed sounds/retry.wav
+var SoundRetryWav []byte

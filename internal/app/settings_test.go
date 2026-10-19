@@ -5,6 +5,7 @@
 package app
 
 import (
+	"bytes"
 	"encoding/base64"
 	"fmt"
 	"os"
@@ -14,6 +15,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/assadigit/second-brain-project/assets"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/storage"
@@ -923,16 +925,32 @@ func TestPreviewSoundGate(t *testing.T) {
 	}
 	wantLog(t, rec, "🔇 Preview silent — the chime is switched off (the switch above).", "info")
 
-	// On, but the asset is missing → BatchSound's ONE notice, then
-	// silence for the session.
+	// On, no disk copy → T-77's law: the EMBEDDED default backs the
+	// missing disk file up (the files ship now — the old missing-asset
+	// notice was the pre-T-77 parity behavior).
 	writeCfgFile(t, s.srvCfg(t), `{"sound_enabled": true, "sound_volume": 0.8}`)
 	f.soundDir = t.TempDir()
-	r = s.PreviewSound(false)
-	if r.Play {
-		t.Fatal("a missing asset must not play")
+	r = s.BatchChime(false)
+	if !r.Play || r.DataURL == "" {
+		t.Fatalf("the embedded default must play: %+v", r)
 	}
-	wantLog(t, rec, "🔕 Success chime disabled — success.wav chime missing", "warning")
-	// The one-notice law: the second preview says NOTHING.
+	emb, _ := base64.StdEncoding.DecodeString(strings.TrimPrefix(r.DataURL, "data:audio/wav;base64,"))
+	if !bytes.Equal(emb, assets.SoundSuccessWav) {
+		t.Fatalf("the fallback must be the embedded success.wav (%d bytes vs %d)", len(emb), len(assets.SoundSuccessWav))
+	}
+	// The retry voice picks its own embedded file.
+	r = s.BatchChime(true)
+	embR, _ := base64.StdEncoding.DecodeString(strings.TrimPrefix(r.DataURL, "data:audio/wav;base64,"))
+	if !bytes.Equal(embR, assets.SoundRetryWav) {
+		t.Fatalf("the retry fallback must be the embedded retry.wav")
+	}
+
+	// The one-notice law (the session-poisoned player): once the
+	// unavailable seat is set, every later gate stays silent — no line,
+	// no play.
+	s.mu.Lock()
+	s.soundUnavailable = "poisoned for the law"
+	s.mu.Unlock()
 	before := len(rec.logs)
 	r = s.PreviewSound(true)
 	if r.Play {
@@ -942,8 +960,8 @@ func TestPreviewSoundGate(t *testing.T) {
 		t.Fatalf("the one-notice law broken: %d extra lines", len(rec.logs)-before)
 	}
 
-	// A fresh surface + a real wav → the play payload (volume clamped
-	// from the config).
+	// A fresh surface + a real wav on disk → the DISK copy wins over
+	// the embed (an owner can swap the chime by dropping a file).
 	s2, _, f2 := newSettingsTest(t)
 	dir := t.TempDir()
 	wav := make([]byte, 64)

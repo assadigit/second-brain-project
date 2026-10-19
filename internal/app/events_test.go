@@ -5,10 +5,13 @@
 package app
 
 import (
+	"encoding/json"
 	"strings"
 	"sync"
 	"testing"
 	"time"
+
+	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 )
 
 // tinyBus builds a bus with millisecond windows (the instrument; the
@@ -80,7 +83,7 @@ func TestBusFanOutOrderAndKinds(t *testing.T) {
 	b.EmitJobProgress("walk", 1, 10)
 	b.EmitDiskFull("/vault/x")
 	b.EmitModelChanged("ollama", "llama3")
-	b.EmitBatchFinished(true, "done")
+	b.EmitBatchFinished(true, "done", false)
 	cancel()
 	b.EmitStatus("nobody hears this")
 
@@ -429,5 +432,57 @@ func TestBusConcurrentEmitAndSubscribe(t *testing.T) {
 	wg.Wait()
 	if count != 400 {
 		t.Fatalf("delivered %d, want 400", count)
+	}
+}
+
+// TestCrossedPayloadFieldTags pins THE FIELD-TAG LAW on every payload
+// the shell crosses to the frontend as a wails event (T-77's retroactive
+// fix: the tagless T-71 shapes marshaled as "OK"/"Pos"/"Text" while
+// app.js read ok/pos/text — the progress row never filled and every
+// finish rendered ❌). The tags mirror the keys the frontend reads.
+func TestCrossedPayloadFieldTags(t *testing.T) {
+	cases := []struct {
+		name string
+		v    any
+		want string
+	}{
+		{"LogLine", LogLine{Msg: "m", Level: "info"}, `{"msg":"m","level":"info"}`},
+		{"Progress", Progress{Pos: 2, Total: 5}, `{"pos":2,"total":5}`},
+		{"Status", Status{Text: "Processing…"}, `{"text":"Processing…"}`},
+		{"BatchFinished", BatchFinished{OK: true, Summary: "done", NeedsRetry: true},
+			`{"ok":true,"summary":"done","needs_retry":true}`},
+		{"JobProgress", JobProgress{Label: "walk", Value: 1, Max: 10},
+			`{"label":"walk","value":1,"max":10}`},
+		{"DiskFull", DiskFull{Path: "/v"}, `{"path":"/v"}`},
+		{"ModelChanged", ModelChanged{Provider: "ollama", Model: "llama3"},
+			`{"provider":"ollama","model":"llama3"}`},
+	}
+	for _, tc := range cases {
+		raw, err := json.Marshal(tc.v)
+		if err != nil {
+			t.Fatalf("%s marshal: %v", tc.name, err)
+		}
+		if string(raw) != tc.want {
+			t.Fatalf("%s = %s, want %s", tc.name, raw, tc.want)
+		}
+	}
+	// The sentinel snapshot's probe shapes ride their own tags (the
+	// connectioncheck dict keys — THE FIELD-TAG LAW's source of truth).
+	raw, err := json.Marshal(Sentinel{
+		Net:     connectioncheck.ProbeInternetResult{Online: true},
+		AI:      connectioncheck.AIStatusResult{State: "on", Kind: "cloud"},
+		Proxy:   connectioncheck.ProxyResult{State: "disabled"},
+		Verdict: "first-online",
+	})
+	if err != nil {
+		t.Fatalf("sentinel marshal: %v", err)
+	}
+	for _, key := range []string{
+		`"net":{"online":true`, `"ai":{"state":"on","kind":"cloud"`,
+		`"proxy":{"state":"disabled"`, `"verdict":"first-online"`,
+	} {
+		if !strings.Contains(string(raw), key) {
+			t.Fatalf("sentinel payload missing %s: %s", key, raw)
+		}
 	}
 }

@@ -145,12 +145,15 @@ type BatchOptions struct {
 }
 
 // BatchResult is the batch's finished_signal payload + the counts
-// the hero/scorecard read.
+// the hero/scorecard read. FailedLinks (T-77) is the tracker's failed
+// count at finish — the retry chime's selector (the reference's
+// summary['failed_links']).
 type BatchResult struct {
-	Success   bool
-	Message   string
-	Processed int
-	Total     int
+	Success     bool
+	Message     string
+	Processed   int
+	Total       int
+	FailedLinks int
 	// Crashed marks the recover path (the TestWorker's
 	// {'success': False, 'error': …} twin).
 	Crashed bool
@@ -301,6 +304,9 @@ type Commands struct {
 	batchLock OpLock
 	// running is the _batch_running flag (the GUI mirror's signal).
 	running bool
+	// stopDoor is the active batch's cooperative-stop door, wired by
+	// the App around each run (nil = no batch to stop).
+	stopDoor func() bool
 }
 
 // NewCommands builds the surface over the bus + the injected deps.
@@ -406,7 +412,7 @@ func (c *Commands) SyncRunBatch(ctx context.Context, opts BatchOptions) *BatchRe
 		// the lock-leak fix: the finished signal fires exactly once,
 		// and the lock always goes home (owner-scoped).
 		if !finished {
-			c.Bus.EmitBatchFinished(false, "the batch ended without a verdict (crashed or cancelled)")
+			c.Bus.EmitBatchFinished(false, "the batch ended without a verdict (crashed or cancelled)", false)
 		}
 		c.running = false
 		c.batchLock.Release("batch")
@@ -439,8 +445,20 @@ func (c *Commands) SyncRunBatch(ctx context.Context, opts BatchOptions) *BatchRe
 		res = &BatchResult{Success: false, Message: "the batch engine returned no result"}
 	}
 	finished = true
-	c.Bus.EmitBatchFinished(res.Success, res.Message)
+	c.Bus.EmitBatchFinished(res.Success, res.Message, res.FailedLinks > 0)
 	return res
+}
+
+// StopBatch is stop_processing's engine half (v0.32): the cooperative,
+// between-items stop — the active batch's flag flips, the current item
+// finishes, the finish chain still runs, and BatchFinished lands
+// exactly once (the lock-leak fix's law). Returns false when no batch
+// is running (an honest no-op, never an error).
+func (c *Commands) StopBatch() bool {
+	if c.stopDoor == nil {
+		return false
+	}
+	return c.stopDoor()
 }
 
 // SyncFastSync is the owner's FAST SYNC (the manual drift-seal door,

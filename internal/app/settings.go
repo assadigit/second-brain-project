@@ -69,6 +69,7 @@ import (
 	"sync"
 	"time"
 
+	"github.com/assadigit/second-brain-project/assets"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/links"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
@@ -1542,28 +1543,24 @@ type SoundPreviewResult struct {
 	DataURL string `json:"dataUrl"`
 }
 
-// PreviewSound is _preview_batch_sound's decision half: the exact
-// batch gate (the switch, the clamped volume, the one-notice missing
-// asset law — sound.py's contract). A switched-off chime logs the 🔇
-// line; a missing asset logs BatchSound's one 🔕 notice then stays
-// silent for the session; a playable asset returns the payload for the
-// frontend's <audio> (the QSoundEffect twin — a machine without an
-// audio backend accepts the play and stays silent, never an error).
-func (s *Settings) PreviewSound(needsRetry bool) *SoundPreviewResult {
+// soundFor is THE EXACT BATCH GATE (quiet): the switch, the clamped
+// volume, the one-notice missing-asset law (sound.py's contract). The
+// preview's 🔇 line is the preview wrapper's own; this door stays
+// silent on a switched-off chime (the reference's _play_batch_sound
+// returns False without a word). The lookup is DISK FIRST (the
+// APP_DIR/assets/sounds copy — an owner can swap the chime by dropping
+// a file), the EMBEDDED default second (T-77 ships the files).
+func (s *Settings) soundFor(needsRetry bool) *SoundPreviewResult {
 	wav := "success.wav"
 	if needsRetry {
 		wav = "retry.wav"
 	}
-	enabled := true
 	if v, ok := s.cfg.Get("sound_enabled"); ok {
-		if b, is := v.(bool); is {
-			enabled = b
+		if b, is := v.(bool); is && !b {
+			return &SoundPreviewResult{}
 		}
 	}
-	if !enabled {
-		s.logf("info", "🔇 Preview silent — the chime is switched off (the switch above).")
-		return &SoundPreviewResult{}
-	}
+	// (an absent key defaults TRUE — the reference's config.get law.)
 	s.mu.Lock()
 	unavailable := s.soundUnavailable
 	s.mu.Unlock()
@@ -1571,23 +1568,26 @@ func (s *Settings) PreviewSound(needsRetry bool) *SoundPreviewResult {
 		// BatchSound already said it once — silence (rule 5).
 		return &SoundPreviewResult{}
 	}
-	dir := ""
+	var data []byte
 	if s.Deps.SoundDir != nil {
-		dir = s.Deps.SoundDir()
+		if dir := s.Deps.SoundDir(); dir != "" {
+			if raw, err := os.ReadFile(filepath.Join(dir, wav)); err == nil {
+				data = raw
+			}
+		}
 	}
-	path := filepath.Join(dir, wav)
-	if dir == "" || !fileExistsAt(path) {
-		s.mu.Lock()
-		s.soundUnavailable = fmt.Sprintf("%s chime missing (%s)", wav, path)
-		reason := s.soundUnavailable
-		s.mu.Unlock()
-		s.logf("warning", "🔕 Success chime disabled — %s", reason)
-		return &SoundPreviewResult{}
+	if data == nil {
+		// The embedded default (T-77): the shipped chime backs the
+		// missing disk copy up.
+		if needsRetry {
+			data = assets.SoundRetryWav
+		} else {
+			data = assets.SoundSuccessWav
+		}
 	}
-	data, err := os.ReadFile(path)
-	if err != nil {
+	if len(data) == 0 {
 		s.mu.Lock()
-		s.soundUnavailable = "audio playback unavailable (" + err.Error() + ")"
+		s.soundUnavailable = fmt.Sprintf("%s chime missing (neither the disk copy nor the embedded default answered)", wav)
 		reason := s.soundUnavailable
 		s.mu.Unlock()
 		s.logf("warning", "🔕 Success chime disabled — %s", reason)
@@ -1598,6 +1598,35 @@ func (s *Settings) PreviewSound(needsRetry bool) *SoundPreviewResult {
 		Volume:  soundVolumeValue(s.cfg),
 		DataURL: "data:audio/wav;base64," + base64.StdEncoding.EncodeToString(data),
 	}
+}
+
+// BatchChime is the batch-finish door (T-77): the exact batch gate,
+// quiet — the shell enriches the batch-finished crossing with this
+// payload and the frontend's <audio> plays it (the QSoundEffect twin).
+func (s *Settings) BatchChime(needsRetry bool) *SoundPreviewResult {
+	return s.soundFor(needsRetry)
+}
+
+// PreviewSound is _preview_batch_sound's decision half: the exact batch
+// gate + the preview's OWN lines — a switched-off chime logs the 🔇
+// line (the batch path stays silent); a missing asset logs BatchSound's
+// one 🔕 notice then stays silent for the session; a playable asset
+// returns the payload for the frontend's <audio> (a machine without an
+// audio backend accepts the play and stays silent, never an error).
+func (s *Settings) PreviewSound(needsRetry bool) *SoundPreviewResult {
+	res := s.soundFor(needsRetry)
+	if !res.Play {
+		if v, ok := s.cfg.Get("sound_enabled"); ok {
+			if b, is := v.(bool); is && !b {
+				s.logf("info", "🔇 Preview silent — the chime is switched off (the switch above).")
+				return res
+			}
+		}
+		// BatchSound already said the 🔕 once — the preview does not
+		// repeat it (the branch exists so the log never blames the
+		// switch when the machine is audio-less).
+	}
+	return res
 }
 
 func fileExistsAt(path string) bool {

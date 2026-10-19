@@ -23,6 +23,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"sync"
 
 	"github.com/assadigit/second-brain-project/internal/batch"
 	"github.com/assadigit/second-brain-project/internal/config"
@@ -69,6 +70,30 @@ type App struct {
 	// configFilled is the user-memory fill count (the one quiet
 	// desk line after the UI exists — window.py:155-173).
 	configFilled int
+
+	// sentinelOnline is the sentinel's last observed verdict (nil =
+	// never observed — the offline law's first-transition seat,
+	// window.py's _sentinel_online). Guarded by sentinelMu: TWO passes
+	// can run concurrently (the lifecycle's recurring tick + the save
+	// law's 250 ms re-arm) and the read-transition-write must be one
+	// unit (the race detector's own catch — two concurrent first
+	// passes would both warn-now).
+	sentinelMu     sync.Mutex
+	sentinelOnline *bool
+
+	// batchStop is the ACTIVE batch's cooperative-stop door (nil when
+	// no batch runs) — Commands.StopBatch reaches it through
+	// requestBatchStop. Guarded by batchStopMu (the hero's Stop click
+	// can land on any goroutine). The handle's identity is the arm
+	// token: a late clear from a finished batch never disarms a newer
+	// one (the pointer compare is the whole point of the wrapper).
+	batchStopMu sync.Mutex
+	batchStop   *batchStopHandle
+
+	// SentinelProbe is the sentinel pass's probe seam (the HERMETIC-SEAM
+	// law: the tests fake the probes at construction; New() wires
+	// connectioncheck.SentinelSnapshot).
+	SentinelProbe func(cfg any, timeoutS float64) connectioncheck.Snapshot
 
 	// The engine doors (the hermetic law — New() wires the production
 	// defaults; tests and staged shells may swap them BEFORE any
@@ -188,6 +213,11 @@ func New(configPath string, headless bool) *App {
 		BacklogCheck: a.backlogNotice,
 		Radar:        a.quietRadar,
 	})
+	// The cooperative-stop door (T-77): the hero's Stop click reaches
+	// the active batch's requestStop through the command surface.
+	a.Commands.stopDoor = a.requestBatchStop
+	// The sentinel's probe seam (the hermetic law).
+	a.SentinelProbe = connectioncheck.SentinelSnapshot
 	a.Settings = NewSettings(a.Bus, a.liveCfg, &a.Commands.batchLock, SettingsDeps{
 		Config: a.loadConfig,
 		Write: func(cfg *storage.OrderedMap) bool {
@@ -219,6 +249,35 @@ func New(configPath string, headless bool) *App {
 		},
 	})
 	return a
+}
+
+// setBatchStop/clearBatchStop register the active engine's stop door
+// around each run.
+func (a *App) setBatchStop(h *batchStopHandle) {
+	a.batchStopMu.Lock()
+	a.batchStop = h
+	a.batchStopMu.Unlock()
+}
+
+func (a *App) clearBatchStop(h *batchStopHandle) {
+	a.batchStopMu.Lock()
+	if a.batchStop == h {
+		a.batchStop = nil
+	}
+	a.batchStopMu.Unlock()
+}
+
+// requestBatchStop flips the active batch's cooperative stop flag.
+// Returns false when no batch is running (the honest no-op).
+func (a *App) requestBatchStop() bool {
+	a.batchStopMu.Lock()
+	h := a.batchStop
+	a.batchStopMu.Unlock()
+	if h == nil {
+		return false
+	}
+	h.fn()
+	return true
 }
 
 // loadConfig is the live-config door: the ONE session-held map (the
@@ -399,8 +458,15 @@ func (a *App) runBatch(ctx context.Context, cfg *storage.OrderedMap, opts BatchO
 // ---------------------------------------------------------------------------
 
 // sentinelPass is the ONE 60 s background pass's each run (Net · AI ·
-// Proxy — connectioncheck's probes; the results land on the bus for
-// the shell's status row; read-only, never raises).
+// Proxy — connectioncheck's probes; the snapshot crosses to the chrome
+// as the Sentinel event for the labels' paint, and the offline law's
+// verdict transitions speak their lines; read-only, never raises).
+//
+// T-77's reality fix, found re-reading the pass: the old line
+// dereferenced net.LatencyMs unconditionally — ProbeInternet leaves it
+// nil on the offline path, so an offline pass panicked into the
+// crash-isolation and the labels never painted. The latency now reads
+// nil-safe ("n/a" when absent).
 func (a *App) sentinelPass() {
 	defer func() {
 		if r := recover(); r != nil {
@@ -409,11 +475,55 @@ func (a *App) sentinelPass() {
 	}()
 	cfg := a.loadConfig()
 	cfgPlain := cfgPlainMap(cfg)
-	net := connectioncheck.ProbeInternet(cfgPlain, 5.0)
-	aiState := connectioncheck.AIStatus(cfgPlain, 5.0)
-	line := fmt.Sprintf("🛰️ Sentinel: net=%s latency=%dms · AI=%s",
-		netWord(net.Online), *net.LatencyMs, aiState.Short)
-	a.Bus.EmitLogLine(line, "info")
+	probe := a.SentinelProbe
+	if probe == nil {
+		probe = connectioncheck.SentinelSnapshot
+	}
+	snap := probe(cfgPlain, 5.0)
+
+	// The offline law (window.py's _apply_sentinel half): the verdict
+	// transition decides the lines — warn-now is ONE modal at open (the
+	// frontend's themed box rides the verdict word), fell-offline and
+	// back-online are log lines only. The seat's read-transition-write
+	// is ONE unit under the mutex (concurrent passes serialize exactly
+	// like the reference's GUI-thread queued signal).
+	a.sentinelMu.Lock()
+	verdict := connectioncheck.OfflineVerdict(a.sentinelOnline, snap.Net.Online)
+	online := snap.Net.Online
+	a.sentinelOnline = &online
+	a.sentinelMu.Unlock()
+	switch verdict {
+	case "warn-now":
+		a.Bus.EmitLogLine("⚠️ No internet connection detected — GitCurator "+
+			"needs the internet for syncing (fetching the "+
+			"Telegram bot queue, GitHub repo data, backup vault "+
+			"seals and the cloud LLM all require it). Local work "+
+			"— vault scans, hygiene, local LLM — still works. "+
+			"The 'Net' cue turns green the moment you're back "+
+			"online; no restart needed.", "warning")
+	case "fell-offline":
+		a.Bus.EmitLogLine("⚠️ Net: fell offline — syncing will fail until the "+
+			"connection returns (the 'Net' cue is red).", "warning")
+	case "back-online":
+		a.Bus.EmitLogLine("✅ Net: back online — syncing is available again.", "success")
+	}
+
+	latency := "n/a"
+	if snap.Net.LatencyMs != nil {
+		latency = fmt.Sprintf("%dms", *snap.Net.LatencyMs)
+	}
+	a.Bus.EmitLogLine(fmt.Sprintf("🛰️ Sentinel: net=%s latency=%s · AI=%s",
+		netWord(snap.Net.Online), latency, snap.AI.Short), "info")
+
+	// THE SNAPSHOT CROSSING (T-77): the chrome's labels paint from this
+	// event (Net · AI · Proxy — the honest placeholders retire).
+	a.Bus.EmitSentinel(Sentinel{
+		Ts:      snap.Ts,
+		Net:     snap.Net,
+		AI:      snap.AI,
+		Proxy:   snap.Proxy,
+		Verdict: verdict,
+	})
 }
 
 // netWord renders the probe's verdict.

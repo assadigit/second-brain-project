@@ -47,6 +47,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 )
 
 // ---------------------------------------------------------------------------
@@ -55,50 +57,75 @@ import (
 
 // LogLine is log_message(str, str): one desk-log row.
 type LogLine struct {
-	Msg   string
-	Level string
+	Msg   string `json:"msg"`
+	Level string `json:"level"`
 }
 
 // Progress is progress_updated(int, int): pos of total items done.
 type Progress struct {
-	Pos   int
-	Total int
+	Pos   int `json:"pos"`
+	Total int `json:"total"`
 }
 
 // Status is status_updated(str): the pipeline row's text.
 type Status struct {
-	Text string
+	Text string `json:"text"`
 }
 
 // BatchFinished is finished_signal(bool, str): the batch's outcome and
 // its bottom-line summary (the lock-leak fix's "exactly once" law is
-// the command's own; the bus just carries it).
+// the command's own; the bus just carries it). NeedsRetry (T-77) marks
+// a batch that finished WITH failed links — the retry chime's selector
+// (v0.40.0: "done, but look at me" never sounds like a celebration).
+//
+// THE FIELD-TAG LAW, applied retroactively (T-77's reality fix): these
+// payloads cross to the frontend as wails events; the tags mirror the
+// keys the frontend reads (ok, summary, pos, total, text…) — the
+// tagless T-71 shapes marshaled as "OK"/"Pos" and the frontend's
+// lowercase reads came back undefined (the progress bar never filled;
+// every finish rendered ❌). The tags are now pinned by test.
 type BatchFinished struct {
-	OK      bool
-	Summary string
+	OK         bool   `json:"ok"`
+	Summary    string `json:"summary"`
+	NeedsRetry bool   `json:"needs_retry"`
 }
 
 // JobProgress is job_progress(str, int, int) — THE HONEST PIPELINE ROW
 // (v0.70.0): any job's LIVE progress (label, value, maximum).
 type JobProgress struct {
-	Label string
-	Value int
-	Max   int
+	Label string `json:"label"`
+	Value int    `json:"value"`
+	Max   int    `json:"max"`
 }
 
 // DiskFull is disk_full_signal(str): the path that failed — the GUI
 // opens the paused-spin modal and answers via the runner's resume
 // door.
 type DiskFull struct {
-	Path string
+	Path string `json:"path"`
 }
 
 // ModelChanged is model_changed(str, str) — the v30 persistence law:
 // the provider + model the LLM-failure dialog (or the auto-switch)
 // picked; the shell syncs Settings and saves config.
 type ModelChanged struct {
-	Provider string
-	Model    string
+	Provider string `json:"provider"`
+	Model    string `json:"model"`
+}
+
+// Sentinel is _sentinel_signal(dict) — T-77: one sentinel snapshot
+// crossing to the chrome (the Net · AI · Proxy labels' paint + the
+// offline law's verdict word). The probes ride the connectioncheck
+// dict shapes (their JSON tags mirror the Python keys — THE FIELD-TAG
+// LAW: online, state, kind, engine, short, detail…); Verdict is
+// OfflineVerdict's transition word for THIS pass (warn-now |
+// first-online | fell-offline | back-online | online | offline).
+type Sentinel struct {
+	Ts      float64                             `json:"ts"`
+	Net     connectioncheck.ProbeInternetResult `json:"net"`
+	AI      connectioncheck.AIStatusResult      `json:"ai"`
+	Proxy   connectioncheck.ProxyResult         `json:"proxy"`
+	Verdict string                              `json:"verdict"`
 }
 
 // ---------------------------------------------------------------------------
@@ -231,6 +258,7 @@ type Handlers struct {
 	JobProgress    func(JobProgress)
 	DiskFull       func(DiskFull)
 	ModelChanged   func(ModelChanged)
+	Sentinel       func(Sentinel)
 	AskCode        func(*AskCodeEvent)
 	AskScanConfirm func(*AskScanConfirmEvent)
 	LLMFailed      func(*LLMFailedEvent)
@@ -334,9 +362,10 @@ func (b *Bus) EmitStatus(text string) {
 	emit(b, func(h *Handlers) func(Status) { return h.Status }, Status{Text: text})
 }
 
-// EmitBatchFinished delivers finished_signal(ok, summary).
-func (b *Bus) EmitBatchFinished(ok bool, summary string) {
-	emit(b, func(h *Handlers) func(BatchFinished) { return h.BatchFinished }, BatchFinished{OK: ok, Summary: summary})
+// EmitBatchFinished delivers finished_signal(ok, summary, needs_retry).
+func (b *Bus) EmitBatchFinished(ok bool, summary string, needsRetry bool) {
+	emit(b, func(h *Handlers) func(BatchFinished) { return h.BatchFinished },
+		BatchFinished{OK: ok, Summary: summary, NeedsRetry: needsRetry})
 }
 
 // EmitJobProgress delivers job_progress(label, value, maximum) —
@@ -361,6 +390,12 @@ func (b *Bus) EmitDiskFull(path string) {
 // EmitModelChanged delivers model_changed(provider, model).
 func (b *Bus) EmitModelChanged(provider, model string) {
 	emit(b, func(h *Handlers) func(ModelChanged) { return h.ModelChanged }, ModelChanged{Provider: provider, Model: model})
+}
+
+// EmitSentinel delivers one sentinel snapshot (T-77: _sentinel_signal —
+// the chrome's Net · AI · Proxy paint + the offline law's verdict).
+func (b *Bus) EmitSentinel(ev Sentinel) {
+	emit(b, func(h *Handlers) func(Sentinel) { return h.Sentinel }, ev)
 }
 
 // askReady reports whether at least one live subscriber listens for
