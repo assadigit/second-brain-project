@@ -40,6 +40,12 @@
 
 - `update_dashboard` (61-155): vault stats from first-1000-chars frontmatter reads (category,
   credibility, language counts; `_review` count; banner count).
+  — **Dated note (2026-10-20, T-74/SESSION-037):** the page's engines landed
+  (`internal/app/settingsb.go`: ScanDashboardStats + RenderDashboardText +
+  QuarantineView/ClearQuarantine + the threshold group's merge save + the undo
+  engine with the top-10 confirm + the processed_repos row removal + the once
+  law); verify_vault/recategorize_notes/dead-links viewer/retry launchers stay
+  T-76/T-77's (the More-menu family — the page's own rows are live).
 - Quarantine view/reset (`refresh_quarantine_view` top 30 rows + "… and N more";
   `clear_all_quarantine`; threshold spinbox saves `notfound_strike_threshold`).
 - `undo_last_batch` (228-311): reads `<vault>/_undo_last_batch.txt`, deletes files best-effort,
@@ -64,6 +70,15 @@
 - Report "columns" = labeled count lines (Total GitHub URLs in bot / ✅ Already in vault /
   🗑️ Decommissioned / 🤝 Repos settled / 🚫 Blocked / 🔒 Self / ⏳ Pending / 🔗 Non-GitHub +
   websites sub-table / 🔄 Duplicates removed) + numbered pending lists (websites capped 50).
+  — **Dated note (2026-10-20, T-74/SESSION-037 — the port's Check Queue door):** the
+  page's engine is `internal/app/settingsb.go`'s RenderQueueReport over a classified
+  QueueReport (the canned-result law, pinned by tests) + the badge's two-state law;
+  the page keeps the username guard (its refusal line is observable) and drops only
+  the Telethon credential + proxy-warning guards; **Process New and Mark All as Read
+  do not render** (the cursor + read-acknowledge are Option B's accepted losses — the
+  ledger + the mirror push are the truth); the Worker-pending fetch itself rides
+  Commands.SyncFetchQueue, the render + the badge ride the page engine, and the
+  port's Check Queue saves the config before the fetch exactly like the reference.
 - `process_bot_queue` (settled-link exclusion layers + confirm) / `process_new_bot_queue`
   (incremental by `last_processed_msg_id`); `export_all_bot_links`; `verify_all_bot_links`
   (+ fuzzy match + manual-resolve dialog + permanent `_verification_report_*.md`);

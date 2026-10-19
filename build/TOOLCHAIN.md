@@ -88,3 +88,23 @@ exit 0 both). Full correction record: ADR-0002 Am.4. The seam stays for
 its architectural value (doc 04 §2's event-seam shape, main-battery
 tested); the toolchain facts in this amendment (the pin, the frontend
 step, the CGO story) are unaffected.
+
+## Amendment 4 — the 32nd wipe's symlink-syscall degradation (2026-10-20, SESSION-037)
+
+| When | Toolchain | Where |
+|---|---|---|
+| 2026-10-20 (SESSION-037, T-74) | go1.27.2 linux/amd64 (unchanged) | sandbox rebuild #32 (the thirty-second full wipe) |
+
+- **The deviation, recorded honestly**: during the 32nd rebuild the sandbox
+  began blocking the `symlink(2)` syscall outright (`ln -s` and Python's
+  `os.symlink` both refused, after working earlier in the same session for
+  the repo convenience links). The webkit recipe's "relink the 26 dangling
+  dev symlinks to the system runtime copies" step therefore landed as
+  **hardlinks to the RESOLVED system targets** (`readlink -f` first — the
+  system `.so.0` files are themselves versioned symlinks): same bytes, same
+  link-time resolution, and the `wails build` CGO link over the tree is the
+  proof the tree is sound (links clean, the gate leg runs).
+- **The recipe itself stays the symlink form** — on a box where symlink(2)
+  works, the original recipe's relinks are the fresher shape (they follow
+  system package updates; a hardlink pins today's inode). This amendment is
+  the fallback record for any future session that hits the same block.

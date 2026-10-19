@@ -600,8 +600,46 @@ fill), the Credentials page's fields + buttons, the example-base values
 line VERBATIM. **The CLI-parity shell wiring (warmup family, inputs
 fetchers, websites phase, Phase-5 CLEAR) carried honestly to the T-74+
 binding** — the one-slice-properly law; it gates T-77's hero batch,
-not the pages. T-74 (Settings pages B: Bot, Dashboard, Sources,
-Backup) opens next.
+not the pages.
+**SESSION-037 — T-74 COMPLETE: THE SETTINGS PAGES B + THE CLI-PARITY
+SHELL WIRING (the carried debt closed)**: the thirty-second full wipe
+absorbed before work (both repos re-cloned with the ephemeral
+GIT_CONFIG_COUNT PAT form, go1.27.2 sha-triple-verified, the venv, the
+wails CLI, and the rootless webkit tree rebuilt — the sandbox began
+blocking symlink(2) mid-session, so the 26 dev .so links landed as
+hardlinks to the resolved system runtime targets: same bytes, the
+wails build verifying the tree), then three slices, each
+committed+pushed: **(a) `a4619fe` — internal/app/batchwire.go, THE
+CLI-PARITY SHELL WIRING**: engine.go's runImpl composition re-hosted
+on the app surface — the warmup family (the Ollama list/autostart/
+adaptation ladder, the llama.cpp re-probe/detect, the cloud /models
+pre-flight), the inputs fetchers (the import file + the _inbox
+tables), the full intake + banishment + settled ledger + backfill +
+the §4.4 passes, THE WEBSITES PHASE (the full websitepipeline
+composition), THE FINISH CHAIN (the seals in the reference's order +
+the Phase-5 CLEAR's mirror-push ack + the all-clear verdict + the
+dry-run law) — the debt T-73 recorded, closed with 19 wiring tests
+over the App's six new seams; **(b) `6d479fb` — internal/app/
+settingsb.go, the pages' engines** (the specs matched BY NAME per the
+R-0 note): the QUEUE REPORT RENDERING from canned reports (every
+labeled-count line verbatim + the settled lines + the websites
+sub-table + the advisories + the 50-cap + the caught-up family) + the
+zinc ⏳/mint ✅ badge law + the dashboard engines (the frontmatter
+scan + the exact report text + the quarantine table/reset + the undo
+engine with the top-10 confirm + the processed-repos row removal) +
+the sources fetch over its seam + the backup ladders + the save
+groups — 21 tests; **(c) `3091d76` — the shell**: webui/settingsuib.go
+(the third bound struct) + frontend/settings.js's four pages at the
+reference's own sidebar order (Dashboard after Input, Bot, Sources,
+Backup — every label/tooltip/'?' help verbatim; the Restore button
+honestly disabled with the landing note) + the section-probe evidence
+door — 5 shell tests. **2060 main-battery tests race-clean over 35
+packages (2020 + 19 + 21) + 28 webui tests over 4 (23 + 5); the gate
+leg GREEN (first frame 283/942 ms; the 10k flood 476,190 lines/s,
+0 drops); the screenshots VLM-verified (all TEN sidebar rows in the
+reference's order; the Backup page's four groups with every button/
+checkbox/placeholder/status dot).** T-75 (the Sync view: flow cards +
+matrix + differences modal) opens next.
 
 ## Map
 

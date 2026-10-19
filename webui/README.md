@@ -24,9 +24,16 @@ seam RETIRED at this landing, deleted with its tests):
   runs the graces.
 - `settingsui.go` — T-73's Settings window binding wrapper: the thin
   shell over internal/app's Settings surface (the six pages' engines)
-  plus the two native pickers (the import-file + vault-folder
-  dialogs). Bound as the second wails struct; the generated bindings
+  plus the native pickers (the import-file + vault-folder dialogs).
+  Bound as the second wails struct; the generated bindings
   live in frontend/wailsjs/go/main/SettingsUI.js.
+- `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
+  over internal/app's pages B engines + the Commands surface (the
+  queue check + render + badge, Process All, the dashboard refresh +
+  quarantine + undo, the sources fetch + process, the backup saves +
+  ladders + job buttons + the FastSync door T-77's hero machine
+  wires). Bound as the third wails struct; the generated bindings
+  live in frontend/wailsjs/go/main/PagesBUI.js.
 - `deskbus/` — THE COALESCED LOG's Go half (pure, headless-tested): the
   120 ms flush beat, the ≤250-row batches, the cap-1024 backpressure
   channel, the synchronous clear door, and (T-72's fix) the
@@ -48,8 +55,11 @@ seam RETIRED at this landing, deleted with its tests):
   hero + Fast Sync + Scan + Test Connectivity, honestly disabled until
   T-77's hero button machine), the flood probe instruments, and
   `settings.js` (T-73: the Settings window's frontend half — the
-  six pages A rendered from the snapshot, the save-on-change law,
-  the mini-dialog kit; the desk keeps living underneath).
+  pages A rendered from the snapshot, the save-on-change law,
+  the mini-dialog kit; T-74: the pages B — Dashboard, Bot, Sources,
+  Backup — at the reference's own sidebar order with every label
+  verbatim, the zinc/mint badge, the >10 confirm gates, the
+  section-selecting evidence probe; the desk keeps living underneath).
 - `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
   path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's

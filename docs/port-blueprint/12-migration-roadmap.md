@@ -263,6 +263,34 @@ startup ≤ 1.5 s; log flood smooth).
 > fetchers, websites phase, Phase-5 CLEAR) carried honestly to the
 > T-74+ binding — the one-slice-properly law; it gates T-77's hero
 > batch, not the pages.
+> **SESSION-037 (2026-10-20): T-74 COMPLETE — the Settings pages B +
+> THE CLI-PARITY SHELL WIRING (the carried debt closed).** The
+> thirty-second full wipe absorbed before work (both repos re-cloned
+> with the ephemeral GIT_CONFIG_COUNT PAT form, go1.27.2
+> sha-triple-verified, the venv, the wails CLI, and the rootless
+> webkit tree rebuilt — the sandbox began blocking symlink(2)
+> mid-session so the 26 dev .so links landed as hardlinks to the
+> resolved system runtime targets, same bytes, the wails build
+> verifying the tree). T-74 in three slices: (a) internal/app/
+> batchwire.go — engine.go's runImpl composition re-hosted on the app
+> surface (the warmup family, the inputs fetchers, the websites phase,
+> the Phase-5 CLEAR, the finish seals, the dry-run law — the debt
+> T-73 recorded, closed with 19 wiring tests); (b) internal/app/
+> settingsb.go — the pages' engines (the specs matched BY NAME per the
+> R-0 note: the queue report rendering from canned reports, the badge
+> law, the dashboard stats + quarantine + undo engines, the sources
+> fetch over its seam, the backup ladders + the save groups — 21
+> tests); (c) webui/settingsuib.go + frontend/settings.js — the four
+> pages live on the Settings window at the reference's own sidebar
+> order with every label verbatim + the section-probe evidence door (5
+> shell tests). 2060 main-battery tests race-clean over 35 packages +
+> 28 webui tests over 4; the gate leg GREEN (first frame 283/942 ms;
+> the 10k flood 476,190 lines/s, 0 drops); the screenshots
+> VLM-verified (all ten sidebar rows; the Backup page's groups). T-75
+> (the Sync view) is the next session's task; the dissolution +
+> vanilla-vs-vite calls remain the owner's.
+
+
 **Work**: `internal/app` commands/event bus completion; frontend pages in dependency order:
 main window chrome + log desk → settings pages (Vault, Credentials, LLM, Proxy, Input) → Bot
 queue + Dashboard → Sync view (flow cards + matrix + differences modal) → Scan flow (picker →

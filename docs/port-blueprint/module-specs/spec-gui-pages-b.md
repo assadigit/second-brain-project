@@ -22,6 +22,20 @@
 
 ## The page (rehost contracts)
 
+> **Dated note (2026-10-20, T-74/SESSION-037 — the page is live):** the four
+> groups render on the Settings window's Backup page (`webui/settingsuib.go` +
+> `frontend/settings.js`) with every label/tooltip/'?' help verbatim, the three
+> status-dot ladders as pure engines (`internal/app/settingsb.go` — every rung
+> pinned by tests), and the ONE save group through the four-laws merge. The
+> job buttons ride the Commands surface (Backup.Now / SealVault / Resync /
+> Publish / Radar.Detect); FastSync is exposed as the bound door T-77's hero
+> machine wires (the laws themselves are the already-tested pure halves). **The
+> Restore button renders honestly disabled** — the safety-net restore engine
+> (zip picker + extract-to-new-folder) rides the packaging phase (T-80's
+> checklist); the button carries its landing note in the tooltip. The zinc/mint
+> pending-badge family rides the locked semantic tokens (the reference's
+> zinc/mint QSS has no token-table twin — recorded here).
+
 - Four QGroupBoxes (Vault Backup / VaultSeal — GitHub Mirror / Good Repos — Public Directory /
   Dashboard), compacted rows, status dots `● Ready` / `● Local-only (no GitHub token…)` /
   `● No vault selected` / `● Disabled`, `?` help glyphs.

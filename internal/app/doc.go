@@ -27,6 +27,17 @@
 //     merge save with all four v30 laws, the ladder, the token test,
 //     the wizard, the Ollama/llama.cpp detect family, the quick-switch
 //     fast lane, the sound gate) over injected SettingsDeps.
+//   - settingsb.go — the Settings pages B's engines (T-74): the queue
+//     report rendering + the badge + the log family (the canned-result
+//     law), the dashboard engines (the frontmatter scan, the quarantine
+//     table/reset, the undo engine), the sources fetch over its seam,
+//     and the Backup page's ladders + save groups.
+//   - batchwire.go — THE CLI-PARITY SHELL WIRING (T-74, the debt T-73
+//     carried closed): engine.go's runImpl composition re-hosted on
+//     this surface — the warmup family, the inputs fetchers, the full
+//     intake, the banishment + settled-ledger + backfill + §4.4
+//     passes, the websites phase, the finish seals + THE PHASE-5
+//     CLEAR + the dry-run law.
 //   - lock.go — the OpLock (the TelegramLockManager port — the
 //     one-batch law).
 //   - lifecycle.go — the single-instance app.lock + PID healing, the
