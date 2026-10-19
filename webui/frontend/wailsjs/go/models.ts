@@ -206,6 +206,218 @@ export namespace app {
 	        this.model = source["model"];
 	    }
 	}
+	export class PickRow {
+	    kind: string;
+	    label: string;
+	    icon: string;
+	    path: string;
+	    status: string;
+	    status_text: string;
+	    scannable: boolean;
+	    selectable: boolean;
+	    why: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new PickRow(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.kind = source["kind"];
+	        this.label = source["label"];
+	        this.icon = source["icon"];
+	        this.path = source["path"];
+	        this.status = source["status"];
+	        this.status_text = source["status_text"];
+	        this.scannable = source["scannable"];
+	        this.selectable = source["selectable"];
+	        this.why = source["why"];
+	    }
+	}
+	export class PickDisplayModel {
+	    title: string;
+	    header: string;
+	    rows: PickRow[];
+	    selectable_kinds: string[];
+	    any_selectable: boolean;
+	    hint: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new PickDisplayModel(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.title = source["title"];
+	        this.header = source["header"];
+	        this.rows = this.convertValues(source["rows"], PickRow);
+	        this.selectable_kinds = source["selectable_kinds"];
+	        this.any_selectable = source["any_selectable"];
+	        this.hint = source["hint"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	
+	export class PlanInventory {
+	    total_notes: number;
+	    folder_count: number;
+	    root_notes: number;
+	    uncategorized_notes: number;
+	    trash_notes: number;
+	    locked_notes: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new PlanInventory(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.total_notes = source["total_notes"];
+	        this.folder_count = source["folder_count"];
+	        this.root_notes = source["root_notes"];
+	        this.uncategorized_notes = source["uncategorized_notes"];
+	        this.trash_notes = source["trash_notes"];
+	        this.locked_notes = source["locked_notes"];
+	    }
+	}
+	export class PlanRow {
+	    id: string;
+	    text: string;
+	    full: string;
+	    low_confidence: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new PlanRow(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.text = source["text"];
+	        this.full = source["full"];
+	        this.low_confidence = source["low_confidence"];
+	    }
+	}
+	export class PlanSection {
+	    key: string;
+	    card: string;
+	    tone: string;
+	    heading: string;
+	    rows: PlanRow[];
+	    total: number;
+	    more: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new PlanSection(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.key = source["key"];
+	        this.card = source["card"];
+	        this.tone = source["tone"];
+	        this.heading = source["heading"];
+	        this.rows = this.convertValues(source["rows"], PlanRow);
+	        this.total = source["total"];
+	        this.more = source["more"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class PlanDisplayModel {
+	    title: string;
+	    header: string;
+	    library_line: string;
+	    trash_line: string;
+	    locked_line: string;
+	    kept_line: string;
+	    low_confidence_line: string;
+	    sections: PlanSection[];
+	    summary: string;
+	    vault_label: string;
+	    inventory: PlanInventory;
+	    has_deletions: boolean;
+	    has_filing: boolean;
+	    has_consolidations: boolean;
+	    has_low_confidence: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new PlanDisplayModel(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.title = source["title"];
+	        this.header = source["header"];
+	        this.library_line = source["library_line"];
+	        this.trash_line = source["trash_line"];
+	        this.locked_line = source["locked_line"];
+	        this.kept_line = source["kept_line"];
+	        this.low_confidence_line = source["low_confidence_line"];
+	        this.sections = this.convertValues(source["sections"], PlanSection);
+	        this.summary = source["summary"];
+	        this.vault_label = source["vault_label"];
+	        this.inventory = this.convertValues(source["inventory"], PlanInventory);
+	        this.has_deletions = source["has_deletions"];
+	        this.has_filing = source["has_filing"];
+	        this.has_consolidations = source["has_consolidations"];
+	        this.has_low_confidence = source["has_low_confidence"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	
+	
+	
 	export class ProxyValues {
 	    enabled: boolean;
 	    type: string;
@@ -306,6 +518,106 @@ export namespace app {
 	        this.Error = source["Error"];
 	    }
 	}
+	export class VaultSection {
+	    label: string;
+	    changed: number;
+	    tip: string;
+	    rows: ScoreRow[];
+	
+	    static createFrom(source: any = {}) {
+	        return new VaultSection(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.label = source["label"];
+	        this.changed = source["changed"];
+	        this.tip = source["tip"];
+	        this.rows = this.convertValues(source["rows"], ScoreRow);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class ScoreRow {
+	    shown: boolean;
+	    name: string;
+	    value: string;
+	    tone: string;
+	    tip: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ScoreRow(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.shown = source["shown"];
+	        this.name = source["name"];
+	        this.value = source["value"];
+	        this.tone = source["tone"];
+	        this.tip = source["tip"];
+	    }
+	}
+	export class ResultDisplayModel {
+	    heading: string;
+	    rows: ScoreRow[];
+	    vault_sections: VaultSection[];
+	    landed_total: number;
+	    nothing_landed: boolean;
+	    failed_moves: number;
+	    nothing_line: string;
+	    footnote: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ResultDisplayModel(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.heading = source["heading"];
+	        this.rows = this.convertValues(source["rows"], ScoreRow);
+	        this.vault_sections = this.convertValues(source["vault_sections"], VaultSection);
+	        this.landed_total = source["landed_total"];
+	        this.nothing_landed = source["nothing_landed"];
+	        this.failed_moves = source["failed_moves"];
+	        this.nothing_line = source["nothing_line"];
+	        this.footnote = source["footnote"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
 	export class SaveResult {
 	    saved: boolean;
 	
@@ -318,6 +630,126 @@ export namespace app {
 	        this.saved = source["saved"];
 	    }
 	}
+	export class ScanStory {
+	    verdict: string;
+	    deletions: number;
+	    moves: number;
+	    new_folders: number;
+	    consolidations: number;
+	    consolidation_notes: number;
+	    applied: number;
+	    moved: number;
+	    folders_created: number;
+	    notes_consolidated: number;
+	    failed_moves: number;
+	    failed: vaultscan.FailedMove[];
+	    vault: string;
+	    vault_kind: string;
+	    vault_label: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ScanStory(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.verdict = source["verdict"];
+	        this.deletions = source["deletions"];
+	        this.moves = source["moves"];
+	        this.new_folders = source["new_folders"];
+	        this.consolidations = source["consolidations"];
+	        this.consolidation_notes = source["consolidation_notes"];
+	        this.applied = source["applied"];
+	        this.moved = source["moved"];
+	        this.folders_created = source["folders_created"];
+	        this.notes_consolidated = source["notes_consolidated"];
+	        this.failed_moves = source["failed_moves"];
+	        this.failed = this.convertValues(source["failed"], vaultscan.FailedMove);
+	        this.vault = source["vault"];
+	        this.vault_kind = source["vault_kind"];
+	        this.vault_label = source["vault_label"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class ScanResult {
+	    Success: boolean;
+	    Verdict: string;
+	    HygieneTotal: number;
+	    hygiene: Record<string, vaulthygiene.HygieneCounts>;
+	    WebsitesRan: boolean;
+	    ReposRan: boolean;
+	    Lines: string[];
+	    Crashed: boolean;
+	    Error: string;
+	    story?: ScanStory;
+	    repos?: ScanStory;
+	    vaults: string[];
+	    vault: string;
+	    github_vault: string;
+	    vault_kind: string;
+	    vault_label: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ScanResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Success = source["Success"];
+	        this.Verdict = source["Verdict"];
+	        this.HygieneTotal = source["HygieneTotal"];
+	        this.hygiene = this.convertValues(source["hygiene"], vaulthygiene.HygieneCounts, true);
+	        this.WebsitesRan = source["WebsitesRan"];
+	        this.ReposRan = source["ReposRan"];
+	        this.Lines = source["Lines"];
+	        this.Crashed = source["Crashed"];
+	        this.Error = source["Error"];
+	        this.story = this.convertValues(source["story"], ScanStory);
+	        this.repos = this.convertValues(source["repos"], ScanStory);
+	        this.vaults = source["vaults"];
+	        this.vault = source["vault"];
+	        this.github_vault = source["github_vault"];
+	        this.vault_kind = source["vault_kind"];
+	        this.vault_label = source["vault_label"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	
+	
 	export class SealResultRow {
 	    Success: boolean;
 	    Message: string;
@@ -1205,6 +1637,7 @@ export namespace app {
 	        this.confirmMessage = source["confirmMessage"];
 	    }
 	}
+	
 	export class VaultStatus {
 	    text: string;
 	    state: string;
@@ -1345,6 +1778,74 @@ export namespace main {
 	        this.ok = source["ok"];
 	        this.line = source["line"];
 	    }
+	}
+	export class ScanAskPayload {
+	    model?: app.PlanDisplayModel;
+	    timeout_s: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new ScanAskPayload(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.model = this.convertValues(source["model"], app.PlanDisplayModel);
+	        this.timeout_s = source["timeout_s"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class ScanFlowResult {
+	    started: boolean;
+	    refusal: string;
+	    result?: app.ScanResult;
+	    scorecard?: app.ResultDisplayModel;
+	
+	    static createFrom(source: any = {}) {
+	        return new ScanFlowResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.started = source["started"];
+	        this.refusal = source["refusal"];
+	        this.result = this.convertValues(source["result"], app.ScanResult);
+	        this.scorecard = this.convertValues(source["scorecard"], app.ResultDisplayModel);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
 	export class SyncQueueCheckResult {
 	    refusal: string;
@@ -1499,6 +2000,54 @@ export namespace syncreview {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.tone = source["tone"];
 	        this.text = source["text"];
+	    }
+	}
+
+}
+
+export namespace vaulthygiene {
+	
+	export class HygieneCounts {
+	    RemovedIndex: number;
+	    RetiredStubs: number;
+	    RetiredReports: number;
+	    StubNames: string[];
+	    RetiredLinked: number;
+	    RetiredAppOwned: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new HygieneCounts(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.RemovedIndex = source["RemovedIndex"];
+	        this.RetiredStubs = source["RetiredStubs"];
+	        this.RetiredReports = source["RetiredReports"];
+	        this.StubNames = source["StubNames"];
+	        this.RetiredLinked = source["RetiredLinked"];
+	        this.RetiredAppOwned = source["RetiredAppOwned"];
+	    }
+	}
+
+}
+
+export namespace vaultscan {
+	
+	export class FailedMove {
+	    Note: string;
+	    To: string;
+	    Why: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new FailedMove(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Note = source["Note"];
+	        this.To = source["To"];
+	        this.Why = source["Why"];
 	    }
 	}
 

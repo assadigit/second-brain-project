@@ -34,14 +34,15 @@ bot queue, sources, dashboard and backup (all former tabs)."></button>
     <!-- CTA band (ui.py's sync_card): exactly ONE filled primary per
          view (the btn_kind law) — the 56px SYNC hero; the rest
          secondary/ghost. The hero button machine (their wiring) is
-         T-77's — the honest disabled state until then. -->
+         T-77's — the honest disabled state until then. The Scan CTA
+         rides T-76's own machine (vault_scan_ui.py's scan_btn — the
+         picker → the plan modal → the scorecard; scanflow.js). -->
     <section class="cta">
       <button id="btn-sync" class="btn-hero btn-hero-lg" disabled
               title="The hero button machine lands at T-77">SYNC</button>
       <button id="btn-fast" class="btn-secondary" disabled
               title="The hero button machine lands at T-77">⚡ Fast Sync</button>
-      <button id="btn-scan" class="btn-secondary" disabled
-              title="The hero button machine lands at T-77">🔍 Scan</button>
+      <button id="btn-scan" class="btn-secondary" aria-label="Scan the vault">🔍 Scan</button>
       <button id="btn-test" class="btn-ghost" disabled
               title="The hero button machine lands at T-77">🔌 Test Connectivity</button>
     </section>
@@ -101,5 +102,6 @@ bot queue, sources, dashboard and backup (all former tabs)."></button>
   </div>
   <script type="module" src="app.js"></script>
   <script type="module" src="settings.js"></script>
+  <script type="module" src="scanflow.js"></script>
 </body>
 </html>

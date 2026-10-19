@@ -54,6 +54,7 @@ type Shell struct {
 	settingsUI   *SettingsUI
 	pagesBUI     *PagesBUI
 	syncUI       *SyncUI
+	scanUI       *ScanUI
 	bus          *deskbus.LogBus
 	cancelBusSub func()
 
@@ -72,9 +73,10 @@ type Shell struct {
 
 // NewShell builds the production composition around the process-start
 // clock: the app over the exe-dir config (constants.ConfigFile — the
-// reference's APP_DIR/config.json). headless=false: a gate nobody
-// answers fails fast (the no-reader law) — T-72's shell renders no ask
-// dialogs yet; the ask-gates' modals land with T-76.
+// reference's APP_DIR/config.json). headless=false: the ask-gates'
+// modals live on the window (T-76's scan plan modal rides the
+// scan:ask event); a gate nobody answers still fails safe (the bus's
+// own window answers the safe defer).
 //
 // The single-instance lock is taken HERE, before the window exists
 // (the reference's own order): on the alive-PID refusal the loud line
@@ -91,6 +93,7 @@ func NewShell(t0 time.Time) *Shell {
 	s.settingsUI = NewSettingsUI(s.theApp.Settings)
 	s.pagesBUI = NewPagesBUI(s.theApp.Settings, s.theApp.Commands)
 	s.syncUI = NewSyncUI(s.theApp.Settings, s.theApp.Commands)
+	s.scanUI = NewScanUI(s.theApp.Settings, s.theApp.Commands)
 	return s
 }
 
@@ -101,6 +104,7 @@ func (s *Shell) startup(ctx context.Context) {
 	s.settingsUI.bindCtx(ctx)
 	s.pagesBUI.bindCtx(ctx)
 	s.syncUI.bindCtx(ctx)
+	s.scanUI.bindCtx(ctx)
 
 	// The desk's Go half: the 120 ms coalescing beat, wired to the
 	// bridge (one flushed batch = one log:batch event).
@@ -140,10 +144,14 @@ func (s *Shell) startup(ctx context.Context) {
 		ModelChanged: func(ev app.ModelChanged) {
 			runtime.EventsEmit(ctx, "bus:model-changed", ev)
 		},
-		// The ask-gates: T-72's shell renders no modals — a gate with
-		// no reader fails fast per the bus's own law (the headless
-		// twin). The modals land with T-76's dialogs; until then the
-		// gates decline honestly, nothing hangs.
+		// T-76 — THE SCAN PLAN'S RIDE UP TO THE WINDOW: the
+		// ask-gate crosses to the frontend as the scan:ask
+		// event (the plan's display model + the answering
+		// window); the modal's answer rides back down through
+		// ScanUI.ScanAnswer. The bus's own window is the belt
+		// under the modal's countdown (a dead modal still
+		// defers safely).
+		AskScanConfirm: s.scanUI.onAskScanConfirm,
 	})
 
 	// The startup passes — each engine speaks its real lines onto the
@@ -339,6 +347,16 @@ func (s *Shell) autorun() {
 	if v := os.Getenv("SB_POC_OPEN_SETTINGS"); v != "" {
 		runtime.EventsEmit(s.ctx, "autorun:open-settings", v)
 		time.Sleep(1500 * time.Millisecond)
+	}
+	// The Scan-flow probe (T-76's own evidence door): "picker"
+	// opens the vault picker; "scorecard" opens the applied
+	// scorecard over a canned story (the fixture vault's shape);
+	// "flow" runs the REAL flow over the fixture vault (the scan
+	// → the plan modal over the bus gate → the answer → the
+	// finished routing — ONE REAL JOB again, the T-70 law).
+	if v := os.Getenv("SB_POC_OPEN_SCAN"); v != "" {
+		runtime.EventsEmit(s.ctx, "autorun:open-scan", v)
+		time.Sleep(2500 * time.Millisecond)
 	}
 	_ = os.WriteFile(envOr("SB_POC_RESULTS", "/tmp/t70-gate-results.json"), []byte(s.Stats()), 0o600)
 }

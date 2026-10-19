@@ -760,3 +760,86 @@ textarea.form-area { resize: vertical; min-height: 42px; }
 .sync-log-item { overflow-wrap: anywhere; }
 .sync-log-dash { color: var(--muted); text-align: center; }
 .sync-reopen-btn { min-height: 36px; padding: 2px 10px; }
+
+/* T-76 — the Scan flow (the three dialogs' roles over the locked
+   tokens): the picker's rows, the plan modal's four section washes
+   (plan_delete_card / plan_consolidate_card / plan_create_card /
+   plan_move_card — the reference's own QSS roles, riding the
+   golden-locked plan-* tokens), the picking rows + masters, and the
+   scorecard's per-vault sections. */
+.scanflow-box { max-width: 680px; }
+
+/* the picker (vault_pick_dialog.py's sync_card + cc_* rows) */
+.pick-header { color: var(--text); }
+.pick-card { display: flex; flex-direction: column; gap: 6px; }
+.pick-row { display: flex; align-items: center; gap: 8px; min-height: 36px; }
+.pick-name { font-weight: 600; color: var(--text); font-size: 13px; }
+.pick-name-readonly { font-weight: 600; color: var(--text); font-size: 13px; margin-top: 4px; }
+.pick-sub { color: var(--text-muted); font-size: 12px; overflow-wrap: anywhere; white-space: pre-wrap; }
+.pick-hint { margin: 0; }
+
+/* the plan modal (scan_plan_dialog.py's panels) */
+.plan-body { min-width: 560px; }
+.plan-card { display: flex; flex-direction: column; gap: 8px; }
+.plan_heading { font-size: 15px; font-weight: 800; color: var(--text); }
+.plan-heading-neutral { color: var(--text); }
+.plan-heading-danger { color: var(--error); }
+.plan-heading-magnet { color: var(--teal-ink, var(--text)); }
+.plan-heading-grow { color: var(--success); }
+.plan_section {
+  border-radius: 8px;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid var(--border);
+}
+.plan-delete_card { background: var(--plan-del-bg); border-color: var(--plan-del-border); }
+.plan-consolidate_card { background: var(--plan-mag-bg); border-color: var(--plan-mag-border); }
+.plan-create_card { background: var(--plan-grow-bg); border-color: var(--plan-grow-border); }
+.plan-move_card { background: var(--sheet); }
+.plan_section_head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.plan_master { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+  font-weight: 600; color: var(--text-muted); }
+.plan_list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 200px;           /* _LIST_MAX_PX — the NO-FEEDBACK SCROLL LAW */
+  overflow-y: auto;
+}
+.plan_row { display: flex; align-items: center; gap: 8px; min-height: 30px;
+  font-size: 11px; color: var(--text); }
+.plan_row_text { white-space: nowrap; overflow: hidden; }
+.plan-summary { margin: 0; }
+.plan-clock { text-align: right; color: var(--text-muted); }
+
+/* the scorecard (scan_result_dialog.py's form rows + sections) */
+.score-body { min-width: 420px; }
+.score-head { display: flex; align-items: center; gap: 4px; }
+.score-heading { color: var(--msg-success); }
+.score-card { display: flex; flex-direction: column; gap: 7px; }
+.score-section-line { display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+.vault_section_label { font-weight: 700; color: var(--msg-success); font-size: 13px; }
+.vault_section_count { font-weight: 700; color: var(--msg-success); font-size: 13px; }
+.score-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.score-value.tone-success { color: var(--success); }
+.score-value.tone-warning { color: var(--warning); }
+.score-nothing { margin: 0; }
+.score-footnote { margin: 0; }
+.score-clock { text-align: right; color: var(--text-muted); }
+
+/* the flow's modals pin their verdict row: the title + the buttons +
+   the clock stay on screen; only the body scrolls (the reference's Qt
+   modal kept its buttons visible whatever the pile — the lists scroll,
+   never the dialog). */
+.scanflow-box { overflow: hidden; }
+.scanflow-box .dialog-body { overflow-y: auto; min-height: 140px; flex: 1 1 auto; }
+
+/* the WebKit flex quirk insurance: a hard body cap (the NO-FEEDBACK
+   SCROLL LAW's own spirit — a number, computed once from the window's
+   own budget: 80% of 750 px minus the title + the clock + the pinned
+   verdict row) so the verdict doors stay on screen whatever the pile
+   and whatever the flex engine does. */
+.scanflow-box .dialog-body { max-height: 460px; }

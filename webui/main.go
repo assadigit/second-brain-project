@@ -64,6 +64,7 @@ func main() {
 			shell.settingsUI,
 			shell.pagesBUI,
 			shell.syncUI,
+			shell.scanUI,
 		},
 	})
 	if err != nil {
