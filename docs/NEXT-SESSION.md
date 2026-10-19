@@ -17,31 +17,32 @@
   `v0.92.0-go.1` (tag at `a39cb3d`, release 416838956, the zip asset
   sha-verified + round-trip verified); the differential corpus full run
   (all 31 generators × two passes GREEN).
-- **Phase 6 OPEN (SESSION-033)** — **THE ENTRY GATE IS GREEN: T-70
-  COMPLETE** (commits `86790fb` → `937797a` → `8939cc4` → `7f613dd`): the
-  PoC C GUI-shell gate re-run with ONE REAL JOB wired through — the
-  note-state baseline (record_baseline_if_empty's composition) over a
-  deterministic 800-note fixture vault via the `guibridge/` interim seam.
-  The shell at `webui/` (a NESTED Go module per ADR-0002 Am.3: require
-  wails v2.16.0 + replace to the parent — the main module's runtime set
-  stays the authorized four): the themed window (the spec-gui-theme-icons
-  LIGHT tokens), THE COALESCED LOG full contract (the deskbus Go half +
-  the cache-mirror frontend half), the vanilla frontend (NO npm step), the
-  committed rootless-webkit recipe (webui/build-support/). THE MEASURED
-  VERDICT over two runs: first frame 266/679 ms (gate ≤ 1.5 s), the 10k
-  flood 458,695/454,133 lines/s with 0 drops and 23–25 ms max handler time
-  per batch, the real job 800 notes in 94–101 ms, the Windows exe CGO-free
-  at 14.95 MB; the desk's cap law VLM-verified off the screenshot.
-  Evidence: `docs/poc-artifacts/t-70-gate.md`; the verdict: ADR-0001 Am.3.
-  **T-71 was NOT started** (capacity ran short after two environment
-  rebuilds — the mandate's own law: one slice done properly beats a rushed
-  whole). **1932 main-battery tests race-clean over 35 packages (+5
-  guibridge) + 12 webui tests** (deskbus + fixture, run from the nested
-  module) at the close.
-- **Push state: CLEAN** — SESSION-033 pushed after every task
-  (`5a688a2` → `86790fb` → `937797a` → `8939cc4` → `7f613dd`); verify
-  `git status` is in sync at the start (the tip at or beyond `7f613dd`).
-- **The environment recipe** (GUI edition — T-70 grew it): work repo at
+- **Phase 6 OPEN (SESSION-033–034)** — **THE ENTRY GATE IS GREEN: T-70
+  COMPLETE** (SESSION-033, `86790fb` → `8939cc4` → `7f613dd`: the themed
+  Wails window + the coalesced log desk + ONE REAL JOB — the note-state
+  baseline over an 800-note fixture vault; first frame 266/679 ms over two
+  runs, the 10k flood 458,695/454,133 lines/s with 0 drops; the verdict at
+  ADR-0001 Am.3 + `docs/poc-artifacts/t-70-gate.md`), and now **T-71
+  COMPLETE: `internal/app` IS REAL** (SESSION-034, commits `5453214` →
+  `00f4cdb` → `eb74171` → `74ae634`): the composition layer in four
+  slices — (a) the typed fan-out Bus + the three ask-gates with the
+  reference's IDENTICAL timeouts (300/300/600 s, the headless + no-reader
+  fail-fasts); (b) the command surface over injected seams (doc 04 §5's
+  table) with the crash-safety wrapper + the OpLock (the TelegramLockManager
+  port) + the one-batch law; (c) the single-instance app.lock with PID
+  healing, the watchdog, the startup passes at the reference's delays, the
+  shutdown graces; (d) the DI root wiring every production seam (the batch
+  composition with LLMDecision → the 600 s gate, the queue classification
+  with the settlement at the door, the scan job with BOTH confirm doors, the
+  backup zip's laws). doc 04 §2's landed-shape note records every delta the
+  port's laws forced. **T-72 was NOT started** (closed at T-71's natural
+  boundary — the mandate's own law). **1999 main-battery tests race-clean
+  over 36 packages (67 in internal/app) + 12 webui tests** (deskbus +
+  fixture, run from the nested module) at the close.
+- **Push state: CLEAN** — SESSION-034 pushed after every task (`5453214` →
+  `00f4cdb` → `eb74171` → `74ae634` + the session close); verify `git
+  status` is in sync at the start (the tip at or beyond `74ae634`).
+- **The environment recipe** (GUI edition): work repo at
   /home/z/my-project/second-brain-project (symlinked
   /home/z/second-brain-project), read-only reference
   /home/z/my-project/GitCurator @ `98f4fc7` (symlinked /home/z/GitCurator;
@@ -55,14 +56,28 @@
   **the rootless webkit tree** (~/.local/lib-wails: apt --download-only +
   dpkg -x of libwebkit2gtk-4.1-dev + libgtk-3-dev, the .pc prefix
   rewrites, the dev-symlink relinking — the full recipe is committed in
-  `webui/README.md` + `docs/poc-artifacts/t-70-gate.md`), all per
-  build/TOOLCHAIN.md Am.3; go.mod exactly modernc.org/sqlite v1.36.1 +
-  bogdanfinn/tls-client v1.16.0 + golang.org/x/net v0.48.0 +
-  golang.org/x/text v0.32.0 + the go directive at 1.24.1 (the
-  tls-client floor, ADR-0002 Am.2; never bump). The webui module's own
-  go.mod rides `go 1.25.0` (wails v2.16.0's floor — ADR-0002 Am.3).
+  `webui/README.md` + `docs/poc-artifacts/t-70-gate.md`; **DEFERRED at
+  SESSION-034's rebuild — T-71 was pure Go; T-72's build legs MUST rebuild
+  it first**), all per build/TOOLCHAIN.md Am.3; go.mod exactly
+  modernc.org/sqlite v1.36.1 + bogdanfinn/tls-client v1.16.0 +
+  golang.org/x/net v0.48.0 + golang.org/x/text v0.32.0 + the go directive
+  at 1.24.1 (the tls-client floor, ADR-0002 Am.2; never bump). The webui
+  module's own go.mod rides `go 1.25.0` (wails v2.16.0's floor —
+  ADR-0002 Am.3).
 - **The operational laws, newest first** (each was paid for in
   evidence — carry ALL of them):
+  - **THE HERMETIC-SEAM LAW** (SESSION-034): every network-touching seam in
+    a test environment must be FAKED AT CONSTRUCTION — a real fetch inside
+    a shared test helper (the engine tests' real DownloadBanner) can
+    outlive its own test via an escape hatch and record a late write into
+    a LATER test's window (the dry-run golden's intermittent 13th entry);
+    the runner's own doc always said "the tests inject the fake banner".
+  - **THE RESUMED-CONTEXT RE-VERIFICATION LAW** (SESSION-034): the
+    context-death continuation recipe extends to CHAT-context deaths —
+    diagnose the tree from evidence (git status + log + file mtimes), then
+    re-verify preserved drafts FROM SCRATCH (the full battery + the hygiene
+    scans) before committing; a preserved draft is continued and audited,
+    never blindly trusted.
   - **THE MODE-FLIP DEGRADATION LAW** (SESSION-033): a wipe event may flip
     tracked files' modes (644→755) while preserving CONTENT — diagnose
     with `git diff --raw` (mode-only rows: `:100644 100755 … M\t<path>`),
@@ -114,58 +129,58 @@
     FOREGROUND CHUNKS); **PUSH AFTER EVERY TASK** (ask for the PAT the
     moment a push is due; never store it).
 
-## 2. Next session: SESSION-034 — T-71 (L): `internal/app` — the commands + the typed event bus + the ask-gates + lifecycle/locks
+## 2. Next session: SESSION-035 — T-72 (L): the frontend foundation — the theme-token CSS golden + the production log desk
 
-- **Verify the push state first** (§1): SESSION-033 pushed everything; the
-  tree ends clean; confirm the tip is at or beyond `7f613dd`.
-- **T-71 per doc 04 §2/§5** (read them FIRST — the authority): the
-  `internal/app` composition layer — the App struct (config, stores, the
-  event bus, the injected clients), the typed event bus (`LogLine`,
-  `Progress`, `Status`, `BatchFinished`, the ask-gates `AskCode`/
-  `AskScanConfirm`/`LLMFailed` as channels with the reference's identical
-  timeouts — 300 s code, 300 s scan, 600 s LLM), the command surface (doc
-  04 §5's table: Sync.FetchQueue, Sync.RunBatch, Sync.FastSync,
-  Sync.DriftSeal, Scan.Run, Scan.ApplyPlan, Backup.*, Radar.Detect), the
-  one-batch-at-a-time mutex + running flag (the TelegramLockManager law),
-  the single-instance lock (`app.lock` + PID liveness healing,
-  gui/app.py:393-440), the startup passes' sequential goroutines with the
-  reference's delays, and the shutdown grace windows. **Acceptance: the
-  command contract tests + the lock/watchdog tests.** The `guibridge/`
-  seam (doc 04 §2's event-seam shape at PoC scale) is the starting
-  pattern — internal/app is its production evolution (and guibridge
-  RETIRES at T-72).
-- **Then, only if capacity remains after a PROPER T-71**, T-72 per the
-  roadmap (the frontend foundation: the theme-token CSS golden + the
-  production log desk) — but prefer closing cleanly at T-71's natural
-  boundary; one slice done properly with proof beats a rushed whole.
+- **Verify the push state first** (§1): SESSION-034 pushed everything; the
+  tree ends clean; confirm the tip is at or beyond `74ae634`.
+- **FIRST the webkit tree rebuild** (deferred at SESSION-034 — T-72's build
+  legs need it; the committed recipe: `webui/README.md` +
+  `docs/poc-artifacts/t-70-gate.md`; budget for it BEFORE planning slices).
+- **ASK THE OWNER the vanilla-vs-vite question EARLY** (both work under
+  wails v2; the PoC rides vanilla; the choice needs an ADR either way —
+  the theme-token golden itself is toolchain-independent, so land it first
+  regardless).
+- **T-72 per doc 13's row + spec-gui-theme-icons + spec-gui-ui** (read them
+  FIRST — the authority): theme tokens CSS (the token table → the CSS var
+  dump), icons, fonts, the layout shell, and the log desk with coalescing
+  at PRODUCTION scale (deskbus is the Go half's starting pattern; the
+  cache-mirror desk the frontend half's). **Acceptance: the token golden
+  (CSS var dump) + the log perf test.**
+- **`guibridge/` RETIRES at T-72** (delete it + its tests when the
+  production shell replaces its wiring — not before); `webui/` dissolves
+  into the main module and binds `internal/app` DIRECTLY per doc 04 §2's
+  landed-shape note — the batch's CLI-parity shell wiring (warmup family,
+  inputs fetchers, websites phase, Phase-5 CLEAR) lands on the app surface
+  at that binding. The module-boundary moves need ADR-0002's next
+  amendment — probe before claiming any boundary rule (Am.4's law).
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-033.md` — the most recent report (T-70 COMPLETE;
-  the gate's evidence; the two environment rebuilds).
-2. `docs/port-blueprint/04-target-go-architecture.md` §2 (the app layer +
-  the event bus + the ask-gates) and §5 (the command surface table) —
-  T-71's authority.
-3. `docs/port-blueprint/module-specs/spec-gui-processing.md` +
-  `spec-gui-processing-control.md` + `spec-gui-worker-jobs.md` — the
-  Python origins of every command (the 8 queued signals, the Event
-  round-trips, the timeouts).
-4. `guibridge/bridge.go` + `webui/deskbus/deskbus.go` — the landed seam
-  pattern + the coalescing bus (T-71's event bus grows from these shapes).
-5. `docs/port-blueprint/13-implementation-task-list.md` — the T-71 row +
+1. `docs/sessions/SESSION-034.md` — the most recent report (T-71 COMPLETE;
+  the four slices; the context-death continuation; the hermetic banner
+  stub's root cause).
+2. `docs/port-blueprint/module-specs/spec-gui-theme-icons.md` +
+   `spec-gui-ui.md` — T-72's authority (the tokens, the desk contract).
+3. `internal/app/` — the landed composition layer (doc.go's file map is
+  the tour; commands.go's Deps are the seams the frontend binds).
+4. `webui/deskbus/deskbus.go` + `webui/frontend/` — the coalescing bus +
+  the cache-mirror desk (the production log desk grows from these shapes).
+5. `docs/port-blueprint/04-target-go-architecture.md` §2 (the
+  landed-shape note — what T-72's binding owes) and §5.
+6. `docs/port-blueprint/13-implementation-task-list.md` — the T-72 row +
   Phase 6's full book.
 
-## 4. Known constraints / owner actions for SESSION-034
+## 4. Known constraints / owner actions for SESSION-035
 
 - **Push state: CLEAN** — keep the PUSH-AFTER-EVERY-TASK law; ask for the
   PAT the moment a push is due (never stored, never written).
-- **The authorized runtime set is UNCHANGED** (the four; ADR-0002 Am.3's
-  nested-module strategy holds — anything new needs an ADR).
-- **The T-72+ production frontend tooling question (vanilla vs vite) is
-  OPEN for the owner** — both work under wails v2; the PoC rides vanilla;
-  SESSION-034 does not need the answer (T-71 is pure Go).
-- **The go-directive acknowledgement (STILL WAITING — twenty-fourth
-  session carrying it)**: the main module rides `go 1.24.1`, forced by the
+- **The vanilla-vs-vite call is the owner's** — ask early; the ADR records
+  the choice either way.
+- **The authorized runtime set is UNCHANGED** (the four; the wails require
+  stays in the nested webui module per ADR-0002 Am.3 until T-72's own
+  amendment dissolves the boundary — anything new needs an ADR).
+- **The go-directive acknowledgement (STILL WAITING — twenty-fifth session
+  carrying it)**: the main module rides `go 1.24.1`, forced by the
   owner-acknowledged tls-client v1.16.0 pin (ADR-0002 Am.2).
 - **The x/net/html question is a KEEP-OR-SWAP, not a blocker**.
 - **The release feedback loop**: the owner may report v0.92.0-go.1 or the
@@ -188,24 +203,26 @@
   (hash-level, not display).
 - **Push after every task** — never end a session push-pending.
 
-## 5. THE PROMPT TO COPY (SESSION-034)
+## 5. THE PROMPT TO COPY (SESSION-035)
 
 ```
-You are starting SESSION-034 of the second-brain-project — the multi-session Go
+You are starting SESSION-035 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
 code alongside you. You are the single writer on the repo.
 
-1. The environment is REBUILDABLE, not persistent (twenty-eight wipe events
-   across SESSION-005..033 — SESSION-033 alone absorbed the twenty-seventh
-   full wipe BEFORE work plus a mid-session degradation that took the toolchain,
-   the module cache, the webkit tree, and /tmp while BOTH repos and all
-   in-flight work survived; the continuation recipe is PROVEN: git status +
-   git log --oneline -5 + file timestamps tell what ACTUALLY survived; a
-   preserved commit or in-flight draft is continued and AUDITED — never
-   blindly trusted, never restarted from zero; a wipe event may flip tracked
-   files' MODES 644->755 while preserving content — diagnose via
+1. The environment is REBUILDABLE, not persistent (twenty-nine wipe events
+   across SESSION-005..034 — SESSION-034 alone absorbed the twenty-ninth
+   full wipe BEFORE work: both repos, the toolchain, the venv, and the module
+   cache all gone, everything rebuilt from the committed recipes; SESSION-034
+   also survived a mid-session CHAT-CONTEXT death without losing work — the
+   continuation recipe is PROVEN at both levels: git status + git log
+   --oneline -5 + file timestamps tell what ACTUALLY survived; a preserved
+   commit or in-flight draft is continued and AUDITED — never blindly
+   trusted, never restarted from zero; a resumed context re-verifies from
+   scratch (the full battery) before committing; a wipe event may flip
+   tracked files' MODES 644->755 while preserving content — diagnose via
    'git diff --raw' mode-only rows and restore via chmod 644 off the parsed
    list, NEVER git checkout). FIRST verify with evidence: work repo at
    /home/z/my-project/second-brain-project (symlinked /home/z/second-brain-project),
@@ -216,61 +233,58 @@ code alongside you. You are the single writer on the repo.
    chars, verified against go.dev's published JSON), venv /home/z/venvs/gitcurator
    (Python 3.12, stdlib-only) per build/TOOLCHAIN.md, the wails CLI v2.16.0
    (GOBIN=/home/z/.local/go/bin go install github.com/wailsapp/wails/v2/cmd/wails@v2.16.0
-   — build-time only) + the rootless webkit tree (~/.local/lib-wails; the full
-   committed recipe is in webui/README.md + docs/poc-artifacts/t-70-gate.md)
-   per build/TOOLCHAIN.md Am.3, and go.mod with modernc.org/sqlite at v1.36.1,
-   bogdanfinn/tls-client at v1.16.0, golang.org/x/net v0.48.0 + golang.org/x/text
-   v0.32.0 direct, and the go directive at 1.24.1 (the tls-client-forced floor —
-   ADR-0002 Am.2; do not bump any of these; the webui module's own go.mod rides
-   go 1.25.0 — wails v2.16.0's floor — and holds the wails require, per
-   ADR-0002 Am.3). Then check `git status` and `git log --oneline -3`:
-   SESSION-033 landed T-70 COMPLETE (the Phase-6 entry gate GREEN: the themed
-   Wails window + the coalesced log desk + ONE REAL JOB — the note-state
-   baseline over an 800-note fixture vault via the guibridge/ seam; first frame
-   266/679 ms over two runs, the 10k flood 458,695/454,133 lines/s with 0 drops
-   and 23-25 ms max handler time per batch, the Windows exe CGO-free at
-   14.95 MB; the verdict at ADR-0001 Am.3 + docs/poc-artifacts/t-70-gate.md;
-   the toolchain record at ADR-0002 Am.3 + Am.4) and PUSHED everything after
-   every task — 1932 main-battery tests race-clean over 35 packages + 12 webui
-   tests. Verify git status shows up to date with origin/main (the tip at or
-   beyond 7f613dd). Use the PAT only ephemerally: git -c http.extraheader=
+   — build-time only), and THE ROOTLESS WEBKIT TREE (~/.local/lib-wails —
+   DEFERRED at SESSION-034's rebuild, so it is likely ABSENT: T-72's FIRST
+   act is rebuilding it per the committed recipe in webui/README.md +
+   docs/poc-artifacts/t-70-gate.md) per build/TOOLCHAIN.md Am.3, and go.mod
+   with modernc.org/sqlite at v1.36.1, bogdanfinn/tls-client at v1.16.0,
+   golang.org/x/net v0.48.0 + golang.org/x/text v0.32.0 direct, and the go
+   directive at 1.24.1 (the tls-client-forced floor — ADR-0002 Am.2; do not
+   bump any of these; the webui module's own go.mod rides go 1.25.0 — wails
+   v2.16.0's floor — and holds the wails require, per ADR-0002 Am.3). Then
+   check `git status` and `git log --oneline -3`: SESSION-034 landed T-71
+   COMPLETE (internal/app is real — the typed bus + the ask-gates with the
+   reference's identical 300/300/600 s timeouts, the command surface with
+   the crash-safety wrapper + the one-batch law, the single-instance lock +
+   the watchdog + the startup passes + the shutdown graces, the DI root
+   wiring every production seam; doc 04 §2's landed-shape note records the
+   deltas) and PUSHED everything after every task — 1999 main-battery tests
+   race-clean over 36 packages (67 in internal/app) + 12 webui tests.
+   Verify git status shows up to date with origin/main (the tip at or
+   beyond 74ae634). Use the PAT only ephemerally: git -c http.extraheader=
    "Authorization: Basic $(printf 'x-access-token:%s' "$PAT" | base64)" and
    never store it — AND SCRUB IT if you ever CLONE with it (the
    GIT_CONFIG_COUNT env-var form avoids the persistence entirely).
    Re-verify the suite before work if anything looks off.
 
-2. Read, in order: the repo README.md (Phase 6 OPEN — T-70 at 7f613dd) →
+2. Read, in order: the repo README.md (Phase 6 OPEN — T-71 at 74ae634) →
    docs/SESSION-PROTOCOL.md (the working law) → docs/NEXT-SESSION.md (your
-   state card — §1 records SESSION-033's close: the gate GREEN, the newest
-   laws — the MODE-FLIP DEGRADATION law, the MODULE-BOUNDARY PROBE law, the
-   FRONTEND-MODULE lesson, the TIMER-CLAMP instrument caveat, the
-   TOOLCHAIN-ROUND-2 proof) → docs/sessions/SESSION-033.md (the most recent
-   report).
+   state card — §1 records SESSION-034's close: T-71 COMPLETE, the newest
+   laws — the HERMETIC-SEAM law, the RESUMED-CONTEXT RE-VERIFICATION law) →
+   docs/sessions/SESSION-034.md (the most recent report) → the T-72 specs
+   (spec-gui-theme-icons.md + spec-gui-ui.md) → internal/app/doc.go (the
+   file map) + commands.go (the Deps seams the frontend binds).
 
-3. THIS SESSION IS T-71 (L): internal/app per doc 04 §2/§5 (READ THEM FIRST —
-   the authority): the composition layer — the App struct (config, stores,
-   the typed event bus, the injected clients), the event bus (LogLine,
-   Progress, Status, BatchFinished, the ask-gates AskCode/AskScanConfirm/
-   LLMFailed as channels with the reference's identical timeouts — 300 s
-   code, 300 s scan, 600 s LLM; the 8 queued Qt signals' replacement), the
-   command surface (doc 04 §5's table — Sync.FetchQueue, Sync.RunBatch,
-   Sync.FastSync, Sync.DriftSeal, Scan.Run, Scan.ApplyPlan, Backup.SealVault/
-   Resync/Now/Publish, Radar.Detect), one-batch-at-a-time (the mutex +
-   running flag, the TelegramLockManager law), the single-instance lock
-   (app.lock + PID liveness healing, gui/app.py:393-440), the startup
-   passes' sequential goroutines with the reference's delays, the shutdown
-   grace windows (batch 5 s, test workers 2 s). ACCEPTANCE: the command
-   contract tests + the lock/watchdog tests. The landed guibridge/ seam
-   (doc 04 §2's event-seam shape at PoC scale) + webui/deskbus (the
-   coalescing bus) are the starting patterns — internal/app is their
-   production evolution; guibridge RETIRES at T-72, not before. Slices in
-   order, each committed+pushed: (a) events.go (the bus + the ask-gates)
-   with its tests; (b) commands.go (the contract tests over fake deps per
-   the hermetic law); (c) lifecycle.go (the lock + the watchdog + the
-   startup passes) with the lock/watchdog tests; (d) app.go (the DI root)
-   + the doc updates. If capacity remains after a PROPER T-71: T-72's
-   first slice per the roadmap (the theme-token CSS golden) — but prefer
-   closing cleanly at T-71's natural boundary. One slice done properly
+3. THIS SESSION IS T-72 (L): THE FRONTEND FOUNDATION per doc 13's row +
+   spec-gui-theme-icons + spec-gui-ui (READ THEM FIRST — the authority).
+   Order of work: (i) the webkit tree rebuild FIRST (the committed recipe;
+   budget for it before planning slices); (ii) ASK THE OWNER the
+   vanilla-vs-vite question EARLY (both work under wails v2; the PoC rides
+   vanilla; an ADR records the choice either way — the theme-token golden
+   is toolchain-independent, land it first regardless); (iii) the slices in
+   order, each committed+pushed: (a) the theme-token CSS golden (the token
+   table → the CSS var dump, golden-tested); (b) the production log desk
+   with coalescing (deskbus the Go half's starting pattern, the cache-mirror
+   desk the frontend half's) + the layout shell + icons + fonts. ACCEPTANCE:
+   the token golden (CSS var dump) + the log perf test. guibridge/ RETIRES
+   at T-72 (delete it + its tests when the production shell replaces its
+   wiring — not before); webui/ dissolves into the main module and binds
+   internal/app DIRECTLY per doc 04 §2's landed-shape note — the batch's
+   CLI-parity shell wiring (warmup family, inputs fetchers, websites phase,
+   Phase-5 CLEAR) lands on the app surface at that binding; the
+   module-boundary moves need ADR-0002's next amendment (probe before
+   claiming any boundary rule — Am.4's law). If capacity runs short: prefer
+   closing cleanly at a natural slice boundary; one slice done properly
    with proof beats a rushed whole.
 
 4. Standing laws: reality wins over specs (fix the spec in the same commit);
@@ -282,16 +296,18 @@ code alongside you. You are the single writer on the repo.
    webui module per ADR-0002 Am.3 until T-72's own amendment; x/net/html
    stays OUT unless the owner approves an ADR); surface blockers with
    evidence (hash-level, not display) instead of improvising past them;
-   probe before claiming a module-boundary rule (ADR-0002 Am.4).
+   probe before claiming a module-boundary rule (ADR-0002 Am.4); fake every
+   network-touching seam in tests at construction (the HERMETIC-SEAM law —
+   a real fetch can outlive its test and write into a later test's window).
 
-5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (T-71's
-   own acceptance: the command contract tests + the lock/watchdog tests —
-   and T-72's slice's if reached), commit + push everything (ask me for the
-   GitHub PAT the moment a push is due — never store it anywhere; never end
-   the session push-pending), write docs/sessions/SESSION-034.md, rewrite
+5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (T-72's
+   own acceptance: the token golden + the log perf test — and the webkit
+   rebuild's proof), commit + push everything (ask me for the GitHub PAT the
+   moment a push is due — never store it anywhere; never end the session
+   push-pending), write docs/sessions/SESSION-035.md, rewrite
    docs/NEXT-SESSION.md with the next session's prompt, and end your reply
    with a plain-language report plus the prompt I should copy to start
-   SESSION-035.
+   SESSION-036.
 
 One task done properly with proof beats two half-done; close cleanly at a
 natural boundary when capacity runs out.
