@@ -551,6 +551,13 @@ GO NOTES (the new house laws the engine golden taught):
   the unmutated golden must still PASS — the harness guard) — a
   mutation test that only proves the pattern strings exist has no
   teeth (the SESSION-030 close caught exactly that and fixed it).
+- THE DISPATCH-COMPLETION LAW (SESSION-031): a command is only LANDED
+  when Run's dispatch routes the argv to it — unit tests that call the
+  cmd* methods directly keep the suite green while the user-facing
+  door stays stale (T-62's drivers landed in SESSION-030; T-63's smoke
+  through Run caught `--auto` still answering the retired not-yet
+  card). The acceptance for a CLI command drives `Run(argv)` — the
+  smoke test is the completion proof, not decoration.
 
 Remaining on T-62's books: nothing — the task is COMPLETE (the engine,
 the drivers, the SIGINT/heartbeat/exit law, the chrome-retry live leg
