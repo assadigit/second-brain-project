@@ -25,6 +25,9 @@
         <span class="sentinel" id="sentinel-net">Net …</span>
         <span class="sentinel" id="sentinel-ai">AI …</span>
         <span class="sentinel" id="sentinel-proxy">Proxy …</span>
+        <button id="btn-settings" class="chrome-btn" aria-label="Settings"
+                title="Settings — credentials, proxy, vault, LLM, input modes,
+bot queue, sources, dashboard and backup (all former tabs)."></button>
       </div>
     </header>
 
@@ -73,7 +76,30 @@
         <span class="log-count" id="log-cache">cache 0</span>
       </div>
     </section>
+    <!-- Settings window (dialogs.py's SettingsDialog, non-modal, over the
+         main view): the header (title + the section hint + Close), the
+         sidebar nav (one row per page, the reference's order), and the
+         master-detail stack. T-73 builds the six pages A; the later
+         pages (Dashboard, Sync, Bot, Sources, Backup) join at their
+         owning tasks. settings.js builds the internals from the
+         snapshot. -->
+    <div id="settings-view" class="settings-view" hidden>
+      <div class="settings-window">
+        <header class="settings-header">
+          <div class="settings-title-col">
+            <span class="settings-title">Settings</span>
+            <span class="settings-hint" id="settings-hint">Pick a section — every former tab lives here</span>
+          </div>
+          <button id="btn-settings-close" class="btn-secondary" title="Close Settings and return to the main view">Close</button>
+        </header>
+        <div class="settings-body">
+          <nav id="settings-nav" class="settings-nav" aria-label="Settings sections"></nav>
+          <div id="settings-stack" class="settings-stack"></div>
+        </div>
+      </div>
+    </div>
   </div>
   <script type="module" src="app.js"></script>
+  <script type="module" src="settings.js"></script>
 </body>
 </html>

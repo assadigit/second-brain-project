@@ -51,6 +51,7 @@ type Shell struct {
 	frameSet atomic.Bool
 
 	theApp       *app.App
+	settingsUI   *SettingsUI
 	bus          *deskbus.LogBus
 	cancelBusSub func()
 
@@ -85,6 +86,7 @@ func NewShell(t0 time.Time) *Shell {
 		os.Exit(1)
 	}
 	s.theApp = app.New(constants.ConfigFile(), false)
+	s.settingsUI = NewSettingsUI(s.theApp.Settings)
 	return s
 }
 
@@ -92,6 +94,7 @@ func NewShell(t0 time.Time) *Shell {
 func (s *Shell) startup(ctx context.Context) {
 	s.ctx = ctx
 	s.startupAt = time.Now()
+	s.settingsUI.bindCtx(ctx)
 
 	// The desk's Go half: the 120 ms coalescing beat, wired to the
 	// bridge (one flushed batch = one log:batch event).
@@ -142,6 +145,13 @@ func (s *Shell) startup(ctx context.Context) {
 	// llama autodetect, the quiet heal, the backlog notice, the radar;
 	// all crash-isolated, all at the reference's delays).
 	s.theApp.Lifecycle.Start()
+
+	// v0.69.0's one quiet line (window.py:155-173): if THIS launch
+	// restored credentials from the user memory, say so — the magic
+	// is never silent.
+	if line := s.theApp.TheFillLine(); line != "" {
+		s.logf("success", "%s", line)
+	}
 
 	s.logf("info", "wails startup callback at %s after process start", s.startupAt.Sub(s.t0))
 	if os.Getenv("SB_POC_AUTORUN") != "" {
@@ -315,6 +325,13 @@ func (s *Shell) autorun() {
 	s.logf("info", "flood: %s", stats)
 	time.Sleep(2 * time.Second)
 	s.logf("success", "autorun complete — see the results file for measurements")
+	// The Settings-pages probe (the T-73 gate leg's visual evidence):
+	// open the Settings window for the screenshot, then write the
+	// results. The frontend renders the six pages off this event.
+	if os.Getenv("SB_POC_OPEN_SETTINGS") != "" {
+		runtime.EventsEmit(s.ctx, "autorun:open-settings", nil)
+		time.Sleep(1500 * time.Millisecond)
+	}
 	_ = os.WriteFile(envOr("SB_POC_RESULTS", "/tmp/t70-gate-results.json"), []byte(s.Stats()), 0o600)
 }
 

@@ -246,3 +246,215 @@ button:focus-visible, input:focus-visible {
   padding-top: var(--sp-2);
 }
 .log-count { color: var(--text-muted); font-size: 11px; }  /* micro 11 */
+
+/* ---------------------------------------------------------------------------
+ * T-73 — the Settings window (dialogs.py's SettingsDialog + the six
+ * pages' components). The color values come from the theme.css token
+ * tables (both modes); this file carries only the layout laws.
+ * --------------------------------------------------------------------------- */
+
+/* the 34×34 chrome button (the gear door; window.py's settings_btn) */
+.chrome-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin-left: var(--sp-2);
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--icon-border);
+  border-radius: 6px;
+  color: var(--text-soft);
+  cursor: pointer;
+}
+.chrome-btn:hover { background: var(--ghost-hover-bg); color: var(--ghost-hover-fg); }
+.chrome-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.chrome-btn svg { width: 16px; height: 16px; }
+
+/* the overlay + the 880×640 window (the reference's fixed dialog) */
+.settings-view {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--window) 75%, transparent);
+}
+.settings-view[hidden] { display: none; }
+.settings-window {
+  display: flex;
+  flex-direction: column;
+  width: min(880px, calc(100vw - 2 * var(--sp-3)));
+  height: min(640px, calc(100vh - 2 * var(--sp-3)));
+  background: var(--window);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 10px 34px rgba(66, 58, 82, 0.22);
+  overflow: hidden;
+}
+
+/* the header: title + hint (left) · Close (right) */
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: 12px 14px 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--sheet);
+}
+.settings-title-col { display: flex; flex-direction: column; gap: 1px; }
+.settings-title { font-size: 14px; font-weight: 800; }         /* settings_title 14/800 */
+.settings-hint { font-size: 12px; color: var(--text-muted); }  /* settings_hint 12 */
+
+/* the body: sidebar nav (190px) + the master-detail stack */
+.settings-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  gap: 0;
+  padding: 14px;
+}
+.settings-nav {
+  flex: none;
+  width: 190px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-right: 10px;
+}
+.settings-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 7px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--base-size);
+  text-align: left;
+  cursor: pointer;
+}
+.settings-nav-item:hover { background: var(--tab-hover); }
+.settings-nav-item svg { width: 16px; height: 16px; color: var(--muted); flex: none; }
+.settings-nav-active {
+  background: var(--select-bg);
+  color: var(--select-fg);
+}
+.settings-nav-active svg { color: var(--select-fg); }
+.settings-nav-item:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.settings-stack { flex: 1; min-width: 0; overflow-y: auto; overflow-x: hidden; }
+.page { display: flex; flex-direction: column; gap: 12px; padding: 2px 4px 18px 4px; }
+.page[hidden] { display: none; }
+
+/* forms (the pages' shared vocabulary) */
+.form { display: flex; flex-direction: column; gap: 8px; }
+.form-row { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+.form-row > .form-label { flex: none; min-width: 96px; }  /* the audit's fixed label column */
+.form-label { color: var(--text-soft); }
+.inline-row { display: flex; align-items: center; gap: 6px; flex: 1; min-width: 0; }
+.form-row > .form-input { flex: 1; min-width: 0; }
+.form-input {
+  padding: 5px 8px;
+  background: var(--log-well);
+  color: var(--text);
+  border: 1px solid var(--border-input);
+  border-radius: 5px;
+  font-family: var(--font-ui);
+  font-size: var(--base-size);
+}
+.form-input::placeholder { color: var(--placeholder); }
+.form-input:focus { outline: 2px solid var(--focus); outline-offset: 1px; }
+textarea.form-area { resize: vertical; min-height: 42px; }
+.form-check { accent-color: var(--accent); width: 15px; height: 15px; }
+.form-check-label { display: flex; align-items: flex-start; gap: 8px; margin: 6px 0; color: var(--text); }
+.form-slider { flex: 1; accent-color: var(--accent); }
+.cc-item { font-size: 12px; color: var(--text-soft); min-width: 44px; text-align: right; }
+
+/* the '?' glyph (the dense page's law: one help button per wall of text) */
+.help-btn {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--border-input);
+  border-radius: 50%;
+  background: var(--ghost-bg);
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1;
+  cursor: help;
+}
+.help-btn:hover { background: var(--ghost-hover-bg); color: var(--ghost-hover-fg); }
+
+/* groups + cards (the LLM page's three flat cards; the Vault/Sound boxes) */
+.settings-group {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.group-title { font-size: 12px; font-weight: 700; color: var(--text-soft); }
+.settings-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--ghost-bg);
+}
+.card-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 2px 0; }
+.card-heading { font-size: 14px; font-weight: 700; margin-right: auto; }  /* card_heading 14/700 */
+.settings-card[hidden], .settings-group[hidden] { display: none; }
+
+/* notes + statuses */
+.muted-note { margin: 2px 0 0 0; color: var(--text-muted); font-size: 12px; }
+.muted-note.wordwrap { white-space: pre-wrap; }
+.info-note { margin: 4px 0 0 0; padding: 8px 10px; border-radius: 6px;
+  background: var(--note-bg); color: var(--note-fg); font-size: 12px; white-space: pre-wrap; }
+.info-header { margin: 0; padding: 8px 10px; border-radius: 6px;
+  background: var(--note-indigo); color: var(--note-fg); font-size: 12px; white-space: pre-wrap; }
+.vault-status { font-size: 12px; margin: 0; }
+.vault-status.status-success { color: var(--success); }
+.vault-status.status-warning { color: var(--warning); }
+.vault-status.status-error { color: var(--error); }
+
+/* the mini-dialog kit (the pages' own small modals — the themed
+ * custom-question family's twin) */
+.dialog-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--window) 55%, transparent);
+}
+.dialog-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 340px;
+  max-width: 480px;
+  max-height: 80%;
+  overflow-y: auto;
+  padding: 16px 18px;
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 26px rgba(66, 58, 82, 0.2);
+}
+.dialog-body { display: flex; flex-direction: column; gap: 8px; }
+.dialog-message { margin: 0; color: var(--text); white-space: pre-wrap; }
+.dialog-buttons { display: flex; justify-content: flex-end; gap: 8px; }

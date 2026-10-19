@@ -61,6 +61,7 @@ func main() {
 		OnShutdown: shell.shutdown,
 		Bind: []interface{}{
 			shell,
+			shell.settingsUI,
 		},
 	})
 	if err != nil {

@@ -111,6 +111,15 @@
   `● missing on disk` / `● not found — you create this vault yourself`); no pre-selection law;
   volume slider label-only during drag.
 - Sound page handlers.
+- **Dated note (2026-10-19, T-73/SESSION-036 — the port's commit cadence):** the Go port's
+  six Settings pages commit per page on `editingFinished`/`toggled` (the established
+  save-on-change pattern applied uniformly — the task brief's own wording), where the
+  reference saves the Credentials/Proxy/LLM plain fields only at window close
+  (`closeEvent` → `save_config`). Every reference-persisted value persists in the port;
+  some persist a commit earlier (a crashed window can no longer lose an unsaved credential
+  edit). The four save laws, the ladder strings, and the mirror are byte-parity, pinned by
+  the save-law tests. The engine-action saves (Detect & Set, the props grab, autodetect)
+  keep the reference's own best-effort save cadence verbatim.
 
 ## input_proxy.py / llamacpp.py / linking_tools.py / vault_scan_ui.py
 

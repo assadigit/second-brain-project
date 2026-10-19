@@ -22,6 +22,11 @@ seam RETIRED at this landing, deleted with its tests):
   AppLock.Refused distinction added at T-72; every other lock failure
   CONTINUES WITHOUT the lock), and the shutdown drains the desk then
   runs the graces.
+- `settingsui.go` — T-73's Settings window binding wrapper: the thin
+  shell over internal/app's Settings surface (the six pages' engines)
+  plus the two native pickers (the import-file + vault-folder
+  dialogs). Bound as the second wails struct; the generated bindings
+  live in frontend/wailsjs/go/main/SettingsUI.js.
 - `deskbus/` — THE COALESCED LOG's Go half (pure, headless-tested): the
   120 ms flush beat, the ≤250-row batches, the cap-1024 backpressure
   channel, the synchronous clear door, and (T-72's fix) the
@@ -35,12 +40,16 @@ seam RETIRED at this landing, deleted with its tests):
 - `frontend/` — vanilla HTML/CSS/JS (no npm step; `wails.json`'s
   install/build commands are empty): `theme.css` (the FULL token
   tables, LIGHT + the `[data-theme="dark"]` plum night), `style.css`
-  (the §2 type-scale + component classes), `icons.js` (the pack, tinted
+  (the §2 type-scale + component classes + T-73's Settings-window
+  laws), `icons.js` (the pack, tinted
   via currentColor; the reference's _LOG_LEVEL_ICONS law), the
   cache-mirror desk (cap 1000, filter re-render from cache, per-row
   tooltip), the layout shell (the sync_card CTA band — the 56px SYNC
   hero + Fast Sync + Scan + Test Connectivity, honestly disabled until
-  T-77's hero button machine), and the flood probe instruments.
+  T-77's hero button machine), the flood probe instruments, and
+  `settings.js` (T-73: the Settings window's frontend half — the
+  six pages A rendered from the snapshot, the save-on-change law,
+  the mini-dialog kit; the desk keeps living underneath).
 - `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
   path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's
