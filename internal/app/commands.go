@@ -106,6 +106,15 @@ type QueueReport struct {
 	WebsitesNoVault   bool
 
 	RawCount int
+
+	// DuplicatesRemoved is the fetch-side dedupe count (the Telethon
+	// era's counter; the Worker pending list is unique by url — the
+	// field stays zero under Option B, the render's door remains).
+	DuplicatesRemoved int
+
+	// WebsitesVaultIndex is the websites vault's note count (the 📚
+	// line's own number, recorded by the classification half).
+	WebsitesVaultIndex *int
 }
 
 // BatchOptions is the shell's intake facts (the worker's constructor

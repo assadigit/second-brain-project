@@ -475,6 +475,20 @@ func (c *CacheDB) ProcessedRowFor(url string) *ProcessedRepoRow {
 	return &r
 }
 
+// ForgetProcessedNotePath deletes processed_repos rows by note_path
+// (undo_last_batch's cache half — dashboard.py's
+// "DELETE FROM processed_repos WHERE note_path = ?"). Returns the
+// removed row count.
+func (c *CacheDB) ForgetProcessedNotePath(notePath string) int {
+	res, err := c.SQL().Exec(
+		"DELETE FROM processed_repos WHERE note_path = ?", notePath)
+	if err != nil {
+		return 0
+	}
+	n, _ := res.RowsAffected()
+	return int(n)
+}
+
 // ForgetProcessedURL mirrors forget_processed_url (best-effort): THE
 // REPOS BANISHMENT's ledger forget — the processed_repos row for one
 // URL is deleted. Returns True when a row was actually removed.

@@ -127,6 +127,13 @@ type SettingsDeps struct {
 	// SentinelRefresh re-arms the sentinel pass (the save law's
 	// 250 ms singleShot; wired to the lifecycle's sentinel runner).
 	SentinelRefresh func()
+
+	// SourcesFetch is the Sources page's network door (urllib's twin;
+	// nil → the production GET). T-74.
+	SourcesFetch func(url string) (string, error)
+	// OpenURL opens the OS browser at a URL (webbrowser.open's twin;
+	// nil → the platform door). T-74.
+	OpenURL func(url string)
 }
 
 // Settings is the Settings pages' command surface (one per app).
@@ -146,6 +153,11 @@ type Settings struct {
 	// soundUnavailable is BatchSound's one-notice state (sound.py's
 	// _unavailable_reason: set once, then silence for the session).
 	soundUnavailable string
+
+	// pagesBSourcesFetchDoor / pagesBOpenURLDoor are the pages B's
+	// injected doors (T-74 — settingsb.go; nil → the production doors).
+	pagesBSourcesFetchDoor func(url string) (string, error)
+	pagesBOpenURLDoor      func(url string)
 }
 
 // NewSettings builds the surface. cfg is the LIVE map the app holds
@@ -154,7 +166,10 @@ func NewSettings(bus *Bus, cfg *storage.OrderedMap, lock *OpLock, deps SettingsD
 	if cfg == nil {
 		cfg = storage.NewOrderedMap()
 	}
-	return &Settings{Bus: bus, Deps: deps, lock: lock, cfg: cfg}
+	return &Settings{Bus: bus, Deps: deps, lock: lock, cfg: cfg,
+		pagesBSourcesFetchDoor: deps.SourcesFetch,
+		pagesBOpenURLDoor:      deps.OpenURL,
+	}
 }
 
 // logf speaks one line on the desk (the pages' engine lines ride the
@@ -218,6 +233,10 @@ type SettingsSnapshot struct {
 
 	// The always-banned law list (the Vault page's '?' help text).
 	BlockedLawDomains []string `json:"blockedLawDomains"`
+
+	// The pages B's fields (T-74 — settingsb.go's own struct, embedded
+	// so one payload still builds every page).
+	pagesBSnapshot
 }
 
 // Snapshot builds the payload: the live config + the vault discovery +
@@ -401,6 +420,7 @@ func (s *Settings) Snapshot() *SettingsSnapshot {
 	}
 
 	snap.BlockedLawDomains = links.LawBlockedDomains
+	snap.pagesBSnapshot = *s.snapshotPagesB(cfg)
 	return snap
 }
 

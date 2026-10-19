@@ -205,6 +205,8 @@ func ClassifyQueueLinks(cfg *storage.OrderedMap, items []any, log LogFn) *QueueR
 			wvi := batch.NewVaultIndex(websiteVault,
 				func(u string) string { return links.NormalizeWebsiteURL(u) })
 			wvi.Rebuild(nil)
+			wviCount := wvi.Count()
+			out.WebsitesVaultIndex = &wviCount
 			state, serr := websitepipeline.NewWebsiteStateDB(cacheDBPathOf(cfg))
 			if serr != nil {
 				log(fmt.Sprintf(
