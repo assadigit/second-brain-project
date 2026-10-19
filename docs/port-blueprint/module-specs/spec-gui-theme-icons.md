@@ -61,13 +61,17 @@ Mark-as-intentional / OK / Scan).
 
 ## 4. icons.py
 
-Lucide-static **v0.544.0** (ISC) embedded, 30 glyphs (layers, settings, moon, sun, refresh-cw,
+Lucide-static **v0.544.0** (ISC) embedded, **28 glyphs** (layers, settings, moon, sun, refresh-cw,
 stop, play, loader-circle, activity, search, trash-2, dot, circle, check, triangle-alert,
 circle-x, info, key-round, globe, folder, brain, inbox, list, bar-chart-3, bot,
-satellite-dish, archive, volume-2). Render-time tint via `{color}` substitution; 2× DPR;
-explicit target rect (the v0.08 clipping fix); two-mode nav icons (Selected state); graceful
-degradation to empty icons. **Go**: embed the same SVGs; tint server-side or via CSS
-`currentColor`.
+satellite-dish, archive, volume-2 — the pack's real count; the "30" here earlier was a
+drafting slip, fixed at T-72's landing when the golden counted them). Render-time tint via
+`{color}` substitution; 2× DPR; explicit target rect (the v0.08 clipping fix); two-mode nav
+icons (Selected state); graceful degradation to empty icons. **Go**: embed the same SVGs; tint
+server-side or via CSS `currentColor`. **Landed (T-72)**: the pack is golden-locked
+byte-for-byte (testdiff/goldens/dump_icons.py → webui/uitheme/testdata/icons.golden.json);
+the Go twin (webui/uitheme/icons.go) and the frontend twin (webui/frontend/icons.js, tinted
+via currentColor) both diff against that one golden.
 
 ## 5. sound.py
 

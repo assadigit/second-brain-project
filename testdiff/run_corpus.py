@@ -74,6 +74,7 @@ CORPUS = [
     "goodrepos",            # T-46
     "handdelivery",         # T-41
     "helpers",              # T-17
+    "icons",                # T-72 — the lucide-static icon pack golden
     "links",                # T-11
     "linktracker",          # T-25
     "llmclient",            # T-30
@@ -85,6 +86,7 @@ CORPUS = [
     "reporadar",            # T-47
     "storage",              # T-12
     "taxonomy",             # T-14
+    "theme",                # T-72 — the theme-token tables golden
     "vaulthygiene",         # T-49
     "vaultscan",            # T-45
     "vaultseal",            # T-47

@@ -12,8 +12,12 @@
 //     full text on the row tooltip;
 //   · the flood's interactivity probe: a setTimeout chain sampling the
 //     event loop's task-queue latency between flood:start and flood:done.
+// The glyphs ride the lucide-static pack (icons.js — the reference's
+// _LOG_LEVEL_ICONS law: info=dot, success=check, warning=triangle-alert,
+// error=circle-x; tint via currentColor).
 import { MarkFirstFrame, RunBaselineJob, FloodLines, Stats, ReportFloodUI, ClearDesk } from './wailsjs/go/main/App.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
+import { LEVEL_ICONS, svgEl } from './icons.js';
 
 const desk = document.getElementById('log-desk');
 const logEmpty = document.getElementById('log-empty');
@@ -34,28 +38,12 @@ let renderedCount = 0;         // _log_visible_count twin
 let chip = 'all';
 let filterText = '';
 
-// the lucide-static v0.544.0 glyph geometry, verbatim inner markup
-// (gui/icons.py:72-81 — the four log glyphs; tint via currentColor).
-const GLYPHS = {
-  info:    '<circle cx="12" cy="12" r="10" fill="currentColor" stroke="none"/>',
-  success: '<path d="M20 6 9 17l-5-5"/>',
-  warning: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
-  error:   '<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/>',
-};
-
+// the lucide-static v0.544.0 glyph pack rides icons.js (golden-locked);
+// the desk's level map is the reference's own law (ui.py:2144).
 function glyphEl(level) {
-  const wrap = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  wrap.setAttribute('viewBox', '0 0 24 24');
-  wrap.setAttribute('class', 'glyph glyph-' + (GLYPHS[level] ? level : 'info'));
-  if (level !== 'info') {
-    wrap.setAttribute('fill', 'none');
-    wrap.setAttribute('stroke', 'currentColor');
-    wrap.setAttribute('stroke-width', '2');
-    wrap.setAttribute('stroke-linecap', 'round');
-    wrap.setAttribute('stroke-linejoin', 'round');
-  }
-  wrap.innerHTML = GLYPHS[level] || GLYPHS.info;
-  return wrap;
+  const known = LEVEL_ICONS[level] !== undefined;
+  const name = LEVEL_ICONS[level] || 'dot';
+  return svgEl(name, 'glyph glyph-' + (known ? level : 'info'));
 }
 
 // _log_entry_would_render twin: the LIVE chip + search decide what lands.
