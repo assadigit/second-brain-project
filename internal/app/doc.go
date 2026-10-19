@@ -62,6 +62,13 @@
 //   - scanjob.go — the _vault_scan_job engine (both confirm doors;
 //     the per-vault ScanStory + the out-dict assembly — T-76's
 //     extension).
+//   - herostate.go — T-77's main window chrome pure engines: the hero
+//     button machine (hero.py's GUI-only state — the four states, the
+//     click guards as data, the fetch routing + the caught-up law, the
+//     mirror, the stopping render, the exact labels/tooltips, the >10
+//     confirm gate), the progress row's live formats, the sentinel
+//     labels' paint laws, the Settings doors WorkerQueueEnabled +
+//     SaveDarkMode.
 //   - scandialogs.go — T-76's Scan flow pure engines: the picker's
 //     display model + the live arithmetic, the plan modal's display
 //     model (the four sections + the landable move + the freeze

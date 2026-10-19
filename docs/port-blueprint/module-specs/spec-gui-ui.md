@@ -74,3 +74,46 @@ terminal colors, mono 15/700 count label; `setFormat` strings: "Fetching undone 
 
 Log flood performance test (assert UI responsive + cap enforced + filter re-render correct);
 page inventory snapshot (all controls present); SegmentBar format strings.
+
+## Dated landing note — T-77 (2026-10-20, SESSION-040)
+
+The main window chrome landed (internal/app/herostate.go — the pure
+engines; webui/heroui.go + frontend/heroflow.js — the shell). The
+port-level decisions, evidence-settled:
+
+1. **The hero machine is PURE** (hero.py's GUI-only state, the house
+   law): the guards cross as DATA (the vault box, the offline ask, the
+   nothing-to-sync box, the >10 confirm), the shell executes them. The
+   reference's `_confirm_batch` source word is preserved verbatim
+   ("the bot queue" — bot_queue.py:721).
+2. **The nothing-to-sync box is RE-WORDED for Option B** (ADR-0004
+   Am.3): the reference's "enter the bot username + the Telegram API
+   credentials" sentence becomes "Set the Worker's URL (or pair the
+   app) in Settings → Bot" — the queue's config door under Option B.
+   The import-file sentence stays verbatim (the ONE other input mode).
+3. **THE RETROACTIVE FIELD-TAG FIX**: this spec's Go parity was built
+   on a transport whose payloads crossed tagless from T-71 — the
+   progress row NEVER filled during a real batch and every finish read
+   ❌ Failed (the frontend's lowercase reads vs the Go field names).
+   Every crossed payload now carries the tags (pinned by
+   TestCrossedPayloadFieldTags); `needs_retry` joins
+   finished_signal's payload (the retry chime's selector).
+4. **The More menu's honest-disabled law**: the label list is verbatim
+   (parity requirement 3); the engines that have not landed yet (the
+   per-test dialogs, the linking tools, the Chrome doors, the export
+   zip) render DISABLED with their landing notes — the same convention
+   the CTA band rode pre-T-77. The per-test dialogs are NOT T-77's
+   (the task named only the battery modal); the re-scoped battery
+   carries the Worker leg (ADR-0004 Am.3's queue-reachability).
+5. **The caught-up path's Chrome-door legs are deferred** (recorded
+   divergence): the reference's caught-up sync also scrapes the 🖐 hand
+   rows and redoes half-stored hand notes (hero.py:280-325 — the
+   reference itself guards them as optional collaborators); the port
+   lands the waiting-rows report + the drift seal + the closing line
+   now, the hand-row legs ride the Chrome-doors GUI task.
+6. **The sentinel paint lives in Go** (window.py's `_apply_*` laws as
+   pure functions) — the frontend only renders; the paint vocabulary
+   (incl. "Proxy: off / connected / unreachable") is verbatim.
+7. **The sounds ship embedded, disk-first**: the reference's
+   synthesized WAVs (license-free) ride the assets package; an owner's
+   APP_DIR/assets/sounds copy always wins (the swap-the-chime law).

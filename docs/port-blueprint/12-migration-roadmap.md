@@ -351,6 +351,49 @@ verified against the Python app.
 > GREEN (first frame 339/283/280 ms; the 10k flood, 0 drops); the
 > screenshots VLM-verified.
 
+> **SESSION-040 (2026-10-20): T-77 COMPLETE — the main window chrome
+> (the hero button machine, the progress row, the More menu, the
+> sentinel labels, the battery modal, the sounds).** The
+> thirty-fifth full wipe absorbed before work (the repos re-cloned
+> with the ephemeral GIT_CONFIG_COUNT PAT form, go1.27.2 sha-verified
+> against both the committed pin and go.dev's JSON, the venv, the
+> wails CLI, and the rootless webkit tree rebuilt — the 8th webkit
+> rebuild, Am.4's hardlink fallback again: symlink(2) still refused at
+> boot; the 26 dev links as hardlinks to the resolved system targets;
+> the wails build + the gate leg the proof; the FULL battery
+> re-verified green pre-work — exactly 2230 + 40). T-77 in two
+> slices: (a) the pure engines — internal/app/herostate.go (hero.py's
+> GUI-only machine: the four states, the click routing with the
+> guards as data, the fetch routing with the caught-up law, the
+> mirror, the stopping render, the exact labels/tooltips, the >10
+> confirm gate, the progress formats, the sentinel paint laws) — 21
+> tests + THE RETROACTIVE FIELD-TAG FIX (the T-71 bus payloads
+> crossed tagless: the progress bar never filled, every finish read
+> ❌ — every crossed payload now tagged, pinned by its own test) +
+> the cooperative StopBatch door (the runner's between-items law +
+> the warmup lost-stop window closed) + BatchFinished.needs_retry +
+> the sentinel pass's full snapshot/offline-law emission (with TWO
+> reality fixes the re-read caught: the nil-latency deref on the
+> offline path + the sentinelOnline data race — the seat now one
+> unit under sentinelMu) + the WAVs SHIPPED (the deferred-debt note
+> closes: success.wav/retry.wav embedded, disk-first) with the quiet
+> batch gate split from the preview's lines; (b) the shell — the
+> SIXTH bound struct webui/heroui.go (HeroClick the one click door
+> with both stages, the 200 ms mirror, TestConnection the battery
+> door with the live events, the More menu's live doors incl. the
+> retry modes) + frontend/heroflow.js (the hero renders, the guard
+> boxes, the sentinel paint, the battery modal with Start Syncing
+> gated on all-ok, the More menu's verbatim list with the
+> honest-disabled law, the chime) — 16 shell tests. The acceptance
+> GREEN (hero state machine tests + the startup cadence battery):
+> 2252 main-battery tests race-clean over 36 packages (2230 + 22) +
+> 56 webui over 4 (40 + 16), stable across three consecutive full
+> -race runs; the gate leg GREEN (first frame 908 ms ≤ 1.5 s; the
+> 10k flood 555,555 lines/s, 0 drops, 26 ms max handler); the
+> screenshot VLM-verified (the sentinels painting LIVE: Net: online
+> green / AI: off — unreachable red / Proxy: off gray; the SYNC hero
+> enabled; no honest-disabled placeholders left in the CTA band).
+
 ## Phase 7 — Packaging, release, cutover
 
 **Work**: deterministic zip builder, `1-INSTALL` equivalent, clean-machine checklist (doc 10 §7),

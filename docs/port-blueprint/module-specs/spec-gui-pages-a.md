@@ -126,6 +126,16 @@
   `● missing on disk` / `● not found — you create this vault yourself`); no pre-selection law;
   volume slider label-only during drag.
 - Sound page handlers.
+- **Dated note (2026-10-20, T-77/SESSION-040 — the chime assets SHIP):** the deferred-debt
+  note ("the preview's missing-asset notice is the parity behavior until T-77/T-80 ship
+  the files") closes: success.wav + retry.wav + the README landed in `assets/sounds/`
+  (sha-identical copies of the reference's synthesized, license-free files), embedded in
+  the assets package. The lookup is DISK-FIRST (an owner's APP_DIR/assets/sounds copy
+  wins — the swap-the-chime law) with the embed as the fallback; the preview's
+  missing-asset 🔕 notice now fires only when BOTH are absent. The batch-finish play
+  rides the same gate (the quiet `soundFor` — `_play_batch_sound` speaks nothing on a
+  switched-off chime; the preview keeps its own 🔇 line), crossed with the
+  batch-finished event for the frontend's `<audio>`.
 - **Dated note (2026-10-19, T-73/SESSION-036 — the port's commit cadence):** the Go port's
   six Settings pages commit per page on `editingFinished`/`toggled` (the established
   save-on-change pattern applied uniformly — the task brief's own wording), where the

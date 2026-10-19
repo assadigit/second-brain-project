@@ -43,6 +43,17 @@ seam RETIRED at this landing, deleted with its tests):
   modals' renderers live in `frontend/scanflow.js` (the 350 ms
   fresh-click door, the master boxes, the 12 s self-close; the Scan
   CTA's own machine — NOT the hero's).
+- `heroui.go` — T-77's main window chrome binding wrapper (the SIXTH
+  bound struct): HeroClick THE hero button's one click door (the
+  guards → the boxes, the offline ask → HeroAnswerOffline, the >10
+  confirm → HeroRunQueue, the fetch leg over SyncFetchQueue with the
+  caught-up extras (the waiting-rows scan + the drift seal + the
+  closing line), the process/import/stop legs), the 200 ms mirror
+  loop, TestConnection (the battery door over
+  connectioncheck.RunLocalChecks with the live cc:* events), and the
+  More menu's live doors (the dashboard URL law, DarkMode, the retry
+  batch modes, ChromeBoot). Bound as the sixth struct; the generated
+  bindings live in frontend/wailsjs/go/main/HeroUI.js.
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
   over internal/app's pages B engines + the Commands surface (the
   queue check + render + badge, Process All, the dashboard refresh +
@@ -76,6 +87,17 @@ seam RETIRED at this landing, deleted with its tests):
   Backup — at the reference's own sidebar order with every label
   verbatim, the zinc/mint badge, the >10 confirm gates, the
   section-selecting evidence probe; the desk keeps living underneath).
+- `frontend/heroflow.js` — T-77: the chrome's frontend half — the
+  hero:state renderings (the label, the glyph, the disabled flag, the
+  danger fill, the tooltips), the click door + the guard boxes + the
+  offline question + the confirm gate, the progress row's live formats
+  + the terminal marks + THE BATCH CHIME (<audio> — the QSoundEffect
+  twin), ⚡ Fast Sync's busy render, the sentinel labels' paint (the
+  dot + the word + the tooltip + the warn-now box), THE BATTERY MODAL
+  (the four rows, the spinner, Start Syncing gated on all-ok), and
+  THE MORE MENU (the reference's own action list verbatim — the live
+  doors wired, the not-yet-landed engines honestly disabled with their
+  landing notes; the Settings submenu carries Dark Mode).
 - `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
   path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's

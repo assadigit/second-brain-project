@@ -56,3 +56,32 @@
 Startup cadence test (events observed at the right delays, nothing network before sentinel);
 shutdown chain test (worker blocked on auth → close → unblocked → stopped within windows);
 offline warn-once; wizard file write.
+
+## Dated landing note — T-77 (2026-10-20, SESSION-040)
+
+The sentinel pass's chrome half landed (the labels + the offline law):
+
+1. **The snapshot emission**: the pass now runs the FULL
+   `SentinelSnapshot` (net + ai + proxy — the reference's
+   `_sentinel_signal` dict) and crosses it as the `Sentinel` bus
+   event; the Net · AI · Proxy labels paint from it (the paint laws
+   live in Go — see spec-gui-ui's note). The offline verdict
+   transitions (warn-now / fell-offline / back-online) speak the
+   reference's lines; the warn-now MODAL rides the verdict word to the
+   frontend (the reference's own box text).
+2. **TWO reality fixes, found re-reading the pass** (the law pays in
+   bugs): the old 🛰️ line dereferenced `net.LatencyMs` unconditionally
+   — `ProbeInternet` leaves it nil on the offline path, so an offline
+   pass PANICKED into the crash-isolation and the labels never painted
+   (the latency is nil-safe "n/a" now); and the sentinelOnline seat
+   RACED (the lifecycle's recurring tick + the save law's 250 ms
+   re-arm can pass concurrently — the read-transition-write is one
+   unit under sentinelMu, mirroring the reference's GUI-thread
+   serialization).
+3. **The startup cadence acceptance**: the lifecycle's own battery
+   (the cadences, the order, the crash isolation, the cancellation)
+   re-verified green + the pass's own emission test
+   (TestSentinelPassEmitsSnapshotAndOfflineLaw, over the hermetic
+   SentinelProbe seam per the HERMETIC-SEAM law).
+4. **The shutdown chain**: unchanged (the drain order tested at T-71);
+   the hero's mirror loop stops first at shutdown.

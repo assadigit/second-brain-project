@@ -768,3 +768,52 @@ the masters + the LOW-CONFIDENCE ROW PRE-UNCHECKED + the landable
 "(as C_v1.md)" row + the pinned verdict row + the ticking window;
 the picker + the scorecard legs). The MAIN go.mod byte-unchanged all
 session.
+
+**SESSION-040 — T-77 COMPLETE: THE MAIN WINDOW CHROME (the hero button
+machine, the progress row, the More menu, the sentinel labels, the
+battery modal, the sounds)**: the thirty-fifth full wipe absorbed
+before work (the repos re-cloned with the ephemeral GIT_CONFIG_COUNT
+PAT form, go1.27.2 sha-verified against both the committed pin and
+go.dev's published JSON, the venv, the wails CLI, and the rootless
+webkit tree rebuilt — the 8th webkit rebuild, Am.4's hardlink fallback
+again; the FULL battery re-verified green pre-work: exactly 2230 +
+40). Two slices: **(a) `9cd7586` — the chrome's pure engines**:
+internal/app/herostate.go — HeroMachine, hero.py's GUI-only state
+machine (the four states sync→fetching→process→running; the click
+routing's guards as data incl. the offline advisory + the
+nothing-to-sync split RE-WORDED for Option B's Worker queue; the fetch
+routing with the both-pipelines arithmetic + the caught-up law (the
+waiting-rows report, the drift seal, the closing-line choice); the
+mirror's defensive law; the stopping render; Render's exact
+labels/glyphs/fills/tooltips; ConfirmLargeBatch; the progress row's
+live formats; the sentinel labels' paint laws) — 21 tests. **THE
+RETROACTIVE FIELD-TAG FIX** — a REAL display bug family: the T-71 bus
+payloads crossed tagless, so the progress bar NEVER filled during a
+batch and every finish rendered ❌ Failed; every crossed payload
+re-tagged + pinned by its own test; BatchFinished gains needs_retry.
+**The cooperative StopBatch door** (the runner's between-items law +
+the warmup lost-stop window closed + the arm-token handle seat).
+**The sentinel pass's full emission** (the net+ai+proxy snapshot +
+the offline verdict transitions + the Sentinel event) with TWO reality
+fixes the re-read caught: the nil-latency deref (an offline pass
+PANICKED into the crash-isolation) + the sentinelOnline DATA RACE (the
+tick + the save's 250 ms re-arm — the seat now one unit under
+sentinelMu). **The WAVs SHIPPED** (the deferred-debt note closes:
+success.wav/retry.wav embedded, disk-first, the quiet batch gate split
+from the preview's lines). **(b) `c14fb8f` — the shell**: the SIXTH
+bound struct webui/heroui.go (HeroClick the one click door with both
+stages + the 200 ms mirror + TestConnection the battery door with the
+live events + the More menu's live doors incl. the retry modes +
+ChromeBoot) + frontend/heroflow.js (the hero renders, the guard boxes,
+the sentinel paint, THE BATTERY MODAL — the four rows + Start Syncing
+gated on all-ok, THE MORE MENU — the reference's own action list
+verbatim with the honest-disabled law, THE BATCH CHIME) — 16 shell
+tests. **The acceptance GREEN (hero state machine tests + the startup
+cadence battery): 2252 main-battery tests race-clean over 36 packages
+(2230 + 22) + 56 webui over 4 (40 + 16), stable across three
+consecutive full -race runs**; the gate leg GREEN (first frame 908 ms
+≤ 1.5 s; the 10k flood 555,555 lines/s, 0 drops, 26 ms max handler);
+the screenshot VLM-verified (the sentinels painting LIVE: Net: online
+green / AI: off — unreachable red / Proxy: off gray; the SYNC hero
+enabled; the honest placeholders retired). The MAIN go.mod
+byte-unchanged all session.
