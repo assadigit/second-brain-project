@@ -26,8 +26,6 @@ const desk = document.getElementById('log-desk');
 const logEmpty = document.getElementById('log-empty');
 const countEl = document.getElementById('log-count');
 const cacheEl = document.getElementById('log-cache');
-const barFill = document.getElementById('bar-fill');
-const barLabel = document.getElementById('bar-label');
 const sentinels = document.querySelector('.sentinels');
 const search = document.getElementById('log-search');
 
@@ -120,29 +118,15 @@ EventsOn('log:batch', (rows) => {
   measureHandler(rows || [], () => appendRows(rows || []));
 });
 
-// the typed bus events (the production transport): the batch progress
-// fills the segment bar; the honest pipeline row carries its own label.
-EventsOn('bus:progress', (p) => {
-  if (!p || !p.total) return;
-  barFill.style.width = ((p.pos / p.total) * 100).toFixed(1) + '%';
-  barLabel.textContent = p.pos + ' / ' + p.total;
-  barLabel.className = 'progress-count';
-});
-EventsOn('bus:job-progress', (jp) => {
-  if (!jp) return;
-  if (jp.max > 0) {
-    barFill.style.width = ((jp.value / jp.max) * 100).toFixed(1) + '%';
-    barLabel.textContent = jp.label + ' — ' + jp.value + ' / ' + jp.max;
-    barLabel.className = 'progress-count';
-  }
-});
+// the typed bus events (the production transport): the desk's own log
+// rows. T-77: the progress BAR + the batch chime moved to heroflow.js
+// (the chrome's module — one owner per surface; the tags both read are
+// pinned by TestCrossedPayloadFieldTags).
 EventsOn('bus:status', (st) => {
   if (st && st.text) appendRows([{ ts: nowTs(), level: 'info', msg: st.text }]);
 });
 EventsOn('bus:batch-finished', (bf) => {
   if (!bf) return;
-  barLabel.textContent = bf.ok ? '✅ Done' : '❌ Failed';
-  barLabel.className = 'progress-count ' + (bf.ok ? 'done' : 'failed');
   appendRows([{ ts: nowTs(), level: bf.ok ? 'success' : 'error', msg: 'batch: ' + (bf.summary || '') }]);
 });
 

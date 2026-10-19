@@ -843,3 +843,119 @@ textarea.form-area { resize: vertical; min-height: 42px; }
    verdict row) so the verdict doors stay on screen whatever the pile
    and whatever the flex engine does. */
 .scanflow-box .dialog-body { max-height: 460px; }
+
+/* ==========================================================================
+   T-77 — the main window chrome: the hero button machine, the sentinel
+   labels, the battery modal, the More menu.
+   ========================================================================== */
+
+/* the hero's Stop fill (hero_danger — the reference's danger fill; the
+   same button, the square glyph, white text) */
+.btn-hero.btn-hero-danger {
+  background: var(--danger-fill);
+  color: #FFFFFF;
+}
+.btn-hero.btn-hero-danger:hover { background: var(--danger-hover); }
+
+/* the hero's state glyph (refresh / loader / play / stop — tinted via
+   currentColor, 18px like the reference's set_btn_icon) */
+.hero-glyph {
+  width: 18px;
+  height: 18px;
+  margin-right: var(--sp-2);
+  vertical-align: -3px;
+}
+.hero-glyph-spin { animation: hero-spin 1.1s linear infinite; }
+@keyframes hero-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* the sentinel labels' live paint (the dot + the word — WCAG 1.4.1:
+   color never carries the state alone; the word always spells it) */
+.sentinel-live { display: inline-flex; align-items: center; gap: 5px; }
+.sentinel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex: none;
+}
+.sentinel-word { font-size: 12px; color: var(--text-muted); }
+.sentinel-success { color: var(--success); }
+.sentinel-warning { color: var(--warning); }
+.sentinel-error   { color: var(--error); }
+.sentinel-muted   { color: var(--text-muted); }
+
+/* the battery modal's rows (the ConnectionTestDialog twin — v0.37.0's
+   hierarchy: the BOLD section heading, the compact one-line items
+   indented under it, the full text on the tooltip) */
+.cc-body { min-width: 480px; }
+.cc-rows-card { display: flex; flex-direction: column; gap: var(--sp-1); }
+.cc-row { padding: var(--sp-1) 0; }
+.cc-row-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+.cc_row_status { font-size: 12px; color: var(--text-muted); }
+.cc-status-ok    { color: var(--success); }
+.cc-status-warn  { color: var(--warning); }
+.cc-status-error { color: var(--error); }
+.cc-items { margin-left: 18px; }
+.cc-item-line {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 480px;
+}
+
+/* the More menu (ui.py's more_btn QMenu — the action list, the
+   separators, the honest disabled state for the not-yet-landed
+   engines) */
+.more-menu {
+  position: fixed;
+  z-index: 60;
+  min-width: 280px;
+  max-width: 380px;
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+  padding: var(--sp-1);
+  display: flex;
+  flex-direction: column;
+}
+.more-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: 4px;
+  padding: 6px var(--sp-2);
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  cursor: pointer;
+  position: relative;
+}
+.more-item:hover:not(:disabled) { background: var(--sheet-alt); }
+.more-item:disabled {
+  color: var(--text-disabled);
+  cursor: default;
+}
+.more-item-parent { font-weight: 700; }
+.more-sep {
+  height: 1px;
+  background: var(--border);
+  margin: var(--sp-1) 0;
+}
+.more-submenu {
+  display: none;
+  margin-left: 16px;
+  position: static;
+  border-left: 1px solid var(--border);
+  padding-left: var(--sp-1);
+}
+.more-submenu.open { display: flex; flex-direction: column; }

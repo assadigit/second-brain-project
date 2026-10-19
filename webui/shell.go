@@ -55,6 +55,7 @@ type Shell struct {
 	pagesBUI     *PagesBUI
 	syncUI       *SyncUI
 	scanUI       *ScanUI
+	heroUI       *HeroUI
 	bus          *deskbus.LogBus
 	cancelBusSub func()
 
@@ -94,6 +95,7 @@ func NewShell(t0 time.Time) *Shell {
 	s.pagesBUI = NewPagesBUI(s.theApp.Settings, s.theApp.Commands)
 	s.syncUI = NewSyncUI(s.theApp.Settings, s.theApp.Commands)
 	s.scanUI = NewScanUI(s.theApp.Settings, s.theApp.Commands)
+	s.heroUI = NewHeroUI(s.theApp.Settings, s.theApp.Commands)
 	return s
 }
 
@@ -105,6 +107,7 @@ func (s *Shell) startup(ctx context.Context) {
 	s.pagesBUI.bindCtx(ctx)
 	s.syncUI.bindCtx(ctx)
 	s.scanUI.bindCtx(ctx)
+	s.heroUI.bindCtx(ctx)
 
 	// The desk's Go half: the 120 ms coalescing beat, wired to the
 	// bridge (one flushed batch = one log:batch event).
@@ -133,7 +136,19 @@ func (s *Shell) startup(ctx context.Context) {
 			runtime.EventsEmit(ctx, "bus:status", ev)
 		},
 		BatchFinished: func(ev app.BatchFinished) {
-			runtime.EventsEmit(ctx, "bus:batch-finished", ev)
+			// T-77 — the hero's half (the cleared flag restores SYNC) +
+			// the batch chime (the exact batch gate, quiet; the
+			// frontend's <audio> is the QSoundEffect twin). The embedded
+			// struct's tags ride through (THE FIELD-TAG LAW).
+			s.heroUI.onBatchFinished()
+			type chimeEvent struct {
+				app.BatchFinished
+				Chime *app.SoundPreviewResult `json:"chime"`
+			}
+			runtime.EventsEmit(ctx, "bus:batch-finished", chimeEvent{
+				BatchFinished: ev,
+				Chime:         s.theApp.Settings.BatchChime(ev.NeedsRetry),
+			})
 		},
 		JobProgress: func(ev app.JobProgress) {
 			runtime.EventsEmit(ctx, "bus:job-progress", ev)
@@ -143,6 +158,14 @@ func (s *Shell) startup(ctx context.Context) {
 		},
 		ModelChanged: func(ev app.ModelChanged) {
 			runtime.EventsEmit(ctx, "bus:model-changed", ev)
+		},
+		// T-77 — THE SENTINEL CROSSING: the snapshot paints the
+		// chrome's Net · AI · Proxy labels (the hero machine's
+		// offline advisory reads the same verdict); the frontend's
+		// paint laws live in heroflow.js.
+		Sentinel: func(ev app.Sentinel) {
+			s.heroUI.applySentinel(ev)
+			runtime.EventsEmit(ctx, "bus:sentinel", ev)
 		},
 		// T-76 — THE SCAN PLAN'S RIDE UP TO THE WINDOW: the
 		// ask-gate crosses to the frontend as the scan:ask
@@ -177,6 +200,9 @@ func (s *Shell) startup(ctx context.Context) {
 // buffered rows still land), then the lifecycle's graces, then the
 // lock goes home.
 func (s *Shell) shutdown(ctx context.Context) {
+	if s.heroUI != nil {
+		s.heroUI.stopMirror()
+	}
 	if s.bus != nil {
 		s.bus.Stop()
 	}
