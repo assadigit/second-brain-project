@@ -410,13 +410,18 @@ func (fs *fakeSocks5Server) handle(conn net.Conn) {
 	if err == nil && n > 0 {
 		rec.RequestLine = strings.SplitN(string(httpReq[:n]), "\r\n", 2)[0]
 	}
+	// Publish the record BEFORE the response write: the client can
+	// observe the response (client.Get returns on the headers alone)
+	// and call records() the instant the write lands. Publishing after
+	// the write left a TOCTOU that a loaded 2-CPU box surfaced at
+	// SESSION-033's recovery battery — the assertions are unchanged.
+	fs.mu.Lock()
+	fs.seen[idx] = rec
+	fs.mu.Unlock()
 	resp := []byte("HTTP/1.1 200 OK\r\n" +
 		"Content-Type: text/html; charset=utf-8\r\n" +
 		"Content-Length: " + strconv.Itoa(len(fs.body)) + "\r\n\r\n")
 	_, _ = conn.Write(append(resp, fs.body...))
-	fs.mu.Lock()
-	fs.seen[idx] = rec
-	fs.mu.Unlock()
 }
 
 func (fs *fakeSocks5Server) proxy() *Proxy {
