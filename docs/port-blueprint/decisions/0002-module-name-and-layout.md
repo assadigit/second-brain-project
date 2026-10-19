@@ -161,3 +161,44 @@ The record:
   does not descend into nested modules — the main battery stays the main
   battery; webui's own tests run from webui/ (recorded in the session
   report).
+
+## Amendment 4 — The internal-boundary reality correction (2026-10-19, SESSION-033, T-70's landing)
+
+**Status: applied — reality wins over the record (the standing law), fixed
+in the same commit as the code that disproved the claim.**
+
+Amendment 3 (above) claimed: "Go's internal-package rule forbids the nested
+webui module from importing the main module's internal/ packages, so the
+PoC's real job is exposed through `guibridge/`."
+
+**The boundary probe at the landing disproved the claim.** Evidence
+(hash-level: the commands and their exit codes, run from webui/ with the
+working wails build):
+
+```sh
+printf 'package main\n\nimport "github.com/assadigit/second-brain-project/internal/notestate"\n\nvar _ = notestate.ScanVault\n' > boundary_probe.go
+go build ./...   # exit 0 — no "use of internal package" error
+go vet .         # exit 0
+rm boundary_probe.go
+```
+
+Go's internal rule is computed over the package-path tree: the nested
+module's path (`github.com/assadigit/second-brain-project/webui`) sits
+UNDER the parent-of-internal prefix
+(`github.com/assadigit/second-brain-project`), so the import is legal
+(the local `replace` resolution makes the directory relationship explicit).
+
+**What changes:**
+
+- `guibridge/` STAYS — its rationale is restated (in its package doc) as
+  the architectural value, not the forced boundary: it is doc 04 §2's
+  event-seam shape at PoC scale (LogFn/ProgressFn + one command method),
+  its composition + contract tests live in the MAIN battery (the webui
+  module's tests run separately), and it evolves into internal/app's
+  bindings surface at T-71. The T-72 retirement law stands unchanged.
+- The nested-module strategy itself is UNCHANGED (it exists for the
+  authorized-four runtime law, not the internal rule).
+- Any future session citing the internal rule for a module-boundary
+  decision must run the probe first (the ten-line file above) — the rule's
+  edge at local-`replace` nested modules bites in the OTHER direction than
+  Am.3 assumed.

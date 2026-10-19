@@ -1,0 +1,13 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "GitCurator T-70 GUI Shell Gate",
+  "outputfilename": "gitcurator-t70-gate",
+  "frontend:install": "",
+  "frontend:build": "",
+  "frontend:dev:watcher": "",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "second-brain-agent",
+    "email": "agent@second-brain.local"
+  }
+}

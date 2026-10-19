@@ -1,0 +1,281 @@
+/* style.css — the T-70 themed window: the spec-gui-theme-icons §1 LIGHT
+ * token table (the desk/window subset the gate needs), the §2 type scale,
+ * and the §3 button grammar, as CSS custom properties + component classes.
+ * T-72's token golden diffs the FULL CSS var dump against the table; this
+ * is the honest gate-scale subset (window, text family, borders, accent,
+ * levels, log quartet, hero/ghost buttons, progress pair, scroll pair). */
+
+:root {
+  /* the LIGHT token table (gui/theme.py:58-237) */
+  --window: #FBF8F2;            /* cream window */
+  --sheet: #FFFFFF;             /* log_well / sheets */
+  --sheet-alt: #F2EDE3;         /* log_tint / hover sheets */
+  --sheet-hover: #EAE3D6;
+  --border: #EAE3D6;
+  --border-input: #D8D0BE;
+  --border-hover: #B5AC9C;
+  --text: #423A52;              /* soft plum ink */
+  --text-soft: #514A63;
+  --text-muted: #6C6480;
+  --text-disabled: #A79F92;
+  --accent: #5F54B4;
+  --focus: #8B80D6;
+  --on-accent: #FFFFFF;
+  --select-bg: #5F54B4;
+  --success: #1E6B4B;
+  --warning: #75510A;
+  --error: #AE2237;
+  --muted: #6C6480;
+  --log-well: #FFFFFF;
+  --log-tint: #F2EDE3;
+  --log-text: #57506B;          /* ONE muted message tone for every level */
+  --log-ts: #6C6480;
+  --hero-fill: #5F54B4;
+  --hero-hover: #514699;
+  --ghost-bg: #FBF8F2;
+  --hover-bg: #F2EDE3;
+  --hover-fg: #57506B;
+  --progress-track: #E3DACA;
+  --progress-chunk: #7C3AED;    /* the purple chunk (theme.py's own token) */
+  --msg-success: #16A34A;
+  --msg-error: #DC2626;
+  --msg-warning: #EA580C;
+  --scroll: #DCD4C4;
+  --scroll-hover: #B5AC9C;
+  --placeholder: #7A7288;
+
+  /* the type scale (§2) */
+  --font-ui: 'Segoe UI', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Consolas', 'Monaco', 'Menlo', 'Courier New', monospace;
+  --base-size: 13px;
+  --log-size: 12px;
+
+  /* layout tokens: spacing 4/8/16/24/32; focus 2px outline + 2px offset */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 16px;
+  --sp-4: 24px;
+  --sp-5: 32px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--window);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--base-size);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 380px;
+  padding: 0 var(--sp-3);
+}
+
+/* top bar (logo lockup + sentinels; the 34×34 chrome buttons are T-77's) */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: baseline; gap: var(--sp-1); }
+.brand-mark { color: var(--accent); font-size: 16px; }
+.brand-name { font-size: 14px; font-weight: 800; }         /* logo_title 14/800 */
+.brand-sub { color: var(--text-muted); font-size: 11px; }  /* micro 11 */
+.sentinels { display: flex; gap: var(--sp-3); }
+.sentinel { color: var(--text-muted); font-size: 12px; }   /* cc_item 12 */
+
+/* CTA band — one filled primary per view (the btn_kind law) */
+.cta {
+  display: flex;
+  gap: var(--sp-2);
+  padding: var(--sp-3) 0;
+}
+.btn-hero {
+  /* hero_primary: accent fill, 14/800, r6, 8×24 padding */
+  background: var(--hero-fill);
+  color: var(--on-accent);
+  border: none;
+  border-radius: 6px;
+  padding: var(--sp-2) var(--sp-4);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.btn-hero:hover { background: var(--hero-hover); }
+.btn-hero:disabled { background: var(--text-disabled); cursor: default; }
+.btn-secondary {
+  /* secondary: accent outline */
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: var(--sp-2) var(--sp-4);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-secondary:hover { background: var(--sheet-alt); }
+.btn-secondary:disabled { color: var(--text-disabled); border-color: var(--text-disabled); cursor: default; }
+.btn-ghost {
+  /* ghost: quiet bg, hover tint */
+  background: var(--ghost-bg);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: var(--sp-2) var(--sp-3);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn-ghost:hover { background: var(--hover-bg); color: var(--hover-fg); }
+button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* progress row — SegmentBar twin: track + chunk, mono 15/700 count */
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) 0 var(--sp-3);
+}
+.segment-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--progress-track);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.segment-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--progress-chunk);
+  border-radius: 5px;
+  transition: width 60ms linear;
+}
+.progress-count {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 120px;
+  text-align: right;
+}
+.progress-count.done { color: var(--success); }
+.progress-count.failed { color: var(--error); }
+
+/* Progress Logs card */
+.log-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: var(--sp-3);
+  margin-bottom: var(--sp-3);
+}
+.log-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  padding-bottom: var(--sp-2);
+  flex-wrap: wrap;
+}
+.card-heading { font-size: 14px; font-weight: 700; }       /* card_heading 14/700 */
+.log-tools { display: flex; align-items: center; gap: var(--sp-1); flex-wrap: wrap; }
+.chip {
+  background: var(--sheet-alt);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  cursor: pointer;
+}
+.chip:hover { background: var(--sheet-hover); }
+.chip-active {
+  background: var(--select-bg);
+  color: var(--on-accent);
+  border-color: var(--select-bg);
+}
+#log-search {
+  background: var(--sheet);
+  color: var(--text);
+  border: 1px solid var(--border-input);
+  border-radius: 6px;
+  padding: 4px var(--sp-2);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  width: 180px;
+}
+#log-search::placeholder { color: var(--placeholder); }
+.btn-clear { padding: 4px 10px; font-size: 12px; }
+
+/* the desk — LogView twin: read-only NoWrap mono list on the well */
+.log-desk {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  background: var(--log-well);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--log-size);
+}
+.log-desk::-webkit-scrollbar { width: 10px; }
+.log-desk::-webkit-scrollbar-track { background: var(--log-well); }
+.log-desk::-webkit-scrollbar-thumb { background: var(--scroll); border-radius: 5px; }
+.log-desk::-webkit-scrollbar-thumb:hover { background: var(--scroll-hover); }
+.log-empty {
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  padding: var(--sp-3);
+}
+/* the row: glyph · [ts] · message — ONE muted message ink for every level
+   (v0.32 law); the meaning rides the shape-coded, level-colored glyphs */
+.log-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  white-space: nowrap;              /* NoWrap: CSS elides (the fm.elidedText
+                                       twin; the resize re-render debounce is
+                                       a Qt law with no HTML twin needed) */
+  overflow: hidden;
+  padding-bottom: 2px;              /* apply_row_format's 2px bottom margin */
+}
+.log-row .glyph { flex: none; width: 12px; height: 12px; }
+.log-row .log-ts { flex: none; color: var(--log-ts); }
+.log-row .log-msg {
+  color: var(--log-text);
+  overflow: hidden;
+  text-overflow: ellipsis;          /* elide right; full text on the tooltip */
+}
+.glyph-success { color: var(--success); }
+.glyph-warning { color: var(--warning); }
+.glyph-error   { color: var(--error); }
+.glyph-info    { color: var(--muted); }
+
+.log-card-foot {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--sp-2);
+}
+.log-count { color: var(--text-muted); font-size: 11px; }  /* micro 11 */

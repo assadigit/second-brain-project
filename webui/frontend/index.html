@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GitCurator — T-70 GUI Shell Gate</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- top bar: logo lockup + sentinel labels (ui.py's chrome order;
+         the sentinels' real probes are T-77's — these render the labels
+         with honest placeholder states) -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">◆</span>
+        <span class="brand-name">GitCurator</span>
+        <span class="brand-sub">T-70 · GUI shell gate</span>
+      </div>
+      <div class="sentinels">
+        <span class="sentinel" id="sentinel-net">Net …</span>
+        <span class="sentinel" id="sentinel-ai">AI …</span>
+        <span class="sentinel" id="sentinel-proxy">Proxy …</span>
+      </div>
+    </header>
+
+    <!-- CTA band (ui.py's sync_card): exactly ONE filled primary per view
+         (the btn_kind law) — the baseline job is THE hero; the flood leg is
+         secondary; the stats card is ghost -->
+    <section class="cta">
+      <button id="btn-job" class="btn-hero">Scan vault — baseline job</button>
+      <button id="btn-flood" class="btn-secondary">Flood 10k lines</button>
+      <button id="btn-stats" class="btn-ghost">Stats</button>
+    </section>
+
+    <!-- progress row (ui.py's SegmentBar + progress_count): track + chunk
+         tokens, mono 15/700 count, the reference's terminal formats -->
+    <section class="progress-row">
+      <div class="segment-bar"><div class="segment-fill" id="bar-fill"></div></div>
+      <span class="progress-count" id="bar-label">Ready</span>
+    </section>
+
+    <!-- Progress Logs card (ui.py:2374-2794): chips + search + clear, the
+         desk (LogView twin), the empty state -->
+    <section class="log-card">
+      <div class="log-card-head">
+        <span class="card-heading">Progress Logs</span>
+        <div class="log-tools">
+          <button class="chip chip-active" data-filter="all">all</button>
+          <button class="chip" data-filter="error">errors</button>
+          <button class="chip" data-filter="warning">warnings</button>
+          <button class="chip" data-filter="success">success</button>
+          <input id="log-search" type="search" placeholder="filter logs…" />
+          <button id="btn-clear" class="btn-ghost btn-clear">Clear</button>
+        </div>
+      </div>
+      <div class="log-desk" id="log-desk" role="log" aria-label="Progress logs">
+        <div class="log-empty" id="log-empty">No activity yet — run the baseline job.</div>
+      </div>
+      <div class="log-card-foot">
+        <span class="log-count" id="log-count">0 rows</span>
+        <span class="log-count" id="log-cache">cache 0</span>
+      </div>
+    </section>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

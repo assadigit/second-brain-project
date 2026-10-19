@@ -1,0 +1,2 @@
+# the wails build output (binaries never enter git)
+bin/

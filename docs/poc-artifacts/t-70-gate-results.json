@@ -1,0 +1,31 @@
+{
+ "bus_dropped": 0,
+ "bus_ingested": 10026,
+ "flood_ui_probe": {
+  "gaps_over_100ms": 1,
+  "handler_batches": 41,
+  "handler_ms_max": 23,
+  "handler_ms_total": 741,
+  "max_task_gap_ms": 755,
+  "rows_appended": 10001,
+  "samples": 12
+ },
+ "last_flood": {
+  "accept_lines_per_s": 458694.5552956286,
+  "accept_ms": 21,
+  "dropped": 0,
+  "ingested": 10000,
+  "lines": 10000,
+  "ok": true
+ },
+ "last_job": {
+  "existing": false,
+  "ms": 94,
+  "ms_per_note": 0.11840624999999999,
+  "notes": 800,
+  "ok": true,
+  "unmanaged": 6
+ },
+ "startup_callback_ms": 65,
+ "startup_to_first_frame_ms": 266
+}

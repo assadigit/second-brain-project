@@ -78,3 +78,13 @@
 - **Frontend step**: none for the PoC (vanilla assets; wails.json's
   `frontend:install`/`frontend:build` empty). The production T-72+ frontend
   tooling question (vanilla vs vite) is OPEN for the owner.
+
+### Amendment 3 correction (2026-10-19, SESSION-033, T-70's landing)
+
+ADR-0002 Am.3's claim that Go's internal-package rule forces the
+`guibridge/` seam is FALSE (the landing's boundary probe: a direct
+`internal/` import from the nested webui module builds and vets clean —
+exit 0 both). Full correction record: ADR-0002 Am.4. The seam stays for
+its architectural value (doc 04 §2's event-seam shape, main-battery
+tested); the toolchain facts in this amendment (the pin, the frontend
+step, the CGO story) are unaffected.

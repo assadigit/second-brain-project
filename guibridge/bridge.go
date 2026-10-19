@@ -1,14 +1,17 @@
 // Package guibridge is the INTERIM SEAM (T-70, Phase 6's entry) between the
 // nested webui/ Wails module and this module's engine packages.
 //
-// Why it exists: Go's internal-package rule forbids the nested webui module
-// (module github.com/assadigit/second-brain-project/webui — nested because
-// the main module's runtime dependency set stays exactly the authorized four,
-// per ADR-0002 Am.3) from importing the main module's internal/ packages.
-// The PoC C GUI-shell gate (T-70) must wire ONE REAL JOB through the shell,
-// so the engine surface is exposed here, shaped like doc 04 §2's event seam
-// (LogLine/Progress callbacks + one command method) so it evolves cleanly
-// into internal/app's real bindings surface.
+// Why it exists (the honest record, corrected 2026-10-19 at T-70's landing):
+// the nested webui module exists because the main module's runtime
+// dependency set must stay exactly the authorized four (ADR-0002 Am.3) —
+// and the PoC's ONE REAL JOB must run REAL engine code inside the shell.
+// ADR-0002 Am.3 originally claimed Go's internal-package rule FORCED a
+// non-internal seam; the landing's boundary probe disproved that (a direct
+// internal/ import from the nested module builds and vets clean — see
+// Am.4). The seam is kept for its architectural value: it is doc 04 §2's
+// event-seam shape (LogFn/ProgressFn callbacks + one command method) at PoC
+// scale, its composition + contract tests live in the MAIN battery, and it
+// evolves into internal/app's real bindings surface at T-71.
 //
 // THE RETIREMENT LAW: this package RETIRES at T-72, when webui/ dissolves
 // into the main module (the wails require enters the main go.mod via its own
