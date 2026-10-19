@@ -394,6 +394,54 @@ verified against the Python app.
 > green / AI: off — unreachable red / Proxy: off gray; the SYNC hero
 > enabled; no honest-disabled placeholders left in the CTA band).
 
+> **SESSION-041 (2026-10-20): T-78 COMPLETE — the side-by-side
+> verification vs the Python app (the LAST Phase 6 task).** The
+> thirty-sixth full wipe absorbed before work (both repos, the
+> toolchain, the venv, the module cache all gone at boot; everything
+> re-cloned/rebuilt from the committed recipes — both repos with the
+> ephemeral GIT_CONFIG_COUNT PAT form, go1.27.2 sha-verified against
+> the committed 64-char pin, the venv, the wails CLI; the webkit tree
+> deliberately NOT rebuilt — no wails build was needed for T-78's
+> data-side legs, the next GUI-touching session rebuilds it per the
+> recipe; the FULL battery re-verified green pre-work — exactly 2252
+> + 56). The verification machine (committed): testdiff/side_by_side.py
+> + testdiff/goside (the Go driver over the production doors) — 21/21
+> GREEN, the evidence archived at docs/poc-artifacts/t-78-side-by-side.md.
+> LEG A (the acceptance — the lock mutual exclusion ACROSS BOTH
+> BINARIES): the Python half drives THE REFERENCE'S OWN LOCK CODE,
+> extracted verbatim by pinned line range (gui/app.py:393-440 +
+> gui/headless.py:246-282; the PyQt6 import wall probed and pinned:
+> headless.py:34 → icons.py:45 → ModuleNotFoundError under the
+> stdlib-only venv, and --cli/--headless both exit BEFORE the lock —
+> the GUI entry is the reference's only lock-taking binary; the
+> extraction's structural pins + rev guard fail loudly on drift).
+> Scenarios GREEN: the fresh-take BYTES law on both sides (bare
+> decimal PID, no newline); A1 Go holds → the reference's own dance
+> REFUSES (exit 1, the exact sentence, the file untouched); A2 Python
+> holds → Go REFUSES (exit 1, the same sentence); A3 Go crashed →
+> Python heals the stale (the exact stale sentence + takeover); A4
+> Python crashed → Go heals the stale; A6 the EPERM probe — A REAL
+> DIVERGENCE the audit caught and FIXED: the Go twin read EPERM (a
+> live not-ours process) as ALIVE while the reference's blanket
+> except reads it DEAD — a recycled-PID lock was take-over-able in
+> Python but refused by Go; process_posix.go fixed (killVerdict,
+> pinned hermetically) and BOTH binaries now take such a lock over
+> identically, live, against PID 1. LEG B (the same-data config laws,
+> the reference's own pure modules as the oracle): B1 both apps write
+> BYTE-IDENTICAL config.json from the same input + the same updates
+> (sha256 equal — the merge-never-rebuild + byte-comparable laws
+> end-to-end) + unknown keys survive + tuning keys unstomped +
+> nested key-by-key merge + non-ASCII raw with no HTML escaping; B1e/f
+> the cross re-save stability (each side's re-save of the other's file
+> never disturbs the bytes — all four sha256 equal); B2 the fill
+> (same bytes, same counts, both modes; the local-wins law); B3 the
+> mirror (identical memory bytes, the never-loses law, the 0600
+> permission law on both sides). The battery at the close: 2253
+> main-module tests race-clean over 36 packages (2252 + 1) + 56 webui
+> over 4. Phase 6's task list is now EMPTY — the phase-exit question
+> (opening Phase 7 per the protocol's gate laws) surfaced to the
+> owner in the session report.
+
 ## Phase 7 — Packaging, release, cutover
 
 **Work**: deterministic zip builder, `1-INSTALL` equivalent, clean-machine checklist (doc 10 §7),

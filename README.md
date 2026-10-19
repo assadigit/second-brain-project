@@ -817,3 +817,40 @@ the screenshot VLM-verified (the sentinels painting LIVE: Net: online
 green / AI: off — unreachable red / Proxy: off gray; the SYNC hero
 enabled; the honest placeholders retired). The MAIN go.mod
 byte-unchanged all session.
+
+**SESSION-041 — T-78 COMPLETE: THE SIDE-BY-SIDE VERIFICATION VS THE PYTHON
+APP (the LAST Phase 6 task — the task list is now EMPTY).** The
+thirty-sixth full wipe absorbed before work (both repos, the toolchain,
+the venv, the module cache gone; everything re-cloned/rebuilt from the
+committed recipes — the webkit tree deliberately NOT rebuilt, no wails
+build was needed for the data-side legs; the FULL battery re-verified
+green pre-work: exactly 2252 + 56). **The machine (committed):
+`testdiff/side_by_side.py` + `testdiff/goside`** — 21/21 GREEN, the
+evidence archived at `docs/poc-artifacts/t-78-side-by-side.md`. LEG A
+(the acceptance — the lock mutual exclusion ACROSS BOTH BINARIES): the
+Python half drives THE REFERENCE'S OWN LOCK CODE, extracted verbatim by
+pinned line range (the PyQt6 import wall probed + pinned:
+headless.py:34 → icons.py:45 → ModuleNotFoundError under the
+stdlib-only venv; `--cli`/`--headless` both exit BEFORE the lock — the
+GUI entry is the reference's only lock-taking binary) — the fresh-take
+BYTES law (bare decimal PID) on both sides; A1 Go holds → the
+reference's own dance REFUSES (exit 1, the exact sentence); A2 Python
+holds → Go REFUSES; A3/A4 both crash-heal paths with the exact stale
+sentences; A6 the EPERM probe — **A REAL DIVERGENCE THE AUDIT CAUGHT
+AND FIXED** (the port read a live not-ours process (EPERM) as ALIVE;
+the reference's blanket except reads it DEAD — a recycled-PID lock was
+take-over-able in Python but refused by Go; `process_posix.go` fixed,
+pinned hermetically, both binaries now take the PID-1 lock over
+identically, LIVE). LEG B (the same-data laws, the reference's own
+pure modules as the oracle): both apps write BYTE-IDENTICAL config.json
+through their real doors (merge-never-rebuild, tuning keys
+default-only, nested key-by-key, unknown keys preserved,
+ensure_ascii=False + SetEscapeHTML(false) raw) + the cross re-save
+stability (all four sha256 equal) + the fill (same bytes, same counts,
+local-wins + the fresh door) + the mirror (identical .gitcurator bytes,
+never-loses, 0o600). **The acceptance GREEN: lock test across both
+binaries ✓ — 2253 main-battery tests race-clean over 36 packages
+(2252 + 1) + 56 webui over 4**; the app package 3× clean post-change;
+the MAIN go.mod byte-unchanged. The phase-exit question (opening
+Phase 7 per the protocol's gate laws) is the owner's to decide —
+surfaced in the session report.

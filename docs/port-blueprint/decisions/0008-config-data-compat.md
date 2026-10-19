@@ -61,3 +61,40 @@ config, real cache.db — without a destructive migration and without silent div
 - Merge law: `gui/main_window/vaults_config.py:260-281, 452-474`
 - Single-instance lock: `gui/app.py:393-440` (PID check, zombie-handle retries)
 - APP_DIR anchoring: `gitcurator/constants.py:28-30`; `core/note_state.py:188-191`
+
+## Amendment 1 — the T-78 side-by-side verification record (2026-10-20, SESSION-041)
+
+**Status**: accepted (this amendment records the verification's verdict + one
+divergence found and fixed).
+
+The decision's compatibility laws were verified LIVE, binary-to-binary and
+oracle-to-port, by the committed machine `testdiff/side_by_side.py` +
+`testdiff/goside` — **21/21 GREEN** (evidence archived at
+`docs/poc-artifacts/t-78-side-by-side.md`):
+
+- **The app.lock mutual exclusion across both binaries** (the hard requirement
+  in Consequences): the Go production door (`internal/app.AcquireAppLock`) and
+  THE REFERENCE'S OWN LOCK CODE (extracted verbatim by pinned line range —
+  `gui/app.py:393-440` + `gui/headless.py:246-282`; the PyQt6 import wall makes
+  importing the module impossible under the stdlib-only venv, and `--cli`/
+  `--headless` both exit before the lock, so the GUI entry is the reference's
+  only lock-taking binary) refuse each other's live instances with the same
+  sentence + exit 1, heal each other's crashed stale locks with the same
+  sentence, and write the same bare-decimal-PID file bytes.
+- **THE EPERM DIVERGENCE, FOUND AND FIXED**: the port's POSIX liveness probe
+  read EPERM (a live process owned by another user) as ALIVE; the reference's
+  blanket `except (OSError, …): return False` swallows the PermissionError and
+  reads DEAD. A lock whose stale PID was recycled to a stranger's process was
+  therefore take-over-able in Python but REFUSED by Go — the two binaries
+  could disagree on the same file. `internal/app/process_posix.go` now mirrors
+  the blanket except exactly (`killVerdict`, pinned hermetically by
+  `TestKillVerdictMirrorsTheBlanketExcept`); the live differential (A6, PID 1
+  on the sandbox) proves both binaries take such a lock over identically.
+- **The same-data config laws** (Decisions 2 + 3): both apps write
+  byte-identical `config.json` from the same input + the same updates through
+  their real doors (merge-never-rebuild, tuning keys default-only, nested
+  key-by-key, unknown keys preserved, `ensure_ascii=False` +
+  `SetEscapeHTML(false)` raw); each side's re-save of the other's file is
+  byte-stable; the user-memory fill produces the same bytes + the same counts
+  in both modes (local-wins + the fresh door); the mirror produces identical
+  `.gitcurator` bytes under `0o600` with the never-loses law intact.

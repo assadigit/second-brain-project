@@ -242,6 +242,34 @@ testdiff/
 │                                   # strictly less than x/text on
 │                                   # Big5/Shift-JIS/gb2312); each
 │                                   # table pinned at sha256 level)
+├── side_by_side.py                # T-78 (ADR-0008): the SIDE-BY-SIDE
+│                                   # VERIFICATION vs the Python app — LEG A
+│                                   # the app.lock mutual exclusion ACROSS
+│                                   # BOTH BINARIES (the Python half drives
+│                                   # THE REFERENCE'S OWN LOCK CODE,
+│                                   # extracted verbatim by pinned line
+│                                   # range — gui/app.py:393-440 +
+│                                   # gui/headless.py:246-282, the PyQt6
+│                                   # import wall recorded; the Go half the
+│                                   # production door via goside): fresh
+│                                   # takes + the bare-PID bytes law, both
+│                                   # cross-refusals, both stale healings,
+│                                   # the EPERM probe (the divergence
+│                                   # T-78 caught + fixed); LEG B the
+│                                   # same-data config laws (the
+│                                   # reference's own pure modules as the
+│                                   # oracle vs the app doors): the
+│                                   # byte-identical merge+write, the
+│                                   # cross re-save stability, the fill
+│                                   # (local-wins + fresh), the mirror
+│                                   # (never-loses + 0600). Evidence:
+│                                   # docs/poc-artifacts/t-78-side-by-side.md
+├── goside/                        # the Go half's driver (a main-module
+│                                   # package — test instrumentation, not a
+│                                   # shipped command): the lock hold/try
+│                                   # verbs over internal/app.AcquireAppLock,
+│                                   # the config-save/fill/mirror verbs over
+│                                   # the app doors
 └── runs/                          # per-run artifacts — gitignored, copy the
                                     # signed-off report into docs/poc-artifacts/
 ```
@@ -251,6 +279,8 @@ Run:
 ```sh
 python3 testdiff/harness.py                     # all cases
 python3 testdiff/harness.py cases/status-no-config
+python3 testdiff/side_by_side.py                 # T-78: the side-by-side (both legs)
+python3 testdiff/side_by_side.py --leg A         # the lock mutual exclusion only
 ```
 
 Overrides: `GC_PYTHON` (venv python), `GC_APP_DIR` (reference app dir),
