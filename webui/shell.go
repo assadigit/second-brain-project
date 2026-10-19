@@ -53,6 +53,7 @@ type Shell struct {
 	theApp       *app.App
 	settingsUI   *SettingsUI
 	pagesBUI     *PagesBUI
+	syncUI       *SyncUI
 	bus          *deskbus.LogBus
 	cancelBusSub func()
 
@@ -89,6 +90,7 @@ func NewShell(t0 time.Time) *Shell {
 	s.theApp = app.New(constants.ConfigFile(), false)
 	s.settingsUI = NewSettingsUI(s.theApp.Settings)
 	s.pagesBUI = NewPagesBUI(s.theApp.Settings, s.theApp.Commands)
+	s.syncUI = NewSyncUI(s.theApp.Settings, s.theApp.Commands)
 	return s
 }
 
@@ -98,6 +100,7 @@ func (s *Shell) startup(ctx context.Context) {
 	s.startupAt = time.Now()
 	s.settingsUI.bindCtx(ctx)
 	s.pagesBUI.bindCtx(ctx)
+	s.syncUI.bindCtx(ctx)
 
 	// The desk's Go half: the 120 ms coalescing beat, wired to the
 	// bridge (one flushed batch = one log:batch event).

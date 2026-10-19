@@ -25,6 +25,12 @@ import {
   SealNow, ResyncMirror, PublishNow, DetectRepos, FastSync,
   OpenDashboard,
 } from './wailsjs/go/main/PagesBUI.js';
+import {
+  Refresh as SyncRefresh, StageDifferences, MarkIntentional,
+  ReopenItem, DeferredRows, LedgerCount, StageTables,
+  CheckBotQueue as SyncCheckQueue, SealNow as SyncSealNow,
+  PublishNow as SyncPublishNow, OpenNote as OpenNoteDoor,
+} from './wailsjs/go/main/SyncUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
 import { svgEl } from './icons.js';
 
@@ -44,6 +50,8 @@ const SECTIONS = [
     hint: 'Import a .txt or .md file of links, one address per line' },
   { id: 'dashboard', label: 'Dashboard', icon: 'bar-chart-3',
     hint: 'Vault statistics, the 404 quarantine and batch undo' },
+  { id: 'sync', label: 'Sync', icon: 'refresh',
+    hint: "The four elements' flow + the stage-by-stage gap matrix — what is waiting, and every gap fixed or explained" },
   { id: 'bot', label: 'Bot', icon: 'bot',
     hint: 'The Telegram bot queue — check, process, verify' },
   { id: 'sources', label: 'Sources', icon: 'satellite-dish',
@@ -845,6 +853,7 @@ const builders = {
   llm: buildLLM,
   input: buildInput,
   dashboard: buildDashboard,
+  sync: buildSync,
   bot: buildBot,
   sources: buildSources,
   backup: buildBackup,
@@ -875,9 +884,15 @@ function buildWindow() {
   selectSection('credentials');
 }
 
+let syncShownOnce = false;  // the first-show door (ONE automatic refresh)
+
 function selectSection(id) {
   for (const sec of SECTIONS) {
     if (sec.id === id) hintEl.textContent = sec.hint;
+  }
+  if (id === 'sync' && !syncShownOnce) {
+    syncShownOnce = true;  // exactly once per session (the owner's Q2 answer)
+    refreshSyncView();
   }
   for (const item of navEl.querySelectorAll('.settings-nav-item')) {
     item.classList.toggle('settings-nav-active', item.dataset.section === id);
@@ -1385,4 +1400,754 @@ function backupNowFlow() {
     if (title) { miniDialog(title, body || '', ['OK'], () => {}); return; }
     BackupNow();
   });
+}
+
+// ---------------------------------------------------------------------------
+// T-75 — the Sync page (sync_flow.py + sync_view.py, the HTML twin):
+// THE VISUAL SYNC DISPLAY (the four-element flow cards, two per row)
+// above THE DEFERRED LEDGER (the stage-by-stage gap matrix) + the
+// differences modal. ONE Refresh measures both desks (v0.87.0's GRAND
+// CONVERGENCE); read-only by law — the click is the consent for every
+// network leg.
+// ---------------------------------------------------------------------------
+
+const SYNC_DIFF_CAP_ROWS = 400;   // _DIFF_LIST_CAP
+const SYNC_CARD_MAX_W = 300;      // SYNC_CARD_MAX_W (the 2×2 grid law)
+
+// the stage tables (fetched once at build; the reference's own shape)
+let syncTables = null;
+let syncPayload = null;           // the last Refresh's payload
+let syncBusy = false;             // one measurement at a time
+const syncDiff = { open: false, key: '', stage: null, checked: new Set(), reason: '' };
+
+function buildSync() {
+  const p = el('div', 'page');
+
+  const header = el('p', 'info-header wordwrap',
+    "Sync — the pipeline at a glance. The four elements your library " +
+    "flows through, two per row — each card speaks its own truth: what " +
+    "is waiting, what is stale, what is not set. Read-only: nothing is " +
+    "sealed, published or moved from here (the hints name the doors).");
+  p.appendChild(header);
+
+  // -- the Refresh row (the consent for every network leg) ----------
+  const refreshRow = el('div', 'card-row');
+  const refreshBtn = btn('🔄 Refresh', 'primary',
+    "Measure the WHOLE page again — the flow's four elements AND the " +
+    "stage matrix below (v0.87.0's one consent door: the local walks — " +
+    "vaults, git seal statuses, the public-ready count — always run; " +
+    "the live doors (the bot queue, the published site) are asked ONLY " +
+    "because you clicked. Nothing is ever changed by a refresh.)",
+    () => refreshSyncView());
+  refreshBtn.id = 'sync-refresh-btn';
+  const measured = el('span', 'muted-note', 'Not measured yet');
+  measured.id = 'sync-measured-note';
+  refreshRow.append(refreshBtn, measured);
+  p.appendChild(refreshRow);
+
+  // -- THE 2×2 COMPACT GRID (v0.89.0 — the owner's ask: two per row;
+  // the Z-reading IS the pipeline) -----------------------------------
+  const grid = el('div', 'sync-grid');
+  const pairs = [
+    ['bot', 'vault', 'data flows this way'],
+    ['github', 'website', "the vault's public-ready notes publish to the site"],
+  ];
+  for (const [a, b, tip] of pairs) {
+    for (const key of [a, b]) {
+      const card = el('div', 'sync-card');
+      card.id = 'sync-card-' + key;
+      card.style.maxWidth = SYNC_CARD_MAX_W + 'px';
+      grid.appendChild(card);
+    }
+    const arrow = el('span', 'sync-arrow', '→');
+    arrow.title = tip;
+    grid.appendChild(arrow);
+  }
+  p.appendChild(grid);
+
+  // -- the calm line + the legend -------------------------------------
+  const calm = el('p', 'sync-calm');
+  calm.id = 'sync-calm';
+  calm.hidden = true;
+  p.appendChild(calm);
+  p.appendChild(el('p', 'muted-note wordwrap',
+    "Links arrive at the bot → become notes in the vault → seal to " +
+    "GitHub → publish to the website."));
+
+  // -- THE DEFERRED LEDGER: the matrix section (the page's SECOND desk)
+  const matrix = el('div', 'settings-group');
+  matrix.appendChild(el('div', 'group-title', 'The chain, stage by stage'));
+  matrix.appendChild(el('p', 'info-header wordwrap',
+    "The chain, stage by stage — Telegram queue → vaults → backups → " +
+    "the public website. Every cell speaks its number AND what the " +
+    "number is; a gap is not bad: it either gets fixed, or it gets " +
+    "reviewed and explained. Reviewed gaps never warn again; they stay " +
+    "visible as a calm count."));
+
+  const banner = el('div', 'sync-banner');
+  banner.dataset.tone = 'muted';
+  const bannerIcon = el('span', 'sync-banner-icon');
+  const bannerText = el('span', 'sync-banner-text', 'Not measured yet');
+  banner.append(bannerIcon, bannerText);
+  banner.id = 'sync-banner';
+  matrix.appendChild(banner);
+
+  const table = el('div', 'sync-matrix');
+  table.id = 'sync-matrix';
+  matrix.appendChild(table);
+
+  matrix.appendChild(el('p', 'muted-note wordwrap',
+    "How to read a cell: the big number is the count that reached the " +
+    "target; the small line under it names both sides (e.g. “720 in " +
+    "the vault · 710 on the site”). ✓ Match — counts agree · ⚠ Behind " +
+    "— unreviewed gap (click to review) · ⓘ Reviewed — explained, " +
+    "calm count (click to revisit) · — Unknown — the reason is written " +
+    "on the cell; click it for its door."));
+  const lastLine = el('p', 'muted-note',
+    'Not measured yet — open this page or click Refresh to measure.');
+  lastLine.id = 'sync-last-line';
+  matrix.appendChild(lastLine);
+  p.appendChild(matrix);
+
+  // the placeholder paint (never a fabricated count)
+  StageTables().then((t) => { syncTables = t; renderSyncMatrix(); });
+  renderSyncPlaceholder();
+  return p;
+}
+
+// the never-refreshed state: honest "not measured yet" cards
+function renderSyncPlaceholder() {
+  for (const key of ['bot', 'vault', 'github', 'website']) {
+    renderSyncCard(key, {
+      key, icon: '·', name: key.charAt(0).toUpperCase() + key.slice(1),
+      dotTone: 'muted', statusText: 'not measured yet',
+      hero: { value: '—', label: 'not measured yet', tone: 'muted' },
+      stats: [], foot: [], lines: ['click Refresh to measure'], hint: '',
+    });
+  }
+}
+
+// one card from the model's dict (the Qt layer's twin — paint only)
+function renderSyncCard(key, model) {
+  const card = document.getElementById('sync-card-' + key);
+  if (!card) return;
+  card.textContent = '';
+  const head = el('div', 'sync-card-head');
+  const dot = el('span', 'sync-dot');
+  dot.dataset.tone = model.dotTone || model.dot_tone || 'muted';
+  dot.title = model.statusText || model.status_text || '';
+  head.append(dot, el('span', 'sync-card-name',
+    (model.icon || '🗂️') + ' ' + (model.name || 'Element')));
+  head.lastChild.title = model.statusText || model.status_text || '';
+  card.appendChild(head);
+
+  const heroRow = el('div', 'sync-hero-row');
+  const heroVal = el('span', 'sync-hero', model.hero ? model.hero.value : '—');
+  heroVal.dataset.tone = (model.hero && model.hero.tone) || 'muted';
+  const heroLabel = el('span', 'sync-hero-label',
+    model.hero ? model.hero.label : '');
+  heroRow.append(heroVal, heroLabel);
+  card.appendChild(heroRow);
+
+  for (const stat of (model.stats || [])) {
+    const row = el('div', 'sync-stat-row');
+    const val = el('span', 'sync-stat-value', String(stat.value));
+    if (stat.tone) val.dataset.tone = stat.tone;
+    row.append(el('span', 'sync-stat-label', stat.label || ''), val);
+    card.appendChild(row);
+    if (stat.note) card.appendChild(el('p', 'sync-stat-note', stat.note));
+  }
+  for (const line of (model.foot || [])) {
+    card.appendChild(el('p', 'sync-foot wordwrap', line));
+  }
+  if (model.hint) card.appendChild(el('p', 'muted-note wordwrap', model.hint));
+}
+
+// THE ONE CONSENT DOOR — one Refresh measures both desks
+function refreshSyncView() {
+  if (syncBusy) return;  // a second click while measuring is swallowed
+  syncBusy = true;
+  const btn = document.getElementById('sync-refresh-btn');
+  if (btn) btn.disabled = true;
+  // the transient measuring state (the honest "· · ·")
+  for (const key of ['bot', 'vault', 'github', 'website']) {
+    renderSyncCard(key, {
+      key, icon: '·', name: key.charAt(0).toUpperCase() + key.slice(1),
+      dotTone: 'muted', statusText: 'measuring…',
+      hero: { value: '· · ·', label: 'measuring', tone: 'muted' },
+      stats: [], foot: [],
+      lines: ['the local walks run first, then the live doors (only because you clicked)'],
+      hint: '',
+    });
+  }
+  SyncRefresh().then((payload) => {
+    syncBusy = false;
+    if (btn) btn.disabled = false;
+    if (!payload) return;
+    syncPayload = payload;
+    for (const cardModel of (payload.model && payload.model.cards) || []) {
+      renderSyncCard(cardModel.key, cardModel);
+    }
+    const calm = document.getElementById('sync-calm');
+    if (calm) {
+      calm.textContent = payload.model ? payload.model.calmLine || payload.model.calm_line : '';
+      calm.hidden = !calm.textContent;
+    }
+    renderSyncMatrix();
+    const measured = document.getElementById('sync-measured-note');
+    const stamp = payload.measuredAt || payload.measured_at || '';
+    if (measured && stamp) {
+      measured.textContent =
+        `measured at ${stamp.substring(11, 19)} — the numbers are as fresh as this line`;
+    }
+  }).catch(() => {
+    syncBusy = false;
+    if (btn) btn.disabled = false;
+    const measured = document.getElementById('sync-measured-note');
+    if (measured) {
+      measured.textContent = 'measurement failed — the cards keep their last truth';
+    }
+  });
+}
+
+// the matrix paint (the model's snapshot → the six cells)
+function renderSyncMatrix() {
+  const table = document.getElementById('sync-matrix');
+  if (!table || !syncTables) return;
+  table.textContent = '';
+  const stages = (syncPayload && syncPayload.snapshot) ? syncPayload.snapshot.stages : null;
+
+  const headRow = el('div', 'sync-matrix-row sync-matrix-head');
+  headRow.appendChild(el('span', 'sync-matrix-corner', 'Stream'));
+  for (const col of syncTables.columns) {
+    headRow.appendChild(el('span', 'sync-matrix-colhead', col));
+  }
+  table.appendChild(headRow);
+
+  for (const stream of syncTables.streams) {
+    const row = el('div', 'sync-matrix-row');
+    row.appendChild(el('span', 'sync-matrix-rowhead', stream));
+    for (const key of syncTables.layout[stream] || []) {
+      if (!key) {
+        const na = el('span', 'sync-cell-na', '—');
+        na.title = 'not a stage for this stream (the queue feeds the ' +
+          'GitHub and Websites pipelines; the website publishes the ' +
+          'Websites vault; every vault seals to its own mirror)';
+        row.appendChild(na);
+        continue;
+      }
+      const stage = stages ? stages[key] : null;
+      row.appendChild(buildSyncCell(key, stream, stage));
+    }
+    table.appendChild(row);
+  }
+  renderSyncBanner();
+  renderSyncLastLine();
+}
+
+// one matrix cell — the big number + the micro-copy + the state wash
+function buildSyncCell(key, stream, stage) {
+  const state = stage ? stage.state : 'unknown';
+  const glyph = state === 'match' ? '✓ ' :
+    state === 'behind' ? '⚠ ' :
+    state === 'reviewed' ? 'ⓘ ' : '— ';
+  let num = '—', cap = 'not measured yet';
+  if (stage) {
+    // the caption's decision lives in the engine (syncreview's law);
+    // the paint rides the same branches the core computed
+    num = cellNumOf(stage);
+    cap = cellCapOf(stage);
+  }
+  const cell = el('button', 'sync-cell');
+  cell.dataset.cellState = state;
+  cell.dataset.key = key;
+  const row = el('div', 'sync-cell-row');
+  const numEl = el('span', 'sync-cell-num', num);
+  numEl.dataset.cellState = state;
+  row.append(numEl, el('span', 'sync-cell-icon',
+    state === 'behind' ? '⚠' : state === 'reviewed' ? 'ⓘ' :
+    state === 'match' ? '✓' : ''));
+  cell.appendChild(row);
+  const capEl = el('span', 'sync-cell-cap', glyph + cap);
+  capEl.dataset.cellState = state;
+  cell.appendChild(capEl);
+  cell.title = cellTitleOf(stream, stage, state, num, cap);
+  cell.setAttribute('aria-label', `${stream} ${stage ? stage.stage : ''} — ${cap}`);
+  if (state === 'match') {
+    cell.disabled = true;
+  } else {
+    cell.addEventListener('click', () => onSyncCellClicked(key, state));
+  }
+  return cell;
+}
+
+// the caption's pure branches (the engine's own twin — the frontend
+// renders what the core decided; these two helpers mirror
+// syncreview.CellCaption for the paint only, byte-for-byte)
+function cellNumOf(stage) {
+  if (stage.state === 'unknown') return '—';
+  const disp = stageNum(stage, 'displayNumber', 'display_number');
+  return disp == null ? '—' : String(disp);
+}
+
+function stageNum(stage, camel, snake) {
+  const v = stage[camel] != null ? stage[camel] : stage[snake];
+  return v != null ? v : null;
+}
+
+function cellCapOf(stage) {
+  if (stage.state === 'unknown') {
+    const reason = (stage.reason || '').trim();
+    return reason || 'not set up or not measured';
+  }
+  const gap = stage.gapCount || stage.gap_count || 0;
+  const deferred = stage.deferredGapCount || stage.deferred_gap_count || 0;
+  const src = stageNum(stage, 'sourceCount', 'source_count');
+  const tgt = stageNum(stage, 'targetCount', 'target_count');
+  const v = src == null ? '—' : String(src);
+  const p = tgt == null ? '—' : String(tgt);
+  const disp = stageNum(stage, 'displayNumber', 'display_number');
+  const inVault = disp == null ? 0 : disp;
+  if (stage.key.endsWith(':queue_to_vault')) {
+    if (stage.state === 'behind') return `${gap} waiting in the queue · ${inVault} already in the vault`;
+    if (stage.state === 'reviewed') return `${deferred} deferred (explained) · ${inVault} in the vault`;
+    return `${inVault} in the vault · ${gap} waiting in the queue`;
+  }
+  if (stage.key.endsWith(':vault_to_site')) {
+    if (stage.state === 'behind') return `${gap} to publish · ${v} in the vault · ${p} on the site`;
+    if (stage.state === 'reviewed') return `${deferred} deferred (explained) · ${v} in the vault · ${p} on the site`;
+    return `${v} in the vault = ${p} on the site`;
+  }
+  const sealed = disp == null ? 0 : disp;
+  const total = sealed + gap;
+  if (stage.state === 'behind') return `${gap} unsealed · ${total} in the vault · ${sealed} sealed in the mirror`;
+  if (stage.state === 'reviewed') return `${deferred} deferred (explained) · ${total} in the vault · ${sealed} sealed in the mirror`;
+  return `${total} in the vault = ${sealed} in the mirror`;
+}
+
+function cellTitleOf(stream, stage, state, num, cap) {
+  const st = stage || { stage: '', stream, sourceLabel: 'the source', targetLabel: 'the target' };
+  if (state === 'match') {
+    return `${st.stream} · ${st.stage}: counts agree (${st.sourceCount != null ? st.sourceCount : st.source_count} in ${st.sourceLabel || st.source_label}, ${st.targetCount != null ? st.targetCount : st.target_count} in ${st.targetLabel || st.target_label}).`;
+  }
+  if (state === 'behind') {
+    const unexplained = st.unexplainedCount || st.unexplained_count || 0;
+    return `${st.stream} · ${st.stage}: ${unexplained} unexplained item${unexplained === 1 ? '' : 's'} — click to review (explain) or fix. ${st.setUpHint || ''}`;
+  }
+  if (state === 'reviewed') {
+    const n = st.deferredGapCount || st.deferred_gap_count || 0;
+    return `${st.stream} · ${st.stage}: ${n} item${n === 1 ? '' : 's'} deferred — every gap explained (click to revisit the log; Reopen brings any item back).`;
+  }
+  return `${st.stream} · ${st.stage}: ${cap} — click to act. ${st.setUpHint || st.set_up_hint || 'not measured yet'}`;
+}
+
+// the banner's verdict (the engine's own — the paint rides the payload)
+function renderSyncBanner() {
+  const banner = document.getElementById('sync-banner');
+  if (!banner) return;
+  const verdict = syncPayload ? syncPayload.banner : null;
+  const tone = verdict ? verdict.tone : 'muted';
+  const text = verdict ? verdict.text : 'Not measured yet';
+  banner.dataset.tone = tone;
+  banner.textContent = '';
+  const icon = el('span', 'sync-banner-icon',
+    tone === 'success' ? '✓' : tone === 'warning' ? '⚠' : '●');
+  banner.append(icon, el('span', 'sync-banner-text', text));
+  const tips = {
+    success: 'Healthy: every stage matches or is fully explained. A deferred count never disappears — it is the calm record of your reviews.',
+    warning: 'At least one stage has an unreviewed gap — the banner names each one; open the cell to review or fix it. After review it never warns again.',
+    muted: 'Not set up (a Settings door is missing — e.g. the Cloudflare Worker URL, which no LLM / scan / fetch ever sets) or not measured (a check that has not run this session, e.g. the bot queue). The banner names each stage and its reason — click the cell to act.',
+  };
+  banner.title = tips[tone] || '';
+}
+
+function renderSyncLastLine() {
+  const line = document.getElementById('sync-last-line');
+  if (!line) return;
+  if (!syncPayload || !syncPayload.snapshot) return;
+  const shown = (syncPayload.snapshot.generatedAt || syncPayload.snapshot.generated_at || '').substring(0, 19).replace('T', ' ');
+  LedgerCount().then((n) => {
+    line.textContent =
+      `Measured ${shown || '—'} (UTC) · the deferred log remembers ${n} review${n === 1 ? '' : 's'} — nothing is ever deleted.`;
+  });
+}
+
+// the cell click: Behind/Reviewed open the modal; Unknown runs the
+// stage's set-up door (measure / fix / teach)
+function onSyncCellClicked(key, state) {
+  if (state === 'behind' || state === 'reviewed') {
+    openSyncDifferences(key);
+    return;
+  }
+  runSyncFixDoor(key);
+}
+
+// the FIX door for one stage (the "it gets fixed" half of the law)
+function runSyncFixDoor(key) {
+  const stage = syncPayload && syncPayload.snapshot ?
+    syncPayload.snapshot.stages[key] : null;
+  const action = stage ? stage.fixAction || stage.fix_action : '';
+  if (action === 'check_queue') {
+    SyncCheckQueue().then((r) => {
+      if (r && r.report && !r.refusal && !r.error) refreshSyncView();
+    });
+    return;
+  }
+  if (action === 'publish') {
+    SyncPublishNow().then(() => refreshSyncView());
+    return;
+  }
+  if (action === 'seal') {
+    const kind = key.startsWith('repos:') ? 'repos' :
+      key.startsWith('websites:') ? 'websites' : 'personal';
+    SyncSealNow(kind).then(() => {
+      // the repos seal re-measure arming (singleShot(4000)'s twin)
+      setTimeout(() => refreshSyncView(), 4000);
+    });
+    return;
+  }
+  refreshSyncView();  // unknown / no fix action: measure + teach
+}
+
+// ---------------------------------------------------------------------------
+// THE DIFFERENCES MODAL — where gaps get resolved
+// ---------------------------------------------------------------------------
+
+function openSyncDifferences(key) {
+  StageDifferences(key).then((payload) => {
+    if (!payload || !payload.found) return;
+    syncDiff.open = true;
+    syncDiff.key = key;
+    syncDiff.stage = payload.stage;
+    syncDiff.checked = new Set();
+    syncDiff.reason = '';
+    renderSyncDiffModal(payload);
+  });
+}
+
+function syncModalRoot() {
+  let root = document.getElementById('sync-diff-modal');
+  if (!root) {
+    root = el('div', 'dialog-overlay');
+    root.id = 'sync-diff-modal';
+    root.hidden = true;
+    document.getElementById('app').appendChild(root);
+  }
+  return root;
+}
+
+function renderSyncDiffModal(payload) {
+  const root = syncModalRoot();
+  root.textContent = '';
+  root.hidden = false;
+  const stage = payload.stage;
+
+  const dlg = el('div', 'sync-diff-dialog');
+  dlg.setAttribute('role', 'dialog');
+  dlg.setAttribute('aria-modal', 'true');
+  dlg.setAttribute('aria-label', `${stage.stream} · ${stage.stage}`);
+
+  // the header row: the story + the stage's fix door
+  const head = el('div', 'sync-diff-head');
+  head.appendChild(el('p', 'sync-diff-heading wordwrap', payload.heading));
+  const fixAction = stage.fixAction || stage.fix_action || '';
+  if (fixAction && fixAction !== 'none') {
+    head.appendChild(btn(stage.fixLabel || stage.fix_label || 'Fix now', 'secondary',
+      "The FIX door — how this stage's gap gets closed (the other half " +
+      "of the law: a gap either gets fixed, or it gets reviewed and " +
+      "explained).", () => { closeSyncDiff(); runSyncFixDoor(syncDiff.key); }));
+  }
+  dlg.appendChild(head);
+
+  // the tabs
+  const tabs = el('div', 'sync-tabs');
+  const tabBtns = el('div', 'sync-tab-btns');
+  const diffTab = btn(`Differences (${(stage.items || []).length})`, 'secondary', '', () => selectSyncTab('diff'));
+  const logTab = btn(`Deferred log (${payload.logCount || payload.log_count})`, 'secondary', '', () => selectSyncTab('log'));
+  diffTab.classList.add('sync-tab-btn');
+  logTab.classList.add('sync-tab-btn');
+  tabBtns.append(diffTab, logTab);
+  tabs.appendChild(tabBtns);
+
+  const diffPage = buildSyncDiffTab(stage);
+  const logPage = buildSyncLogTab(payload);
+  tabs.append(diffPage, logPage);
+  dlg.appendChild(tabs);
+
+  // the bottom row: the confirm line + Close
+  const bottom = el('div', 'sync-diff-bottom');
+  const confirmLine = el('p', 'sync-confirm-line wordwrap', '');
+  confirmLine.id = 'sync-confirm-line';
+  bottom.append(confirmLine,
+    btn('Close', 'secondary', 'Close the differences dialog', closeSyncDiff));
+  dlg.appendChild(bottom);
+  root.appendChild(dlg);
+
+  // a Reviewed cell opens onto the LOG (the story is the explanation)
+  selectSyncTab(stage.state === 'reviewed' ? 'log' : 'diff');
+  refreshSyncMarkButton();
+}
+
+function selectSyncTab(which) {
+  for (const b of document.querySelectorAll('.sync-tab-btn')) {
+    b.classList.toggle('sync-tab-active', b.textContent.startsWith(
+      which === 'diff' ? 'Differences' : 'Deferred log'));
+  }
+  const diffPage = document.getElementById('sync-diff-page');
+  const logPage = document.getElementById('sync-log-page');
+  if (diffPage) diffPage.hidden = which !== 'diff';
+  if (logPage) logPage.hidden = which !== 'log';
+}
+
+// the Differences tab: Select all + the rows + the WHY bar
+function buildSyncDiffTab(stage) {
+  const page = el('div', 'sync-tab-page');
+  page.id = 'sync-diff-page';
+
+  const master = el('label', 'sync-master');
+  const masterBox = el('input');
+  masterBox.type = 'checkbox';
+  master.append(masterBox, el('span', '', 'Select all'));
+  master.title = 'Tick or untick every row at once — then pick ONE reason for all of them';
+  masterBox.addEventListener('click', () => {
+    // the plan_master law: any unticked row ticks the whole list
+    const rows = document.querySelectorAll('.sync-row-check');
+    const target = !Array.from(rows).every((r) => r.checked);
+    for (const r of rows) r.checked = target;
+    syncDiff.checked = new Set();
+    if (target) {
+      for (const it of stage.items || []) syncDiff.checked.add(it.id);
+    }
+    refreshSyncMarkButton();
+  });
+  page.appendChild(master);
+
+  const list = el('div', 'sync-diff-list');
+  const items = (stage.items || []).slice(0, SYNC_DIFF_CAP_ROWS);
+  for (const item of items) {
+    list.appendChild(buildSyncDiffRow(item, stage));
+  }
+  if (items.length === 0) {
+    list.appendChild(el('p', 'muted-note wordwrap',
+      'Nothing waiting here — every gap item is explained (see the Deferred log tab).'));
+  }
+  page.appendChild(list);
+
+  // the WHY bar: four chips + note + Mark (the spec's law)
+  const whyRow = el('div', 'card-row');
+  whyRow.appendChild(el('span', 'sync-why', 'Why?'));
+  const chipTips = {
+    not_ready: 'keeping it for later — it will ride the next batch/publish once ready',
+    private: 'this one must never publish publicly',
+    duplicate: 'the same item already exists on the target side under another name',
+    other: 'anything else — write the one-line note',
+  };
+  const chipLabels = { not_ready: 'Not ready', private: 'Private', duplicate: 'Duplicate', other: 'Other' };
+  for (const reason of ['not_ready', 'private', 'duplicate', 'other']) {
+    const chip = btn(chipLabels[reason], 'secondary',
+      chipTips[reason] || '', () => {
+        // exclusive single choice (the chip group's law)
+        syncDiff.reason = syncDiff.reason === reason ? '' : reason;
+        for (const c of document.querySelectorAll('.sync-chip')) {
+          c.classList.toggle('sync-chip-on',
+            c.dataset.reason === syncDiff.reason);
+        }
+        refreshSyncMarkButton();
+      });
+    chip.classList.add('sync-chip');
+    chip.dataset.reason = reason;
+    chip.setAttribute('aria-label', 'Reason: ' + chipLabels[reason]);
+    whyRow.appendChild(chip);
+  }
+  page.appendChild(whyRow);
+
+  const noteRow = el('div', 'card-row');
+  const noteInput = el('input', 'form-input');
+  noteInput.id = 'sync-note-input';
+  noteInput.placeholder = 'short note (optional — one line, remembered in the log)';
+  noteInput.addEventListener('input', () => refreshSyncMarkButton());
+  const markBtn = btn('Mark as intentional', 'primary',
+    'Apply the chosen reason (and note) to every checked item — they ' +
+    'leave the Differences list, the cell turns Reviewed, and the ' +
+    'reason is remembered (Reopen brings any of them back).',
+    () => syncMarkIntentional());
+  markBtn.id = 'sync-mark-btn';
+  markBtn.disabled = true;   // THE disabled-until law
+  noteRow.append(noteInput, markBtn);
+  page.appendChild(noteRow);
+  return page;
+}
+
+// one differences row: checkbox + name + relative time + (deferred
+// chip) + Open note — one line always, the full story on the hover
+function buildSyncDiffRow(item, stage) {
+  const row = el('div', 'sync-row');
+  const box = el('input', 'sync-row-check');
+  box.type = 'checkbox';
+  box.dataset.itemId = item.id;
+  const name = item.name || item.id || '';
+  box.title = name;
+  const label = el('label', 'sync-row-name wordwrap');
+  const short = name.length > 48 ? name.slice(0, 23) + '…' + name.slice(-22) : name;
+  label.append(box, el('span', '', short));
+  row.appendChild(label);
+  const ago = el('span', 'sync-row-ago', item.addedAt ? agoOf(item.addedAt) : agoOf(item.added_at));
+  ago.title = 'added at ' + (item.addedAt || item.added_at || '—');
+  row.appendChild(ago);
+  const reviewed = syncPayload && syncPayload.snapshot &&
+    syncPayload.snapshot.stages[stage.key] &&
+    (syncPayload.snapshot.stages[stage.key].deferred_gap_ids || []).includes(item.id);
+  if (reviewed) {
+    const chip = el('span', 'sync-row-chip', 'deferred');
+    chip.title = 'already explained';
+    row.appendChild(chip);
+  }
+  if (item.notePath || item.note_path) {
+    row.appendChild(btn('Open note', 'secondary',
+      'Open the note to verify before excusing — that is the point of a review.',
+      () => OpenNoteDoor(item.notePath || item.note_path)));
+  }
+  box.addEventListener('change', () => {
+    if (box.checked) syncDiff.checked.add(item.id);
+    else syncDiff.checked.delete(item.id);
+    refreshSyncMarkButton();
+  });
+  return row;
+}
+
+// the compact relative form (the engine's own grammar, the paint twin)
+function agoOf(stamp) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2}))?)?/.exec(String(stamp || '').trim());
+  if (!m) return '—';
+  const then = Date.UTC(+m[1], +m[2] - 1, +m[3], +(m[4] || 0), +(m[5] || 0), +(m[6] || 0));
+  let seconds = (Date.now() - then) / 1000;
+  if (seconds < 0) seconds = 0;
+  if (seconds < 60) return 'just now';
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} m ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} h ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `${days} d ago`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months} mo ago`;
+  return `${Math.floor(months / 12)} y ago`;
+}
+
+// THE disabled-until law: ≥1 checked item AND a chip chosen
+function refreshSyncMarkButton() {
+  const markBtn = document.getElementById('sync-mark-btn');
+  if (!markBtn) return;
+  const ids = Array.from(syncDiff.checked);
+  const reason = syncDiff.reason;
+  markBtn.disabled = !(ids.length >= 1 &&
+    ['not_ready', 'private', 'duplicate', 'other'].includes(reason));
+}
+
+function syncMarkIntentional() {
+  const ids = Array.from(syncDiff.checked);
+  const noteEl = document.getElementById('sync-note-input');
+  const note = noteEl ? noteEl.value.trim() : '';
+  const names = {};
+  const stage = syncDiff.stage;
+  for (const it of (stage && stage.items) || []) names[it.id] = it.name || it.id;
+  MarkIntentional(syncDiff.key, ids, syncDiff.reason, note, names).then((r) => {
+    if (!r || !r.marked) return;
+    const confirmLine = document.getElementById('sync-confirm-line');
+    if (confirmLine) confirmLine.textContent = r.line;
+    if (noteEl) noteEl.value = '';
+    syncDiff.checked = new Set();
+    syncDiff.reason = '';
+    for (const c of document.querySelectorAll('.sync-chip')) {
+      c.classList.remove('sync-chip-on');
+    }
+    // the modal re-opens its own fresh data (the rows left the list;
+    // the log tab grew) — pure local, instant
+    StageDifferences(syncDiff.key).then((payload) => {
+      if (payload && payload.found) renderSyncDiffModal(payload);
+    });
+    refreshSyncView();  // the cell + banner repaint behind the modal
+  });
+}
+
+// the Deferred log tab: search + the 6-column table + the note
+function buildSyncLogTab(payload) {
+  const page = el('div', 'sync-tab-page');
+  page.id = 'sync-log-page';
+  page.hidden = true;
+
+  const searchRow = el('div', 'card-row');
+  const search = el('input', 'form-input');
+  search.id = 'sync-log-search';
+  search.placeholder = 'search the log — item, reason or note';
+  search.addEventListener('input', () => renderSyncLogRows());
+  searchRow.appendChild(search);
+  page.appendChild(searchRow);
+
+  const table = el('div', 'sync-log-table');
+  table.id = 'sync-log-table';
+  page.appendChild(table);
+  page.appendChild(el('p', 'muted-note wordwrap',
+    'Nothing is ever deleted from the log — status changes only. ' +
+    'Resolving happens automatically when the item later appears on ' +
+    'the website; Reopen puts an item back in the Differences tab.'));
+  renderSyncLogRows();
+  return page;
+}
+
+const SYNC_LOG_CAP = 500;  // the log tab's paint cap
+
+function renderSyncLogRows() {
+  const table = document.getElementById('sync-log-table');
+  if (!table) return;
+  const search = document.getElementById('sync-log-search');
+  const q = search ? search.value : '';
+  DeferredRows(syncDiff.key, q).then((rows) => {
+    table.textContent = '';
+    const head = el('div', 'sync-log-row sync-log-head');
+    for (const h of ['Item', 'Reason', 'Note', 'Date reviewed', 'Status', '']) {
+      head.appendChild(el('span', '', h));
+    }
+    table.appendChild(head);
+    const labels = { not_ready: 'Not ready', private: 'Private', duplicate: 'Duplicate', other: 'Other' };
+    const statusShown = { active: 'Active', resolved: 'Resolved', reopened: 'Reopened' };
+    for (const rec of (rows || []).slice(0, SYNC_LOG_CAP)) {
+      const row = el('div', 'sync-log-row');
+      row.append(
+        el('span', 'sync-log-item', rec.displayName || rec.display_name || rec.item_id || rec.itemId || rec.item_id || ''),
+        el('span', '', labels[rec.reason] || rec.reason || ''),
+        el('span', '', rec.note || ''),
+        el('span', '', (rec.dateReviewed || rec.date_reviewed || '').substring(0, 19).replace('T', ' ')),
+        el('span', '', statusShown[rec.status] || rec.status || ''),
+      );
+      if (rec.status === 'active') {
+        const reopen = btn('Reopen', 'secondary',
+          'Put this item back in the Differences tab — the deferral is ' +
+          'withdrawn (the row stays in the log, reopen counted).',
+          () => {
+            ReopenItem(syncDiff.key, rec.itemId || rec.item_id).then((r) => {
+              if (!r || !r.ok) return;
+              const confirmLine = document.getElementById('sync-confirm-line');
+              if (confirmLine) confirmLine.textContent = r.line;
+              renderSyncLogRows();
+              refreshSyncView();
+            });
+          });
+        reopen.classList.add('sync-reopen-btn');
+        row.appendChild(reopen);
+      } else {
+        const dash = el('span', 'sync-log-dash', '—');
+        dash.title = 'only Active rows reopen — a resolved row already ' +
+          'left the gap; a reopened row is already back in Differences';
+        row.appendChild(dash);
+      }
+      table.appendChild(row);
+    }
+  });
+}
+
+function closeSyncDiff() {
+  const root = document.getElementById('sync-diff-modal');
+  if (root) root.hidden = true;
+  syncDiff.open = false;
 }

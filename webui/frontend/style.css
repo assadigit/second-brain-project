@@ -483,3 +483,280 @@ textarea.form-area { resize: vertical; min-height: 42px; }
   border: 1px solid var(--sync-ok-border);
 }
 .vault-status.status-muted { color: var(--muted); }
+
+/* T-75 — the Sync page: the four-element flow cards (the 2×2 compact
+   grid), the stage matrix (the four state washes), the banner tones,
+   and the differences modal. The reference's sync_* QSS roles ride
+   the locked semantic tokens (icon + text + color together — WCAG
+   1.4.1; never color alone). */
+
+/* the 2×2 flow grid: two cards per row, the arrow between (v0.89.0 —
+   the owner's ask; the Z-reading IS the pipeline) */
+.sync-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 6px;
+  align-items: stretch;
+  margin: 4px 0;
+}
+.sync-card {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.sync-arrow {
+  align-self: center;
+  flex: 0 0 16px;
+  text-align: center;
+  color: var(--text-soft);
+  font-weight: 700;
+}
+.sync-card-head { display: flex; align-items: center; gap: 6px; }
+.sync-card-name { font-weight: 700; font-size: 13px; }
+.sync-dot { font-size: 13px; line-height: 1; }
+.sync-dot[data-tone="success"] { color: var(--success); }
+.sync-dot[data-tone="warning"] { color: var(--warning); }
+.sync-dot[data-tone="error"] { color: var(--error); }
+.sync-dot[data-tone="muted"], .sync-dot { color: var(--muted); }
+.sync-hero-row { display: flex; align-items: center; gap: 8px; margin: 2px 0; }
+.sync-hero {
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.sync-hero[data-tone="success"] { color: var(--success); }
+.sync-hero[data-tone="warning"] { color: var(--warning); }
+.sync-hero[data-tone="muted"], .sync-hero { color: var(--text-soft); }
+.sync-hero-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.25;
+}
+.sync-stat-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+}
+.sync-stat-label { color: var(--text-muted); font-size: 12px; }
+.sync-stat-value { font-weight: 700; font-size: 13px; }
+.sync-stat-value[data-tone="success"] { color: var(--success); }
+.sync-stat-value[data-tone="warning"] { color: var(--warning); }
+.sync-stat-note { margin: 0; color: var(--text-muted); font-size: 11px; }
+.sync-foot { margin: 2px 0 0 0; color: var(--text-soft); font-size: 12px; }
+.sync-calm {
+  margin: 4px 0;
+  color: var(--success);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* the banner (the verdict over every cell — tone + icon + text) */
+.sync-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin: 6px 0;
+}
+.sync-banner[data-tone="success"] {
+  background: var(--sync-ok-bg);
+  border-color: var(--sync-ok-border);
+}
+.sync-banner[data-tone="warning"] {
+  background: color-mix(in srgb, var(--warning) 12%, var(--sheet));
+  border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
+}
+.sync-banner[data-tone="muted"] { background: var(--sheet-alt); }
+.sync-banner-icon { font-size: 14px; line-height: 1; }
+.sync-banner[data-tone="success"] .sync-banner-icon { color: var(--success); }
+.sync-banner[data-tone="warning"] .sync-banner-icon { color: var(--warning); }
+.sync-banner[data-tone="muted"] .sync-banner-icon { color: var(--muted); }
+.sync-banner-text { font-size: 13px; font-weight: 600; }
+
+/* the stage matrix (stream rows × stage columns) */
+.sync-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0;
+}
+.sync-matrix-row {
+  display: grid;
+  grid-template-columns: 84px 1fr 1fr 1fr;
+  gap: 6px;
+  align-items: stretch;
+}
+.sync-matrix-head { align-items: center; }
+.sync-matrix-corner, .sync-matrix-rowhead {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-soft);
+  align-self: center;
+}
+.sync-matrix-colhead {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-soft);
+  text-align: center;
+  align-self: center;
+}
+.sync-cell-na {
+  align-self: center;
+  text-align: center;
+  color: var(--muted);
+}
+.sync-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 6px 10px;
+  min-height: 56px;
+  text-align: left;
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text);
+}
+.sync-cell:disabled { cursor: default; }
+.sync-cell-row { display: flex; align-items: center; gap: 6px; }
+.sync-cell-num { font-size: 20px; font-weight: 800; line-height: 1.15; }
+.sync-cell-num[data-state="match"] { color: var(--success); }
+.sync-cell-num[data-state="behind"] { color: var(--warning); }
+.sync-cell-num[data-state="reviewed"], .sync-cell-num[data-state="unknown"] {
+  color: var(--text-soft);
+}
+.sync-cell-icon { font-size: 13px; color: var(--text-muted); }
+.sync-cell-cap {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+.sync-cell[data-state="behind"] {
+  background: color-mix(in srgb, var(--warning) 10%, var(--sheet));
+  border-color: color-mix(in srgb, var(--warning) 45%, var(--border));
+}
+.sync-cell[data-state="reviewed"] { background: var(--sheet-alt); }
+.sync-cell[data-state="unknown"] {
+  border-style: dashed;
+  color: var(--text-muted);
+}
+
+/* the differences modal */
+.sync-diff-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 660px;
+  width: min(720px, 92%);
+  max-height: 84%;
+  overflow-y: auto;
+  padding: 16px 18px 14px 18px;
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 26px rgba(66, 58, 82, 0.2);
+}
+.sync-diff-head { display: flex; align-items: flex-start; gap: 10px; }
+.sync-diff-heading { margin: 0; flex: 1; font-weight: 600; font-size: 13px; }
+.sync-tabs { display: flex; flex-direction: column; gap: 6px; }
+.sync-tab-btns { display: flex; gap: 6px; }
+.sync-tab-btn.sync-tab-active {
+  background: var(--select-bg);
+  color: var(--select-fg);
+  border-color: transparent;
+}
+.sync-tab-page { display: flex; flex-direction: column; gap: 6px; }
+.sync-master {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.sync-diff-list {
+  max-height: 340px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.sync-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 1px 2px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
+.sync-row:last-child { border-bottom: none; }
+.sync-row-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+.sync-row-ago {
+  min-width: 84px;
+  text-align: right;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+.sync-row-chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--sheet-alt);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+}
+.sync-why { font-weight: 700; font-size: 13px; }
+.sync-chip { min-height: 44px; }
+.sync-chip.sync-chip-on {
+  background: var(--select-bg);
+  color: var(--select-fg);
+  border-color: transparent;
+}
+.sync-diff-bottom { display: flex; align-items: center; gap: 10px; }
+.sync-confirm-line { margin: 0; flex: 1; color: var(--success); font-size: 13px; }
+
+/* the deferred log tab (the 6-column table) */
+.sync-log-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 120px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.sync-log-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.4fr 1.2fr 0.8fr 0.8fr;
+  gap: 8px;
+  padding: 5px 8px;
+  font-size: 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+  align-items: center;
+}
+.sync-log-row:last-child { border-bottom: none; }
+.sync-log-head { font-weight: 700; color: var(--text-soft); position: sticky; top: 0; background: var(--sheet); }
+.sync-log-item { overflow-wrap: anywhere; }
+.sync-log-dash { color: var(--muted); text-align: center; }
+.sync-reopen-btn { min-height: 36px; padding: 2px 10px; }

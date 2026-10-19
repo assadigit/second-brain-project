@@ -18,6 +18,7 @@ package app
 import (
 	"fmt"
 	"net/http"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
@@ -924,4 +925,43 @@ func truncateStr(s string, n int) string {
 		return s
 	}
 	return s[:n]
+}
+
+// SyncStageTables is the matrix's shape for the frontend (the defs +
+// the layout + the columns — the reference's own tables, rendered).
+type SyncStageTables struct {
+	Defs    []SyncStageDef    `json:"defs"`
+	Layout  map[string][]string `json:"layout"`
+	Streams []string          `json:"streams"`
+	Columns []string          `json:"columns"`
+}
+
+// TheSyncStageTables answers the matrix's shape (one payload).
+func TheSyncStageTables() *SyncStageTables {
+	return &SyncStageTables{Defs: SyncStageDefs, Layout: SyncMatrixLayout,
+		Streams: SyncMatrixStreams, Columns: SyncStageColumns}
+}
+
+// BotUsernameLive reads the bot username off the LIVE config (the
+// default when unset — the page's own combo law).
+func (s *Settings) BotUsernameLive() string {
+	return pyStrCfgDefault(s.PlainConfig(), "bot_username", "githubfetcherbot")
+}
+
+// OpenNote is the modal's "Open note" door: the OS file manager at
+// the note (verify before excusing — that is the point of a review).
+// Best-effort, never raises; false when the note is gone.
+func (s *Settings) OpenNote(path string) bool {
+	abs, err := filepath.Abs(strings.TrimSpace(path))
+	if err != nil {
+		abs = strings.TrimSpace(path)
+	}
+	if abs == "" || !fileExistsAt(abs) {
+		return false
+	}
+	if s.Deps.OpenFileLocation == nil {
+		return false
+	}
+	s.Deps.OpenFileLocation(abs)
+	return true
 }

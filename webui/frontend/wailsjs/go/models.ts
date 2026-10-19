@@ -593,6 +593,580 @@ export namespace app {
 	        this.state = source["state"];
 	    }
 	}
+	export class SyncBackupRepoRow {
+	    kind: string;
+	    label: string;
+	    repo_name: string;
+	    vault_path: string;
+	    // Go type: storage
+	    status?: any;
+	    error?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncBackupRepoRow(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.kind = source["kind"];
+	        this.label = source["label"];
+	        this.repo_name = source["repo_name"];
+	        this.vault_path = source["vault_path"];
+	        this.status = this.convertValues(source["status"], null);
+	        this.error = source["error"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class SyncBotFacts {
+	    state: string;
+	    message: string;
+	    pending: any[];
+	    total?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncBotFacts(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.state = source["state"];
+	        this.message = source["message"];
+	        this.pending = source["pending"];
+	        this.total = source["total"];
+	    }
+	}
+	export class SyncStat {
+	    value: string;
+	    label: string;
+	    tone: string;
+	    note: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncStat(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.value = source["value"];
+	        this.label = source["label"];
+	        this.tone = source["tone"];
+	        this.note = source["note"];
+	    }
+	}
+	export class SyncHero {
+	    value: string;
+	    label: string;
+	    tone: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncHero(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.value = source["value"];
+	        this.label = source["label"];
+	        this.tone = source["tone"];
+	    }
+	}
+	export class SyncCard {
+	    key: string;
+	    icon: string;
+	    name: string;
+	    role: string;
+	    state: string;
+	    dot_tone: string;
+	    status_text: string;
+	    lines: string[];
+	    hint: string;
+	    hero: SyncHero;
+	    stats: SyncStat[];
+	    foot: string[];
+	    pending: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncCard(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.key = source["key"];
+	        this.icon = source["icon"];
+	        this.name = source["name"];
+	        this.role = source["role"];
+	        this.state = source["state"];
+	        this.dot_tone = source["dot_tone"];
+	        this.status_text = source["status_text"];
+	        this.lines = source["lines"];
+	        this.hint = source["hint"];
+	        this.hero = this.convertValues(source["hero"], SyncHero);
+	        this.stats = this.convertValues(source["stats"], SyncStat);
+	        this.foot = source["foot"];
+	        this.pending = source["pending"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class SyncDifferencesPayload {
+	    stage?: syncreview.StageRecord;
+	    heading: string;
+	    rows: syncreview.LedgerRow[];
+	    log_count: number;
+	    found: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncDifferencesPayload(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.stage = this.convertValues(source["stage"], syncreview.StageRecord);
+	        this.heading = source["heading"];
+	        this.rows = this.convertValues(source["rows"], syncreview.LedgerRow);
+	        this.log_count = source["log_count"];
+	        this.found = source["found"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class SyncDisplayModel {
+	    title: string;
+	    cards: SyncCard[];
+	    all_synced: boolean;
+	    calm_line: string;
+	    legend: string;
+	    waiting_total: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncDisplayModel(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.title = source["title"];
+	        this.cards = this.convertValues(source["cards"], SyncCard);
+	        this.all_synced = source["all_synced"];
+	        this.calm_line = source["calm_line"];
+	        this.legend = source["legend"];
+	        this.waiting_total = source["waiting_total"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class SyncPublishedFacts {
+	    state: string;
+	    sites?: number;
+	    generated_at: string;
+	    message: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncPublishedFacts(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.state = source["state"];
+	        this.sites = source["sites"];
+	        this.generated_at = source["generated_at"];
+	        this.message = source["message"];
+	    }
+	}
+	export class SyncWebsiteVaultSide {
+	    state: string;
+	    public_ready?: number;
+	    message: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncWebsiteVaultSide(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.state = source["state"];
+	        this.public_ready = source["public_ready"];
+	        this.message = source["message"];
+	    }
+	}
+	export class SyncWebsiteFacts {
+	    vault: SyncWebsiteVaultSide;
+	    published: SyncPublishedFacts;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncWebsiteFacts(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.vault = this.convertValues(source["vault"], SyncWebsiteVaultSide);
+	        this.published = this.convertValues(source["published"], SyncPublishedFacts);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class SyncGitHubFacts {
+	    rows: SyncBackupRepoRow[];
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncGitHubFacts(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.rows = this.convertValues(source["rows"], SyncBackupRepoRow);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class SyncLastBatch {
+	    when: string;
+	    done: number;
+	    total: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncLastBatch(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.when = source["when"];
+	        this.done = source["done"];
+	        this.total = source["total"];
+	    }
+	}
+	export class SyncVaultRow {
+	    kind: string;
+	    label: string;
+	    icon: string;
+	    path: string;
+	    status: string;
+	    note_count?: number;
+	    scannable: boolean;
+	    selectable: boolean;
+	    why: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncVaultRow(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.kind = source["kind"];
+	        this.label = source["label"];
+	        this.icon = source["icon"];
+	        this.path = source["path"];
+	        this.status = source["status"];
+	        this.note_count = source["note_count"];
+	        this.scannable = source["scannable"];
+	        this.selectable = source["selectable"];
+	        this.why = source["why"];
+	    }
+	}
+	export class SyncVaultsFacts {
+	    vaults: SyncVaultRow[];
+	    last_batch?: SyncLastBatch;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncVaultsFacts(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.vaults = this.convertValues(source["vaults"], SyncVaultRow);
+	        this.last_batch = this.convertValues(source["last_batch"], SyncLastBatch);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class SyncFacts {
+	    bot?: SyncBotFacts;
+	    vaults?: SyncVaultsFacts;
+	    github?: SyncGitHubFacts;
+	    website?: SyncWebsiteFacts;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncFacts(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.bot = this.convertValues(source["bot"], SyncBotFacts);
+	        this.vaults = this.convertValues(source["vaults"], SyncVaultsFacts);
+	        this.github = this.convertValues(source["github"], SyncGitHubFacts);
+	        this.website = this.convertValues(source["website"], SyncWebsiteFacts);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	
+	
+	
+	
+	export class SyncSnapshot {
+	    stages: Record<string, syncreview.StageRecord>;
+	    generated_at: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncSnapshot(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.stages = this.convertValues(source["stages"], syncreview.StageRecord, true);
+	        this.generated_at = source["generated_at"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class SyncStageDef {
+	    key: string;
+	    stream: string;
+	    stage: string;
+	    source_label: string;
+	    target_label: string;
+	    fix_label: string;
+	    fix_action: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncStageDef(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.key = source["key"];
+	        this.stream = source["stream"];
+	        this.stage = source["stage"];
+	        this.source_label = source["source_label"];
+	        this.target_label = source["target_label"];
+	        this.fix_label = source["fix_label"];
+	        this.fix_action = source["fix_action"];
+	    }
+	}
+	export class SyncStageTables {
+	    defs: SyncStageDef[];
+	    layout: Record<string, Array<string>>;
+	    streams: string[];
+	    columns: string[];
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncStageTables(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.defs = this.convertValues(source["defs"], SyncStageDef);
+	        this.layout = source["layout"];
+	        this.streams = source["streams"];
+	        this.columns = source["columns"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	
+	
+	
+	export class SyncViewPayload {
+	    facts?: SyncFacts;
+	    model?: SyncDisplayModel;
+	    snapshot?: SyncSnapshot;
+	    banner: syncreview.Verdict;
+	    measured_at: string;
+	    error?: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncViewPayload(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.facts = this.convertValues(source["facts"], SyncFacts);
+	        this.model = this.convertValues(source["model"], SyncDisplayModel);
+	        this.snapshot = this.convertValues(source["snapshot"], SyncSnapshot);
+	        this.banner = this.convertValues(source["banner"], syncreview.Verdict);
+	        this.measured_at = source["measured_at"];
+	        this.error = source["error"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	
+	
 	export class TokenTestResult {
 	    ok: boolean;
 	    level: string;
@@ -700,6 +1274,20 @@ export namespace main {
 	        this.quarantine = source["quarantine"];
 	    }
 	}
+	export class MarkResult {
+	    marked: number;
+	    line: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new MarkResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.marked = source["marked"];
+	        this.line = source["line"];
+	    }
+	}
 	export class QueueCheckResult {
 	    refusal: string;
 	    error: string;
@@ -743,6 +1331,175 @@ export namespace main {
 		    }
 		    return a;
 		}
+	}
+	export class ReopenResult {
+	    ok: boolean;
+	    line: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ReopenResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.ok = source["ok"];
+	        this.line = source["line"];
+	    }
+	}
+	export class SyncQueueCheckResult {
+	    refusal: string;
+	    error: string;
+	    report: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SyncQueueCheckResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.refusal = source["refusal"];
+	        this.error = source["error"];
+	        this.report = source["report"];
+	    }
+	}
+
+}
+
+export namespace syncreview {
+	
+	export class GapItem {
+	    id: string;
+	    name: string;
+	    url?: string;
+	    added_at: string;
+	    note_path: string;
+	    added_days_ago?: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new GapItem(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.id = source["id"];
+	        this.name = source["name"];
+	        this.url = source["url"];
+	        this.added_at = source["added_at"];
+	        this.note_path = source["note_path"];
+	        this.added_days_ago = source["added_days_ago"];
+	    }
+	}
+	export class LedgerRow {
+	    stage: string;
+	    item_id: string;
+	    display_name: string;
+	    reason: string;
+	    note: string;
+	    status: string;
+	    date_reviewed: string;
+	    date_resolved: string;
+	    reopen_count: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new LedgerRow(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.stage = source["stage"];
+	        this.item_id = source["item_id"];
+	        this.display_name = source["display_name"];
+	        this.reason = source["reason"];
+	        this.note = source["note"];
+	        this.status = source["status"];
+	        this.date_reviewed = source["date_reviewed"];
+	        this.date_resolved = source["date_resolved"];
+	        this.reopen_count = source["reopen_count"];
+	    }
+	}
+	export class StageRecord {
+	    key: string;
+	    stream: string;
+	    stage: string;
+	    state: string;
+	    set_up: boolean;
+	    set_up_hint: string;
+	    reason: string;
+	    needs: string;
+	    source_label: string;
+	    target_label: string;
+	    fix_label: string;
+	    fix_action: string;
+	    display_number?: number;
+	    source_count?: number;
+	    target_count?: number;
+	    gap_count: number;
+	    unexplained_count: number;
+	    deferred_gap_count: number;
+	    unexplained_ids: string[];
+	    deferred_gap_ids: string[];
+	    items: GapItem[];
+	
+	    static createFrom(source: any = {}) {
+	        return new StageRecord(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.key = source["key"];
+	        this.stream = source["stream"];
+	        this.stage = source["stage"];
+	        this.state = source["state"];
+	        this.set_up = source["set_up"];
+	        this.set_up_hint = source["set_up_hint"];
+	        this.reason = source["reason"];
+	        this.needs = source["needs"];
+	        this.source_label = source["source_label"];
+	        this.target_label = source["target_label"];
+	        this.fix_label = source["fix_label"];
+	        this.fix_action = source["fix_action"];
+	        this.display_number = source["display_number"];
+	        this.source_count = source["source_count"];
+	        this.target_count = source["target_count"];
+	        this.gap_count = source["gap_count"];
+	        this.unexplained_count = source["unexplained_count"];
+	        this.deferred_gap_count = source["deferred_gap_count"];
+	        this.unexplained_ids = source["unexplained_ids"];
+	        this.deferred_gap_ids = source["deferred_gap_ids"];
+	        this.items = this.convertValues(source["items"], GapItem);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class Verdict {
+	    tone: string;
+	    text: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new Verdict(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.tone = source["tone"];
+	        this.text = source["text"];
+	    }
 	}
 
 }
