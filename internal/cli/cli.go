@@ -3,21 +3,21 @@ package cli
 // cli.go — the command surface + dispatch (cli.py's build_parser /
 // cli_main, the Option-B honest surface per ADR-0004 Am.3 / rider R-0).
 //
-// THE HONEST FLAG SURFACE (T-60's decision, never a silent no-op):
-//   - IMPLEMENTED: --init (the wizard), --status, --test-connection,
-//     --detect-llm, --list-dead, --reset-dead, --hand-delivery,
-//     --chrome-retry (the listing + the dry-run rehearsal; the live
-//     run is T-62's batch engine), --sync beat 1a (the pure check;
-//     the live beats land with T-62), --config, --vault, --yes/-y,
-//     --no-color, --dry-run, --strikes.
-//   - NOT-YET cards (explicit, exit 1): the --sync door's live beats,
-//     --auto, --retry-failed, --import-file, the chrome-retry live
-//     leg — naming T-62, their landing task.
+// THE HONEST FLAG SURFACE (every door IMPLEMENTED — T-60..T-62
+// landed; the T-63 dispatch flip retired the last not-yet cards):
+//   --init (the wizard), --status, --test-connection, --detect-llm,
+//   --list-dead, --reset-dead, --hand-delivery, --chrome-retry (the
+//   live leg landed with T-62), --sync (the full door: beats 1a/1b/2/3),
+//   --auto, --retry-failed, --import-file (the batch engine + drivers,
+//   T-62), --config, --vault, --yes/-y, --no-color, --dry-run,
+//   --strikes.
 //   - REFUSAL cards (ADR-0004 Am.3 accepted losses, exit 1): --login,
 //     --mark-read, --from-id/--to-id, --offset-start/--count,
 //     --single-id — the Telethon-only modes; the Go app ships no
 //     MTProto client, the queue rides the Worker HTTP API, and
 //     mirror-push is the read acknowledgement.
+//   - The --cli spelling never reaches this parser: cmd/gitcurator-cli
+//     strips it (main.py's routing law, ported to the exe's main).
 
 import (
 	"bufio"
@@ -347,11 +347,11 @@ func (c *CLI) Run(argv []string) int {
 		return c.refusalCard("--mark-read",
 			"marking the Telethon bot messages read was dropped in the Go port — mirror-push is the read acknowledgement (spec-worker-contract §8.4)")
 	case a.Auto:
-		return c.notYetCard("--auto", "the batch engine lands with T-62 (Phase 5)")
+		return c.cmdAuto(&a)
 	case a.Sync:
-		return c.cmdSync(&a)
+		return c.cmdSyncLive(&a)
 	case a.RetryFailed:
-		return c.notYetCard("--retry-failed", "the batch engine lands with T-62 (Phase 5)")
+		return c.cmdRetryFailed(&a)
 	case a.ImportFile != "" || a.SingleID != nil || a.FromID != nil ||
 		a.ToID != nil || a.OffsetStart != nil || a.Count != nil:
 		return c.manualBatchCard(&a)
@@ -360,10 +360,11 @@ func (c *CLI) Run(argv []string) int {
 }
 
 // manualBatchCard routes the manual batch modes: the import file is
-// T-62's engine; the Telegram ID modes are Option-B refusals.
+// the engine's import mode (T-62); the Telegram ID modes are
+// Option-B refusals.
 func (c *CLI) manualBatchCard(a *Args) int {
 	if a.ImportFile != "" {
-		return c.notYetCard("--import-file", "the batch engine lands with T-62 (Phase 5)")
+		return c.cmdManualBatch(a)
 	}
 	flag := "--single-id"
 	detail := "the single-message Telegram fetch was dropped in the Go port (ADR-0004 Am.3 — Option B); import links with --import-file instead"
@@ -375,15 +376,6 @@ func (c *CLI) manualBatchCard(a *Args) int {
 		detail = "the Telegram offset fetch was dropped in the Go port (ADR-0004 Am.3 — Option B); import links with --import-file instead"
 	}
 	return c.refusalCard(flag, detail)
-}
-
-// notYetCard is the honest in-development door: explicit, never a
-// silent no-op. Exit 1 (the command did not run).
-func (c *CLI) notYetCard(flag, what string) int {
-	c.Banner()
-	c.CliPrint(flag+" is not yet available in the Go port — "+what+".", "warning")
-	c.CliPrint("Nothing was run.", "info")
-	return 1
 }
 
 // refusalCard is the Option-B accepted-loss door (ADR-0004 Am.3 /
@@ -486,24 +478,8 @@ double-click (both in gitcurator/cli/).
 	return string(b)
 }
 
-// cmdSync mirrors cli_sync.py cmd_sync's BEAT 1a (the pure half) —
-// the live battery (1b), the button (2) and the fetch+curate engine
-// (3) land with T-62; the config's own word answers honestly now.
-func (c *CLI) cmdSync(a *Args) int {
-	c.Banner()
-	path := configPath(a.Config)
-	cfg, ok := c.loadConfig(path)
-	if !ok {
-		c.SyncFailureCard([]string{fmt.Sprintf(
-			"no config at %s — the GUI's Settings writes it on its first save", path)}, "")
-		return 1
-	}
-	problems := SyncMissingEssentials(cfg, c.IsDir)
-	if len(problems) > 0 {
-		c.SyncFailureCard(problems, "")
-		return 1
-	}
-	c.CliPrint("Everything present — but the sync engine itself (the live check battery, "+
-		"the Enter button, the fetch + curate run) lands with T-62 (Phase 5); nothing was synced.", "warning")
-	return 1
-}
+// cmdSync was the T-60 beat-1a stub — retired by the T-63 dispatch
+// flip: --sync now routes to cmdSyncLive (syncbeats.go), which opens
+// with the same beat-1a check, so the no-config and bad-config cards
+// (pinned by the golden's sync_no_config / sync_bad_config sections)
+// are byte-unchanged.

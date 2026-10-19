@@ -4,8 +4,10 @@ package cli
 // parser's recognized flags), the dispatch order, the --help snapshot
 // (OUR Option-B surface — the golden's help_card_reference section
 // records the pre-Option-B reference for contrast), the refusal cards
-// (ADR-0004 Am.3 accepted losses), the in-development cards, and the
-// argparse-law errors.
+// (ADR-0004 Am.3 accepted losses), the batch doors' dispatch smoke
+// (T-63's flip: --auto/--sync/--retry-failed/--import-file route to
+// the REAL drivers — the not-yet cards are retired with the engine),
+// and the argparse-law errors.
 
 import (
 	"bytes"
@@ -77,7 +79,7 @@ func TestDispatchOrder(t *testing.T) {
 		{[]string{"--init", "--auto", "--sync", "--config", cfgPath}, "First-run setup"},
 		{[]string{"--login", "--status"}, "Telegram (MTProto)"},
 		{[]string{"--mark-read", "--auto"}, "mirror-push is the read acknowledgement"},
-		{[]string{"--auto", "--sync"}, "the batch engine lands with T-62"},
+		{[]string{"--auto", "--sync"}, "No config at"},
 		{[]string{"--sync", "--retry-failed"}, "SYNC refused"},
 		{[]string{"--test-connection", "--sync", "--config", cfgPath}, "Test Connection — is everything up and ready?"},
 		{[]string{"--detect-llm", "ollama", "--sync", "--config", cfgPath}, "Detect & Set Ollama — probing"},
@@ -196,30 +198,52 @@ func TestRefusalCards(t *testing.T) {
 	}
 }
 
-// TestNotYetCards — the in-development doors name their landing task
-// (the T-60 remainder is IMPLEMENTED now — only the batch-engine
-// doors remain).
-func TestNotYetCards(t *testing.T) {
+// TestBatchDispatchSmoke — T-63's flip: the four batch doors route
+// to the REAL drivers (cmd_auto / cmd_sync_live / cmd_retry_failed /
+// cmd_manual_batch), each answering its OWN first door honestly —
+// the no-config / missing-settings cards are the drivers' own words,
+// never a not-yet card (the engine landed with T-62; the launchers'
+// defaults run exactly these doors). No network is touched: the
+// crafted configs fail before the preflight seams would fire.
+func TestBatchDispatchSmoke(t *testing.T) {
+	home := t.TempDir()
+	t.Setenv("GITCURATOR_HOME", home)
+	t.Setenv("GITCURATOR_USER_CONFIG", filepath.Join(home, "user-config.json"))
+
+	// a config with all five cmd_auto settings but a vault the
+	// IsDir seam cannot see — the wrong-vault class of honest stop,
+	// straight from the driver's own check.
+	cfgPath := filepath.Join(home, "smoke-config.json")
+	cfg := `{"vault_path": ` + strconv.Quote(home) +
+		`, "telegram_api_id": "12345", "telegram_api_hash": "abcdef",` +
+		` "telegram_phone": "+15550000", "bot_username": "curatorbot"}` + "\n"
+	if err := os.WriteFile(cfgPath, []byte(cfg), 0o644); err != nil {
+		t.Fatal(err)
+	}
+
 	cases := []struct {
 		argv []string
 		want string
 	}{
-		{[]string{"--auto"}, "the batch engine lands with T-62 (Phase 5)"},
-		{[]string{"--retry-failed"}, "the batch engine lands with T-62 (Phase 5)"},
-		{[]string{"--import-file", "urls.txt"}, "the batch engine lands with T-62 (Phase 5)"},
+		{[]string{"--auto"}, "No config at"},
+		{[]string{"--auto", "--config", cfgPath}, "Missing settings: vault path"},
+		{[]string{"--sync"}, "SYNC refused"},
+		{[]string{"--retry-failed"}, "No config at"},
+		{[]string{"--import-file", "urls.txt"}, "No config at"},
+		{[]string{"--import-file", "urls.txt", "--config", cfgPath}, "Import file not found: urls.txt"},
 	}
 	for _, tc := range cases {
 		buf := &bytes.Buffer{}
 		c := testCLI(buf, "")
 		rc := c.Run(tc.argv)
 		if rc != 1 {
-			t.Errorf("%v: rc = %d, want 1", tc.argv, rc)
+			t.Errorf("%v: rc = %d, want 1 (the honest stop)", tc.argv, rc)
 		}
 		if !strings.Contains(buf.String(), tc.want) {
-			t.Errorf("%v: not-yet card missing %q", tc.argv, tc.want)
+			t.Errorf("%v: output missing %q", tc.argv, tc.want)
 		}
-		if !strings.Contains(buf.String(), "Nothing was run.") {
-			t.Errorf("%v: not-yet card missing the nothing-was-run line", tc.argv)
+		if strings.Contains(buf.String(), "not yet available in the Go port") {
+			t.Errorf("%v: a not-yet card leaked through — the dispatch flip is incomplete", tc.argv)
 		}
 	}
 }
