@@ -70,3 +70,31 @@ Python GUI** — "if GO is fast enough, it's not needed at least at this phase."
 3. The **GUI becomes the first owner-visible release milestone** (roadmap Amendment 1 in
    `12-migration-roadmap.md`); the tag + dual-artifact ritual moves there.
 4. Python app remains the released product until Go GUI parity (unchanged).
+
+## Amendment 2 — Owner re-instatement of the CLI-facing legs (2026-10-19, SESSION-031)
+
+Am.1 cut the owner-facing CLI polish (terminal paint, `.bat` launcher parity,
+the tagged CLI release). The practice has since superseded that cut, on the
+owner's own instruction line, and this amendment records the reversal so the
+record stops contradicting itself:
+
+1. **The paint work was never skipped**: SESSION-027 landed the full paint box
+   (terminal.go — the C ANSI system with NO_COLOR/TTY/--no-color, level styles,
+   term_width, mask/rule, cli_print, banner, render_bar, StatusLine, the
+   65001 hardening) because the differential golden itself needs the paint
+   shapes byte-compared (colors ON and OFF); the "polish" is load-bearing test
+   surface, not decoration.
+2. **The owner's SESSION-027..031 line re-instated the launcher + release
+   legs**: the task list kept T-61 (terminal paint) / T-63 (the launchers) /
+   T-64 (the differential corpus run) / T-65 (the `v0.92.0-go.1` tag + zip)
+   as Phase 5's remaining books; `docs/NEXT-SESSION.md` v31 (rewritten at
+   SESSION-030's close) names T-63 the natural next task; the SESSION-031
+   kickoff (the owner's instruction) commands T-61's close-out audit + T-63
+   the launchers explicitly.
+3. **The CLI remains the emergency-fallback + proving-ground channel**
+   (Am.1's engineering rationale stands); what changed back is the *product*
+   question — the owner wants the launchers and the parity tag after all
+   (the emergency-fallback channel is only real if a non-engineer can
+   double-click it).
+4. The GUI (Phase 6) stays the first *GUI* milestone; the dual-artifact ritual
+   there is unaffected.

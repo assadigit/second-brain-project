@@ -556,3 +556,45 @@ Remaining on T-62's books: nothing — the task is COMPLETE (the engine,
 the drivers, the SIGINT/heartbeat/exit law, the chrome-retry live leg
 all landed with the differential proof). T-61's remaining paint legs
 and T-63 (launchers) follow.
+
+## SESSION-031 shipped record — T-61's CLOSE-OUT AUDIT (the row closed with evidence)
+
+The row demanded: ANSI paint, UTF-8 console hardening (65001), NO_COLOR,
+spinner/bar — acceptance "Windows console test". The audit's findings:
+
+- **The paint box is LANDED and TESTED** (SESSION-027, terminal.go): the
+  C ANSI system with the NO_COLOR / non-TTY / --no-color law
+  (TestEnableColorsDoor), the level styles (the dead-level-color quirk
+  frozen per the reference), term_width's COLUMNS law
+  (TestTermWidthColumnsLaw), mask/_mask_token, rule (TestRuleCap64),
+  cli_print (the golden's cliprint_lines), banner (the golden's banner
+  section — the braille/box glyph bytes), render_bar with banker's
+  rounding (TestRenderBarBankersRounding + TestStatusLineBarWidth),
+  StatusLine's erase/repaint grammar (TestStatusLineGrammar), strip-ANSI
+  (TestStripANSITable), and the golden's paint_shapes section
+  byte-compared with colors ON and OFF.
+- **The 65001 hardening is LANDED** (platform_windows.go):
+  SetConsoleOutputCP(65001) + SetConsoleCP(65001) via
+  syscall.NewLazyDLL("kernel32.dll") — zero new dependencies — called by
+  hardenStdio() at Run's start (the reference's _harden_stdio twin; the
+  errors="replace" half is Go-native). COMPILE-LEVEL EVIDENCE
+  (2026-10-19, this session): `GOOS=windows GOARCH=amd64 CGO_ENABLED=0
+  go build ./...` and `GOOS=windows GOARCH=amd64 go vet ./...` both
+  clean over the whole module.
+- **The spinner under a real loop is LANDED** (SESSION-030): the
+  engine's 100 ms heartbeat ticker driving StatusLine.Tick, with the
+  StatusLine paint mutex (Qt's signal-marshaling twin) —
+  engine_test.go's heartbeat proof ("the heartbeat never ticked"
+  guard).
+- **The exact honest remainder** (recorded, not this row's): the
+  RUNTIME Windows-console legs — an actual console switching to 65001
+  and rendering the braille spinner frames, the box-drawing banner and
+  the VT sequences live — cannot run in the Linux sandbox; they are
+  Phase 7's clean-machine checklist items (doc 10 §7 items 2 and 7;
+  T-70's WebView2-less Windows VM), per the SESSION-031 kickoff's own
+  scoping ("the clean-VM legs belong to Phase 7, not here").
+- **ADR-0007 Am.2 records the re-instatement** (this session): Am.1
+  had cut the owner-facing CLI polish; the owner's SESSION-027..031
+  instruction line re-instated it (the paint is load-bearing golden
+  surface; the launchers + the v0.92.0-go.1 tag are the owner's
+  commanded books T-63/T-65). The ADR now says what the practice does.
