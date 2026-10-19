@@ -17,6 +17,14 @@ import {
   DetectLlamaCpp, RefreshLlamaCppModels, QuickDetect, ApplyQuickDetect,
   PreviewSound, SelectImportFile, BrowseVault,
 } from './wailsjs/go/main/SettingsUI.js';
+import {
+  SaveBotGroup, CheckBotQueue, ProcessBotQueue, ProcessSourcesUrls,
+  RefreshDashboard, ClearQuarantine, SaveQuarantineGroup,
+  ReadUndoLastBatch, ApplyUndoLastBatch, FetchFromSources,
+  SaveBackupGroup, RefreshBackupLadders, BackupNowGuards, BackupNow,
+  SealNow, ResyncMirror, PublishNow, DetectRepos, FastSync,
+  OpenDashboard,
+} from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
 import { svgEl } from './icons.js';
 
@@ -34,6 +42,14 @@ const SECTIONS = [
     hint: 'Local engines or any cloud API — provider, limits, detection' },
   { id: 'input', label: 'Input', icon: 'inbox',
     hint: 'Import a .txt or .md file of links, one address per line' },
+  { id: 'dashboard', label: 'Dashboard', icon: 'bar-chart-3',
+    hint: 'Vault statistics, the 404 quarantine and batch undo' },
+  { id: 'bot', label: 'Bot', icon: 'bot',
+    hint: 'The Telegram bot queue — check, process, verify' },
+  { id: 'sources', label: 'Sources', icon: 'satellite-dish',
+    hint: 'GitHub links from RSS feeds and Reddit, no API key needed' },
+  { id: 'backup', label: 'Backup', icon: 'archive',
+    hint: 'Folder backups, VaultSeal and Good Repos publishing' },
   { id: 'sound', label: 'Sound', icon: 'volume-2',
     hint: 'The batch-finish chime — on/off, volume, both previews' },
 ];
@@ -828,8 +844,15 @@ const builders = {
   vault: buildVault,
   llm: buildLLM,
   input: buildInput,
+  dashboard: buildDashboard,
+  bot: buildBot,
+  sources: buildSources,
+  backup: buildBackup,
   sound: buildSound,
 };
+
+// the queue's last check (the Process All door's payload)
+let queuePayload = null;
 
 function buildWindow() {
   navEl.textContent = '';
@@ -880,4 +903,486 @@ const gear = document.getElementById('btn-settings');
 gear.appendChild(svgEl('settings', 'chrome-icon'));
 gear.addEventListener('click', openSettings);
 document.getElementById('btn-settings-close').addEventListener('click', closeSettings);
-EventsOn('autorun:open-settings', openSettings);
+EventsOn('autorun:open-settings', async (section) => {
+  await openSettings();
+  if (section) selectSection(String(section));
+});
+
+// ---------------------------------------------------------------------------
+// T-74 — the pages B (dashboard.py + bot_queue.py + backup_seal.py +
+// the Sources page, the HTML twins over internal/app's engines).
+// ---------------------------------------------------------------------------
+
+function buildDashboard() {
+  const p = el('div', 'page');
+
+  // The button row: the ONE filled primary + the filled danger.
+  const btnRow = el('div', 'card-row');
+  btnRow.append(
+    btn('Refresh Dashboard', 'primary', '', () => refreshDashboard()),
+    btn('Undo Last Batch', 'danger',
+      'v22 Feature 6: deletes the .md files written by the most recent batch (listed in <vault>/_undo_last_batch.txt).',
+      () => undoLastBatchFlow()));
+  p.appendChild(btnRow);
+
+  // The results panel — the tab's ONE growable region.
+  const dashText = el('textarea', 'form-area');
+  dashText.id = 'set-dash-text';
+  dashText.readOnly = true;
+  dashText.style.minHeight = '120px';
+  dashText.style.flex = '1';
+  dashText.placeholder = "Click 'Refresh Dashboard' to scan the vault and view statistics.";
+  p.appendChild(dashText);
+
+  // The 404 quarantine group (the merged lineage design).
+  const group = el('div', 'settings-group');
+  group.appendChild(el('div', 'group-title', 'Deleted Repos — 404 Quarantine'));
+  const ctrlRow = el('div', 'form-row');
+  ctrlRow.appendChild(label('Confirm dead after'));
+  const spin = el('input', 'form-input');
+  spin.id = 'set-strike-threshold';
+  spin.type = 'number';
+  spin.min = '2'; spin.max = '10'; spin.step = '1';
+  spin.style.width = '72px';
+  spin.value = String(snap.strikeThreshold || 3);
+  spin.title = 'How many consecutive 404s (counted across sessions) before a repo is quarantined (auto-ignored). A successful fetch resets its counter. Minimum 2, default 3.';
+  ctrlRow.append(spin, label('consecutive 404s'));
+  ctrlRow.append(btn('Refresh', 'secondary',
+    'Reload the 404 quarantine table from cache.db', () => refreshDashboard()));
+  ctrlRow.appendChild(btn('Reset Quarantine', 'secondary',
+    'Reset ALL 404 attempt counters — quarantined repos are re-checked on the next run instead of being auto-ignored.',
+    () => {
+      miniDialog('♻️ Reset 404 Quarantine',
+        'Reset the attempt counter for EVERY recorded URL?\nQuarantined repos will be re-checked on the next run instead of being auto-ignored.',
+        ['Reset', 'Cancel'], (answer) => {
+          if (answer !== 'Reset') return;
+          ClearQuarantine().then((r) => {
+            if (r && r.quarantine) $('#set-quarantine-text').value = r.quarantine;
+          });
+        });
+    }));
+  group.appendChild(ctrlRow);
+  const quarText = el('textarea', 'form-area');
+  quarText.id = 'set-quarantine-text';
+  quarText.readOnly = true;
+  quarText.style.minHeight = '110px';
+  quarText.placeholder = 'No 404 attempts recorded yet — deleted repos will appear here with their attempt counts after a run.';
+  group.appendChild(quarText);
+  // The valueChanged save (persist immediately — the merge law).
+  spin.addEventListener('change', () => {
+    SaveQuarantineGroup({ strikeThreshold: parseInt(spin.value, 10) || 3 });
+  });
+  p.appendChild(group);
+  return p;
+}
+
+function refreshDashboard() {
+  RefreshDashboard().then((r) => {
+    if (!r) return;
+    $('#set-dash-text').value = r.text || '';
+    $('#set-quarantine-text').value = r.quarantine || '';
+  });
+}
+
+function undoLastBatchFlow() {
+  ReadUndoLastBatch().then((res) => {
+    if (!res) return;
+    if (res.stage === 'ok') {
+      miniDialog('↩️ Undo Last Batch', res.confirmMessage, ['Delete the files', 'Cancel'],
+        (answer) => {
+          if (answer !== 'Delete the files') return;
+          ApplyUndoLastBatch().then(() => refreshDashboard());
+        });
+      return;
+    }
+    // The early doors' own dialogs (the reference's information boxes).
+    miniDialog(res.stage === 'gone' ? 'Nothing to Undo' : 'No Batch to Undo',
+      res.message || 'Nothing to undo.', ['OK'], () => {});
+  });
+}
+
+function buildBot() {
+  const p = el('div', 'page');
+  p.appendChild(el('p', 'info-header',
+    '🤖 Bot Queue\nForward GitHub repo messages to your dedicated bot (@githubfetcherbot).\nClick \'Check Queue\' to fetch pending repos, then \'Process All\'.'));
+
+  const group = el('div', 'settings-group');
+  const userRow = el('div', 'form-row');
+  userRow.appendChild(label('Bot Username:'));
+  const user = input('set-bot-username', snap.botUsername || 'githubfetcherbot',
+    { placeholder: 'e.g. githubfetcherbot' });
+  userRow.appendChild(user);
+  group.appendChild(userRow);
+
+  const tokenRow = el('div', 'form-row');
+  tokenRow.appendChild(label('Bot Token:'));
+  const token = input('set-bot-token', snap.botToken || '',
+    { placeholder: 'e.g. 123456789:AAF... (optional)', password: true });
+  const saveBtn = btn('Save', 'secondary', '', () => saveBotFields());
+  tokenRow.append(token, saveBtn);
+  group.appendChild(tokenRow);
+  // save-on-change (editingFinished → the page saver).
+  user.addEventListener('change', saveBotFields);
+  token.addEventListener('change', saveBotFields);
+  p.appendChild(group);
+
+  // Queue controls + the pending badge (zinc ⏳ routine / mint ✅ zero).
+  const queueRow = el('div', 'card-row');
+  queueRow.appendChild(btn('Check Queue', 'secondary', '', () => checkQueueFlow()));
+  const badge = el('span', 'pending-badge', '');
+  badge.id = 'set-queue-badge';
+  badge.hidden = true;
+  queueRow.appendChild(badge);
+  queueRow.appendChild(btn('Process All', 'primary', '', () => processQueueFlow()));
+  p.appendChild(queueRow);
+
+  p.appendChild(el('label', 'form-label', 'Pending Repos:'));
+  const display = el('textarea', 'form-area');
+  display.id = 'set-queue-display';
+  display.readOnly = true;
+  display.style.minHeight = '120px';
+  display.style.flex = '1';
+  display.placeholder = "Click 'Check Queue' to fetch pending repos from your bot...";
+  p.appendChild(display);
+  return p;
+}
+
+function saveBotFields() {
+  return SaveBotGroup({
+    username: $('#set-bot-username').value,
+    token: $('#set-bot-token').value,
+  });
+}
+
+function checkQueueFlow() {
+  CheckBotQueue($('#set-bot-username').value).then((r) => {
+    if (!r) return;
+    const badge = $('#set-queue-badge');
+    if (r.refusal || r.error) {
+      badge.hidden = true;
+      $('#set-queue-display').value = r.report || '';
+      queuePayload = null;
+      return;
+    }
+    $('#set-queue-display').value = r.report || '';
+    if (r.badge) {
+      badge.hidden = false;
+      badge.textContent = r.badge.text;
+      badge.classList.toggle('badge-ok', !r.badge.pending);
+      badge.classList.toggle('badge-pending', !!r.badge.pending);
+    }
+    queuePayload = r;
+  });
+}
+
+function processQueueFlow() {
+  if (!queuePayload || (!queuePayload.pendingUrls && !queuePayload.pendingWebsites)) {
+    // the honest line (the reference's empty-queue answer)
+    miniDialog('Queue Empty',
+      'No items in queue. Click \'Check Queue\' first.', ['OK'], () => {});
+    return;
+  }
+  const total = queuePayload.pendingUrls.length + queuePayload.pendingWebsites.length;
+  if (total > 10) {
+    miniDialog('Confirm Batch',
+      `Process ${total} items from the bot queue?\nThis will fetch and process every pending link.`,
+      ['Process All', 'Cancel'], (answer) => {
+        if (answer === 'Process All') runProcessQueue();
+      });
+    return;
+  }
+  runProcessQueue();
+}
+
+function runProcessQueue() {
+  ProcessBotQueue(queuePayload.pendingUrls || [], queuePayload.pendingWebsites || [],
+    queuePayload.duplicates || 0, queuePayload.rawCount || 0);
+}
+
+function buildSources() {
+  const p = el('div', 'page');
+  p.appendChild(el('p', 'info-header',
+    '📡 Additional Sources\nFetch GitHub URLs from RSS feeds or Reddit (no API key needed).\nReddit uses the free .json endpoint (e.g. https://reddit.com/r/programming.json)'));
+
+  const group = el('div', 'settings-group');
+  const urlRow = el('div', 'form-row');
+  urlRow.appendChild(label('URL:'));
+  const url = input('set-sources-url', '',
+    { placeholder: 'https://reddit.com/r/programming.json  OR  https://hnrss.org/frontpage' });
+  urlRow.append(url, btn('Fetch URLs', 'secondary', '', () => fetchSourcesFlow()));
+  group.appendChild(urlRow);
+
+  group.appendChild(el('label', 'form-label', 'Fetched GitHub URLs:'));
+  const results = el('textarea', 'form-area');
+  results.id = 'set-sources-results';
+  results.readOnly = true;
+  results.style.minHeight = '120px';
+  results.style.flex = '1';
+  group.appendChild(results);
+
+  group.appendChild(btn('Process Fetched URLs', 'primary', '', () => processSourcesFlow()));
+  p.appendChild(group);
+  return p;
+}
+
+let sourcesURLs = null;
+
+function fetchSourcesFlow() {
+  FetchFromSources($('#set-sources-url').value).then((r) => {
+    if (!r) return;
+    $('#set-sources-results').value = r.body || '';
+    sourcesURLs = r.urls || null;
+  });
+}
+
+function processSourcesFlow() {
+  if (!sourcesURLs || !sourcesURLs.length) {
+    miniDialog('No URLs', 'No URLs to process. Fetch from a source first.', ['OK'], () => {});
+    return;
+  }
+  if (sourcesURLs.length > 10) {
+    miniDialog('Confirm Batch',
+      `Process ${sourcesURLs.length} URLs from sources?\nThis will fetch and process every fetched link.`,
+      ['Process Fetched URLs', 'Cancel'], (answer) => {
+        if (answer === 'Process Fetched URLs') ProcessSourcesUrls(sourcesURLs);
+      });
+    return;
+  }
+  ProcessSourcesUrls(sourcesURLs);
+}
+
+function buildBackup() {
+  const p = el('div', 'page');
+  p.appendChild(buildVaultBackupGroup());
+  p.appendChild(buildSealGroup());
+  p.appendChild(buildGoodReposGroup());
+  p.appendChild(buildWorkerDashboardGroup());
+  return p;
+}
+
+// the live field reader (the ladders' keystroke law reads unsaved edits)
+function backupFieldValues() {
+  return {
+    folder: val('#set-backup-folder'),
+    enabled: checked('#set-backup-enabled'),
+    sealEnabled: checked('#set-seal-enabled'),
+    sealPush: checked('#set-seal-push'),
+    goodEnabled: checked('#set-good-enabled'),
+    goodPush: checked('#set-good-push'),
+  };
+}
+function val(sel) { const n = document.querySelector(sel); return n ? n.value : ''; }
+function checked(sel) { const n = document.querySelector(sel); return !!(n && n.checked); }
+
+function paintBackupLadders() {
+  const v = backupFieldValues();
+  RefreshBackupLadders(v.folder, v.enabled, v.sealEnabled, v.sealPush,
+    v.goodEnabled, v.goodPush).then((r) => {
+    if (!r) return;
+    paintDot('#set-backup-dot', r.backup);
+    paintDot('#set-seal-dot', r.vaultSeal);
+    paintDot('#set-good-dot', r.goodRepos);
+  });
+}
+function paintDot(sel, dot) {
+  const n = document.querySelector(sel);
+  if (!n || !dot) return;
+  n.textContent = dot.text;
+  n.className = 'vault-status status-' + (dot.state || 'muted');
+}
+
+function buildVaultBackupGroup() {
+  const group = el('div', 'settings-group');
+  group.appendChild(el('div', 'group-title', 'Vault Backup'));
+
+  const folderRow = el('div', 'form-row');
+  folderRow.appendChild(label('Backup folder:'));
+  const folder = input('set-backup-folder', snap.backupFolder || '',
+    { placeholder: 'where the vault zips land' });
+  folder.addEventListener('change', saveBackupFields);
+  folderRow.append(folder,
+    btn('Browse', 'secondary', '', async () => {
+      const path = await BrowseVault('backup-folder');
+      if (path) { folder.value = path; saveBackupFields(); paintBackupLadders(); }
+    }),
+    helpButton('💡 Backup folder — where the timestamped vault zips land.\nAny folder works: a OneDrive/Dropbox/Drive sync folder uploads your zips to the cloud automatically. Zero setup, no OAuth.'));
+  group.appendChild(folderRow);
+
+  const keepRow = el('div', 'form-row');
+  keepRow.appendChild(label('Keep last:'));
+  const keep = input('set-backup-max', snap.backupMax || '10', { });
+  keep.style.maxWidth = '60px';
+  keep.addEventListener('change', saveBackupFields);
+  keepRow.append(keep, label('backups'),
+    helpButton('Keep last N backups — FIFO rotation: when a new zip lands and more than N exist, the OLDEST is removed. 0 or less keeps everything.'));
+  const dot = el('span', 'vault-status muted-strong', '● Disabled');
+  dot.id = 'set-backup-dot';
+  keepRow.appendChild(dot);
+  group.appendChild(keepRow);
+
+  const btnRow = el('div', 'card-row');
+  btnRow.appendChild(btn('Backup Now', 'primary', '', () => backupNowFlow()));
+  const restore = btn('Restore', 'secondary',
+    'Pick a backup ZIP and extract it to a NEW folder next to the current vault — the current vault is never touched\n(lands with the packaging phase — the safety-net restore engine)', null);
+  restore.disabled = true;
+  btnRow.appendChild(restore);
+  const enabledBox = el('input', 'form-check');
+  enabledBox.id = 'set-backup-enabled';
+  enabledBox.type = 'checkbox';
+  enabledBox.checked = !!snap.backupEnabled;
+  enabledBox.title = 'Create a timestamped vault ZIP after every processing batch';
+  enabledBox.addEventListener('change', () => { saveBackupFields(); paintBackupLadders(); });
+  const enabledLabel = el('label', 'form-label', 'Enable auto-backup after each batch');
+  enabledLabel.prepend(enabledBox);
+  btnRow.appendChild(enabledLabel);
+  group.appendChild(btnRow);
+  return group;
+}
+
+function buildSealGroup() {
+  const group = el('div', 'settings-group');
+  group.appendChild(el('div', 'group-title', 'VaultSeal — GitHub Mirror'));
+
+  const checksRow = el('div', 'form-row');
+  const sealEnabled = el('input', 'form-check');
+  sealEnabled.id = 'set-seal-enabled';
+  sealEnabled.type = 'checkbox';
+  sealEnabled.checked = snap.vaultSealEnabled !== false;
+  sealEnabled.title = 'Commit the whole vault to git after every run and push it to a PRIVATE GitHub repository';
+  sealEnabled.addEventListener('change', () => { saveBackupFields(); paintBackupLadders(); });
+  const sealLabel = el('label', 'form-label', 'Seal after every run');
+  sealLabel.prepend(sealEnabled);
+  checksRow.appendChild(sealLabel);
+
+  const sealPush = el('input', 'form-check');
+  sealPush.id = 'set-seal-push';
+  sealPush.type = 'checkbox';
+  sealPush.checked = snap.vaultSealPush !== false;
+  sealPush.title = 'Push the seal to GitHub (uses the GitHub token from Settings)';
+  sealPush.addEventListener('change', saveBackupFields);
+  const pushLabel = el('label', 'form-label', 'Push to GitHub');
+  pushLabel.prepend(sealPush);
+  checksRow.append(pushLabel,
+    helpButton('💡 VaultSeal — Obsidian\'s free tier has no sync.\nVaultSeal commits the whole vault after every run and pushes it to a PRIVATE repository (full history, restore with git clone). Machine state (workspace.json, .trash) is excluded; an unchanged vault is a no-op.'));
+  group.appendChild(checksRow);
+
+  const repoRow = el('div', 'form-row');
+  repoRow.appendChild(label('Backup repo:'));
+  const repo = input('set-seal-repo', snap.vaultSealRepo || '',
+    { placeholder: 'required — the private backup repo name (no default; remembered like credentials once you type it)' });
+  repo.addEventListener('change', saveBackupFields);
+  repoRow.append(repo,
+    btn('📡 Detect Repos', 'secondary',
+      'THE REPO RADAR (v0.84.0) — find the backup repos that ALREADY exist for the three vaults and set them automatically:\n① the GitHub vault\'s repo (this field), ② the Websites vault\'s repo, ③ the Personal vault\'s repo.\n\nEvidence ladder: the vault\'s own git remote → a repo named like the vault folder → a content fingerprint (blob-SHA match against every candidate repo).\n\nRead-only: nothing is created, pushed, or overwritten — names you have typed yourself always win; ambiguous cases are reported, never guessed.',
+      () => DetectRepos()));
+  group.appendChild(repoRow);
+
+  const btnRow = el('div', 'card-row');
+  btnRow.append(
+    btn('Seal Now', 'secondary', '', () => SealNow('repos')),
+    btn('Resync Mirror', 'secondary',
+      'Make the GitHub backup repos match the vaults EXACTLY — files you deleted in Obsidian (e.g. wrongly-created notes) are deleted from the mirror too. History is kept; nothing is force-pushed. Asks for confirmation first.',
+      () => {
+        miniDialog('Resync Mirror',
+          'Make the GitHub backup repos match the vaults EXACTLY?\nFiles you deleted in Obsidian are deleted from the mirror too. History is kept; nothing is force-pushed.',
+          ['Resync', 'Cancel'], (answer) => {
+            if (answer === 'Resync') ResyncMirror();
+          });
+      }));
+  const dot = el('span', 'vault-status muted-strong', '● —');
+  dot.id = 'set-seal-dot';
+  btnRow.appendChild(dot);
+  group.appendChild(btnRow);
+  return group;
+}
+
+function buildGoodReposGroup() {
+  const group = el('div', 'settings-group');
+  group.appendChild(el('div', 'group-title', 'Good Repos — Public Directory'));
+
+  const checksRow = el('div', 'form-row');
+  const goodEnabled = el('input', 'form-check');
+  goodEnabled.id = 'set-good-enabled';
+  goodEnabled.type = 'checkbox';
+  goodEnabled.checked = snap.goodReposEnabled !== false;
+  goodEnabled.title = 'Publish the curated directory to a PUBLIC GitHub repo after every run';
+  goodEnabled.addEventListener('change', () => { saveBackupFields(); paintBackupLadders(); });
+  const goodLabel = el('label', 'form-label', 'Publish after every run');
+  goodLabel.prepend(goodEnabled);
+  checksRow.appendChild(goodLabel);
+
+  const goodPush = el('input', 'form-check');
+  goodPush.id = 'set-good-push';
+  goodPush.type = 'checkbox';
+  goodPush.checked = snap.goodReposPush !== false;
+  goodPush.title = 'Push the directory to GitHub (uses the GitHub token from Settings)';
+  goodPush.addEventListener('change', saveBackupFields);
+  const pushLabel = el('label', 'form-label', 'Push to GitHub');
+  pushLabel.prepend(goodPush);
+  checksRow.append(pushLabel,
+    helpButton('💡 Good Repos — every curated repo becomes an entry in a browsable, emoji-rich README directory (organized like AI → Skills → …) with the full notes mirrored into category folders.\nPUBLIC by design — everyone can browse and benefit from your curation.'));
+  group.appendChild(checksRow);
+
+  const repoRow = el('div', 'form-row');
+  repoRow.appendChild(label('Directory repo:'));
+  const repo = input('set-good-repo', snap.goodReposRepo || '',
+    { placeholder: 'required — empty = publishing is off (no default, no auto-creation)' });
+  repo.addEventListener('change', saveBackupFields);
+  repoRow.appendChild(repo);
+  group.appendChild(repoRow);
+
+  const btnRow = el('div', 'card-row');
+  btnRow.appendChild(btn('Publish Now', 'secondary', '', () => PublishNow()));
+  const dot = el('span', 'vault-status muted-strong', '● —');
+  dot.id = 'set-good-dot';
+  btnRow.appendChild(dot);
+  group.appendChild(btnRow);
+  return group;
+}
+
+function buildWorkerDashboardGroup() {
+  const group = el('div', 'settings-group');
+  group.appendChild(el('div', 'group-title', 'Dashboard'));
+
+  const dashRow = el('div', 'form-row');
+  dashRow.appendChild(label('Worker URL:'));
+  const url = input('set-worker-url', snap.workerUrl || '',
+    { placeholder: 'https://github-to-obsidian-bot.your-subdomain.workers.dev' });
+  url.addEventListener('change', saveBackupFields);
+  dashRow.append(url,
+    btn('Open Dashboard', 'secondary', '', () => {
+      OpenDashboard($('#set-worker-url').value).then((r) => {
+        // the wails multi-return lands as an array
+        const title = Array.isArray(r) ? r[0] : (r && r[0]);
+        const body = Array.isArray(r) ? r[1] : (r && r[1]);
+        if (title) miniDialog(title, body || '', ['OK'], () => {});
+      });
+    }),
+    helpButton('📊 Dashboard — bot stats, pending links and recent activity, served by your Cloudflare Worker (no separate deployment needed).'));
+  group.appendChild(dashRow);
+  return group;
+}
+
+function saveBackupFields() {
+  return SaveBackupGroup({
+    backupFolder: val('#set-backup-folder'),
+    backupMax: val('#set-backup-max'),
+    backupEnabled: checked('#set-backup-enabled'),
+    workerUrl: val('#set-worker-url'),
+    vaultSealEnabled: checked('#set-seal-enabled'),
+    vaultSealPush: checked('#set-seal-push'),
+    vaultSealRepo: val('#set-seal-repo'),
+    goodReposEnabled: checked('#set-good-enabled'),
+    goodReposPush: checked('#set-good-push'),
+    goodReposRepo: val('#set-good-repo'),
+  });
+}
+
+function backupNowFlow() {
+  BackupNowGuards().then((r) => {
+    const title = Array.isArray(r) ? r[0] : (r && r[0]);
+    const body = Array.isArray(r) ? r[1] : (r && r[1]);
+    if (title) { miniDialog(title, body || '', ['OK'], () => {}); return; }
+    BackupNow();
+  });
+}

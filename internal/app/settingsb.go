@@ -389,10 +389,10 @@ func QueueBadge(rep *QueueReport) QueueBadgeState {
 
 // RenderQueueReport builds the Bot page's queue display text
 // (check_bot_queue's display builder) from a classified report — the
-// acceptance's canned-job-result rendering. websitesOn/websitesVault
-// come from the live config (the shell passes them or the defaults
-// read here).
-func RenderQueueReport(rep *QueueReport) string {
+// acceptance's canned-job-result rendering. The websites context (the
+// pipeline switch + the vault path) reads the live config, exactly
+// like the reference's self.config reads.
+func RenderQueueReport(cfg *storage.OrderedMap, rep *QueueReport) string {
 	if rep == nil {
 		return "Error: the queue check returned no report"
 	}
@@ -403,7 +403,7 @@ func RenderQueueReport(rep *QueueReport) string {
 		return "Error: " + rep.Error
 	}
 	websitesOn := !rep.WebsitesOff
-	websiteVault := ""
+	websiteVault := strings.TrimSpace(pyStrCfg(cfg, "website_vault_path"))
 	// The websites twin's context rides the report's own flags.
 	var b strings.Builder
 	b.WriteString("📬 Bot Queue Results\n")
@@ -1081,4 +1081,46 @@ func (s *Settings) OpenDashboardBrowser(fieldURL string) (refusedTitle, refusedB
 		s.Bus.EmitLogLine("📊 Opening the dashboard: "+url, "info")
 	}
 	return "", ""
+}
+
+// ---------------------------------------------------------------------------
+// The Settings surface's pages B accessors (the shell's thin doors).
+// ---------------------------------------------------------------------------
+
+// SpeakOnBus speaks one line on the desk (the pages B's shared
+// transport door).
+func (s *Settings) SpeakOnBus(msg, level string) {
+	if s.Bus != nil {
+		s.Bus.EmitLogLine(msg, level)
+	}
+}
+
+// TrimAt strips the leading '@' after whitespace (the username law).
+func TrimAt(username string) string {
+	return strings.TrimPrefix(strings.TrimSpace(username), "@")
+}
+
+// LiveVaultPath answers the config's vault_path ("" when unset).
+func (s *Settings) LiveVaultPath() string {
+	if s == nil || s.cfg == nil {
+		return ""
+	}
+	return strings.TrimSpace(pyStrCfg(s.cfg, "vault_path"))
+}
+
+// PlainConfig answers the live config (the shell's read door).
+func (s *Settings) PlainConfig() *storage.OrderedMap {
+	if s == nil || s.cfg == nil {
+		return storage.NewOrderedMap()
+	}
+	return s.cfg
+}
+
+// HasGitHubToken answers whether a token is configured (the seal
+// ladders' rung feed).
+func (s *Settings) HasGitHubToken() bool {
+	if s == nil || s.cfg == nil {
+		return false
+	}
+	return strings.TrimSpace(pyStrCfg(s.cfg, "github_token")) != ""
 }

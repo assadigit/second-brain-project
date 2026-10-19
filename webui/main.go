@@ -62,6 +62,7 @@ func main() {
 		Bind: []interface{}{
 			shell,
 			shell.settingsUI,
+			shell.pagesBUI,
 		},
 	})
 	if err != nil {

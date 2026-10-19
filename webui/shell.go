@@ -52,6 +52,7 @@ type Shell struct {
 
 	theApp       *app.App
 	settingsUI   *SettingsUI
+	pagesBUI     *PagesBUI
 	bus          *deskbus.LogBus
 	cancelBusSub func()
 
@@ -87,6 +88,7 @@ func NewShell(t0 time.Time) *Shell {
 	}
 	s.theApp = app.New(constants.ConfigFile(), false)
 	s.settingsUI = NewSettingsUI(s.theApp.Settings)
+	s.pagesBUI = NewPagesBUI(s.theApp.Settings, s.theApp.Commands)
 	return s
 }
 
@@ -95,6 +97,7 @@ func (s *Shell) startup(ctx context.Context) {
 	s.ctx = ctx
 	s.startupAt = time.Now()
 	s.settingsUI.bindCtx(ctx)
+	s.pagesBUI.bindCtx(ctx)
 
 	// The desk's Go half: the 120 ms coalescing beat, wired to the
 	// bridge (one flushed batch = one log:batch event).
@@ -327,9 +330,11 @@ func (s *Shell) autorun() {
 	s.logf("success", "autorun complete — see the results file for measurements")
 	// The Settings-pages probe (the T-73 gate leg's visual evidence):
 	// open the Settings window for the screenshot, then write the
-	// results. The frontend renders the six pages off this event.
-	if os.Getenv("SB_POC_OPEN_SETTINGS") != "" {
-		runtime.EventsEmit(s.ctx, "autorun:open-settings", nil)
+	// results. The frontend renders the pages off this event; the
+	// probe's VALUE picks the section (T-74: the pages B's own
+	// evidence door — "backup", "bot", "dashboard", "sources").
+	if v := os.Getenv("SB_POC_OPEN_SETTINGS"); v != "" {
+		runtime.EventsEmit(s.ctx, "autorun:open-settings", v)
 		time.Sleep(1500 * time.Millisecond)
 	}
 	_ = os.WriteFile(envOr("SB_POC_RESULTS", "/tmp/t70-gate-results.json"), []byte(s.Stats()), 0o600)

@@ -54,6 +54,18 @@ func newPagesBSettings(t *testing.T, cfg *storage.OrderedMap) (*Settings, *busRe
 	return a.Settings, rec
 }
 
+// queueCfg is the canned reports' config context (the websites
+// pipeline ON + a vault path — the sub-table's own law).
+func queueCfg() *storage.OrderedMap {
+	cfg := storage.NewOrderedMap()
+	cfg.Set("website_vault_path", "/tmp/websites-vault")
+	pipes := storage.NewOrderedMap()
+	pipes.Set("github", true)
+	pipes.Set("websites", true)
+	cfg.Set("pipelines", pipes)
+	return cfg
+}
+
 // cannedQueue builds a classified report (the acceptance's canned job
 // result).
 func cannedQueue() *QueueReport {
@@ -102,7 +114,7 @@ func cannedQueue() *QueueReport {
 // ---------------------------------------------------------------------------
 
 func TestRenderQueueReportFull(t *testing.T) {
-	text := RenderQueueReport(cannedQueue())
+	text := RenderQueueReport(queueCfg(), cannedQueue())
 	// The labeled-count lines (verbatim shapes).
 	for _, want := range []string{
 		"📬 Bot Queue Results",
@@ -135,7 +147,7 @@ func TestRenderQueueReportWebsitesOffAdvisory(t *testing.T) {
 	rep := cannedQueue()
 	rep.WebsitesOff = true
 	rep.PendingWebsites = nil
-	text := RenderQueueReport(rep)
+	text := RenderQueueReport(storage.NewOrderedMap(), rep)
 	if !strings.Contains(text, "⚠️ Websites pipeline is OFF — 2 non-GitHub link(s) stay as _inbox rows.") {
 		t.Fatalf("the OFF advisory never spoke:\n%s", text)
 	}
@@ -152,7 +164,7 @@ func TestRenderQueueReportWebsitesOnNoVault(t *testing.T) {
 	rep := cannedQueue()
 	rep.WebsitesNoVault = true
 	rep.PendingWebsites = nil
-	text := RenderQueueReport(rep)
+	text := RenderQueueReport(storage.NewOrderedMap(), rep)
 	if !strings.Contains(text, "⚠️ Websites pipeline is ON but no Websites vault is set") {
 		t.Fatalf("the no-vault advisory never spoke:\n%s", text)
 	}
@@ -162,12 +174,12 @@ func TestRenderQueueReportCaughtUp(t *testing.T) {
 	rep := cannedQueue()
 	rep.PendingURLs = nil
 	rep.PendingWebsites = nil
-	text := RenderQueueReport(rep)
+	text := RenderQueueReport(queueCfg(), rep)
 	if !strings.Contains(text, "🎉 All GitHub repos are addressed — 1 settled (never re-fetched), the rest in the vault!") {
 		t.Fatalf("the settled caught-up line never spoke:\n%s", text)
 	}
 	rep.Settled = 0
-	text = RenderQueueReport(rep)
+	text = RenderQueueReport(queueCfg(), rep)
 	if !strings.Contains(text, "🎉 All GitHub repos are already in the vault!") {
 		t.Fatalf("the plain caught-up line never spoke:\n%s", text)
 	}
@@ -183,7 +195,7 @@ func TestRenderQueueReportWebsitesCap50(t *testing.T) {
 		rep.PendingWebsites = append(rep.PendingWebsites,
 			fmt.Sprintf("https://example.com/page-%d", i))
 	}
-	text := RenderQueueReport(rep)
+	text := RenderQueueReport(queueCfg(), rep)
 	if !strings.Contains(text, "PENDING WEBSITES (60 — need processing):") {
 		t.Fatalf("the websites header never spoke:\n%s", text)
 	}
@@ -196,13 +208,13 @@ func TestRenderQueueReportWebsitesCap50(t *testing.T) {
 }
 
 func TestRenderQueueReportErrorStates(t *testing.T) {
-	if text := RenderQueueReport(&QueueReport{State: "error", Error: "the poll failed"}); text != "Error: the poll failed" {
+	if text := RenderQueueReport(nil, &QueueReport{State: "error", Error: "the poll failed"}); text != "Error: the poll failed" {
 		t.Fatalf("error render = %q", text)
 	}
-	if text := RenderQueueReport(&QueueReport{State: "disabled", Error: "not configured"}); text != "Error: not configured" {
+	if text := RenderQueueReport(nil, &QueueReport{State: "disabled", Error: "not configured"}); text != "Error: not configured" {
 		t.Fatalf("disabled render = %q", text)
 	}
-	if text := RenderQueueReport(nil); text != "Error: the queue check returned no report" {
+	if text := RenderQueueReport(nil, nil); text != "Error: the queue check returned no report" {
 		t.Fatalf("nil render = %q", text)
 	}
 }

@@ -50,6 +50,72 @@ export namespace app {
 	        this.applied = source["applied"];
 	    }
 	}
+	export class BackupValues {
+	    backupFolder: string;
+	    backupMax: string;
+	    backupEnabled: boolean;
+	    workerUrl: string;
+	    vaultSealEnabled: boolean;
+	    vaultSealPush: boolean;
+	    vaultSealRepo: string;
+	    goodReposEnabled: boolean;
+	    goodReposPush: boolean;
+	    goodReposRepo: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new BackupValues(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.backupFolder = source["backupFolder"];
+	        this.backupMax = source["backupMax"];
+	        this.backupEnabled = source["backupEnabled"];
+	        this.workerUrl = source["workerUrl"];
+	        this.vaultSealEnabled = source["vaultSealEnabled"];
+	        this.vaultSealPush = source["vaultSealPush"];
+	        this.vaultSealRepo = source["vaultSealRepo"];
+	        this.goodReposEnabled = source["goodReposEnabled"];
+	        this.goodReposPush = source["goodReposPush"];
+	        this.goodReposRepo = source["goodReposRepo"];
+	    }
+	}
+	export class BatchResult {
+	    Success: boolean;
+	    Message: string;
+	    Processed: number;
+	    Total: number;
+	    Crashed: boolean;
+	    Error: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new BatchResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Success = source["Success"];
+	        this.Message = source["Message"];
+	        this.Processed = source["Processed"];
+	        this.Total = source["Total"];
+	        this.Crashed = source["Crashed"];
+	        this.Error = source["Error"];
+	    }
+	}
+	export class BotValues {
+	    username: string;
+	    token: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new BotValues(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.username = source["username"];
+	        this.token = source["token"];
+	    }
+	}
 	export class CredentialsValues {
 	    apiId: string;
 	    apiHash: string;
@@ -160,6 +226,34 @@ export namespace app {
 	        this.useForWeb = source["useForWeb"];
 	    }
 	}
+	export class QuarantineValues {
+	    strikeThreshold: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new QuarantineValues(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.strikeThreshold = source["strikeThreshold"];
+	    }
+	}
+	export class QueueBadgeState {
+	    text: string;
+	    pending: boolean;
+	    visible: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new QueueBadgeState(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.text = source["text"];
+	        this.pending = source["pending"];
+	        this.visible = source["visible"];
+	    }
+	}
 	export class QuickDetectResult {
 	    ok: boolean;
 	    found: boolean;
@@ -192,6 +286,26 @@ export namespace app {
 	        this.choice = source["choice"];
 	    }
 	}
+	export class RadarResult {
+	    Success: boolean;
+	    Applied: number;
+	    Results: Record<string, any>;
+	    Lines: string[];
+	    Error: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new RadarResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Success = source["Success"];
+	        this.Applied = source["Applied"];
+	        this.Results = source["Results"];
+	        this.Lines = source["Lines"];
+	        this.Error = source["Error"];
+	    }
+	}
 	export class SaveResult {
 	    saved: boolean;
 	
@@ -202,6 +316,22 @@ export namespace app {
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.saved = source["saved"];
+	    }
+	}
+	export class SealResultRow {
+	    Success: boolean;
+	    Message: string;
+	    Level: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SealResultRow(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.Success = source["Success"];
+	        this.Message = source["Message"];
+	        this.Level = source["Level"];
 	    }
 	}
 	export class SettingsSnapshot {
@@ -240,6 +370,21 @@ export namespace app {
 	    soundEnabled: boolean;
 	    soundVolume: number;
 	    blockedLawDomains: string[];
+	    botUsername: string;
+	    botToken: string;
+	    strikeThreshold: number;
+	    backupFolder: string;
+	    backupMax: string;
+	    backupEnabled: boolean;
+	    vaultSealEnabled: boolean;
+	    vaultSealPush: boolean;
+	    vaultSealRepo: string;
+	    goodReposEnabled: boolean;
+	    goodReposPush: boolean;
+	    goodReposRepo: string;
+	    workerUrl: string;
+	    hasVaultPath: boolean;
+	    hasGithubToken: boolean;
 	
 	    static createFrom(source: any = {}) {
 	        return new SettingsSnapshot(source);
@@ -282,6 +427,21 @@ export namespace app {
 	        this.soundEnabled = source["soundEnabled"];
 	        this.soundVolume = source["soundVolume"];
 	        this.blockedLawDomains = source["blockedLawDomains"];
+	        this.botUsername = source["botUsername"];
+	        this.botToken = source["botToken"];
+	        this.strikeThreshold = source["strikeThreshold"];
+	        this.backupFolder = source["backupFolder"];
+	        this.backupMax = source["backupMax"];
+	        this.backupEnabled = source["backupEnabled"];
+	        this.vaultSealEnabled = source["vaultSealEnabled"];
+	        this.vaultSealPush = source["vaultSealPush"];
+	        this.vaultSealRepo = source["vaultSealRepo"];
+	        this.goodReposEnabled = source["goodReposEnabled"];
+	        this.goodReposPush = source["goodReposPush"];
+	        this.goodReposRepo = source["goodReposRepo"];
+	        this.workerUrl = source["workerUrl"];
+	        this.hasVaultPath = source["hasVaultPath"];
+	        this.hasGithubToken = source["hasGithubToken"];
 	    }
 	}
 	export class SoundValues {
@@ -383,6 +543,28 @@ export namespace app {
 	    }
 	}
 	
+	export class SourcesResult {
+	    stage: string;
+	    error: string;
+	    urls: string[];
+	    body: string;
+	    notice: string;
+	    level: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new SourcesResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.stage = source["stage"];
+	        this.error = source["error"];
+	        this.urls = source["urls"];
+	        this.body = source["body"];
+	        this.notice = source["notice"];
+	        this.level = source["level"];
+	    }
+	}
 	export class StartServerResult {
 	    ok: boolean;
 	    pid: number;
@@ -395,6 +577,20 @@ export namespace app {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.ok = source["ok"];
 	        this.pid = source["pid"];
+	    }
+	}
+	export class StatusDot {
+	    text: string;
+	    state: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new StatusDot(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.text = source["text"];
+	        this.state = source["state"];
 	    }
 	}
 	export class TokenTestResult {
@@ -413,6 +609,28 @@ export namespace app {
 	        this.login = source["login"];
 	    }
 	}
+	export class UndoBatchResult {
+	    stage: string;
+	    message: string;
+	    files: string[];
+	    deleted: number;
+	    errors: number;
+	    confirmMessage: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new UndoBatchResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.stage = source["stage"];
+	        this.message = source["message"];
+	        this.files = source["files"];
+	        this.deleted = source["deleted"];
+	        this.errors = source["errors"];
+	        this.confirmMessage = source["confirmMessage"];
+	    }
+	}
 	export class VaultStatus {
 	    text: string;
 	    state: string;
@@ -426,6 +644,105 @@ export namespace app {
 	        this.text = source["text"];
 	        this.state = source["state"];
 	    }
+	}
+
+}
+
+export namespace main {
+	
+	export class BackupLadders {
+	    backup: app.StatusDot;
+	    vaultSeal: app.StatusDot;
+	    goodRepos: app.StatusDot;
+	
+	    static createFrom(source: any = {}) {
+	        return new BackupLadders(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.backup = this.convertValues(source["backup"], app.StatusDot);
+	        this.vaultSeal = this.convertValues(source["vaultSeal"], app.StatusDot);
+	        this.goodRepos = this.convertValues(source["goodRepos"], app.StatusDot);
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class DashboardViewResult {
+	    noVault: boolean;
+	    text: string;
+	    quarantine: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new DashboardViewResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.noVault = source["noVault"];
+	        this.text = source["text"];
+	        this.quarantine = source["quarantine"];
+	    }
+	}
+	export class QueueCheckResult {
+	    refusal: string;
+	    error: string;
+	    report: string;
+	    badge?: app.QueueBadgeState;
+	    pendingUrls: string[];
+	    pendingWebsites: string[];
+	    duplicates: number;
+	    rawCount: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new QueueCheckResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.refusal = source["refusal"];
+	        this.error = source["error"];
+	        this.report = source["report"];
+	        this.badge = this.convertValues(source["badge"], app.QueueBadgeState);
+	        this.pendingUrls = source["pendingUrls"];
+	        this.pendingWebsites = source["pendingWebsites"];
+	        this.duplicates = source["duplicates"];
+	        this.rawCount = source["rawCount"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
 	}
 
 }

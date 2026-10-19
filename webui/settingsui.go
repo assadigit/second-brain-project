@@ -158,10 +158,11 @@ func (u *SettingsUI) SelectImportFile() string {
 	return path
 }
 
-// BrowseVault is the Vault page's folder picker; kind picks the
-// reference's own dialog title: github = "Select Obsidian Vault",
-// websites = "Select Websites Vault (a folder that does not exist yet
-// is fine)", manual = "Select Manual Notes Vault".
+// BrowseVault is the folder picker; kind picks the reference's own
+// dialog titles: github = "Select Obsidian Vault", websites = "Select
+// Websites Vault (a folder that does not exist yet is fine)", manual =
+// "Select Manual Notes Vault", backup = "Select Backup Folder"
+// (T-74's Backup page).
 func (u *SettingsUI) BrowseVault(kind string) string {
 	title := "Select Obsidian Vault"
 	switch kind {
@@ -169,6 +170,8 @@ func (u *SettingsUI) BrowseVault(kind string) string {
 		title = "Select Websites Vault (a folder that does not exist yet is fine)"
 	case "manual":
 		title = "Select Manual Notes Vault"
+	case "backup":
+		title = "Select Backup Folder"
 	}
 	path, _ := runtime.OpenDirectoryDialog(u.ctx, runtime.OpenDialogOptions{
 		Title: title,
