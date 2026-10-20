@@ -73,6 +73,7 @@ import (
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/links"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
+	"github.com/assadigit/second-brain-project/internal/mirror"
 	"github.com/assadigit/second-brain-project/internal/storage"
 	"github.com/assadigit/second-brain-project/internal/syncreview"
 )
@@ -137,6 +138,26 @@ type SettingsDeps struct {
 	// ProxyCheck is connectioncheck.ProxyReachable — the sentinel's own
 	// TCP verdict (state disabled/connected/unreachable).
 	ProxyCheck func(config any, timeoutS float64) connectioncheck.ProxyResult
+
+	// The linking-tools doors' seams (T-79b) — every one faked at
+	// construction per THE HERMETIC-SEAM law; the production wiring
+	// lives in App.New. Message-list-shaped (the tools' llm(messages)
+	// closures), JSON mode on.
+	// LinkOllamaChat is the tools' Ollama chat lane (numCtx 0 = the
+	// option rides unset, exactly like the reference's None; errText ""
+	// = no error).
+	LinkOllamaChat func(host, model string, messages []llmclient.Message,
+		numCtx int, timeoutS float64) (reply, errText string)
+	// LinkCloudChat is the tools' OpenAI-compatible chat lane (cloud +
+	// llama.cpp /v1 alike; errText "" = no error).
+	LinkCloudChat func(apiURL, apiKey, model string, messages []llmclient.Message,
+		numCtx int, timeoutS float64) (reply, errText string)
+	// LinkEmbedCall is mirror.BuildEmbeddingCall — the embeddings
+	// router (config → the provider's embed closure + label). The seam
+	// returns the BUILT call, so tests inject a deterministic embed fn
+	// and the production wiring IS the engine itself.
+	LinkEmbedCall func(cfg any, modelOverride string) (
+		mirror.EmbedFn, string, error)
 
 	// SpawnOllamaServe starts `ollama serve` detached
 	// (start_ollama_server's Popen half): (pid, "") or (0, errClass).

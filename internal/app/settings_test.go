@@ -18,6 +18,7 @@ import (
 	"github.com/assadigit/second-brain-project/assets"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
+	"github.com/assadigit/second-brain-project/internal/mirror"
 	"github.com/assadigit/second-brain-project/internal/storage"
 )
 
@@ -51,6 +52,13 @@ type fakeSettingsDeps struct {
 	preflightCloud func(apiURL, apiKey, model string, timeoutS float64) (bool, string, *bool)
 	workerCheck    func(config any) *connectioncheck.Result
 	proxyCheck     func(config any, timeoutS float64) connectioncheck.ProxyResult
+
+	// The linking-tools doors' seams (T-79b).
+	linkOllamaChat func(host, model string, messages []llmclient.Message,
+		numCtx int, timeoutS float64) (string, string)
+	linkCloudChat func(apiURL, apiKey, model string, messages []llmclient.Message,
+		numCtx int, timeoutS float64) (string, string)
+	linkEmbedCall func(cfg any, modelOverride string) (mirror.EmbedFn, string, error)
 
 	spawnPID int
 	spawnErr string
@@ -127,6 +135,27 @@ func (f *fakeSettingsDeps) deps() SettingsDeps {
 				return f.proxyCheck(config, timeoutS)
 			}
 			return connectioncheck.ProxyResult{State: "disabled", Detail: "Proxy disabled"}
+		},
+		// The linking-tools doors' seams (T-79b).
+		LinkOllamaChat: func(host, model string, messages []llmclient.Message,
+			numCtx int, timeoutS float64) (string, string) {
+			if f.linkOllamaChat != nil {
+				return f.linkOllamaChat(host, model, messages, numCtx, timeoutS)
+			}
+			return "", ""
+		},
+		LinkCloudChat: func(apiURL, apiKey, model string, messages []llmclient.Message,
+			numCtx int, timeoutS float64) (string, string) {
+			if f.linkCloudChat != nil {
+				return f.linkCloudChat(apiURL, apiKey, model, messages, numCtx, timeoutS)
+			}
+			return "", ""
+		},
+		LinkEmbedCall: func(cfg any, modelOverride string) (mirror.EmbedFn, string, error) {
+			if f.linkEmbedCall != nil {
+				return f.linkEmbedCall(cfg, modelOverride)
+			}
+			return nil, "", nil
 		},
 		SpawnOllamaServe: func() (int, string) { return f.spawnPID, f.spawnErr },
 		SoundDir:         func() string { return f.soundDir },

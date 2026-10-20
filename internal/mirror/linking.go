@@ -367,6 +367,22 @@ func (s *LinkStore) KnownPairs() (map[linkPairKey]string, error) {
 	return out, rows.Err()
 }
 
+// KnownPairsSet is the composition driver's never-resuggest filter:
+// every pair ever suggested (any status) as {(a, b) sorted} -- the
+// external caller cannot build the unexported linkPairKey, so the set
+// crosses as [2]string tuples (a <= b, pairOf's order).
+func (s *LinkStore) KnownPairsSet() (map[[2]string]bool, error) {
+	known, err := s.KnownPairs()
+	if err != nil {
+		return nil, err
+	}
+	out := make(map[[2]string]bool, len(known))
+	for k := range known {
+		out[[2]string{k.A, k.B}] = true
+	}
+	return out, nil
+}
+
 // Suggest inserts a NEW pending suggestion. Returns 'pending' on
 // insert or the EXISTING status when the pair is already known (a
 // rejected pair is never suggested again — that is the point).

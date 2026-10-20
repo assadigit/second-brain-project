@@ -505,6 +505,30 @@ func (c *CacheDB) ForgetProcessedURL(url string) bool {
 	return n > 0
 }
 
+// RecategorizeNote mirrors the recategorize dialog's cache leg
+// (dashboard.py _apply): find the processed_repos row by the OLD
+// note_path, then move it to the new path + category so the dedup
+// check finds the note where it now lives. False when no row matches
+// (an unmanaged note — nothing to update, never an error).
+func (c *CacheDB) RecategorizeNote(oldPath, newPath, category string) (bool, error) {
+	c.Lock()
+	defer c.Unlock()
+	var repoID int64
+	err := c.SQL().QueryRow(
+		"SELECT repo_id FROM processed_repos WHERE note_path = ?",
+		oldPath).Scan(&repoID)
+	if err == sql.ErrNoRows {
+		return false, nil
+	}
+	if err != nil {
+		return false, err
+	}
+	_, err = c.SQL().Exec(
+		"UPDATE processed_repos SET note_path = ?, category = ? "+
+			"WHERE repo_id = ?", newPath, category, repoID)
+	return err == nil, err
+}
+
 // IsNoteValid mirrors is_note_valid (raises in the reference): does
 // the cached repo's note file still exist on disk?
 func (c *CacheDB) IsNoteValid(repoID int64) (bool, error) {

@@ -479,6 +479,44 @@ verified against the Python app.
 > tool dialogs), T-79d (the Chrome doors), T-79e (the decommission
 > picker).
 
+> **SESSION-043 (2026-10-20): T-79b COMPLETE (the five linking-tools
+> doors).** The thirty-eighth full wipe absorbed before work (both
+> repos, the toolchain, the venv, the module cache, the wails CLI,
+> AND the webkit tree gone; the repair all from the committed
+> recipes: both repos re-cloned with the ephemeral GIT_CONFIG_COUNT
+> form, go1.27.2 sha-verified against TOOLCHAIN.md Am.2's pin, the
+> venv rebuilt — this boot HAS ensurepip, the plain form, the wails
+> CLI v2.16.0, the module caches, and the TENTH webkit-tree rebuild —
+> 144 debs, the 42 .pc rewrites, the 26 dev links as Am.4 hardlinks,
+> zero missing; the FULL battery re-verified green pre-work: exactly
+> 2280 + 59). T-79b: the linking tools as More-menu doors — the
+> reference's SAFE defaults over the ported engines
+> (internal/app/linkdoors.go's five Settings methods + three new
+> hermetic SettingsDeps seams + the HeroUI wrappers + the heroflow.js
+> wiring + the recategorize table modal + the generalized probe click
+> leg): 🪝 Recall hooks (dry-run — the TestWorker law: the guard, the
+> opening, the captured run, the last-40 tail, the finish verdict;
+> DRY-RUN pinned — the report is the only write) + 🔗 Build link
+> suggestions (the suggest grammar + THE ONE-WRITE law — the
+> Suggestions note under Library/) + ✅ Validate Vault
+> (connection_tests.py:219 verbatim) + 🔍 Verify Vault (the report box
+> + the enqueue legs with the settled-repo filter) + 📁 Recategorize
+> Notes (the two-door flow). THE GUARD LAW widened per the row's own
+> naming: all five doors carry the batch-busy guard (the recorded
+> divergence — the reference guards only the two tool runners). The
+> battery at the close: 2312 main-battery tests race-clean over 36
+> packages (2280 + 32) + 63 webui over 4 (59 + 4); the app package
+> 3× race-clean; the wails build links clean over the 10th-rebuilt
+> tree (24.6 s; no mode flips — content-only diffs = the regenerated
+> bindings); the gate legs GREEN (first frame 726/269 ms; the 10k
+> flood 0 drops); the screenshots VLM-verified (the five doors LIVE;
+> the lower-region misreads settled per the 042 law — the byte-level
+> source check + cropped passes; the recall-door click leg's whole
+> runner grammar on the desk). The full record:
+> docs/poc-artifacts/t-79b-linking-doors.md. The remaining tail:
+> T-79c (the bot-queue tool dialogs), T-79d (the Chrome doors),
+> T-79e (the decommission picker).
+
 ## Phase 7 — Packaging, release, cutover
 
 **Work**: deterministic zip builder, `1-INSTALL` equivalent, clean-machine checklist (doc 10 §7),

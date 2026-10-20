@@ -13,9 +13,17 @@ export function HeroRunQueue():Promise<app.BatchResult>;
 
 export function HeroState():Promise<main.HeroStatePayload>;
 
+export function MoreBuildLinkSuggestions():Promise<main.MoreDoorResult>;
+
 export function MoreDarkMode(arg1:boolean):Promise<app.SaveResult>;
 
 export function MoreOpenDashboard():Promise<main.MoreDoorResult>;
+
+export function MoreRecallHooksDryRun():Promise<main.MoreDoorResult>;
+
+export function MoreRecategorizeApply(arg1:Array<app.RecategorizeChange>):Promise<app.RecategorizeResult>;
+
+export function MoreRecategorizeOpen():Promise<app.RecategorizeModel>;
 
 export function MoreRetryBacklog():Promise<app.BatchResult>;
 
@@ -30,5 +38,9 @@ export function MoreTestOllama():Promise<main.MoreDoorResult>;
 export function MoreTestProxy():Promise<main.MoreDoorResult>;
 
 export function MoreTestTelegramGitHub():Promise<main.MoreDoorResult>;
+
+export function MoreValidateVault():Promise<main.MoreDoorResult>;
+
+export function MoreVerifyVault():Promise<main.MoreDoorResult>;
 
 export function TestConnection():Promise<main.CCTestResult>;

@@ -32,6 +32,7 @@ import (
 	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/goodrepos"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
+	"github.com/assadigit/second-brain-project/internal/mirror"
 	"github.com/assadigit/second-brain-project/internal/notereads"
 	"github.com/assadigit/second-brain-project/internal/notestate"
 	"github.com/assadigit/second-brain-project/internal/reporadar"
@@ -259,7 +260,37 @@ func New(configPath string, headless bool) *App {
 		WorkerCheck: func(config any) *connectioncheck.Result {
 			return connectioncheck.CheckWorkerVersion(config, nil)
 		},
-		ProxyCheck:       connectioncheck.ProxyReachable,
+		ProxyCheck: connectioncheck.ProxyReachable,
+		// The linking-tools doors' production seams (T-79b): the
+		// tools' _build_llm_call chat lanes (JSON mode on; num_ctx only
+		// when the config speaks one) + the embeddings router itself.
+		LinkOllamaChat: func(host, model string, messages []llmclient.Message,
+			numCtx int, timeoutS float64) (string, string) {
+			opts := &llmclient.OllamaChatOptions{}
+			if numCtx > 0 {
+				opts.NumCtx = numCtx
+			}
+			reply, err := llmclient.OllamaChat(llmclient.NewOllamaClient(host),
+				model, messages, timeoutS, opts)
+			if err != nil {
+				return "", err.Error()
+			}
+			return reply, ""
+		},
+		LinkCloudChat: func(apiURL, apiKey, model string, messages []llmclient.Message,
+			numCtx int, timeoutS float64) (string, string) {
+			co := &llmclient.ChatOptions{JSONMode: true}
+			if numCtx > 0 {
+				co.NumCtx = numCtx
+			}
+			reply, err := llmclient.CloudChat(apiURL, apiKey, model, messages,
+				timeoutS, co)
+			if err != nil {
+				return "", err.Error()
+			}
+			return reply, ""
+		},
+		LinkEmbedCall:    mirror.BuildEmbeddingCall,
 		SpawnOllamaServe: spawnOllamaServe,
 		SoundDir: func() string {
 			return filepath.Join(constants.AppDir(), "assets", "sounds")

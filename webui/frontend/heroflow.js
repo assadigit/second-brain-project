@@ -18,8 +18,11 @@
 //     the tooltip, and Start Syncing — born disabled, green only when
 //     every row is ok;
 //   · THE MORE MENU: the reference's own action list, verbatim — the
-//     live doors wired (Test Connection, Open Dashboard, Dark Mode,
-//     Settings), the not-yet-landed engines honestly disabled;
+//     live doors wired (Test Connection, the five per-test doors, the
+//     five linking-tools doors — recall hooks' dry-run, link
+//     suggestions, Validate/Verify Vault, Recategorize — Open
+//     Dashboard, Dark Mode), the not-yet-landed engines honestly
+//     disabled;
 //   · THE BATCH CHIME: the batch-finished crossing's chime payload
 //     plays through <audio> (the QSoundEffect twin — the exact batch
 //     gate lives in Go).
@@ -27,6 +30,8 @@ import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
          MoreOpenDashboard, MoreDarkMode, MoreRetryBacklog, MoreRetryMaster,
          MoreTestTelegramGitHub, MoreTestProxy, MoreTestOllama,
          MoreTestCloud, MoreTestLlamaCpp,
+         MoreValidateVault, MoreVerifyVault, MoreRecallHooksDryRun,
+         MoreBuildLinkSuggestions, MoreRecategorizeOpen, MoreRecategorizeApply,
          ChromeBoot } from './wailsjs/go/main/HeroUI.js';
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
@@ -70,8 +75,12 @@ function closeOverlay() {
 
 // themedBox is the _show_custom_message_box / _show_custom_question
 // twin (the error boxes, the guard questions — the hero flow's own).
-function themedBox(box, buttons) {
-  const b = openOverlay(460);
+function themedBox(box, buttons, opts) {
+  const width = (opts && opts.width) || 460;
+  const b = openOverlay(width);
+  // T-79b: the long-body law — a scroll flag pins the action buttons
+  // OUTSIDE the scrolling body (the verify report's own shape).
+  if (opts && opts.scroll) b.classList.add('linkdoor-box');
   b.setAttribute('role', 'dialog');
   b.setAttribute('aria-label', box.title);
   b.appendChild(el('div', 'card-heading', box.title));
@@ -496,12 +505,17 @@ const MORE_ACTIONS = [
   { label: '🦙 Test llama.cpp', live: 'testLlama',
     tip: 'The /props probe + a real one-token chat ping through the same OpenAI-compatible path the batch uses.' },
   { sep: true },
-  { label: '🪝 Recall hooks (dry-run)', tip: 'The linking tools land with their own task (recall hooks in dry-run — diff only).' },
-  { label: '🔗 Build link suggestions', tip: 'The linking tools land with their own task (suggest mode — the one write is the Suggestions note).' },
+  { label: '🪝 Recall hooks (dry-run)', live: 'recall',
+    tip: 'The Phase-6 step-1 tool in its default dry-run mode — nothing is written, the diff lands in the log + app/reports/recall/. Approve samples and apply from the command line (the SPEC flow).' },
+  { label: '🔗 Build link suggestions', live: 'links',
+    tip: 'Embeddings → neighbors → LLM confirm → the Suggestions note under the manual vault\'s Library/ (its only write). Tick boxes there, then run the tool with --collect on the command line to apply.' },
   { sep: true },
-  { label: '✅ Validate Vault', tip: 'The vault validation door lands with the linking-tools task.' },
-  { label: '🔍 Verify Vault', tip: 'The vault verification door lands with the linking-tools task.' },
-  { label: '📁 Recategorize Notes', tip: 'The recategorize door lands with the linking-tools task.' },
+  { label: '✅ Validate Vault', live: 'validate',
+    tip: 'Validate the selected vault path (fast, inline) — the .obsidian check.' },
+  { label: '🔍 Verify Vault', live: 'verify',
+    tip: 'The manifest verification report — every GitHub link\'s note on disk, every non-GitHub link in the inbox tables; failed repos join the retry queue.' },
+  { label: '📁 Recategorize Notes', live: 'recategorize',
+    tip: 'A table of the vault\'s notes — pick new categories in bulk; Apply rewrites the frontmatter and moves the files (locked notes are never touched).' },
   { sep: true },
   { label: '✅ Verify All Processed', tip: 'The bot-queue tools land with the queue-tools task.' },
   { label: '📋 Export All Links', tip: 'The bot-queue tools land with the queue-tools task.' },
@@ -613,6 +627,39 @@ async function runMoreAction(act) {
     }
     return;
   }
+  if (act.live === 'validate' || act.live === 'recall' ||
+      act.live === 'links') {
+    // T-79b: the log-only linking doors — the engines stream their own
+    // lines (the tool doors' captured tail lands at completion).
+    const fn = act.live === 'validate' ? MoreValidateVault
+      : act.live === 'recall' ? MoreRecallHooksDryRun
+      : MoreBuildLinkSuggestions;
+    await fn().catch(() => null);
+    return;
+  }
+  if (act.live === 'verify') {
+    // T-79b: Verify Vault — the report box (the long-body law: the
+    // buttons stay pinned under the scrolling report).
+    const res = await MoreVerifyVault().catch(() => null);
+    if (res && res.title) {
+      themedBox({ title: res.title, body: res.body },
+        [['OK', 'primary', () => closeOverlay()]], { width: 560, scroll: true });
+    }
+    return;
+  }
+  if (act.live === 'recategorize') {
+    // T-79b: the two-door dialog — the open walk, then the table
+    // modal; Apply rides the apply door.
+    const model = await MoreRecategorizeOpen().catch(() => null);
+    if (!model) return;
+    if (model.boxTitle) {
+      themedBox({ title: model.boxTitle, body: model.boxBody },
+        [['OK', 'primary', () => closeOverlay()]]);
+      return;
+    }
+    if (model.notes && model.notes.length) openRecategorizeDialog(model);
+    return;
+  }
   if (act.live === 'dashboard') {
     const res = await MoreOpenDashboard().catch(() => null);
     if (res && res.title) {
@@ -636,6 +683,68 @@ async function runMoreAction(act) {
     await MoreDarkMode(on).catch(() => {});
     return;
   }
+}
+
+// openRecategorizeDialog — the reference's table dialog (dashboard.py
+// 548-660): the notes table (Note | Current Category | New Category),
+// per-row selects over the category list (the current selected when
+// present), Apply + Cancel right-aligned — the buttons pinned OUTSIDE
+// the scrolling body (the long-body law).
+function openRecategorizeDialog(model) {
+  const box = openOverlay(640);
+  box.classList.add('linkdoor-box');
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-label', 'Recategorize Notes');
+  box.appendChild(el('div', 'card-heading',
+    '📁 Recategorize Notes (' + model.notes.length + ' notes)'));
+  const body = el('div', 'dialog-body recat-body');
+  const table = el('table', 'recat-table');
+  const thead = el('thead');
+  const headRow = el('tr');
+  for (const h of ['Note', 'Current Category', 'New Category']) {
+    headRow.appendChild(el('th', '', h));
+  }
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+  const tbody = el('tbody');
+  for (const note of model.notes) {
+    const tr = el('tr');
+    const name = el('td', 'recat-name', note.name);
+    name.title = note.path;
+    tr.appendChild(name);
+    tr.appendChild(el('td', 'recat-cat', note.category));
+    const td = el('td');
+    const select = el('select', 'recat-select');
+    select.title = 'Pick the new category — Apply rewrites the frontmatter and moves the note to its category folder.';
+    for (const cat of (model.categories || [])) {
+      const opt = el('option', '', cat);
+      opt.value = cat;
+      if (cat === note.category) opt.selected = true;
+      select.appendChild(opt);
+    }
+    td.appendChild(select);
+    tr.appendChild(td);
+    tbody.appendChild(tr);
+  }
+  table.appendChild(tbody);
+  body.appendChild(table);
+  const btnRow = el('div', 'dialog-buttons');
+  btnRow.appendChild(btn('Cancel', 'secondary',
+    'Leave the notes where they are — nothing is rewritten, nothing moved.',
+    () => closeOverlay()));
+  btnRow.appendChild(btn('Apply Changes', 'primary',
+    'Rewrite the category frontmatter of the changed rows and move those notes to their category folders (locked notes are never touched).',
+    async () => {
+      const rows = [...tbody.querySelectorAll('tr')];
+      const changes = rows.map((tr, i) => ({
+        path: model.notes[i].path,
+        oldCategory: model.notes[i].category,
+        category: tr.querySelector('select').value,
+      }));
+      closeOverlay();
+      await MoreRecategorizeApply(changes).catch(() => null);
+    }));
+  box.append(body, btnRow);
 }
 
 function applyTheme(mode) {
@@ -668,11 +777,18 @@ EventsOn('autorun:open-more', async (v) => {
     // binding → the engine → the bus → the desk). 'ollama' is the
     // hermetic pick — a box without an Ollama server refuses the
     // loopback probe instantly and the desk speaks the reference's
-    // own honest failure lines.
+    // own honest failure lines. 'recall' (T-79b) clicks the tool
+    // door: with no vault configured the runner speaks its whole
+    // grammar — the opening, the captured refusal, the exit-code
+    // finish line.
     await new Promise((res) => setTimeout(res, 400));
-    const item = [...document.querySelectorAll('#more-menu .more-item')]
-      .find((n) => n.textContent.includes('Test Ollama'));
-    if (item && !item.disabled) item.click();
+    const pick = door === 'ollama' ? 'Test Ollama'
+      : door === 'recall' ? 'Recall hooks (dry-run)' : '';
+    if (pick) {
+      const item = [...document.querySelectorAll('#more-menu .more-item')]
+        .find((n) => n.textContent.includes(pick));
+      if (item && !item.disabled) item.click();
+    }
   }
 });
 

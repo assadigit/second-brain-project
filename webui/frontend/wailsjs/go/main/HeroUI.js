@@ -22,12 +22,28 @@ export function HeroState() {
   return window['go']['main']['HeroUI']['HeroState']();
 }
 
+export function MoreBuildLinkSuggestions() {
+  return window['go']['main']['HeroUI']['MoreBuildLinkSuggestions']();
+}
+
 export function MoreDarkMode(arg1) {
   return window['go']['main']['HeroUI']['MoreDarkMode'](arg1);
 }
 
 export function MoreOpenDashboard() {
   return window['go']['main']['HeroUI']['MoreOpenDashboard']();
+}
+
+export function MoreRecallHooksDryRun() {
+  return window['go']['main']['HeroUI']['MoreRecallHooksDryRun']();
+}
+
+export function MoreRecategorizeApply(arg1) {
+  return window['go']['main']['HeroUI']['MoreRecategorizeApply'](arg1);
+}
+
+export function MoreRecategorizeOpen() {
+  return window['go']['main']['HeroUI']['MoreRecategorizeOpen']();
 }
 
 export function MoreRetryBacklog() {
@@ -56,6 +72,14 @@ export function MoreTestProxy() {
 
 export function MoreTestTelegramGitHub() {
   return window['go']['main']['HeroUI']['MoreTestTelegramGitHub']();
+}
+
+export function MoreValidateVault() {
+  return window['go']['main']['HeroUI']['MoreValidateVault']();
+}
+
+export function MoreVerifyVault() {
+  return window['go']['main']['HeroUI']['MoreVerifyVault']();
 }
 
 export function TestConnection() {

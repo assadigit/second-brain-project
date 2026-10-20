@@ -22,6 +22,7 @@ import (
 	"github.com/assadigit/second-brain-project/internal/app"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
+	"github.com/assadigit/second-brain-project/internal/mirror"
 	"github.com/assadigit/second-brain-project/internal/storage"
 )
 
@@ -803,6 +804,207 @@ func TestHeroUIPerTestLlamaCppDoor(t *testing.T) {
 	spokePerTest(t, &spoken, &mu, "✅ llama.cpp responded: \"hi\"")
 }
 
+// newLinkDoorRig builds the chrome over the linking doors' faked
+// seams (T-79b): the Ollama chat lane answering a confirm-yes, the
+// embeddings router answering identical vectors, a log capture, and
+// the HeroUI wrapper.
+func newLinkDoorRig(t *testing.T) (*HeroUI, *storage.OrderedMap, *[]string, *sync.Mutex, *app.OpLock) {
+	t.Helper()
+	appDir := t.TempDir()
+	t.Setenv("GITCURATOR_HOME", appDir)
+	bus := app.NewBus()
+	cfg := storage.NewOrderedMap()
+	lock := &app.OpLock{}
+	var spoken []string
+	var mu sync.Mutex
+	bus.Subscribe(&app.Handlers{LogLine: func(l app.LogLine) {
+		mu.Lock()
+		spoken = append(spoken, l.Msg)
+		mu.Unlock()
+	}})
+	settings := app.NewSettings(bus, cfg, lock, app.SettingsDeps{
+		LinkOllamaChat: func(host, model string, messages []llmclient.Message,
+			numCtx int, timeoutS float64) (string, string) {
+			return `{"best_used_for": "use when you need to file things", ` +
+				`"related": true, "reason": "the same body"}`, ""
+		},
+		LinkEmbedCall: func(cfg any, modelOverride string) (mirror.EmbedFn, string, error) {
+			return func(texts []string) ([][]float64, error) {
+				out := make([][]float64, len(texts))
+				for i := range texts {
+					out[i] = []float64{1, 0, 0}
+				}
+				return out, nil
+			}, "Ollama http://127.0.0.1:11434 \u00b7 nomic-embed-text", nil
+		},
+	})
+	ui := NewHeroUI(settings, app.NewCommands(bus, app.Deps{
+		Config: func() *storage.OrderedMap { return cfg },
+	}))
+	return ui, cfg, &spoken, &mu, lock
+}
+
+// writeLinkDoorNote drops one managed note into a vault.
+func writeLinkDoorNote(t *testing.T, vault, name string) string {
+	t.Helper()
+	if err := os.MkdirAll(vault, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	p := filepath.Join(vault, name+".md")
+	content := "---\nsource: https://github.com/acme/" + name + "\n" +
+		"category: Agents\n---\n\n# " + name + "\n\nThe same body.\n"
+	if err := os.WriteFile(p, []byte(content), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	return p
+}
+
+func TestHeroUILinkDoorsValidateAndVerify(t *testing.T) {
+	ui, cfg, spoken, mu, _ := newLinkDoorRig(t)
+	vault := t.TempDir()
+	if err := os.MkdirAll(filepath.Join(vault, ".obsidian"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	cfg.Set("vault_path", vault)
+
+	// the validate door: log-only, no box.
+	res := ui.MoreValidateVault()
+	if res == nil || res.Title != "" {
+		t.Fatalf("validate is log-only: %+v", res)
+	}
+	spokePerTest(t, spoken, mu, "\U0001f4c1 Validating vault path...")
+	spokePerTest(t, spoken, mu,
+		"\U00002705 Vault is valid (contains .obsidian folder): "+vault)
+
+	// the verify door: the report box over the (empty) vault — no
+	// manifest yet.
+	cfg.Set("vault_path", t.TempDir())
+	vres := ui.MoreVerifyVault()
+	if vres == nil || vres.Title != "Verify Vault" {
+		t.Fatalf("verify box: %+v", vres)
+	}
+	if !strings.Contains(vres.Body, "No previous manifest found") {
+		t.Fatalf("verify body: %q", vres.Body)
+	}
+	spokePerTest(t, spoken, mu,
+		"\u2139\ufe0f No manifest to verify \u2014 process a batch first.")
+}
+
+func TestHeroUILinkDoorsToolRunners(t *testing.T) {
+	ui, cfg, spoken, mu, _ := newLinkDoorRig(t)
+	vault := t.TempDir()
+	writeLinkDoorNote(t, vault, "alpha")
+
+	// the recall door with a missing vault: the runner's whole grammar.
+	cfg.Set("vault_path", filepath.Join(t.TempDir(), "missing"))
+	res := ui.MoreRecallHooksDryRun()
+	if res == nil || res.Title != "" {
+		t.Fatalf("the tool doors are log-only: %+v", res)
+	}
+	spokePerTest(t, spoken, mu,
+		"\u23f3 Recall hooks (dry-run) running\u2026 (the GUI stays usable)")
+	spokePerTest(t, spoken, mu,
+		"GitHub vault not set or not found (config vault_path or --vault).")
+	spokePerTest(t, spoken, mu,
+		"\u274c Recall hooks (dry-run) finished with exit code 1 "+
+			"(see the lines above \u2014 the command-line tools print the exact next step).")
+
+	// the link-suggestions door with a full fixture: the one write.
+	manual := t.TempDir()
+	if err := os.MkdirAll(filepath.Join(manual, "Library"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	websites := t.TempDir()
+	writeLinkDoorNote(t, websites, "beta")
+	cfg.Set("vault_path", vault)
+	cfg.Set("website_vault_path", websites)
+	cfg.Set("manual_vault_path", manual)
+	lres := ui.MoreBuildLinkSuggestions()
+	if lres == nil || lres.Title != "" {
+		t.Fatalf("the tool doors are log-only: %+v", lres)
+	}
+	spokePerTest(t, spoken, mu,
+		"  + related: alpha \u2194 beta \u2014 the same body")
+	spokePerTest(t, spoken, mu,
+		"\u2705 Link suggestions finished.")
+	note, err := os.ReadFile(mirror.SuggestionsPath(manual))
+	if err != nil {
+		t.Fatalf("the Suggestions note: %v", err)
+	}
+	if !strings.Contains(string(note), "- [ ] ") {
+		t.Fatalf("the pending checkbox: %s", note)
+	}
+}
+
+func TestHeroUILinkDoorsRecategorizeFlow(t *testing.T) {
+	ui, cfg, spoken, mu, _ := newLinkDoorRig(t)
+	vault := t.TempDir()
+	oldPath := writeLinkDoorNote(t, vault, "alpha")
+	cfg.Set("vault_path", vault)
+
+	// the open door: the table payload.
+	model := ui.MoreRecategorizeOpen()
+	if model == nil || model.BoxTitle != "" || len(model.Notes) != 1 {
+		t.Fatalf("the table model: %+v", model)
+	}
+	if model.Notes[0].Category != "Agents" || len(model.Categories) == 0 {
+		t.Fatalf("the row: %+v", model.Notes[0])
+	}
+
+	// the invalid-vault box.
+	cfg.Set("vault_path", "")
+	bbox := ui.MoreRecategorizeOpen()
+	if bbox.BoxTitle != "Error" || bbox.BoxBody != "Please select a valid vault first." {
+		t.Fatalf("the error box: %+v", bbox)
+	}
+
+	// the apply door: the move + the finish line.
+	cfg.Set("vault_path", vault)
+	changes := []app.RecategorizeChange{{
+		Path: oldPath, OldCategory: "Agents", Category: "Tools",
+	}}
+	res := ui.MoreRecategorizeApply(changes)
+	if res == nil || res.Moved != 1 {
+		t.Fatalf("moved: %+v", res)
+	}
+	spokePerTest(t, spoken, mu, "\U0001f4c1 Recategorized 1 notes")
+	if _, err := os.Stat(oldPath); !os.IsNotExist(err) {
+		t.Fatalf("the old file must be gone")
+	}
+}
+
+func TestHeroUILinkDoorsBusyGuard(t *testing.T) {
+	ui, cfg, spoken, mu, lock := newLinkDoorRig(t)
+	cfg.Set("vault_path", t.TempDir())
+	// the busy lock (the guard law — the shared OpLock).
+	if !lock.Acquire("batch") {
+		t.Fatal("acquire")
+	}
+	defer lock.Release("batch")
+	ui.MoreValidateVault()
+	ui.MoreRecallHooksDryRun()
+	ui.MoreBuildLinkSuggestions()
+	if res := ui.MoreVerifyVault(); res.Title != "" {
+		t.Fatalf("the guarded verify answers no box: %+v", res)
+	}
+	if m := ui.MoreRecategorizeOpen(); m.BoxTitle != "" || len(m.Notes) != 0 {
+		t.Fatalf("the guarded open answers the empty model: %+v", m)
+	}
+	spokePerTest(t, spoken, mu,
+		"\u23f3 A batch is running \u2014 wait for it to finish before running the linking tools.")
+	mu.Lock()
+	count := 0
+	for _, l := range *spoken {
+		if strings.Contains(l, "A batch is running") {
+			count++
+		}
+	}
+	mu.Unlock()
+	if count != 5 {
+		t.Fatalf("all five doors speak the guard line once (have %d)", count)
+	}
+}
+
 func TestHeroflowPerTestDoorsLive(t *testing.T) {
 	src := heroflowSource(t)
 	// the five doors are LIVE (T-79a) — each with its dispatch key.
@@ -823,9 +1025,8 @@ func TestHeroflowPerTestDoorsLive(t *testing.T) {
 		t.Fatal("the verdict box law (title-only)")
 	}
 	// the honest-disabled law still holds — for the REMAINING tail
-	// (T-79b..e), never for the per-test doors.
+	// (T-79c..e), never for the per-test or linking doors.
 	for _, soon := range []string{
-		"The linking tools land with their own task",
 		"The bot-queue tools land with the queue-tools task",
 		"The Chrome doors land with the Chrome-doors GUI task",
 		"The graveyard procedure lands with the master-table tools task",
@@ -833,6 +1034,39 @@ func TestHeroflowPerTestDoorsLive(t *testing.T) {
 	} {
 		if !strings.Contains(src, soon) {
 			t.Fatalf("the remaining tail's landing note missing %q", soon)
+		}
+	}
+	// T-79b: the five linking doors are LIVE — each with its dispatch
+	// key + binding name; the old landing notes are gone.
+	for _, want := range []string{
+		"live: 'recall'", "live: 'links'", "live: 'validate'",
+		"live: 'verify'", "live: 'recategorize'",
+		"MoreRecallHooksDryRun", "MoreBuildLinkSuggestions",
+		"MoreValidateVault", "MoreVerifyVault",
+		"MoreRecategorizeOpen", "MoreRecategorizeApply",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the linking doors' live wiring missing %q", want)
+		}
+	}
+	for _, gone := range []string{
+		"The linking tools land with their own task",
+		"The vault validation door lands with the linking-tools task",
+		"The vault verification door lands with the linking-tools task",
+		"The recategorize door lands with the linking-tools task",
+	} {
+		if strings.Contains(src, gone) {
+			t.Fatalf("the landed doors' landing note still present: %q", gone)
+		}
+	}
+	// the recategorize modal's laws: the pinned button row (the
+	// long-body law) + the reference's own column heads.
+	for _, want := range []string{
+		"openRecategorizeDialog", "'New Category'", "'Apply Changes'",
+		"linkdoor-box", "oldCategory",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the recategorize dialog law missing %q", want)
 		}
 	}
 }

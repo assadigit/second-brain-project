@@ -55,8 +55,13 @@ seam RETIRED at this landing, deleted with its tests):
   batch modes, ChromeBoot — **plus T-79a's five per-test doors**
   (MoreTestTelegramGitHub/Proxy/Ollama/Cloud/LlamaCpp over
   internal/app/pertests.go's engines, the verdict boxes riding the
-  MoreDoorResult shape). Bound as the sixth struct; the generated
-  bindings live in frontend/wailsjs/go/main/HeroUI.js.
+  MoreDoorResult shape) — **plus T-79b's five linking-tools doors**
+  (MoreValidateVault/MoreVerifyVault/MoreRecallHooksDryRun/
+  MoreBuildLinkSuggestions + the MoreRecategorizeOpen/Apply pair over
+  internal/app/linkdoors.go's engines: the two tool doors run through
+  the TestWorker law (log-only), Verify Vault answers the report box,
+  Recategorize is the two-door dialog). Bound as the sixth struct; the
+  generated bindings live in frontend/wailsjs/go/main/HeroUI.js.
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
   over internal/app's pages B engines + the Commands surface (the
   queue check + render + badge, Process All, the dashboard refresh +
@@ -103,7 +108,13 @@ seam RETIRED at this landing, deleted with its tests):
   landing notes; the Settings submenu carries Dark Mode; **T-79a: the
   five per-test doors are LIVE** — the dispatch awaits the bindings,
   the engines stream their line grammar onto the desk, the verdict
-  boxes (Cloud + llama.cpp) render through the one themedBox; the
+  boxes (Cloud + llama.cpp) render through the one themedBox;
+  **T-79b: the five linking-tools doors are LIVE** — the two tool
+  doors stream their captured last-40 tail at completion (the
+  TestWorker law), Verify Vault's report rides the long-body box
+  (themedBox's scroll option — the buttons pinned under the body),
+  and the recategorize table modal renders the reference's own
+  columns with the Apply row pinned outside the scrolling body; the
   SB_POC_OPEN_MORE probe (shell.go's autorun leg) opens the menu for
   the screenshot evidence and can click one door end-to-end).
 - `fixture/` — the deterministic synthetic vault (no owner data).

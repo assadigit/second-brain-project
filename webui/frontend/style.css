@@ -837,6 +837,26 @@ textarea.form-area { resize: vertical; min-height: 42px; }
 .scanflow-box { overflow: hidden; }
 .scanflow-box .dialog-body { overflow-y: auto; min-height: 140px; flex: 1 1 auto; }
 
+/* T-79b — the linking-tools doors: the long-body box law (the verify
+   report's action buttons stay pinned under the scrolling body) and
+   the recategorize table dialog. */
+.linkdoor-box { overflow: hidden; max-width: 720px; }
+.linkdoor-box .dialog-body { overflow-y: auto; min-height: 120px; flex: 1 1 auto; max-height: 480px; }
+.recat-body { min-width: 560px; }
+.recat-table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.recat-table th {
+  text-align: left; padding: 4px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted); font-weight: 600; white-space: nowrap;
+}
+.recat-table td { padding: 3px 10px; border-bottom: 1px solid var(--border); }
+.recat-name { font-family: ui-monospace, 'JetBrains Mono', Consolas, monospace; max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recat-cat { color: var(--text-muted); }
+.recat-select {
+  width: 100%; padding: 3px 6px; font: inherit; color: var(--text);
+  background: var(--sheet-alt); border: 1px solid var(--border); border-radius: 6px;
+}
+
 /* the WebKit flex quirk insurance: a hard body cap (the NO-FEEDBACK
    SCROLL LAW's own spirit — a number, computed once from the window's
    own budget: 80% of 750 px minus the title + the clock + the pinned

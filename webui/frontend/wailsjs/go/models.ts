@@ -556,6 +556,87 @@ export namespace app {
 	        this.Error = source["Error"];
 	    }
 	}
+	export class RecategorizeChange {
+	    path: string;
+	    oldCategory: string;
+	    category: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new RecategorizeChange(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.path = source["path"];
+	        this.oldCategory = source["oldCategory"];
+	        this.category = source["category"];
+	    }
+	}
+	export class RecategorizeRow {
+	    path: string;
+	    name: string;
+	    category: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new RecategorizeRow(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.path = source["path"];
+	        this.name = source["name"];
+	        this.category = source["category"];
+	    }
+	}
+	export class RecategorizeModel {
+	    boxTitle: string;
+	    boxBody: string;
+	    notes: RecategorizeRow[];
+	    categories: string[];
+	
+	    static createFrom(source: any = {}) {
+	        return new RecategorizeModel(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.boxTitle = source["boxTitle"];
+	        this.boxBody = source["boxBody"];
+	        this.notes = this.convertValues(source["notes"], RecategorizeRow);
+	        this.categories = source["categories"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
+	export class RecategorizeResult {
+	    moved: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new RecategorizeResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.moved = source["moved"];
+	    }
+	}
+	
 	export class VaultSection {
 	    label: string;
 	    changed: number;

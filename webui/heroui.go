@@ -681,8 +681,58 @@ func (u *HeroUI) MoreTestLlamaCpp() *MoreDoorResult {
 }
 
 // ---------------------------------------------------------------------------
-// tiny helpers (the shell's local twins).
+// THE LINKING-TOOLS DOORS (T-79b) -- the More menu's second door
+// family: the reference's SAFE defaults over the ported engines
+// (linking_tools.py:107/116 + dashboard.py:313/500 +
+// connection_tests.py:219). The two tool doors stream their captured
+// tail at completion (the TestWorker law); Verify Vault answers the
+// report box; Recategorize is the two-door dialog (the open walk +
+// the apply pass).
 // ---------------------------------------------------------------------------
+
+// MoreValidateVault is 📁 Validate Vault -- the fast inline
+// flow (log-only, no box).
+func (u *HeroUI) MoreValidateVault() *MoreDoorResult {
+	u.settings.ValidateVault()
+	return &MoreDoorResult{}
+}
+
+// MoreVerifyVault is 🔍 Verify Vault -- the manifest
+// verification report (the box carries the report the reference
+// renders into its dashboard text area).
+func (u *HeroUI) MoreVerifyVault() *MoreDoorResult {
+	title, body := u.settings.VerifyVault()
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// MoreRecallHooksDryRun is 🪝 Recall hooks (dry-run) -- the
+// Phase-6 step-1 tool in its default dry-run mode through the
+// TestWorker law (log-only).
+func (u *HeroUI) MoreRecallHooksDryRun() *MoreDoorResult {
+	u.settings.RecallHooksDryRun()
+	return &MoreDoorResult{}
+}
+
+// MoreBuildLinkSuggestions is 🔗 Build link suggestions --
+// the suggest-mode tool through the TestWorker law (log-only).
+func (u *HeroUI) MoreBuildLinkSuggestions() *MoreDoorResult {
+	u.settings.BuildLinkSuggestions()
+	return &MoreDoorResult{}
+}
+
+// MoreRecategorizeOpen is 📁 Recategorize Notes' open door:
+// the vault walk + the table payload (a box title answers the
+// reference's custom message boxes instead of the table).
+func (u *HeroUI) MoreRecategorizeOpen() *app.RecategorizeModel {
+	return u.settings.RecategorizeOpen()
+}
+
+// MoreRecategorizeApply is the recategorize dialog's Apply door: the
+// moves + the cache updates + the finish line.
+func (u *HeroUI) MoreRecategorizeApply(
+	changes []app.RecategorizeChange) *app.RecategorizeResult {
+	return u.settings.RecategorizeApply(changes)
+}
 
 func isDirPath(path string) bool {
 	fi, err := os.Stat(path)

@@ -176,6 +176,31 @@
   loading model ⇒ "⏳ model still LOADING…".
 - linking_tools: Phase-6 tool runners inside TestWorker with stdout capture, last 40 lines
   streamed; guard: no tool while a batch runs.
+  — **Dated note (2026-10-20, T-79b/SESSION-043 — the five linking doors LIVE):** the
+    More menu's linking-tools family landed (`internal/app/linkdoors.go` + the `HeroUI`
+    wrappers + the heroflow.js wiring + the recategorize table modal): 🪝 Recall hooks
+    (dry-run) + 🔗 Build link suggestions over the TestWorker law (the runner: the guard
+    → the "⏳ {label} running… (the GUI stays usable)" opening → the captured
+    stdout+stderr run → the last-40-lines streaming at completion → the ✅/❌ finish
+    verdict), ✅ Validate Vault (connection_tests.py:219 verbatim), 🔍 Verify Vault
+    (the report box + the enqueue legs), 📁 Recategorize Notes (the two-door flow —
+    the open walk + the table modal + the apply). THE GUARD LAW widened per the task
+    row's own naming: all five doors carry the batch-busy guard with the reference's
+    own line (the reference guards only the two tool runners — the recorded
+    divergence, docs/poc-artifacts/t-79b-linking-doors.md's list). The other recorded
+    divergences: the provider abort speaks its message into the captured stderr and
+    exits 2 (the reference's GUI worker crashed on the string SystemExit code and
+    lost the message — a display bug not copied); the 💥 crash line renders the
+    recovered panic's own text (the T-40 house law); Verify Vault's report renders in
+    the More door's themed box (the reference's dashboard text area is a main-window
+    page the port does not carry — the port's Dashboard is a Settings page) with the
+    long-body scroll law; the recategorize cache connection opens once per apply; the
+    vectors' iteration order pinned to the collect order + sorted stale keys
+    (deterministic, the reference rides the SQLite row order). The seams:
+    LinkOllamaChat/LinkCloudChat/LinkEmbedCall on SettingsDeps (faked at
+    construction). The evidence: 32 engine tests + 4 shell tests + the VLM-verified
+    menu + the recall-door click leg; the full record at
+    `docs/poc-artifacts/t-79b-linking-doors.md`.
 - vault_scan_ui: Scan CTA → picker (None = safe cancel, quiet line); worker wiring (confirm-gui
   door, progress emitter, selection door, vaults scope); finished routing: clean (+healed strays
   ⇒ scorecard), confirmed ⇒ scorecard (repos sub-story line), error ⇒ 💥; scorecard skipped
