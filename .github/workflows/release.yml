@@ -1,0 +1,155 @@
+name: release
+
+# T-81 — THE RELEASE WORKFLOW (doc 10 §8): tag push → build both exes →
+# mkzip → attach GitCurator-v<version>-windows.zip to the GitHub release.
+# The owner's law: a release without its zip is not done.
+#
+# THE SAFETY RULE: this is the NEW workflow — .github/workflows/go-ci.yml
+# (the main CI) stays untouched. The build is NOT re-implemented here:
+# build/release.sh (T-80's DOUBLE-BUILD RITUAL) is the single owner of
+# the build commands — both exes + the zip built twice + one cold-GOCACHE
+# leg per exe, every sha256 pair asserted identical before anything
+# attaches (AC-22; the automation wraps the ritual, it never duplicates
+# it).
+#
+# THE TAG LAW (the one-version-truth for tags): a REAL release tag must
+# be exactly v<VERSION> (the repo VERSION file). The reserved dry-run
+# prefix v0.0.0- rides the same automation with the assertion waived and
+# publishes a DRAFT+prerelease release titled "[DRY-RUN] <tag>" — the
+# T-81 acceptance leg ("dry-run on a test tag"): the tag + release are
+# deleted after the proof; formal releases happen only at roadmap
+# milestones (SESSION-PROTOCOL's hard rule).
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          # the committed toolchain (build/TOOLCHAIN.md Am.2's pin) — the
+          # sha256 evidence numbers are go1.27.2 numbers
+          go-version: '1.27.2'
+
+      - name: the wails CLI v2.16.0 (build-time only)
+        run: |
+          go install github.com/wailsapp/wails/v2/cmd/wails@v2.16.0
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+
+      - name: the tag law (one-version-truth for release tags)
+        run: |
+          VERSION="$(cat VERSION)"
+          TAG="${GITHUB_REF_NAME}"
+          if [[ "$TAG" == v0.0.0-* ]]; then
+            echo "[release] DRY-RUN tag $TAG — the tag==VERSION assertion is waived (the T-81 acceptance leg; this release is a draft and is deleted with its tag after the proof)"
+            echo "DRYRUN=1" >> "$GITHUB_ENV"
+          elif [ "$TAG" != "v$VERSION" ]; then
+            echo "::error::release tag $TAG != v\$VERSION (v$VERSION) — the one-version-truth law: a release tag IS the version it ships"
+            exit 1
+          fi
+
+      - name: the double-build ritual (build/release.sh — T-80's core)
+        run: ./build/release.sh
+
+      - name: the release notes (AC-23 — the zip + the sha256 + the parity report)
+        run: |
+          python3 - <<'PY'
+          import hashlib, os, subprocess, zipfile
+
+          version = open('VERSION').read().strip()
+          dist = os.path.join('reports', 'dist')
+          tag = os.environ['GITHUB_REF_NAME']
+
+          def sha(p):
+              h = hashlib.sha256()
+              with open(p, 'rb') as f:
+                  for chunk in iter(lambda: f.read(1 << 20), b''):
+                      h.update(chunk)
+              return h.hexdigest()
+
+          # the notes record exactly what the ritual asserted (release.sh
+          # exited 0 = every pair identical); the numbers are re-derived
+          # here and must agree with themselves before anything attaches
+          legs = {}
+          for name in ('GitCurator-cli.exe', 'GitCurator.exe'):
+              legs[name] = [sha(os.path.join(dist, name + sfx))
+                            for sfx in ('.a', '.b', '.cold')]
+          zip_a = os.path.join(dist, 'GitCurator-v%s-windows.zip.a' % version)
+          zip_b = os.path.join(dist, 'GitCurator-v%s-windows.zip.b' % version)
+          za, zb = sha(zip_a), sha(zip_b)
+          assert len(set(legs['GitCurator-cli.exe'])) == 1, 'CLI legs differ'
+          assert len(set(legs['GitCurator.exe'])) == 1, 'GUI legs differ'
+          assert za == zb, 'zip legs differ'
+
+          infos = zipfile.ZipFile(zip_a).infolist()
+          files = len(infos)
+          b_in = sum(i.file_size for i in infos)
+          b_zip = sum(i.compress_size for i in infos)
+          commit = subprocess.run(['git', 'rev-parse', 'HEAD'],
+                                  capture_output=True, text=True,
+                                  check=True).stdout.strip()
+
+          L = []
+          if tag.startswith('v0.0.0-'):
+              L += ['> **[DRY-RUN]** the T-81 release-workflow proof — a TEST '
+                    'TAG, never a real version bump; the tag + this release '
+                    'are deleted after the proof.', '']
+          L += [
+              'GitCurator v%s — the Windows portable zip.' % version, '',
+              'Built at `%s` by the double-build ritual (`build/release.sh`): '
+              'both exes + the zip built twice + one cold-GOCACHE leg per '
+              'exe — every sha256 pair identical (AC-22).' % commit, '',
+              '| Artifact | sha256 |',
+              '|---|---|',
+              '| GitCurator-cli.exe | `%s` (A = B = cold) |' % legs['GitCurator-cli.exe'][0],
+              '| GitCurator.exe (GUI) | `%s` (A = B = cold) |' % legs['GitCurator.exe'][0],
+              '| GitCurator-v%s-windows.zip | `%s` (A = B) |' % (version, za),
+              '',
+              'The zip: **%d files, %d bytes in, %d zipped** — sha256 '
+              '`%s` (the release-notes record).' % (files, b_in, b_zip, za),
+              '',
+              '## Reproduce from the tag', '',
+              'From a clean checkout of `%s`, with go1.27.2 + the wails CLI '
+              'v2.16.0 on PATH:' % tag,
+              '',
+              '```bash',
+              './build/release.sh',
+              '```', '',
+              'The expected numbers: the table above.',
+          ]
+          with open('notes.md', 'w') as f:
+              f.write('\n'.join(L) + '\n')
+          PY
+
+      - name: attach the zip to the GitHub release (the owner's law)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="$(cat VERSION)"
+          TAG="${GITHUB_REF_NAME}"
+          ASSET="GitCurator-v${VERSION}-windows.zip"
+          cp "reports/dist/${ASSET}.a" "$ASSET"
+          if [ "${DRYRUN:-0}" = "1" ]; then
+            TITLE="[DRY-RUN] ${TAG}"
+            FLAGS="--draft --prerelease"
+          else
+            TITLE="GitCurator v${VERSION} — the Windows release"
+            FLAGS=""
+          fi
+          # the workflow is the one owner of tag-triggered releases — a
+          # re-push of the tag converges to a fresh release
+          gh release view "$TAG" >/dev/null 2>&1 && gh release delete "$TAG" --yes || true
+          gh release create "$TAG" $FLAGS --title "$TITLE" --notes-file notes.md "$ASSET"
