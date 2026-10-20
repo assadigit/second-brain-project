@@ -736,3 +736,46 @@ flowchart LR
 > flood 526,315 lines/s, 0 drops); the screenshots VLM-verified
 > with BOTH passes agreeing (no misread incident this session). The
 > tail is EMPTY; Phase 6 closes when T-79f lands.
+
+> **SESSION-047 — T-79f COMPLETE: THE PHASE-6 CLOSURE ROW — the
+> runner's automatic triggers landed + the 43rd-wipe repair.** The
+> forty-third full wipe absorbed before work (the ENTIRE environment
+> again — both repos, the toolchain, the venv, the wails CLI, AND the
+> webkit tree; all rebuilt from the committed recipes: both repos
+> re-cloned with the ephemeral GIT_CONFIG_COUNT PAT form, the
+> reference at the pinned 98f4fc7, go1.27.2 sha-verified vs
+> TOOLCHAIN.md Am.2's committed 64-char pin, the venv [ensurepip
+> present — the plain form], the wails CLI v2.16.0, the FIFTEENTH
+> webkit rebuild — 144 debs → dpkg -x → the 42 .pc prefix rewrites →
+> the 26 dev links as Am.4 hardlinks [symlink(2) still blocked]; the
+> FULL battery re-verified green pre-work: 2348 main + 77 webui
+> race-clean, exactly the committed numbers). T-79f: the three
+> automatic triggers over the landed startChromeTabRetry runner —
+> internal/app/fanfaredoors.go (the engines: HandQueuePass with the
+> once-per-session tried belt + the web_browser_retry knob;
+> CaughtUpHandRows — NO tried-set at the caught-up call site, the
+> reference's own law; RedoHandNotesScan — the 🔁 line spoken in the
+> engine; ChromeOfferFromResults — the offered set marks only the
+> PICKED) + THE FLAG-CLEAR LAW in SyncRunBatch (the running flag +
+> the lock go home BEFORE the finished signal crosses, exactly as
+> the reference's processing_finished opens with _batch_running =
+> False) + BatchResult's batch_summary facts (Natural/Stopped/
+> WebsiteResults) + the caught-up block's hand scrape + redo check
+> + the work-started holds + the chrome:offer crossing +
+> ChromeOfferAnswer (the DECLINED line's door) + heroflow.js's ONE
+> listener over the SAME dialog (the parameterized answers) +
+> ChromeOfferAnswer joined the binding import (the 044 lesson,
+> pinned). The gate legs GREEN (first frame 802 ms ≤ 1.5 s; the 10k
+> flood 0 drops, handler max 24 ms/batch); both screenshots
+> VLM-verified with BOTH passes agreeing. The SIX recorded
+> divergences: docs/poc-artifacts/t-79f-fanfare-triggers.md (the
+> scorecard-stash interplay stays unlanded — its consumer, the Batch
+> Complete modal, is no T-79 row's). The battery at the close: 2356
+> main-battery tests race-clean over 36 packages (2348 + 8) + 84
+> webui over 4 (77 + 7); the touched packages 3× race-clean; the
+> MAIN go.mod byte-unchanged. **PHASE 6 CLOSED** — the honest exit
+> gate evaluation in SESSION-047's report (the chosen path's own
+> acceptance GREEN; the GUI-parity RELEASE criteria — the Windows
+> runtime legs + the clean-VM checklist — remain Phase 7's owner
+> items exactly as ADR-0001 Am.2 registered); Phase 7 (T-80: the
+> deterministic zip builder) opens.

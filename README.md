@@ -1099,3 +1099,52 @@ tests, not a fold-in into T-79e; "one slice done properly with
 proof beats two half-done"). **The More menu's tail is EMPTY;
 Phase 6 closes when T-79f lands — then Phase 7 (T-80: the
 deterministic zip builder …) opens.**
+
+
+**SESSION-047 — T-79f COMPLETE: THE PHASE-6 CLOSURE ROW — the
+runner's automatic triggers landed + the 43rd-wipe repair; PHASE 6
+CLOSED.** The forty-third full wipe absorbed before work (the ENTIRE
+environment again; all rebuilt from the committed recipes: both repos
+re-cloned with the ephemeral GIT_CONFIG_COUNT PAT form, the reference
+at the pinned 98f4fc7, go1.27.2 sha-verified vs TOOLCHAIN.md Am.2's
+committed pin, the venv, the wails CLI v2.16.0, the FIFTEENTH webkit
+rebuild — the 26 dev links as Am.4 hardlinks [symlink(2) still
+blocked]; the FULL battery re-verified green pre-work: 2348 main +
+77 webui race-clean, exactly the committed numbers). T-79f: the
+three automatic triggers over the landed startChromeTabRetry runner —
+internal/app/fanfaredoors.go (HandQueuePass with the
+once-per-session tried belt + the web_browser_retry knob;
+CaughtUpHandRows — NO tried-set at the caught-up call site, the
+reference's own law; RedoHandNotesScan — the 🔁 line spoken in the
+engine, both call sites hear it; ChromeOfferFromResults — the offered
+set marks only the PICKED) + THE FLAG-CLEAR LAW in SyncRunBatch (the
+running flag + the lock go home BEFORE the finished signal crosses,
+exactly as the reference's processing_finished opens with
+_batch_running = False) + BatchResult's batch_summary facts
+(Natural/Stopped/WebsiteResults; the runner's summary results now
+POPULATED with the full Result-dict mirror + THE FIELD-TAG LAW's
+tags) + webui/heroui.go's onBatchFanfare (the chain at the
+batch-finished crossing, in the reference's order — hand pass → redo
+pass → offer — each leg TOLERATED, gated on natural + not-stopped) +
+the caught-up block's hand scrape + redo check + the work-started
+holds (the disabled FETCHING render, no caught-up claim, no drift
+seal) + startRedoRerun (the reference's worker-thread shape —
+asynchronous) + the chrome:offer crossing + ChromeOfferAnswer (the
+DECLINED line's door vs the manual door's CANCELLED one) +
+heroflow.js's ONE listener over the SAME dialog (the parameterized
+answers) + ChromeOfferAnswer joined the binding import (the 044
+lesson, pinned). The gate legs GREEN (first frame 802 ms ≤ the 1.5 s
+gate; the 10k flood 0 drops, handler max 24 ms/batch); both
+screenshots VLM-verified with BOTH passes agreeing. The SIX recorded
+divergences: docs/poc-artifacts/t-79f-fanfare-triggers.md (the
+scorecard-stash interplay stays unlanded — its consumer, the Batch
+Complete modal, is no T-79 row's). **2356 main-battery tests
+race-clean over 36 packages (2348 + 8) + 84 webui tests over 4
+(77 + 7)**; the touched packages 3× race-clean; the MAIN go.mod
+byte-unchanged. **PHASE 6 CLOSED** — the honest exit gate evaluation
+in SESSION-047's report (the chosen path's own acceptance GREEN; the
+GUI-parity RELEASE criteria — the Windows runtime legs + the clean-VM
+checklist — remain Phase 7's owner items exactly as ADR-0001 Am.2
+registered); Phase 7 (T-80: the deterministic zip builder, the
+launchers' packaging composition, the export zip's standing
+assignment) opens.

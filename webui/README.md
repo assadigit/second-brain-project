@@ -83,7 +83,19 @@ seam RETIRED at this landing, deleted with its tests):
   immediately: dismiss + retry-row drop + placeholder sweep; an
   empty list is the dialog's Cancel] + MoreOpenDecommissionTable
   [the reveal] over internal/app/decomdoors.go's engines — THE LAST
-  tail row; the More menu's tail is now EMPTY).
+  tail row; the More menu's tail is now EMPTY) — **plus T-79f's
+  automatic triggers riding the landed runner**: `onBatchFanfare`
+  (the batch-finished crossing's chain in the reference's order —
+  the end-of-run hand pass → the redo pass → the end-of-run offer —
+  each leg TOLERATED, gated on the natural completion + the
+  not-stopped verdict), the caught-up block's hand scrape + redo
+  check + the work-started holds (the disabled FETCHING render, no
+  caught-up claim, no drift seal — hero.py:329-330's law),
+  `startRedoRerun` (the reference's worker-thread shape — the
+  asynchronous re-run batch), the `chrome:offer` crossing, and
+  `ChromeOfferAnswer` (the end-of-run offer's answer door — the
+  DECLINED line vs the manual door's CANCELLED one; the offered set
+  marks only the picked links).
   Bound as the sixth struct; the
   generated bindings live in frontend/wailsjs/go/main/HeroUI.js.
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
@@ -160,7 +172,15 @@ seam RETIRED at this landing, deleted with its tests):
   scrolling body; the ledger label + the Open-the-table reveal); the
   SB_POC_OPEN_MORE probe (shell.go's autorun leg) opens the menu for
   the screenshot evidence and can click one door end-to-end
-  ('ollama' / 'recall' / 'export' / 'hand' / 'grave').
+  ('ollama' / 'recall' / 'export' / 'hand' / 'grave'); **T-79f: the
+  fanfare chain's offer is LIVE** — the ONE chrome:offer listener
+  (the batch-finished crossing's automatic modal) opens the SAME
+  checkable dialog the manual door uses, parameterized by its answer
+  door: the manual leg answers MoreChromeTabRetryRun (the CANCELLED
+  line), the end-of-run offer answers ChromeOfferAnswer (the DECLINED
+  line — the offered set marks only the picked links); the
+  SB_POC_FANFARE=offer probe leg crosses a canned payload for the
+  screenshot evidence.
 - `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
   path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's

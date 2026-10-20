@@ -8,6 +8,31 @@
 
 ## Key flows
 
+> **Dated note (2026-10-20, T-79f/SESSION-047 — the fanfare chain's
+> three automatic triggers landed; Phase 6 CLOSED):**
+> `_maybe_deliver_hand_queue` (475) + `_scan_master_redo` (524) +
+> `_maybe_redo_hand_notes` (560) + `_maybe_offer_chrome_tab_retry`
+> (1197) + hero.py's caught-up hand scrape (280-305) + the
+> caught-up redo check (316-328) + the work-started holds (329-330)
+> live in Go as `internal/app/fanfaredoors.go` (the Settings-method
+> engines over the landed scans) + `webui/heroui.go`'s `onBatchFanfare`
+> (the chain at the batch-finished crossing, in the reference's
+> order, gated on Natural + not-Stopped — the reference's
+> `if _summary and not _summary.get('stopped')`) + the caught-up
+> block's scrape/redo/holds + `startRedoRerun` (the reference's
+> worker-thread shape) + the chrome:offer crossing +
+> `ChromeOfferAnswer` (the DECLINED line's door vs the manual door's
+> CANCELLED one) + **THE FLAG-CLEAR LAW** in SyncRunBatch (the flag
+> clears before the finished signal — the reference's
+> processing_finished opening). The end-of-run offer's data rides
+> BatchFinished's new WebsiteResults facts (the runner's summary
+> results now POPULATED, the full Result-dict mirror + THE FIELD-TAG
+> LAW's tags). The stash interplay (`_stashed_batch_summary` +
+> `_delivery_rerun_pending`) stays unlanded — its consumer, the Batch
+> Complete modal, is no T-79 row's (T-79d's divergence #2 record);
+> the six recorded divergences:
+> docs/poc-artifacts/t-79f-fanfare-triggers.md.
+
 > **Dated note (2026-10-20, T-79e/SESSION-046 — the decommission
 > picker landed):** `decommission_dead_links_now` (807-908) +
 > `_pick_dead_links_dialog` (910-998) + `_scan_backlog_alive`
