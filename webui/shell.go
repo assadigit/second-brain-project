@@ -409,6 +409,20 @@ func (s *Shell) autorun() {
 		runtime.EventsEmit(s.ctx, "autorun:open-more", v)
 		time.Sleep(3500 * time.Millisecond)
 	}
+	// The fanfare probe (T-79f's evidence door): "offer" crosses a
+	// CANNED chrome:offer payload (the fixture links, no owner data —
+	// the same canned-shape law the scan probe's scorecard rides) —
+	// the screenshot proves the end-of-run offer modal renders over
+	// the SAME dialog the manual door uses (the reference's own
+	// words), with its answers wired to ChromeOfferAnswer (the
+	// DECLINED line's door).
+	if v := os.Getenv("SB_POC_FANFARE"); v == "offer" {
+		s.heroUI.emitChromeOffer([]app.ChromeLinkRow{
+			{URL: "https://example.com/walled-one", Error: "HTTP 403 — bot defense"},
+			{URL: "https://example.com/failed-two", Error: "connection reset"},
+		})
+		time.Sleep(2500 * time.Millisecond)
+	}
 	_ = os.WriteFile(envOr("SB_POC_RESULTS", "/tmp/t70-gate-results.json"), []byte(s.Stats()), 0o600)
 }
 
