@@ -23,6 +23,10 @@ export function MoreChromeTabRetryRun(arg1:Array<app.ChromeLinkRow>):Promise<voi
 
 export function MoreDarkMode(arg1:boolean):Promise<app.SaveResult>;
 
+export function MoreDecommissionBury(arg1:Array<string>):Promise<main.MoreDoorResult>;
+
+export function MoreDecommissionScan():Promise<app.DecommissionScan>;
+
 export function MoreExportAllBotLinks():Promise<main.MoreDoorResult>;
 
 export function MoreHandDeliverQueue(arg1:Array<app.HandWallRow>):Promise<main.MoreDoorResult>;
@@ -32,6 +36,8 @@ export function MoreHandDeliverWalled():Promise<app.HandDeliverScan>;
 export function MoreHandRowsDeliver(arg1:boolean):Promise<app.HandRowsScan>;
 
 export function MoreOpenDashboard():Promise<main.MoreDoorResult>;
+
+export function MoreOpenDecommissionTable():Promise<boolean>;
 
 export function MoreOpenHandFolder():Promise<boolean>;
 

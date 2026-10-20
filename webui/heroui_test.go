@@ -1041,15 +1041,19 @@ func TestHeroflowPerTestDoorsLive(t *testing.T) {
 	if !strings.Contains(src, "if (res && res.title)") {
 		t.Fatal("the verdict box law (title-only)")
 	}
-	// the honest-disabled law still holds — for the REMAINING tail
-	// (T-79d/e), never for the per-test, linking, or bot-queue doors.
+	// the honest-disabled law still holds — for the ONE remaining
+	// row (the 📤 export zip rides T-80's packaging composition),
+	// never for the per-test, linking, bot-queue, Chrome, or
+	// decommission doors (the Path-B tail is COMPLETE).
 	for _, soon := range []string{
-		"The graveyard procedure lands with the master-table tools task",
 		"The export-zip engine rides the packaging phase",
 	} {
 		if !strings.Contains(src, soon) {
 			t.Fatalf("the remaining tail's landing note missing %q", soon)
 		}
+	}
+	if strings.Contains(src, "The graveyard procedure lands with the master-table tools task") {
+		t.Fatal("the T-79e door is live — its landing note is gone")
 	}
 	// T-79b: the five linking doors are LIVE — each with its dispatch
 	// key + binding name; the old landing notes are gone.
@@ -1415,10 +1419,11 @@ func TestHeroflowBotQueueDoorsLive(t *testing.T) {
 			t.Fatalf("the resolve dialog's law missing %q", want)
 		}
 	}
-	// the honest-disabled law still holds — for the REMAINING tail
-	// (T-79e only now), never for the bot-queue or Chrome doors.
+	// the honest-disabled law still holds — for the ONE remaining
+	// row (the 📤 export zip rides T-80's packaging composition),
+	// never for the bot-queue, Chrome, or decommission doors (the
+	// Path-B tail is COMPLETE).
 	for _, soon := range []string{
-		"The graveyard procedure lands with the master-table tools task",
 		"The export-zip engine rides the packaging phase",
 	} {
 		if !strings.Contains(src, soon) {
@@ -1430,6 +1435,9 @@ func TestHeroflowBotQueueDoorsLive(t *testing.T) {
 	}
 	if strings.Contains(src, "The Chrome doors land with the Chrome-doors GUI task") {
 		t.Fatal("the T-79d doors are live — their landing note is gone")
+	}
+	if strings.Contains(src, "The graveyard procedure lands with the master-table tools task") {
+		t.Fatal("the T-79e door is live — its landing note is gone")
 	}
 	// the probe's click leg knows the export pick.
 	if !strings.Contains(src, "door === 'export' ? 'Export All Links'") {
@@ -1861,5 +1869,188 @@ func TestHeroUIChromeAttachDoor(t *testing.T) {
 	if out.Box == nil || out.Box.Title != "No Chrome found" ||
 		out.Box.Body != "GitCurator could not find Google Chrome on this machine — the fifth door needs the real browser." {
 		t.Fatalf("the no-chrome box: %+v", out.Box)
+	}
+}
+
+// ---------------------------------------------------------------------------
+// THE DECOMMISSION PICKER (T-79e) — the graveyard procedure's doors.
+// ---------------------------------------------------------------------------
+
+// newDecomUIRig is the decommission picker's shell harness (the
+// chrome rig shape: the Websites pipeline on + a real temp vault; the
+// door rides local files + the rig APP_DIR's own cache.db — no
+// network anywhere near).
+func newDecomUIRig(t *testing.T) *heroRig {
+	t.Helper()
+	rig := newHeroRig(t)
+	rig.cfg.Set("pipelines", func() *storage.OrderedMap {
+		p := storage.NewOrderedMap()
+		p.Set("github", true)
+		p.Set("websites", true)
+		return p
+	}())
+	rig.cfg.Set("website_vault_path", t.TempDir())
+	return rig
+}
+
+// writeDecomPlaceholder seeds one fetch-failed placeholder into the
+// rig vault's _review (the scan's own frontmatter contract).
+func writeDecomPlaceholder(t *testing.T, rig *heroRig, name, src string) string {
+	t.Helper()
+	vault := pyCfgStr(rig.cfg, "website_vault_path")
+	dir := filepath.Join(vault, "_review")
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	path := filepath.Join(dir, name)
+	note := fmt.Sprintf("---\nsource: %q\nfetch_status: \"failed\"\nmanaged_by: \"gitcurator\"\n---\n\nbody\n", src)
+	if err := os.WriteFile(path, []byte(note), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	return path
+}
+
+// TestHeroUIDecommissionScanDoor pins the scan door over the real
+// engine: the guards' boxes (the unconfigured fixture speaks the
+// reference's own remedy line) + the picker's data over the rig's own
+// cache.db + the candidates pre-fill.
+func TestHeroUIDecommissionScanDoor(t *testing.T) {
+	rig := newDecomUIRig(t)
+
+	// the guard leg: the pipeline off answers the reference's own box.
+	rig.cfg.Set("pipelines", func() *storage.OrderedMap {
+		p := storage.NewOrderedMap()
+		p.Set("github", true)
+		p.Set("websites", false)
+		return p
+	}())
+	out := rig.ui.MoreDecommissionScan()
+	if out.Box == nil || out.Box.Title != "Websites pipeline is off" ||
+		out.Box.Body != "Turn the Websites pipeline on first (Settings → 📁 Vault)." {
+		t.Fatalf("the guard box: %+v", out.Box)
+	}
+
+	// the picker's data: one waiting link + the pre-filled table.
+	rig.cfg.Set("pipelines", func() *storage.OrderedMap {
+		p := storage.NewOrderedMap()
+		p.Set("github", true)
+		p.Set("websites", true)
+		return p
+	}())
+	writeDecomPlaceholder(t, rig, "a-placeholder.md", "https://one.example/lost")
+	out = rig.ui.MoreDecommissionScan()
+	if out.Box != nil || len(out.Links) != 1 || out.Links[0] != "https://one.example/lost" {
+		t.Fatalf("the picker's data: %+v", out)
+	}
+	if !strings.HasSuffix(out.Table, filepath.Join("_review", "DECOMMISSIONED.md")) {
+		t.Fatalf("the table path: %q", out.Table)
+	}
+	// the candidates pre-fill landed through the door (the one-ledger
+	// law's first write).
+	rows := websitepipeline.ScanDecommissionTable(pyCfgStr(rig.cfg, "website_vault_path"))
+	if st, ok := rows["https://one.example/lost"]; !ok || !strings.Contains(strings.ToLower(st), "unreviewed") {
+		t.Fatalf("the candidates row: %q", st)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "📋 1 row(s) written to")
+}
+
+// TestHeroUIDecommissionBuryDoor pins the answer door over the real
+// writers + the real consume: the marking + the immediate enforcement
+// + the exact box; the empty list is the dialog's Cancel (the
+// reference's cancel line on the desk, no box).
+func TestHeroUIDecommissionBuryDoor(t *testing.T) {
+	rig := newDecomUIRig(t)
+	p1 := writeDecomPlaceholder(t, rig, "a-placeholder.md", "https://one.example/lost")
+	if out := rig.ui.MoreDecommissionScan(); out.Box != nil {
+		t.Fatalf("the scan: %+v", out.Box)
+	}
+
+	res := rig.ui.MoreDecommissionBury([]string{"https://one.example/lost"})
+	if res.Title != "Decommissioned" {
+		t.Fatalf("the box title: %+v", res)
+	}
+	if !strings.Contains(res.Body, "1 link(s) marked dead — 1 enforced now, 1 placeholder(s) swept.") ||
+		!strings.Contains(res.Body, "(♻️ revived on a row brings a link back to life.)") {
+		t.Fatalf("the box body: %q", res.Body)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "🪦 Graveyard: 1 link(s) decommissioned, 1 placeholder(s) swept — the _review backlog is clear")
+	if _, err := os.Stat(p1); !os.IsNotExist(err) {
+		t.Fatal("the placeholder was swept through the door")
+	}
+	// the dismissal landed in the rig APP_DIR's own cache.db.
+	state, err := websitepipeline.NewWebsiteStateDB(
+		filepath.Join(constants.AppDir(), "cache.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if hit, _ := state.IsDismissed("https://one.example/lost"); !hit {
+		t.Fatal("the burial's dismissal lives in the state DB")
+	}
+	state.Close()
+
+	// the cancel leg: an empty list speaks the reference's line.
+	res = rig.ui.MoreDecommissionBury(nil)
+	if res.Title != "" || res.Body != "" {
+		t.Fatalf("the cancel answers no box: %+v", res)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "⏭️ Decommission cancelled — nothing was buried.")
+}
+
+// TestHeroUIDecommissionOpenTable pins the reveal door over the
+// OpenFileLocation seam.
+func TestHeroUIDecommissionOpenTable(t *testing.T) {
+	rig := newDecomUIRig(t)
+	opened := ""
+	rig.ui.settings.Deps.OpenFileLocation = func(p string) { opened = p }
+	if !rig.ui.MoreOpenDecommissionTable() {
+		t.Fatal("the reveal answers true")
+	}
+	if !strings.HasSuffix(opened, filepath.Join("_review", "DECOMMISSIONED.md")) {
+		t.Fatalf("the reveal target: %q", opened)
+	}
+}
+
+// TestHeroflowDecommissionDoorsLive pins T-79e's frontend law: the
+// menu row LIVE, the dispatch, the picker dialog's own words + the
+// UNCHECKED-default law, and THE BINDING-IMPORT LAW (the 044 lesson —
+// a door missing from the import statement is a silent
+// ReferenceError).
+func TestHeroflowDecommissionDoorsLive(t *testing.T) {
+	src := heroflowSource(t)
+	// the row is LIVE with its dispatch key.
+	for _, want := range []string{
+		"live: 'decommission'",
+		"MoreDecommissionScan()", "MoreDecommissionBury(picked)",
+		"MoreDecommissionBury([])", "MoreOpenDecommissionTable()",
+		"openDecommissionDialog",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the decommission door's live wiring missing %q", want)
+		}
+	}
+	// the picker: the reference's own words + shapes.
+	for _, want := range []string{
+		"Decommission dead links",
+		"Tick the links that are GENUINELY dead — a real 404, a lost page, an abandoned domain.",
+		"A buried link is never fetched, never retried, never noticed again; its _review placeholder is swept.",
+		"(Unticked links keep waiting — ♻️ revived in the table brings a buried link back.)",
+		"The ledger: ' + model.table",
+		"'Open the table'", "'Cancel'", "'🪦 Decommission selected'",
+		"type = 'checkbox'", "checked = false",
+		"Reveal the graveyard table in your file manager — hand-edit the Status column in Obsidian (🪦 dead / ♻️ revived).",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the picker dialog's law missing %q", want)
+		}
+	}
+	// THE BINDING-IMPORT LAW — the three doors inside the import
+	// statement (the 044 lesson: a missing door is a silent
+	// ReferenceError and the desk never speaks).
+	if !strings.Contains(src, "MoreDecommissionScan, MoreDecommissionBury, MoreOpenDecommissionTable,") {
+		t.Fatal("the decommission doors' import statement")
+	}
+	// the probe's 'grave' click pick (the evidence leg).
+	if !strings.Contains(src, "door === 'grave' ? 'Decommission dead links'") {
+		t.Fatal("the probe's grave pick")
 	}
 }

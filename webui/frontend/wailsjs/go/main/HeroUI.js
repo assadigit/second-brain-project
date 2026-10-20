@@ -42,6 +42,14 @@ export function MoreDarkMode(arg1) {
   return window['go']['main']['HeroUI']['MoreDarkMode'](arg1);
 }
 
+export function MoreDecommissionBury(arg1) {
+  return window['go']['main']['HeroUI']['MoreDecommissionBury'](arg1);
+}
+
+export function MoreDecommissionScan() {
+  return window['go']['main']['HeroUI']['MoreDecommissionScan']();
+}
+
 export function MoreExportAllBotLinks() {
   return window['go']['main']['HeroUI']['MoreExportAllBotLinks']();
 }
@@ -60,6 +68,10 @@ export function MoreHandRowsDeliver(arg1) {
 
 export function MoreOpenDashboard() {
   return window['go']['main']['HeroUI']['MoreOpenDashboard']();
+}
+
+export function MoreOpenDecommissionTable() {
+  return window['go']['main']['HeroUI']['MoreOpenDecommissionTable']();
 }
 
 export function MoreOpenHandFolder() {

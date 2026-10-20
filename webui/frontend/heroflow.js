@@ -20,9 +20,12 @@
 //   · THE MORE MENU: the reference's own action list, verbatim — the
 //     live doors wired (Test Connection, the five per-test doors, the
 //     five linking-tools doors — recall hooks' dry-run, link
-//     suggestions, Validate/Verify Vault, Recategorize — Open
-//     Dashboard, Dark Mode), the not-yet-landed engines honestly
-//     disabled;
+//     suggestions, Validate/Verify Vault, Recategorize — the three
+//     bot-queue tool doors + the manual-resolve dialog, the four
+//     Chrome doors, the decommission picker (T-79e — the tail is
+//     EMPTY now, Phase 6's close), Open Dashboard, Dark Mode); the
+//     📤 Export Backup ZIP row alone stays honestly disabled (T-80's
+//     standing assignment — the packaging composition);
 //   · THE BATCH CHIME: the batch-finished crossing's chime payload
 //     plays through <audio> (the QSoundEffect twin — the exact batch
 //     gate lives in Go).
@@ -38,6 +41,7 @@ import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
          MoreHandDeliverWalled, MoreHandDeliverQueue, MoreOpenHandFolder,
          MoreHandRowsDeliver, MoreChromeTabRetry, MoreChromeTabRetryRun,
          MoreAttachMyChrome,
+         MoreDecommissionScan, MoreDecommissionBury, MoreOpenDecommissionTable,
          ChromeBoot } from './wailsjs/go/main/HeroUI.js';
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
@@ -610,6 +614,68 @@ function openChromeRetryDialog(links) {
   box.appendChild(btnRow);
 }
 
+// openDecommissionDialog — 🪦 Decommission dead links' picker
+// (processing_control.py:910): tick the GENUINELY dead ones (all rows
+// start UNCHECKED — the reference's setCheckState(Unchecked) law — a
+// burial is never a default); 🪦 Decommission selected writes the
+// SAME Status cells + enforces immediately; Cancel speaks the
+// reference's cancel line (an empty list); Open the table reveals the
+// ledger in the file manager.
+function openDecommissionDialog(model) {
+  const box = openOverlay(680);
+  box.classList.add('linkdoor-box');
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-label', 'Decommission dead links');
+  const header = el('div', 'chrome-pick-header');
+  header.appendChild(el('span', 'chrome-glyph', '🪦'));
+  header.appendChild(el('span', 'card-heading', 'Decommission dead links'));
+  box.appendChild(header);
+  const body = el('div', 'dialog-body chrome-pick-body');
+  body.appendChild(el('p', 'dialog-message',
+    "Tick the links that are GENUINELY dead — a real 404, a lost page, an abandoned domain. A buried link is never fetched, never retried, never noticed again; its _review placeholder is swept. (Unticked links keep waiting — ♻️ revived in the table brings a buried link back.)"));
+  const list = el('div', 'chrome-pick-list');
+  const boxes = [];
+  for (const url of model.links) {
+    const row = el('div', 'chrome-pick-row');
+    const box2 = el('input');
+    box2.type = 'checkbox';
+    // the reference's law: every row starts UNCHECKED (a burial is
+    // never a default — the owner's explicit hand).
+    box2.checked = false;
+    row.appendChild(box2);
+    const text = el('span', 'chrome-pick-text');
+    text.appendChild(el('span', 'chrome-pick-url', url));
+    row.title = url;
+    row.appendChild(text);
+    boxes.push({ box: box2, url });
+    list.appendChild(row);
+  }
+  body.appendChild(list);
+  body.appendChild(el('p', 'chrome-pick-folder', 'The ledger: ' + model.table));
+  box.appendChild(body);
+  const btnRow = el('div', 'dialog-buttons');
+  btnRow.appendChild(btn('Open the table', 'secondary',
+    'Reveal the graveyard table in your file manager — hand-edit the Status column in Obsidian (🪦 dead / ♻️ revived).',
+    async () => { await MoreOpenDecommissionTable().catch(() => {}); }));
+  const spacer = el('span', 'chrome-pick-spacer');
+  btnRow.appendChild(spacer);
+  btnRow.appendChild(btn('Cancel', 'secondary',
+    'Nothing is buried — the candidate rows wait in the table.',
+    async () => { closeOverlay(); await MoreDecommissionBury([]).catch(() => {}); }));
+  btnRow.appendChild(btn('🪦 Decommission selected', 'danger',
+    'Write 🪦 dead into the chosen rows\' Status cells (the same cells a hand-edit writes) and enforce the burials now: dismissed, retry-queue rows dropped, placeholders swept.',
+    async () => {
+      const picked = boxes.filter((x) => x.box.checked).map((x) => x.url);
+      closeOverlay();
+      const res = await MoreDecommissionBury(picked).catch(() => null);
+      if (res && res.title) {
+        themedBox({ title: res.title, body: res.body },
+          [['OK', 'primary', () => closeOverlay()]], { width: 560, scroll: true });
+      }
+    }));
+  box.appendChild(btnRow);
+}
+
 // the delivery's failure modal (the chrome:failed event — _on_delivery_
 // failed's twin): ONE listener, registered once at boot (the
 // ONE-OWNER-PER-SURFACE law).
@@ -621,9 +687,11 @@ EventsOn('chrome:failed', (payload) => {
 
 // ---------------------------------------------------------------------------
 // THE MORE MENU — the reference's own action list, verbatim (ui.py
-// 1849-1946). The live doors are wired; the engines that have not
-// landed yet render HONESTLY DISABLED with their landing note (the
-// same convention the CTA band rode until this task).
+// 1849-1946). The live doors are wired (the Path-B tail T-79a…T-79e
+// is COMPLETE — every door family landed); the 📤 Export Backup ZIP
+// row alone renders HONESTLY DISABLED with its landing note (T-80's
+// packaging composition — the standing assignment, spec-gui-pages-b's
+// dated note).
 // ---------------------------------------------------------------------------
 const MORE_ACTIONS = [
   { label: '🔌 Test Connection (all systems)', live: true, tip: 'The four-subsystem readiness check — the battery modal.' },
@@ -660,7 +728,8 @@ const MORE_ACTIONS = [
   { label: '🚫 View 404 Quarantine', live: 'dashboard', tip: 'The confirmed-dead list — the Dashboard page\'s quarantine manager (Settings ▸ Dashboard).' },
   { label: '🔁 Retry _review backlog', live: 'retryReview', tip: 'Re-fetch the app-owned fetch-failed placeholders under _review (v0.41\'s browser-grade presentation).' },
   { label: '🔁 Retry the table\'s \' - \' rows', live: 'retryMaster', tip: 'The master table\'s " - " rows — valid links whose fetches failed — fetched again before "everything is up to date" may be said.' },
-  { label: '🪦 Decommission dead links', tip: 'The graveyard procedure lands with the master-table tools task (the picker writes the same Status cells in-app).' },
+  { label: '🪦 Decommission dead links', live: 'decommission',
+    tip: 'The graveyard procedure\'s in-app picker — tick the genuinely dead links (a real 404, a lost page, an abandoned domain); the picker writes the same Status cells a hand-edit writes, then enforces the burials immediately (dismissed + retry-queue rows dropped + placeholders swept). ♻️ revived on a row brings a link back.' },
   { label: '🖐 Hand-deliver walled links', live: 'handDeliver',
     tip: "The links every machine door failed to open (403 / bot defense / TLS fingerprint) — the picker queues the chosen ones for your real Chrome; the saved page becomes a real fetch on the next batch." },
   { label: '🖐 Scrape hand rows via Chrome', live: 'handRows',
@@ -864,6 +933,21 @@ async function runMoreAction(act) {
   }
   if (act.live === 'retryMaster') {
     await MoreRetryMaster().catch(() => {});
+    return;
+  }
+  if (act.live === 'decommission') {
+    // T-79e: 🪦 Decommission dead links — the guards'/empty boxes, or
+    // the picker dialog (the reference's own words, every row
+    // UNCHECKED — a burial is never a default); the answer doors
+    // write the same Status cells + enforce immediately.
+    const model = await MoreDecommissionScan().catch(() => null);
+    if (!model) return;
+    if (model.box) {
+      themedBox({ title: model.box.title, body: model.box.body },
+        [['OK', 'primary', () => closeOverlay()]]);
+      return;
+    }
+    if (model.links && model.links.length) openDecommissionDialog(model);
     return;
   }
   if (act.live === 'handDeliver') {
@@ -1135,12 +1219,16 @@ EventsOn('autorun:open-more', async (v) => {
     // (no Websites pipeline, no Websites vault), the door answers the
     // reference's own "Websites pipeline is off" guard box — the
     // collaborator law's honest refusal, no Chrome anywhere near
-    // (a pure config read).
+    // (a pure config read). 'grave' (T-79e) clicks the decommission
+    // picker's scan: the same unconfigured fixture answers the same
+    // guard box (the reference's own remedy line) — the door is a
+    // pure config + file read, no network anywhere near.
     await new Promise((res) => setTimeout(res, 400));
     const pick = door === 'ollama' ? 'Test Ollama'
       : door === 'recall' ? 'Recall hooks (dry-run)'
       : door === 'export' ? 'Export All Links'
-      : door === 'hand' ? 'Hand-deliver walled links' : '';
+      : door === 'hand' ? 'Hand-deliver walled links'
+      : door === 'grave' ? 'Decommission dead links' : '';
     if (pick) {
       const item = [...document.querySelectorAll('#more-menu .more-item')]
         .find((n) => n.textContent.includes(pick));

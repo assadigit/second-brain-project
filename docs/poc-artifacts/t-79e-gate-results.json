@@ -1,0 +1,24 @@
+{
+  "bus_dropped": 0,
+  "bus_ingested": 10006,
+  "flood_ui_probe": {
+    "gaps_over_100ms": 1,
+    "handler_batches": 41,
+    "handler_ms_max": 30,
+    "handler_ms_total": 708,
+    "max_task_gap_ms": 693,
+    "rows_appended": 10001,
+    "samples": 3
+  },
+  "last_flood": {
+    "accept_lines_per_s": 526315.7894736843,
+    "drain_ms": 169,
+    "dropped": 0,
+    "ingested": 10004,
+    "lines": 10000,
+    "ok": true,
+    "push_ms": 19
+  },
+  "startup_callback_ms": 202,
+  "startup_to_first_frame_ms": 869
+}

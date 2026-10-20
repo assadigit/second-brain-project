@@ -384,17 +384,20 @@ func (s *Shell) autorun() {
 		runtime.EventsEmit(s.ctx, "autorun:open-scan", v)
 		time.Sleep(2500 * time.Millisecond)
 	}
-	// The More-menu probe (T-79a/T-79b/T-79c/T-79d's evidence door):
-	// open the More menu over its own anchor — the screenshot proves
-	// the five per-test doors + the five linking-tools doors + the
-	// three bot-queue tool doors + the four Chrome doors live
-	// (clickable, honestly-enabled) alongside the remaining tail's
-	// honest-disabled wash. A door value CLICKS one door end-to-end
-	// ('ollama' = the per-test pick; 'recall' = the tool-runner
-	// grammar; 'export' = the bot-queue export door's username-refusal
-	// grammar; 'hand' = the Chrome doors' hand-deliver scan — the
-	// reference's own "Websites pipeline is off" guard box over the
-	// unconfigured fixture, no Chrome anywhere near).
+	// The More-menu probe (T-79a/T-79b/T-79c/T-79d/T-79e's evidence
+	// door): open the More menu over its own anchor — the screenshot
+	// proves the five per-test doors + the five linking-tools doors +
+	// the three bot-queue tool doors + the four Chrome doors + the
+	// decommission picker live (clickable, honestly-enabled) — the
+	// tail is now EMPTY (Phase 6's close). A door value CLICKS one
+	// door end-to-end ('ollama' = the per-test pick; 'recall' = the
+	// tool-runner grammar; 'export' = the bot-queue export door's
+	// username-refusal grammar; 'hand' = the Chrome doors'
+	// hand-deliver scan — the reference's own "Websites pipeline is
+	// off" guard box over the unconfigured fixture, no Chrome
+	// anywhere near; 'grave' = the decommission picker's scan — the
+	// same guard box over the same unconfigured fixture, a pure
+	// config + file read).
 	if v := os.Getenv("SB_POC_OPEN_MORE"); v != "" {
 		runtime.EventsEmit(s.ctx, "autorun:open-more", v)
 		time.Sleep(3500 * time.Millisecond)

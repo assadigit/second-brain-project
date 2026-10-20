@@ -1071,6 +1071,40 @@ func (u *HeroUI) startChromeTabRetry(links []app.ChromeLinkRow) {
 		len(links)), "info")
 }
 
+// ---------------------------------------------------------------------------
+// THE DECOMMISSION PICKER (T-79e) — the More menu's fifth family: the
+// graveyard procedure's in-app picker (processing_control.py:807-998):
+// the guards → the backlog-alive scan → the candidates pre-fill → the
+// picker → the SAME Status cells written (the table stays the ONE
+// ledger) → the burials enforced immediately (dismiss + sweep +
+// confirm). ♻️ revived on a row brings a link back to life.
+// ---------------------------------------------------------------------------
+
+// MoreDecommissionScan is 🪦 Decommission dead links' scan door: the
+// guards'/empty box, or the picker's own data (the sorted waiting URLs
+// + the graveyard table path). The frontend renders the checkable
+// picker over it; 🪦 Decommission selected answers through
+// MoreDecommissionBury with the picked URLs.
+func (u *HeroUI) MoreDecommissionScan() *app.DecommissionScan {
+	return u.settings.DecommissionScan()
+}
+
+// MoreDecommissionBury is the picker's answer door: the picked URLs
+// get their graveyard-table Status cells written + the burials
+// enforced immediately; an empty list is the dialog's Cancel (the
+// reference's cancel line speaks on the desk; Title "" = no box).
+func (u *HeroUI) MoreDecommissionBury(picked []string) *MoreDoorResult {
+	title, body := u.settings.DecommissionBury(picked)
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// MoreOpenDecommissionTable is the picker's "Open the table" reveal
+// (the graveyard table in the OS file manager for hand-editing —
+// best-effort).
+func (u *HeroUI) MoreOpenDecommissionTable() bool {
+	return u.settings.OpenDecommissionTable()
+}
+
 func isDirPath(path string) bool {
 	fi, err := os.Stat(path)
 	return err == nil && fi.IsDir()
