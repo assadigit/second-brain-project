@@ -9,8 +9,13 @@ package main
 
 import (
 	"context"
+	"path/filepath"
+	"strings"
+	"time"
 
 	"github.com/assadigit/second-brain-project/internal/app"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // PagesBUI is the pages B's bound surface (the wailsjs bindings land
@@ -295,4 +300,92 @@ func itoa(n int) string {
 		buf[i] = '-'
 	}
 	return string(buf[i:])
+}
+
+// ---------------------------------------------------------------------------
+// THE RESTORE DOORS (T-80's standing assignment — spec-gui-pages-b's
+// dated note; backup_seal.py's _backup_restore dialog family).
+// ---------------------------------------------------------------------------
+
+// RestoreDialogModel is the Restore button's door payload: the guard
+// boxes (No Backup Folder / No Backups — a title set means NO dialog
+// renders) or the backup list (newest first). THE FIELD-TAG LAW: the
+// frontend reads the tagged names.
+type RestoreDialogModel struct {
+	BoxTitle string                 `json:"boxTitle"`
+	BoxBody  string                 `json:"boxBody"`
+	Backups  []app.RestoreBackupRow `json:"backups"`
+}
+
+// RestoreBackupsList is the dialog's data door: the backup_folder
+// guard, the vault-*.zip pile (newest first, the size strings). The
+// page's own save (the reference's _backup_save_config before the
+// dialog opens) is the frontend's save call, not this door's.
+func (u *PagesBUI) RestoreBackupsList() *RestoreDialogModel {
+	title, body := app.RestoreGuards(u.settings.PlainConfig())
+	if title != "" {
+		return &RestoreDialogModel{BoxTitle: title, BoxBody: body}
+	}
+	rows := app.ListRestoreBackups(pyCfgStr(u.settings.PlainConfig(), "backup_folder"))
+	if len(rows) == 0 {
+		t, b := app.RestoreEmptyBox()
+		return &RestoreDialogModel{BoxTitle: t, BoxBody: b}
+	}
+	return &RestoreDialogModel{Backups: rows}
+}
+
+// RestoreRunResult is the restore/copy action doors' verdict pair
+// ("" title = nothing to say — a cancelled pick).
+type RestoreRunResult struct {
+	Title string `json:"title"`
+	Body  string `json:"body"`
+}
+
+// RestoreBackupRun is the "Restore to New Folder" button's door: the
+// safety net itself — extract the picked backup into
+// vault-restored-<ts> NEXT TO the current vault (the current vault is
+// never touched). The ⚠️ confirm question is the frontend's (the
+// reference's own body text rides the dialog, not this door).
+func (u *PagesBUI) RestoreBackupRun(name string) *RestoreRunResult {
+	cfg := u.settings.PlainConfig()
+	vault := pyCfgStr(cfg, "vault_path")
+	folder := pyCfgStr(cfg, "backup_folder")
+	if vault == "" || name == "" || strings.ContainsAny(name, "/\\") {
+		return &RestoreRunResult{}
+	}
+	newFolder, err := app.RestoreBackupToNewFolder(
+		filepath.Join(folder, name), vault, time.Now())
+	if err != nil {
+		u.settings.SpeakOnBus("❌ Restore failed: "+err.Error(), "error")
+		return &RestoreRunResult{Title: "Restore Failed", Body: err.Error()}
+	}
+	u.settings.SpeakOnBus("✅ Restored to: "+newFolder, "success")
+	return &RestoreRunResult{Title: "Restore Complete",
+		Body: "Restored to:\n" + newFolder + "\n\nReview and merge manually."}
+}
+
+// CopyBackupTo is the "Copy ZIP to..." button's door: the native save
+// dialog over the picked backup's name, then the copy2 twin. "" title =
+// the dialog's Cancel (a silent no-op).
+func (u *PagesBUI) CopyBackupTo(name string) *RestoreRunResult {
+	cfg := u.settings.PlainConfig()
+	folder := pyCfgStr(cfg, "backup_folder")
+	if name == "" || strings.ContainsAny(name, "/\\") {
+		return &RestoreRunResult{}
+	}
+	dst, _ := runtime.SaveFileDialog(u.ctx, runtime.SaveDialogOptions{
+		Title:           "Copy Backup",
+		DefaultFilename: name,
+		Filters: []runtime.FileFilter{
+			{DisplayName: "ZIP (*.zip)", Pattern: "*.zip"},
+		},
+	})
+	if dst == "" {
+		return &RestoreRunResult{}
+	}
+	if err := app.CopyBackupFile(filepath.Join(folder, name), dst); err != nil {
+		return &RestoreRunResult{Title: "Error", Body: err.Error()}
+	}
+	u.settings.SpeakOnBus("✅ Copied to: "+dst, "success")
+	return &RestoreRunResult{}
 }

@@ -1318,3 +1318,50 @@ func pyCfgStr(m any, key string) string {
 	}
 	return ""
 }
+
+// ---------------------------------------------------------------------------
+// THE EXPORT-ZIP DOOR (T-80's standing assignment — spec-gui-pages-b's
+// dated note; backup_seal.py's _backup_export_zip + _export_result).
+// ---------------------------------------------------------------------------
+
+// MoreExportBackupZip is the 📤 Export Backup ZIP row's door: the vault
+// guard, the save dialog (the wails runtime's QFileDialog twin —
+// default name vault-export-<ts>.zip, ZIP filter), the export engine
+// (the ExportWorker's data half — the exclude laws + the ledger rider),
+// and the verdict pair the reference's _export_result renders: the
+// 📤/❌ desk line + the Export Complete / Export Failed box. Title ""
+// = no box (the dialog's Cancel is a silent no-op, exactly like the
+// reference's `if not file_path: return`).
+func (u *HeroUI) MoreExportBackupZip() *MoreDoorResult {
+	title, body := app.ExportZipGuards(u.settings.PlainConfig())
+	if title != "" {
+		return &MoreDoorResult{Title: title, Body: body}
+	}
+	vault := pyCfgStr(u.settings.PlainConfig(), "vault_path")
+	zipPath, _ := runtime.SaveFileDialog(u.ctx, runtime.SaveDialogOptions{
+		Title:           "Export Vault ZIP",
+		DefaultFilename: app.ExportDefaultName(time.Now()),
+		Filters: []runtime.FileFilter{
+			{DisplayName: "ZIP archives (*.zip)", Pattern: "*.zip"},
+		},
+	})
+	if zipPath == "" {
+		return &MoreDoorResult{}
+	}
+	message, err := app.RunVaultExport(vault, zipPath, time.Now())
+	if err != nil {
+		u.settings.SpeakOnBus("❌ Export failed: "+pyErrShell(err), "error")
+		return &MoreDoorResult{Title: "Export Failed", Body: pyErrShell(err)}
+	}
+	u.settings.SpeakOnBus("📤 Exported: "+message, "success")
+	return &MoreDoorResult{Title: "Export Complete", Body: "Saved to:\n" + message}
+}
+
+// pyErrShell renders an error's text the shell's way (the pages'
+// shared shape — the engine's pyErrString is not exported).
+func pyErrShell(err error) string {
+	if err == nil {
+		return ""
+	}
+	return err.Error()
+}

@@ -13,6 +13,8 @@ export function CheckBotQueue(arg1:string):Promise<main.QueueCheckResult>;
 
 export function ClearQuarantine():Promise<main.DashboardViewResult>;
 
+export function CopyBackupTo(arg1:string):Promise<main.RestoreRunResult>;
+
 export function DetectRepos():Promise<app.RadarResult>;
 
 export function FastSync():Promise<app.SealResultRow>;
@@ -32,6 +34,10 @@ export function ReadUndoLastBatch():Promise<app.UndoBatchResult>;
 export function RefreshBackupLadders(arg1:string,arg2:boolean,arg3:boolean,arg4:boolean,arg5:boolean,arg6:boolean):Promise<main.BackupLadders>;
 
 export function RefreshDashboard():Promise<main.DashboardViewResult>;
+
+export function RestoreBackupRun(arg1:string):Promise<main.RestoreRunResult>;
+
+export function RestoreBackupsList():Promise<main.RestoreDialogModel>;
 
 export function ResyncMirror():Promise<app.SealResultRow>;
 

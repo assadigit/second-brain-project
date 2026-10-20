@@ -24,8 +24,8 @@
 //     bot-queue tool doors + the manual-resolve dialog, the four
 //     Chrome doors, the decommission picker (T-79e — the tail is
 //     EMPTY now, Phase 6's close), Open Dashboard, Dark Mode); the
-//     📤 Export Backup ZIP row alone stays honestly disabled (T-80's
-//     standing assignment — the packaging composition);
+//     📤 Export Backup ZIP row is LIVE (T-80's standing assignment
+//     landed — the same packaging slice that owns the release zip);
 //   · THE BATCH CHIME: the batch-finished crossing's chime payload
 //     plays through <audio> (the QSoundEffect twin — the exact batch
 //     gate lives in Go).
@@ -42,6 +42,7 @@ import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
          MoreHandRowsDeliver, MoreChromeTabRetry, MoreChromeTabRetryRun,
          MoreAttachMyChrome,
          MoreDecommissionScan, MoreDecommissionBury, MoreOpenDecommissionTable,
+         MoreExportBackupZip,
          ChromeBoot, ChromeOfferAnswer } from './wailsjs/go/main/HeroUI.js';
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
@@ -752,7 +753,8 @@ const MORE_ACTIONS = [
     tip: 'Every link waiting in the websites retry queue re-fetched through your own Chrome — one tab per link, the live DOM taken as the content.' },
   { label: '🪄 Attach to my Chrome', live: 'attach',
     tip: "Restart your Chrome WITH its DevTools port open so the fifth door drives YOUR instance — your profile, your cookies, your logins (Windows; the .bat + instructions)." },
-  { label: '📤 Export Backup ZIP', tip: 'The export-zip engine rides the packaging phase (the recorded plan — spec-gui-pages-b\'s dated note).' },
+  { label: '📤 Export Backup ZIP', live: 'exportZip',
+    tip: 'A timestamped ZIP of the vault to a place you pick — the backup\'s own exclude laws + the review ledger ride inside (the safety net for machine moves).' },
   { sep: true },
   { label: '📊 Open Dashboard', live: 'dashboard', tip: 'Open the website dashboard (the Worker URL from Settings ▸ Backup).' },
   { label: '⚙️ Settings', submenu: [{ label: '🌙 Dark Mode', live: 'dark',
@@ -760,6 +762,10 @@ const MORE_ACTIONS = [
 ];
 
 let moreOpen = false;
+// exportZipRunning — the export door's in-flight belt (the reference's
+// setEnabled(False)/setText("Exporting...") on the menu action: a
+// re-opened menu shows the disabled Exporting row until the zip lands).
+let exportZipRunning = false;
 
 function closeMoreMenu() {
   moreOpen = false;
@@ -803,11 +809,13 @@ function openMoreMenu(anchor) {
       menu.appendChild(item);
       continue;
     }
-    const item = el('button', 'more-item' + (act.live ? '' : ' more-item-soon'), act.label);
+    const item = el('button', 'more-item' + (act.live ? '' : ' more-item-soon'),
+      act.live === 'exportZip' && exportZipRunning ? 'Exporting...' : act.label);
     item.type = 'button';
     item.setAttribute('role', 'menuitem');
     item.title = act.tip || '';
     if (!act.live) item.disabled = true;
+    if (act.live === 'exportZip' && exportZipRunning) item.disabled = true;
     item.addEventListener('click', () => { closeMoreMenu(); runMoreAction(act); });
     menu.appendChild(item);
   }
@@ -848,6 +856,20 @@ async function runMoreAction(act) {
     if (res && res.title) {
       themedBox({ title: res.title, body: res.body },
         [['OK', 'primary', () => closeOverlay()]]);
+    }
+    return;
+  }
+  if (act.live === 'exportZip') {
+    // T-80's standing assignment: the export-zip door — the guards box,
+    // the save dialog, the engine, the verdict box; the row relabels
+    // Exporting... while the promise waits (the reference's QThread).
+    if (exportZipRunning) return;
+    exportZipRunning = true;
+    const res = await MoreExportBackupZip().catch(() => null);
+    exportZipRunning = false;
+    if (res && res.title) {
+      themedBox({ title: res.title, body: res.body },
+        [['OK', 'primary', () => closeOverlay()]], { width: 560, scroll: true });
     }
     return;
   }

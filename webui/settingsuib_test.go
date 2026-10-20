@@ -7,7 +7,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/assadigit/second-brain-project/internal/app"
@@ -226,4 +228,112 @@ func contains(hay, needle string) bool {
 		}
 		return false
 	})()
+}
+
+// TestSettingsRestoreButtonLive — T-80's standing assignment landed:
+// the Backup page's Restore button is a live door (the honestly-
+// disabled note gone), the three binding imports present (THE
+// BINDING-IMPORT LAW), and the restore dialog's own laws: the save-
+// first order, the guard boxes, the selectable list, the three buttons
+// with the reference's own labels, the ⚠️ confirm's exact body, and
+// the extract result's words.
+func TestSettingsRestoreButtonLive(t *testing.T) {
+	js, err := readFrontend("settings.js")
+	if err != nil {
+		t.Fatal(err)
+	}
+	// The binding imports.
+	for _, want := range []string{
+		"RestoreBackupsList, RestoreBackupRun, CopyBackupTo",
+	} {
+		if !strings.Contains(js, want) {
+			t.Fatalf("settings.js missing the restore imports (%q)", want)
+		}
+	}
+	// The button is live: the disabled shape + the landing note gone.
+	for _, gone := range []string{
+		"restore.disabled = true;",
+		"lands with the packaging phase",
+	} {
+		if strings.Contains(js, gone) {
+			t.Fatalf("the Restore button's honest-disabled note still present (%q)", gone)
+		}
+	}
+	// The flow's laws.
+	for _, want := range []string{
+		"() => restoreFlow())",
+		"saveBackupFields().then(() => {",
+		"RestoreBackupsList().then((m) => {",
+		"if (m.boxTitle) {",
+		"openRestoreDialog(m.backups)",
+		"function openRestoreDialog(backups) {",
+		"'Found ' + backups.length + ' backup(s):'",
+		"b.name + '    [ ' + b.size + ' ]'",
+		"miniCustom('Restore from Backup', body,",
+		"['Restore to New Folder', 'primary'], ['Copy ZIP to...', 'secondary'], ['Close', 'secondary']",
+		"if (selected < 0) return;",
+		"miniDialog('⚠️ Restore',",
+		"'This will extract to a NEW folder next to your current vault\\n' +",
+		"'(current vault is NOT touched). Continue?'",
+		"RestoreBackupRun(pick).then((res) => {",
+		"CopyBackupTo(pick).then((res) => {",
+	} {
+		if !strings.Contains(js, want) {
+			t.Fatalf("the restore dialog's law missing %q", want)
+		}
+	}
+	// The scrolling list lives INSIDE the dialog body; the three
+	// action buttons ride miniCustom's button row OUTSIDE it (the
+	// modal law).
+	if !strings.Contains(js, "list.style.maxHeight = '260px';") {
+		t.Fatal("the restore list's scroll cap missing")
+	}
+}
+
+// TestSettingsRestoreDoors — the shell doors' own shapes: the list
+// payload (the guards, the empty box, the rows), the run doors' guards
+// (the path-safety belt), and the door results' box titles.
+func TestSettingsRestoreDoors(t *testing.T) {
+	src := readFileOrFatal(t, "settingsuib.go")
+	for _, want := range []string{
+		"func (u *PagesBUI) RestoreBackupsList() *RestoreDialogModel",
+		"func (u *PagesBUI) RestoreBackupRun(name string) *RestoreRunResult",
+		"func (u *PagesBUI) CopyBackupTo(name string) *RestoreRunResult",
+		`app.RestoreGuards(u.settings.PlainConfig())`,
+		`app.ListRestoreBackups(pyCfgStr(u.settings.PlainConfig(), "backup_folder"))`,
+		`strings.ContainsAny(name, "/\\")`,
+		`app.RestoreBackupToNewFolder(`,
+		`"✅ Restored to: "+newFolder`,
+		`Title: "Restore Complete"`,
+		`"Restored to:\n" + newFolder + "\n\nReview and merge manually."`,
+		`runtime.SaveFileDialog(u.ctx, runtime.SaveDialogOptions{`,
+		`Title:           "Copy Backup"`,
+		`app.CopyBackupFile(filepath.Join(folder, name), dst)`,
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the restore doors' law missing %q", want)
+		}
+	}
+}
+
+// TestRestoreDialogModelFieldTags — THE FIELD-TAG LAW: the dialog's
+// payload marshals the tagged names the frontend reads.
+func TestRestoreDialogModelFieldTags(t *testing.T) {
+	b, err := json.Marshal(&RestoreDialogModel{
+		BoxTitle: "No Backups",
+		BoxBody:  "b",
+		Backups:  []app.RestoreBackupRow{{Name: "vault-x.zip", Size: "1.0 KB"}},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, want := range []string{
+		`"boxTitle":"No Backups"`,
+		`"boxBody":"b"`,
+		`"backups":[{"name":"vault-x.zip","size":"1.0 KB"}]`,
+	} {
+		if !strings.Contains(string(b), want) {
+			t.Fatalf("RestoreDialogModel tags: %s missing %s", b, want)
+		}
+	}
 }

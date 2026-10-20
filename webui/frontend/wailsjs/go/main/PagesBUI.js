@@ -22,6 +22,10 @@ export function ClearQuarantine() {
   return window['go']['main']['PagesBUI']['ClearQuarantine']();
 }
 
+export function CopyBackupTo(arg1) {
+  return window['go']['main']['PagesBUI']['CopyBackupTo'](arg1);
+}
+
 export function DetectRepos() {
   return window['go']['main']['PagesBUI']['DetectRepos']();
 }
@@ -60,6 +64,14 @@ export function RefreshBackupLadders(arg1, arg2, arg3, arg4, arg5, arg6) {
 
 export function RefreshDashboard() {
   return window['go']['main']['PagesBUI']['RefreshDashboard']();
+}
+
+export function RestoreBackupRun(arg1) {
+  return window['go']['main']['PagesBUI']['RestoreBackupRun'](arg1);
+}
+
+export function RestoreBackupsList() {
+  return window['go']['main']['PagesBUI']['RestoreBackupsList']();
 }
 
 export function ResyncMirror() {

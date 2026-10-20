@@ -459,6 +459,29 @@ textarea.form-area { resize: vertical; min-height: 42px; }
 .dialog-message { margin: 0; color: var(--text); white-space: pre-wrap; }
 .dialog-buttons { display: flex; justify-content: flex-end; gap: 8px; }
 
+/* T-80 - the restore dialog's backup list (the QListWidget twin: the
+   selectable rows, one pane, the size column riding the name line). */
+.restore-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px;
+}
+.restore-row {
+  text-align: left;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+}
+.restore-row:hover { background: var(--sheet-alt); }
+.restore-row.selected { background: var(--sheet-alt); font-weight: 700; }
+
 /* T-74 — the pages B: the pending badge (bot_queue.py's zinc ⏳ / mint ✅
    two-state law, rendered over the locked semantic tokens — the zinc
    rung rides the muted neutral family, the mint rung the success) and

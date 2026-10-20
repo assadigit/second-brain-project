@@ -23,7 +23,7 @@ import {
   ReadUndoLastBatch, ApplyUndoLastBatch, FetchFromSources,
   SaveBackupGroup, RefreshBackupLadders, BackupNowGuards, BackupNow,
   SealNow, ResyncMirror, PublishNow, DetectRepos, FastSync,
-  OpenDashboard,
+  OpenDashboard, RestoreBackupsList, RestoreBackupRun, CopyBackupTo,
 } from './wailsjs/go/main/PagesBUI.js';
 import {
   Refresh as SyncRefresh, StageDifferences, MarkIntentional,
@@ -1238,8 +1238,8 @@ function buildVaultBackupGroup() {
   const btnRow = el('div', 'card-row');
   btnRow.appendChild(btn('Backup Now', 'primary', '', () => backupNowFlow()));
   const restore = btn('Restore', 'secondary',
-    'Pick a backup ZIP and extract it to a NEW folder next to the current vault — the current vault is never touched\n(lands with the packaging phase — the safety-net restore engine)', null);
-  restore.disabled = true;
+    'Pick a backup ZIP and extract it to a NEW folder next to the current vault — the current vault is never touched',
+    () => restoreFlow());
   btnRow.appendChild(restore);
   const enabledBox = el('input', 'form-check');
   enabledBox.id = 'set-backup-enabled';
@@ -1400,6 +1400,72 @@ function backupNowFlow() {
     if (title) { miniDialog(title, body || '', ['OK'], () => {}); return; }
     BackupNow();
   });
+}
+
+// ---------------------------------------------------------------------------
+// THE RESTORE DIALOG (T-80's standing assignment — backup_seal.py's
+// _backup_restore: the page saves first, then the list, the ⚠⃣ confirm,
+// the extract-to-new-folder safety net, the copy door).
+// ---------------------------------------------------------------------------
+
+function restoreFlow() {
+  // The reference's own order (_backup_restore opens with
+  // _backup_save_config — the page's fields are committed before the
+  // backup folder is read).
+  saveBackupFields().then(() => {
+    RestoreBackupsList().then((m) => {
+      if (!m) return;
+      if (m.boxTitle) {
+        miniDialog(m.boxTitle, m.boxBody || '', ['OK'], () => {});
+        return;
+      }
+      if (m.backups && m.backups.length) openRestoreDialog(m.backups);
+    });
+  });
+}
+
+function openRestoreDialog(backups) {
+  const body = el('div');
+  body.appendChild(el('p', 'dialog-message',
+    'Found ' + backups.length + ' backup(s):'));
+  const list = el('div', 'restore-list');
+  list.style.maxHeight = '260px';
+  list.style.overflowY = 'auto';
+  let selected = -1;
+  backups.forEach((b, i) => {
+    const row = el('button', 'restore-row', b.name + '    [ ' + b.size + ' ]');
+    row.type = 'button';
+    row.addEventListener('click', () => {
+      selected = i;
+      list.querySelectorAll('.restore-row').forEach((n) =>
+        n.classList.remove('selected'));
+      row.classList.add('selected');
+    });
+    list.appendChild(row);
+  });
+  body.appendChild(list);
+  miniCustom('Restore from Backup', body,
+    [['Restore to New Folder', 'primary'], ['Copy ZIP to...', 'secondary'], ['Close', 'secondary']],
+    (answer) => {
+      if (selected < 0) return;                 // the reference's currentRow < 0 law
+      const pick = backups[selected].name;
+      if (answer === 'Restore to New Folder') {
+        miniDialog('⚠️ Restore',
+          'Restore from:\n' + pick + '\n\n' +
+          'This will extract to a NEW folder next to your current vault\n' +
+          '(current vault is NOT touched). Continue?',
+          ['Yes', 'Cancel'], (yesNo) => {
+            if (yesNo !== 'Yes') return;
+            RestoreBackupRun(pick).then((res) => {
+              if (res && res.title) miniDialog(res.title, res.body, ['OK'], () => {});
+            });
+          });
+      } else if (answer === 'Copy ZIP to...') {
+        CopyBackupTo(pick).then((res) => {
+          if (res && res.title) miniDialog(res.title, res.body, ['OK'], () => {});
+        });
+      }
+    });
 }
 
 // ---------------------------------------------------------------------------

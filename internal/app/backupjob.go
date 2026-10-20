@@ -124,10 +124,18 @@ func RunBackupNow(cfg *storage.OrderedMap, log LogFn) *SealResultRow {
 	})
 	// v0.86.0 — THE DEFERRED LEDGER rider (best-effort — a backup
 	// never fails on it): the sync-review log rides beside the vault
-	// folder inside the zip. (The Go port's syncreview engine is the
-	// Phase-4 placeholder's successor seat — when its ledger lands
-	// the rider gains its bytes; today the rider's absence is honest:
-	// there is no ledger file yet to carry.)
+	// folder inside the zip. (T-71 had recorded the rider's absence
+	// against the then-placeholder syncreview seat; the ledger is
+	// real since the Phase-3/4 landings — the rider gains its
+	// bytes at T-80, reality wins.)
+	if ledger := exportLedgerPathFn(); ledger != "" {
+		if data, lerr := os.ReadFile(ledger); lerr == nil {
+			if w, werr := zw.Create("GitCurator-data/sync_review.db"); werr == nil {
+				_, _ = w.Write(data)
+				fileCount++
+			}
+		}
+	}
 	_ = zw.Close()
 	_ = zf.Close()
 	if walkErr != nil {

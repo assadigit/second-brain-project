@@ -58,6 +58,10 @@ export function MoreExportAllBotLinks() {
   return window['go']['main']['HeroUI']['MoreExportAllBotLinks']();
 }
 
+export function MoreExportBackupZip() {
+  return window['go']['main']['HeroUI']['MoreExportBackupZip']();
+}
+
 export function MoreHandDeliverQueue(arg1) {
   return window['go']['main']['HeroUI']['MoreHandDeliverQueue'](arg1);
 }

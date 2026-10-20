@@ -31,6 +31,8 @@ export function MoreDecommissionScan():Promise<app.DecommissionScan>;
 
 export function MoreExportAllBotLinks():Promise<main.MoreDoorResult>;
 
+export function MoreExportBackupZip():Promise<main.MoreDoorResult>;
+
 export function MoreHandDeliverQueue(arg1:Array<app.HandWallRow>):Promise<main.MoreDoorResult>;
 
 export function MoreHandDeliverWalled():Promise<app.HandDeliverScan>;

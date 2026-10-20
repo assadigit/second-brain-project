@@ -1043,15 +1043,17 @@ func TestHeroflowPerTestDoorsLive(t *testing.T) {
 	if !strings.Contains(src, "if (res && res.title)") {
 		t.Fatal("the verdict box law (title-only)")
 	}
-	// the honest-disabled law still holds — for the ONE remaining
-	// row (the 📤 export zip rides T-80's packaging composition),
-	// never for the per-test, linking, bot-queue, Chrome, or
-	// decommission doors (the Path-B tail is COMPLETE).
-	for _, soon := range []string{
-		"The export-zip engine rides the packaging phase",
+	// T-80: the export-zip row is LIVE too (the standing assignment
+	// landed) — the More menu has NO remaining disabled row; the old
+	// landing note is gone.
+	if strings.Contains(src, "The export-zip engine rides the packaging phase") {
+		t.Fatal("the export-zip row is live — its landing note is gone")
+	}
+	for _, want := range []string{
+		"live: 'exportZip'", "MoreExportBackupZip", "exportZipRunning",
 	} {
-		if !strings.Contains(src, soon) {
-			t.Fatalf("the remaining tail's landing note missing %q", soon)
+		if !strings.Contains(src, want) {
+			t.Fatalf("the export-zip row's live wiring missing %q", want)
 		}
 	}
 	if strings.Contains(src, "The graveyard procedure lands with the master-table tools task") {
@@ -1421,16 +1423,10 @@ func TestHeroflowBotQueueDoorsLive(t *testing.T) {
 			t.Fatalf("the resolve dialog's law missing %q", want)
 		}
 	}
-	// the honest-disabled law still holds — for the ONE remaining
-	// row (the 📤 export zip rides T-80's packaging composition),
-	// never for the bot-queue, Chrome, or decommission doors (the
-	// Path-B tail is COMPLETE).
-	for _, soon := range []string{
-		"The export-zip engine rides the packaging phase",
-	} {
-		if !strings.Contains(src, soon) {
-			t.Fatalf("the remaining tail's landing note missing %q", soon)
-		}
+	// T-80: the export-zip row is LIVE too — no disabled row remains
+	// in the More menu; the old landing note is gone.
+	if strings.Contains(src, "The export-zip engine rides the packaging phase") {
+		t.Fatal("the export-zip row is live — its landing note is gone")
 	}
 	if strings.Contains(src, "The bot-queue tools land with the queue-tools task") {
 		t.Fatal("the T-79c doors are live — their landing note is gone")
@@ -2302,4 +2298,73 @@ func TestHeroflowFanfareWiring(t *testing.T) {
 	if !strings.Contains(src, "ChromeBoot, ChromeOfferAnswer } from './wailsjs/go/main/HeroUI.js';") {
 		t.Fatal("ChromeOfferAnswer must join the HeroUI import statement")
 	}
+}
+
+// TestHeroflowExportZipRowLive — T-80's standing assignment landed:
+// the 📤 Export Backup ZIP row is a live door — the import (THE
+// BINDING-IMPORT LAW), the dispatch case with the in-flight belt (the
+// reference's disabled "Exporting..." row), and the verdict box law.
+func TestHeroflowExportZipRowLive(t *testing.T) {
+	src := heroflowSource(t)
+	for _, want := range []string{
+		"{ label: '📤 Export Backup ZIP', live: 'exportZip'",
+		"MoreExportBackupZip,\n", // the binding import's member
+		"if (act.live === 'exportZip') {",
+		"exportZipRunning = true;",
+		"const res = await MoreExportBackupZip().catch(() => null);",
+		"exportZipRunning = false;",
+		"? 'Exporting...' : act.label",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the export row's live wiring missing %q", want)
+		}
+	}
+	// The honest note is gone (the row was born-disabled with it).
+	for _, gone := range []string{
+		"The export-zip engine rides the packaging phase",
+		"more-item-soon', act.label);\n    item.type = 'button';\n    item.setAttribute('role', 'menuitem');\n    item.title = act.tip || '';\n    if (!act.live) item.disabled = true;\n    item.addEventListener('click', () => { closeMoreMenu(); runMoreAction(act); });\n    menu.appendChild(item);\n  }\n  document.getElementById('app')",
+	} {
+		if strings.Contains(src, gone) {
+			t.Fatalf("stale shape still present: %q", gone[:40])
+		}
+	}
+}
+
+// TestHeroflowExportZipDoor — the shell door's own laws: the guard box
+// (the No Vault pair), the save-dialog seam's shape (the title, the
+// default filename's stamp law, the ZIP filter), the engine call, the
+// desk lines (📤 / ❌), and the result boxes' exact titles.
+func TestHeroflowExportZipDoor(t *testing.T) {
+	src := readFileOrFatal(t, "heroui.go")
+	for _, want := range []string{
+		"func (u *HeroUI) MoreExportBackupZip() *MoreDoorResult",
+		`app.ExportZipGuards(u.settings.PlainConfig())`,
+		`runtime.SaveFileDialog(u.ctx, runtime.SaveDialogOptions{`,
+		`Title:           "Export Vault ZIP"`,
+		`DefaultFilename: app.ExportDefaultName(time.Now())`,
+		`app.RunVaultExport(vault, zipPath, time.Now())`,
+		`"📤 Exported: "+message`,
+		`"❌ Export failed: "+pyErrShell(err)`,
+		`Title: "Export Complete", Body: "Saved to:\n" + message`,
+		`Title: "Export Failed", Body: pyErrShell(err)`,
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the export door's law missing %q", want)
+		}
+	}
+	// The cancel law: an empty pick is a silent no-op.
+	i := strings.Index(src, "if zipPath == \"\" {")
+	if i < 0 || !strings.Contains(src[i:i+80], "return &MoreDoorResult{}") {
+		t.Fatal("the save dialog's cancel law missing")
+	}
+}
+
+// readFileOrFatal is the shell-source reader (the tests' shared twin).
+func readFileOrFatal(t *testing.T, name string) string {
+	t.Helper()
+	data, err := os.ReadFile(name)
+	if err != nil {
+		t.Fatalf("read %s: %v", name, err)
+	}
+	return string(data)
 }
