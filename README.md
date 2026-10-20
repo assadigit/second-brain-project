@@ -1147,4 +1147,50 @@ GUI-parity RELEASE criteria — the Windows runtime legs + the clean-VM
 checklist — remain Phase 7's owner items exactly as ADR-0001 Am.2
 registered); Phase 7 (T-80: the deterministic zip builder, the
 launchers' packaging composition, the export zip's standing
-assignment) opens.
+assignment) opens. SESSION-048 LANDED IT — the status block below.
+
+
+
+**SESSION-048 — T-80 COMPLETE: THE REPRODUCIBLE PACKAGING
++ THE STANDING ASSIGNMENT LANDED (the 44th-wipe repair absorbed
+first).** The forty-fourth full wipe absorbed before work (both repos,
+the toolchain, the venv, the wails CLI — all rebuilt from the
+committed recipes; the full battery re-verified green pre-work:
+**2356 main + 84 webui, plain + race, exactly the committed numbers**;
+no webkit rebuild needed — the windows cross-compile leg is
+CGO-free). **The full builder**: build/mkzip's TWO-EXE composition
+(GitCurator.exe + GitCurator-cli.exe + the launchers + the assets +
+the stamped VERSION — 13 files) + THE VERSION-STAMP GUARD (both
+exes must carry the stamp's bytes — a forgot-the-ldflags build
+never reaches the zip) + THE BRAND-ICON GUARD + 5 new law tests
+(the manifest laws, the icon laws, the one-version-truth:
+wails.json's productVersion pinned to the VERSION file).
+**build/release.sh — THE DOUBLE-BUILD RITUAL, AC-22 GREEN**: both
+exes + the zip built TWICE + a cold-GOCACHE leg per exe, every
+sha256 pair identical — CLI `82bfa4ec…`, GUI `99cc22e6…`,
+zip `61b4cf2a…` (GitCurator-v0.92.0-go.1-windows.zip: 13 files,
+56,908,881 bytes in, 27,226,166 zipped); the clean-tree law + the
+reproduce-from-tag recipe inside. **The finds, byte-settled**: THE
+-X-UNDER-TRIMPATH DROP (the linker drops an unreferenced var's -X
+bytes under -trimpath — the fix is the reference's own boot print
+[app.py:30-38's `[main] LOADED version …`], now webui/main.go's
+twin, the stamp's bytes proven present post-fix) + THE DEFAULT-ICON
+EXE (webui/build/appicon.png was byte-identical to the wails TEMPLATE
+default — every exe since T-70 shipped the wails icon; fixed:
+icon.ico = the brand icon byte-equal to assets/icons/gitcurator.ico +
+appicon.png = the brand artwork's 256px entry, the icon's bytes
+proven inside the exe). **The manifest laws** (doc 10 §5):
+supportedOS Win10 + longPathAware beside the template's
+DPI-permonitorv2. **THE STANDING ASSIGNMENT LANDED with the same
+slice**: the 📤 Export Backup ZIP More-menu row + the Backup page's
+Restore button are LIVE doors (internal/app/exportdoors.go + the
+shell doors + the frontend flips; THE BINDING-IMPORT LAW honored,
+pinned) + THE RIDER FIX (reality wins): the v0.86.0 deferred-ledger
+rider now lands on BOTH zips (backup + export) at the ZIP ROOT
+— the reference's own arcname (T-71's placeholder-era note
+retired, TestBackupRiderLanded). The evidence:
+docs/poc-artifacts/t-80-reproducible-packaging.md. **2371
+main-battery tests race-clean over 36 packages (2356 + 15) + 89
+webui tests over 4 (84 + 5)**; the touched packages 3× race-clean;
+the MAIN go.mod byte-unchanged; doc 10's [verify]s settled with
+dated notes. **T-81 (the release workflow) follows.**

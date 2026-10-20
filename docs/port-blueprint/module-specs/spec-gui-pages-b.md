@@ -30,9 +30,17 @@
 > job buttons ride the Commands surface (Backup.Now / SealVault / Resync /
 > Publish / Radar.Detect); FastSync is exposed as the bound door T-77's hero
 > machine wires (the laws themselves are the already-tested pure halves). **The
-> Restore button renders honestly disabled** — the safety-net restore engine
-> (zip picker + extract-to-new-folder) rides the packaging phase (T-80's
-> checklist); the button carries its landing note in the tooltip. The zinc/mint
+> Restore button renders honestly disabled** — *superseded (2026-10-20,
+> T-80/SESSION-048: the surfaces LANDED).* The Restore button is a live
+> door now (internal/app/exportdoors.go — the newest-first list, the
+> ⚠️ confirm, the extract-to-vault-restored-<ts> next to the vault,
+> the copy2 twin; the dialog's three buttons pinned outside the
+> scrolling body) AND the More menu's 📤 Export Backup ZIP row flipped
+> live with it (the ExportWorker's data half + the save-dialog seam +
+> the in-flight Exporting… belt). The v0.86.0 ledger rider now lands on
+> BOTH zips (backup + export) at the zip ROOT — the reference's own
+> arcname (T-71's placeholder-era absence note retired; reality wins).
+> The zinc/mint
 > pending-badge family rides the locked semantic tokens (the reference's
 > zinc/mint QSS has no token-table twin — recorded here).
 

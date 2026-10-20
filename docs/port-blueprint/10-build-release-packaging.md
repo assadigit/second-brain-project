@@ -23,8 +23,21 @@ GOFLAGS=-trimpath CGO_ENABLED=0 go build -trimpath \
 go run ./build/mkzip -version $(cat ../VERSION) -out reports/dist/
 ```
 
-**[verify]** exact ldflags/Wails interplay; **[verify]** `-s -w` vs AV-heuristics tradeoff
-(stripped binaries sometimes score *worse* with antivirus scanners — keep symbols if flagged).
+> **Dated note (2026-10-20, T-80/SESSION-048 — the [verify]s settled +
+> the GUI command's reality):** (a) the ldflags/Wails interplay is settled:
+> `wails build -platform windows/amd64 -trimpath -ldflags "-X
+> main.version=$(cat VERSION)"` over the NESTED webui module is the GUI
+> command (the spec's `./cmd/gitcurator` path predates the T-72
+> nested-module decision; the stub stays, the wails build is the real
+> door) — CGO-free, no webkit tree needed for the windows leg. (b) The
+> production build carries `-w -s` (wails' own production default); the AV
+> verdict is the owner's clean-VM checklist item (T-82). (c) EMPIRICAL LAW
+> (pinned): the linker DROPS an unreferenced var's `-X` bytes under
+> `-trimpath` — the version var is referenced by the reference's own boot
+> print (app.py:30-38's `[main] LOADED version …`), and mkzip's
+> version-stamp guard asserts the bytes in both exes. The ritual itself:
+> `build/release.sh` (both exes + the zip ×2 + a cold-cache leg; the
+> evidence: docs/poc-artifacts/t-80-reproducible-packaging.md).
 
 Determinism laws ported from `tools/build_zip.py:126-217`: fixed entry timestamps
 (2026-09-29 00:00:00), sorted arcnames, `0o644` external attrs, DEFLATE level 9, tracked-files
@@ -56,8 +69,23 @@ file.
   `app/assets/` + a Windows `.ico` for the exe (generate from the logo — **[verify]** source
   asset; the repo has `public/logo.svg` at the web-dashboard level; an app icon must be chosen —
   open question OQ-9).
+  *Resolved at T-80: the source asset is the seed commit's brand icon
+  (`assets/icons/gitcurator.ico`); `webui/build/windows/icon.ico` is now
+  byte-equal to it (the T-70-era file was wails' regeneration of the DEFAULT
+  template appicon — the find + the proof:
+  docs/poc-artifacts/t-80-reproducible-packaging.md §2), and appicon.png is
+  the brand artwork's 256px entry. OQ-9's choosing is done (the seed's own
+  brand icon); a future re-brand is a deliberate commit + pin update.*
 - Version: read repo `VERSION`; `-X` stamp into `main.version`; UA string uses it (doc 08 §6);
   `--version` flag prints it. Milestones: `0.92.0-go.1` … until parity, then continue semver.
+  *Reality note (2026-10-20, T-80): the UA half of this line does NOT ride the
+  stamp — the reference's own Worker UA is HARDCODED at `GitCurator/0.91.0`
+  (cloudflare_sync.py:59, with the "keep in sync with VERSION at release
+  time" comment) and the Go twin hardcodes the same string (the cross-binary
+  law: the Worker must see both binaries speak identically). The stamp's
+  homes: the CLI's `--version`, the GUI's boot print, the exe's version
+  resource (wails.json Info, pinned to VERSION by test), and the zip's
+  stamped VERSION member.*
 - App manifest: DPI-aware (`PerMonitorV2`), supported OS Win10; long-path aware optional.
 
 ## 6. Installation vs portable

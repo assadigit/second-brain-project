@@ -777,5 +777,20 @@ flowchart LR
 > gate evaluation in SESSION-047's report (the chosen path's own
 > acceptance GREEN; the GUI-parity RELEASE criteria — the Windows
 > runtime legs + the clean-VM checklist — remain Phase 7's owner
-> items exactly as ADR-0001 Am.2 registered); Phase 7 (T-80: the
-> deterministic zip builder) opens.
+> items exactly as ADR-0001 Am.2 registered); >
+> **SESSION-048 (2026-10-20) — T-80 COMPLETE: the reproducible packaging
+> + the standing assignment landed; Phase 7's opening row.** The 44th
+> full wipe absorbed before work (everything rebuilt from the committed
+> recipes; the full battery re-verified green pre-work: 2356 + 84,
+> plain + race). The full builder: mkzip's two-exe composition + the
+> version-stamp + brand-icon guards; build/release.sh's DOUBLE-BUILD
+> RITUAL — AC-22 GREEN (every sha256 pair identical, warm ×2 + a cold
+> leg per exe; the zip: 13 files, 56,908,881 bytes in, sha256
+> 61b4cf2a…); the manifest laws (supportedOS Win10 + longPathAware);
+> the version stamping pinned (the -X-under-trimpath drop found +
+> fixed via the reference's own boot print; the one-version-truth
+> test). The standing assignment: the 📤 Export Backup ZIP row + the
+> Backup page's Restore button LIVE + the v0.86.0 ledger rider on BOTH
+> zips (T-71's placeholder note retired). 2371 + 89 tests race-clean;
+> the evidence at docs/poc-artifacts/t-80-reproducible-packaging.md.
+> T-81 (the release workflow) follows.

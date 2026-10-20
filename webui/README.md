@@ -130,7 +130,11 @@ seam RETIRED at this landing, deleted with its tests):
   the mini-dialog kit; T-74: the pages B — Dashboard, Bot, Sources,
   Backup — at the reference's own sidebar order with every label
   verbatim, the zinc/mint badge, the >10 confirm gates, the
-  section-selecting evidence probe; the desk keeps living underneath).
+  section-selecting evidence probe; the desk keeps living underneath;
+  T-80: the Backup page's Restore button is LIVE — the save-first
+  order, the guard boxes, the selectable backup list with the three
+  buttons pinned outside the scrolling body, the ⚠️ confirm, the
+  extract result boxes, and the copy door's native save dialog).
 - `frontend/heroflow.js` — T-77: the chrome's frontend half — the
   hero:state renderings (the label, the glyph, the disabled flag, the
   danger fill, the tooltips), the click door + the guard boxes + the
@@ -140,8 +144,10 @@ seam RETIRED at this landing, deleted with its tests):
   dot + the word + the tooltip + the warn-now box), THE BATTERY MODAL
   (the four rows, the spinner, Start Syncing gated on all-ok), and
   THE MORE MENU (the reference's own action list verbatim — the live
-  doors wired, the not-yet-landed engines honestly disabled with their
-  landing notes; the Settings submenu carries Dark Mode; **T-79a: the
+  doors wired; **T-80: the 📤 Export Backup ZIP row is the LAST
+  flip — the menu has NO disabled row left** — the in-flight
+  Exporting… belt, the save-dialog door, the Export Complete/Failed
+  boxes; the Settings submenu carries Dark Mode; **T-79a: the
   five per-test doors are LIVE** — the dispatch awaits the bindings,
   the engines stream their line grammar onto the desk, the verdict
   boxes (Cloud + llama.cpp) render through the one themedBox;
@@ -224,6 +230,13 @@ The T-70 gate's verdict + measurements: `docs/poc-artifacts/t-70-gate.md`.
 The T-72 perf evidence (the log perf test through the production
 transport): SESSION-035's report + `t70-gate-results.json` shapes.
 
-The build output (`build/bin/`) never enters git; the exe icon is the wails
-default — the brand-mark swap (`assets/icons/gitcurator.ico`) is the
-packaging phase's (T-80) item.
+The build output (`build/bin/`) never enters git. T-80 landed the exe's
+brand icon: `build/windows/icon.ico` is byte-equal to
+`assets/icons/gitcurator.ico` (the T-70-era file was wails' regeneration of
+the DEFAULT template appicon — the find), `appicon.png` is the brand
+artwork's 256px entry, and the manifest carries supportedOS Win10 +
+longPathAware; `webui/main.go` carries the `-X main.version` stamp var +
+the reference's own boot print (the -X-under-trimpath fix). The release
+ritual (both exes + the zip, twice + cold legs) lives at
+`../build/release.sh`.
+
