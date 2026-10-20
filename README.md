@@ -854,3 +854,40 @@ binaries ✓ — 2253 main-battery tests race-clean over 36 packages
 the MAIN go.mod byte-unchanged. The phase-exit question (opening
 Phase 7 per the protocol's gate laws) is the owner's to decide —
 surfaced in the session report.
+
+**SESSION-042 — THE OWNER'S PATH-B STAMP: T-79 (the GUI doors
+addendum) + T-79a COMPLETE (the five per-test doors).** The
+phase-exit call answered in the owner's own words ("the slow, more
+reliable and more rigorous method"): Phase 6 stays OPEN past T-78 —
+the More menu's honestly-disabled tail (the 19 doors from
+SESSION-040's record) became the NAMED rows T-79a…T-79e on doc 13
+(the export zip rides T-80's packaging composition per the standing
+assignment); Phase 7 opens only when the tail is empty. The
+thirty-seventh full wipe absorbed before work (both repos, the
+toolchain, the venv, the module cache, the wails CLI gone; the repair
+all from the committed recipes — the venv as `--without-pip --copies`
+(this boot lacks ensurepip; symlink(2) still blocked), the webkit
+tree's NINTH rebuild with Am.4's hardlink fallback again; the FULL
+battery re-verified green pre-work: exactly 2253 + 56). **T-79a: the
+five per-test doors LIVE** (`internal/app/pertests.go` over five new
+hermetic `SettingsDeps` seams + the `HeroUI` wrappers + the
+`heroflow.js` wiring + the `SB_POC_OPEN_MORE` evidence probe): 🔑
+Test Telegram & GitHub (the Option-B re-scope — the GitHub half
+verbatim + the Worker queue leg in the Telegram half's seat), 🌐 Test
+Proxy (the sentinel's ProxyReachable TCP verdict — the re-scope), 🧠
+Test Ollama (models + the real "What is 2 + 3?" inference ping + the
+options retry), 🔌 Test Cloud API (the /models pre-flight +
+the "Say hello" ping + the three verdict boxes), 🦙 Test llama.cpp
+(the /props probe + the model pick + the ping through the same
+OpenAI-compatible path + the three verdict boxes). **The acceptance
+GREEN: every door live ✓ — 2280 main-battery tests race-clean over 36
+packages (2253 + 27) + 59 webui over 4 (56 + 3)**; the app package 3×
+race-clean; the wails build links clean over the 9th-rebuilt webkit
+tree (no mode flips; the regenerated bindings content-only); the gate
+leg GREEN (first frame 779/284 ms ≤ 1.5 s; the 10k flood 0 drops);
+the screenshots VLM-verified (the five doors LIVE-dark beside the
+remaining tail's honest-disabled wash + the end-to-end click leg
+speaking the reference's own honest Ollama-failure lines). The full
+record: `docs/poc-artifacts/t-79a-per-test-doors.md`. **The remaining
+tail: T-79b (the linking tools), T-79c (the bot-queue tool dialogs),
+T-79d (the Chrome doors), T-79e (the decommission picker).**

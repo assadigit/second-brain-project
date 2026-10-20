@@ -52,7 +52,10 @@ seam RETIRED at this landing, deleted with its tests):
   loop, TestConnection (the battery door over
   connectioncheck.RunLocalChecks with the live cc:* events), and the
   More menu's live doors (the dashboard URL law, DarkMode, the retry
-  batch modes, ChromeBoot). Bound as the sixth struct; the generated
+  batch modes, ChromeBoot — **plus T-79a's five per-test doors**
+  (MoreTestTelegramGitHub/Proxy/Ollama/Cloud/LlamaCpp over
+  internal/app/pertests.go's engines, the verdict boxes riding the
+  MoreDoorResult shape). Bound as the sixth struct; the generated
   bindings live in frontend/wailsjs/go/main/HeroUI.js.
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
   over internal/app's pages B engines + the Commands surface (the
@@ -97,7 +100,12 @@ seam RETIRED at this landing, deleted with its tests):
   (the four rows, the spinner, Start Syncing gated on all-ok), and
   THE MORE MENU (the reference's own action list verbatim — the live
   doors wired, the not-yet-landed engines honestly disabled with their
-  landing notes; the Settings submenu carries Dark Mode).
+  landing notes; the Settings submenu carries Dark Mode; **T-79a: the
+  five per-test doors are LIVE** — the dispatch awaits the bindings,
+  the engines stream their line grammar onto the desk, the verdict
+  boxes (Cloud + llama.cpp) render through the one themedBox; the
+  SB_POC_OPEN_MORE probe (shell.go's autorun leg) opens the menu for
+  the screenshot evidence and can click one door end-to-end).
 - `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
   path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's

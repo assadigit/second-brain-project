@@ -238,6 +238,28 @@ func New(configPath string, headless bool) *App {
 			return llmclient.DetectLlamaCpp(apiKey, llmclient.LLamaCppScanPorts,
 				"127.0.0.1", llmclient.LLamaCppProbeTimeoutS, true)
 		},
+		// The per-test doors' production seams (T-79a).
+		OllamaChatPing: func(host, model, prompt string, opts *llmclient.OllamaChatOptions, timeoutS float64) (string, string) {
+			reply, err := llmclient.OllamaChat(llmclient.NewOllamaClient(host), model,
+				[]llmclient.Message{{Role: "user", Content: prompt}}, timeoutS, opts)
+			if err != nil {
+				return "", err.Error()
+			}
+			return strings.TrimSpace(reply), ""
+		},
+		CloudChatPing: func(apiURL, apiKey, model, prompt string, timeoutS float64) (string, string) {
+			reply, err := llmclient.CloudChat(apiURL, apiKey, model,
+				[]llmclient.Message{{Role: "user", Content: prompt}}, timeoutS, nil)
+			if err != nil {
+				return "", err.Error()
+			}
+			return strings.TrimSpace(reply), ""
+		},
+		PreflightCloud: llmclient.PreflightCloud,
+		WorkerCheck: func(config any) *connectioncheck.Result {
+			return connectioncheck.CheckWorkerVersion(config, nil)
+		},
+		ProxyCheck:       connectioncheck.ProxyReachable,
 		SpawnOllamaServe: spawnOllamaServe,
 		SoundDir: func() string {
 			return filepath.Join(constants.AppDir(), "assets", "sounds")

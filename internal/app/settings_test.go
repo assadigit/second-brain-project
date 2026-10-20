@@ -45,6 +45,13 @@ type fakeSettingsDeps struct {
 	probeLlama   func(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult
 	detectLlama  func(apiKey string) *llmclient.ProbeResult
 
+	// The per-test doors' seams (T-79a).
+	ollamaChatPing func(host, model, prompt string, opts *llmclient.OllamaChatOptions, timeoutS float64) (string, string)
+	cloudChatPing  func(apiURL, apiKey, model, prompt string, timeoutS float64) (string, string)
+	preflightCloud func(apiURL, apiKey, model string, timeoutS float64) (bool, string, *bool)
+	workerCheck    func(config any) *connectioncheck.Result
+	proxyCheck     func(config any, timeoutS float64) connectioncheck.ProxyResult
+
 	spawnPID int
 	spawnErr string
 
@@ -90,6 +97,36 @@ func (f *fakeSettingsDeps) deps() SettingsDeps {
 				return f.detectLlama(apiKey)
 			}
 			return nil
+		},
+		OllamaChatPing: func(host, model, prompt string, opts *llmclient.OllamaChatOptions, timeoutS float64) (string, string) {
+			if f.ollamaChatPing != nil {
+				return f.ollamaChatPing(host, model, prompt, opts, timeoutS)
+			}
+			return "", ""
+		},
+		CloudChatPing: func(apiURL, apiKey, model, prompt string, timeoutS float64) (string, string) {
+			if f.cloudChatPing != nil {
+				return f.cloudChatPing(apiURL, apiKey, model, prompt, timeoutS)
+			}
+			return "", ""
+		},
+		PreflightCloud: func(apiURL, apiKey, model string, timeoutS float64) (bool, string, *bool) {
+			if f.preflightCloud != nil {
+				return f.preflightCloud(apiURL, apiKey, model, timeoutS)
+			}
+			return false, "", nil
+		},
+		WorkerCheck: func(config any) *connectioncheck.Result {
+			if f.workerCheck != nil {
+				return f.workerCheck(config)
+			}
+			return nil
+		},
+		ProxyCheck: func(config any, timeoutS float64) connectioncheck.ProxyResult {
+			if f.proxyCheck != nil {
+				return f.proxyCheck(config, timeoutS)
+			}
+			return connectioncheck.ProxyResult{State: "disabled", Detail: "Proxy disabled"}
 		},
 		SpawnOllamaServe: func() (int, string) { return f.spawnPID, f.spawnErr },
 		SoundDir:         func() string { return f.soundDir },

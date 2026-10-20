@@ -21,6 +21,7 @@ import (
 
 	"github.com/assadigit/second-brain-project/internal/app"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
+	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/storage"
 )
 
@@ -535,6 +536,9 @@ func TestHeroflowReadsTheTaggedNames(t *testing.T) {
 		"ev.net.online", "ev.net.detail", "ai.state", "ai.kind", "ai.engine",
 		"ai.short", "ai.detail", "px.state", "px.detail", "ev.verdict",
 		"res.rows", "res.refusal", "boot.dark_mode",
+		// T-79a: the per-test doors' verdict-box reads (MoreDoorResult's
+		// tagged names — the same shape the dashboard door rides).
+		"res.title", "res.body",
 	} {
 		if !strings.Contains(src, read) {
 			t.Fatalf("heroflow.js must read %q (the field-tag law)", read)
@@ -657,5 +661,178 @@ func TestHeroflowSentinelPaintLaws(t *testing.T) {
 	if !strings.Contains(src, "verdict === 'warn-now'") ||
 		!strings.Contains(src, "GitCurator could not reach the internet") {
 		t.Fatal("the offline warn-now box law")
+	}
+}
+
+// ---------------------------------------------------------------------------
+// T-79a — the five per-test doors (the More menu's per-test dialogs).
+// ---------------------------------------------------------------------------
+
+// newPerTestRig builds a HeroUI over a Settings whose per-test seams
+// are all faked (the hermetic law) + a log-capturing bus.
+func newPerTestRig(t *testing.T) (*HeroUI, *storage.OrderedMap, *[]string, *sync.Mutex) {
+	t.Helper()
+	appDir := t.TempDir()
+	t.Setenv("GITCURATOR_HOME", appDir)
+	bus := app.NewBus()
+	cfg := storage.NewOrderedMap()
+	var spoken []string
+	var mu sync.Mutex
+	bus.Subscribe(&app.Handlers{LogLine: func(l app.LogLine) {
+		mu.Lock()
+		spoken = append(spoken, l.Msg)
+		mu.Unlock()
+	}})
+	settings := app.NewSettings(bus, cfg, &app.OpLock{}, app.SettingsDeps{
+		GitHubGet: func(path, token, apiBase string, timeoutS float64) connectioncheck.GitHubReply {
+			payload := storage.NewOrderedMap()
+			payload.Set("login", "alice")
+			return connectioncheck.GitHubReply{Status: 200, Payload: payload}
+		},
+		WorkerCheck: func(config any) *connectioncheck.Result {
+			return &connectioncheck.Result{Name: "Bot Worker", Level: connectioncheck.LevelOK,
+				Detail: "v0.40.0 — matches this app"}
+		},
+		ProxyCheck: func(config any, timeoutS float64) connectioncheck.ProxyResult {
+			return connectioncheck.ProxyResult{State: "connected", Host: "127.0.0.1", Port: 10808,
+				Detail: "Proxy OK (127.0.0.1:10808)"}
+		},
+		DetectOllama: func(base string, timeoutS float64) llmclient.DetectOllamaResult {
+			return llmclient.DetectOllamaResult{Found: true, BaseURL: base,
+				Models: []string{"llama3"}, Detail: "ok"}
+		},
+		OllamaChatPing: func(host, model, prompt string, opts *llmclient.OllamaChatOptions, timeoutS float64) (string, string) {
+			return "5", ""
+		},
+		CloudChatPing: func(apiURL, apiKey, model, prompt string, timeoutS float64) (string, string) {
+			return "Hello there!", ""
+		},
+	})
+	ui := NewHeroUI(settings, app.NewCommands(bus, app.Deps{
+		Config: func() *storage.OrderedMap { return cfg },
+	}))
+	return ui, cfg, &spoken, &mu
+}
+
+func spokePerTest(t *testing.T, spoken *[]string, mu *sync.Mutex, part string) {
+	t.Helper()
+	mu.Lock()
+	defer mu.Unlock()
+	for _, l := range *spoken {
+		if strings.Contains(l, part) {
+			return
+		}
+	}
+	t.Fatalf("no desk line contains %q (have %d lines)", part, len(*spoken))
+}
+
+func TestHeroUIPerTestDoors(t *testing.T) {
+	ui, cfg, spoken, mu := newPerTestRig(t)
+	cfg.Set("github_token", "tok")
+	ollama := storage.NewOrderedMap()
+	ollama.Set("base_url", "http://127.0.0.1:11434")
+	ollama.Set("model", "llama3")
+	cfg.Set("ollama", ollama)
+
+	// the three log-only doors: the lines stream, no box.
+	for _, door := range []struct {
+		name string
+		call func() *MoreDoorResult
+		line string
+	}{
+		{"telegram-github", ui.MoreTestTelegramGitHub, "✅ GitHub token valid (user: alice)"},
+		{"telegram-github-worker", ui.MoreTestTelegramGitHub, "☁️ Worker queue: v0.40.0 — matches this app"},
+		{"proxy", ui.MoreTestProxy, "✅ Proxy OK (127.0.0.1:10808)"},
+		{"ollama", ui.MoreTestOllama, "✅ Ollama is fully functional (connection + model + inference)."},
+	} {
+		res := door.call()
+		if res == nil || res.Title != "" {
+			t.Fatalf("%s: the door is log-only, got %+v", door.name, res)
+		}
+		spokePerTest(t, spoken, mu, door.line)
+	}
+
+	// the two box doors: the title/body passthrough.
+	cfg.Set("cloud_api_url", "https://api.openai.com/v1")
+	cfg.Set("cloud_api_key", "k")
+	cfg.Set("cloud_model", "gpt-x")
+	res := ui.MoreTestCloud()
+	if res == nil || res.Title != "Cloud LLM Connected" {
+		t.Fatalf("cloud door: %+v", res)
+	}
+	if !strings.Contains(res.Body, "\"Hello there!\"") {
+		t.Fatalf("cloud body: %q", res.Body)
+	}
+	spokePerTest(t, spoken, mu, "✅ Cloud LLM is fully functional.")
+}
+
+func TestHeroUIPerTestLlamaCppDoor(t *testing.T) {
+	// the llama.cpp door rides its own rig (the probe seams faked).
+	appDir := t.TempDir()
+	t.Setenv("GITCURATOR_HOME", appDir)
+	bus := app.NewBus()
+	cfg := storage.NewOrderedMap()
+	var mu sync.Mutex
+	var spoken []string
+	bus.Subscribe(&app.Handlers{LogLine: func(l app.LogLine) {
+		mu.Lock()
+		spoken = append(spoken, l.Msg)
+		mu.Unlock()
+	}})
+	model := "qwen3"
+	settings := app.NewSettings(bus, cfg, &app.OpLock{}, app.SettingsDeps{
+		ProbeLlama: func(baseURL, apiKey string, timeoutS float64) *llmclient.ProbeResult {
+			return &llmclient.ProbeResult{Found: true, BaseURL: baseURL,
+				Models: []string{model}, Model: &model, Detail: "llama.cpp found"}
+		},
+		CloudChatPing: func(apiURL, apiKey, model, prompt string, timeoutS float64) (string, string) {
+			if apiURL != "http://127.0.0.1:8080/v1" {
+				t.Errorf("chat apiURL = %q", apiURL)
+			}
+			return "hi", ""
+		},
+	})
+	ui := NewHeroUI(settings, app.NewCommands(bus, app.Deps{
+		Config: func() *storage.OrderedMap { return cfg },
+	}))
+	cfg.Set("llamacpp_api_url", "http://127.0.0.1:8080")
+	res := ui.MoreTestLlamaCpp()
+	if res == nil || res.Title != "llama.cpp Connected" {
+		t.Fatalf("llama door: %+v", res)
+	}
+	spokePerTest(t, &spoken, &mu, "✅ llama.cpp responded: \"hi\"")
+}
+
+func TestHeroflowPerTestDoorsLive(t *testing.T) {
+	src := heroflowSource(t)
+	// the five doors are LIVE (T-79a) — each with its dispatch key.
+	for _, want := range []string{
+		"live: 'testTgGh'", "live: 'testProxy'", "live: 'testOllama'",
+		"live: 'testCloud'", "live: 'testLlama'",
+		"MoreTestTelegramGitHub", "MoreTestProxy", "MoreTestOllama",
+		"MoreTestCloud", "MoreTestLlamaCpp",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the per-test doors' live wiring missing %q", want)
+		}
+	}
+	// the verdict boxes ride the SAME themed box the dashboard door
+	// uses; a title only (the log-only doors return an empty title and
+	// no box opens).
+	if !strings.Contains(src, "if (res && res.title)") {
+		t.Fatal("the verdict box law (title-only)")
+	}
+	// the honest-disabled law still holds — for the REMAINING tail
+	// (T-79b..e), never for the per-test doors.
+	for _, soon := range []string{
+		"The linking tools land with their own task",
+		"The bot-queue tools land with the queue-tools task",
+		"The Chrome doors land with the Chrome-doors GUI task",
+		"The graveyard procedure lands with the master-table tools task",
+		"The export-zip engine rides the packaging phase",
+	} {
+		if !strings.Contains(src, soon) {
+			t.Fatalf("the remaining tail's landing note missing %q", soon)
+		}
 	}
 }

@@ -114,6 +114,25 @@
   Go battery modal; the remaining legs (vault, LLM, GitHub, Worker version/reachability —
   spec-core-connection) gate "Start Syncing". The crash-honesty law (never "ALL SYSTEMS READY"
   from an empty result) stays.
+  — **Dated note (2026-10-20, T-79a/SESSION-042 — the five per-test doors LIVE):** the
+  More menu's per-test doors landed (`internal/app/pertests.go` + the `HeroUI` wrappers +
+    the heroflow.js wiring): Test Telegram & GitHub (the Option-B re-scope — the GitHub
+    half verbatim + the Worker queue leg in the Telegram half's seat), Test Proxy
+    Connection (the re-scope — the sentinel's ProxyReachable TCP verdict; the Telegram
+    round trip is the accepted loss), Test Ollama (models + the real "What is 2 + 3?"
+    ping), Test Cloud API (the /models pre-flight + the "Say hello" ping + the three
+    verdict boxes), Test llama.cpp (the /props probe + the pick + the "Say hello" ping +
+    the three verdict boxes). Five new hermetic `SettingsDeps` seams
+    (OllamaChatPing/CloudChatPing/PreflightCloud/WorkerCheck/ProxyCheck); the guard
+    difference recorded (the reference's telegram-lock doors guarded the TELEGRAM worker,
+    dropped under Option B — these doors are read-only probes, no busy guard, exactly like
+    the reference's own Ollama/cloud/llama.cpp doors); the divergences recorded in
+    `docs/poc-artifacts/t-79a-per-test-doors.md` (the options-retry vocabulary — the
+    port's num_ctx/num_predict wire shape carries no temperature; the raw-response-type
+    line skipped; the model-seat write holds the Settings mutex; the port's own
+    Worker-not-configured info line; the two re-scoped doors' opening lines speak the
+    port's truth). The evidence: 27 engine tests + 3 shell tests; the VLM-verified
+    menu + click-leg screenshots; the full record at the artifact above.
 
 ## vaults_config.py
 

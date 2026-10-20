@@ -25,6 +25,8 @@
 //     gate lives in Go).
 import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
          MoreOpenDashboard, MoreDarkMode, MoreRetryBacklog, MoreRetryMaster,
+         MoreTestTelegramGitHub, MoreTestProxy, MoreTestOllama,
+         MoreTestCloud, MoreTestLlamaCpp,
          ChromeBoot } from './wailsjs/go/main/HeroUI.js';
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
@@ -483,11 +485,16 @@ if (testBtn) {
 const MORE_ACTIONS = [
   { label: '🔌 Test Connection (all systems)', live: true, tip: 'The four-subsystem readiness check — the battery modal.' },
   { sep: true },
-  { label: '🔑 Test Telegram & GitHub', tip: 'The per-test dialogs land with the per-test door task (Option B dropped the Telegram leg — ADR-0004 Am.3).' },
-  { label: '🌐 Test Proxy Connection', tip: 'The per-test dialogs land with the per-test door task.' },
-  { label: '🧠 Test Ollama', tip: 'The per-test dialogs land with the per-test door task (Settings ▸ LLM carries the live probe today).' },
-  { label: '🔌 Test Cloud API', tip: 'The per-test dialogs land with the per-test door task (Settings ▸ LLM carries the live probe today).' },
-  { label: '🦙 Test llama.cpp', tip: 'The per-test dialogs land with the per-test door task (Settings ▸ LLM carries the live probe today).' },
+  { label: '🔑 Test Telegram & GitHub', live: 'testTgGh',
+    tip: 'The GitHub token check + the sync queue (the Worker) — Option B re-scope: the Telegram leg rides the Worker queue (ADR-0004 Am.3).' },
+  { label: '🌐 Test Proxy Connection', live: 'testProxy',
+    tip: 'The configured proxy\'s TCP verdict — the same probe the sentinel paints (the deep Telegram round trip is Option B\'s accepted loss).' },
+  { label: '🧠 Test Ollama', live: 'testOllama',
+    tip: 'Connection + the model list + a real "What is 2 + 3?" inference test.' },
+  { label: '🔌 Test Cloud API', live: 'testCloud',
+    tip: 'The /models pre-flight (warn-only) + a "Say hello" chat ping — the wire format follows the URL.' },
+  { label: '🦙 Test llama.cpp', live: 'testLlama',
+    tip: 'The /props probe + a real one-token chat ping through the same OpenAI-compatible path the batch uses.' },
   { sep: true },
   { label: '🪝 Recall hooks (dry-run)', tip: 'The linking tools land with their own task (recall hooks in dry-run — diff only).' },
   { label: '🔗 Build link suggestions', tip: 'The linking tools land with their own task (suggest mode — the one write is the Suggestions note).' },
@@ -587,6 +594,25 @@ async function runMoreAction(act) {
     if (testBtn) testBtn.click();
     return;
   }
+  if (act.live === 'testTgGh' || act.live === 'testProxy' ||
+      act.live === 'testOllama' || act.live === 'testCloud' ||
+      act.live === 'testLlama') {
+    // T-79a: the five per-test doors — the engines stream their own
+    // line grammar onto the desk while the promise waits; a verdict
+    // box (title set) renders in the same themed box the dashboard
+    // door uses; the log-only doors return an empty title.
+    const fn = act.live === 'testTgGh' ? MoreTestTelegramGitHub
+      : act.live === 'testProxy' ? MoreTestProxy
+      : act.live === 'testOllama' ? MoreTestOllama
+      : act.live === 'testCloud' ? MoreTestCloud
+      : MoreTestLlamaCpp;
+    const res = await fn().catch(() => null);
+    if (res && res.title) {
+      themedBox({ title: res.title, body: res.body },
+        [['OK', 'primary', () => closeOverlay()]]);
+    }
+    return;
+  }
   if (act.live === 'dashboard') {
     const res = await MoreOpenDashboard().catch(() => null);
     if (res && res.title) {
@@ -617,6 +643,7 @@ function applyTheme(mode) {
 }
 
 // the More button itself (ui.py's more_btn — "More ▾").
+let moreBtnEl = null;
 const ctaBand = document.querySelector('.cta');
 if (ctaBand) {
   const moreBtn = btn('More ▾', 'secondary',
@@ -626,7 +653,28 @@ if (ctaBand) {
     else openMoreMenu(moreBtn);
   });
   ctaBand.appendChild(moreBtn);
+  moreBtnEl = moreBtn;
 }
+
+// the evidence probe (T-79a's gate leg — the T-70 law applied to the
+// More menu): open the menu over its own anchor so the screenshot can
+// prove the five per-test doors LIVE (clickable, no 'soon' wash).
+EventsOn('autorun:open-more', async (v) => {
+  if (!moreBtnEl) return;
+  openMoreMenu(moreBtnEl);
+  const door = String(v || '');
+  if (door) {
+    // the click leg: run ONE door end-to-end (the click → the
+    // binding → the engine → the bus → the desk). 'ollama' is the
+    // hermetic pick — a box without an Ollama server refuses the
+    // loopback probe instantly and the desk speaks the reference's
+    // own honest failure lines.
+    await new Promise((res) => setTimeout(res, 400));
+    const item = [...document.querySelectorAll('#more-menu .more-item')]
+      .find((n) => n.textContent.includes('Test Ollama'));
+    if (item && !item.disabled) item.click();
+  }
+});
 
 // ---------------------------------------------------------------------------
 // THE BOOT PAINT — the persisted dark_mode + the hero's first render.

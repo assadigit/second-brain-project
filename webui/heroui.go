@@ -636,6 +636,51 @@ func (u *HeroUI) MoreDarkMode(on bool) *app.SaveResult {
 }
 
 // ---------------------------------------------------------------------------
+// THE FIVE PER-TEST DOORS (T-79a) — the More menu's per-test dialogs,
+// the reference's connection_tests.py + llamacpp.py flows over the
+// Settings engines. Each door streams its own line grammar onto the
+// desk while it runs; the two verdict boxes (Cloud + llama.cpp) ride
+// the same themed-box shape the dashboard door uses (title "" = no
+// box — the log-only doors).
+// ---------------------------------------------------------------------------
+
+// MoreTestTelegramGitHub is 🔑 Test Telegram & GitHub (the Option-B
+// re-scope: the GitHub token half + the Worker queue leg in the
+// Telegram half's seat — ADR-0004 Am.3).
+func (u *HeroUI) MoreTestTelegramGitHub() *MoreDoorResult {
+	title, body := u.settings.TestTelegramGitHub()
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// MoreTestProxy is 🌐 Test Proxy Connection (the re-scope: the
+// sentinel's ProxyReachable TCP verdict).
+func (u *HeroUI) MoreTestProxy() *MoreDoorResult {
+	title, body := u.settings.TestProxy()
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// MoreTestOllama is 🧠 Test Ollama — the models + the real inference
+// ping ("What is 2 + 3?").
+func (u *HeroUI) MoreTestOllama() *MoreDoorResult {
+	title, body := u.settings.TestOllama()
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// MoreTestCloud is 🔌 Test Cloud API — the /models pre-flight + the
+// "Say hello" ping + the verdict box.
+func (u *HeroUI) MoreTestCloud() *MoreDoorResult {
+	title, body := u.settings.TestCloudLLM()
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// MoreTestLlamaCpp is 🦙 Test llama.cpp — the /props probe + the
+// "Say hello" ping + the verdict box.
+func (u *HeroUI) MoreTestLlamaCpp() *MoreDoorResult {
+	title, body := u.settings.TestLlamaCpp()
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// ---------------------------------------------------------------------------
 // tiny helpers (the shell's local twins).
 // ---------------------------------------------------------------------------
 

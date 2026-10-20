@@ -384,6 +384,14 @@ func (s *Shell) autorun() {
 		runtime.EventsEmit(s.ctx, "autorun:open-scan", v)
 		time.Sleep(2500 * time.Millisecond)
 	}
+	// The More-menu probe (T-79a's evidence door): open the More
+	// menu over its own anchor — the screenshot proves the five
+	// per-test doors live (clickable, honestly-enabled) alongside
+	// the remaining tail's honest-disabled wash.
+	if v := os.Getenv("SB_POC_OPEN_MORE"); v != "" {
+		runtime.EventsEmit(s.ctx, "autorun:open-more", v)
+		time.Sleep(3500 * time.Millisecond)
+	}
 	_ = os.WriteFile(envOr("SB_POC_RESULTS", "/tmp/t70-gate-results.json"), []byte(s.Stats()), 0o600)
 }
 

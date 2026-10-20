@@ -118,6 +118,26 @@ type SettingsDeps struct {
 	// the common-port scan (the CLI's detectLlamaDoor wiring).
 	DetectLlama func(apiKey string) *llmclient.ProbeResult
 
+	// The per-test doors' seams (T-79a) — every one faked at
+	// construction per THE HERMETIC-SEAM law; the production wiring
+	// lives in App.New.
+	// OllamaChatPing is the Ollama inference ping (OllamaChat over a
+	// fresh client; the options pass through; errText "" = no error).
+	OllamaChatPing func(host, model, prompt string, opts *llmclient.OllamaChatOptions, timeoutS float64) (reply, errText string)
+	// CloudChatPing is the cloud chat ping (CloudChat's router: the
+	// URL decides the wire format; errText "" = no error).
+	CloudChatPing func(apiURL, apiKey, model, prompt string, timeoutS float64) (reply, errText string)
+	// PreflightCloud is llmclient.PreflightCloud — the /models
+	// pre-flight (warn-never-block; listed nil = no verdict).
+	PreflightCloud func(apiURL, apiKey, model string, timeoutS float64) (ok bool, message string, listed *bool)
+	// WorkerCheck is connectioncheck.CheckWorkerVersion (nil httpGet =
+	// the production proxy-bypassed fetch; a nil Result = the queue is
+	// not configured).
+	WorkerCheck func(config any) *connectioncheck.Result
+	// ProxyCheck is connectioncheck.ProxyReachable — the sentinel's own
+	// TCP verdict (state disabled/connected/unreachable).
+	ProxyCheck func(config any, timeoutS float64) connectioncheck.ProxyResult
+
 	// SpawnOllamaServe starts `ollama serve` detached
 	// (start_ollama_server's Popen half): (pid, "") or (0, errClass).
 	SpawnOllamaServe func() (int, string)

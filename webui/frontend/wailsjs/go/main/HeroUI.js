@@ -38,6 +38,26 @@ export function MoreRetryMaster() {
   return window['go']['main']['HeroUI']['MoreRetryMaster']();
 }
 
+export function MoreTestCloud() {
+  return window['go']['main']['HeroUI']['MoreTestCloud']();
+}
+
+export function MoreTestLlamaCpp() {
+  return window['go']['main']['HeroUI']['MoreTestLlamaCpp']();
+}
+
+export function MoreTestOllama() {
+  return window['go']['main']['HeroUI']['MoreTestOllama']();
+}
+
+export function MoreTestProxy() {
+  return window['go']['main']['HeroUI']['MoreTestProxy']();
+}
+
+export function MoreTestTelegramGitHub() {
+  return window['go']['main']['HeroUI']['MoreTestTelegramGitHub']();
+}
+
 export function TestConnection() {
   return window['go']['main']['HeroUI']['TestConnection']();
 }

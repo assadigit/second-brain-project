@@ -21,4 +21,14 @@ export function MoreRetryBacklog():Promise<app.BatchResult>;
 
 export function MoreRetryMaster():Promise<app.BatchResult>;
 
+export function MoreTestCloud():Promise<main.MoreDoorResult>;
+
+export function MoreTestLlamaCpp():Promise<main.MoreDoorResult>;
+
+export function MoreTestOllama():Promise<main.MoreDoorResult>;
+
+export function MoreTestProxy():Promise<main.MoreDoorResult>;
+
+export function MoreTestTelegramGitHub():Promise<main.MoreDoorResult>;
+
 export function TestConnection():Promise<main.CCTestResult>;
