@@ -1019,8 +1019,8 @@ no-Chrome remedy box is the click-leg evidence itself. The busy
 ladders carried in the reference's own order (guards → busy →
 scan). **The acceptance GREEN: the four doors live over the engine +
 the collaborator guards honest ✓ — 2337 main-battery tests
-race-clean over 36 packages (2324 + 13) + 71 webui over 4 (67 +
-4)**; the touched packages 3× race-clean (one real data race in my
+race-clean over 36 packages (2324 + 13) + 73 webui over 4 (67 +
+6)**; the touched packages 3× race-clean (one real data race in my
 own new shell test caught by the race pass + fixed); gofmt/vet
 clean over both modules; the MAIN go.mod byte-unchanged all
 session; the wails build links clean over the 13th-rebuilt tree
@@ -1036,3 +1036,66 @@ divergences inside — incl. the end-of-run offer + the caught-up hand
 pass + the redo pass as the honest boundary: they ride the same
 runner). **The remaining tail: T-79e (the decommission picker) —
 then Phase 6 closes.**
+
+**SESSION-046 — T-79e COMPLETE: THE DECOMMISSION PICKER (the LAST
+tail row flipped LIVE) + the 42nd-wipe repair + the scoping note
+settled (T-79f named).** The forty-second full wipe absorbed before
+work (the WHOLE environment again — both repos, the toolchain, the
+venv, the module cache, the wails CLI, AND the webkit tree; all
+rebuilt from the committed recipes: both repos re-cloned with the
+ephemeral GIT_CONFIG_COUNT PAT form — nothing persisted, both
+configs verified clean; the reference at 98f4fc7 =
+testdiff/PINNED-GITCURATOR-REV exactly; go1.27.2 sha-verified vs
+TOOLCHAIN.md Am.2's committed 64-char pin [go.dev's listing has
+rotated to 1.27.3 — the pin is the authority]; the venv [this boot
+HAS ensurepip — the plain form]; the wails CLI v2.16.0; the
+FOURTEENTH webkit rebuild — 144 debs / 77.7 MB → dpkg -x → the 42
+.pc prefix rewrites → the 26 dev links as Am.4 hardlinks
+[symlink(2) still blocked; the clean CGO link the proof]; the FULL
+battery re-verified green pre-work: 2337 main + 73 webui
+race-clean — and the re-verification caught ONE ARITHMETIC SLIP in
+SESSION-045's close docs: the recorded "71 webui (67 + 4)" is
+really 73 (67 + 6 — six shell tests landed in fd053ba, the report
+body's own count); the five records corrected in this session's
+close commits). **T-79e — the one-ledger law LIVE**: the picker
+writes the SAME Status cells a hand-edit writes into
+_review/DECOMMISSIONED.md, then enforces the burials immediately
+(dismissed + retry-queue rows dropped + placeholders swept); ♻️
+revived on a row brings a link back — `internal/app/decomdoors.go`
+(DecommissionScan [the guards + `_scan_backlog_alive` + the
+sorted-dedup law + the empty box + the candidates pre-fill] +
+DecommissionBury [the marking + the immediate enforcement through
+the same consume pass a batch runs + the exact success line + box;
+the cancel line; the deferral law] + OpenDecommissionTable [the
+reveal over the OpenFileLocation seam]) + the shell's THREE More
+doors + the frontend's picker dialog (the reference's own words
+verbatim; every row UNCHECKED — a burial is never a default; the
+danger bury button pinned outside the scrolling body; THE
+BINDING-IMPORT LAW honored + pinned) + the probe's 'grave' click
+pick. NO busy guard (the reference's own shape). THE FIELD-TAG LAW:
+DecommissionScan tagged + pinned. **The acceptance GREEN: the
+picker's writes land in the graveyard table ✓ (the one-ledger law
+end to end: the SAME Status cells + the immediate enforcement +
+the ♻️ revival enforced by the same pass) — 2348 main-battery
+tests race-clean over 36 packages (2337 + 11) + 77 webui tests
+over 4 (73 + 4)**; the touched packages 3× race-clean; gofmt/vet
+clean over both modules; the MAIN go.mod byte-unchanged all
+session; the wails build links clean over the 14th-rebuilt tree
+(no mode flips; the regenerated bindings carry the three doors +
+the DecommissionScan payload class); the gate legs GREEN (first
+frame 869 ms ≤ 1.5 s; the 10k flood 526,315 lines/s, 0 drops,
+handler max 30 ms); the screenshots VLM-verified with BOTH passes
+agreeing (the menu row LIVE — "a normal, fully active (clickable)
+menu item"; the click leg end-to-end: the "Websites pipeline is
+off" guard box with the reference's own remedy body + its OK
+button — no misread incident this session). The six recorded
+divergences: `docs/poc-artifacts/t-79e-decommission-doors.md`.
+**The scoping note settled**: the end-of-run Chrome offer +
+hero.py's caught-up hand scrape + `_maybe_redo_hand_notes` are
+named **T-79f — the Phase-6 closure row** on doc 13 (the
+batch-finish/hero-machine surfaces riding the landed
+startChromeTabRetry runner — a follow-up wiring with its own pinned
+tests, not a fold-in into T-79e; "one slice done properly with
+proof beats two half-done"). **The More menu's tail is EMPTY;
+Phase 6 closes when T-79f lands — then Phase 7 (T-80: the
+deterministic zip builder …) opens.**

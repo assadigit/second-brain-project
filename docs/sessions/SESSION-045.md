@@ -1,4 +1,4 @@
-# SESSION-045 — 2026-10-20 — Phase 6 (Path B): T-79d COMPLETE (the four Chrome doors) + the 41st-wipe repair + one committed-battery flake root-caused and fixed BEFORE work; 2337 main-battery tests over 36 packages + 71 webui over 4
+# SESSION-045 — 2026-10-20 — Phase 6 (Path B): T-79d COMPLETE (the four Chrome doors) + the 41st-wipe repair + one committed-battery flake root-caused and fixed BEFORE work; 2337 main-battery tests over 36 packages + 73 webui over 4 [corrected at SESSION-046 — an arithmetic slip in this close line; six shell tests landed]
 
 ## Goal (from NEXT-SESSION.md at start)
 
@@ -161,7 +161,7 @@ absent" — **all GREEN**:
   words, with its OK button; a pure config read, no Chrome
   anywhere near).
 - **The battery at the close: 2337 main-battery tests race-clean
-  over 36 packages (2324 + 13) + 71 webui tests over 4 (67 + 4)**;
+  over 36 packages (2324 + 13) + 73 webui tests over 4 (67 + 6)**; [corrected at SESSION-046 — the arithmetic slip; the report body's own "6 new shell tests" was the truth]
   the touched packages (internal/app, internal/cli, webui) 3×
   race-clean post-change (the ritual). The race pass caught ONE
   REAL DATA RACE in my own new shell test (`rig.batchBlock`

@@ -8,6 +8,31 @@
 
 ## Key flows
 
+> **Dated note (2026-10-20, T-79e/SESSION-046 — the decommission
+> picker landed):** `decommission_dead_links_now` (807-908) +
+> `_pick_dead_links_dialog` (910-998) + `_scan_backlog_alive`
+> (152-173) live in Go as `internal/app/decomdoors.go` (the
+> Settings-method engines): DecommissionScan (the guards — NO busy
+> guard, the reference's own shape — + the backlog-alive scan with
+> the is_dismissed probe + the pure-file fallback + the sorted-dedup
+> law + the empty box + the candidates pre-fill) +
+> DecommissionBury (the picked URLs marked dead through the SAME
+> Status-cell writer a hand-edit rides — the table stays the ONE
+> ledger — then the burials enforced immediately through the same
+> consume pass a batch runs: dismiss + retry-row drop + placeholder
+> sweep + the confirmed stamp; the exact success line + box; the
+> cancel line; the unopenable-DB deferral law) +
+> OpenDecommissionTable (the reveal over the OpenFileLocation
+> seam) + `webui/heroui.go`'s three More doors + the frontend's
+> picker dialog (the reference's own words; every row UNCHECKED — a
+> burial is never a default; the danger bury button outside the
+> scrolling body; THE BINDING-IMPORT pin) + the probe's 'grave'
+> click pick. The six recorded divergences:
+> docs/poc-artifacts/t-79e-decommission-doors.md. The unlanded
+> companions named above (the end-of-run offer + the caught-up hand
+> scrape + the redo pass) are now **T-79f — the Phase-6 closure
+> row** on doc 13 (SESSION-046's scoping decision).
+
 > **Dated note (2026-10-20, T-79d/SESSION-045 — the four Chrome doors
 > landed as More-menu doors):** `hand_deliver_walled_links_now` (1000)
 > + `hand_rows_deliver_now` (615) + `chrome_tab_retry_now` (1601) +

@@ -154,7 +154,7 @@ Chrome is absent") — **PASS**:
   `TestHeroUIChromeAttachDoor` pin the reference's own words; the
   click leg below proves it end-to-end on this Chrome-less box.
 - **The battery at the close: 2337 main-battery tests race-clean
-  over 36 packages (2324 + 13) + 71 webui tests over 4 (67 + 4)**;
+  over 36 packages (2324 + 13) + 73 webui tests over 4 (67 + 6)**; [corrected at SESSION-046 — the close docs carried an arithmetic slip; six shell tests landed in fd053ba]
   the touched packages (internal/app, internal/cli, webui) 3×
   race-clean post-change (the ritual); gofmt/vet clean over both
   modules; the MAIN go.mod + go.sum + the nested module's files

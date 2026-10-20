@@ -73,7 +73,17 @@ seam RETIRED at this landing, deleted with its tests):
   MoreAttachMyChrome over internal/app/chromedoors.go's engines, +
   the `startChromeTabRetry` runner: ONE delivery at a time with the
   backlog merge, the failure story FIRST over the chrome:failed
-  event, the delivered pages re-run as the DIRECT NonGithub batch).
+  event, the delivered pages re-run as the DIRECT NonGithub batch)
+  — **plus T-79e's three decommission-picker doors**
+  (MoreDecommissionScan [the picker's data: the guards'/empty box,
+  or the sorted waiting URLs + the graveyard table path] +
+  MoreDecommissionBury [the picker's answer: the picked URLs marked
+  dead through the SAME Status-cell writer a hand-edit rides — the
+  table stays the ONE ledger — then the burials enforced
+  immediately: dismiss + retry-row drop + placeholder sweep; an
+  empty list is the dialog's Cancel] + MoreOpenDecommissionTable
+  [the reveal] over internal/app/decomdoors.go's engines — THE LAST
+  tail row; the More menu's tail is now EMPTY).
   Bound as the sixth struct; the
   generated bindings live in frontend/wailsjs/go/main/HeroUI.js.
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
@@ -143,10 +153,14 @@ seam RETIRED at this landing, deleted with its tests):
   buttons pinned outside the scrolling body), the hand-rows + attach
   confirms (the attach default-No law: the No button focused), and
   the chrome:failed failure modal's ONE listener (EventsOn, the
-  one-owner-per-surface law); the
+  one-owner-per-surface law); **T-79e: the decommission picker is
+  LIVE — the More menu's tail is now EMPTY** — openDecommissionDialog
+  renders the reference's own words (every row UNCHECKED — a burial
+  is never a default; the danger bury button pinned outside the
+  scrolling body; the ledger label + the Open-the-table reveal); the
   SB_POC_OPEN_MORE probe (shell.go's autorun leg) opens the menu for
   the screenshot evidence and can click one door end-to-end
-  ('ollama' / 'recall' / 'export' / 'hand').
+  ('ollama' / 'recall' / 'export' / 'hand' / 'grave').
 - `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
   path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's
