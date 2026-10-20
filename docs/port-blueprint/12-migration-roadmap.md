@@ -794,3 +794,35 @@ flowchart LR
 > zips (T-71's placeholder note retired). 2371 + 89 tests race-clean;
 > the evidence at docs/poc-artifacts/t-80-reproducible-packaging.md.
 > T-81 (the release workflow) follows.
+
+> **SESSION-049 (2026-10-20) — T-81 LANDED with the dry-run's runner
+> legs blocked on the account's Actions billing (the owner action); THE
+> TAG-STATE BUILD LAW found.** The 45th full wipe absorbed before work
+> (both repos re-cloned with the ephemeral PAT form, the reference at
+> the pinned 98f4fc7, go1.27.2 sha-verified vs the committed pin, the
+> venv, the wails CLI; the FULL battery re-verified green pre-work:
+> 2371 + 89, plain + race — the exact committed numbers). The release
+> workflow LANDED at .github/workflows/release.yml (go-ci.yml untouched):
+> the tag-only door, the toolchain pins (cross-checked by test), the
+> ritual wrap (the job runs build/release.sh — the single owner), THE
+> TAG LAW (a real tag must equal v$(cat VERSION); the reserved v0.0.0-
+> dry-run prefix), the AC-23 notes, the zip attach; +6 law tests (the
+> build/mkzip package now 16). The local proofs: the FULL ritual at the
+> TAGGED state (CLI 13808277… ×3, GUI 99cc22e6… ×3 — T-80's own number,
+> the GUI exe is tag-independent — the zip 071e1968… ×2); the notes step
+> proven by extract-and-exec from the workflow's own bytes; the
+> 45th-wipe toolchain reproduced T-80's 82bfa4ec… byte-for-byte. THE
+> TAG-STATE BUILD LAW (the find, byte-settled): go1.24+ embeds the
+> VCS-derived module version — the same commit built untagged vs tagged
+> produces DIFFERENT CLI-exe bytes; the release numbers live at the
+> tagged checkout. THE BLOCKED LEG (surfaced with evidence): the
+> account's Actions billing refused every runner job ("payments failed
+> or spending limit" — free plan; runs 39511458026 + 39512685975 died
+> at setup, runner_id 0), and the block PREDATES T-81 (go-ci failed the
+> same way on every recent main push, 8/8, incl. SESSION-048's close).
+> The owner action + the re-run recipe: fix Billing & plans → re-run
+> 39512685975 (the test tag v0.0.0-t81-dryrun still points at 0961ad9)
+> → verify the green run + the [DRY-RUN] draft release + the zip asset
+> (cross-machine sha256 vs 071e1968…) → delete the test release + tag.
+> The full record: docs/poc-artifacts/t-81-release-workflow.md. T-82
+> (the clean-VM checklist) + T-83 (the docs) follow.

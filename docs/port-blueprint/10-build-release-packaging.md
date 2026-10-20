@@ -121,6 +121,26 @@ file.
 - Future platforms: linux (exe + same zip), macOS (needs notarization; later phase) — architecture
   permits; explicitly out of scope now.
 
+> **Dated note (2026-10-20, T-81/SESSION-049 — the workflow LANDED at
+> `.github/workflows/release.yml`):** the tag-only door (`v*`), the
+> toolchain pins (go 1.27.2 + the wails CLI v2.16.0, cross-checked by
+> test), the ritual wrap (the job runs `build/release.sh` — the single
+> owner of the build commands), THE TAG LAW (a real release tag must
+> equal `v$(cat VERSION)`; the reserved dry-run prefix `v0.0.0-` rides
+> with the assertion waived → a draft+prerelease `[DRY-RUN]` release),
+> and the AC-23 notes (the parity table + the zip numbers + the
+> reproduce recipe, asserted-consistent before the attach). The
+> dry-run's runner legs are BLOCKED by the account's Actions billing
+> (free-plan minutes exhausted — the refusal predates T-81: every recent
+> `go-ci` run failed the same way; run `39512685975` awaits the owner's
+> billing fix + re-run; the recipe:
+> `docs/poc-artifacts/t-81-release-workflow.md` §3). **THE TAG-STATE
+> BUILD LAW (T-81's find)**: go1.24+ embeds the VCS-derived module
+> version in buildinfo — a tagged checkout and an untagged one of the
+> same commit produce DIFFERENT exe bytes (the release numbers live at
+> the tagged checkout; the wails-built GUI exe is exempt — `(devel)`);
+> byte-settled in the evidence doc §2.2.
+
 ## 9. Antivirus false-positive notes
 
 Go exes occasionally trip heuristic scanners (packed strings). Mitigations, in order: keep

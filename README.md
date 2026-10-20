@@ -1194,3 +1194,33 @@ main-battery tests race-clean over 36 packages (2356 + 15) + 89
 webui tests over 4 (84 + 5)**; the touched packages 3× race-clean;
 the MAIN go.mod byte-unchanged; doc 10's [verify]s settled with
 dated notes. **T-81 (the release workflow) follows.**
+
+**Phase 7 (continued) — SESSION-049**: **T-81 (the release workflow)
+LANDED, with the dry-run's runner legs BLOCKED on the account's Actions
+billing (the owner action)**: `.github/workflows/release.yml` (the NEW
+file; go-ci.yml untouched) — the tag-only door (`v*`), the toolchain
+pins (go 1.27.2 + wails CLI v2.16.0, cross-checked by test), the ritual
+wrap (the job runs `build/release.sh` — the single owner of the build
+commands), **THE TAG LAW** (a real release tag must equal
+`v$(cat VERSION)`; the reserved dry-run prefix `v0.0.0-` rides with the
+assertion waived → a draft+prerelease `[DRY-RUN]` release), the AC-23
+notes (the parity table + the zip numbers + the reproduce recipe), and
+the zip attach (`GitCurator-v<version>-windows.zip` from the ritual's
+`.a` artifact). +6 law tests (build/mkzip now 16). The local proofs:
+the FULL ritual at the TAGGED state (CLI `13808277…` A=B=cold, GUI
+`99cc22e6…` A=B=cold — T-80's own number; the zip `071e1968…` A=B) +
+the notes step proven by extract-and-exec from the workflow's own
+bytes. **THE TAG-STATE BUILD LAW (the find, byte-settled)**: go1.24+
+embeds the VCS-derived module version in buildinfo — the same commit
+built untagged vs tagged produces DIFFERENT CLI-exe bytes (the release
+numbers live at the tagged checkout; the wails GUI exe is exempt —
+`(devel)`). **The blocked leg (surfaced with evidence)**: the account's
+Actions billing refused every runner job ("payments failed or spending
+limit"; free plan) — runs `39511458026`/`39512685975` died at setup,
+and the block PREDATES T-81 (go-ci failed the same way on every recent
+main push, 8/8). **Owner action**: fix Billing & plans → re-run
+`39512685975` (the test tag `v0.0.0-t81-dryrun` points at the fixed
+workflow) → verify the green run + the `[DRY-RUN]` release + the zip
+asset → delete the test release + tag. The record:
+`docs/poc-artifacts/t-81-release-workflow.md`. T-82 (the clean-VM
+checklist) + T-83 (the docs) follow.
