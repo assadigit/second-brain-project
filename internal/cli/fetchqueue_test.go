@@ -83,6 +83,47 @@ func TestRouteQueueItems(t *testing.T) {
 	}
 }
 
+// TestItemURLOrderedMapPriorityTuple pins the reference's _item_url
+// law (sync_display.py:118-127) over the OrderedMap row shape: the
+// FIXED key tuple speaks by priority; the row's own key insertion
+// order never decides (the Worker row carries forward_count/ledger_id/
+// … alongside the URL keys — any order is legal). SESSION-045's
+// pre-work repair: the first-key read dropped the URL whenever
+// forward_count landed first — the botdoors flake's twin, pinned here
+// deterministically.
+func TestItemURLOrderedMapPriorityTuple(t *testing.T) {
+	// forward_count FIRST — the flake's own row shape.
+	badOrder := storage.NewOrderedMap()
+	badOrder.Set("forward_count", float64(4))
+	badOrder.Set("url_normalized", "https://github.com/octo-owner/repo")
+	if u := itemURL(badOrder); u != "https://github.com/octo-owner/repo" {
+		t.Fatalf("forward_count-first row: itemURL = %q, want the url_normalized", u)
+	}
+
+	// the priority beats the insertion order.
+	prio := storage.NewOrderedMap()
+	prio.Set("url_original", "https://example.com/orig")
+	prio.Set("url_normalized", "https://example.com/norm")
+	if u := itemURL(prio); u != "https://example.com/norm" {
+		t.Fatalf("priority tuple: itemURL = %q, want url_normalized", u)
+	}
+
+	// a non-string at a higher-priority key falls through; junk
+	// stays unrouted.
+	nonStr := storage.NewOrderedMap()
+	nonStr.Set("url_normalized", 42)
+	nonStr.Set("url", "https://example.com/plain")
+	if u := itemURL(nonStr); u != "https://example.com/plain" {
+		t.Fatalf("non-string fallthrough: itemURL = %q, want url", u)
+	}
+
+	// and the routed split over the bad-order row end-to-end.
+	githubURLs, _, raw := routeQueueItems([]any{badOrder})
+	if raw != 1 || len(githubURLs) != 1 {
+		t.Fatalf("bad-order row routed: github=%v raw=%d", githubURLs, raw)
+	}
+}
+
 func TestClassifyQueueLinksVaultFilter(t *testing.T) {
 	c, _, appDir, vault := newFetchEnv(t)
 	// one note in the vault (the in-vault dedup), one dead, one settled,

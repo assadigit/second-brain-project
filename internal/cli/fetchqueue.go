@@ -75,12 +75,16 @@ func itemURL(item any) string {
 	m, ok := item.(map[string]any)
 	if !ok {
 		if om, is := item.(*storage.OrderedMap); is {
-			for _, key := range om.Keys() {
+			// The reference's FIXED key tuple speaks by priority
+			// (sync_display.py:123) — the row's own key insertion
+			// order never decides (the Worker row carries
+			// forward_count/ledger_id/… alongside the URL keys; any
+			// order is legal).
+			for _, key := range []string{"url_normalized", "url_original", "url"} {
 				if v, present := om.Get(key); present {
 					if s, isStr := v.(string); isStr && strings.TrimSpace(s) != "" {
 						return strings.TrimSpace(s)
 					}
-					return ""
 				}
 			}
 			return ""

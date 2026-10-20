@@ -70,6 +70,65 @@ func TestClassifyPendingNilIsZero(t *testing.T) {
 	}
 }
 
+// TestQueueItemURLOrderedMapPriorityTuple pins the reference's own
+// _item_url law (sync_display.py:118-127) over the OrderedMap row
+// shape: the FIXED key tuple ('url_normalized', 'url_original',
+// 'url') speaks by priority — the row's own key insertion order NEVER
+// decides. The Worker's row carries forward_count/ledger_id/…
+// alongside the URL keys (spec-worker-contract), so any key order is
+// a legal row; the first-flake (SESSION-045's pre-work repair: the
+// botdoors rig's randomly-ordered rows dropped the URL whenever
+// forward_count landed first) is pinned here deterministically.
+func TestQueueItemURLOrderedMapPriorityTuple(t *testing.T) {
+	// forward_count FIRST — the flake's own row shape.
+	badOrder := storage.NewOrderedMap()
+	badOrder.Set("forward_count", float64(4))
+	badOrder.Set("url_normalized", "https://github.com/acme/x")
+	if u := queueItemURL(badOrder); u != "https://github.com/acme/x" {
+		t.Fatalf("forward_count-first row: queueItemURL = %q, want the url_normalized", u)
+	}
+	if n := queueItemForwardCount(badOrder); n != 4 {
+		t.Fatalf("forward_count read = %d, want 4", n)
+	}
+
+	// the priority beats the insertion order: url_original first,
+	// url_normalized second — Python's tuple answers url_normalized.
+	prio := storage.NewOrderedMap()
+	prio.Set("url_original", "https://example.com/orig")
+	prio.Set("url_normalized", "https://example.com/norm")
+	if u := queueItemURL(prio); u != "https://example.com/norm" {
+		t.Fatalf("priority tuple: queueItemURL = %q, want url_normalized", u)
+	}
+
+	// the fallback ladder over insertion order: url_original only.
+	fallback := storage.NewOrderedMap()
+	fallback.Set("url_original", "https://example.com/orig")
+	if u := queueItemURL(fallback); u != "https://example.com/orig" {
+		t.Fatalf("fallback ladder: queueItemURL = %q, want url_original", u)
+	}
+
+	// a non-string at a higher-priority key falls through to the
+	// next key (Python's isinstance ladder), and an all-junk row
+	// stays unrouted.
+	nonStr := storage.NewOrderedMap()
+	nonStr.Set("url_normalized", 42)
+	nonStr.Set("url", "https://example.com/plain")
+	if u := queueItemURL(nonStr); u != "https://example.com/plain" {
+		t.Fatalf("non-string fallthrough: queueItemURL = %q, want url", u)
+	}
+	junk := storage.NewOrderedMap()
+	junk.Set("ledger_id", int64(9))
+	if u := queueItemURL(junk); u != "" {
+		t.Fatalf("junk row: queueItemURL = %q, want \"\"", u)
+	}
+
+	// and the routed split over the bad-order row end-to-end.
+	githubURLs, nonGithub, raw := routeQueueItems([]any{badOrder})
+	if raw != 1 || len(githubURLs) != 1 || len(nonGithub) != 0 {
+		t.Fatalf("bad-order row routed: github=%v non=%v raw=%d", githubURLs, nonGithub, raw)
+	}
+}
+
 // ---------------------------------------------------------------------------
 // friendly_when — the Last-sync line's own grammar
 // ---------------------------------------------------------------------------
