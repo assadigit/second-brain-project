@@ -891,3 +891,48 @@ speaking the reference's own honest Ollama-failure lines). The full
 record: `docs/poc-artifacts/t-79a-per-test-doors.md`. **The remaining
 tail: T-79b (the linking tools), T-79c (the bot-queue tool dialogs),
 T-79d (the Chrome doors), T-79e (the decommission picker).**
+
+**SESSION-043 — T-79b COMPLETE: THE FIVE LINKING-TOOLS DOORS LIVE.**
+A two-wipe session: the thirty-eighth absorbed before work (both
+repos, the toolchain, the venv, the module cache, the wails CLI, AND
+the webkit tree — all rebuilt from the committed recipes, the TENTH
+webkit rebuild; the FULL battery re-verified green pre-work: exactly
+2280 + 59) and the thirty-ninth at the context resumption (the first
+context died after the implementation + evidence but before any
+commit; the continuation recipe executed verbatim — the repos
+survived WITH the in-flight draft + tracked-file MODE FLIPS 644→755
+(content byte-intact), repaired via chmod off the parsed
+`git diff --raw` list, never git checkout; the toolchain rebuilt; the
+draft AUDITED line-by-line against the reference's own bytes, never
+blindly trusted; the one audit gap fixed — webui/README.md's map
+entries). **T-79b: `internal/app/linkdoors.go` — the five doors over
+THREE new hermetic `SettingsDeps` seams**
+(`LinkOllamaChat`/`LinkCloudChat`/`LinkEmbedCall` — the production
+wiring IS `mirror.BuildEmbeddingCall`) + the `HeroUI` wrappers + the
+`heroflow.js` wiring + the recategorize table modal + the generalized
+probe click leg: 🪝 Recall hooks (dry-run — the TestWorker law: the
+busy guard → the "⏳ … running…" opening → the captured
+stdout+stderr run → the LAST 40 LINES at completion → the ✅/❌
+verdict; DRY-RUN pinned — recall-dryrun.md is the only write) + 🔗
+Build link suggestions (the suggest grammar + THE ONE-WRITE law — the
+Suggestions note under Library/, the machine vaults byte-untouched) +
+✅ Validate Vault (connection_tests.py:219 verbatim) + 🔍 Verify Vault
+(the report box + the enqueue legs with the settled-repo filter) +
+📁 Recategorize Notes (the two-door flow: the open walk + the table
+modal + the apply with the cache row moves). THE GUARD LAW widened
+per the row's own naming: all five doors carry the batch-busy guard
+(the recorded divergence — the reference guards only the two tool
+runners). **The acceptance GREEN: the five doors live with their
+safe-default laws ✓ — 2312 main-battery tests race-clean over 36
+packages (2280 + 32) + 63 webui over 4 (59 + 4)**; the touched
+packages 3× race-clean; gofmt/vet clean over both modules; the MAIN
+go.mod byte-unchanged all session; the wails build links clean over
+the 10th-rebuilt webkit tree (no mode flips; the regenerated bindings
+content-only); the gate legs GREEN (first frame 726/269 ms; the 10k
+flood 0 drops); the screenshots VLM-verified (the five doors LIVE +
+the recall-door click leg's whole runner grammar on the desk — the
+lower-region misreads settled per the 042 law). The full record:
+`docs/poc-artifacts/t-79b-linking-doors.md` (the nine recorded
+divergences inside). **The remaining tail: T-79c (the bot-queue tool
+dialogs), T-79d (the Chrome doors), T-79e (the decommission
+picker).**
