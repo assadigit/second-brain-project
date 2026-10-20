@@ -933,6 +933,51 @@ flood 0 drops); the screenshots VLM-verified (the five doors LIVE +
 the recall-door click leg's whole runner grammar on the desk — the
 lower-region misreads settled per the 042 law). The full record:
 `docs/poc-artifacts/t-79b-linking-doors.md` (the nine recorded
-divergences inside). **The remaining tail: T-79c (the bot-queue tool
-dialogs), T-79d (the Chrome doors), T-79e (the decommission
-picker).**
+divergences inside).
+
+**SESSION-044 — T-79c COMPLETE: THE THREE BOT-QUEUE TOOL DOORS LIVE.**
+The fortieth full wipe absorbed before work (the whole environment —
+both repos, the toolchain, the venv, the module cache, the wails
+CLI, AND the webkit tree; all rebuilt from the committed recipes,
+the TWELFTH webkit rebuild — symlink(2) blocked this boot, the 26
+dev links as Am.4 hardlinks; go1.27.2 sha-verified vs TOOLCHAIN.md
+Am.2's committed pin [go.dev's listing has rotated to 1.27.3 — the
+pin is the authority]; the FULL battery re-verified green pre-work:
+exactly 2312 + 63, plain + race). **T-79c: `internal/app/botdoors.go`
+— the three doors over ONE new hermetic `BotQueueFetch` seam** (the
+SAME a.queueFetch Worker /api/pending composition the queue command
+rides) **+ the `HeroUI` wrappers (seven More doors) + the
+`heroflow.js` dispatch + the manual-resolve dialog + the probe's
+'export' click pick**: ✅ Verify All Processed (the reference's own
+per-URL ladder — in-vault → decommissioned → cache-processed →
+fuzzy → settled → missing — + the byte-parity VERIFICATION REPORT +
+the permanent `_verification_report_*.md` + the resolve payload) +
+📋 Export All Links (the routed lists + Σ forward_count as the
+message count — the recorded divergence — + the byte-parity
+`_bot_links_export_*.md` + the 📋 Links Exported box) + 🔄 Retry
+Failed (the two-phase scan — the vault-error box, the honest
+read-failure line, the empty verdict, the settled-skip layer, the
+>10 confirm — + the post-confirm leg's 🔄 line, the pending-lists
+CLEARING [the reference's `_bot_queue_urls` law], and the DIRECT
+batch) + the manual-resolve engines (Mark as Processed /
+Decommission / Mark ALL settle the ledger too; Process Selected =
+the bot-source batch). **THE GUARD LAW carried exactly**: NO busy
+guard on export/verify (the reference's TELEGRAM lock was their only
+guard — Option B's accepted loss, the doors run alongside a batch;
+pinned by test); the retry batch rides SyncRunBatch's one-at-a-time
+refusal. **The acceptance GREEN: the three dialogs' verdicts stream
++ the queue state refreshes ✓ — 2322 main-battery tests race-clean
+over 36 packages (2312 + 10) + 67 webui over 4 (63 + 4)**; the
+touched packages 3× race-clean; gofmt/vet clean over both modules;
+the MAIN go.mod byte-unchanged all session; the wails build links
+clean over the 12th-rebuilt tree (29.5 s; no mode flips; the
+regenerated bindings content-only); the gate legs GREEN (first frame
+892/307/269 ms; the 10k flood 0 drops); the screenshots
+VLM-verified (the three doors LIVE — the first pass's Retry Failed
+misread settled per the 042/043 law: the byte-level source check +
+the cropped re-pass; the click leg: the export door's
+username-refusal grammar on the desk end-to-end — the first run
+caught the binding-import gap, now pinned by test). The full
+record: `docs/poc-artifacts/t-79c-bot-queue-doors.md` (the ten
+recorded divergences inside). **The remaining tail: T-79d (the
+Chrome doors), T-79e (the decommission picker).**

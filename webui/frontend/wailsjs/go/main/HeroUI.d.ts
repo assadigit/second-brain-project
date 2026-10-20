@@ -17,6 +17,8 @@ export function MoreBuildLinkSuggestions():Promise<main.MoreDoorResult>;
 
 export function MoreDarkMode(arg1:boolean):Promise<app.SaveResult>;
 
+export function MoreExportAllBotLinks():Promise<main.MoreDoorResult>;
+
 export function MoreOpenDashboard():Promise<main.MoreDoorResult>;
 
 export function MoreRecallHooksDryRun():Promise<main.MoreDoorResult>;
@@ -25,7 +27,17 @@ export function MoreRecategorizeApply(arg1:Array<app.RecategorizeChange>):Promis
 
 export function MoreRecategorizeOpen():Promise<app.RecategorizeModel>;
 
+export function MoreResolveDecommission(arg1:string,arg2:Array<string>):Promise<app.BotResolveAction>;
+
+export function MoreResolveMarkAll(arg1:Array<string>):Promise<app.BotResolveAction>;
+
+export function MoreResolveMarkProcessed(arg1:string,arg2:Array<string>):Promise<app.BotResolveAction>;
+
+export function MoreResolveProcess(arg1:Array<string>):Promise<app.BatchResult>;
+
 export function MoreRetryBacklog():Promise<app.BatchResult>;
+
+export function MoreRetryFailed(arg1:boolean):Promise<app.BotRetryScan>;
 
 export function MoreRetryMaster():Promise<app.BatchResult>;
 
@@ -40,6 +52,8 @@ export function MoreTestProxy():Promise<main.MoreDoorResult>;
 export function MoreTestTelegramGitHub():Promise<main.MoreDoorResult>;
 
 export function MoreValidateVault():Promise<main.MoreDoorResult>;
+
+export function MoreVerifyAllBotLinks():Promise<app.BotVerifyResult>;
 
 export function MoreVerifyVault():Promise<main.MoreDoorResult>;
 

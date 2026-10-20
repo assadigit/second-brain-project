@@ -159,6 +159,14 @@ type SettingsDeps struct {
 	LinkEmbedCall func(cfg any, modelOverride string) (
 		mirror.EmbedFn, string, error)
 
+	// The bot-queue tool doors' seam (T-79c) — faked at
+	// construction per THE HERMETIC-SEAM law; the production
+	// wiring is the SAME a.queueFetch composition the queue
+	// command rides (the Worker /api/pending honest poll).
+	// BotQueueFetch returns the state word ("ok" | "disabled" |
+	// "error") + the pending row dicts.
+	BotQueueFetch func(cfg *storage.OrderedMap) (string, []any)
+
 	// SpawnOllamaServe starts `ollama serve` detached
 	// (start_ollama_server's Popen half): (pid, "") or (0, errClass).
 	SpawnOllamaServe func() (int, string)

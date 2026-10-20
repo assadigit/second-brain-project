@@ -857,6 +857,47 @@ textarea.form-area { resize: vertical; min-height: 42px; }
   background: var(--sheet-alt); border: 1px solid var(--border); border-radius: 6px;
 }
 
+/* T-79c — the manual-resolve dialog: the missing-URLs list (the
+   QListWidget twin — click to select, the selected row carries the
+   state) + the btn_kind law's filled variants (the reference's
+   design system: ONE filled primary + ONE filled danger per dialog;
+   the kinds were in use since T-73/T-77 without their fills — the
+   gap closes here, every dialog's primary/danger buttons gain the
+   reference's own look). */
+.resolve-body { min-width: 560px; }
+.resolve-list { list-style: none; margin: 0; padding: 0; }
+.resolve-row {
+  font-family: ui-monospace, 'JetBrains Mono', Consolas, monospace;
+  font-size: 12px; padding: 4px 10px; border-bottom: 1px solid var(--border);
+  cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.resolve-row:hover { background: var(--sheet-alt); }
+.resolve-row.selected { background: var(--ghost-hover-bg); color: var(--accent); }
+.btn-primary {
+  background: var(--hero-fill);
+  color: var(--on-accent);
+  border: none;
+  border-radius: 6px;
+  padding: var(--sp-2) var(--sp-4);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-primary:hover { background: var(--hero-hover); }
+.btn-danger {
+  background: var(--danger-fill);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: var(--sp-2) var(--sp-4);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-danger:hover { background: var(--danger-hover); }
+
 /* the WebKit flex quirk insurance: a hard body cap (the NO-FEEDBACK
    SCROLL LAW's own spirit — a number, computed once from the window's
    own budget: 80% of 750 px minus the title + the clock + the pinned

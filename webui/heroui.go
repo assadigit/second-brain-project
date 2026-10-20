@@ -25,6 +25,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"strings"
 	"sync"
@@ -53,6 +54,13 @@ type HeroUI struct {
 	pendingWebsites  []string
 	intakeDuplicates int
 	rawCount         int
+
+	// retryFailedURLs is the Retry Failed door's held list (T-79c):
+	// the scan's kept rows between the confirm ask and the Continue
+	// answer — the reference's same-urls law (the modal question is
+	// asked mid-flow; the port's two-phase door holds the list on
+	// the shell's own seat, read+written under mu as ONE unit).
+	retryFailedURLs []string
 
 	// mu serializes the machine + the queue facts (wails runs each
 	// bound call on its own goroutine; the mirror ticks alongside).
@@ -732,6 +740,130 @@ func (u *HeroUI) MoreRecategorizeOpen() *app.RecategorizeModel {
 func (u *HeroUI) MoreRecategorizeApply(
 	changes []app.RecategorizeChange) *app.RecategorizeResult {
 	return u.settings.RecategorizeApply(changes)
+}
+
+// ---------------------------------------------------------------------------
+// THE BOT-QUEUE TOOL DOORS (T-79c) — ✅ Verify All Processed + 📋
+// Export All Links + 🔄 Retry Failed over internal/app/botdoors.go's
+// engines, plus the verify door's manual-resolve dialog doors (Mark
+// as Processed / Decommission / Mark ALL / Process Selected —
+// bot_queue.py:1368-1496). THE GUARD LAW is the reference's own: no
+// busy guard on the read doors (the TELEGRAM lock was their only
+// guard — Option B's accepted loss); the retry batch carries
+// SyncRunBatch's own one-at-a-time refusal.
+// ---------------------------------------------------------------------------
+
+// MoreExportAllBotLinks is 📋 Export All Links — the export file over
+// the Worker pending queue + the 📋 Links Exported verdict box (a
+// refusal or failure is log-only).
+func (u *HeroUI) MoreExportAllBotLinks() *MoreDoorResult {
+	title, body := u.settings.ExportAllBotLinks()
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// MoreVerifyAllBotLinks is ✅ Verify All Processed — the
+// VERIFICATION REPORT box (the long-body scroll law) + the resolve
+// payload (Missing non-empty = the manual-resolve dialog opens
+// through the report box's own Resolve button).
+func (u *HeroUI) MoreVerifyAllBotLinks() *app.BotVerifyResult {
+	return u.settings.VerifyAllBotLinks()
+}
+
+// MoreRetryFailed is 🔄 Retry Failed — the two-phase confirm door.
+// The unconfirmed pass runs the scan (the vault guard, the retry-queue
+// read, the settled skip, the empty verdict, the >10 question); a
+// ≤10 kept list falls straight through to the batch exactly like the
+// reference's mid-flow _confirm_batch. The confirmed pass re-uses
+// the held list — a stale Continue with no held list re-scans, never
+// a blind run.
+func (u *HeroUI) MoreRetryFailed(confirmed bool) *app.BotRetryScan {
+	if confirmed {
+		u.mu.Lock()
+		held := append([]string(nil), u.retryFailedURLs...)
+		u.mu.Unlock()
+		if len(held) > 0 {
+			u.runRetryFailedBatch(held)
+			u.mu.Lock()
+			u.retryFailedURLs = nil
+			u.mu.Unlock()
+			return &app.BotRetryScan{}
+		}
+	}
+	out := u.settings.RetryFailedScan()
+	u.mu.Lock()
+	u.retryFailedURLs = append([]string(nil), out.URLs...)
+	u.mu.Unlock()
+	if out.Box == nil && out.Confirm == nil && len(out.URLs) > 0 {
+		u.runRetryFailedBatch(out.URLs)
+		u.mu.Lock()
+		u.retryFailedURLs = nil
+		u.mu.Unlock()
+		return &app.BotRetryScan{}
+	}
+	return out
+}
+
+// runRetryFailedBatch is the reference's post-confirm leg: the
+// "🔄 Retrying…" line, the pending-lists clearing (a retry batch is
+// not a bot-queue batch — PROCESS must not pick these up either),
+// and the DIRECT batch (bot_source=False).
+func (u *HeroUI) runRetryFailedBatch(urls []string) {
+	u.settings.SpeakOnBus(fmt.Sprintf(
+		"🔄 Retrying %d previously-failed repos...", len(urls)), "info")
+	u.mu.Lock()
+	u.pendingRepos = nil
+	u.pendingWebsites = nil
+	u.machine.Mirror(true)
+	u.mu.Unlock()
+	u.emitState("")
+	_ = u.commands.SyncRunBatch(context.Background(), app.BatchOptions{
+		URLs:   append([]string(nil), urls...),
+		Source: "direct",
+	})
+	u.onBatchFinished()
+}
+
+// MoreResolveMarkProcessed is the manual-resolve dialog's Mark as
+// Processed button (the row + the settle + the verdict lines).
+func (u *HeroUI) MoreResolveMarkProcessed(url string,
+	missing []string) *app.BotResolveAction {
+	return u.settings.BotResolveMarkProcessed(url, missing)
+}
+
+// MoreResolveDecommission is the dialog's Decommission button (the
+// quarantine row + the settle + the verdict line).
+func (u *HeroUI) MoreResolveDecommission(url string,
+	missing []string) *app.BotResolveAction {
+	return u.settings.BotResolveDecommission(url, missing)
+}
+
+// MoreResolveMarkAll is the dialog's Mark ALL as Processed button
+// (the loop + the bulk settle + the count line).
+func (u *HeroUI) MoreResolveMarkAll(missing []string) *app.BotResolveAction {
+	return u.settings.BotResolveMarkAll(missing)
+}
+
+// MoreResolveProcess is Process Selected (_process_missing_urls,
+// bot_queue.py:1355): the line, the pending seat's update (the
+// reference's _bot_queue_urls assignment — bot_source=True), and
+// the bot-source batch over the picked urls.
+func (u *HeroUI) MoreResolveProcess(urls []string) *app.BatchResult {
+	if len(urls) == 0 {
+		return &app.BatchResult{}
+	}
+	u.settings.SpeakOnBus(fmt.Sprintf(
+		"🚀 Processing %d missing URL(s)...", len(urls)), "info")
+	u.mu.Lock()
+	u.pendingRepos = append([]string(nil), urls...)
+	u.machine.Mirror(true)
+	u.mu.Unlock()
+	u.emitState("")
+	res := u.commands.SyncRunBatch(context.Background(), app.BatchOptions{
+		URLs:   append([]string(nil), urls...),
+		Source: "bot",
+	})
+	u.onBatchFinished()
+	return res
 }
 
 func isDirPath(path string) bool {

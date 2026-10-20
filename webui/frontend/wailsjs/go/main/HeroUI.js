@@ -30,6 +30,10 @@ export function MoreDarkMode(arg1) {
   return window['go']['main']['HeroUI']['MoreDarkMode'](arg1);
 }
 
+export function MoreExportAllBotLinks() {
+  return window['go']['main']['HeroUI']['MoreExportAllBotLinks']();
+}
+
 export function MoreOpenDashboard() {
   return window['go']['main']['HeroUI']['MoreOpenDashboard']();
 }
@@ -46,8 +50,28 @@ export function MoreRecategorizeOpen() {
   return window['go']['main']['HeroUI']['MoreRecategorizeOpen']();
 }
 
+export function MoreResolveDecommission(arg1, arg2) {
+  return window['go']['main']['HeroUI']['MoreResolveDecommission'](arg1, arg2);
+}
+
+export function MoreResolveMarkAll(arg1) {
+  return window['go']['main']['HeroUI']['MoreResolveMarkAll'](arg1);
+}
+
+export function MoreResolveMarkProcessed(arg1, arg2) {
+  return window['go']['main']['HeroUI']['MoreResolveMarkProcessed'](arg1, arg2);
+}
+
+export function MoreResolveProcess(arg1) {
+  return window['go']['main']['HeroUI']['MoreResolveProcess'](arg1);
+}
+
 export function MoreRetryBacklog() {
   return window['go']['main']['HeroUI']['MoreRetryBacklog']();
+}
+
+export function MoreRetryFailed(arg1) {
+  return window['go']['main']['HeroUI']['MoreRetryFailed'](arg1);
 }
 
 export function MoreRetryMaster() {
@@ -76,6 +100,10 @@ export function MoreTestTelegramGitHub() {
 
 export function MoreValidateVault() {
   return window['go']['main']['HeroUI']['MoreValidateVault']();
+}
+
+export function MoreVerifyAllBotLinks() {
+  return window['go']['main']['HeroUI']['MoreVerifyAllBotLinks']();
 }
 
 export function MoreVerifyVault() {

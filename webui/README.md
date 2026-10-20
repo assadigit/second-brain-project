@@ -60,7 +60,13 @@ seam RETIRED at this landing, deleted with its tests):
   MoreBuildLinkSuggestions + the MoreRecategorizeOpen/Apply pair over
   internal/app/linkdoors.go's engines: the two tool doors run through
   the TestWorker law (log-only), Verify Vault answers the report box,
-  Recategorize is the two-door dialog). Bound as the sixth struct; the
+  Recategorize is the two-door dialog) — **plus T-79c's seven
+  bot-queue tool doors** (MoreExportAllBotLinks + MoreVerifyAllBotLinks
+  + MoreRetryFailed's two-phase confirm [the shell holds the scanned
+  urls on its own seat; the post-confirm leg clears the pending lists
+  and runs the DIRECT batch] + the manual-resolve doors
+  MoreResolveMarkProcessed/Decommission/MarkAll + MoreResolveProcess
+  over internal/app/botdoors.go's engines). Bound as the sixth struct; the
   generated bindings live in frontend/wailsjs/go/main/HeroUI.js.
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
   over internal/app's pages B engines + the Commands surface (the
@@ -114,9 +120,19 @@ seam RETIRED at this landing, deleted with its tests):
   TestWorker law), Verify Vault's report rides the long-body box
   (themedBox's scroll option — the buttons pinned under the body),
   and the recategorize table modal renders the reference's own
-  columns with the Apply row pinned outside the scrolling body; the
+  columns with the Apply row pinned outside the scrolling body;
+  **T-79c: the three bot-queue tool doors are LIVE** — Verify All
+  Processed's report box (the long-body law) carries a Resolve
+  Missing Links primary when links are missing (the manual-resolve
+  dialog opens from the box's own button, the one-overlay law),
+  Export All Links answers the 📋 Links Exported box, and Retry
+  Failed rides the two-phase confirm (Continue calls the confirmed
+  pass); the resolve dialog is the reference's own words + button
+  hierarchy (the buttons pinned outside the scrolling body,
+  click-to-select rows); the
   SB_POC_OPEN_MORE probe (shell.go's autorun leg) opens the menu for
-  the screenshot evidence and can click one door end-to-end).
+  the screenshot evidence and can click one door end-to-end
+  ('ollama' / 'recall' / 'export').
 - `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
   path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's

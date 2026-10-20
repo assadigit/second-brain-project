@@ -12,6 +12,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -21,14 +22,15 @@ import (
 
 	"github.com/assadigit/second-brain-project/internal/app"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
+	"github.com/assadigit/second-brain-project/internal/constants"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/mirror"
 	"github.com/assadigit/second-brain-project/internal/storage"
+	"github.com/assadigit/second-brain-project/internal/store"
 )
 
-// heroRig is the hermetic chrome: a Settings + Commands pair over
-// faked queue/battery seams, a log-capturing subscriber, and the
-// HeroUI wrapper.
+// heroRig is the shared wiring harness: faked queue/battery seams,
+// a log-capturing subscriber, and the HeroUI wrapper.
 type heroRig struct {
 	ui       *HeroUI
 	commands *app.Commands
@@ -42,6 +44,10 @@ type heroRig struct {
 	batchModes  []string
 	batchResult *app.BatchResult
 	batchBlock  chan struct{} // non-nil → the fake batch waits for the close
+
+	// botQueueItems feeds the Settings' BotQueueFetch seam (T-79c's
+	// doors — independent of the Commands' queue fakes).
+	botQueueItems []any
 }
 
 func newHeroRig(t *testing.T) *heroRig {
@@ -1025,9 +1031,8 @@ func TestHeroflowPerTestDoorsLive(t *testing.T) {
 		t.Fatal("the verdict box law (title-only)")
 	}
 	// the honest-disabled law still holds — for the REMAINING tail
-	// (T-79c..e), never for the per-test or linking doors.
+	// (T-79d/e), never for the per-test, linking, or bot-queue doors.
 	for _, soon := range []string{
-		"The bot-queue tools land with the queue-tools task",
 		"The Chrome doors land with the Chrome-doors GUI task",
 		"The graveyard procedure lands with the master-table tools task",
 		"The export-zip engine rides the packaging phase",
@@ -1068,5 +1073,310 @@ func TestHeroflowPerTestDoorsLive(t *testing.T) {
 		if !strings.Contains(src, want) {
 			t.Fatalf("the recategorize dialog law missing %q", want)
 		}
+	}
+}
+
+// ---------------------------------------------------------------------------
+// T-79c — the bot-queue tool doors (the More menu's third family).
+// ---------------------------------------------------------------------------
+
+// newBotDoorUIRig builds a heroRig whose Settings carries the faked
+// BotQueueFetch seam (botQueueItems feeds it) + the faked batch + the
+// cache under a temp APP_DIR.
+func newBotDoorUIRig(t *testing.T) *heroRig {
+	t.Helper()
+	appDir := t.TempDir()
+	t.Setenv("GITCURATOR_HOME", appDir)
+	bus := app.NewBus()
+	cfg := storage.NewOrderedMap()
+	var spoken []string
+	var mu sync.Mutex
+	bus.Subscribe(&app.Handlers{LogLine: func(l app.LogLine) {
+		mu.Lock()
+		spoken = append(spoken, l.Msg)
+		mu.Unlock()
+	}})
+	rig := &heroRig{cfg: cfg, spoken: &spoken, mu: &mu, queueState: "ok"}
+	settings := app.NewSettings(bus, cfg, &app.OpLock{}, app.SettingsDeps{
+		BotQueueFetch: func(c *storage.OrderedMap) (string, []any) {
+			rig.mu.Lock()
+			items := rig.botQueueItems
+			rig.mu.Unlock()
+			return "ok", items
+		},
+	})
+	rig.commands = app.NewCommands(bus, app.Deps{
+		Config: func() *storage.OrderedMap { return cfg },
+		Batch: func(ctx context.Context, c *storage.OrderedMap,
+			opts app.BatchOptions, ev app.BatchEvents) *app.BatchResult {
+			rig.mu.Lock()
+			rig.batchCalls++
+			rig.batchModes = append(rig.batchModes, opts.Mode+"/"+opts.Source)
+			rig.mu.Unlock()
+			return &app.BatchResult{Success: true, Message: "the fake batch finished"}
+		},
+	})
+	rig.ui = NewHeroUI(settings, rig.commands)
+	return rig
+}
+
+// botDoorCache opens the rig's cache (the temp APP_DIR's own cache.db).
+func botDoorCache(t *testing.T) *store.CacheDB {
+	t.Helper()
+	cache, err := store.NewCacheDB(filepath.Join(constants.AppDir(), "cache.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	return cache
+}
+
+func TestHeroUIBotQueueExportAndVerify(t *testing.T) {
+	rig := newBotDoorUIRig(t)
+	rig.cfg.Set("bot_username", "mybot")
+	vault := t.TempDir()
+	rig.cfg.Set("vault_path", vault)
+	rig.mu.Lock()
+	rig.botQueueItems = []any{
+		map[string]any{"url_normalized": "https://github.com/acme/one",
+			"forward_count": float64(2)},
+		map[string]any{"url_normalized": "https://example.com/page"},
+	}
+	rig.mu.Unlock()
+
+	// the export door: the box + the file + the two verdict lines.
+	res := rig.ui.MoreExportAllBotLinks()
+	if res == nil || res.Title != "📋 Links Exported" {
+		t.Fatalf("the export box: %+v", res)
+	}
+	matches, err := filepath.Glob(filepath.Join(vault, "_bot_links_export_*.md"))
+	if err != nil || len(matches) != 1 {
+		t.Fatalf("the export file: %v (%d)", err, len(matches))
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "📋 Export saved: "+matches[0])
+	spokePerTest(t, rig.spoken, rig.mu, "📊 Total messages: 2 | GitHub: 1 | Non-GitHub: 1 | Duplicates: 0")
+
+	// the verify door: the fresh-cache settlement + the report box
+	// over the fetched urls (both accounted for — one settled, the
+	// ladder's own truth).
+	vres := rig.ui.MoreVerifyAllBotLinks()
+	if vres == nil || vres.Title != "✅ VERIFICATION REPORT" {
+		t.Fatalf("the verify box: %+v", vres)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "📚 Vault index: 0 notes indexed")
+	spokePerTest(t, rig.spoken, rig.mu, "✅ Verified: 0 in vault + 0 decommissioned + 1 settled = 1/1 accounted for")
+	if len(vres.Missing) != 0 {
+		t.Fatalf("the fresh-cache verify misses nothing: %v", vres.Missing)
+	}
+
+	// the username refusal (log-only, no box).
+	rig.cfg.Set("bot_username", "")
+	eres := rig.ui.MoreExportAllBotLinks()
+	if eres == nil || eres.Title != "" {
+		t.Fatalf("the refusal is log-only: %+v", eres)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "❌ Please enter the bot username first.")
+}
+
+func TestHeroUIBotQueueRetryFailedTwoPhase(t *testing.T) {
+	rig := newBotDoorUIRig(t)
+	rig.cfg.Set("vault_path", t.TempDir())
+
+	// the empty queue: the box, no batch.
+	out := rig.ui.MoreRetryFailed(false)
+	if out.Box == nil || out.Box.Title != "Retry Queue Empty" {
+		t.Fatalf("the empty box: %+v", out.Box)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "✓ No failed repos to retry.")
+
+	// the stale Continue with no held list re-scans (never a blind
+	// run) — the empty box again, still no batch.
+	out = rig.ui.MoreRetryFailed(true)
+	if out.Box == nil || out.Box.Title != "Retry Queue Empty" {
+		t.Fatalf("the stale-continue re-scan: %+v", out.Box)
+	}
+	rig.mu.Lock()
+	calls := rig.batchCalls
+	rig.mu.Unlock()
+	if calls != 0 {
+		t.Fatalf("no batch before the kept list (have %d)", calls)
+	}
+
+	// a ≤10 kept list: no gate — the batch runs now (the DIRECT
+	// source — bot_source=False), the pending lists cleared (the
+	// reference's _bot_queue_urls law), the 🔄 line spoken.
+	cache := botDoorCache(t)
+	cache.AddFailed("https://github.com/acme/live-one", "boom")
+	cache.AddFailed("https://github.com/acme/live-two", "boom")
+	_ = cache.Close()
+	rig.ui.mu.Lock()
+	rig.ui.pendingRepos = []string{"https://github.com/acme/stale-bot-row"}
+	rig.ui.pendingWebsites = []string{"https://example.com/stale-web-row"}
+	rig.ui.mu.Unlock()
+	out = rig.ui.MoreRetryFailed(false)
+	if out.Box != nil || out.Confirm != nil || len(out.URLs) != 0 {
+		t.Fatalf("a run's answer is the empty payload: %+v", out)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "🔄 Retrying 2 previously-failed repos...")
+	rig.mu.Lock()
+	calls = rig.batchCalls
+	modes := append([]string(nil), rig.batchModes...)
+	rig.ui.mu.Lock()
+	pending := append([]string(nil), rig.ui.pendingRepos...)
+	webs := append([]string(nil), rig.ui.pendingWebsites...)
+	held := append([]string(nil), rig.ui.retryFailedURLs...)
+	rig.ui.mu.Unlock()
+	rig.mu.Unlock()
+	if calls != 1 {
+		t.Fatalf("the batch ran once (have %d)", calls)
+	}
+	if len(modes) != 1 || modes[0] != "/direct" {
+		t.Fatalf("the retry batch's source: %v", modes)
+	}
+	if len(pending) != 0 || len(webs) != 0 {
+		t.Fatalf("the pending lists cleared: %v %v", pending, webs)
+	}
+	if len(held) != 0 {
+		t.Fatalf("the held list cleared after the run: %v", held)
+	}
+
+	// a >10 kept list: the confirm gate — the unconfirmed pass asks
+	// (no batch), the confirmed pass runs over the HELD urls. A fresh
+	// cache (the earlier case's rows still sit in this APP_DIR's own
+	// cache.db).
+	if err := os.Remove(filepath.Join(constants.AppDir(), "cache.db")); err != nil {
+		t.Fatal(err)
+	}
+	cache = botDoorCache(t)
+	urls := make([]string, 11)
+	for i := range urls {
+		urls[i] = fmt.Sprintf("https://github.com/acme/bulk-%02d", i)
+		cache.AddFailed(urls[i], "boom")
+	}
+	_ = cache.Close()
+	out = rig.ui.MoreRetryFailed(false)
+	if out.Confirm == nil || out.Confirm.Title != "Confirm Large Batch" ||
+		!strings.Contains(out.Confirm.Body, "This will process 11 items (the retry queue).") {
+		t.Fatalf("the confirm box: %+v", out.Confirm)
+	}
+	rig.mu.Lock()
+	calls = rig.batchCalls
+	rig.mu.Unlock()
+	if calls != 1 {
+		t.Fatalf("the unconfirmed pass never runs the batch (have %d)", calls)
+	}
+	out = rig.ui.MoreRetryFailed(true)
+	if out == nil || out.Box != nil || out.Confirm != nil {
+		t.Fatalf("the confirmed pass's answer is the empty payload: %+v", out)
+	}
+	rig.mu.Lock()
+	calls = rig.batchCalls
+	rig.mu.Unlock()
+	if calls != 2 {
+		t.Fatalf("the confirmed pass ran the batch (have %d)", calls)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "🔄 Retrying 11 previously-failed repos...")
+}
+
+func TestHeroUIBotQueueResolveDoors(t *testing.T) {
+	rig := newBotDoorUIRig(t)
+	urlA := "https://github.com/acme/alpha"
+	urlB := "https://github.com/acme/beta"
+
+	// Mark as Processed: the wrapper + the all-resolved arithmetic.
+	res := rig.ui.MoreResolveMarkProcessed(urlA, []string{urlA, urlB})
+	if res == nil || res.AllResolved {
+		t.Fatalf("mark processed: %+v", res)
+	}
+	res = rig.ui.MoreResolveMarkProcessed(urlB, []string{urlB})
+	if res == nil || !res.AllResolved {
+		t.Fatalf("the last row resolved: %+v", res)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "✅ All missing links resolved!")
+
+	// Decommission + Mark ALL.
+	res = rig.ui.MoreResolveDecommission(urlA, []string{urlA})
+	if res == nil || !res.AllResolved {
+		t.Fatalf("decommission: %+v", res)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "🗑️ Decommissioned (manual): "+urlA)
+	res = rig.ui.MoreResolveMarkAll([]string{urlA, urlB})
+	if res == nil || !res.AllResolved {
+		t.Fatalf("mark all: %+v", res)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "✅ Marked 2 URL(s) as processed (manual)")
+
+	// Process Selected: the 🚀 line + the BOT-source batch + the
+	// pending seat's update (_process_missing_urls' assignment).
+	bres := rig.ui.MoreResolveProcess([]string{urlA})
+	if bres == nil || !bres.Success {
+		t.Fatalf("process selected: %+v", bres)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "🚀 Processing 1 missing URL(s)...")
+	rig.mu.Lock()
+	modes := append([]string(nil), rig.batchModes...)
+	rig.ui.mu.Lock()
+	pending := append([]string(nil), rig.ui.pendingRepos...)
+	rig.ui.mu.Unlock()
+	rig.mu.Unlock()
+	last := modes[len(modes)-1]
+	if last != "/bot" {
+		t.Fatalf("process selected is a bot-source batch: %v", modes)
+	}
+	if len(pending) != 1 || pending[0] != urlA {
+		t.Fatalf("the pending seat carries the processed urls: %v", pending)
+	}
+}
+
+func TestHeroflowBotQueueDoorsLive(t *testing.T) {
+	src := heroflowSource(t)
+	// the three doors are LIVE (T-79c) — each with its dispatch key.
+	for _, want := range []string{
+		"live: 'verifyAll'", "live: 'exportAll'", "live: 'retryFailed'",
+		"MoreVerifyAllBotLinks", "MoreExportAllBotLinks", "MoreRetryFailed(false)",
+		"MoreRetryFailed(true)",
+		"MoreResolveMarkProcessed", "MoreResolveDecommission",
+		"MoreResolveMarkAll", "MoreResolveProcess",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the bot-queue doors' live wiring missing %q", want)
+		}
+	}
+	// the manual-resolve dialog: the reference's own words + the
+	// button hierarchy + the resolve-through-the-box law.
+	for _, want := range []string{
+		"openBotResolveDialog", "Manual Resolve — Missing Links",
+		"'Process Selected'", "'Mark as Processed'", "'Decommission'",
+		"'Mark ALL as Processed'", "'Resolve Missing Links'",
+		"'Continue'",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the resolve dialog's law missing %q", want)
+		}
+	}
+	// the honest-disabled law still holds — for the REMAINING tail
+	// (T-79d/T-79e), never for the bot-queue doors.
+	for _, soon := range []string{
+		"The Chrome doors land with the Chrome-doors GUI task",
+		"The graveyard procedure lands with the master-table tools task",
+		"The export-zip engine rides the packaging phase",
+	} {
+		if !strings.Contains(src, soon) {
+			t.Fatalf("the remaining tail's landing note missing %q", soon)
+		}
+	}
+	if strings.Contains(src, "The bot-queue tools land with the queue-tools task") {
+		t.Fatal("the T-79c doors are live — their landing note is gone")
+	}
+	// the probe's click leg knows the export pick.
+	if !strings.Contains(src, "door === 'export' ? 'Export All Links'") {
+		t.Fatal("the probe's export pick")
+	}
+	// the bindings ride the IMPORT list (the gap the first click-leg
+	// run caught: a door missing from the import throws a silent
+	// ReferenceError — the desk never speaks; the pin keeps every
+	// T-79c door inside the import statement).
+	if !strings.Contains(src, "MoreExportAllBotLinks, MoreVerifyAllBotLinks, MoreRetryFailed,") ||
+		!strings.Contains(src, "MoreResolveMarkProcessed, MoreResolveDecommission,") {
+		t.Fatal("the bot-queue doors' import statement")
 	}
 }

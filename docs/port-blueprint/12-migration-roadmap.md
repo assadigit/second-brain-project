@@ -517,6 +517,55 @@ verified against the Python app.
 > T-79c (the bot-queue tool dialogs), T-79d (the Chrome doors),
 > T-79e (the decommission picker).
 
+> **SESSION-044 (2026-10-20): T-79c COMPLETE (the bot-queue tool
+> doors).** The fortieth full wipe absorbed before work (the whole
+> environment gone — both repos, the toolchain, the venv, the module
+> cache, the wails CLI, AND the webkit tree; the repair all from the
+> committed recipes: both repos re-cloned with the ephemeral
+> GIT_CONFIG_COUNT form — nothing persisted, both verified clean;
+> go1.27.2 sha-verified against TOOLCHAIN.md Am.2's committed pin —
+> go.dev's ?mode=json has rotated to 1.27.3, the pin is the
+> authority; the venv — the plain form, this boot HAS ensurepip; the
+> wails CLI v2.16.0; the module caches; the TWELFTH webkit-tree
+> rebuild — 144 debs / 77.7 MB, the 42 .pc rewrites, the 26 dev
+> links as Am.4 hardlinks [symlink(2) BLOCKED this boot]; the FULL
+> battery re-verified green pre-work: exactly 2312 + 63, plain +
+> race). T-79c: the bot-queue tool dialogs as More-menu doors — the
+> reference's own flows (bot_queue.py:929/1026/1368 +
+> dashboard.py:770) over the ported queue engines
+> (internal/app/botdoors.go's Settings methods over ONE new
+> hermetic BotQueueFetch seam — the SAME a.queueFetch Worker
+> /api/pending composition; the HeroUI wrappers + the heroflow.js
+> dispatch + the manual-resolve dialog + the probe's 'export' click
+> pick): ✅ Verify All Processed (the per-URL ladder — in-vault →
+> decommissioned → cache-processed → fuzzy → settled → missing — the
+> byte-parity report + the permanent _verification_report file + the
+> resolve payload) + 📋 Export All Links (the routed lists + Σ
+> forward_count as the message count — the recorded divergence — +
+> the byte-parity export file + the 📋 Links Exported box) + 🔄 Retry
+> Failed (the scan: the vault-error box, the honest read-failure
+> line, the empty verdict, the settled-skip layer, the >10 confirm;
+> the shell's two-phase door holds the scanned urls on its own seat
+> and the post-confirm leg speaks the 🔄 line, CLEARS the pending
+> lists — the reference's _bot_queue_urls law — and runs the DIRECT
+> batch). THE GUARD LAW carried exactly: NO busy guard on
+> export/verify (the reference's TELEGRAM lock was their only guard
+> — Option B's accepted loss; pinned by test), the retry batch rides
+> SyncRunBatch's own refusal. The proof: 10 engine tests + 4 shell
+> tests + the field-tags pin; the battery at the close 2322
+> main-battery tests race-clean over 36 packages (2312 + 10) + 67
+> webui over 4 (63 + 4); the touched packages 3× race-clean; the
+> wails build links clean over the 12th-rebuilt tree (29.5 s; no
+> mode flips); the gate legs GREEN (first frame 892/307/269 ms; the
+> 10k flood 0 drops); the screenshots VLM-verified (the three doors
+> LIVE; the first pass's Retry Failed misread settled per the
+> 042/043 law — the byte-level source check + the cropped re-pass;
+> the click leg: the export door's username-refusal grammar on the
+> desk end-to-end — the first run caught the binding-import gap, now
+> pinned by test). The ten recorded divergences + the full record:
+> docs/poc-artifacts/t-79c-bot-queue-doors.md. The remaining tail:
+> T-79d (the Chrome doors), T-79e (the decommission picker).
+
 ## Phase 7 — Packaging, release, cutover
 
 **Work**: deterministic zip builder, `1-INSTALL` equivalent, clean-machine checklist (doc 10 §7),

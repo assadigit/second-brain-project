@@ -290,7 +290,10 @@ func New(configPath string, headless bool) *App {
 			}
 			return reply, ""
 		},
-		LinkEmbedCall:    mirror.BuildEmbeddingCall,
+		LinkEmbedCall: mirror.BuildEmbeddingCall,
+		// The bot-queue tool doors' seam (T-79c): the SAME
+		// queueFetch composition the queue command rides.
+		BotQueueFetch:    a.queueFetch,
 		SpawnOllamaServe: spawnOllamaServe,
 		SoundDir: func() string {
 			return filepath.Join(constants.AppDir(), "assets", "sounds")

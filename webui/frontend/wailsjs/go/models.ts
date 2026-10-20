@@ -104,6 +104,68 @@ export namespace app {
 	        this.Error = source["Error"];
 	    }
 	}
+	export class BotResolveAction {
+	    allResolved: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new BotResolveAction(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.allResolved = source["allResolved"];
+	    }
+	}
+	export class HeroBox {
+	    title: string;
+	    body: string;
+	    question?: boolean;
+	
+	    static createFrom(source: any = {}) {
+	        return new HeroBox(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.title = source["title"];
+	        this.body = source["body"];
+	        this.question = source["question"];
+	    }
+	}
+	export class BotRetryScan {
+	    box?: HeroBox;
+	    confirm?: HeroBox;
+	    urls: string[];
+	
+	    static createFrom(source: any = {}) {
+	        return new BotRetryScan(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.box = this.convertValues(source["box"], HeroBox);
+	        this.confirm = this.convertValues(source["confirm"], HeroBox);
+	        this.urls = source["urls"];
+	    }
+	
+		convertValues(a: any, classs: any, asMap: boolean = false): any {
+		    if (!a) {
+		        return a;
+		    }
+		    if (a.slice && a.map) {
+		        return (a as any[]).map(elem => this.convertValues(elem, classs));
+		    } else if ("object" === typeof a) {
+		        if (asMap) {
+		            for (const key of Object.keys(a)) {
+		                a[key] = new classs(a[key]);
+		            }
+		            return a;
+		        }
+		        return new classs(a);
+		    }
+		    return a;
+		}
+	}
 	export class BotValues {
 	    username: string;
 	    token: string;
@@ -116,6 +178,22 @@ export namespace app {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.username = source["username"];
 	        this.token = source["token"];
+	    }
+	}
+	export class BotVerifyResult {
+	    title: string;
+	    body: string;
+	    missing: string[];
+	
+	    static createFrom(source: any = {}) {
+	        return new BotVerifyResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.title = source["title"];
+	        this.body = source["body"];
+	        this.missing = source["missing"];
 	    }
 	}
 	export class CredentialsValues {
@@ -136,22 +214,7 @@ export namespace app {
 	        this.githubToken = source["githubToken"];
 	    }
 	}
-	export class HeroBox {
-	    title: string;
-	    body: string;
-	    question?: boolean;
 	
-	    static createFrom(source: any = {}) {
-	        return new HeroBox(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.title = source["title"];
-	        this.body = source["body"];
-	        this.question = source["question"];
-	    }
-	}
 	export class HeroRender {
 	    label: string;
 	    glyph: string;

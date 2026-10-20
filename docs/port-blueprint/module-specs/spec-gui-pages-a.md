@@ -46,6 +46,13 @@
   engine with the top-10 confirm + the processed_repos row removal + the once
   law); verify_vault/recategorize_notes/dead-links viewer/retry launchers stay
   T-76/T-77's (the More-menu family — the page's own rows are live).
+  — **Dated note (2026-10-20, T-79c/SESSION-044, the completion half):** the
+    failed-repos retry launcher landed at T-79c — `dashboard.py:770`'s flow
+    over `internal/app/botdoors.go`'s scan + the More menu's two-phase shell
+    door (the vault-error box, the settled-skip layer, the >10 confirm, the
+    pending-lists clearing, the DIRECT batch). The reconciliation-links
+    retry (the banner's own action) remains the Sync view's door; the
+    record: `docs/poc-artifacts/t-79c-bot-queue-doors.md`.
 - Quarantine view/reset (`refresh_quarantine_view` top 30 rows + "… and N more";
   `clear_all_quarantine`; threshold spinbox saves `notfound_strike_threshold`).
 - `undo_last_batch` (228-311): reads `<vault>/_undo_last_batch.txt`, deletes files best-effort,
@@ -89,6 +96,36 @@
   spec-worker-contract §8.4). `process_new_bot_queue`'s incremental `last_processed_msg_id`
   cursor falls away with the Telethon fetch; the Worker queue is ledger-state-based. The
   settled-link exclusion layers and confirm gates stay.
+  — **Dated note (2026-10-20, T-79c/SESSION-044 — the three bot-queue tool doors
+    LIVE):** the More menu's third family landed (`internal/app/botdoors.go`
+    + the `HeroUI` wrappers + the heroflow.js wiring + the
+    manual-resolve dialog): ✅ Verify All Processed (the reference's
+    own per-URL ladder — in-vault → decommissioned → cache-processed
+    → fuzzy → settled → missing — over the Worker pending poll +
+    the byte-parity VERIFICATION REPORT + the permanent
+    `_verification_report_*.md` + the resolve payload) + 📋 Export
+    All Links (the routed lists + the byte-parity
+    `_bot_links_export_*.md` + the 📋 Links Exported box) + 🔄 Retry
+    Failed (the two-phase scan: the vault-error box, the read-failure
+    line, the empty verdict, the settled-skip layer, the >10 confirm
+    over "the retry queue"; the post-confirm leg clears the session's
+    pending lists — the reference's `_bot_queue_urls` law — and runs
+    the DIRECT batch) + the manual-resolve engines (Mark as
+    Processed / Decommission / Mark ALL settle the ledger too —
+    v0.63.3's law; Process Selected runs the bot-source batch). ONE
+    new hermetic `BotQueueFetch` seam (the SAME a.queueFetch
+    composition the queue command rides). THE GUARD LAW carried
+    exactly: NO busy guard on export/verify (the reference's
+    TELEGRAM lock was their only guard — Option B's accepted loss,
+    the doors run alongside a batch, the reference's own concurrency
+    semantics); the retry batch rides SyncRunBatch's one-at-a-time
+    refusal. The recorded divergences (the export's message count =
+    Σ forward_count; the save-before-verify rides the save-on-change
+    law; the mark-all-read question dropped; the report rides the
+    More door's themed box; the resolve dialog opens through the
+    report box's own button; the one-connection cache blocks; the
+    sorted fuzzy iteration; the plain-open file writes; repo_id 0
+    replaces): `docs/poc-artifacts/t-79c-bot-queue-doors.md`.
 
 ## telegram_ui.py
 

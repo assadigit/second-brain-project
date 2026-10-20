@@ -60,6 +60,10 @@ type fakeSettingsDeps struct {
 		numCtx int, timeoutS float64) (string, string)
 	linkEmbedCall func(cfg any, modelOverride string) (mirror.EmbedFn, string, error)
 
+	// The bot-queue tool doors' seam (T-79c).
+	botQueueState string
+	botQueueItems []any
+
 	spawnPID int
 	spawnErr string
 
@@ -156,6 +160,11 @@ func (f *fakeSettingsDeps) deps() SettingsDeps {
 				return f.linkEmbedCall(cfg, modelOverride)
 			}
 			return nil, "", nil
+		},
+		// The bot-queue tool doors' seam (T-79c): the rig's
+		// canned state + items ("ok" + nil = the empty queue).
+		BotQueueFetch: func(cfg *storage.OrderedMap) (string, []any) {
+			return f.botQueueState, f.botQueueItems
 		},
 		SpawnOllamaServe: func() (int, string) { return f.spawnPID, f.spawnErr },
 		SoundDir:         func() string { return f.soundDir },

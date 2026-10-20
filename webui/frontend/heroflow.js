@@ -32,6 +32,9 @@ import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
          MoreTestCloud, MoreTestLlamaCpp,
          MoreValidateVault, MoreVerifyVault, MoreRecallHooksDryRun,
          MoreBuildLinkSuggestions, MoreRecategorizeOpen, MoreRecategorizeApply,
+         MoreExportAllBotLinks, MoreVerifyAllBotLinks, MoreRetryFailed,
+         MoreResolveMarkProcessed, MoreResolveDecommission,
+         MoreResolveMarkAll, MoreResolveProcess,
          ChromeBoot } from './wailsjs/go/main/HeroUI.js';
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
@@ -517,9 +520,12 @@ const MORE_ACTIONS = [
   { label: '📁 Recategorize Notes', live: 'recategorize',
     tip: 'A table of the vault\'s notes — pick new categories in bulk; Apply rewrites the frontmatter and moves the files (locked notes are never touched).' },
   { sep: true },
-  { label: '✅ Verify All Processed', tip: 'The bot-queue tools land with the queue-tools task.' },
-  { label: '📋 Export All Links', tip: 'The bot-queue tools land with the queue-tools task.' },
-  { label: '🔄 Retry Failed', tip: 'The bot-queue tools land with the queue-tools task (the retry queue rides the Dashboard page\'s undo door today).' },
+  { label: '✅ Verify All Processed', live: 'verifyAll',
+    tip: 'Every GitHub link the queue holds, checked against the vault + the settled ledger — the report box + the permanent _verification_report file; missing links open the manual-resolve dialog.' },
+  { label: '📋 Export All Links', live: 'exportAll',
+    tip: 'All the queue\'s links saved to a file in the vault for manual verification — compare what the app found with what you actually forwarded to the bot.' },
+  { label: '🔄 Retry Failed', live: 'retryFailed',
+    tip: 'The retry queue\'s unresolved links re-processed through the full batch (settled repos are never re-fetched); a retry batch never clears the bot queue.' },
   { label: '🚫 View 404 Quarantine', live: 'dashboard', tip: 'The confirmed-dead list — the Dashboard page\'s quarantine manager (Settings ▸ Dashboard).' },
   { label: '🔁 Retry _review backlog', live: 'retryReview', tip: 'Re-fetch the app-owned fetch-failed placeholders under _review (v0.41\'s browser-grade presentation).' },
   { label: '🔁 Retry the table\'s \' - \' rows', live: 'retryMaster', tip: 'The master table\'s " - " rows — valid links whose fetches failed — fetched again before "everything is up to date" may be said.' },
@@ -660,6 +666,55 @@ async function runMoreAction(act) {
     if (model.notes && model.notes.length) openRecategorizeDialog(model);
     return;
   }
+  if (act.live === 'verifyAll') {
+    // T-79c: Verify All Processed — the report box (the long-body
+    // law); missing links open the manual-resolve dialog through the
+    // box's own Resolve button (the one-overlay-at-a-time law).
+    const res = await MoreVerifyAllBotLinks().catch(() => null);
+    if (res && res.title) {
+      const buttons = [];
+      if (res.missing && res.missing.length) {
+        buttons.push(['Resolve Missing Links', 'primary',
+          () => { closeOverlay(); openBotResolveDialog(res.missing); }]);
+        buttons.push(['OK', 'secondary', () => closeOverlay()]);
+      } else {
+        buttons.push(['OK', 'primary', () => closeOverlay()]);
+      }
+      themedBox({ title: res.title, body: res.body }, buttons,
+        { width: 560, scroll: true });
+    }
+    return;
+  }
+  if (act.live === 'exportAll') {
+    // T-79c: Export All Links — the 📋 Links Exported box (a refusal
+    // or failure spoke on the desk).
+    const res = await MoreExportAllBotLinks().catch(() => null);
+    if (res && res.title) {
+      themedBox({ title: res.title, body: res.body },
+        [['OK', 'primary', () => closeOverlay()]]);
+    }
+    return;
+  }
+  if (act.live === 'retryFailed') {
+    // T-79c: Retry Failed — the two-phase confirm (a >10 kept list
+    // asks; Continue calls the confirmed pass; the vault-error and
+    // empty-queue boxes render the verdict; a ≤10 list already ran —
+    // the batch's story is on the desk).
+    const res = await MoreRetryFailed(false).catch(() => null);
+    if (res && res.confirm) {
+      themedBox({ title: res.confirm.title, body: res.confirm.body }, [
+        ['Continue', 'primary',
+          async () => { closeOverlay(); await MoreRetryFailed(true).catch(() => {}); }],
+        ['Cancel', 'secondary', () => closeOverlay()],
+      ]);
+      return;
+    }
+    if (res && res.box) {
+      themedBox({ title: res.box.title, body: res.box.body },
+        [['OK', 'primary', () => closeOverlay()]]);
+    }
+    return;
+  }
   if (act.live === 'dashboard') {
     const res = await MoreOpenDashboard().catch(() => null);
     if (res && res.title) {
@@ -747,6 +802,93 @@ function openRecategorizeDialog(model) {
   box.append(body, btnRow);
 }
 
+// openBotResolveDialog — the verify door's manual-resolve dialog
+// (bot_queue.py:1368-1496): the header (⏳ — pending work, not a
+// failure), the missing-URLs list (click a row to select it — the
+// QListWidget twin; the actions no-op with nothing selected, the
+// reference's own silent return), and the action row — ONE filled
+// primary (Process Selected), outlined secondaries (Mark as
+// Processed / Mark ALL), ONE filled danger (Decommission) — plus
+// Close; the buttons pinned OUTSIDE the scrolling body.
+function openBotResolveDialog(missing) {
+  let list = missing.slice();
+  const box = openOverlay(640);
+  box.classList.add('linkdoor-box');
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-label', 'Manual Resolve — Missing Links');
+  box.appendChild(el('div', 'card-heading',
+    'Manual Resolve — Missing Links (' + list.length + ')'));
+  const body = el('div', 'dialog-body resolve-body');
+  body.appendChild(el('p', 'dialog-message',
+    '⏳ ' + list.length + ' GitHub link(s) are missing from the vault.\n' +
+    'For each URL, choose an action:'));
+  const ul = el('ul', 'resolve-list');
+  ul.setAttribute('role', 'listbox');
+  let selected = null;
+  const rowEls = new Map();
+  const paint = () => {
+    for (const [url, li] of rowEls) {
+      li.classList.toggle('selected', url === selected);
+      li.setAttribute('aria-selected', url === selected ? 'true' : 'false');
+    }
+  };
+  for (const url of list) {
+    const li = el('li', 'resolve-row', url);
+    li.title = url;
+    li.setAttribute('role', 'option');
+    li.tabIndex = 0;
+    li.addEventListener('click', () => { selected = url; paint(); });
+    li.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selected = url; paint(); }
+    });
+    rowEls.set(url, li);
+    ul.appendChild(li);
+  }
+  body.appendChild(ul);
+  const removeRow = (url) => {
+    const li = rowEls.get(url);
+    if (li) { li.remove(); rowEls.delete(url); }
+    list = list.filter((u) => u !== url);
+    selected = null;
+    paint();
+  };
+  const btnRow = el('div', 'dialog-buttons');
+  btnRow.appendChild(btn('Process Selected', 'primary',
+    'Fetch + curate the selected URL into the vault — the batch runs now (bot source).',
+    async () => {
+      if (!selected) return; // the reference's silent no-selection return
+      closeOverlay();
+      await MoreResolveProcess([selected]).catch(() => null);
+    }));
+  btnRow.appendChild(btn('Mark as Processed', 'secondary',
+    "The owner's word: this repo is addressed — recorded processed + settled, never fetched or counted again (♻️ Reset 404 Quarantine is the door back).",
+    async () => {
+      if (!selected) return;
+      const url = selected;
+      const res = await MoreResolveMarkProcessed(url, list).catch(() => null);
+      removeRow(url);
+      if (res && res.allResolved) closeOverlay();
+    }));
+  btnRow.appendChild(btn('Decommission', 'danger',
+    'Bury the selected link — the 404 quarantine + the settled ledger, never fetched again.',
+    async () => {
+      if (!selected) return;
+      const url = selected;
+      const res = await MoreResolveDecommission(url, list).catch(() => null);
+      removeRow(url);
+      if (res && res.allResolved) closeOverlay();
+    }));
+  btnRow.appendChild(btn('Mark ALL as Processed', 'secondary',
+    'Every missing URL on the owner\'s word — processed + settled in one pass.',
+    async () => {
+      await MoreResolveMarkAll(list).catch(() => null);
+      closeOverlay();
+    }));
+  btnRow.appendChild(btn('Close', 'secondary',
+    'Leave the links pending — nothing is written.', () => closeOverlay()));
+  box.append(body, btnRow);
+}
+
 function applyTheme(mode) {
   document.documentElement.dataset.theme = mode;
 }
@@ -780,10 +922,13 @@ EventsOn('autorun:open-more', async (v) => {
     // own honest failure lines. 'recall' (T-79b) clicks the tool
     // door: with no vault configured the runner speaks its whole
     // grammar — the opening, the captured refusal, the exit-code
-    // finish line.
+    // finish line. 'export' (T-79c) clicks the bot-queue export
+    // door: with no bot username configured the door speaks the
+    // reference's own username-refusal line.
     await new Promise((res) => setTimeout(res, 400));
     const pick = door === 'ollama' ? 'Test Ollama'
-      : door === 'recall' ? 'Recall hooks (dry-run)' : '';
+      : door === 'recall' ? 'Recall hooks (dry-run)'
+      : door === 'export' ? 'Export All Links' : '';
     if (pick) {
       const item = [...document.querySelectorAll('#more-menu .more-item')]
         .find((n) => n.textContent.includes(pick));
