@@ -1,15 +1,24 @@
 // Command mkzip builds the deterministic Windows release zip (doc 10 §2 —
-// the port of the reference's tools/build_zip.py laws; T-65's minimal
-// slice: the CLI-milestone composition. T-80/Phase 7 owns the full
-// builder — the double-build reproducibility ritual + the two-exe
-// composition + the release automation — per traceability F4).
+// the port of the reference's tools/build_zip.py laws). T-65 landed the
+// minimal CLI-milestone slice; T-80 (Phase 7) lands the FULL builder: the
+// two-exe composition (the GUI exe + the CLI exe), the version-stamp guard,
+// and the brand-icon guard (the release automation is T-81's).
 //
-// Composition (doc 10 §6's CLI slice, per SESSION-031's record):
+// Composition (doc 10 §6's portable layout):
 //
-//	GitCurator/GitCurator-cli.exe        the -exe input (built beforehand:
-//	                                    GOOS=windows GOARCH=amd64
-//	                                    CGO_ENABLED=0 go build -trimpath
-//	                                    -ldflags "-X main.version=…")
+//	GitCurator/GitCurator.exe            the -gui-exe input (built
+//	                                    beforehand: wails build
+//	                                    -platform windows/amd64
+//	                                    -trimpath -ldflags "-X
+//	                                    main.version=…" over the NESTED
+//	                                    webui module — the windowsgui
+//	                                    subsystem, the brand icon + the
+//	                                    T-80 manifest + the version
+//	                                    resource ride the .syso)
+//	GitCurator/GitCurator-cli.exe        the -exe input (GOOS=windows
+//	                                    GOARCH=amd64 CGO_ENABLED=0
+//	                                    go build -trimpath -ldflags
+//	                                    "-X main.version=…")
 //	GitCurator/<launcher>.bat|.sh       the CLI launcher set, tracked
 //	                                    directly under cmd/gitcurator-cli/,
 //	                                    FLATTENED to the zip root (the
@@ -19,8 +28,8 @@
 //	GitCurator/GitCurator-DRY-RUN.bat   root (T-65; the DRY-RUN one runs
 //	                                    GitCurator-cli.exe --cli --auto
 //	                                    --yes --dry-run — the safe first
-//	                                    run; GitCurator.bat targets the
-//	                                    GUI-milestone exe)
+//	                                    run; GitCurator.bat launches the
+//	                                    GUI exe)
 //	GitCurator/config.example.json      the settings template (the
 //	                                    reference's own bytes)
 //	GitCurator/WINDOWS-QUICKSTART.md    the first-run guide
@@ -40,20 +49,30 @@
 //     tracked in the shipped surface (defense in depth against an
 //     accidental `git add -f`);
 //   - every .bat: pure ASCII (the build fails on non-ASCII — the
-//     v0.09.1 codepage bug class) + CRLF (normalized idempotently).
+//     v0.09.1 codepage bug class) + CRLF (normalized idempotently);
+//   - THE VERSION-STAMP GUARD (T-80): both exes must carry the -version
+//     stamp's bytes — a forgot-the-ldflags build (the var's "dev"
+//     default) never reaches the zip. Byte-presence, not a crypto pin:
+//     the guard's job is catching the forgotten flag, and the
+//     double-build ritual is the identity proof;
+//   - THE BRAND-ICON GUARD (T-80): the GUI exe must carry the bytes of
+//     webui/build/windows/icon.ico (the brand icon, byte-pinned to
+//     assets/icons/gitcurator.ico by test) — an exe built with the
+//     wails DEFAULT icon never reaches the zip.
 //
 // Same inputs + version → same bytes (sha256-stable): two builds from
 // the same commit are byte-identical, so a released zip can always be
-// reproduced from its tag.
+// reproduced from its tag (AC-22; build/release.sh is the ritual).
 //
 // Usage:
 //
 //	go run ./build/mkzip -version "$(cat VERSION)" \
 //	    -exe bin/GitCurator-cli.exe \
+//	    -gui-exe webui/build/bin/gitcurator-shell.exe \
 //	    -out reports/dist/GitCurator-v0.92.0-go.1-windows.zip
 //
 // Exit codes: 0 = built; 2 = fatal (bad inputs, banned file tracked,
-// non-ASCII .bat, write error).
+// non-ASCII .bat, unstamped exe, default-icon GUI exe, write error).
 package main
 
 import (
@@ -122,6 +141,7 @@ func main() {
 	root := flag.String("root", ".", "the repo root (a git checkout)")
 	version := flag.String("version", "", "the version stamp (required)")
 	exe := flag.String("exe", "", "the built GitCurator-cli.exe path (required)")
+	guiExe := flag.String("gui-exe", "", "the built GUI GitCurator.exe path (required — wails build -platform windows/amd64 over webui/)")
 	out := flag.String("out", "", "the output zip path (default reports/dist/GitCurator-v<version>-windows.zip)")
 	flag.Parse()
 
@@ -133,12 +153,17 @@ func main() {
 			"CGO_ENABLED=0 go build -trimpath -ldflags \"-X main.version=" +
 			*version + "\" -o bin/GitCurator-cli.exe ./cmd/gitcurator-cli)")
 	}
+	if strings.TrimSpace(*guiExe) == "" {
+		fatal("missing -gui-exe (build it first, from webui/: wails build " +
+			"-platform windows/amd64 -trimpath -ldflags \"-X main.version=" +
+			*version + "\" — the exe lands at webui/build/bin/gitcurator-shell.exe)")
+	}
 	outPath := *out
 	if outPath == "" {
 		outPath = filepath.Join("reports", "dist",
 			fmt.Sprintf("GitCurator-v%s-windows.zip", strings.TrimSpace(*version)))
 	}
-	if err := run(*root, strings.TrimSpace(*version), *exe, outPath); err != nil {
+	if err := run(*root, strings.TrimSpace(*version), *exe, *guiExe, outPath); err != nil {
 		fatal(err.Error())
 	}
 }
@@ -149,7 +174,7 @@ func fatal(msg string) {
 }
 
 // run builds the zip. Deterministic: same inputs + version → same bytes.
-func run(root, version, exePath, outPath string) error {
+func run(root, version, exePath, guiExePath, outPath string) error {
 	tracked, err := collectTracked(root)
 	if err != nil {
 		return err
@@ -160,14 +185,31 @@ func run(root, version, exePath, outPath string) error {
 
 	entries := []entry{}
 
-	// 1. The exe.
+	// 1. The GUI exe (T-80's two-exe composition) — guarded by the
+	//    version stamp + the brand icon.
+	guiData, err := os.ReadFile(guiExePath)
+	if err != nil {
+		return fmt.Errorf("read -gui-exe: %w", err)
+	}
+	if err := guardVersionStamp("GitCurator.exe", guiData, version); err != nil {
+		return err
+	}
+	if err := guardBrandIcon(root, guiData); err != nil {
+		return err
+	}
+	entries = append(entries, entry{zipRoot + "/GitCurator.exe", guiData})
+
+	// 2. The CLI exe.
 	exeData, err := os.ReadFile(exePath)
 	if err != nil {
 		return fmt.Errorf("read -exe: %w", err)
 	}
+	if err := guardVersionStamp("GitCurator-cli.exe", exeData, version); err != nil {
+		return err
+	}
 	entries = append(entries, entry{zipRoot + "/GitCurator-cli.exe", exeData})
 
-	// 2. The CLI launchers — tracked .bat/.sh directly under the
+	// 3. The CLI launchers — tracked .bat/.sh directly under the
 	//    launcher dir, FLATTENED to the zip root.
 	for _, rel := range tracked {
 		if !strings.HasPrefix(rel, launcherDir+"/") {
@@ -191,7 +233,7 @@ func run(root, version, exePath, outPath string) error {
 		entries = append(entries, entry{zipRoot + "/" + tail, data})
 	}
 
-	// 3. The root assets.
+	// 4. The root assets.
 	for _, rel := range rootAssets {
 		data, err := readTracked(root, rel, tracked)
 		if err != nil {
@@ -206,11 +248,11 @@ func run(root, version, exePath, outPath string) error {
 		entries = append(entries, entry{zipRoot + "/" + rel, data})
 	}
 
-	// 4. VERSION — stamped from the flag, never copied as a tracked file.
+	// 5. VERSION — stamped from the flag, never copied as a tracked file.
 	entries = append(entries, entry{zipRoot + "/VERSION",
 		[]byte(version + "\n")})
 
-	// 5. The determinism laws: sorted arcnames, fixed timestamps,
+	// 6. The determinism laws: sorted arcnames, fixed timestamps,
 	//    fixed attrs, DEFLATE level 9.
 	sort.Slice(entries, func(i, j int) bool {
 		return entries[i].arcname < entries[j].arcname
@@ -229,6 +271,42 @@ func run(root, version, exePath, outPath string) error {
 	fmt.Printf("[mkzip] %d files, %d bytes in, %d bytes zipped\n",
 		len(entries), totalIn, fi.Size())
 	fmt.Printf("[mkzip] sha256 %s\n", sha)
+	return nil
+}
+
+// guardVersionStamp refuses an exe whose bytes lack the stamp — a
+// build that forgot -ldflags "-X main.version=…" (the var's "dev"
+// default) never reaches the zip. Byte-presence, not a crypto pin: the
+// guard's job is catching the forgotten flag.
+func guardVersionStamp(name string, data []byte, version string) error {
+	if !bytes.Contains(data, []byte(version)) {
+		return fmt.Errorf("%s does not carry the version stamp %q — rebuild it "+
+			"with -ldflags \"-X main.version=%s\" (the stamp's bytes must "+
+			"land in the exe)", name, version, version)
+	}
+	return nil
+}
+
+// guardBrandIcon refuses a GUI exe built with the wails DEFAULT icon:
+// webui/build/windows/icon.ico (pinned byte-equal to the brand icon
+// assets/icons/gitcurator.ico by test) must ride the exe's resource
+// section — probed by the icon's tail bytes.
+func guardBrandIcon(root string, guiData []byte) error {
+	ico, err := os.ReadFile(filepath.Join(root, "webui", "build",
+		"windows", "icon.ico"))
+	if err != nil {
+		return fmt.Errorf("read webui/build/windows/icon.ico (the brand "+
+			"icon source): %w", err)
+	}
+	if len(ico) < 64 {
+		return fmt.Errorf("webui/build/windows/icon.ico is too small (%d "+
+			"bytes) to be the brand icon", len(ico))
+	}
+	if !bytes.Contains(guiData, ico[len(ico)-64:]) {
+		return fmt.Errorf("the GUI exe does not carry webui/build/windows/" +
+			"icon.ico's bytes — rebuild it over the current brand icon " +
+			"(wails build embeds the icon at compile time)")
+	}
 	return nil
 }
 

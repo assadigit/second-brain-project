@@ -1,8 +1,9 @@
-# GitCurator — first run on Windows (v0.92.0-go.1, the CLI milestone)
+# GitCurator — first run on Windows (v0.92.0-go.1, the desktop milestone)
 
-Three steps and you're in. This is the Go port's CLI milestone: the
-command line is fully usable today; the desktop app (GitCurator.exe)
-arrives with the GUI milestone.
+Three steps and you're in. This build carries BOTH faces of the app:
+the desktop app (**GitCurator.exe**, double-click **`GitCurator.bat`**)
+and the full command line (**GitCurator-cli.exe**) — same engine, same
+config, same vaults.
 
 ## 1. Install (once)
 
@@ -14,17 +15,31 @@ Double-click **`1-INSTALL.bat`**.
   <https://git-scm.com/download/win> (the "Git for Windows" setup,
   default options are fine), then double-click `1-INSTALL.bat` again.
 - Safe to re-run any time.
+- **The desktop app** also needs the **WebView2 Runtime** (preinstalled
+  on updated Windows 10/11). If Windows doesn't have it, the app
+  downloads it automatically on first launch (one internet connection,
+  then never again).
 
-## 2. Configure (the wizard)
+## 2. Start the desktop app
 
-Double-click **`GitCurator-CLI-Setup.bat`**.
+Double-click **`GitCurator.bat`**.
 
-It asks for the same things the app's Settings page will: your GitHub
+The themed window opens: the SYNC desk (the log + the batch machine),
+the scan views, and Settings (every page the app has). A console window
+opens BEHIND the app if you launched it from the .bat — that is normal;
+if something breaks, screenshot that window: it has the exact error.
+
+## 3. Configure (the wizard — or the Settings pages)
+
+Double-click **`GitCurator-CLI-Setup.bat`**, or just fill the Settings
+pages in the desktop app.
+
+It asks for the same things the app's Settings pages do: your GitHub
 token, the LLM (local Ollama / llama.cpp or any OpenAI-compatible
 endpoint), and your vault paths — and saves them to `config.json`
 (kept private, never shared).
 
-## 3. Safe first run (writes NOTHING)
+## 4. Safe first run (writes NOTHING)
 
 Double-click **`GitCurator-DRY-RUN.bat`**.
 
@@ -57,7 +72,8 @@ It checks and shows, one line each: **vaults** (found + writable),
 | `GitCurator-CLI.bat` | full automatic run (real) |
 | `Start-GitCurator-CLI.bat` | same as GitCurator-CLI.bat (kept for muscle memory) |
 | `GitCurator-SYNC.bat` | **the fast sync lane** — check → one Enter → sync |
-| `GitCurator.bat` | the desktop app door — runs `GitCurator.exe` when the GUI milestone ships (today it prints an honest card and points you at the CLI) |
+| `GitCurator.bat` | the desktop app door — runs `GitCurator.exe` |
+| `GitCurator.exe` | the desktop app itself (the themed window) |
 | `gitcurator-cli.sh` | the Linux/macOS twin of the CLI launcher |
 | `GitCurator-cli.exe` | the command line itself |
 | `config.json` | created when you save settings — your credentials, keep it private |
@@ -81,8 +97,8 @@ It checks and shows, one line each: **vaults** (found + writable),
   `config.json` (and `cache.db` if you want the app to remember
   processed links) into the new folder.
 
-Version 0.92.0-go.1 — the Go port's CLI milestone: the full command
-line (status, wizard, test connection, dry-run, automatic runs, sync,
-retry, hand delivery, the LLM detect tools) with byte-parity to the
-Python app's CLI, proven by the differential corpus. The desktop app
-follows with the GUI milestone.
+Version 0.92.0-go.1 — the Go port's desktop milestone: the Wails GUI
+(the SYNC desk, the scan views, every Settings page, the More tools)
+plus the full command line (status, wizard, test connection, dry-run,
+automatic runs, sync, retry, hand delivery, the LLM detect tools) with
+byte-parity to the Python app, proven by the differential corpus.

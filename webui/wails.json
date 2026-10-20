@@ -9,5 +9,11 @@
   "author": {
     "name": "second-brain-agent",
     "email": "agent@second-brain.local"
+  },
+  "Info": {
+    "productName": "GitCurator",
+    "productVersion": "0.92.0-go.1",
+    "copyright": "Copyright (C) 2026 the GitCurator owner",
+    "comments": "The personal second-brain library builder (the Go port)."
   }
 }

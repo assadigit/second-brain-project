@@ -33,3 +33,7 @@ testdiff/runs/
 
 # Wails PoC build outputs
 poc/wails/build/
+
+# Release-ritual outputs (build/release.sh writes exes + the zip here;
+# the sha256 evidence lives in docs/ — binaries never enter git)
+/reports/

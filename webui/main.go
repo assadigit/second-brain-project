@@ -15,6 +15,8 @@ package main
 
 import (
 	"embed"
+	"fmt"
+	"os"
 	"time"
 
 	"github.com/assadigit/second-brain-project/webui/uitheme"
@@ -33,7 +35,34 @@ var assets embed.FS
 // MarkFirstFrame round-trip).
 var t0 = time.Now()
 
+// version is the release stamp (doc 10 §5): "dev" in a bare build;
+// the release ritual stamps it at compile time —
+//
+//	wails build -platform windows/amd64 -trimpath \
+//	    -ldflags "-X main.version=$(cat ../VERSION)"
+//
+// The CLI twin carries the same var (cmd/gitcurator-cli/main.go — the
+// --version door prints it). The stamp's byte-presence inside BOTH
+// exes is asserted by build/mkzip's version-stamp guard (a forgot-the-
+// ldflags build never reaches the zip); the wails.json Info block's
+// productVersion is pinned to the repo VERSION file by test (the
+// one-version-truth law).
+var version = "dev"
+
 func main() {
+	// The reference's own boot stamp (gui/app.py:30-38): "[main]
+	// LOADED version …" printed to stderr at GUI startup "so you
+	// can verify the right file loads" — the Python blob is the
+	// legacy __VERSION__ string; the Go twin speaks the release
+	// stamp. This print is also what keeps the -X value alive:
+	// the linker drops an UNREFERENCED var's -X bytes under
+	// -trimpath (T-80's empirical find), and the release zip's
+	// version-stamp guard reads those bytes. The reference skips
+	// the print in --cli mode (the blob broke CLI output); the Go
+	// GUI has no CLI mode, so the print is unconditional — and
+	// invisible on the windowsgui subsystem (no console).
+	fmt.Fprintf(os.Stderr, "[main] LOADED version %s\n", version)
+
 	shell := NewShell(t0)
 
 	r, g, b, a := uitheme.RGBA(uitheme.Light, "window")
