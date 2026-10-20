@@ -83,7 +83,7 @@ func TestBusFanOutOrderAndKinds(t *testing.T) {
 	b.EmitJobProgress("walk", 1, 10)
 	b.EmitDiskFull("/vault/x")
 	b.EmitModelChanged("ollama", "llama3")
-	b.EmitBatchFinished(true, "done", false)
+	b.EmitBatchFinished(&BatchResult{Success: true, Message: "done"})
 	cancel()
 	b.EmitStatus("nobody hears this")
 
@@ -450,7 +450,7 @@ func TestCrossedPayloadFieldTags(t *testing.T) {
 		{"Progress", Progress{Pos: 2, Total: 5}, `{"pos":2,"total":5}`},
 		{"Status", Status{Text: "Processing…"}, `{"text":"Processing…"}`},
 		{"BatchFinished", BatchFinished{OK: true, Summary: "done", NeedsRetry: true},
-			`{"ok":true,"summary":"done","needs_retry":true}`},
+			`{"ok":true,"summary":"done","needs_retry":true,"natural":false,"stopped":false,"website_results":null}`},
 		{"JobProgress", JobProgress{Label: "walk", Value: 1, Max: 10},
 			`{"label":"walk","value":1,"max":10}`},
 		{"DiskFull", DiskFull{Path: "/v"}, `{"path":"/v"}`},

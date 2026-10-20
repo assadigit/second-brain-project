@@ -37,13 +37,20 @@ import (
 	"github.com/assadigit/second-brain-project/internal/store"
 )
 
-// WebsiteResultEntry is one _website_summary['results'] row.
+// WebsiteResultEntry is one _website_summary['results'] row (THE
+// FIELD-TAG LAW — the tags mirror the pipeline Result dict's own keys
+// at 98f4fc7: url / canonical / outcome / note_path / category /
+// subcategory / fetch_status / error; the row rides the BatchFinished
+// crossing to the shell's end-of-run offer, T-79f).
 type WebsiteResultEntry struct {
-	URL         string
-	Outcome     string
-	Category    string
-	Subcategory string
-	Error       string
+	URL         string `json:"url"`
+	Canonical   string `json:"canonical"`
+	Outcome     string `json:"outcome"`
+	NotePath    string `json:"note_path"`
+	Category    string `json:"category"`
+	Subcategory string `json:"subcategory"`
+	FetchStatus string `json:"fetch_status"`
+	Error       string `json:"error"`
 }
 
 // WebsiteSummary mirrors _website_summary: the counters dict, the

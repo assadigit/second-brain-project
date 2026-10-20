@@ -25,6 +25,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/goodrepos"
 	"github.com/assadigit/second-brain-project/internal/storage"
 	"github.com/assadigit/second-brain-project/internal/vaulthygiene"
@@ -147,7 +148,13 @@ type BatchOptions struct {
 // BatchResult is the batch's finished_signal payload + the counts
 // the hero/scorecard read. FailedLinks (T-77) is the tracker's failed
 // count at finish — the retry chime's selector (the reference's
-// summary['failed_links']).
+// summary['failed_links']). Natural/Stopped/WebsiteResults (T-79f)
+// carry the reference's batch_summary facts to the finish crossing:
+// Natural marks the batch that reached the end-of-batch stage
+// (batch_summary's PRESENCE — the early returns never set it), Stopped
+// is summary['stopped'] (the user's cooperative stop — no fanfare on a
+// deliberate stop), WebsiteResults is _website_summary['results']
+// (the end-of-run offer's data).
 type BatchResult struct {
 	Success     bool
 	Message     string
@@ -158,6 +165,10 @@ type BatchResult struct {
 	// {'success': False, 'error': …} twin).
 	Crashed bool
 	Error   string
+
+	Natural        bool
+	Stopped        bool
+	WebsiteResults []githubpipeline.WebsiteResultEntry
 }
 
 // ScanStory is one vault's scan story (the reference's per-vault story
@@ -408,14 +419,18 @@ func (c *Commands) SyncRunBatch(ctx context.Context, opts BatchOptions) *BatchRe
 	}
 	c.running = true
 	finished := false
+	released := false
 	defer func() {
 		// the lock-leak fix: the finished signal fires exactly once,
 		// and the lock always goes home (owner-scoped).
 		if !finished {
-			c.Bus.EmitBatchFinished(false, "the batch ended without a verdict (crashed or cancelled)", false)
+			c.Bus.EmitBatchFinished(&BatchResult{Success: false,
+				Message: "the batch ended without a verdict (crashed or cancelled)"})
 		}
-		c.running = false
-		c.batchLock.Release("batch")
+		if !released {
+			c.running = false
+			c.batchLock.Release("batch")
+		}
 	}()
 
 	if c.Deps.Batch == nil {
@@ -445,7 +460,16 @@ func (c *Commands) SyncRunBatch(ctx context.Context, opts BatchOptions) *BatchRe
 		res = &BatchResult{Success: false, Message: "the batch engine returned no result"}
 	}
 	finished = true
-	c.Bus.EmitBatchFinished(res.Success, res.Message, res.FailedLinks > 0)
+	released = true
+	// T-79f — THE FLAG-CLEAR LAW (the reference's processing_finished
+	// opening: `self._batch_running = False` runs at the TOP of the
+	// finish handler, BEFORE the fanfare chain): the running flag + the
+	// lock go home BEFORE the finished signal crosses, so the chain
+	// riding the crossing (the redo pass's own re-run batch, the
+	// offer's answers) never sees a ghost batch.
+	c.running = false
+	c.batchLock.Release("batch")
+	c.Bus.EmitBatchFinished(res)
 	return res
 }
 

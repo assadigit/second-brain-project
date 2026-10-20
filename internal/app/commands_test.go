@@ -11,6 +11,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/goodrepos"
 	"github.com/assadigit/second-brain-project/internal/storage"
 	"github.com/assadigit/second-brain-project/internal/vaultscan"
@@ -206,6 +207,60 @@ func TestSyncRunBatchEventWiringAndFinish(t *testing.T) {
 	}
 	if rec.statuses[0] != "Processing…" {
 		t.Fatalf("the start Status = %q, want Processing…", rec.statuses[0])
+	}
+}
+
+// TestSyncRunBatchFlagClearLawAndFanfareFacts (T-79f) pins the
+// reference's processing_finished opening (the flag clears BEFORE the
+// finish handler runs — the redo pass's own re-run batch must never
+// see a ghost batch) + the fanfare facts' ride (Natural/Stopped/
+// WebsiteResults built from the result, exactly as the reference's
+// batch_summary carries them).
+func TestSyncRunBatchFlagClearLawAndFanfareFacts(t *testing.T) {
+	b := NewBus()
+	var fin BatchFinished
+	var busyAtCrossing bool
+	b.Subscribe(&Handlers{BatchFinished: func(ev BatchFinished) {
+		fin = ev
+	}})
+	cmds := NewCommands(b, Deps{
+		Batch: func(ctx context.Context, cfg *storage.OrderedMap, opts BatchOptions, ev BatchEvents) *BatchResult {
+			// the busy-at-emit question is answered INSIDE the
+			// crossing's own handler below (the emit is synchronous
+			// on this goroutine — the poll there reads the live flag).
+			return &BatchResult{Success: true, Message: "done", Processed: 2, Total: 2,
+				Natural: true,
+				WebsiteResults: []githubpipeline.WebsiteResultEntry{
+					{URL: "https://example.com/failed", Outcome: "failed", Error: "reset"},
+				}}
+		},
+	})
+	// the crossing reads the live flag DURING the emit (the emit is
+	// synchronous on this goroutine): the flag-clear law says it must
+	// already be false — the reference's `self._batch_running = False`
+	// runs at processing_finished's top, before the fanfare chain.
+	b.Subscribe(&Handlers{BatchFinished: func(ev BatchFinished) {
+		busyAtCrossing = cmds.BatchBusy()
+	}})
+	res := cmds.SyncRunBatch(context.Background(), BatchOptions{URLs: []string{"u"}})
+	if !res.Success {
+		t.Fatalf("result = %+v", res)
+	}
+	if fin.OK != true || fin.Natural != true || fin.Stopped != false {
+		t.Fatalf("the fanfare facts = %+v", fin)
+	}
+	if len(fin.WebsiteResults) != 1 ||
+		fin.WebsiteResults[0].URL != "https://example.com/failed" {
+		t.Fatalf("the website results = %+v", fin.WebsiteResults)
+	}
+	if busyAtCrossing {
+		t.Fatal("THE FLAG-CLEAR LAW: BatchBusy() must be false inside the BatchFinished handler")
+	}
+	if cmds.BatchBusy() {
+		t.Fatal("the flag must clear after the batch")
+	}
+	if fin.NeedsRetry {
+		t.Fatal("no failed links — no retry chime")
 	}
 }
 

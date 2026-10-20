@@ -268,3 +268,8 @@ func (r *Runner) SetBatchFiles(files map[string]bool) { r.batchFiles = files }
 // _run_website_phase; Finish + the batch summary render from it).
 // Additive seam for the CLI engine (T-62 slice 2).
 func (r *Runner) SetWebsiteSummary(w *WebsiteSummary) { r.websites = w }
+
+// WebsiteSummary reads the phase's outcome back out (the reference's
+// self.worker._website_summary read — the shell's end-of-run offer
+// (T-79f) + the batch summary consume it after the batch).
+func (r *Runner) WebsiteSummary() *WebsiteSummary { return r.websites }

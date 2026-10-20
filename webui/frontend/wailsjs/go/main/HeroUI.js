@@ -6,6 +6,10 @@ export function ChromeBoot() {
   return window['go']['main']['HeroUI']['ChromeBoot']();
 }
 
+export function ChromeOfferAnswer(arg1) {
+  return window['go']['main']['HeroUI']['ChromeOfferAnswer'](arg1);
+}
+
 export function HeroAnswerOffline(arg1, arg2) {
   return window['go']['main']['HeroUI']['HeroAnswerOffline'](arg1, arg2);
 }

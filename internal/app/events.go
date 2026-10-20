@@ -49,6 +49,7 @@ import (
 	"time"
 
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
+	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 )
 
 // ---------------------------------------------------------------------------
@@ -77,6 +78,13 @@ type Status struct {
 // the command's own; the bus just carries it). NeedsRetry (T-77) marks
 // a batch that finished WITH failed links — the retry chime's selector
 // (v0.40.0: "done, but look at me" never sounds like a celebration).
+// Natural/Stopped/WebsiteResults (T-79f) carry the reference's
+// batch_summary facts to the shell's fanfare chain: Natural is
+// batch_summary's PRESENCE (the natural end-of-batch stage — the
+// reference gates the whole chain on `if _summary and not
+// _summary.get('stopped')`), Stopped is the user's cooperative stop,
+// WebsiteResults is _website_summary['results'] (the end-of-run
+// offer's data; nil when the websites phase never ran).
 //
 // THE FIELD-TAG LAW, applied retroactively (T-77's reality fix): these
 // payloads cross to the frontend as wails events; the tags mirror the
@@ -85,9 +93,12 @@ type Status struct {
 // lowercase reads came back undefined (the progress bar never filled;
 // every finish rendered ❌). The tags are now pinned by test.
 type BatchFinished struct {
-	OK         bool   `json:"ok"`
-	Summary    string `json:"summary"`
-	NeedsRetry bool   `json:"needs_retry"`
+	OK             bool                                `json:"ok"`
+	Summary        string                              `json:"summary"`
+	NeedsRetry     bool                                `json:"needs_retry"`
+	Natural        bool                                `json:"natural"`
+	Stopped        bool                                `json:"stopped"`
+	WebsiteResults []githubpipeline.WebsiteResultEntry `json:"website_results"`
 }
 
 // JobProgress is job_progress(str, int, int) — THE HONEST PIPELINE ROW
@@ -362,10 +373,21 @@ func (b *Bus) EmitStatus(text string) {
 	emit(b, func(h *Handlers) func(Status) { return h.Status }, Status{Text: text})
 }
 
-// EmitBatchFinished delivers finished_signal(ok, summary, needs_retry).
-func (b *Bus) EmitBatchFinished(ok bool, summary string, needsRetry bool) {
+// EmitBatchFinished delivers finished_signal over the batch's whole
+// finished state (T-79f: the result's summary facts ride along —
+// Natural/Stopped/WebsiteResults — so the shell's fanfare chain can
+// gate + fuel itself off the crossing, exactly as the reference's
+// processing_finished reads self.worker.batch_summary).
+func (b *Bus) EmitBatchFinished(res *BatchResult) {
+	if res == nil {
+		res = &BatchResult{}
+	}
 	emit(b, func(h *Handlers) func(BatchFinished) { return h.BatchFinished },
-		BatchFinished{OK: ok, Summary: summary, NeedsRetry: needsRetry})
+		BatchFinished{OK: res.Success, Summary: res.Message,
+			NeedsRetry:     res.FailedLinks > 0,
+			Natural:        res.Natural,
+			Stopped:        res.Stopped,
+			WebsiteResults: res.WebsiteResults})
 }
 
 // EmitJobProgress delivers job_progress(label, value, maximum) —

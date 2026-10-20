@@ -5,6 +5,8 @@ import {app} from '../models';
 
 export function ChromeBoot():Promise<main.ChromeBootPayload>;
 
+export function ChromeOfferAnswer(arg1:Array<app.ChromeLinkRow>):Promise<void>;
+
 export function HeroAnswerOffline(arg1:boolean,arg2:string):Promise<main.HeroClickResult>;
 
 export function HeroClick(arg1:string):Promise<main.HeroClickResult>;

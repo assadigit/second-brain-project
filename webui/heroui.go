@@ -183,6 +183,147 @@ func (u *HeroUI) onBatchFinished() {
 }
 
 // ---------------------------------------------------------------------------
+// THE FANFARE CHAIN (T-79f) — processing_finished's tail
+// (processing_control.py:2097-2138): the three automatic triggers, in
+// the reference's exact order (the hand pass → the redo pass → the
+// end-of-run offer), gated on the natural completion + the not-stopped
+// verdict (the reference's `if _summary and not _summary.get
+// ('stopped')`), each trigger TOLERATED everywhere — a pass that
+// cannot run never costs the owner the next one (the reference's
+// try/except ladders, each with its own warning line). The shell wires
+// this BEFORE the chime crossing (the reference runs the chain before
+// _celebrate_batch; the chime rides the crossing itself).
+// ---------------------------------------------------------------------------
+
+// onBatchFanfare runs the three automatic triggers over a finished
+// batch's crossing facts. The hand pass + the offer ride the landed
+// startChromeTabRetry runner (T-79d); the redo pass rides the
+// reference's own worker-thread shape (an asynchronous re-run batch).
+func (u *HeroUI) onBatchFanfare(ev app.BatchFinished) {
+	if !ev.Natural || ev.Stopped {
+		return // user-stopped batches + the no-work early returns keep the plain box
+	}
+	// (1) the end-of-run hand pass (_maybe_deliver_hand_queue: the
+	// 🖐 gestures are the owner's answer — the app scrapes them in his
+	// real Chrome without asking again; once per session per link).
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				u.settings.SpeakOnBus(fmt.Sprintf("⚠️ Hand-row Chrome pass skipped: %v", r), "warning")
+			}
+		}()
+		if links := u.settings.HandQueuePass(); len(links) > 0 {
+			u.settings.SpeakOnBus(fmt.Sprintf(
+				"🖐 %d hand row(s) — your real Chrome opens for them now (one tab per link; "+
+					"GitCurator takes each live page and processes it as a real fetch — no manual saving)",
+				len(links)), "info")
+			u.startChromeTabRetry(links)
+		}
+	}()
+	// (2) the redo pass (_maybe_redo_hand_notes: THE NOTE IS THE
+	// SUCCESS — the false successes are re-generated; the engine
+	// speaks the 🔁 line; the re-run batch is asynchronous).
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				u.settings.SpeakOnBus(fmt.Sprintf("⚠️ Hand-note redo pass skipped: %v", r), "warning")
+			}
+		}()
+		u.mu.Lock()
+		chromeBusy := u.chromeDeliveryBusy
+		u.mu.Unlock()
+		if rows := u.settings.RedoHandNotesScan(chromeBusy,
+			u.commands.BatchBusy()); len(rows) > 0 {
+			urls := make([]string, 0, len(rows))
+			for _, r := range rows {
+				urls = append(urls, r.URL)
+			}
+			u.startRedoRerun(urls)
+		}
+	}()
+	// (3) the end-of-run offer (_maybe_offer_chrome_tab_retry: the
+	// run's fetch failures are the run's last question — the offer
+	// rides BEFORE the scorecard, over the session's offered set; only
+	// the PICKED links are ever marked, at the answer door).
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				u.settings.SpeakOnBus(fmt.Sprintf("⚠️ Chrome tab-retry offer skipped: %v", r), "warning")
+			}
+		}()
+		if links := u.settings.ChromeOfferFromResults(ev.WebsiteResults); len(links) > 0 {
+			u.emitChromeOffer(links)
+		}
+	}()
+}
+
+// startRedoRerun is the redo pass's re-run batch
+// (_start_worker_with_urls([], non_github_urls=urls) — the reference's
+// worker THREAD shape): the batch runs asynchronously so the finish
+// chain never waits on it; its own finish tells its own story through
+// the same crossing (the redo tried-set makes the recursion
+// terminate). A refused start speaks the reference's warning.
+func (u *HeroUI) startRedoRerun(urls []string) {
+	go func() {
+		defer func() {
+			if r := recover(); r != nil {
+				u.settings.SpeakOnBus(fmt.Sprintf(
+					"⚠️ The hand-note redo could not start (%v) — the next SYNC's caught-up check picks them up automatically", r), "warning")
+			}
+		}()
+		res := u.commands.SyncRunBatch(context.Background(), app.BatchOptions{
+			NonGithub: append([]string(nil), urls...),
+			Source:    "direct",
+		})
+		if res != nil && !res.Success && strings.Contains(res.Message, "already running") {
+			u.settings.SpeakOnBus(fmt.Sprintf(
+				"⚠️ The hand-note redo could not start (%s) — the next SYNC's caught-up check picks them up automatically",
+				res.Message), "warning")
+		}
+	}()
+}
+
+// ChromeOfferPayload is the chrome:offer event's shape (THE FIELD-TAG
+// LAW — the tags mirror the names the frontend reads; the links are
+// the same {'url', 'error'} rows the manual door's picker renders).
+type ChromeOfferPayload struct {
+	Links []app.ChromeLinkRow `json:"links"`
+}
+
+// emitChromeOffer crosses the end-of-run offer's links to the frontend
+// (the frontend's ONE chrome:offer listener opens the SAME checkable
+// modal the manual door uses; the buttons answer through
+// ChromeOfferAnswer).
+func (u *HeroUI) emitChromeOffer(links []app.ChromeLinkRow) {
+	if u.ctx == nil || len(links) == 0 {
+		return
+	}
+	runtime.EventsEmit(u.ctx, "chrome:offer", ChromeOfferPayload{
+		Links: append([]app.ChromeLinkRow(nil), links...),
+	})
+}
+
+// ChromeOfferAnswer is the end-of-run offer's answer door — the
+// automatic twin of MoreChromeTabRetryRun, with the reference's own
+// DECLINE line (processing_control.py:1258-1261 vs the manual door's
+// cancel line at 1674-1677): an empty list declines — the failed
+// links keep waiting, their automatic retries continue, and the
+// master table's Status cell decides their fate (a DECLINED link was
+// never marked and may be offered again next run); the picked rows
+// are marked offered (never re-offered this session) and the delivery
+// starts over the landed runner.
+func (u *HeroUI) ChromeOfferAnswer(picked []app.ChromeLinkRow) {
+	if len(picked) == 0 {
+		u.settings.SpeakOnBus("⏭️ Chrome tab retry declined — the failed links keep "+
+			"waiting (their automatic retries continue; the master table's "+
+			"Status cell decides their fate).", "info")
+		return
+	}
+	u.settings.MarkChromeTabOffered(picked)
+	u.startChromeTabRetry(picked)
+}
+
+// ---------------------------------------------------------------------------
 // THE HERO CLICK — the one door (hero.py's _on_hero_clicked + the
 // stage legs).
 // ---------------------------------------------------------------------------
@@ -326,6 +467,58 @@ func (u *HeroUI) fetchLeg(importFile string) *HeroClickResult {
 			if l := app.WaitingRowsLine(waiting, eyes); l.Msg != "" {
 				u.settings.SpeakOnBus(l.Msg, l.Level)
 			}
+		}
+		// T-79f — the caught-up hand scrape (hero.py:272-305): the 🖐
+		// rows get their scrape BEFORE the claim too (a hand row is a
+		// request for the app's own Chrome pass, not a note to self) —
+		// the caught-up sync opens the tabs itself, NO tried-set (the
+		// reference's own law at this call site).
+		handStarted := false
+		if hand := u.settings.CaughtUpHandRows(u.commands.BatchBusy()); len(hand) > 0 {
+			u.settings.SpeakOnBus(fmt.Sprintf(
+				"🖐 Bot queue caught up, but %d 🖐 hand row(s) are waiting for your real Chrome — "+
+					"scraping them now (one tab per link, the live pages become real fetches)",
+				len(hand)), "info")
+			u.startChromeTabRetry(hand)
+			handStarted = true
+		}
+		// T-79f — the redo check (hero.py:316-328): before "everything
+		// is up to date" may be said, the hand notes must actually BE
+		// properly stored — a 🖐 link whose delivery landed only a
+		// half-fetched _review item is a false success, redone right
+		// here (the engine speaks the 🔁 line; the re-run batch is the
+		// reference's own worker thread shape — asynchronous, so the
+		// caught-up flow never waits on it).
+		redoStarted := false
+		if !handStarted {
+			u.mu.Lock()
+			chromeBusy := u.chromeDeliveryBusy
+			u.mu.Unlock()
+			if rows := u.settings.RedoHandNotesScan(chromeBusy,
+				u.commands.BatchBusy()); len(rows) > 0 {
+				urls := make([]string, 0, len(rows))
+				for _, r := range rows {
+					urls = append(urls, r.URL)
+				}
+				u.startRedoRerun(urls)
+				redoStarted = true
+			}
+		}
+		if handStarted {
+			// The reference's law (hero.py:329-330): work started — NO
+			// caught-up claim; the return happens BEFORE _set_hero_state
+			// ('sync'), so the button holds the disabled FETCHING
+			// render until the delivery's own re-run batch moves it.
+			u.mu.Lock()
+			u.machine.BeginFetch()
+			u.mu.Unlock()
+			u.emitState(app.FormatFetching)
+			return u.snapshotResult(app.FormatFetching, "")
+		}
+		if redoStarted {
+			// The re-run batch tells its own story; its finish restores
+			// SYNC through the mirror (the reference's end state).
+			return u.snapshotResult("", "")
 		}
 		if l := app.CaughtUpLine(waiting); l.Msg != "" {
 			u.settings.SpeakOnBus(l.Msg, l.Level)

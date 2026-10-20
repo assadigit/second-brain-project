@@ -552,7 +552,18 @@ func (e *batchEngine) runImpl() {
 	// The ported Finish chain (the undo diff, the verification, the
 	// reports, the batch summary, the finished signal — the runner's
 	// Finished callback fires e.finish: the seals + the Phase-5 CLEAR).
-	runner.Finish()
+	bs := runner.Finish()
+	// T-79f — the fanfare gate's facts (the reference's batch_summary,
+	// set ONLY at the end-of-batch stage — its PRESENCE is the natural
+	// completion marker, 'stopped' records the user's deliberate stop):
+	// the finish crossing's chain gates on them.
+	if bs != nil {
+		e.fin.Natural = true
+		e.fin.Stopped = bs.Stopped
+	}
+	if ws := runner.WebsiteSummary(); ws != nil {
+		e.fin.WebsiteResults = ws.Results
+	}
 }
 
 // ---------------------------------------------------------------------------
@@ -1775,8 +1786,21 @@ func (e *batchEngine) runWebsitePhase(cache *store.CacheDB,
 			c["upgraded"], c["failed"], tally), "success")
 
 		if e.runner != nil {
+			// T-79f — the summary carries the run's own results
+			// (_website_summary['results'] = list(pipeline.last_results),
+			// the end-of-run offer's data; the rows mirror the pipeline
+			// Result dict's own keys).
+			entries := make([]githubpipeline.WebsiteResultEntry, 0, len(results))
+			for _, r := range results {
+				entries = append(entries, githubpipeline.WebsiteResultEntry{
+					URL: r.URL, Canonical: r.Canonical, Outcome: r.Outcome,
+					NotePath: r.NotePath, Category: r.Category,
+					Subcategory: r.Subcategory, FetchStatus: r.FetchStatus,
+					Error: r.Error,
+				})
+			}
 			e.runner.SetWebsiteSummary(&githubpipeline.WebsiteSummary{
-				Counters: c, Results: nil, Vault: websiteVault,
+				Counters: c, Results: entries, Vault: websiteVault,
 			})
 		}
 		return sum

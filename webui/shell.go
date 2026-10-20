@@ -136,11 +136,18 @@ func (s *Shell) startup(ctx context.Context) {
 			runtime.EventsEmit(ctx, "bus:status", ev)
 		},
 		BatchFinished: func(ev app.BatchFinished) {
-			// T-77 — the hero's half (the cleared flag restores SYNC) +
-			// the batch chime (the exact batch gate, quiet; the
-			// frontend's <audio> is the QSoundEffect twin). The embedded
-			// struct's tags ride through (THE FIELD-TAG LAW).
+			// T-77 — the hero's half (the cleared flag restores SYNC).
 			s.heroUI.onBatchFinished()
+			// T-79f — THE FANFARE CHAIN (processing_finished's
+			// tail): the three automatic triggers ride the crossing
+			// BEFORE the chime (the reference runs the chain before
+			// _celebrate_batch; each trigger is tolerated — a pass
+			// that cannot run never costs the owner his chime).
+			s.heroUI.onBatchFanfare(ev)
+			// the batch chime (the exact batch gate, quiet; the
+			// frontend's <audio> is the QSoundEffect twin). The
+			// embedded struct's tags ride through (THE FIELD-TAG
+			// LAW).
 			type chimeEvent struct {
 				app.BatchFinished
 				Chime *app.SoundPreviewResult `json:"chime"`

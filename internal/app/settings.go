@@ -237,6 +237,19 @@ type Settings struct {
 	// is never re-offered this session. Guarded by mu.
 	chromeTabOffered map[string]bool
 
+	// handDeliveryTried is the end-of-run hand pass's session set
+	// (the reference's _hand_delivery_tried, T-79f): a hand link is
+	// tried ONCE per app session — a link whose Chrome scrape failed
+	// keeps waiting for its doors instead of reopening Chrome every
+	// batch. Guarded by mu.
+	handDeliveryTried map[string]bool
+
+	// handRedoTried is the redo pass's session set (the reference's
+	// _hand_redo_tried, T-79f): a link is redone ONCE per app session
+	// (the LLM's low-confidence answer will not change on an
+	// immediate second ask). Guarded by mu.
+	handRedoTried map[string]bool
+
 	// pagesBSourcesFetchDoor / pagesBOpenURLDoor are the pages B's
 	// injected doors (T-74 — settingsb.go; nil → the production doors).
 	pagesBSourcesFetchDoor func(url string) (string, error)

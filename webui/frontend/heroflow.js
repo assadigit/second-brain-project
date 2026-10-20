@@ -42,7 +42,7 @@ import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
          MoreHandRowsDeliver, MoreChromeTabRetry, MoreChromeTabRetryRun,
          MoreAttachMyChrome,
          MoreDecommissionScan, MoreDecommissionBury, MoreOpenDecommissionTable,
-         ChromeBoot } from './wailsjs/go/main/HeroUI.js';
+         ChromeBoot, ChromeOfferAnswer } from './wailsjs/go/main/HeroUI.js';
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
 import { svgEl } from './icons.js';
@@ -575,8 +575,12 @@ function openHandDeliverDialog(model) {
 
 // openChromeRetryDialog — 🤖 Chrome tab-retry's offer modal
 // (processing_control.py:1266): the failed links with their last error
-// under each URL, the question, and the two answers.
-function openChromeRetryDialog(links) {
+// under each URL, the question, and the two answers. ONE dialog,
+// TWO answer doors (the reference's own two call sites): the manual
+// More door answers through MoreChromeTabRetryRun (its decline speaks
+// the CANCELLED line), the end-of-run offer through ChromeOfferAnswer
+// (its decline speaks the DECLINED line — the reference's 1258-1261).
+function openChromeRetryDialog(links, answer) {
   const box = openOverlay(720);
   box.classList.add('linkdoor-box');
   box.setAttribute('role', 'dialog');
@@ -603,16 +607,26 @@ function openChromeRetryDialog(links) {
   btnRow.appendChild(spacer);
   btnRow.appendChild(btn('Not now', 'secondary',
     'The failed links keep waiting — their automatic retries continue, and the master table\'s Status cell decides their fate.',
-    async () => { closeOverlay(); await MoreChromeTabRetryRun([]).catch(() => {}); }));
+    async () => { closeOverlay(); await answer([]).catch(() => {}); }));
   btnRow.appendChild(btn('🤖 Retry in Chrome now', 'primary',
     'Opens your own Google Chrome (a fresh session), one tab per link, and takes the content from the live pages.',
     async () => {
       const picked = rows.filter((x) => x.r.box.checked).map((x) => x.link);
       closeOverlay();
-      await MoreChromeTabRetryRun(picked).catch(() => {});
+      await answer(picked).catch(() => {});
     }));
   box.appendChild(btnRow);
 }
+
+// the end-of-run offer (the chrome:offer event — the batch-scorecard
+// fanfare's automatic modal, T-79f): ONE listener, registered once at
+// boot (the ONE-OWNER-PER-SURFACE law). The SAME dialog the manual
+// door renders; the answers ride ChromeOfferAnswer (the DECLINED
+// line's door — the offered set marks only the picked links).
+EventsOn('chrome:offer', (payload) => {
+  if (!payload || !payload.links || !payload.links.length) return;
+  openChromeRetryDialog(payload.links, (picked) => ChromeOfferAnswer(picked));
+});
 
 // openDecommissionDialog — 🪦 Decommission dead links' picker
 // (processing_control.py:910): tick the GENUINELY dead ones (all rows
@@ -986,7 +1000,8 @@ async function runMoreAction(act) {
   }
   if (act.live === 'chromeRetry') {
     // T-79d: 🤖 Chrome tab-retry failed links — the offer dialog (the
-    // reference's own words + the two answers).
+    // reference's own words + the two answers); the MANUAL door's
+    // answers ride MoreChromeTabRetryRun (the CANCELLED line).
     const res = await MoreChromeTabRetry().catch(() => null);
     if (!res) return;
     if (res.box) {
@@ -994,7 +1009,10 @@ async function runMoreAction(act) {
         [['OK', 'primary', () => closeOverlay()]]);
       return;
     }
-    if (res.links && res.links.length) openChromeRetryDialog(res.links);
+    if (res.links && res.links.length) {
+      openChromeRetryDialog(res.links,
+        (picked) => MoreChromeTabRetryRun(picked));
+    }
     return;
   }
   if (act.live === 'attach') {

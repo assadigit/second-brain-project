@@ -23,6 +23,8 @@ import (
 	"github.com/assadigit/second-brain-project/internal/app"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/constants"
+	"github.com/assadigit/second-brain-project/internal/githubpipeline"
+	"github.com/assadigit/second-brain-project/internal/handdelivery"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/mirror"
 	"github.com/assadigit/second-brain-project/internal/storage"
@@ -2052,5 +2054,252 @@ func TestHeroflowDecommissionDoorsLive(t *testing.T) {
 	// the probe's 'grave' click pick (the evidence leg).
 	if !strings.Contains(src, "door === 'grave' ? 'Decommission dead links'") {
 		t.Fatal("the probe's grave pick")
+	}
+}
+
+// ---------------------------------------------------------------------------
+// THE FANFARE CHAIN (T-79f) — the runner's automatic triggers.
+// ---------------------------------------------------------------------------
+
+// newFanfareUIRig is the chrome-door rig + the caught-up queue facts:
+// a configured Worker queue whose classify answers EMPTY pendings (the
+// caught-up path's own shape).
+func newFanfareUIRig(t *testing.T) *heroRig {
+	t.Helper()
+	rig := newChromeDoorUIRig(t)
+	rig.cfg.Set("cloudflare_enabled", true)
+	rig.cfg.Set("cloudflare_worker_url", "https://worker.example")
+	rig.cfg.Set("cloudflare_install_id", "install")
+	rig.cfg.Set("cloudflare_shared_secret", "secret")
+	bus := rig.commands.Bus
+	rig.commands = app.NewCommands(bus, app.Deps{
+		Config: func() *storage.OrderedMap { return rig.cfg },
+		QueueFetch: func(cfg *storage.OrderedMap) (string, []any) {
+			return "ok", []any{}
+		},
+		QueueClassify: func(cfg *storage.OrderedMap, items []any,
+			log func(msg, level string)) *app.QueueReport {
+			return &app.QueueReport{State: "ok", Success: true}
+		},
+		Batch: rig.commands.Deps.Batch,
+	})
+	rig.ui = NewHeroUI(rig.ui.settings, rig.commands)
+	return rig
+}
+
+// seedFalseSuccess writes the redo pass's subject: a 🖐 row whose page
+// was delivered but whose note never landed (the queue row + the page
+// file at the suggested name — CollectDelivered reads the QUEUE).
+func seedFalseSuccess(t *testing.T, vault, url, wall string) {
+	t.Helper()
+	handdelivery.EnqueueHandDelivery(vault, []string{url},
+		map[string]string{url: wall}, nil, false, "")
+	page := filepath.Join(handdelivery.HandDeliveryDir(vault),
+		handdelivery.SuggestedFilename(url))
+	if err := os.MkdirAll(filepath.Dir(page), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(page, []byte(
+		"<html><head><title>Half</title></head><body>delivered</body></html>"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestHeroUIFanfareChainGate(t *testing.T) {
+	rig := newFanfareUIRig(t)
+	writeHandRowsTable(t, rigConfigVault(t, rig), [][3]string{
+		{"https://example.com/hand", "\U0001f590", "HTTP 403"},
+	})
+	// the gate: NOT natural (the no-work early returns / the crash
+	// path) + the user's stop both keep the chain silent.
+	rig.ui.onBatchFanfare(app.BatchFinished{OK: true})
+	rig.ui.onBatchFanfare(app.BatchFinished{OK: true, Natural: true, Stopped: true})
+	rig.mu.Lock()
+	calls := rig.chromeDeliverCalls
+	batches := rig.batchCalls
+	rig.mu.Unlock()
+	if calls != 0 || batches != 0 {
+		t.Fatalf("the gate holds: %d deliveries, %d batches", calls, batches)
+	}
+	if strings.Contains(rig.logs(), "hand row(s)") {
+		t.Fatalf("the gate holds — no line:\n%s", rig.logs())
+	}
+
+	// the natural, not-stopped crossing fires the hand pass.
+	rig.ui.onBatchFanfare(app.BatchFinished{OK: true, Natural: true})
+	spokePerTest(t, rig.spoken, rig.mu,
+		"\U0001f590 1 hand row(s) — your real Chrome opens for them now (one tab per link; GitCurator takes each live page and processes it as a real fetch — no manual saving)")
+	waitSpoken(t, rig, "\U0001f916 Chrome tab retry: opening 1 link(s) in your real Chrome")
+
+	// the tried belt: the SAME table answers nothing on the next
+	// natural crossing (once per session per link).
+	rig.ui.onBatchFanfare(app.BatchFinished{OK: true, Natural: true})
+	rig.mu.Lock()
+	calls = rig.chromeDeliverCalls
+	rig.mu.Unlock()
+	if calls != 1 {
+		t.Fatalf("the tried belt holds one delivery per link per session (have %d)", calls)
+	}
+	if got := strings.Count(rig.logs(), "hand row(s) — your real Chrome opens"); got != 1 {
+		t.Fatalf("the tried belt is quiet (the line spoke %d times):\n%s", got, rig.logs())
+	}
+}
+
+func TestHeroUIFanfareChainRedoLeg(t *testing.T) {
+	rig := newFanfareUIRig(t)
+	seedFalseSuccess(t, rigConfigVault(t, rig), "https://example.com/false-success", "HTTP 403")
+	writeHandRowsTable(t, rigConfigVault(t, rig), [][3]string{
+		{"https://example.com/false-success", "\U0001f590", "HTTP 403"},
+	})
+	// NO hand pass fires (the row's page was delivered — the hand scan
+	// consumes delivered rows), so the redo leg runs: the \U0001f501 line
+	// + the asynchronous re-run batch over the Websites pipeline.
+	rig.ui.onBatchFanfare(app.BatchFinished{OK: true, Natural: true})
+	spokePerTest(t, rig.spoken, rig.mu, "\U0001f501 1 hand note(s) NOT properly stored — refetching and re-generating them now")
+	waitBatchCalls(t, rig, 1)
+	rig.mu.Lock()
+	modes := append([]string(nil), rig.batchModes...)
+	rig.mu.Unlock()
+	if len(modes) != 1 || modes[0] != "/direct" {
+		t.Fatalf("the redo re-run rides the direct non-GitHub batch: %v", modes)
+	}
+	// the re-run's own crossing is natural too — its chain finds
+	// nothing left (the redo tried belt), no second batch.
+	rig.mu.Lock()
+	batches := rig.batchCalls
+	rig.mu.Unlock()
+	if batches > 2 {
+		t.Fatalf("the recursion terminates (have %d batches)", batches)
+	}
+}
+
+func TestHeroUIFanfareCaughtUpHandScrape(t *testing.T) {
+	rig := newFanfareUIRig(t)
+	writeHandRowsTable(t, rigConfigVault(t, rig), [][3]string{
+		{"https://example.com/hand", "\U0001f590", "HTTP 403"},
+	})
+	res := rig.ui.HeroClick("")
+	// hero.py:329-330 — work started: NO caught-up claim; the button
+	// holds the disabled FETCHING render; the bar holds the fetch line.
+	if res.State != app.HeroFetching || res.Format != app.FormatFetching {
+		t.Fatalf("the work-started hold = %q / %q", res.State, res.Format)
+	}
+	if res.Render.Enabled {
+		t.Fatalf("the FETCHING render is disabled: %+v", res.Render)
+	}
+	if !strings.Contains(rig.logs(),
+		"\U0001f590 Bot queue caught up, but 1 \U0001f590 hand row(s) are waiting for your real Chrome — scraping them now (one tab per link, the live pages become real fetches)") {
+		t.Fatalf("the caught-up hand line missing:\n%s", rig.logs())
+	}
+	if strings.Contains(rig.logs(), "All caught up") {
+		t.Fatalf("work started — no caught-up claim:\n%s", rig.logs())
+	}
+	waitSpoken(t, rig, "\U0001f916 Chrome tab retry: opening 1 link(s) in your real Chrome")
+	// the delivery's own re-run batch (the delivered pages become real
+	// fetches).
+	waitBatchCalls(t, rig, 1)
+}
+
+func TestHeroUIFanfareCaughtUpRedoPass(t *testing.T) {
+	rig := newFanfareUIRig(t)
+	vault := rigConfigVault(t, rig)
+	seedFalseSuccess(t, vault, "https://example.com/false-success", "HTTP 403")
+	writeHandRowsTable(t, vault, [][3]string{
+		{"https://example.com/false-success", "\U0001f590", "HTTP 403"},
+	})
+	res := rig.ui.HeroClick("")
+	// the redo batch tells its own story — no caught-up claim, and the
+	// machine returns the quiet format ("" keeps the current bar).
+	if strings.Contains(rig.logs(), "All caught up") {
+		t.Fatalf("work started — no caught-up claim:\n%s", rig.logs())
+	}
+	if !strings.Contains(rig.logs(), "\U0001f501 1 hand note(s) NOT properly stored") {
+		t.Fatalf("the redo line missing:\n%s", rig.logs())
+	}
+	if res.Format != "" {
+		t.Fatalf("the redo case keeps the bar: %q", res.Format)
+	}
+	waitBatchCalls(t, rig, 1)
+	rig.mu.Lock()
+	modes := append([]string(nil), rig.batchModes...)
+	rig.mu.Unlock()
+	if len(modes) != 1 || modes[0] != "/direct" {
+		t.Fatalf("the caught-up redo rides the direct batch: %v", modes)
+	}
+}
+
+func TestHeroUIFanfareCaughtUpPlainClaimIntact(t *testing.T) {
+	rig := newFanfareUIRig(t)
+	// no hand rows, no false successes: the caught-up claim + the
+	// drift seal stay exactly as T-77 landed them (the regression pin).
+	res := rig.ui.HeroClick("")
+	if res.State != app.HeroSync || res.Format != app.FormatReady {
+		t.Fatalf("the plain caught-up = %q / %q", res.State, res.Format)
+	}
+	if !strings.Contains(rig.logs(), "\u2705 All caught up — nothing undone in the bot queue.") {
+		t.Fatalf("the closing line missing:\n%s", rig.logs())
+	}
+	rig.mu.Lock()
+	batches := rig.batchCalls
+	rig.mu.Unlock()
+	if batches != 0 {
+		t.Fatalf("the plain claim starts nothing (have %d)", batches)
+	}
+}
+
+func TestHeroUIChromeOfferAnswer(t *testing.T) {
+	rig := newChromeDoorUIRig(t)
+
+	// the DECLINE: the reference's own declined line (1258-1261) + no
+	// delivery + nothing marked (a declined link stays offerable).
+	rig.ui.ChromeOfferAnswer(nil)
+	spokePerTest(t, rig.spoken, rig.mu, "\u23ed\ufe0f Chrome tab retry declined — the failed links keep waiting (their automatic retries continue; the master table's Status cell decides their fate).")
+	rig.mu.Lock()
+	calls := rig.chromeDeliverCalls
+	rig.mu.Unlock()
+	if calls != 0 {
+		t.Fatalf("a decline never delivers (have %d)", calls)
+	}
+	links := rig.ui.settings.ChromeOfferFromResults([]githubpipeline.WebsiteResultEntry{
+		{URL: "https://example.com/failed", Outcome: "failed", Error: "reset"},
+	})
+	if len(links) != 1 || links[0].URL != "https://example.com/failed" {
+		t.Fatalf("the declined link stays offerable: %+v", links)
+	}
+
+	// the PICK: the offered set marks + the delivery starts + the
+	// re-offer is quiet for the picked link.
+	rig.ui.ChromeOfferAnswer(links)
+	waitSpoken(t, rig, "\U0001f916 Chrome tab retry: opening 1 link(s) in your real Chrome")
+	waitDeliverCalls(t, rig, 1)
+	if again := rig.ui.settings.ChromeOfferFromResults([]githubpipeline.WebsiteResultEntry{
+		{URL: "https://example.com/failed", Outcome: "failed", Error: "reset"},
+	}); again != nil {
+		t.Fatalf("the picked link is never re-offered this session: %+v", again)
+	}
+}
+
+// TestHeroflowFanfareWiring pins the frontend's fanfare laws: the ONE
+// chrome:offer listener, the SAME dialog for both call sites, the TWO
+// answer doors (the manual CANCELLED vs the automatic DECLINED), and
+// THE BINDING-IMPORT LAW (ChromeOfferAnswer joined the import).
+func TestHeroflowFanfareWiring(t *testing.T) {
+	src := heroflowSource(t)
+	for _, want := range []string{
+		"EventsOn('chrome:offer'",
+		"openChromeRetryDialog(payload.links, (picked) => ChromeOfferAnswer(picked))",
+		"openChromeRetryDialog(res.links,",
+		"(picked) => MoreChromeTabRetryRun(picked)",
+		"function openChromeRetryDialog(links, answer)",
+		"await answer([]).catch",
+		"await answer(picked).catch",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the fanfare wiring missing %q", want)
+		}
+	}
+	// THE BINDING-IMPORT LAW (the 044 lesson).
+	if !strings.Contains(src, "ChromeBoot, ChromeOfferAnswer } from './wailsjs/go/main/HeroUI.js';") {
+		t.Fatal("ChromeOfferAnswer must join the HeroUI import statement")
 	}
 }

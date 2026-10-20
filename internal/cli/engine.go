@@ -1791,8 +1791,22 @@ func (e *batchEngine) runWebsitePhase(cache *store.CacheDB,
 			c["upgraded"], c["failed"], tally), "success")
 
 		if e.runner != nil {
+			// T-79f — the summary carries the run's own results
+			// (_website_summary['results'] = list(pipeline.last_results));
+			// the GUI twin's end-of-run offer consumes the same shape
+			// (THE CROSS-BINARY DISAGREEMENT LAW — the two engines'
+			// summaries must agree on every field).
+			entries := make([]githubpipeline.WebsiteResultEntry, 0, len(results))
+			for _, r := range results {
+				entries = append(entries, githubpipeline.WebsiteResultEntry{
+					URL: r.URL, Canonical: r.Canonical, Outcome: r.Outcome,
+					NotePath: r.NotePath, Category: r.Category,
+					Subcategory: r.Subcategory, FetchStatus: r.FetchStatus,
+					Error: r.Error,
+				})
+			}
 			e.runner.SetWebsiteSummary(&githubpipeline.WebsiteSummary{
-				Counters: c, Results: nil, Vault: websiteVault,
+				Counters: c, Results: entries, Vault: websiteVault,
 			})
 		}
 		return sum
