@@ -826,3 +826,43 @@ flowchart LR
 > (cross-machine sha256 vs 071e1968…) → delete the test release + tag.
 > The full record: docs/poc-artifacts/t-81-release-workflow.md. T-82
 > (the clean-VM checklist) + T-83 (the docs) follow.
+
+> **SESSION-050 (2026-10-20, later the same day) — T-81's dry-run
+> COMPLETED; the acceptance GREEN; cross-machine reproducibility
+> PROVEN.** The owner's fix for the Actions-billing block: **the repo
+> went PUBLIC** (the owner's instruction: "Make it public, so you can
+> have unlimited CI/CD" — public repos get free unlimited Actions
+> minutes; no billing needed). Before the flip, a full-history secret
+> scan (1,415 blobs, every object in the DB): zero token-shaped strings
+> — the only pattern hits were test fixtures (the links-grammar goldens'
+> `secret=bbbb…`/`token=…` parser vectors) + the `KindPassword` event
+> constant; the author identities are GitHub-noreply + sandbox locals.
+> Then the acceptance legs, all green: (1) the re-run of `39512685975`
+> (attempt 2) on a REAL runner (1000004107) — all 8 steps green
+> (checkout → setup-go 1.27.2 → the wails CLI v2.16.0 → the tag law →
+> THE FULL DOUBLE-BUILD RITUAL → the AC-23 notes → the zip attach; the
+> ritual's own PASS line on the runner); (2) the `[DRY-RUN]
+> v0.0.0-t81-dryrun` draft+prerelease release created with the zip
+> asset (27,225,658 bytes, sha `6409352a…`); (3) the cross-machine
+> sha256 comparison — the runner's numbers == a full sandbox rebuild at
+> the SAME tagged tree state (`0961ad9`+tag, the 8 ritual legs re-run
+> locally): CLI `f2ef8362…` A=B=cold, GUI `99cc22e6…` A=B=cold (T-80's
+> own number), zip `6409352a…` A=B — byte-identical ACROSS MACHINES;
+> the extracted CLI exe's buildinfo on both machines: mod version
+> `v0.0.0-t81-dryrun` + `vcs.revision=0961ad90…` (THE TAG-STATE BUILD
+> LAW proven on the runner's own artifact). The find en route (the
+> stale-target correction): the evidence doc §2.1's table (CLI
+> `13808277…`, zip `071e1968…`) was measured at `b5c9a27`+tag — the tag
+> moved to `0961ad9` before the run, so those numbers were NEVER the
+> runner's comparison target (vcs.revision differs per commit); the
+> build is reproducible — the target was stale; recorded in the
+> evidence doc §2.1's correction + §5. (4) The refusal leg
+> `v9.9.9-t81-refusal` (run `39515838232`): failed EXACTLY at the
+> tag-law step (the one-version-truth error; the ritual/notes/attach
+> steps skipped; NO release created). (5) The cleanup: the test release
+> + both test tags deleted; only the real milestone `v0.92.0-go.1`
+> remains; the VERSION file never touched. go-ci note: the two red
+> go-ci runs on record (23:05/23:11 UTC) both PREDATE the flip (billing
+> refusals, no runner) — the first post-flip go-ci run rides the next
+> main push. T-82 (the clean-VM checklist + the AV note) + T-83 (the
+> docs) follow.

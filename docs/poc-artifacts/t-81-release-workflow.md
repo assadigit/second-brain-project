@@ -1,4 +1,5 @@
-# T-81 — the release workflow evidence (SESSION-049, 2026-10-20)
+# T-81 — the release workflow evidence (SESSION-049, 2026-10-20; the
+dry-run COMPLETED at SESSION-050 the same day — §5)
 
 > The release automation (doc 10 §8): tag push → build both exes → mkzip
 > → attach `GitCurator-v<version>-windows.zip` to the GitHub release (the
@@ -60,6 +61,16 @@ hand-transcribed) rendered the full AC-23 body over these numbers; the
 asset-staging leg (`cp .a → GitCurator-v0.92.0-go.1-windows.zip`) proven
 byte-equal.
 
+> **CORRECTION (SESSION-050, 2026-10-20 — the stale-target find):** this
+> table was measured with the tag at `b5c9a27` — the tag then MOVED to
+> `0961ad9` (the rider) before the runner leg ran, and the CLI exe's
+> buildinfo carries `vcs.revision` — so the runner's numbers are NOT
+> these numbers (the comparison target was stale, not the build). The
+> runner-state truth — measured BOTH on the GitHub runner and reproduced
+> byte-identically in this sandbox at `0961ad9`+tag — is §5's table.
+> (The GUI exe row is exempt from the correction: `99cc22e6…` held
+> everywhere — T-80, this table, the runner, and the §5 rebuild.)
+
 ### 2.2 THE TAG-STATE BUILD LAW (T-81's find, byte-settled)
 
 The same commit built untagged vs tagged produces **different CLI-exe
@@ -105,7 +116,15 @@ committed pin) reproduced T-80's evidence byte-for-byte: a CLI build at
 — exactly the T-80 table's number. The committed recipes carry across
 environment rebuilds.
 
-## 3. THE BLOCKED LEG (the account's Actions billing — the owner's fix)
+## 3. THE BLOCKED LEG (the account's Actions billing) — RESOLVED at
+   SESSION-050 (the owner's fix: the repo went PUBLIC)
+
+> **RESOLVED (2026-10-20, SESSION-050):** the owner's fix was not a
+> billing change but **making `assadigit/second-brain-project` PUBLIC**
+> (the owner's instruction: "Make it public, so you can have unlimited
+> CI/CD") — public repos get free unlimited Actions minutes, no billing
+> needed. The re-run then went green end-to-end; §5 is the completed
+> record. The history below stays as the original evidence.
 
 The dry-run's runner legs did NOT run: **the job never reached a
 runner** — the account's Actions billing refused it. The evidence:
@@ -169,3 +188,61 @@ dry-run completes at the next session after this):
 - The `[DRY-RUN]` release shape (draft + prerelease) keeps the proof
   visually separate from the real milestone releases (the hard rule:
   formal releases happen only at roadmap milestones).
+
+## 5. THE GREEN RUN (SESSION-050, 2026-10-20 — the dry-run COMPLETED)
+
+The owner's fix landed mid-session: **the repo went PUBLIC** (free
+unlimited Actions minutes; the billing block cannot recur). A full-history
+secret scan ran BEFORE the flip (1,415 blobs, every object in the DB:
+zero token-shaped strings — the only pattern hits were test fixtures
+like `secret=bbbb…`/`token=0123…` in the links-grammar goldens + the
+`KindPassword` event constant; the author identities are GitHub-noreply
++ sandbox locals). Then:
+
+1. **Re-run `39512685975` (attempt 2)**: a REAL runner picked it up
+   (`runner_id: 1000004107` vs the block's `runner_id: 0`), 23:26:18 →
+   23:30:24 UTC, **every step green**: checkout → setup-go 1.27.2 → the
+   wails CLI v2.16.0 → the tag law (DRY-RUN waiver logged) → THE FULL
+   DOUBLE-BUILD RITUAL → the AC-23 notes (asserted A==B==cold) → the
+   zip attach. The ritual's own verdict line on the runner: *"PASS —
+   byte-identical rebuilds: CLI exe + GUI exe + zip (warm x2 + cold x1
+   per exe)"*.
+2. **The `[DRY-RUN] v0.0.0-t81-dryrun` release** (draft + prerelease,
+   id 418982158): created with the asset
+   `GitCurator-v0.92.0-go.1-windows.zip` (27,225,658 bytes) + the full
+   AC-23 notes body (the parity table + the zip numbers + the
+   reproduce-from-tag recipe).
+3. **The cross-machine sha256 comparison — REPRODUCIBILITY PROVEN.** The
+   asset downloads at exactly `6409352a…`; the runner's ritual table and
+   a full local rebuild at the runner's exact tree state (`0961ad9` +
+   the tag, a clean worktree, the same 8 ritual legs) agree on every
+   number:
+
+   | Artifact | GitHub runner (A=B=cold) | Sandbox rebuild (A=B=cold) | Verdict |
+   |---|---|---|---|
+   | `GitCurator-cli.exe` | `f2ef8362ef9cc395e8cdacec01aac5d69eb43a968b948236aa5f1b569ffe5622` | identical | **byte-identical** |
+   | `GitCurator.exe` (GUI) | `99cc22e6810f6881a19dc5bd6f702d9d8e653a4a1eae7994a705e95bbd002422` | identical | **byte-identical** (== T-80's number) |
+   | `GitCurator-v0.92.0-go.1-windows.zip` | `6409352a291d20aa13782f436cd2426d05dc5ee379c8bf2ec571779bf2036664` (13 files, 56,908,881 in, 27,225,658 zipped) | identical | **byte-identical** |
+
+   The extracted CLI exe's buildinfo on both machines:
+   `mod github.com/assadigit/second-brain-project v0.0.0-t81-dryrun` +
+   `vcs.revision=0961ad90…` + `vcs.modified=false` — THE TAG-STATE BUILD
+   LAW's shape, proven on the runner's own artifact. (The §2.1 table's
+   `071e1968…`/`13808277…` numbers differ for the recorded reason — the
+   stale target — NOT a reproducibility failure; §2.1's correction.)
+4. **The refusal leg (the guard's teeth)**: the wrong-shape tag
+   `v9.9.9-t81-refusal` (at `2115298`, the workflow byte-identical
+   there) — run `39515838232` **failed EXACTLY at the tag-law step** on
+   a real runner: `::error::release tag v9.9.9-t81-refusal !=
+   v$VERSION (v0.92.0-go.1) — the one-version-truth law: a release tag
+   IS the version it ships`; the ritual/notes/attach steps SKIPPED and
+   **NO release was created**.
+5. **The cleanup**: the `[DRY-RUN]` release + both test tags
+   (`v0.0.0-t81-dryrun`, `v9.9.9-t81-refusal`) deleted (204s); only the
+   real milestone release `v0.92.0-go.1` remains. The VERSION file was
+   never touched.
+
+**Acceptance verdict: T-81 COMPLETE** — "dry-run on a test tag"
+   green end-to-end on a real runner, with the cross-machine
+   reproducibility proof (a stronger result than the recipe asked) and
+   the refusal leg as bonus evidence.

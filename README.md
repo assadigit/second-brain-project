@@ -1224,3 +1224,33 @@ workflow) → verify the green run + the `[DRY-RUN]` release + the zip
 asset → delete the test release + tag. The record:
 `docs/poc-artifacts/t-81-release-workflow.md`. T-82 (the clean-VM
 checklist) + T-83 (the docs) follow.
+
+**Phase 7 (continued) — SESSION-050**: **T-81 (the release workflow)
+COMPLETE — the dry-run acceptance GREEN end-to-end on a real GitHub
+runner, with the cross-machine reproducibility proof.** The owner's fix
+for the Actions-billing block: **the repo went PUBLIC** ("Make it
+public, so you can have unlimited CI/CD" — public repos get free
+unlimited Actions minutes; before the flip a full-history secret scan
+ran: 1,415 blobs, zero token-shaped strings). The acceptance legs: the
+re-run of `39512685975` (attempt 2) on a real runner — **all 8 steps
+green** (checkout → setup-go 1.27.2 → the wails CLI v2.16.0 → the tag
+law → THE FULL DOUBLE-BUILD RITUAL → the AC-23 notes → the zip attach);
+the `[DRY-RUN] v0.0.0-t81-dryrun` draft+prerelease release created with
+the asset `GitCurator-v0.92.0-go.1-windows.zip` (27,225,658 bytes,
+sha256 `6409352a…`); **the cross-machine comparison: byte-identical** —
+the runner's numbers == a full sandbox rebuild at the same tagged tree
+state (`0961ad9`+tag): CLI `f2ef8362…` (A=B=cold), GUI `99cc22e6…`
+(A=B=cold — T-80's own number), zip `6409352a…` (A=B; 13 files,
+56,908,881 bytes in, 27,225,658 zipped); the CLI exe's buildinfo on
+both machines: mod version `v0.0.0-t81-dryrun` +
+`vcs.revision=0961ad90…`. The stale-target find recorded honestly: the
+§2.1 comparison table (CLI `13808277…`, zip `071e1968…`) was measured
+at `b5c9a27`+tag — the tag moved to `0961ad9` before the run, so the
+runner's numbers were never going to be those numbers (the build is
+reproducible; the target was stale — the evidence doc §2.1's correction
++ §5). **The refusal leg**: `v9.9.9-t81-refusal` (run `39515838232`)
+failed EXACTLY at the tag-law step and created NO release (the guard's
+teeth, proven on a runner). The test release + both test tags deleted;
+only the real milestone `v0.92.0-go.1` remains. The record:
+`docs/poc-artifacts/t-81-release-workflow.md` §5. T-82 (the clean-VM
+checklist + the AV note) + T-83 (the docs) follow.

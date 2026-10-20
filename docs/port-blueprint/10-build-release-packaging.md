@@ -141,6 +141,27 @@ file.
 > the tagged checkout; the wails-built GUI exe is exempt — `(devel)`);
 > byte-settled in the evidence doc §2.2.
 
+> **Dated note (2026-10-20, later the same day — SESSION-050: the
+> dry-run COMPLETED; T-81's acceptance GREEN).** The owner's fix for
+> the billing block: **the repo went PUBLIC** ("Make it public, so you
+> can have unlimited CI/CD" — public repos get free unlimited Actions
+> minutes; a full-history secret scan ran before the flip: 1,415 blobs,
+> zero token-shaped strings). The re-run of `39512685975` (attempt 2)
+> went **green end-to-end on a real runner** (all 8 steps; the ritual's
+> own PASS line on the runner), created the `[DRY-RUN]` draft+prerelease
+> release with the zip asset, and the **cross-machine sha256 comparison
+> proved byte-identical reproduction**: the runner's numbers == a full
+> sandbox rebuild at the same tagged tree state (CLI `f2ef8362…`,
+> GUI `99cc22e6…`, zip `6409352a…`, 13 files / 56,908,881 in /
+> 27,225,658 zipped) — the evidence doc §2.1's comparison target had
+> gone stale (the tag moved `b5c9a27`→`0961ad9` after that measurement;
+> recorded in the evidence doc §2.1's correction + §5). The refusal leg
+> (`v9.9.9-t81-refusal`,
+> run `39515838232`) failed EXACTLY at the tag-law step and created NO
+> release. The test release + both test tags deleted; only the real
+> milestone release `v0.92.0-go.1` remains. The full record: the
+> evidence doc §5.
+
 ## 9. Antivirus false-positive notes
 
 Go exes occasionally trip heuristic scanners (packed strings). Mitigations, in order: keep
