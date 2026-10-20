@@ -8,6 +8,27 @@
 
 ## Key flows
 
+> **Dated note (2026-10-20, T-79d/SESSION-045 — the four Chrome doors
+> landed as More-menu doors):** `hand_deliver_walled_links_now` (1000)
+> + `hand_rows_deliver_now` (615) + `chrome_tab_retry_now` (1601) +
+> `attach_my_chrome_now` (669) + the shared `_start_chrome_tab_retry`
+> (1351-1519) + `_on_delivery_failed` (1521-1566) live in Go as
+> `internal/app/chromedoors.go` (the Settings-method engines over six
+> new hermetic SettingsDeps seams — ChromeFind / ChromeUserDataDir /
+> ChromeAttachBat / ChromeAttachRun / THE ChromeDeliver CDP/DevTools
+> seam / HandEnqueue; the busy ladders carried in the reference's own
+> order, guards → busy → scan, the flags passed in as parameters) +
+> `webui/heroui.go`'s seven More doors + the `startChromeTabRetry`
+> runner (ONE delivery at a time with the backlog merge; the failure
+> story FIRST over the chrome:failed event; the delivered pages
+> re-run as the DIRECT NonGithub batch — the v0.57 routing law) +
+> the frontend's two picker dialogs + THE BINDING-IMPORT pin. The
+> unlanded companions — `_maybe_offer_chrome_tab_retry` (the
+> end-of-run offer), hero.py's caught-up hand scrape, and
+> `_maybe_redo_hand_notes` — remain the honest boundary: they ride
+> the same runner, so their landing is a follow-up wiring. The six
+> recorded divergences: docs/poc-artifacts/t-79d-chrome-doors.md.
+
 > **Dated note (2026-10-15, ADR-0004 Am.3 — owner stamp "OPTION B CONFIRMED", rider R-0):**
 > the `lock only for telegram modes` clause below and the mark-read/msg-id steps it guarded
 > fall away with the MTProto client — no Telegram lock exists in the Go port; the queue source

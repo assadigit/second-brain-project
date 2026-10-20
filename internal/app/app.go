@@ -26,11 +26,13 @@ import (
 	"sync"
 
 	"github.com/assadigit/second-brain-project/internal/batch"
+	"github.com/assadigit/second-brain-project/internal/chrometabs"
 	"github.com/assadigit/second-brain-project/internal/config"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/constants"
 	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/goodrepos"
+	"github.com/assadigit/second-brain-project/internal/handdelivery"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/mirror"
 	"github.com/assadigit/second-brain-project/internal/notereads"
@@ -293,7 +295,57 @@ func New(configPath string, headless bool) *App {
 		LinkEmbedCall: mirror.BuildEmbeddingCall,
 		// The bot-queue tool doors' seam (T-79c): the SAME
 		// queueFetch composition the queue command rides.
-		BotQueueFetch:    a.queueFetch,
+		BotQueueFetch: a.queueFetch,
+		// The Chrome doors' seams (T-79d): the finder + the profile
+		// discovery + the .bat writer/runner + THE CDP/DevTools
+		// delivery (chrometabs.DeliverPagesViaChrome — the real
+		// fetcher, nil shouldContinue) + the fourth door's enqueue
+		// with its open-Chrome leg.
+		ChromeFind:        handdelivery.FindChrome,
+		ChromeUserDataDir: chrometabs.RealUserDataDir,
+		ChromeAttachBat: func(path, chromeExe string, port int, dataDir,
+			linkDir string) bool {
+			return chrometabs.WriteChromeAttachBat(path, chromeExe, port,
+				dataDir, linkDir) != ""
+		},
+		ChromeAttachRun: func(batPath string) string {
+			// the reference's Popen(['cmd','/c',bat], DEVNULL,
+			// close_fds, cwd) — the detached launch; the error text
+			// speaks on a failure.
+			cmd := exec.Command("cmd", "/c", batPath)
+			cmd.Stdout = nil
+			cmd.Stderr = nil
+			cmd.Stdin = nil
+			cmd.Dir = filepath.Dir(batPath)
+			if err := cmd.Start(); err != nil {
+				return err.Error()
+			}
+			return ""
+		},
+		ChromeDeliver: func(vault string, links []ChromeLinkRow, log LogFn,
+			config *storage.OrderedMap) ChromeDeliveryReport {
+			var out []chrometabs.Link
+			for _, l := range links {
+				out = append(out, chrometabs.Link{URL: l.URL, Error: l.Error})
+			}
+			rep := chrometabs.DeliverPagesViaChrome(vault, out, log,
+				cfgPlainMap(config), "", nil, nil)
+			mapped := ChromeDeliveryReport{
+				Delivered: rep.Delivered, Failed: rep.Failed,
+				URLs: rep.URLs, Folder: rep.Folder,
+			}
+			for _, f := range rep.FailedLinks {
+				mapped.FailedLinks = append(mapped.FailedLinks,
+					ChromeLinkRow{URL: f.URL, Error: f.Error})
+			}
+			return mapped
+		},
+		HandEnqueue: func(vault string, urls []string, walls map[string]string,
+			log LogFn, openChrome bool) (int, int) {
+			rep := handdelivery.EnqueueHandDelivery(vault, urls, walls,
+				log, openChrome, "")
+			return rep.Added, rep.Opened
+		},
 		SpawnOllamaServe: spawnOllamaServe,
 		SoundDir: func() string {
 			return filepath.Join(constants.AppDir(), "assets", "sounds")

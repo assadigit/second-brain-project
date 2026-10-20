@@ -62,6 +62,15 @@ type HeroUI struct {
 	// the shell's own seat, read+written under mu as ONE unit).
 	retryFailedURLs []string
 
+	// The Chrome doors' seats (T-79d): the delivery's busy flag +
+	// backlog (the reference's _chrome_delivery_busy/_backlog — ONE
+	// delivery at a time, later arrivals MERGED behind it), and the
+	// hand-rows door's held list (the >10 confirm's same-rows law).
+	// Read+written under mu as ONE unit (THE SENTINEL-SEAT RACE LAW).
+	chromeDeliveryBusy    bool
+	chromeDeliveryBacklog []app.ChromeLinkRow
+	handRowsRows          []app.ChromeLinkRow
+
 	// mu serializes the machine + the queue facts (wails runs each
 	// bound call on its own goroutine; the mirror ticks alongside).
 	mu sync.Mutex
@@ -864,6 +873,202 @@ func (u *HeroUI) MoreResolveProcess(urls []string) *app.BatchResult {
 	})
 	u.onBatchFinished()
 	return res
+}
+
+// ---------------------------------------------------------------------------
+// THE CHROME DOORS (T-79d) — the More menu's fourth family: the
+// reference's four anytime triggers over the ported engines
+// (processing_control.py:615/669/1000/1601). THE COLLABORATOR LAW:
+// Chrome is optional — every refusal is honest (the reference's own
+// remedy boxes + the engine's own failure lines), never a crash,
+// never a silent no-op.
+// ---------------------------------------------------------------------------
+
+// MoreHandDeliverWalled is 🖐 Hand-deliver walled links' scan door:
+// the guards' box, or the picker's data (the walled rows + the folder
+// + the already-queued count). The frontend renders the picker over
+// it; Continue calls MoreHandDeliverQueue with the picked rows.
+func (u *HeroUI) MoreHandDeliverWalled() *app.HandDeliverScan {
+	return u.settings.HandDeliverScan()
+}
+
+// MoreHandDeliverQueue is the picker's answer door: the picked rows
+// (the dialog's own data echoed back) enqueue + open in Chrome; an
+// empty list is the dialog's Cancel (the reference's cancel line
+// speaks on the desk).
+func (u *HeroUI) MoreHandDeliverQueue(links []app.HandWallRow) *MoreDoorResult {
+	title, body := u.settings.HandDeliverQueue(links)
+	return &MoreDoorResult{Title: title, Body: body}
+}
+
+// MoreOpenHandFolder is the picker's "Open the folder" reveal (the
+// hand-delivered folder in the OS file manager — best-effort).
+func (u *HeroUI) MoreOpenHandFolder() bool {
+	return u.settings.OpenHandDeliveryFolder()
+}
+
+// MoreHandRowsDeliver is 🖐 Scrape hand rows via Chrome — the
+// two-phase door (the busy guard + the scan + the >10 confirm; a
+// ≤10 list falls straight through to the delivery — the reference's
+// mid-flow _confirm_batch shape). A stale Continue with no held rows
+// re-scans, never a blind run.
+func (u *HeroUI) MoreHandRowsDeliver(confirmed bool) *app.HandRowsScan {
+	u.mu.Lock()
+	busy := u.chromeDeliveryBusy
+	u.mu.Unlock()
+	out := u.settings.HandRowsScan(busy)
+	if out.Box != nil {
+		return out
+	}
+	if out.Confirm != nil {
+		if confirmed {
+			// the confirmed pass re-uses the held rows (the
+			// reference's same-rows law).
+			u.mu.Lock()
+			held := append([]app.ChromeLinkRow(nil), u.handRowsRows...)
+			u.handRowsRows = nil
+			u.mu.Unlock()
+			if len(held) > 0 {
+				u.speakHandRowsStart(len(held))
+				u.startChromeTabRetry(held)
+				return &app.HandRowsScan{}
+			}
+			// a stale Continue — fall through to the re-scan below.
+			out = u.settings.HandRowsScan(busy)
+			if out.Box != nil {
+				return out
+			}
+			if out.Confirm != nil {
+				u.mu.Lock()
+				u.handRowsRows = append([]app.ChromeLinkRow(nil), out.Rows...)
+				u.mu.Unlock()
+				return out
+			}
+			u.speakHandRowsStart(len(out.Rows))
+			u.startChromeTabRetry(out.Rows)
+			return &app.HandRowsScan{}
+		}
+		u.mu.Lock()
+		u.handRowsRows = append([]app.ChromeLinkRow(nil), out.Rows...)
+		u.mu.Unlock()
+		return out
+	}
+	u.speakHandRowsStart(len(out.Rows))
+	u.startChromeTabRetry(out.Rows)
+	return &app.HandRowsScan{}
+}
+
+// speakHandRowsStart is the hand-rows door's opening line (the
+// reference's own words, spoken before the delivery's own 🤖 line).
+func (u *HeroUI) speakHandRowsStart(n int) {
+	u.settings.SpeakOnBus(fmt.Sprintf(
+		"🖐 %d hand row(s) — opening your real Chrome (one tab per link; the live pages become real fetches)", n), "info")
+}
+
+// MoreChromeTabRetry is 🤖 Chrome tab-retry failed links' scan door:
+// the guards (+ the batch-busy box — the reference's _batch_running
+// refusal), or the offer's rows. The frontend renders the checkable
+// offer over it; its buttons answer through MoreChromeTabRetryRun.
+func (u *HeroUI) MoreChromeTabRetry() *app.ChromeTabRetryScan {
+	return u.settings.ChromeTabRetryScan(u.commands.BatchBusy())
+}
+
+// MoreChromeTabRetryRun is the offer's answer door: an empty list is
+// "Not now" (the reference's cancel line); the picked rows are marked
+// offered (never re-offered this session) and the delivery starts.
+func (u *HeroUI) MoreChromeTabRetryRun(picked []app.ChromeLinkRow) {
+	if len(picked) == 0 {
+		u.settings.SpeakOnBus("⏭️ Chrome tab retry cancelled — the failed links keep "+
+			"waiting (their automatic retries continue).", "info")
+		return
+	}
+	u.settings.MarkChromeTabOffered(picked)
+	u.startChromeTabRetry(picked)
+}
+
+// MoreAttachMyChrome is 🪄 Attach to my Chrome — the attach ladder
+// (the find/profile/write guards, then the platform split: the
+// confirm question on Windows, the honest ready box on POSIX). The
+// confirmed pass runs the restart.
+func (u *HeroUI) MoreAttachMyChrome(confirmed bool) *app.AttachChromeResult {
+	return u.settings.AttachMyChrome(confirmed)
+}
+
+// startChromeTabRetry is _start_chrome_tab_retry (processing_control.
+// py:1351-1519): ONE delivery at a time — a second request while a
+// delivery runs is MERGED into the backlog the finish handler drains
+// (two Chrome deliveries at once would fight over the owner's
+// screen). The delivery runs in the background (the desk speaks its
+// own lines through the bus); the finish leg tells the failure story
+// FIRST (the chrome:failed event carries the modal), then the
+// delivered pages are re-processed through the Websites pipeline as
+// real fetches (a fresh direct batch — THE NOTE IS THE SUCCESS, the
+// v0.57 routing law: the delivered links ride as website links,
+// never GitHub urls).
+func (u *HeroUI) startChromeTabRetry(links []app.ChromeLinkRow) {
+	if len(links) == 0 {
+		return
+	}
+	u.mu.Lock()
+	if u.chromeDeliveryBusy {
+		u.chromeDeliveryBacklog = append(u.chromeDeliveryBacklog, links...)
+		u.mu.Unlock()
+		u.settings.SpeakOnBus(fmt.Sprintf(
+			"🖐 A Chrome delivery is already running — %d link(s) queued behind it (they open when the current tabs finish)",
+			len(links)), "info")
+		return
+	}
+	u.chromeDeliveryBusy = true
+	u.mu.Unlock()
+
+	go func() {
+		report := u.settings.ChromeDeliverLinks(links)
+		u.mu.Lock()
+		u.chromeDeliveryBusy = false
+		backlog := append([]app.ChromeLinkRow(nil), u.chromeDeliveryBacklog...)
+		u.chromeDeliveryBacklog = nil
+		u.mu.Unlock()
+
+		// v0.54 — the failure detail FIRST (its modal shows, the owner
+		// reads it, then the delivered leg decides what runs next).
+		if box := app.ChromeDeliveryFailedBox(report.FailedLinks); box != nil {
+			u.settings.SpeakOnBus(fmt.Sprintf(
+				"⚠️ Chrome tab retry: %d link(s) couldn't be gathered from your Chrome — they keep waiting in the retry queue",
+				len(report.FailedLinks)), "warning")
+			if u.ctx != nil {
+				runtime.EventsEmit(u.ctx, "chrome:failed", box)
+			}
+		}
+		if len(report.URLs) > 0 {
+			if u.commands.BatchBusy() {
+				u.settings.SpeakOnBus(fmt.Sprintf(
+					"🤖 %d page(s) delivered from your Chrome — a batch is running, so they join the NEXT one automatically (delivered pages are never left waiting)",
+					len(report.URLs)), "info")
+			} else {
+				u.settings.SpeakOnBus(fmt.Sprintf(
+					"🤖 %d page(s) delivered from your Chrome — re-processing them now through the Websites pipeline as real fetches (classify → analyze → the proper, categorized note)…",
+					len(report.URLs)), "success")
+				u.mu.Lock()
+				u.machine.Mirror(true)
+				u.mu.Unlock()
+				u.emitState("")
+				_ = u.commands.SyncRunBatch(context.Background(), app.BatchOptions{
+					NonGithub: append([]string(nil), report.URLs...),
+					Source:    "direct",
+				})
+				u.onBatchFinished()
+			}
+		}
+		// drain the backlog — the deliveries that arrived while this
+		// one ran get their own Chrome pass now.
+		if len(backlog) > 0 {
+			u.startChromeTabRetry(backlog)
+		}
+	}()
+
+	u.settings.SpeakOnBus(fmt.Sprintf(
+		"🤖 Chrome tab retry: opening %d link(s) in your real Chrome (your own window when its debug port answers — More ▸ 🪄 Attach to my Chrome; otherwise the door's identity, direct line first, then your proxy — one tab per link; watch the tabs load; GitCurator takes each page when it is ready and processes it into the vault — the scorecard waits for the notes to land)",
+		len(links)), "info")
 }
 
 func isDirPath(path string) bool {

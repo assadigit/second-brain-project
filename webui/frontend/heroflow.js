@@ -35,6 +35,9 @@ import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
          MoreExportAllBotLinks, MoreVerifyAllBotLinks, MoreRetryFailed,
          MoreResolveMarkProcessed, MoreResolveDecommission,
          MoreResolveMarkAll, MoreResolveProcess,
+         MoreHandDeliverWalled, MoreHandDeliverQueue, MoreOpenHandFolder,
+         MoreHandRowsDeliver, MoreChromeTabRetry, MoreChromeTabRetryRun,
+         MoreAttachMyChrome,
          ChromeBoot } from './wailsjs/go/main/HeroUI.js';
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
@@ -95,6 +98,7 @@ function themedBox(box, buttons, opts) {
     btnRow.appendChild(btn(text, kind, '', fn));
   }
   b.appendChild(btnRow);
+  return b;
 }
 
 // ---------------------------------------------------------------------------
@@ -489,6 +493,133 @@ if (testBtn) {
 }
 
 // ---------------------------------------------------------------------------
+// T-79d: the Chrome doors' dialogs — the reference's own picker shapes
+// (_pick_hand_links_dialog 1095-1191 + _chrome_tab_retry_dialog
+// 1266-1349): checkable lists (all ticked by default), the wall/error
+// riding under each URL, the folder label, and the buttons pinned
+// OUTSIDE the scrolling body (the long-body law).
+// ---------------------------------------------------------------------------
+
+// pickRowEl builds one checkable row: the URL with the wall/error
+// under it (the reference's "url   —   wall" shape, 110-rune capped,
+// the full text on the tooltip).
+function pickRowEl(url, note) {
+  const shown = note ? (note.length > 110 ? note.slice(0, 110) : note) : '';
+  const row = el('label', 'form-check-label chrome-pick-row');
+  const box = el('input', 'form-check');
+  box.type = 'checkbox';
+  box.checked = true;
+  row.appendChild(box);
+  const text = el('span', 'chrome-pick-text');
+  const name = el('span', 'chrome-pick-url', url);
+  text.appendChild(name);
+  if (shown) text.appendChild(el('span', 'chrome-pick-note', '   —   ' + shown));
+  row.title = url + (shown ? '   —   ' + shown : '');
+  row.appendChild(text);
+  return { row, box };
+}
+
+// openHandDeliverDialog — 🖐 Hand-deliver walled links' picker
+// (processing_control.py:1095): tick the ones worth saving; 🖐 Queue
+// & open in Chrome runs the queue door with the checked rows; Cancel
+// speaks the reference's cancel line (an empty list).
+function openHandDeliverDialog(model) {
+  const box = openOverlay(680);
+  box.classList.add('linkdoor-box');
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-label', 'Hand-deliver walled links');
+  const header = el('div', 'chrome-pick-header');
+  header.appendChild(el('span', 'chrome-glyph', '🖐'));
+  header.appendChild(el('span', 'card-heading', 'Hand-deliver walled links'));
+  box.appendChild(header);
+  const body = el('div', 'dialog-body chrome-pick-body');
+  body.appendChild(el('p', 'dialog-message',
+    "These links answered every machine door with a wall (403 / bot defense / TLS fingerprint — the wall rides under each URL). Tick the ones worth saving: each opens in your real Chrome, is queued with a suggested filename, and the page you save (Ctrl+S, 'Webpage, HTML Only') becomes a REAL fetch on the next batch. Nothing is retired — the links keep waiting until their page is delivered."));
+  const list = el('div', 'chrome-pick-list');
+  const rows = [];
+  for (const link of model.links) {
+    const r = pickRowEl(link.url, link.wall);
+    rows.push({ r, link });
+    list.appendChild(r.row);
+  }
+  body.appendChild(list);
+  body.appendChild(el('p', 'chrome-pick-folder',
+    'Deliver into: ' + model.folder + ' (the README regenerates there with every link\'s suggested filename)'));
+  box.appendChild(body);
+  const btnRow = el('div', 'dialog-buttons');
+  btnRow.appendChild(btn('Open the folder', 'secondary',
+    'Reveal the hand-delivered folder in your file manager — saved pages land there.',
+    async () => { await MoreOpenHandFolder().catch(() => {}); }));
+  const spacer = el('span', 'chrome-pick-spacer');
+  btnRow.appendChild(spacer);
+  btnRow.appendChild(btn('Cancel', 'secondary',
+    'Nothing is queued — the walled links keep waiting.',
+    async () => { closeOverlay(); await MoreHandDeliverQueue([]).catch(() => {}); }));
+  btnRow.appendChild(btn('🖐 Queue & open in Chrome', 'primary',
+    "Queue every ticked link for hand-delivery and open it in your real Chrome — the next SYNC batch consumes every delivered page as a REAL fetch.",
+    async () => {
+      const picked = rows.filter((x) => x.r.box.checked).map((x) => x.link);
+      closeOverlay();
+      const res = await MoreHandDeliverQueue(picked).catch(() => null);
+      if (res && res.title) {
+        themedBox({ title: res.title, body: res.body },
+          [['OK', 'primary', () => closeOverlay()]], { width: 560, scroll: true });
+      }
+    }));
+  box.appendChild(btnRow);
+}
+
+// openChromeRetryDialog — 🤖 Chrome tab-retry's offer modal
+// (processing_control.py:1266): the failed links with their last error
+// under each URL, the question, and the two answers.
+function openChromeRetryDialog(links) {
+  const box = openOverlay(720);
+  box.classList.add('linkdoor-box');
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-label', 'Retry in your real Chrome?');
+  const header = el('div', 'chrome-pick-header');
+  header.appendChild(el('span', 'chrome-glyph', '🤖'));
+  header.appendChild(el('span', 'card-heading',
+    links.length + " link(s) couldn't generate content"));
+  box.appendChild(header);
+  const body = el('div', 'dialog-body chrome-pick-body');
+  body.appendChild(el('p', 'dialog-message',
+    'The machine fetch failed for ' + links.length + ' link(s) this run — no content was generated, each one\'s last error rides under its URL (they are the " - " rows in the master table).\n\nWant to retry them in your real Google Chrome? GitCurator opens a fresh Chrome window (your own Chrome, a new session — your running window is never touched), starts one tab per link, waits for every page to load, and takes the content from the live pages itself — no manual saving. Links that still fail keep waiting; their automatic retries continue.'));
+  const list = el('div', 'chrome-pick-list');
+  const rows = [];
+  for (const link of links) {
+    const r = pickRowEl(link.url, link.error);
+    rows.push({ r, link });
+    list.appendChild(r.row);
+  }
+  body.appendChild(list);
+  box.appendChild(body);
+  const btnRow = el('div', 'dialog-buttons');
+  const spacer = el('span', 'chrome-pick-spacer');
+  btnRow.appendChild(spacer);
+  btnRow.appendChild(btn('Not now', 'secondary',
+    'The failed links keep waiting — their automatic retries continue, and the master table\'s Status cell decides their fate.',
+    async () => { closeOverlay(); await MoreChromeTabRetryRun([]).catch(() => {}); }));
+  btnRow.appendChild(btn('🤖 Retry in Chrome now', 'primary',
+    'Opens your own Google Chrome (a fresh session), one tab per link, and takes the content from the live pages.',
+    async () => {
+      const picked = rows.filter((x) => x.r.box.checked).map((x) => x.link);
+      closeOverlay();
+      await MoreChromeTabRetryRun(picked).catch(() => {});
+    }));
+  box.appendChild(btnRow);
+}
+
+// the delivery's failure modal (the chrome:failed event — _on_delivery_
+// failed's twin): ONE listener, registered once at boot (the
+// ONE-OWNER-PER-SURFACE law).
+EventsOn('chrome:failed', (payload) => {
+  if (!payload || !payload.title) return;
+  themedBox({ title: payload.title, body: payload.body },
+    [['OK', 'primary', () => closeOverlay()]], { width: 560, scroll: true });
+});
+
+// ---------------------------------------------------------------------------
 // THE MORE MENU — the reference's own action list, verbatim (ui.py
 // 1849-1946). The live doors are wired; the engines that have not
 // landed yet render HONESTLY DISABLED with their landing note (the
@@ -530,10 +661,14 @@ const MORE_ACTIONS = [
   { label: '🔁 Retry _review backlog', live: 'retryReview', tip: 'Re-fetch the app-owned fetch-failed placeholders under _review (v0.41\'s browser-grade presentation).' },
   { label: '🔁 Retry the table\'s \' - \' rows', live: 'retryMaster', tip: 'The master table\'s " - " rows — valid links whose fetches failed — fetched again before "everything is up to date" may be said.' },
   { label: '🪦 Decommission dead links', tip: 'The graveyard procedure lands with the master-table tools task (the picker writes the same Status cells in-app).' },
-  { label: '🖐 Hand-deliver walled links', tip: 'The Chrome doors land with the Chrome-doors GUI task (the engines live — internal/chrometabs).' },
-  { label: '🖐 Scrape hand rows via Chrome', tip: 'The Chrome doors land with the Chrome-doors GUI task.' },
-  { label: '🤖 Chrome tab-retry failed links', tip: 'The Chrome doors land with the Chrome-doors GUI task.' },
-  { label: '🪄 Attach to my Chrome', tip: 'The Chrome doors land with the Chrome-doors GUI task (restart Chrome WITH its DevTools port open).' },
+  { label: '🖐 Hand-deliver walled links', live: 'handDeliver',
+    tip: "The links every machine door failed to open (403 / bot defense / TLS fingerprint) — the picker queues the chosen ones for your real Chrome; the saved page becomes a real fetch on the next batch." },
+  { label: '🖐 Scrape hand rows via Chrome', live: 'handRows',
+    tip: "The master table's 🖐 hand rows scraped in your real Chrome NOW — one tab per link, the live pages become real fetches." },
+  { label: '🤖 Chrome tab-retry failed links', live: 'chromeRetry',
+    tip: 'Every link waiting in the websites retry queue re-fetched through your own Chrome — one tab per link, the live DOM taken as the content.' },
+  { label: '🪄 Attach to my Chrome', live: 'attach',
+    tip: "Restart your Chrome WITH its DevTools port open so the fifth door drives YOUR instance — your profile, your cookies, your logins (Windows; the .bat + instructions)." },
   { label: '📤 Export Backup ZIP', tip: 'The export-zip engine rides the packaging phase (the recorded plan — spec-gui-pages-b\'s dated note).' },
   { sep: true },
   { label: '📊 Open Dashboard', live: 'dashboard', tip: 'Open the website dashboard (the Worker URL from Settings ▸ Backup).' },
@@ -731,6 +866,77 @@ async function runMoreAction(act) {
     await MoreRetryMaster().catch(() => {});
     return;
   }
+  if (act.live === 'handDeliver') {
+    // T-79d: 🖐 Hand-deliver walled links — the picker dialog (the
+    // reference's own words; the checked rows queue + open in Chrome).
+    const model = await MoreHandDeliverWalled().catch(() => null);
+    if (!model) return;
+    if (model.box) {
+      themedBox({ title: model.box.title, body: model.box.body },
+        [['OK', 'primary', () => closeOverlay()]]);
+      return;
+    }
+    if (model.links && model.links.length) openHandDeliverDialog(model);
+    return;
+  }
+  if (act.live === 'handRows') {
+    // T-79d: 🖐 Scrape hand rows via Chrome — the busy/empty boxes,
+    // the >10 confirm (Continue calls the confirmed pass), or the
+    // delivery started (the desk speaks its own story).
+    const res = await MoreHandRowsDeliver(false).catch(() => null);
+    if (!res) return;
+    if (res.box) {
+      themedBox({ title: res.box.title, body: res.box.body },
+        [['OK', 'primary', () => closeOverlay()]]);
+      return;
+    }
+    if (res.confirm) {
+      themedBox({ title: res.confirm.title, body: res.confirm.body }, [
+        ['Continue', 'primary',
+          async () => { closeOverlay(); await MoreHandRowsDeliver(true).catch(() => {}); }],
+        ['Cancel', 'secondary', () => closeOverlay()],
+      ]);
+      return;
+    }
+    return;
+  }
+  if (act.live === 'chromeRetry') {
+    // T-79d: 🤖 Chrome tab-retry failed links — the offer dialog (the
+    // reference's own words + the two answers).
+    const res = await MoreChromeTabRetry().catch(() => null);
+    if (!res) return;
+    if (res.box) {
+      themedBox({ title: res.box.title, body: res.box.body },
+        [['OK', 'primary', () => closeOverlay()]]);
+      return;
+    }
+    if (res.links && res.links.length) openChromeRetryDialog(res.links);
+    return;
+  }
+  if (act.live === 'attach') {
+    // T-79d: 🪄 Attach to my Chrome — the ladder's boxes; the ONE
+    // explicit OK (Windows) rides the confirm (the default answer
+    // is No — his browser is never touched on a doubt).
+    const res = await MoreAttachMyChrome(false).catch(() => null);
+    if (!res) return;
+    if (res.box) {
+      themedBox({ title: res.box.title, body: res.box.body },
+        [['OK', 'primary', () => closeOverlay()]], { width: 560 });
+      return;
+    }
+    if (res.confirm) {
+      const overlay = themedBox({ title: res.confirm.title, body: res.confirm.body }, [
+        ['No', 'secondary', () => closeOverlay()],
+        ['Yes', 'primary',
+          async () => { closeOverlay(); await MoreAttachMyChrome(true).catch(() => {}); }],
+      ], { width: 560 });
+      // the reference's default-button law: No is the default.
+      const noBtn = overlay ? overlay.querySelector('.btn-secondary') : null;
+      if (noBtn) noBtn.focus();
+      return;
+    }
+    return;
+  }
   if (act.live === 'dark') {
     const on = !document.documentElement.dataset.theme ||
       document.documentElement.dataset.theme !== 'dark';
@@ -924,11 +1130,17 @@ EventsOn('autorun:open-more', async (v) => {
     // grammar — the opening, the captured refusal, the exit-code
     // finish line. 'export' (T-79c) clicks the bot-queue export
     // door: with no bot username configured the door speaks the
-    // reference's own username-refusal line.
+    // reference's own username-refusal line. 'hand' (T-79d) clicks
+    // the fourth door's scan: with the gate's unconfigured fixture
+    // (no Websites pipeline, no Websites vault), the door answers the
+    // reference's own "Websites pipeline is off" guard box — the
+    // collaborator law's honest refusal, no Chrome anywhere near
+    // (a pure config read).
     await new Promise((res) => setTimeout(res, 400));
     const pick = door === 'ollama' ? 'Test Ollama'
       : door === 'recall' ? 'Recall hooks (dry-run)'
-      : door === 'export' ? 'Export All Links' : '';
+      : door === 'export' ? 'Export All Links'
+      : door === 'hand' ? 'Hand-deliver walled links' : '';
     if (pick) {
       const item = [...document.querySelectorAll('#more-menu .more-item')]
         .find((n) => n.textContent.includes(pick));

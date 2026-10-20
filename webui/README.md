@@ -66,7 +66,15 @@ seam RETIRED at this landing, deleted with its tests):
   urls on its own seat; the post-confirm leg clears the pending lists
   and runs the DIRECT batch] + the manual-resolve doors
   MoreResolveMarkProcessed/Decommission/MarkAll + MoreResolveProcess
-  over internal/app/botdoors.go's engines). Bound as the sixth struct; the
+  over internal/app/botdoors.go's engines) — **plus T-79d's seven
+  Chrome doors** (MoreHandDeliverWalled + MoreHandDeliverQueue +
+  MoreOpenHandFolder + MoreHandRowsDeliver's two-phase confirm [the
+  held-rows seat] + MoreChromeTabRetry + MoreChromeTabRetryRun +
+  MoreAttachMyChrome over internal/app/chromedoors.go's engines, +
+  the `startChromeTabRetry` runner: ONE delivery at a time with the
+  backlog merge, the failure story FIRST over the chrome:failed
+  event, the delivered pages re-run as the DIRECT NonGithub batch).
+  Bound as the sixth struct; the
   generated bindings live in frontend/wailsjs/go/main/HeroUI.js.
 - `settingsuib.go` — T-74's pages B binding wrapper: the thin shell
   over internal/app's pages B engines + the Commands surface (the
@@ -129,10 +137,16 @@ seam RETIRED at this landing, deleted with its tests):
   Failed rides the two-phase confirm (Continue calls the confirmed
   pass); the resolve dialog is the reference's own words + button
   hierarchy (the buttons pinned outside the scrolling body,
-  click-to-select rows); the
+  click-to-select rows); **T-79d: the four Chrome doors are LIVE** —
+  the two picker dialogs in the reference's own words (checkable
+  rows, the wall/error under each URL, all ticked by default, the
+  buttons pinned outside the scrolling body), the hand-rows + attach
+  confirms (the attach default-No law: the No button focused), and
+  the chrome:failed failure modal's ONE listener (EventsOn, the
+  one-owner-per-surface law); the
   SB_POC_OPEN_MORE probe (shell.go's autorun leg) opens the menu for
   the screenshot evidence and can click one door end-to-end
-  ('ollama' / 'recall' / 'export').
+  ('ollama' / 'recall' / 'export' / 'hand').
 - `fixture/` — the deterministic synthetic vault (no owner data).
 - `build-support/` — the rootless-webkit evidence recipe: the LD_PRELOAD
   path shim + `run-gate.sh` (the Xvfb autorun leg — the log perf test's

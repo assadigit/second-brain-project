@@ -13,13 +13,27 @@ export function HeroRunQueue():Promise<app.BatchResult>;
 
 export function HeroState():Promise<main.HeroStatePayload>;
 
+export function MoreAttachMyChrome(arg1:boolean):Promise<app.AttachChromeResult>;
+
 export function MoreBuildLinkSuggestions():Promise<main.MoreDoorResult>;
+
+export function MoreChromeTabRetry():Promise<app.ChromeTabRetryScan>;
+
+export function MoreChromeTabRetryRun(arg1:Array<app.ChromeLinkRow>):Promise<void>;
 
 export function MoreDarkMode(arg1:boolean):Promise<app.SaveResult>;
 
 export function MoreExportAllBotLinks():Promise<main.MoreDoorResult>;
 
+export function MoreHandDeliverQueue(arg1:Array<app.HandWallRow>):Promise<main.MoreDoorResult>;
+
+export function MoreHandDeliverWalled():Promise<app.HandDeliverScan>;
+
+export function MoreHandRowsDeliver(arg1:boolean):Promise<app.HandRowsScan>;
+
 export function MoreOpenDashboard():Promise<main.MoreDoorResult>;
+
+export function MoreOpenHandFolder():Promise<boolean>;
 
 export function MoreRecallHooksDryRun():Promise<main.MoreDoorResult>;
 

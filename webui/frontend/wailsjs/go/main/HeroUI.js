@@ -22,8 +22,20 @@ export function HeroState() {
   return window['go']['main']['HeroUI']['HeroState']();
 }
 
+export function MoreAttachMyChrome(arg1) {
+  return window['go']['main']['HeroUI']['MoreAttachMyChrome'](arg1);
+}
+
 export function MoreBuildLinkSuggestions() {
   return window['go']['main']['HeroUI']['MoreBuildLinkSuggestions']();
+}
+
+export function MoreChromeTabRetry() {
+  return window['go']['main']['HeroUI']['MoreChromeTabRetry']();
+}
+
+export function MoreChromeTabRetryRun(arg1) {
+  return window['go']['main']['HeroUI']['MoreChromeTabRetryRun'](arg1);
 }
 
 export function MoreDarkMode(arg1) {
@@ -34,8 +46,24 @@ export function MoreExportAllBotLinks() {
   return window['go']['main']['HeroUI']['MoreExportAllBotLinks']();
 }
 
+export function MoreHandDeliverQueue(arg1) {
+  return window['go']['main']['HeroUI']['MoreHandDeliverQueue'](arg1);
+}
+
+export function MoreHandDeliverWalled() {
+  return window['go']['main']['HeroUI']['MoreHandDeliverWalled']();
+}
+
+export function MoreHandRowsDeliver(arg1) {
+  return window['go']['main']['HeroUI']['MoreHandRowsDeliver'](arg1);
+}
+
 export function MoreOpenDashboard() {
   return window['go']['main']['HeroUI']['MoreOpenDashboard']();
+}
+
+export function MoreOpenHandFolder() {
+  return window['go']['main']['HeroUI']['MoreOpenHandFolder']();
 }
 
 export function MoreRecallHooksDryRun() {

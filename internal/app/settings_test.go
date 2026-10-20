@@ -64,6 +64,18 @@ type fakeSettingsDeps struct {
 	botQueueState string
 	botQueueItems []any
 
+	// The Chrome doors' seams (T-79d) — the canned ladder values +
+	// the two function seams.
+	chromeFind         string
+	chromeDataDir      string
+	chromeAttachBatOK  bool
+	chromeAttachRunErr string
+	handEnqueueFn      func(vault string, urls []string,
+		walls map[string]string, log LogFn, openChrome bool) (int, int)
+	handEnqueueCalls int
+	chromeDeliverFn  func(vault string, links []ChromeLinkRow,
+		log LogFn, config *storage.OrderedMap) ChromeDeliveryReport
+
 	spawnPID int
 	spawnErr string
 
@@ -165,6 +177,33 @@ func (f *fakeSettingsDeps) deps() SettingsDeps {
 		// canned state + items ("ok" + nil = the empty queue).
 		BotQueueFetch: func(cfg *storage.OrderedMap) (string, []any) {
 			return f.botQueueState, f.botQueueItems
+		},
+		// The Chrome doors' seams (T-79d): the canned ladder
+		// + the two function seams (nil function seams answer
+		// the notWired paths — the rig's defaults).
+		ChromeFind:        func() string { return f.chromeFind },
+		ChromeUserDataDir: func() string { return f.chromeDataDir },
+		ChromeAttachBat: func(path, chromeExe string, port int,
+			dataDir, linkDir string) bool {
+			return f.chromeAttachBatOK
+		},
+		ChromeAttachRun: func(batPath string) string {
+			return f.chromeAttachRunErr
+		},
+		ChromeDeliver: func(vault string, links []ChromeLinkRow, log LogFn,
+			config *storage.OrderedMap) ChromeDeliveryReport {
+			if f.chromeDeliverFn != nil {
+				return f.chromeDeliverFn(vault, links, log, config)
+			}
+			return ChromeDeliveryReport{}
+		},
+		HandEnqueue: func(vault string, urls []string,
+			walls map[string]string, log LogFn, openChrome bool) (int, int) {
+			f.handEnqueueCalls++
+			if f.handEnqueueFn != nil {
+				return f.handEnqueueFn(vault, urls, walls, log, openChrome)
+			}
+			return 0, 0
 		},
 		SpawnOllamaServe: func() (int, string) { return f.spawnPID, f.spawnErr },
 		SoundDir:         func() string { return f.soundDir },

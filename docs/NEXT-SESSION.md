@@ -31,33 +31,30 @@
   per the row's naming — the recorded divergence). **T-79c COMPLETE
   (SESSION-044)** — the three bot-queue tool doors LIVE
   (`internal/app/botdoors.go` over ONE new hermetic `BotQueueFetch`
-  seam — the SAME a.queueFetch Worker /api/pending composition the
-  queue command rides: ✅ Verify All Processed [the per-URL ladder +
-  the byte-parity report + the permanent _verification_report file +
-  the manual-resolve dialog's engines] + 📋 Export All Links [Σ
-  forward_count as the message count — the recorded divergence — +
-  the byte-parity export file] + 🔄 Retry Failed [the two-phase scan +
-  the pending-lists clearing — the reference's _bot_queue_urls law —
-  + the DIRECT batch]; THE GUARD LAW carried exactly: NO busy guard
-  on export/verify [the reference's TELEGRAM lock was their only
-  guard — Option B's accepted loss], the retry batch rides
-  SyncRunBatch's refusal; the ten recorded divergences:
-  `docs/poc-artifacts/t-79c-bot-queue-doors.md`). **The remaining
-  tail: T-79d (the Chrome doors: hand-deliver/hand-rows-scrape/
-  tab-retry/attach), T-79e (the decommission picker)** — then Phase 6
-  closes and Phase 7 (T-80: the deterministic zip builder …) opens.
-  The export zip rides T-80's packaging composition per the standing
-  assignment.
-- **Push state: CLEAN** — SESSION-044 committed + pushed everything at
+  seam; the ten recorded divergences:
+  `docs/poc-artifacts/t-79c-bot-queue-doors.md`). **T-79d COMPLETE
+  (SESSION-045)** — the four Chrome doors LIVE
+  (`internal/app/chromedoors.go` over SIX new hermetic seams — incl.
+  THE `ChromeDeliver` CDP/DevTools seam + the `HandEnqueue` open
+  leg; the shell's seven More doors + the `startChromeTabRetry`
+  runner: ONE delivery at a time with the backlog merge, the failure
+  story FIRST over the chrome:failed event, the delivered pages
+  re-run as the DIRECT NonGithub batch [the v0.57 routing law]; the
+  busy ladders carried in the reference's own order; the six
+  recorded divergences: `docs/poc-artifacts/t-79d-chrome-doors.md`).
+  **The remaining tail: T-79e (the decommission picker) — the LAST
+  row; then Phase 6 closes and Phase 7 (T-80: the deterministic zip
+  builder …) opens.** The export zip rides T-80's packaging
+  composition per the standing assignment.
+- **Push state: CLEAN** — SESSION-045 committed + pushed everything at
   the close (the ephemeral PAT; never stored, never written). Verify
   `git status` in sync at the start.
 - **The environment recipe** (GUI edition): work repo at
   /home/z/my-project/second-brain-project (the /home/z/second-brain-project
   symlink is DOWN while symlink(2) is blocked — use the real path),
   read-only reference /home/z/my-project/GitCurator @ `98f4fc7`
-  (symlinked /home/z/GitCurator — same caveat; must match
-  testdiff/PINNED-GITCURATOR-REV), toolchain go1.27.2 → /home/z/.local/go
-  (go.dev tarball, sha256
+  (must match testdiff/PINNED-GITCURATOR-REV), toolchain go1.27.2 →
+  /home/z/.local/go (go.dev tarball, sha256
   `ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5` — 64
   hex chars; NOTE: go.dev's ?mode=json has ROTATED to 1.27.3/1.26.10 and no
   longer lists 1.27.2 — verify the locally-computed hash against the
@@ -69,7 +66,7 @@
   (`GOBIN=/home/z/.local/go/bin go install
   github.com/wailsapp/wails/v2/cmd/wails@v2.16.0` — build-time only),
   and the rootless webkit tree (~/.local/lib-wails — **rebuilt at
-  SESSION-044 [the TWELFTH rebuild]; if a wipe takes it, rebuild it
+  SESSION-045 [the THIRTEENTH rebuild]; if a wipe takes it, rebuild it
   FIRST when the session is GUI-touching** per webui/README.md +
   docs/poc-artifacts/t-70-gate.md + build/TOOLCHAIN.md Am.3 + Am.4
   [144 debs → dpkg -x → the 42 .pc prefix rewrites → the 26 dev links;
@@ -85,48 +82,60 @@
   children when the call returns.
 - **The operational laws, newest first** (each was paid for in
   evidence — carry ALL of them):
+  - **THE 41ST-WIPE RECIPE (SESSION-045)**: same as the 40th —
+    clone both with the ephemeral GIT_CONFIG_COUNT PAT form,
+    verify the rev pin, rebuild per the committed recipes, and
+    re-verify the FULL battery (plain + race) before touching
+    code; the re-verification pays: SESSION-045's caught ONE REAL
+    FLAKE in the committed battery (the `_item_url` priority-tuple
+    cross-binary repair, commit 4c0234c — settle every flake with
+    the repeated runs + the byte-level root cause BEFORE touching
+    anything).
+  - **THE VLM MISREAD LEDGER (now FOUR incidents — 042/043/044/
+    045)**: the focused crops read live doors as washed (045's read
+    five LIVE bot-queue doors as disabled + hallucinated checked
+    states); ALWAYS settle with the byte-level source check + the
+    pinned tests; never fix code off a suspect VLM verdict.
   - **THE BINDING-IMPORT LAW (SESSION-044)**: every new wails-bound
     door must join heroflow.js's (or the owning module's) binding
     IMPORT statement — a door missing from the list throws a silent
-    ReferenceError and the desk never speaks; pinned by
-    TestHeroflowBotQueueDoorsLive's import pin. The click-leg probe
-    catches it when the menu's own screenshot doesn't.
-  - **THE 40TH-WIPE RECIPE (SESSION-044)**: the whole environment can
-    vanish (even the repos + the toolchain) — clone both with the
-    ephemeral GIT_CONFIG_COUNT PAT form, verify the rev pin, rebuild
-    per the committed recipes, and re-verify the FULL battery
-    (plain + race) before touching code.
-  - **THE VLM-FIRST-PASS MISREAD LESSON (SESSION-042/043/044 — paid
-    THREE times now on emoji-led rows)**; **THE
-    EXTRACT-AND-EXEC SCOPE LAW** (SESSION-041); **THE
-    CROSS-BINARY DISAGREEMENT LAW** (SESSION-041 — paid again at 044:
-    repo_id 0 REPLACES in processed_repos, the reference's own
-    schema); **THE SENTINEL-SEAT RACE LAW** (SESSION-040; the
-    retryFailedURLs seat rides it); **THE RETROACTIVE
-    FIELD-TAG AUDIT** (SESSION-040); **THE NIL-OPTIONAL DEREF**
-    (SESSION-040); **THE ONE-OWNER-PER-SURFACE law** (SESSION-040);
-    **THE FIELD-TAG LAW** (SESSION-038); **THE DISPLAY-PIPELINE
-    CORRUPTION LESSON** (SESSION-038 — the Edit tool strikes
-    SPACE-vs-TAB on Go source: gofmt -l after every edit batch,
-    gofmt -w restores since HEAD is gofmt-clean; patch with python
-    reading the real bytes); **THE SYMLINK-BLOCK FALLBACK**
-    (SESSION-037/044, TOOLCHAIN.md Am.4); **THE RENDER-CONTEXT LAW**
-    (SESSION-037); **THE VLM RATE-LIMIT WINDOW** (SESSION-039);
-    **THE PINNED-VERDICT-ROW LESSON** (SESSION-039); **THE
-    ONE-SLICE-PROPERLY RECORD** (036–044); **THE LIVE-CONFIG LAW**;
-    **THE GROUP-POINTER LAW**; **THE DISSOLUTION-PROBE RECORD**
-    (ADR-0002 Am.5); **THE GOLDEN-MARSHAL-ORDER TRAP**; **THE
-    SUITE-REVERIFICATION DIVIDEND**; **THE WAILS-BUILD MODE FLIPS**
-    (the wailsjs committed baseline IS 755; only a CONTENT diff should
-    remain after a build; never commit a stray binary); **THE
-    HERMETIC-SEAM LAW**; **THE RESUMED-CONTEXT RE-VERIFICATION LAW**;
-    **THE MODE-FLIP DEGRADATION LAW**; **THE MODULE-BOUNDARY PROBE
-    LAW**; **THE FRONTEND-MODULE LESSON**; THE T-65 ZIP-COMPOSITION
-    RESOLUTION; THE CORPUS-REGENERATION LAW; THE
-    DISPATCH-COMPLETION LAW; THE STATE-CHAIN + MUTATION-TEETH laws;
-    THE CONTEXT-DEATH CONTINUATION recipe; THE DSN-EMPTY-PATH HAZARD;
-    THE FIXED-LENGTH ROOTS; THE SHALLOW-COPY SNAPSHOT; the
-    fake-clock arithmetic; the exception class-name tokens; the
+    ReferenceError and the desk never speaks; pinned by the import
+    pins in TestHeroflowBotQueueDoorsLive + TestHeroflowChromeDoorsLive.
+  - **THE RACE-PASS DIVIDEND (SESSION-045)**: the race pass caught a
+    real data race in a NEW test's own rig (a shared field read
+    across the delivery goroutine) — keep writing the async tests
+    with the mutex discipline from the start.
+  - **THE EXTRACT-AND-EXEC SCOPE LAW** (SESSION-041); **THE
+    CROSS-BINARY DISAGREEMENT LAW** (paid at 044 AND 045 — the
+    `_item_url` tuple was its class); **THE SENTINEL-SEAT RACE LAW**
+    (SESSION-040; the offered set + the held-rows seat + the
+    delivery seats ride it); **THE RETROACTIVE FIELD-TAG AUDIT**
+    (SESSION-040); **THE NIL-OPTIONAL DEREF** (SESSION-040); **THE
+    ONE-OWNER-PER-SURFACE law** (SESSION-040; the chrome:failed
+    listener rides it); **THE FIELD-TAG LAW** (SESSION-038); **THE
+    DISPLAY-PIPELINE CORRUPTION LESSON** (SESSION-038 — the Edit
+    tool strikes SPACE-vs-TAB on Go source: gofmt -l after every
+    edit batch, gofmt -w restores since HEAD is gofmt-clean; patch
+    with python reading the real bytes); **THE SYMLINK-BLOCK
+    FALLBACK** (SESSION-037/044/045, TOOLCHAIN.md Am.4); **THE
+    RENDER-CONTEXT LAW** (SESSION-037); **THE VLM RATE-LIMIT
+    WINDOW** (SESSION-039); **THE PINNED-VERDICT-ROW LESSON**
+    (SESSION-039); **THE ONE-SLICE-PROPERLY RECORD** (036–045);
+    **THE LIVE-CONFIG LAW**; **THE GROUP-POINTER LAW**; **THE
+    DISSOLUTION-PROBE RECORD** (ADR-0002 Am.5); **THE GOLDEN-
+    MARSHAL-ORDER TRAP**; **THE SUITE-REVERIFICATION DIVIDEND**;
+    **THE WAILS-BUILD MODE FLIPS** (the wailsjs committed baseline
+    IS 755; only a CONTENT diff should remain after a build; never
+    commit a stray binary); **THE HERMETIC-SEAM LAW** (the CDP/
+    DevTools seams included — T-79d's ChromeDeliver); **THE
+    RESUMED-CONTEXT RE-VERIFICATION LAW**; **THE MODE-FLIP
+    DEGRADATION LAW**; **THE MODULE-BOUNDARY PROBE LAW**; **THE
+    FRONTEND-MODULE LESSON**; THE T-65 ZIP-COMPOSITION RESOLUTION;
+    THE CORPUS-REGENERATION LAW; THE DISPATCH-COMPLETION LAW; THE
+    STATE-CHAIN + MUTATION-TEETH laws; THE CONTEXT-DEATH
+    CONTINUATION recipe; THE DSN-EMPTY-PATH HAZARD; THE
+    FIXED-LENGTH ROOTS; THE SHALLOW-COPY SNAPSHOT; the fake-clock
+    arithmetic; the exception class-name tokens; the
     stdout-capture-helper limit.
   - **THE CD-DISCIPLINE LAW** (every git/go command carries its own
     cd — the sandbox's shell resets cwd AND PATH between calls;
@@ -138,66 +147,65 @@
     **THE BACKGROUND-PROCESS lesson** (long suites + downloads in
     FOREGROUND CHUNKS); **PUSH AFTER EVERY TASK** (ask for the PAT the
     moment a push is due; never store it).
+- **Known scope notes for the tail**: the end-of-run Chrome offer
+  (`_maybe_offer_chrome_tab_retry`), hero.py's caught-up hand scrape,
+  and `_maybe_redo_hand_notes` are UNLANDED by design (batch-finish/
+  hero-machine surfaces, not More-menu doors) — they ride the landed
+  `startChromeTabRetry` runner, so their landing is a follow-up
+  wiring; the next session should decide whether they join T-79e's
+  slice or a named Phase-6-closure row.
 
-## 2. Next session: SESSION-045 — T-79d: the Chrome doors (the More menu's fourth family)
+## 2. Next session: SESSION-046 — T-79e: the decommission picker (the LAST tail row)
 
-- **SESSION-045 = T-79d (L)**: the Chrome doors as More-menu doors —
-  🖐 **Hand-deliver walled links** + 🖐 **Scrape hand rows via
-  Chrome** + 🤖 **Chrome tab-retry failed links** + 🪄 **Attach to
-  my Chrome** — the four anytime triggers over the ALREADY-LIVE
-  engines (internal/chrometabs, T-44; internal/handdelivery).
-- The reference's homes: processing_control.py:615/669/1000/1601
-  (hand_deliver_walled_links_now / hand_rows_deliver_now /
-  chrome_tab_retry_now / attach_my_chrome_now — read the FULL bodies
-  incl. the confirm gates + the Chrome-absent honesty) +
-  ui.py:1902-1932 (the menu wiring + the version comments) +
-  spec-core-chrome-tabs + spec-core-hand-delivery.
-- **The collaborator guards (hero.py's optional-collaborator law)
-  preserved**: Chrome is OPTIONAL — when it is absent/closed without
-  its DevTools port, the doors refuse honestly with the reference's
-  own remedy lines (never a crash, never a silent no-op).
-- Follow T-79a/b/c's landed shape: the engines as `Settings`/app
-  methods over hermetic seams (THE HERMETIC-SEAM law — fake the
-  DevTools/CDP-touching seams at construction), the `HeroUI` More-door
-  wrappers, the heroflow.js flip + dispatch (+ **THE BINDING-IMPORT
-  LAW — join the import statement, pinned by test**), the line
-  grammar pinned hermetically, the evidence probe's click leg (a
-  hermetic pick — a door whose refusal grammar speaks on the desk
-  with no Chrome running), THE FIELD-TAG law honored on every
-  genuinely new payload.
-- If capacity runs short: one door family done properly with proof
-  beats two half-done; close cleanly at a natural boundary.
+- **SESSION-046 = T-79e (M)**: 🪦 Decommission dead links — the
+  graveyard procedure's in-app picker (processing_control.py:807 +
+  the `_scan_backlog_alive` picker data + the confirmed-only
+  quarantine law): the picker writes the SAME Status cells
+  (🪦 dead) into `_review/DECOMMISSIONED.md`, then enforces the
+  burials immediately (dismissed + retry-queue rows dropped +
+  placeholders swept); ♻️ revived on a row brings a link back to
+  life. The reference's homes: processing_control.py:807 + the
+  spec's decommission sections (spec-gui-pages-a.md's dated notes +
+  spec-core-websitepipeline's decommission engine — the engine is
+  LIVE; the picker is the door).
+- Follow T-79a/b/c/d's landed shape (the engines over hermetic
+  seams + the HeroUI wrappers + the heroflow.js flip + dispatch +
+  THE BINDING-IMPORT LAW [join the import statement, pinned by
+  test] + the line grammar pinned hermetically + the evidence
+  probe's click leg + THE FIELD-TAG law on every genuinely new
+  payload). Decide the end-of-run-offer scoping note above (fold
+  into this slice or name a Phase-6-closure row).
+- If capacity runs short: one slice done properly with proof beats
+  two half-done; close cleanly at a natural boundary.
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-044.md` — the most recent report (T-79c's
-   landing; the 40th-wipe repair; the binding-import lesson).
-2. `docs/port-blueprint/module-specs/spec-core-chrome-tabs.md` — the
-   engine the doors ride (the CDP/DevTools seams to fake).
-3. `docs/port-blueprint/module-specs/spec-core-hand-delivery.md` —
-   the hand-delivery engine (the walled-links + hand-rows flows).
-4. The reference at 98f4fc7:
-   `gui/main_window/processing_control.py` (615/669/1000/1601 — the
-   four full bodies incl. their confirm gates + remedy lines),
-   `gui/main_window/hero.py` (the optional-collaborator guards),
-   `gui/main_window/ui.py:1902-1932` (the menu wiring).
-5. The Go engines' surfaces: `internal/chrometabs/` (the whole
-   package — the T-44 landing), `internal/handdelivery/`, the CLI's
-   `hands.go` (cmd_hand_* wirings — the already-ported flows the
-   doors compose), `internal/app` (the landed door patterns:
-   pertests.go/linkdoors.go/botdoors.go + their Deps seams).
-6. `docs/port-blueprint/13-implementation-task-list.md` — the T-79d
-   row (the addendum's own book).
-7. `docs/port-blueprint/15-acceptance-criteria.md` — AC-8 (the
-   every-control coverage the doors serve).
-8. As needed: `docs/poc-artifacts/t-79c-bot-queue-doors.md` (the
+1. `docs/sessions/SESSION-045.md` — the most recent report (T-79d's
+   landing; the 41st-wipe repair; the flake repair + the fourth VLM
+   misread settled).
+2. The reference at 98f4fc7:
+   `gui/main_window/processing_control.py:807-998`
+   (decommission_dead_links_now + the picker dialog +
+   `_scan_backlog_alive`), the decommission engine's own sections
+   (`website_pipeline.py`'s graveyard writers — already ported).
+3. The Go engine's surfaces: `internal/websitepipeline/
+   decommission.go` (the table parser + the writers +
+   `ScanMasterWaitingRows`), `internal/app`'s landed door patterns
+   (pertests.go/linkdoors.go/botdoors.go/chromedoors.go + their
+   Deps seams), `webui/heroui.go` + `frontend/heroflow.js` (the
+   door + dispatch + import patterns).
+4. `docs/port-blueprint/13-implementation-task-list.md` — the
+   T-79e row.
+5. `docs/port-blueprint/15-acceptance-criteria.md` — AC-8 (the
+   every-control coverage the door serves).
+6. As needed: `docs/poc-artifacts/t-79d-chrome-doors.md` (the
    evidence pattern + the divergences' recording style).
 
-## 4. Known constraints / owner actions for SESSION-045
+## 4. Known constraints / owner actions for SESSION-046
 
 - **Push state: CLEAN** — keep the PUSH-AFTER-EVERY-TASK law; ask for
   the PAT the moment a push is due (never stored, never written).
-- **The webkit tree exists at SESSION-044's close** (the 12th
+- **The webkit tree exists at SESSION-045's close** (the 13th
   rebuild) — if a wipe takes it, rebuild FIRST (the session is
   GUI-touching) per §1's recipe.
 - The dissolution call (the owner's, ADR-0002 Am.5): (a) amend the
@@ -207,7 +215,7 @@
 - **The authorized runtime set is UNCHANGED** (the four; the MAIN
   go.mod byte-unchanged — the nested webui module carries wails + the
   indirect transitive requires per Am.5).
-- The go-directive acknowledgement (STILL WAITING — thirty-fifth
+- The go-directive acknowledgement (STILL WAITING — thirty-sixth
   session carrying it): the main module rides `go 1.24.1`, forced by
   the owner-acknowledged tls-client v1.16.0 pin (ADR-0002 Am.2).
 - The x/net/html question is a KEEP-OR-SWAP, not a blocker.
@@ -237,10 +245,10 @@
   (hash-level, not display).
 - **Push after every task** — never end a session push-pending.
 
-## 5. THE PROMPT TO COPY (SESSION-045)
+## 5. THE PROMPT TO COPY (SESSION-046)
 
 ```
-You are starting SESSION-045 of the second-brain-project — the multi-session Go
+You are starting SESSION-046 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
@@ -250,56 +258,55 @@ code alongside you. You are the single writer on the repo.
    (SESSION-042: "the slow, more reliable and more rigorous method" — the
    More menu's honestly-disabled tail became the named rows T-79a…T-79e on
    doc 13; Phase 7 opens only when the tail is empty). T-79 + T-79a (the
-   five per-test doors) + T-79b (the five linking-tools doors) + T-79c (the
-   three bot-queue tool doors) are COMPLETE. SESSION-045 = T-79d (L): the
-   Chrome doors as More-menu doors — 🖐 Hand-deliver walled links + 🖐
-   Scrape hand rows via Chrome + 🤖 Chrome tab-retry failed links + 🪄
-   Attach to my Chrome, the four anytime triggers over the ALREADY-LIVE
-   engines (internal/chrometabs, T-44; internal/handdelivery). The
-   reference's homes: processing_control.py:615/669/1000/1601 +
-   ui.py:1902-1932. THE COLLABORATOR LAW: Chrome is OPTIONAL — the
-   reference's optional-collaborator guards (hero.py) are preserved: when
-   Chrome is absent or its DevTools port is closed, the doors refuse
-   honestly with the reference's own remedy lines, never a crash, never a
-   silent no-op. Follow T-79a/b/c's landed shape (the engines over
-   hermetic seams — fake every CDP/DevTools-touching seam at construction
-   per THE HERMETIC-SEAM law — + the HeroUI wrappers + the heroflow.js
-   flip + dispatch + THE BINDING-IMPORT LAW [join the import statement,
-   pinned by test] + the line grammar pinned hermetically + the evidence
-   probe's click leg [a hermetic pick whose refusal grammar speaks on the
-   desk with no Chrome running] + THE FIELD-TAG law on every genuinely
-   new payload). If capacity runs short: one door family done properly
-   with proof beats two half-done.
+   five per-test doors) + T-79b (the five linking-tools doors) + T-79c
+   (the three bot-queue tool doors) + T-79d (the four Chrome doors) are
+   COMPLETE. SESSION-046 = T-79e (M): the decommission picker — 🪦
+   Decommission dead links, the graveyard procedure's in-app picker
+   (processing_control.py:807): the picker writes the SAME Status cells
+   into _review/DECOMMISSIONED.md, then enforces the burials immediately
+   (dismissed + retry-queue rows dropped + placeholders swept); ♻️ revived
+   brings a link back. THE LAST TAIL ROW — Phase 6 closes when it lands;
+   also settle the scoping note (the end-of-run Chrome offer + the
+   caught-up hand pass + the redo pass are unlanded by design — decide
+   whether they join this slice or a named Phase-6-closure row). Follow
+   T-79a/b/c/d's landed shape (the engines over hermetic seams + the
+   HeroUI wrappers + the heroflow.js flip + dispatch + THE BINDING-IMPORT
+   LAW [join the import statement, pinned by test] + the line grammar
+   pinned hermetically + the evidence probe's click leg + THE FIELD-TAG
+   law on every genuinely new payload). If capacity runs short: one
+   slice done properly with proof beats two half-done.
 
-1. The environment is REBUILDABLE, not persistent (forty wipe events
-   across SESSION-005..044 — SESSION-044 opened on the fortieth: the
+1. The environment is REBUILDABLE, not persistent (forty-one wipe events
+   across SESSION-005..045 — SESSION-045 opened on the forty-first: the
    WHOLE environment was gone, both repos included, all rebuilt from the
-   committed recipes). NOTE the standing lessons: downloads and long suites
-   must run in FOREGROUND CHUNKS (the sandbox kills backgrounded children
-   when the call returns); this sandbox's tool-output rendering
-   occasionally drops characters — settle every suspect reading with
-   byte-level counts/hex before "fixing" anything (the Edit tool's
-   space-vs-tab corruption struck in 042 AND 044 writing Go source — gofmt
-   -l after every edit batch, gofmt -w restores because HEAD is
-   gofmt-clean; patch with python reading the real bytes; 044 also hit the
-   STALE-BUILD artifact: a test that failed in one run and passed in six
-   identical re-runs — settle flakes with repeated runs + hex proof
-   before touching code); the VLM CLI rate-limits (429) under rapid calls
-   — pause between the screenshot verifications — AND the VLM misreads
-   enabled-vs-disabled states on emoji-led labels (paid THREE times now:
-   042/043/044 each needed the byte-level source check + a focused
-   cropped re-pass; never "fix" code off a suspect VLM verdict); 'ln -s'
-   refuses AND kills the whole compound bash call at this boot — never
-   put it in a compound command (the venv needs --without-pip --copies on
-   ensurepip-less boots; the webkit tree's 26 dev links need Am.4
-   hardlinks); the BINDING-IMPORT lesson (044): a wails door missing from
-   the owning module's binding IMPORT statement throws a silent
-   ReferenceError — the desk never speaks; join the import list and pin
-   it by test. FIRST verify with evidence: work repo at
-   /home/z/my-project/second-brain-project (the /home/z/second-brain-project
-   symlink is DOWN while symlink(2) is blocked — use the real path),
-   read-only reference /home/z/my-project/GitCurator @ 98f4fc7 (must
-   match testdiff/PINNED-GITCURATOR-REV), toolchain go1.27.2 ->
+   committed recipes; the pre-work battery re-verification then caught
+   ONE REAL FLAKE in the committed battery — the `_item_url` priority-
+   tuple cross-binary repair, commit 4c0234c — settle every flake with
+   repeated runs + the byte-level root cause BEFORE touching anything).
+   NOTE the standing lessons: downloads and long suites must run in
+   FOREGROUND CHUNKS (the sandbox kills backgrounded children when the
+   call returns); this sandbox's tool-output rendering occasionally
+   drops characters — settle every suspect reading with byte-level
+   counts/hex before "fixing" anything (the Edit tool's space-vs-tab
+   corruption struck in 042 AND 044 writing Go source — gofmt -l after
+   every edit batch, gofmt -w restores because HEAD is gofmt-clean;
+   patch with python reading the real bytes); the VLM CLI rate-limits
+   (429) under rapid calls — pause between the screenshot verifications
+   — AND the VLM misreads enabled-vs-disabled states (FOUR incidents
+   now: 042/043/044/045 — each settled with the byte-level source
+   check + the pinned tests; never "fix" code off a suspect VLM
+   verdict); 'ln -s' refuses AND kills the whole compound bash call at
+   this boot — never put it in a compound command (the venv needs
+   --without-pip --copies on ensurepip-less boots; the webkit tree's 26
+   dev links need Am.4 hardlinks); the BINDING-IMPORT lesson (044): a
+   wails door missing from the owning module's binding IMPORT statement
+   throws a silent ReferenceError — the desk never speaks; join the
+   import list and pin it by test. FIRST verify with evidence: work
+   repo at /home/z/my-project/second-brain-project (the
+   /home/z/second-brain-project symlink is DOWN while symlink(2) is
+   blocked — use the real path), read-only reference
+   /home/z/my-project/GitCurator @ 98f4fc7 (must match
+   testdiff/PINNED-GITCURATOR-REV), toolchain go1.27.2 ->
    /home/z/.local/go (go.dev tarball, sha256
    ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5 — 64
    hex chars; go.dev's ?mode=json has ROTATED to 1.27.3 and no longer
@@ -310,8 +317,8 @@ code alongside you. You are the single writer on the repo.
    present, else --without-pip --copies), the wails CLI v2.16.0
    (GOBIN=/home/z/.local/go/bin go install
    github.com/wailsapp/wails/v2/cmd/wails@v2.16.0 — build-time only), and
-   the rootless webkit tree (~/.local/lib-wails — rebuilt at 044 [the
-   TWELFTH rebuild]; if a wipe took it, rebuild FIRST per
+   the rootless webkit tree (~/.local/lib-wails — rebuilt at 045 [the
+   THIRTEENTH rebuild]; if a wipe took it, rebuild FIRST per
    webui/README.md + docs/poc-artifacts/t-70-gate.md +
    build/TOOLCHAIN.md Am.3 + Am.4: 144 debs → dpkg -x → the 42 .pc
    prefix rewrites → the 26 dev links, hardlink fallback expected). The
@@ -323,36 +330,31 @@ code alongside you. You are the single writer on the repo.
    transitive requires the direct internal/app import pulls (indirect
    via the parent replace — ADR-0002 Am.5); the MAIN go.mod stays
    byte-unchanged. Then check 'git status' and 'git log --oneline -3':
-   SESSION-044 landed T-79c in its close commits and PUSHED everything —
-   2322 main-battery tests race-clean over 36 packages (2312 + 10) + 67
-   webui tests over 4 (63 + 4). Verify git status shows up to date with
+   SESSION-045 landed T-79d in its close commits and PUSHED everything —
+   2337 main-battery tests race-clean over 36 packages (2324 + 13) + 71
+   webui tests over 4 (67 + 4). Verify git status shows up to date with
    origin/main. Use the PAT only ephemerally: the GIT_CONFIG_COUNT
    env-var form avoids persistence entirely — and SCRUB IT if you ever
    CLONE with it. Re-verify the suite before work if anything looks
    off — the law pays in bugs, not just safety.
 
-2. Read, in order: the repo README.md (SESSION-044's status block —
-   T-79c) → docs/SESSION-PROTOCOL.md (the working law) →
-   docs/NEXT-SESSION.md (your state card — §1 records SESSION-044's
-   close) → docs/sessions/SESSION-044.md (the most recent report —
-   the 40th-wipe repair + the binding-import lesson) →
-   docs/port-blueprint/module-specs/spec-core-chrome-tabs.md (the
-   engine + the CDP seams to fake) → spec-core-hand-delivery.md →
-   the reference's processing_control.py:615/669/1000/1601 (the four
-   full bodies incl. the confirm gates + the Chrome-absent remedy
-   lines) + hero.py (the optional-collaborator guards) + ui.py:1902-1932
-   (the menu wiring + the version comments) → the Go engines'
-   surfaces (internal/chrometabs — the whole T-44 package,
-   internal/handdelivery, internal/cli/hands.go — the already-ported
-   cmd_hand_* flows the doors compose, internal/app's landed door
-   patterns + their Deps seams) → doc 13's T-79d row → doc 15's AC-8
-   row.
+2. Read, in order: the repo README.md (SESSION-045's status block —
+   T-79d) → docs/SESSION-PROTOCOL.md (the working law) →
+   docs/NEXT-SESSION.md (your state card — §1 records SESSION-045's
+   close) → docs/sessions/SESSION-045.md (the most recent report —
+   the 41st-wipe repair + the flake repair + the fourth VLM misread
+   settled) → the reference's processing_control.py:807-998 (the
+   decommission flow + the picker + _scan_backlog_alive) + the
+   decommission engine's own sections → the Go engine's surfaces
+   (internal/websitepipeline/decommission.go + internal/app's landed
+   door patterns [pertests/linkdoors/botdoors/chromedoors + their
+   Deps seams] + webui/heroui.go + frontend/heroflow.js) → doc 13's
+   T-79e row → doc 15's AC-8 row.
 
-3. THIS SESSION = T-79d: the Chrome doors as More-menu doors (the
-   reference's four anytime triggers over the ported engines; the
-   collaborator guards honest when Chrome is absent). One slice done
-   properly with proof beats two half-done; close cleanly at a natural
-   boundary when capacity runs out.
+3. THIS SESSION = T-79e: the decommission picker (the LAST tail
+   row; Phase 6 closes when it lands). One slice done properly with
+   proof beats two half-done; close cleanly at a natural boundary
+   when capacity runs out.
 
 4. Standing laws: reality wins over specs (fix the spec in the same
    commit); tests are never weakened; no secrets or owner data in git
@@ -365,17 +367,16 @@ code alongside you. You are the single writer on the repo.
    per ADR-0002 Am.5); surface blockers with evidence (hash-level, not
    display) instead of improvising past them; probe before claiming any
    module-boundary rule (ADR-0002 Am.4); fake every network-touching
-   seam in tests at construction (THE HERMETIC-SEAM law — the CDP /
-   DevTools-touching seams included); when the reference's own code
-   sits behind an import wall, drive the reference's own BYTES by
-   pinned line-range extraction — structural pins + the rev guard,
-   never hand-transcription, never a stubbed wall (THE EXTRACT-AND-EXEC
-   SCOPE LAW); "same semantics" means the two binaries agree on EVERY
-   input to the shared protocol, edge branches included — audit the
-   except ladders (THE CROSS-BINARY DISAGREEMENT LAW); the payload
-   structs' JSON tags mirror the Python dict keys and the frontend
-   reads the tagged names (THE FIELD-TAG LAW — extend the payload
-   field-tags test with every new payload); a transition seat
+   seam in tests at construction (THE HERMETIC-SEAM law); when the
+   reference's own code sits behind an import wall, drive the
+   reference's own BYTES by pinned line-range extraction — structural
+   pins + the rev guard, never hand-transcription, never a stubbed wall
+   (THE EXTRACT-AND-EXEC SCOPE LAW); "same semantics" means the two
+   binaries agree on EVERY input to the shared protocol, edge branches
+   included — audit the except ladders (THE CROSS-BINARY DISAGREEMENT
+   LAW); the payload structs' JSON tags mirror the Python dict keys and
+   the frontend reads the tagged names (THE FIELD-TAG LAW — extend the
+   payload field-tags test with every new payload); a transition seat
    read+written by concurrent passes holds it under a mutex as ONE
    unit (THE SENTINEL-SEAT RACE LAW — run the battery ≥3× before
    trusting a new concurrent seam; every live-map mutation holds the
@@ -397,9 +398,9 @@ code alongside you. You are the single writer on the repo.
    (the chosen path's own acceptance), commit + push everything (ask
    me for the GitHub PAT the moment a push is due — never store it
    anywhere; never end the session push-pending), write
-   docs/sessions/SESSION-045.md, rewrite docs/NEXT-SESSION.md with the
+   docs/sessions/SESSION-046.md, rewrite docs/NEXT-SESSION.md with the
    next session's prompt, and end your reply with a plain-language
-   report plus the prompt I should copy to start SESSION-046.
+   report plus the prompt I should copy to start SESSION-047.
 
 One slice done properly with proof beats two half-done; close cleanly
 at a natural boundary when capacity runs out.

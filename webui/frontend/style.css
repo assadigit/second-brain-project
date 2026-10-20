@@ -873,6 +873,33 @@ textarea.form-area { resize: vertical; min-height: 42px; }
 }
 .resolve-row:hover { background: var(--sheet-alt); }
 .resolve-row.selected { background: var(--ghost-hover-bg); color: var(--accent); }
+/* T-79d: the Chrome doors' pickers — the checkable rows (the
+   reference's checkable QListWidget: the URL + the wall/error under
+   it, all ticked by default) + the header glyph row. */
+.chrome-pick-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+}
+.chrome-glyph { font-size: 18px; line-height: 1; }
+.chrome-pick-body { display: flex; flex-direction: column; gap: 8px; }
+.chrome-pick-list {
+  border: 1px solid var(--border); border-radius: 6px;
+  overflow-y: auto; max-height: 340px;
+}
+.chrome-pick-row { border-bottom: 1px solid var(--border); margin: 0; padding: 6px 10px; }
+.chrome-pick-row:last-child { border-bottom: none; }
+.chrome-pick-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.chrome-pick-url {
+  font-family: ui-monospace, 'JetBrains Mono', Consolas, monospace;
+  font-size: 12px; color: var(--text); overflow-wrap: anywhere;
+}
+.chrome-pick-note {
+  color: var(--text-muted); font-size: 11px; overflow-wrap: anywhere;
+}
+.chrome-pick-folder {
+  margin: 0; color: var(--text-muted); font-size: 12px;
+  overflow-wrap: anywhere; white-space: pre-wrap;
+}
+.chrome-pick-spacer { flex: 1; }
 .btn-primary {
   background: var(--hero-fill);
   color: var(--on-accent);

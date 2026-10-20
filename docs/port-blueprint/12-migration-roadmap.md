@@ -639,3 +639,46 @@ flowchart LR
 | **M5** | **CLI parity release (tag + zip)** | owner runs Go CLI on real data |
 | M6 | GUI parity | workflow + perf gates |
 | M7 | Go release | clean-machine checklist + acceptance doc |
+
+> **SESSION-045 (2026-10-20): T-79d COMPLETE (the Chrome doors).**
+> The forty-first full wipe absorbed before work (the whole
+> environment gone — both repos, the toolchain, the venv, the module
+> cache, the wails CLI, AND the webkit tree; the repair all from the
+> committed recipes: both repos re-cloned with the ephemeral
+> GIT_CONFIG_COUNT form — nothing persisted; go1.27.2 sha-verified
+> against TOOLCHAIN.md Am.2's committed pin; the venv — the plain
+> form, this boot HAS ensurepip; the wails CLI v2.16.0; the module
+> caches; the THIRTEENTH webkit-tree rebuild — 144 debs, the 42 .pc
+> rewrites, the 26 dev links as Am.4 hardlinks [symlink(2) BLOCKED
+> this boot]; the FULL battery re-verified green pre-work — and the
+> re-verification caught ONE REAL FLAKE in the committed battery:
+> TestBotDoorExportOrderedMapItems, root-caused at the byte level
+> against the reference's own `_item_url` law [the FIXED priority
+> tuple, never the dict's insertion order] and repaired in BOTH Go
+> copies before the task work — commit 4c0234c, the
+> cross-binary-disagreement class, pinned by two new deterministic
+> tests). T-79d: the four anytime triggers over the ALREADY-LIVE
+> engines — 🖐 Hand-deliver walled links + 🖐 Scrape hand rows via
+> Chrome + 🤖 Chrome tab-retry failed links + 🪄 Attach to my Chrome
+> (processing_control.py:615/669/1000/1601 + the shared
+> _start_chrome_tab_retry at 1351): internal/app/chromedoors.go (the
+> Settings-method engines over six new hermetic seams — incl. THE
+> ChromeDeliver CDP/DevTools seam + the HandEnqueue open leg; the
+> busy ladders carried in the reference's own order, guards → busy →
+> scan) + the shell's seven More doors + startChromeTabRetry (ONE
+> delivery at a time with the backlog merge; the failure story FIRST
+> over the chrome:failed event; the delivered pages re-run as the
+> DIRECT NonGithub batch — the v0.57 routing law) + the frontend's
+> two picker dialogs + the attach default-No + THE BINDING-IMPORT
+> pin. THE COLLABORATOR LAW held: the no-Chrome remedy box is the
+> click-leg evidence itself. Six recorded divergences (the dead
+> dry-run shadow branch; the stash counter; the frontend pickers;
+> the end-of-run offer + the caught-up hand pass + the redo pass as
+> the honest boundary — they ride the same runner; the reveal door;
+> the per-platform attach legs): docs/poc-artifacts/t-79d-chrome-
+> doors.md. Battery: 2337 main + 71 webui race-clean; the touched
+> packages 3×; no mode flips; the MAIN go.mod byte-unchanged. The
+> VLM misread pattern struck a FOURTH time on a focused crop (five
+> live doors read as washed) — settled by the byte-level source
+> check, no code touched on the VLM's word. The remaining tail:
+> T-79e (the decommission picker), then Phase 7.

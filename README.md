@@ -981,3 +981,58 @@ caught the binding-import gap, now pinned by test). The full
 record: `docs/poc-artifacts/t-79c-bot-queue-doors.md` (the ten
 recorded divergences inside). **The remaining tail: T-79d (the
 Chrome doors), T-79e (the decommission picker).**
+
+**SESSION-045 — T-79d COMPLETE: THE FOUR CHROME DOORS LIVE.** The
+forty-first full wipe absorbed before work (everything rebuilt from
+the committed recipes — the THIRTEENTH webkit rebuild, the 26 dev
+links as Am.4 hardlinks [symlink(2) still blocked]; go1.27.2
+sha-verified vs the committed pin; the FULL battery re-verified
+green pre-work — and the re-verification caught ONE REAL FLAKE in
+the committed battery: `TestBotDoorExportOrderedMapItems`, root-caused
+at the byte level against the reference's own `_item_url` law
+[sync_display.py:118-127 — the FIXED priority tuple
+`('url_normalized','url_original','url')`, never the dict's insertion
+order] and repaired in BOTH Go copies BEFORE the task work — commit
+`4c0234c`, the cross-binary-disagreement class, pinned by two new
+deterministic tests). **T-79d: `internal/app/chromedoors.go` — the
+four anytime triggers over SIX new hermetic SettingsDeps seams**
+(ChromeFind / ChromeUserDataDir / ChromeAttachBat / ChromeAttachRun +
+THE ChromeDeliver CDP/DevTools seam + the HandEnqueue open leg —
+every one faked at construction) **+ the `HeroUI` wrappers (seven
+More doors + the `startChromeTabRetry` runner** — ONE delivery at a
+time with the backlog merge, the failure story FIRST over the
+chrome:failed event, the delivered pages re-run as the DIRECT
+NonGithub batch [the v0.57 routing law]**) + the `heroflow.js`
+dispatch (the two picker dialogs in the reference's own words, the
+attach confirm's default-No, the failure modal's ONE listener, THE
+BINDING-IMPORT pin) + the probe's 'hand' click pick**: 🖐
+Hand-deliver walled links (the walled scan + the queued-count empty
+box + the picker + the enqueue with the walls + the open-Chrome leg
++ the Queued box) + 🖐 Scrape hand rows via Chrome (the master-table
+hand-rows scan, the setdefault error law, the >10 confirm, the
+two-phase held-rows door) + 🤖 Chrome tab-retry failed links (the
+retry-queue scan with the http/loopback/dismissed filters + the
+session's offered set + the offer dialog) + 🪄 Attach to my Chrome
+(the whole ladder — the find/profile/write guards, the platform
+split, the port coercion). **THE COLLABORATOR LAW held**: the
+no-Chrome remedy box is the click-leg evidence itself. The busy
+ladders carried in the reference's own order (guards → busy →
+scan). **The acceptance GREEN: the four doors live over the engine +
+the collaborator guards honest ✓ — 2337 main-battery tests
+race-clean over 36 packages (2324 + 13) + 71 webui over 4 (67 +
+4)**; the touched packages 3× race-clean (one real data race in my
+own new shell test caught by the race pass + fixed); gofmt/vet
+clean over both modules; the MAIN go.mod byte-unchanged all
+session; the wails build links clean over the 13th-rebuilt tree
+(29.7 s; NO mode flips; the regenerated bindings carry the seven
+doors); the gate legs GREEN (first frame 889/284 ms; the 10k flood
+0 drops); the screenshots VLM-verified (the four doors LIVE — the
+focused crop's fourth-misread incident settled by the byte-level
+source check, no code touched on the VLM's word; the click leg: the
+"Websites pipeline is off" guard box end-to-end, no Chrome anywhere
+near). The full record:
+`docs/poc-artifacts/t-79d-chrome-doors.md` (the six recorded
+divergences inside — incl. the end-of-run offer + the caught-up hand
+pass + the redo pass as the honest boundary: they ride the same
+runner). **The remaining tail: T-79e (the decommission picker) —
+then Phase 6 closes.**

@@ -27,6 +27,7 @@ import (
 	"github.com/assadigit/second-brain-project/internal/mirror"
 	"github.com/assadigit/second-brain-project/internal/storage"
 	"github.com/assadigit/second-brain-project/internal/store"
+	"github.com/assadigit/second-brain-project/internal/websitepipeline"
 )
 
 // heroRig is the shared wiring harness: faked queue/battery seams,
@@ -48,6 +49,14 @@ type heroRig struct {
 	// botQueueItems feeds the Settings' BotQueueFetch seam (T-79c's
 	// doors — independent of the Commands' queue fakes).
 	botQueueItems []any
+
+	// The Chrome doors' fakes (T-79d): the fifth-door delivery counter
+	// + the gate (nil = no block), and the hand-enqueue seam.
+	chromeDeliverCalls int
+	deliverGate        chan struct{}
+	handEnqueueFn      func(vault string, urls []string,
+		walls map[string]string, log func(msg, level string),
+		openChrome bool) (int, int)
 }
 
 func newHeroRig(t *testing.T) *heroRig {
@@ -86,15 +95,17 @@ func newHeroRig(t *testing.T) *heroRig {
 			rig.mu.Lock()
 			rig.batchCalls++
 			rig.batchModes = append(rig.batchModes, opts.Mode+"/"+opts.Source)
+			block := rig.batchBlock
+			result := rig.batchResult
 			rig.mu.Unlock()
-			if rig.batchBlock != nil {
+			if block != nil {
 				select {
-				case <-rig.batchBlock:
+				case <-block:
 				case <-ctx.Done():
 				}
 			}
-			if rig.batchResult != nil {
-				return rig.batchResult
+			if result != nil {
+				return result
 			}
 			return &app.BatchResult{Success: true, Message: "the fake batch finished"}
 		},
@@ -1033,7 +1044,6 @@ func TestHeroflowPerTestDoorsLive(t *testing.T) {
 	// the honest-disabled law still holds — for the REMAINING tail
 	// (T-79d/e), never for the per-test, linking, or bot-queue doors.
 	for _, soon := range []string{
-		"The Chrome doors land with the Chrome-doors GUI task",
 		"The graveyard procedure lands with the master-table tools task",
 		"The export-zip engine rides the packaging phase",
 	} {
@@ -1327,6 +1337,58 @@ func TestHeroUIBotQueueResolveDoors(t *testing.T) {
 	}
 }
 
+// TestHeroflowChromeDoorsLive pins T-79d's frontend law: the four
+// Chrome doors LIVE (each with its dispatch key), the two picker
+// dialogs (the reference's own words + the checkable rows + the
+// buttons pinned outside the scrolling body), the failure modal's
+// one listener, AND THE BINDING-IMPORT LAW — every door joined the
+// import statement (a door missing from the list throws a silent
+// ReferenceError; the desk never speaks).
+func TestHeroflowChromeDoorsLive(t *testing.T) {
+	src := heroflowSource(t)
+	for _, want := range []string{
+		"live: 'handDeliver'", "live: 'handRows'",
+		"live: 'chromeRetry'", "live: 'attach'",
+		"MoreHandDeliverWalled", "MoreHandDeliverQueue",
+		"MoreHandRowsDeliver(false)", "MoreHandRowsDeliver(true)",
+		"MoreChromeTabRetry()", "MoreChromeTabRetryRun",
+		"MoreAttachMyChrome(false)", "MoreAttachMyChrome(true)",
+		"MoreOpenHandFolder",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the Chrome doors' live wiring missing %q", want)
+		}
+	}
+	// the two pickers: the reference's own words + shapes.
+	for _, want := range []string{
+		"openHandDeliverDialog", "openChromeRetryDialog",
+		"Hand-deliver walled links", "Retry in your real Chrome?",
+		"couldn't generate content",
+		"Tick the ones worth saving",
+		"'Webpage, HTML Only'",
+		"'🖐 Queue & open in Chrome'", "'Not now'",
+		"'🤖 Retry in Chrome now'", "'Open the folder'",
+		"Deliver into: ' + model.folder",
+		"pickRowEl", "type = 'checkbox'", "checked = true",
+	} {
+		if !strings.Contains(src, want) {
+			t.Fatalf("the picker dialog's law missing %q", want)
+		}
+	}
+	// the failure modal's ONE listener (the one-owner-per-surface law).
+	if !strings.Contains(src, "EventsOn('chrome:failed'") {
+		t.Fatal("the chrome:failed listener")
+	}
+	// THE BINDING-IMPORT LAW — every T-79d door inside the import
+	// statement (the 044 lesson: a missing door is a silent
+	// ReferenceError).
+	if !strings.Contains(src, "MoreHandDeliverWalled, MoreHandDeliverQueue, MoreOpenHandFolder,") ||
+		!strings.Contains(src, "MoreHandRowsDeliver, MoreChromeTabRetry, MoreChromeTabRetryRun,") ||
+		!strings.Contains(src, "MoreAttachMyChrome,") {
+		t.Fatal("the Chrome doors' import statement")
+	}
+}
+
 func TestHeroflowBotQueueDoorsLive(t *testing.T) {
 	src := heroflowSource(t)
 	// the three doors are LIVE (T-79c) — each with its dispatch key.
@@ -1354,9 +1416,8 @@ func TestHeroflowBotQueueDoorsLive(t *testing.T) {
 		}
 	}
 	// the honest-disabled law still holds — for the REMAINING tail
-	// (T-79d/T-79e), never for the bot-queue doors.
+	// (T-79e only now), never for the bot-queue or Chrome doors.
 	for _, soon := range []string{
-		"The Chrome doors land with the Chrome-doors GUI task",
 		"The graveyard procedure lands with the master-table tools task",
 		"The export-zip engine rides the packaging phase",
 	} {
@@ -1366,6 +1427,9 @@ func TestHeroflowBotQueueDoorsLive(t *testing.T) {
 	}
 	if strings.Contains(src, "The bot-queue tools land with the queue-tools task") {
 		t.Fatal("the T-79c doors are live — their landing note is gone")
+	}
+	if strings.Contains(src, "The Chrome doors land with the Chrome-doors GUI task") {
+		t.Fatal("the T-79d doors are live — their landing note is gone")
 	}
 	// the probe's click leg knows the export pick.
 	if !strings.Contains(src, "door === 'export' ? 'Export All Links'") {
@@ -1378,5 +1442,424 @@ func TestHeroflowBotQueueDoorsLive(t *testing.T) {
 	if !strings.Contains(src, "MoreExportAllBotLinks, MoreVerifyAllBotLinks, MoreRetryFailed,") ||
 		!strings.Contains(src, "MoreResolveMarkProcessed, MoreResolveDecommission,") {
 		t.Fatal("the bot-queue doors' import statement")
+	}
+}
+
+// ---------------------------------------------------------------------------
+// THE CHROME DOORS (T-79d) — the four More-menu doors over the
+// ported engines (processing_control.py:615/669/1000/1601 + the
+// shared _start_chrome_tab_retry at 1351).
+// ---------------------------------------------------------------------------
+
+// newChromeDoorUIRig wires the hero rig with the Chrome doors' faked
+// seams (the CDP delivery + the hand enqueue — THE HERMETIC-SEAM law)
+// + the websites pipeline on + a temp Websites vault.
+func newChromeDoorUIRig(t *testing.T) *heroRig {
+	t.Helper()
+	rig := newHeroRig(t)
+	rig.cfg.Set("pipelines", func() *storage.OrderedMap {
+		p := storage.NewOrderedMap()
+		p.Set("github", true)
+		p.Set("websites", true)
+		return p
+	}())
+	rig.cfg.Set("website_vault_path", t.TempDir())
+	// the CDP delivery seam (THE HERMETIC-SEAM law — the real
+	// DeliverPagesViaChrome never runs in the shell battery).
+	rig.ui.settings.Deps.ChromeDeliver = func(vault string, links []app.ChromeLinkRow,
+		log func(msg, level string), config *storage.OrderedMap) app.ChromeDeliveryReport {
+		if rig.deliverGate != nil {
+			<-rig.deliverGate
+		}
+		rig.mu.Lock()
+		rig.chromeDeliverCalls++
+		calls := rig.chromeDeliverCalls
+		rig.mu.Unlock()
+		if log != nil {
+			log(fmt.Sprintf("🤖 the fake fifth door delivered page(s) (pass %d)", calls), "success")
+		}
+		return app.ChromeDeliveryReport{Delivered: len(links),
+			URLs: chromeRowURLs(links)}
+	}
+	return rig
+}
+
+// waitBatchBusy polls the Commands' batch lock until a batch holds it.
+func waitBatchBusy(t *testing.T, rig *heroRig) {
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)
+	for time.Now().Before(deadline) {
+		if rig.ui.commands.BatchBusy() {
+			return
+		}
+		time.Sleep(5 * time.Millisecond)
+	}
+	t.Fatal("the batch never took the lock")
+}
+
+// waitBatchCalls polls the fake batch's call count.
+func waitBatchCalls(t *testing.T, rig *heroRig, n int) {
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)
+	for time.Now().Before(deadline) {
+		rig.mu.Lock()
+		calls := rig.batchCalls
+		rig.mu.Unlock()
+		if calls >= n {
+			return
+		}
+		time.Sleep(5 * time.Millisecond)
+	}
+	t.Fatalf("the batch ran %d times, want %d", rig.batchCalls, n)
+}
+
+// waitDeliverCalls polls the fake fifth door's call count.
+func waitDeliverCalls(t *testing.T, rig *heroRig, n int) {
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)
+	for time.Now().Before(deadline) {
+		rig.mu.Lock()
+		calls := rig.chromeDeliverCalls
+		rig.mu.Unlock()
+		if calls >= n {
+			return
+		}
+		time.Sleep(5 * time.Millisecond)
+	}
+	t.Fatalf("the fifth door ran %d times, want %d", rig.chromeDeliverCalls, n)
+}
+
+// chromeRowURLs extracts the rows' urls.
+func chromeRowURLs(links []app.ChromeLinkRow) []string {
+	out := make([]string, 0, len(links))
+	for _, l := range links {
+		out = append(out, l.URL)
+	}
+	return out
+}
+
+// waitSpoken polls the desk lines until part arrives (the delivery's
+// background goroutine speaks asynchronously — the honest async-wait,
+// never a sleep-only dance).
+func waitSpoken(t *testing.T, rig *heroRig, part string) {
+	t.Helper()
+	deadline := time.Now().Add(5 * time.Second)
+	for time.Now().Before(deadline) {
+		rig.mu.Lock()
+		found := false
+		for _, l := range *rig.spoken {
+			if strings.Contains(l, part) {
+				found = true
+				break
+			}
+		}
+		rig.mu.Unlock()
+		if found {
+			return
+		}
+		time.Sleep(10 * time.Millisecond)
+	}
+	t.Fatalf("no desk line contains %q (have: %s)", part, rig.logs())
+}
+
+func TestHeroUIChromeHandDeliverWalled(t *testing.T) {
+	rig := newChromeDoorUIRig(t)
+
+	// the empty picker: the box in the reference's own words.
+	out := rig.ui.MoreHandDeliverWalled()
+	if out.Box == nil || out.Box.Title != "No walled links waiting" ||
+		!strings.Contains(out.Box.Body, "When one appears, its _review note and master-table row will say so (the fourth door hint).") {
+		t.Fatalf("the empty box: %+v", out.Box)
+	}
+	if !strings.Contains(out.Folder, filepath.Join("_review", "hand-delivered")) {
+		t.Fatalf("the folder: %q", out.Folder)
+	}
+
+	// the walled rows: seed the rig APP_DIR's own cache.db.
+	state, err := websitepipeline.NewWebsiteStateDB(
+		filepath.Join(constants.AppDir(), "cache.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := state.EnqueueRetry("https://example.com/walled", "HTTP 403 — bot defense"); err != nil {
+		t.Fatal(err)
+	}
+	state.Close()
+	out = rig.ui.MoreHandDeliverWalled()
+	if out.Box != nil || len(out.Links) != 1 ||
+		out.Links[0].URL != "https://example.com/walled" {
+		t.Fatalf("the walled rows: %+v", out)
+	}
+
+	// the queue door: the picked rows enqueue through the seam + the
+	// box answers; an empty list speaks the reference's cancel line.
+	rig.ui.settings.Deps.HandEnqueue = func(vault string, urls []string,
+		walls map[string]string, log func(msg, level string), openChrome bool) (int, int) {
+		if len(urls) != 1 || !openChrome {
+			t.Fatalf("the enqueue call: %v open=%v", urls, openChrome)
+		}
+		return 1, 1
+	}
+	res := rig.ui.MoreHandDeliverQueue(out.Links)
+	if res.Title != "Queued for hand-delivery" ||
+		!strings.Contains(res.Body, "1 link(s) queued, 1 opened in your Chrome.") {
+		t.Fatalf("the queued box: %+v", res)
+	}
+	res = rig.ui.MoreHandDeliverQueue(nil)
+	if res.Title != "" {
+		t.Fatalf("the cancel is log-only: %+v", res)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "⏭️ Hand-delivery cancelled — nothing was queued.")
+}
+
+func TestHeroUIChromeHandRowsTwoPhase(t *testing.T) {
+	rig := newChromeDoorUIRig(t)
+
+	// the empty table: the box, no delivery.
+	out := rig.ui.MoreHandRowsDeliver(false)
+	if out.Box == nil || out.Box.Title != "No hand rows waiting" {
+		t.Fatalf("the empty box: %+v", out.Box)
+	}
+	rig.mu.Lock()
+	calls := rig.chromeDeliverCalls
+	rig.mu.Unlock()
+	if calls != 0 {
+		t.Fatalf("no delivery before the rows (have %d)", calls)
+	}
+
+	// the stale Continue with no held rows re-scans (never a blind
+	// run) — the empty box again.
+	out = rig.ui.MoreHandRowsDeliver(true)
+	if out.Box == nil || out.Box.Title != "No hand rows waiting" {
+		t.Fatalf("the stale-continue re-scan: %+v", out.Box)
+	}
+
+	// two hand rows: no gate — the 🖐 line + the delivery now (the
+	// fake door's own line follows; the batch re-runs the delivered
+	// pages as the direct WEBSITES batch).
+	writeHandRowsTable(t, rigConfigVault(t, rig), [][3]string{
+		{"https://example.com/hand-one", "🖐", ""},
+		{"https://example.com/hand-two", "🖐", "HTTP 403"},
+	})
+	out = rig.ui.MoreHandRowsDeliver(false)
+	if out.Box != nil || out.Confirm != nil {
+		t.Fatalf("a run's answer is the empty payload: %+v", out)
+	}
+	spokePerTest(t, rig.spoken, rig.mu, "🖐 2 hand row(s) — opening your real Chrome (one tab per link; the live pages become real fetches)")
+	waitSpoken(t, rig, "🤖 Chrome tab retry: opening 2 link(s) in your real Chrome")
+	waitSpoken(t, rig, "🤖 2 page(s) delivered from your Chrome — re-processing them now through the Websites pipeline as real fetches")
+	waitDeliverCalls(t, rig, 1)
+	waitBatchCalls(t, rig, 1)
+	rig.mu.Lock()
+	calls = rig.chromeDeliverCalls
+	batchCalls := rig.batchCalls
+	rig.mu.Unlock()
+	if calls != 1 {
+		t.Fatalf("one delivery (have %d)", calls)
+	}
+	if batchCalls != 1 {
+		t.Fatalf("the delivered re-run batch (have %d)", batchCalls)
+	}
+	rig.mu.Lock()
+	modes := append([]string(nil), rig.batchModes...)
+	rig.mu.Unlock()
+	if len(modes) != 1 || modes[0] != "/direct" {
+		t.Fatalf("the re-run's source: %v", modes)
+	}
+
+	// the busy box: a delivery running answers before the scan.
+	rig.ui.mu.Lock()
+	rig.ui.chromeDeliveryBusy = true
+	rig.ui.mu.Unlock()
+	out = rig.ui.MoreHandRowsDeliver(false)
+	if out.Box == nil || out.Box.Title != "A Chrome delivery is running" {
+		t.Fatalf("the busy box: %+v", out.Box)
+	}
+	rig.ui.mu.Lock()
+	rig.ui.chromeDeliveryBusy = false
+	rig.ui.mu.Unlock()
+
+	// the >10 gate: 11 rows ask; Continue runs over the held rows.
+	rows := make([][3]string, 11)
+	for i := range rows {
+		rows[i] = [3]string{fmt.Sprintf("https://example.com/bulk-%02d", i), "🖐", ""}
+	}
+	writeHandRowsTable(t, rigConfigVault(t, rig), rows)
+	out = rig.ui.MoreHandRowsDeliver(false)
+	if out.Confirm == nil || !strings.Contains(out.Confirm.Body, "This will process 11 items (the table's 🖐 hand rows).") {
+		t.Fatalf("the >10 gate: %+v", out.Confirm)
+	}
+	rig.mu.Lock()
+	calls = rig.chromeDeliverCalls
+	rig.mu.Unlock()
+	if calls != 1 {
+		t.Fatalf("no delivery before the confirm (have %d)", calls)
+	}
+	out = rig.ui.MoreHandRowsDeliver(true)
+	if out.Box != nil || out.Confirm != nil {
+		t.Fatalf("the confirmed pass runs: %+v", out)
+	}
+	waitSpoken(t, rig, "🖐 11 hand row(s) — opening your real Chrome")
+	waitDeliverCalls(t, rig, 2)
+	rig.mu.Lock()
+	calls = rig.chromeDeliverCalls
+	held := append([]app.ChromeLinkRow(nil), rig.ui.handRowsRows...)
+	rig.mu.Unlock()
+	if calls != 2 {
+		t.Fatalf("the held rows delivered (have %d)", calls)
+	}
+	if len(held) != 0 {
+		t.Fatalf("the held list cleared after the run: %v", held)
+	}
+}
+
+// rigConfigVault answers the rig's Websites vault path.
+func rigConfigVault(t *testing.T, rig *heroRig) string {
+	t.Helper()
+	v, _ := rig.cfg.Get("website_vault_path")
+	s, _ := v.(string)
+	if s == "" {
+		t.Fatal("no Websites vault in the rig config")
+	}
+	return s
+}
+
+// writeHandRowsTable writes the master table (the notes column is the
+// wall the hand rows carry).
+func writeHandRowsTable(t *testing.T, vault string, rows [][3]string) {
+	t.Helper()
+	path := websitepipeline.DecommissionTablePath(vault)
+	var lines []string
+	for _, row := range rows {
+		domain := "unknown"
+		if i := strings.Index(row[0], "://"); i >= 0 {
+			rest := row[0][i+3:]
+			if j := strings.IndexAny(rest, "/?#"); j >= 0 {
+				rest = rest[:j]
+			}
+			if rest != "" {
+				domain = rest
+			}
+		}
+		lines = append(lines, fmt.Sprintf("| - | 2026-10-09 | %s | %s | test | %s | %s |",
+			row[0], domain, row[1], row[2]))
+	}
+	content := fmt.Sprintf(websitepipeline.GraveyardHeader, "2026-10-09 12:00") +
+		strings.Join(lines, "\n") + "\n"
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestHeroUIChromeTabRetryFlow(t *testing.T) {
+	rig := newChromeDoorUIRig(t)
+
+	// the empty queue: the box, nothing offered.
+	out := rig.ui.MoreChromeTabRetry()
+	if out.Box == nil || out.Box.Title != "No failed links waiting" {
+		t.Fatalf("the empty box: %+v", out.Box)
+	}
+
+	// the failed links: the offer's rows.
+	state, err := websitepipeline.NewWebsiteStateDB(
+		filepath.Join(constants.AppDir(), "cache.db"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := state.EnqueueRetry("https://example.com/failed", "connection reset"); err != nil {
+		t.Fatal(err)
+	}
+	state.Close()
+	out = rig.ui.MoreChromeTabRetry()
+	if out.Box != nil || len(out.Links) != 1 ||
+		out.Links[0].Error != "connection reset" {
+		t.Fatalf("the offer rows: %+v", out)
+	}
+
+	// "Not now": the cancel line, no delivery, nothing marked.
+	rig.ui.MoreChromeTabRetryRun(nil)
+	spokePerTest(t, rig.spoken, rig.mu, "⏭️ Chrome tab retry cancelled — the failed links keep waiting (their automatic retries continue).")
+	rig.mu.Lock()
+	calls := rig.chromeDeliverCalls
+	rig.mu.Unlock()
+	if calls != 0 {
+		t.Fatalf("no delivery on Not-now (have %d)", calls)
+	}
+	out = rig.ui.MoreChromeTabRetry()
+	if len(out.Links) != 1 {
+		t.Fatalf("the declined offer stays offerable: %+v", out)
+	}
+
+	// the retry-now leg: the picked rows are marked offered + the
+	// delivery runs; a re-scan hides the offered link.
+	rig.ui.MoreChromeTabRetryRun(out.Links)
+	waitSpoken(t, rig, "🤖 Chrome tab retry: opening 1 link(s) in your real Chrome")
+	out = rig.ui.MoreChromeTabRetry()
+	if out.Box == nil || out.Box.Title != "No failed links waiting" {
+		t.Fatalf("the offered filter: %+v", out.Box)
+	}
+
+	// the batch-busy refusal: the reference's _batch_running box.
+	rig.mu.Lock()
+	rig.batchBlock = make(chan struct{})
+	rig.mu.Unlock()
+	done := make(chan struct{})
+	go func() {
+		defer close(done)
+		_ = rig.ui.HeroRunQueue()
+	}()
+	waitBatchBusy(t, rig)
+	out = rig.ui.MoreChromeTabRetry()
+	if out.Box == nil || out.Box.Title != "Batch already running" ||
+		out.Box.Body != "A batch is already running — finish or stop it first." {
+		t.Fatalf("the busy box: %+v", out.Box)
+	}
+	close(rig.batchBlock)
+	<-done
+}
+
+func TestHeroUIChromeDeliveryBacklogMerge(t *testing.T) {
+	rig := newChromeDoorUIRig(t)
+	// a delivery that waits for our signal (the busy window) — the
+	// rig's own seam already rides deliverGate.
+	rig.deliverGate = make(chan struct{})
+
+	// the first delivery starts (busy).
+	rig.ui.MoreChromeTabRetryRun([]app.ChromeLinkRow{{URL: "https://example.com/one"}})
+	waitSpoken(t, rig, "🤖 Chrome tab retry: opening 1 link(s) in your real Chrome")
+
+	// the second request merges into the backlog (the reference's
+	// v0.52 law — ONE delivery at a time).
+	rig.ui.MoreChromeTabRetryRun([]app.ChromeLinkRow{
+		{URL: "https://example.com/two"}, {URL: "https://example.com/three"}})
+	spokePerTest(t, rig.spoken, rig.mu, "🖐 A Chrome delivery is already running — 2 link(s) queued behind it (they open when the current tabs finish)")
+
+	// the busy hand-rows door answers the busy box while the
+	// delivery runs.
+	out := rig.ui.MoreHandRowsDeliver(false)
+	if out.Box == nil || out.Box.Title != "A Chrome delivery is running" {
+		t.Fatalf("the busy box: %+v", out.Box)
+	}
+
+	// release: the backlog drains with its own pass (two links — its
+	// own opening + delivered lines).
+	close(rig.deliverGate)
+	waitDeliverCalls(t, rig, 2)
+	waitSpoken(t, rig, "🤖 Chrome tab retry: opening 2 link(s) in your real Chrome")
+	waitSpoken(t, rig, "🤖 2 page(s) delivered from your Chrome")
+}
+
+func TestHeroUIChromeAttachDoor(t *testing.T) {
+	rig := newChromeDoorUIRig(t)
+	// no Chrome on the machine: the reference's own remedy box (THE
+	// COLLABORATOR LAW — Chrome is optional, the door refuses
+	// honestly).
+	out := rig.ui.MoreAttachMyChrome(false)
+	if out.Box == nil || out.Box.Title != "No Chrome found" ||
+		out.Box.Body != "GitCurator could not find Google Chrome on this machine — the fifth door needs the real browser." {
+		t.Fatalf("the no-chrome box: %+v", out.Box)
 	}
 }

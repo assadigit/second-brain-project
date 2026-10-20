@@ -167,6 +167,33 @@ type SettingsDeps struct {
 	// "error") + the pending row dicts.
 	BotQueueFetch func(cfg *storage.OrderedMap) (string, []any)
 
+	// The Chrome doors' seams (T-79d) — every one faked at
+	// construction per THE HERMETIC-SEAM law (the browser-launching
+	// + CDP/DevTools-touching legs); the production wiring lives in
+	// App.New.
+	// ChromeFind is the attach ladder's finder
+	// (handdelivery.FindChrome) — "" = no Chrome on this machine.
+	ChromeFind func() string
+	// ChromeUserDataDir is chrometabs.RealUserDataDir — the owner's
+	// real profile dir ("" = the usual locations are empty).
+	ChromeUserDataDir func() string
+	// ChromeAttachBat is chrometabs.WriteChromeAttachBat ("" reads
+	// as false — the bat could not be written).
+	ChromeAttachBat func(path, chromeExe string, port int, dataDir, linkDir string) bool
+	// ChromeAttachRun is the Windows .bat launch (cmd /c, detached;
+	// "" = launched, else the error text).
+	ChromeAttachRun func(batPath string) string
+	// ChromeDeliver is THE CDP/DevTools-touching seam — the fifth
+	// door's delivery (chrometabs.DeliverPagesViaChrome over the
+	// plain-map config).
+	ChromeDeliver func(vault string, links []ChromeLinkRow, log LogFn,
+		config *storage.OrderedMap) ChromeDeliveryReport
+	// HandEnqueue is the fourth door's queue write
+	// (handdelivery.EnqueueHandDelivery with the open-Chrome leg —
+	// the seam keeps the browser launch hermetic).
+	HandEnqueue func(vault string, urls []string, walls map[string]string,
+		log LogFn, openChrome bool) (added, opened int)
+
 	// SpawnOllamaServe starts `ollama serve` detached
 	// (start_ollama_server's Popen half): (pid, "") or (0, errClass).
 	SpawnOllamaServe func() (int, string)
@@ -204,6 +231,11 @@ type Settings struct {
 	// soundUnavailable is BatchSound's one-notice state (sound.py's
 	// _unavailable_reason: set once, then silence for the session).
 	soundUnavailable string
+
+	// chromeTabOffered is the Chrome tab-retry doors' session set
+	// (the reference's _chrome_tab_offered): a link the owner picked
+	// is never re-offered this session. Guarded by mu.
+	chromeTabOffered map[string]bool
 
 	// pagesBSourcesFetchDoor / pagesBOpenURLDoor are the pages B's
 	// injected doors (T-74 — settingsb.go; nil → the production doors).
