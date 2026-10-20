@@ -156,12 +156,13 @@
   Most of the raw material already lives in doc 13's rows + the
   evidence docs + the session reports; T-83 assembles the
   owner-reviewable summary.
-- **The go-ci watch**: SESSION-050's close push was the FIRST post-flip
-  go-ci trigger (the two red runs on record predate the flip — billing
-  refusals). Check the Actions tab at the start (the run for
-  SESSION-050's close commit): green closes the silently-red record;
-  a REAL red is now a real failure (the billing excuse is gone) —
-  surface it with evidence, fix per the logs.
+- **The go-ci watch — RESOLVED GREEN at the close**: SESSION-050's
+  close push was the first post-flip go-ci trigger — **run
+  `39517044092` at `4179e9d`: GREEN in 60 s** (gofmt/vet/build/test,
+  all steps). The silently-red record (red on every push since before
+  SESSION-048, 8/8+) is CLOSED. From SESSION-051 on: watch the Actions
+  tab on pushes as normal CI hygiene — a red is a REAL failure now
+  (the billing excuse is gone with the private repo).
 - **T-82's owner-results intake (if the owner ran the checklist)**:
   the owner's Windows execution fills
   `docs/poc-artifacts/t-82-clean-vm-checklist.md` §1/§2 — record the
@@ -259,10 +260,9 @@ the -w -s test-before-adopt rule); the LIVE execution is the owner's (no
 Windows box in the sandbox — standing since SESSION-001). SESSION-051 =
 T-83 (the docs: the Go README, the WINDOWS-QUICKSTART update, the parity
 report — doc 15 §7's AC-25/AC-26, plain language per SPEC.md §0) + the
-go-ci watch (SESSION-050's close push was the FIRST post-flip go-ci
-trigger; the two red runs on record predate the flip — billing refusals;
-check the Actions tab at the start: green closes the silently-red record, a
-real red is now a real failure) + T-82's owner-results intake if the owner
+go-ci watch (RESOLVED at SESSION-050's close: run 39517044092 GREEN in
+60 s, all steps — the silently-red record closed; from now on a red is
+a real failure, watch the Actions tab on pushes as normal CI hygiene) + T-82's owner-results intake if the owner
 ran the checklist.
 
 1. The environment is REBUILDABLE, not persistent (forty-five wipe events
@@ -344,10 +344,10 @@ ran the checklist.
    WINDOWS-QUICKSTART update for the Go launch path; the parity report —
    per-task status, deviations with reasons, the ADR/spec updates where
    reality differed, plain language per SPEC.md §0) + the go-ci watch
-   (check the Actions tab FIRST: the run for SESSION-050's close commit
-   is the first post-flip go-ci run; green closes the record, a real red
-   is a real failure now) + T-82's owner-results intake if the owner ran
-   the checklist. The raw material lives in doc 13's rows + the evidence
+   (RESOLVED at SESSION-050's close: run 39517044092 GREEN in 60 s, all
+   steps — the silently-red record closed; from now on a red is a real
+   failure, watch the Actions tab on pushes as normal CI hygiene) +
+   T-82's owner-results intake if the owner ran the checklist. The raw material lives in doc 13's rows + the evidence
    docs + the session reports — T-83 assembles the owner-reviewable
    summary. One slice done properly with proof beats two half-done;
    close cleanly at a natural boundary when capacity runs out.

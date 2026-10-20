@@ -89,10 +89,10 @@ AV note — doc 10 §7/§9).
   runner, the same signature as the release runs. The first post-flip
   go-ci run rides this session's close push (watched at the close; see
   the gate below).
-- **Spec updates** (the commit at the close): the evidence doc's
-  completion sections; doc 10 §8's second dated note; doc 13's T-81
-  row → COMPLETE + the T-82 row's preparable record; doc 12's
-  SESSION-050 entry; README's SESSION-050 block; this report +
+- **Spec updates** (the commits at the close + the go-ci rider): the
+  evidence doc's completion sections; doc 10 §8's second dated note;
+  doc 13's T-81 row → COMPLETE + the T-82 row's preparable record; doc
+  12's SESSION-050 entry; README's SESSION-050 block; this report +
   NEXT-SESSION.md (the state card v51).
 
 ## Gate evaluation (pass/fail/partial + EVIDENCE)
@@ -116,10 +116,12 @@ packages ok, zero FAIL lines, gofmt clean both modules** — the exact
 committed shape (2377 + 89 tests). Plus the ritual itself re-proven at
 the tagged state (8/8 legs byte-identical, §the cross-machine proof).
 
-**go-ci**: this session's close push is the first post-flip go-ci
-trigger — its result is recorded in NEXT-SESSION.md §4 (watched before
-the session ended; if red, it is a REAL failure now — the billing
-excuse is gone with the private repo).
+**go-ci**: this session's close push was the first post-flip go-ci
+trigger — **run `39517044092` at `4179e9d`: GREEN in 60 s** (all
+steps: gofmt check, go vet, go build, go test; runner 1000004109).
+The silently-red record (red on every push since before SESSION-048,
+8/8+) is CLOSED — the billing excuse is gone with the private repo,
+and the CI is provably green on the current tree.
 
 ## Spec updates made (file → what changed, why)
 
