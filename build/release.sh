@@ -32,6 +32,16 @@
 #   - THE CLEAN-TREE LAW: a release builds from a committed tree (the
 #     exes embed the working tree's source; a dirty tree cannot be
 #     reproduced from its tag). --allow-dirty overrides for dev probes.
+#   - THE TAG-STATE BUILD LAW (T-81's find, 2026-10-20): go1.24+ embeds
+#     the VCS-derived module version in buildinfo — a TAGGED checkout
+#     (the release state) and an untagged one of the SAME commit produce
+#     DIFFERENT exe bytes (the buildinfo mod line carries the tag name vs
+#     a pseudo-version; byte-settled at T-81: same commit, sha moved with
+#     the tag). The identity claims are per-tree-state; the release
+#     numbers must be derived at the tagged checkout (the
+#     reproduce-from-tag recipe builds exactly there). The wails-built
+#     GUI exe is exempt (its buildinfo rides "(devel)" + a v0.0.0 parent
+#     dep — byte-stable across commits and tag states).
 #
 # Outputs land under reports/dist/ (gitignored — binaries never enter git;
 # the sha256 evidence is archived in docs/poc-artifacts/).
