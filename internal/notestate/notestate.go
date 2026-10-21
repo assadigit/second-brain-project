@@ -505,7 +505,10 @@ func (d *DB) Upsert(vault, sourceURL, path, fingerprint string,
 }
 
 // RecordNote mirrors record_note (note_state.py:267-287): record one note
-// the app just wrote. content nil ⇒ the file is read (utf-8 replace);
+// the app just wrote. content nil ⇒ the file is read (utf-8 replace +
+// text mode's universal-newlines translation — the reference's own
+// open(...).read(), SESSION-061: every reference read of a note file is
+// TEXT MODE, so the stored fingerprint is of the TRANSLATED content);
 // normalizer nil ⇒ links.NormalizeURL; a normalizer returning "" falls
 // back to the raw source_url.
 func (d *DB) RecordNote(vault, sourceURL, path string, content *string,
@@ -514,7 +517,7 @@ func (d *DB) RecordNote(vault, sourceURL, path string, content *string,
 	if content != nil {
 		text = *content
 	} else if data, err := os.ReadFile(path); err == nil {
-		text = decodeUTF8Replace(data)
+		text = helpers.PyNewlines(decodeUTF8Replace(data))
 	}
 	keyFn := normalizer
 	if keyFn == nil {
@@ -850,7 +853,9 @@ func RecordBaselineIfEmpty(vault, vaultPath, dbPath string, log LogFn) (*int, er
 	for _, nt := range managed {
 		content := ""
 		if data, err := os.ReadFile(nt.Path); err == nil {
-			content = decodeUTF8Replace(data)
+			// text mode in the reference (open(...).read()): the baseline's
+			// fingerprints are of the TRANSLATED content (SESSION-061)
+			content = helpers.PyNewlines(decodeUTF8Replace(data))
 		}
 		if err := db.Upsert(vault, nt.SourceURL, nt.Path,
 			ComputeFingerprint(content), nt.Category, nt.Subcategory,
@@ -1003,7 +1008,11 @@ func ClassifyChanges(vault, vaultPath, dbPath string,
 		default:
 			current := ""
 			if data, err := os.ReadFile(note.Path); err == nil {
-				current = ComputeFingerprint(decodeUTF8Replace(data))
+				// text mode in the reference: classify's current read is the
+				// TRANSLATED content's fingerprint (SESSION-061 — a raw read
+				// here would disagree with a Python-baselined row forever)
+				current = ComputeFingerprint(helpers.PyNewlines(
+					decodeUTF8Replace(data)))
 			}
 			if current != row.Fingerprint {
 				ch.Edited = append(ch.Edited,
@@ -1320,7 +1329,18 @@ func ApplyCorrections(vault, vaultPath string, changes Changes, db *DB,
 				toPath, helpers.PyOSErrorText(err, toPath)))
 			continue
 		}
-		content := decodeUTF8Replace(data)
+		// THE SURGERY PATH'S TEXT-MODE LAW (SESSION-061, the SESSION-008
+		// recorded remainder closed): the reference reads the note with
+		// open(path, 'r', encoding='utf-8', errors='replace') — universal
+		// newlines translate \r\n and lone \r to \n BEFORE the surgery —
+		// and atomic_write_text writes with newline='' (raw) — so a CRLF
+		// note comes out ALL-LF (the CRLF is eaten by the read, never
+		// restored by the write) and the refreshed row fingerprint is of
+		// the translated content. A raw read leaks \r's into the surgery
+		// (mixed-endings output) and stores raw fingerprints a
+		// Python-baselined row would disagree with forever — pinned by
+		// the CRLF round-trip golden (dump_notestate.py §5).
+		content := helpers.PyNewlines(decodeUTF8Replace(data))
 
 		changed := false
 		if newCat != "" {

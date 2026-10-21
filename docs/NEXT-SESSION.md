@@ -27,7 +27,7 @@
   the QUICKSTART §0 (AC-26), commit `e58b7e4`), T-82 PARTIAL (the
   preparable surface landed at SESSION-050; items 1–8 are the owner's
   live Windows legs — the checklist slots were still empty at
-  SESSION-060; the owner has explicitly NO HASTE). **SESSION-052
+  SESSION-061; the owner has explicitly NO HASTE). **SESSION-052
   (commit `44a8bdb`) closed the last autonomous Phase-7 performance
   item: the AC-17 benchmark (Go vault-scan 14.6 ms cold vs Python
   32.8 ms same-box — the ≤ 50% gate PASSES; the record:
@@ -87,8 +87,40 @@
   likewise; the fix is the same ladder twin the redo scan rides +
   the two pinning selections
   (`internal/websitepipeline/handharvest_test.go`), all green
-  post-fix. The battery: 2396 + 89 = 2485.** THE HONEST-ZIP FIND
-  (standing): the LIVE `v0.92.0-go.1` release carries the
+  post-fix. The battery: 2396 + 89 = 2485.**
+  **SESSION-061 (path (c) a fourth time) landed the note_state
+  SURGERY path's CRLF round-trip differential — the remainder
+  SESSION-008 recorded 53 sessions ago, closed with the same proof
+  chain and a REAL cross-binary parity gap (the fourth consecutive
+  session where a recorded debt guarded a genuine divergence):
+  every reference read of a note file is TEXT MODE
+  (`open(path, 'r', encoding='utf-8', errors='replace')` — universal
+  newlines translate `\r\n`/lone `\r` to `\n` on read) and
+  `atomic_write_text` writes raw (`newline=''`), so a CRLF note
+  through the moves surgery comes out ALL-LF and every stored
+  fingerprint is of the TRANSLATED content — but the Go read RAW at
+  FOUR sites (record_note's file read, the baseline, classify's
+  current read, apply's surgery read): mixed-endings output + raw
+  fingerprints a Python-baselined cache.db row would disagree with
+  forever (the two apps share the DB by design); the generator's §5
+  re-rode the reference's own test_phase3 selections over CRLF
+  notes and recorded its bytes as the NEW
+  `notestate_crlf_roundtrip.golden.json` (byte-identical on regen;
+  the reference's own asserts green twice), the ported differential
+  (`internal/notestate/crlfsurgery_test.go`) FAILED its first run
+  with the exact predicted divergences (raw fingerprints; the
+  round-trip output carrying NINE `\r`'s where the reference writes
+  none), and the fix — `helpers.PyNewlines` at the four read sites
+  (the same law readHead800/StampCurated/RetireNoteFile already
+  ride) — closed it all green (the differential 1/1, the package 57,
+  the battery **2397 + 89 = 2486**). THE MULTIEDIT-TAB corruption
+  struck a FOURTH time in a NEW shape: a FAILED MultiEdit still
+  re-expanded the whole `notestate.go` to spaces AND left the
+  partial edits applied (the tool's atomicity claim is not
+  trustworthy) — caught by the standing gofmt check, repaired by
+  gofmt -w + a python patch on the real bytes, the post-repair diff
+  verified to be exactly the four edit regions.** THE HONEST-ZIP
+  FIND (standing): the LIVE `v0.92.0-go.1` release carries the
   CLI-milestone zip (12 files, no GUI exe); the desktop two-exe zip
   (13 files) rides the NEXT milestone release through the proven
   workflow. **What remains in Phase 7 is the OWNER's: T-82's live
@@ -97,17 +129,19 @@
 - **Push state: CLEAN** — SESSION-058 pushed its close `e43e023` +
   the CI-fix `584120b` + the postscript `2f41a49` (all green);
   SESSION-059's close push (`a743917`) verified GREEN at
-  SESSION-060's open. SESSION-060 pushes its close (the harvest
-  probe-ladder + the two pinning selections + the records) — go-ci
-  to verify green at SESSION-061's open (a red is a REAL failure
-  now; watch the Actions tab on pushes as normal CI hygiene).
+  SESSION-060's open; SESSION-060's close push (`41ec1c7`, run
+  39692479996) verified GREEN at SESSION-061's open. SESSION-061
+  pushes its close (the CRLF round-trip fix + the golden + the
+  differential + the records) — go-ci to verify green at
+  SESSION-062's open (a red is a REAL failure now; watch the
+  Actions tab on pushes as normal CI hygiene).
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always); Actions minutes are
   unlimited; the no-secrets law is public-facing. **go-ci: GREEN on
-  the tree through `a743917`; SESSION-060's close push is the
+  the tree through `41ec1c7`; SESSION-061's close push is the
   latest — verify its run green at the open.**
-- **The environment recipe** (the 55th wipe was absorbed at
-  SESSION-060's open — the standard recipe held, including
+- **The environment recipe** (the 56th wipe was absorbed at
+  SESSION-061's open — the standard recipe held, including
   SESSION-057's archive-listing correction): work repo at
   /home/z/my-project/second-brain-project (**clone it ANONYMOUSLY — it
   is public; the credentials block's GitHub URL may point at the
@@ -131,12 +165,12 @@
   `--without-pip --copies`), the wails CLI v2.16.0
   (`GOBIN=/home/z/.local/go/bin go install
   github.com/wailsapp/wails/v2/cmd/wails@v2.16.0` — build-time only;
-  reinstalled at SESSION-060's rebuild), and the rootless
+  reinstalled at SESSION-061's rebuild), and the rootless
   webkit tree (~/.local/lib-wails — **DOWN; last rebuilt at
   SESSION-047 (the FIFTEENTH rebuild); never rebuilt since
-  (SESSION-048–060 all ran no Linux GUI build — the windows legs are
+  (SESSION-048–061 all ran no Linux GUI build — the windows legs are
   CGO-free and the full battery [main + webui] runs without it,
-  re-proven at SESSION-060); the SIXTEENTH rebuild is pending:
+  re-proven at SESSION-061); the SIXTEENTH rebuild is pending:
   rebuild it FIRST only when the session runs a LINUX GUI build** —
   per webui/README.md + docs/poc-artifacts/t-70-gate.md +
   build/TOOLCHAIN.md Am.3 + Am.4: 144 debs → dpkg -x → the 42 .pc
@@ -152,7 +186,22 @@
   downloads must run in FOREGROUND CHUNKS** — the sandbox kills
   backgrounded children when the call returns.
 - **The operational laws, newest first** (each was paid for in
-  evidence — carry ALL of them): **THE HARVEST-COUSIN RECORD
+  evidence — carry ALL of them): **THE TEXT-MODE-READ LAW
+  (SESSION-061 — every reference read of a note file is TEXT MODE:
+  universal newlines on read + raw `newline=''` write = the ALL-LF
+  round-trip + translated fingerprints at EVERY site that stores
+  one; the four notestate reads now ride `helpers.PyNewlines`, the
+  same law readHead800/StampCurated/RetireNoteFile already rode;
+  pinned by the CRLF round-trip golden + its differential)**;
+  **THE MULTIEDIT-TAB CORRUPTION, FOURTH STRIKE (SESSION-061 — a
+  FAILED MultiEdit still re-expanded a whole Go file's tabs to
+  spaces AND left the matched edits applied while reporting "no
+  replacement performed"; the tool's atomicity claim is NOT
+  trustworthy — run gofmt -l after EVERY tool interaction with a
+  Go file, even a failed one; gofmt -w restores because HEAD is
+  gofmt-clean; the post-repair git diff must be verified to be
+  EXACTLY the edit region; patch Go source with PYTHON on the real
+  bytes)**; **THE HARVEST-COUSIN RECORD
   (SESSION-060 — the probe-panic-ladder now rides in BOTH the redo
   scan AND `HarvestHandRows`; the state=nil hermetic shape is the
   same ladder class; the caller-side never-fires belts (the
@@ -179,7 +228,7 @@
   teeth)**; **THE LIVE-LEG RECORD (SESSION-058 — the deferred-debt
   list can point at a REAL parity gap, not just a test gap: settle
   every "already landed" claim against the commit's own stat before
-  trusting it)**; **THE 55TH-WIPE RECIPE (SESSION-060 — held without
+  trusting it)**; **THE 56TH-WIPE RECIPE (SESSION-061 — held without
   correction)**; **THE WEBKIT-ORDINAL CORRECTION (SESSION-055 — the
   pending rebuild is the SIXTEENTH, last done at SESSION-047)**;
   **THE AC-17 BENCHMARK RECORD (SESSION-052)**: performance rows
@@ -189,12 +238,12 @@
   RECORD (SESSION-050)**; **THE TAG-STATE BUILD LAW (SESSION-049,
   re-proven on the runner at 050)**; **THE -X-UNDER-TRIMPATH LAW
   (SESSION-048)**; **THE VERIFY-THE-VERIFIER LESSON
-  (SESSION-048/049/050/052/059/060 — the renderer eats characters
+  (SESSION-048/049/050/052/059/060/061 — the renderer eats characters
   on displays AND the tool echoes; settle every suspect reading with
   byte-level counts)**; **THE DEFAULT-ICON FIND (SESSION-048)**;
   **THE FLAG-CLEAR LAW (SESSION-047)**; **THE REFERENCE'S-OWN-
   ARITHMETIC LAW (SESSION-046/048)**; **THE VLM MISREAD LEDGER (FOUR
-  incidents: 042/043/044/045; 046–060 ran clean)**; **THE
+  incidents: 042/043/044/045; 046–061 ran clean)**; **THE
   BINDING-IMPORT LAW (SESSION-044)**; **THE RACE-PASS DIVIDEND
   (SESSION-045)**; **THE EXTRACT-AND-EXEC SCOPE LAW (SESSION-041)**;
   **THE CROSS-BINARY DISAGREEMENT LAW**; **THE SENTINEL-SEAT RACE LAW
@@ -207,7 +256,7 @@
   suspect)**; **THE SYMLINK-BLOCK FALLBACK (TOOLCHAIN.md Am.4)**;
   **THE RENDER-CONTEXT LAW (SESSION-037)**; **THE VLM RATE-LIMIT
   WINDOW (SESSION-039)**; **THE PINNED-VERDICT-ROW LESSON
-  (SESSION-039)**; **THE ONE-SLICE-PROPERLY RECORD (036–060)**; and
+  (SESSION-039)**; **THE ONE-SLICE-PROPERLY RECORD (036–061)**; and
   the standing set (THE LIVE-CONFIG LAW; THE GROUP-POINTER LAW; THE
   DISSOLUTION-PROBE RECORD; THE GOLDEN-MARSHAL-ORDER TRAP; THE
   SUITE-REVERIFICATION DIVIDEND; THE WAILS-BUILD MODE FLIPS; THE
@@ -228,18 +277,20 @@
     CHUNKS); **PUSH AFTER EVERY TASK** (ask for the PAT the moment a
     push is due; never store it).
 
-## 2. Next session: SESSION-061 — the Phase-7 finish, owner-input driven (the owner's standing delegation recorded)
+## 2. Next session: SESSION-062 — the Phase-7 finish, owner-input driven (the owner's standing delegation recorded)
 
 The implementation side of Phase 7 is DONE (including the AC-17
 benchmark at SESSION-052, the chrome-retry live leg at SESSION-058,
-the master-scans delivered-law fix at SESSION-059, and the harvest's
-probe-panic-ladder cousin at SESSION-060). **The owner's standing
-input (SESSION-058, verbatim): "Continue your work please. do based
-on our documentation. you choose. I dont have urge and haste to
-start the app. you can keep working. only tell me if you really need
-me to test the app."** — a delegation of the pick, no haste on T-82
-or the release, and nothing currently needs the owner's testing.
-SESSION-061 follows the decision tree (in priority order):
+the master-scans delivered-law fix at SESSION-059, the harvest's
+probe-panic-ladder cousin at SESSION-060, and the note_state surgery
+path's CRLF round-trip differential at SESSION-061). **The owner's
+standing input (SESSION-058, verbatim): "Continue your work please.
+do based on our documentation. you choose. I dont have urge and
+haste to start the app. you can keep working. only tell me if you
+really need me to test the app."** — a delegation of the pick, no
+haste on T-82 or the release, and nothing currently needs the
+owner's testing. SESSION-062 follows the decision tree (in priority
+order):
 
 - **(a) If the owner brings T-82 results** (the filled checklist
   `docs/poc-artifacts/t-82-clean-vm-checklist.md` §1/§2): record the
@@ -259,30 +310,30 @@ SESSION-061 follows the decision tree (in priority order):
   tagged checkout.
 - **(c) Otherwise (the standing delegation)**: continue the
   deferred-debts work autonomously, ONE slice done properly with
-  proof — the sharpened §9 inventory (now TWO named slices): the
+  proof — the sharpened §9 inventory (now ONE named slice): the
   GUI-side hero/wiring equivalents (test_noteredo's
   TestHeroRedoRouting + TestRedoPassWiring at the Go app seam, where
-  the app seam already covers the guards), or the note_state SURGERY
-  path's CRLF round-trip differential. Surface the Phase-8 menu only
-  if the owner asks; close cleanly at a natural boundary when
-  capacity runs out.
+  the app seam already covers the guards — the last §9 slice).
+  Surface the Phase-8 menu only if the owner asks; close cleanly at
+  a natural boundary when capacity runs out.
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-060.md` — the most recent report (the
-   harvest cousin's find + fix + the pinning selections; the battery
-   2396 + 89).
+1. `docs/sessions/SESSION-061.md` — the most recent report (the
+   surgery path's CRLF round-trip find + fix + the differential;
+   the battery 2397 + 89).
 2. `docs/PARITY-REPORT.md` — the owner-reviewable state (§9's
-   sharpened not-done list is the standing menu — two slices left).
+   sharpened not-done list is the standing menu — ONE slice left:
+   the GUI-side hero/wiring equivalents).
 3. `docs/poc-artifacts/t-82-clean-vm-checklist.md` — the owner's
    fill-in surface (the intake target if results arrive).
 4. `docs/poc-artifacts/t-81-release-workflow.md` §5 — the proven
    release path (the recipe if the owner says ship it).
 5. `docs/port-blueprint/12-migration-roadmap.md` — the Phase-7
    records + the Phase-8 future-work register (the tail).
-6. `README.md` (the front page + the SESSION-060 status entry).
+6. `README.md` (the front page + the SESSION-061 status entry).
 
-## 4. Known constraints / owner actions for SESSION-061
+## 4. Known constraints / owner actions for SESSION-062
 
 - **OWNER ACTION #1 (no haste — the owner's own words): T-82's live
   execution** — the owner's Windows machine runs the nine checklist
@@ -302,7 +353,7 @@ SESSION-061 follows the decision tree (in priority order):
   fifteenth; the SIXTEENTH rebuild is pending) — rebuild it FIRST
   only if the session runs a LINUX GUI build (the windows legs are
   CGO-free; the full battery runs without it — re-proven at
-  SESSION-060).
+  SESSION-061).
 - The dissolution call (the owner's, ADR-0002 Am.5); the
   vanilla-vs-vite call (the owner's); the batch-scorecard modal
   question (the owner's); the v0.91.0 zip-parity reading (the
@@ -320,13 +371,13 @@ SESSION-061 follows the decision tree (in priority order):
   (the wailsjs baseline IS 755) and never commit a stray binary (nor a
   generated notes.md).
 - **Deferred test debt on the books** (the sharpened §9 inventory —
-  now TWO slices, evidence-recorded, not blockers): the noteredo
+  now ONE slice, evidence-recorded, not a blocker): the noteredo
   remainder's GUI-side hero/wiring equivalents (TestHeroRedoRouting +
-  TestRedoPassWiring — the app seam already covers the guards); the
-  note_state SURGERY path's CRLF round-trip differential; the Windows
-  live legs + the launchers' clean-VM smoke (T-82's checklist, the
-  owner's — no haste) + the bootstrapper leg (Phase 7 checklist,
-  doc 10 §7).
+  TestRedoPassWiring — the app seam already covers the guards; the
+  note_state SURGERY CRLF round-trip differential CLOSED at
+  SESSION-061); the Windows live legs + the launchers' clean-VM
+  smoke (T-82's checklist, the owner's — no haste) + the
+  bootstrapper leg (Phase 7 checklist, doc 10 §7).
 - **Single-writer law**: the fresh session is the ONLY writer; the
   overseer chat records decisions and audits — it does not implement.
 - Python reference: `assadigit/GitCurator` @ `98f4fc7` — read-only;
@@ -338,10 +389,10 @@ SESSION-061 follows the decision tree (in priority order):
   (hash-level, not display).
 - **Push after every task** — never end a session push-pending.
 
-## 5. THE PROMPT TO COPY (SESSION-061)
+## 5. THE PROMPT TO COPY (SESSION-062)
 
 ```
-You are starting SESSION-061 of the second-brain-project — the multi-session Go
+You are starting SESSION-062 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
@@ -383,28 +434,47 @@ nil *sql.DB), the ported selection (the reference's own broken-probe setup —
 the WOULD-harvest shape — over a closed DB) panicked on its first run with
 the exact predicted stack, the state=nil hermetic leg likewise; the fix is
 the same ladder twin the redo scan rides + the two pinning selections
-(internal/websitepipeline/handharvest_test.go), all green post-fix. The
-battery: 2396 main + 89 webui = 2485. The records fixed in the same commit
+(internal/websitepipeline/handharvest_test.go), all green post-fix;
+SESSION-061 (path (c) a fourth time) landed the note_state SURGERY path's
+CRLF round-trip differential — the remainder SESSION-008 recorded, closed
+with the same proof chain and a REAL cross-binary parity gap (the FOURTH
+consecutive find): the reference reads every note file in TEXT MODE
+(universal newlines on read, raw newline='' write), so a CRLF note through
+the moves surgery comes out ALL-LF and every stored fingerprint is of the
+TRANSLATED content — but the Go read RAW at FOUR notestate sites
+(record_note's file read, the baseline, classify's current read, apply's
+surgery read): mixed-endings output + raw fingerprints a Python-baselined
+cache.db row would disagree with forever; the generator's §5 + the NEW
+notestate_crlf_roundtrip golden (the reference's own test_phase3 selections
+re-ridden over CRLF notes, byte-identical on regen) + the
+crlfsurgery_test.go differential (FAILED its first run with the exact
+predicted divergences: the raw fingerprints + the nine-CR mixed-endings
+output) + the helpers.PyNewlines fix at the four sites, all green post-fix
+(the differential 1/1, the package 57). The battery: 2397 main + 89 webui =
+2486. The records fixed in the same commit
 (spec-core-website-pipeline's dated correction, the parity report §4.2 + §9
-[the harvest cousin CLOSED; the §9 remainder is now TWO slices: the GUI-side
-hero/wiring equivalents + the CRLF differential], doc 12's tail entry, the
-README front-page count + the SESSION-060 entry). go-ci: GREEN through
-a743917; SESSION-060's close push is the latest push — verify its run green
-at the open (a red is a REAL failure now). What remains in Phase 7 is the
+[the CRLF differential CLOSED; the §9 remainder is now ONE slice: the
+GUI-side hero/wiring equivalents], doc 12's tail entry, the README
+front-page count + the SESSION-061 entry). go-ci: GREEN through 41ec1c7;
+SESSION-061's close push is the latest push — verify its run green at the
+open (a red is a REAL failure now). What remains in Phase 7 is the
 OWNER's: T-82's live checklist (no haste) + the milestone release decision.
 
-1. The environment is REBUILDABLE, not persistent (fifty-five wipe events
-across SESSION-005..060 — SESSION-060 absorbed the 55th at its open; if the
+1. The environment is REBUILDABLE, not persistent (fifty-six wipe events
+across SESSION-005..061 — SESSION-061 absorbed the 56th at its open; if the
 sandbox wiped again, rebuild per the committed recipes). NOTE the standing
 lessons: downloads and long suites must run in FOREGROUND CHUNKS (the sandbox
 kills backgrounded children when the call returns); this sandbox's
 tool-output rendering occasionally drops characters — settle every suspect
 reading with byte-level counts/hex before "fixing" anything (THE MULTIEDIT-TAB
-CORRUPTION struck a THIRD time at SESSION-060: the Edit tool re-expanded a
-whole Go file's tabs to spaces AND the Write tool wrote a NEW Go file with
-spaces-for-tabs — gofmt -l after every edit batch catches both, gofmt -w
-restores because HEAD is gofmt-clean, and the post-repair git diff must be
-verified to be EXACTLY the edit region; patch with python reading the real
+CORRUPTION struck a FOURTH time at SESSION-061, in a NEW shape: a FAILED
+MultiEdit still re-expanded a whole Go file's tabs to spaces AND left the
+matched edits applied while reporting "no replacement performed" — the
+tool's atomicity claim is NOT trustworthy; the Write tool also writes NEW
+Go files with spaces-for-tabs (the third strike's shape) — gofmt -l after
+EVERY tool interaction with a Go file, even a failed one, catches both,
+gofmt -w restores because HEAD is gofmt-clean, and the post-repair git
+diff must be verified to be EXACTLY the edit region; patch with python reading the real
 bytes; sed is safe for identifier renames; ALSO: the eat struck a COMMITTED
 card once — card v59's "battery [main + webui]" shipped as "battery ain +
 webui]", fixed in v60); the go.dev tarball download needs curl -L (the /dl/
@@ -458,7 +528,7 @@ plain 'python3 -m venv' form when ensurepip is present, else
 last rebuilt at SESSION-047 [the fifteenth]; the SIXTEENTH rebuild is
 pending: rebuild it FIRST only when the session runs a LINUX GUI build — the
 windows cross-compile legs are CGO-free, and the full battery [main + webui]
-runs WITHOUT it, re-proven at SESSION-060 — per webui/README.md +
+runs WITHOUT it, re-proven at SESSION-061 — per webui/README.md +
 docs/poc-artifacts/t-70-gate.md + build/TOOLCHAIN.md Am.3 + Am.4: 144 debs →
 dpkg -x → the 42 .pc prefix rewrites → the 26 dev links, hardlink fallback
 expected). The MAIN go.mod: modernc.org/sqlite at v1.36.1,
@@ -476,13 +546,14 @@ records — then a743917 SESSION-059's close, then 2f41a49 SESSION-058's
 postscript). Re-verify the suite before work if anything looks off — the law
 pays in bugs, not just safety.
 
-2. Read, in order: docs/sessions/SESSION-060.md (the most recent report) →
-docs/PARITY-REPORT.md (no open row left; §9's sharpened not-done list — TWO
-slices — is the standing menu) → docs/poc-artifacts/t-82-clean-vm-checklist.md
-(the owner's fill-in surface) → docs/poc-artifacts/t-81-release-workflow.md §5
-(the proven release path) → docs/port-blueprint/12-migration-roadmap.md (the
-Phase-7 records + the Phase-8 register at the tail) → README.md (the front
-page + the SESSION-060 status entry).
+2. Read, in order: docs/sessions/SESSION-061.md (the most recent report) →
+docs/PARITY-REPORT.md (no open row left; §9's sharpened not-done list — ONE
+slice: the GUI-side hero/wiring equivalents — is the standing menu) →
+docs/poc-artifacts/t-82-clean-vm-checklist.md (the owner's fill-in surface)
+→ docs/poc-artifacts/t-81-release-workflow.md §5 (the proven release path) →
+docs/port-blueprint/12-migration-roadmap.md (the Phase-7 records + the
+Phase-8 register at the tail) → README.md (the front page + the SESSION-061
+status entry).
 
 3. THIS SESSION = the Phase-7 finish, OWNER-INPUT DRIVEN — the decision tree
 in priority order, with the owner's standing delegation on record ("you
@@ -498,11 +569,11 @@ two-exe zip (proven end-to-end + cross-machine), verify the release notes'
 table, write the release report per AC-23's scaffold (T-82's checklist then
 runs against the real release); (c) OTHERWISE (the standing delegation):
 continue the deferred-debts polish autonomously, ONE slice done properly
-with proof — the sharpened §9 inventory's TWO remaining slices: the GUI-side
+with proof — the sharpened §9 inventory's ONE remaining slice: the GUI-side
 hero/wiring equivalents (test_noteredo's TestHeroRedoRouting +
 TestRedoPassWiring at the Go app seam, where the app seam already covers the
-guards) or the note_state SURGERY path's CRLF round-trip differential. One
-slice done properly with proof beats two half-done; close cleanly at a
+guards) — the last §9 slice, test-debt-only by the seam's own coverage.
+One slice done properly with proof beats two half-done; close cleanly at a
 natural boundary when capacity runs out.
 
 4. Standing laws: reality wins over specs (fix the spec in the same commit);
@@ -522,9 +593,12 @@ the reference's own code sits behind an import wall, drive the reference's
 own BYTES by pinned line-range extraction — structural pins + the rev guard,
 never hand-transcription, never a stubbed wall (THE EXTRACT-AND-EXEC SCOPE
 LAW); "same semantics" means the two binaries agree on EVERY input to the
-shared protocol, edge branches included — audit the except ladders (THE
-CROSS-BINARY DISAGREEMENT LAW — SESSION-059's probe-panic-ladder and
-SESSION-060's harvest cousin were exactly this class); the payload structs'
+shared protocol, edge branches included — audit the except ladders AND the byte-level file-read semantics (THE
+CROSS-BINARY DISAGREEMENT LAW — SESSION-059's probe-panic-ladder,
+SESSION-060's harvest cousin, and SESSION-061's surgery text-mode law were
+exactly this class; every reference read of a note file is TEXT MODE:
+universal newlines on read + raw newline='' write — the port's reads ride
+helpers.PyNewlines, pinned by the CRLF round-trip golden); the payload structs'
 JSON tags mirror the Python dict keys and the frontend reads the tagged names
 (THE FIELD-TAG LAW); a transition seat read+written by concurrent passes
 holds it under a mutex as ONE unit (THE SENTINEL-SEAT RACE LAW — run the
@@ -534,17 +608,19 @@ per frontend surface; a modal's action buttons live OUTSIDE the scrollable
 body; every new wails door JOINS the owning module's binding IMPORT
 statement (THE BINDING-IMPORT LAW — pin it by test); after every wails build,
 check 'git diff --raw' for mode flips (the wailsjs committed baseline IS 755)
-and never commit a stray binary; gofmt -l after every Go edit batch (the
-Edit AND Write tools both corrupt tabs — the third strike at SESSION-060);
+and never commit a stray binary; gofmt -l after every Go edit batch AND after every FAILED tool
+interaction (the Edit AND Write tools both corrupt tabs, and a FAILED
+MultiEdit still corrupts + partially applies — the fourth strike at
+SESSION-061);
 every git/go command carries its own cd AND its own
 PATH=/home/z/.local/go/bin export (the NESTED webui module needs its own cd).
 
 5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (the
 chosen path's own acceptance), commit + push everything (ask me for the
 GitHub PAT the moment a push is due — never store it anywhere; never end the
-session push-pending), write docs/sessions/SESSION-061.md, rewrite
+session push-pending), write docs/sessions/SESSION-062.md, rewrite
 docs/NEXT-SESSION.md with the next session's prompt, and end your reply with
-a plain-language report plus the prompt I should copy to start SESSION-062.
+a plain-language report plus the prompt I should copy to start SESSION-063.
 
 One slice done properly with proof beats two half-done; close cleanly at a
 natural boundary when capacity runs out.

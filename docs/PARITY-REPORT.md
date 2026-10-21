@@ -82,16 +82,21 @@ T-64 to 33 today.
 
 ### 4.2 The test battery
 
-**2,396 main-module tests + 89 webui tests = 2,485, over 40 packages —
+**2,397 main-module tests + 89 webui tests = 2,486, over 40 packages —
 zero failures, race-detector clean, `gofmt` clean** (re-verified at
-SESSION-060's close; 2,377 + 89 until SESSION-058, which added the
+SESSION-061's close; 2,377 + 89 until SESSION-058, which added the
 five chrome-retry live-leg tests, then SESSION-059 added the twelve
 noteredo core-level selections — and closed the REAL delivered-law
-parity gap they exposed, §9 — and SESSION-060 added the two harvest
+parity gap they exposed, §9 — then SESSION-060 added the two harvest
 probe-ladder selections that closed the recorded cousin of that gap
 (the closed-DB probe panicked where the reference answers 0; the
-record is in spec-core-website-pipeline.md's Tests section); the same
-numbers CI proves on every push).
+record is in spec-core-website-pipeline.md's Tests section), and
+SESSION-061 added the CRLF round-trip differential that closed the
+surgery path's text-mode remainder — the Go read CRLF notes raw where
+the reference's text mode translates, so a moved CRLF note came out
+with mixed line endings and every stored fingerprint diverged from
+Python's; the fix + the record are in spec-core-note-state.md's Tests
+section; the same numbers CI proves on every push).
 
 ### 4.3 Data compatibility (your existing data works as-is)
 
@@ -218,22 +223,30 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
 - **Recorded test debts** (evidence-recorded, not blockers):
   `test_noteredo`'s remaining un-ported selections — the CLI
   routing-law class (TestCLIRouting) landed at SESSION-058 with the
-  chrome-retry live leg it was guarding, and the CORE-LEVEL
+  chrome-retry live leg it was guarding, the CORE-LEVEL
   TestRedoScan shapes + the iconcolumn §7 never-re-ask leg landed at
   SESSION-059 (the port closed a REAL parity gap: both master scans
   had reused the batch-side collector as their delivered probe, so a
   CONSUMED row was invisible to the redo scan — THE OWNER'S EXACT
   CASE — and re-asked by the hand scan; the record is in
-  spec-core-website-pipeline.md's Tests section), and the harvest's
+  spec-core-website-pipeline.md's Tests section), the harvest's
   probe-panic-ladder cousin landed at SESSION-060 (the closed-DB
   probe panicked where the reference's try/except answers "a broken
   probe harvests nothing"; the two pinning selections are
-  `internal/websitepipeline/handharvest_test.go`); what remains is the
+  `internal/websitepipeline/handharvest_test.go`), and the note_state
+  SURGERY path's CRLF round-trip differential landed at SESSION-061
+  (a REAL parity gap of the same cross-binary class: the reference
+  reads every note in TEXT MODE — universal newlines on read, raw
+  `newline=''` write — so a CRLF note through the moves surgery comes
+  out ALL-LF and every stored fingerprint is of the translated
+  content, but the Go read raw at four sites: mixed-endings output +
+  raw fingerprints a Python-baselined row would disagree with forever;
+  the golden + the fix + the record are
+  spec-core-note-state.md's Tests section); what remains is the
   GUI-side hero/wiring equivalents (TestHeroRedoRouting +
   TestRedoPassWiring) where the app seam already covers the guards;
-  the note_state
-  SURGERY path's CRLF round-trip differential; the launchers'
-  clean-VM smoke (rides T-82); the bootstrapper leg (doc 10 §7).
+  the launchers' clean-VM smoke (rides T-82); the bootstrapper leg
+  (doc 10 §7).
 - **Standing owner calls carried**: the webui-module dissolution
   (ADR-0002 Am.5); vanilla-vs-vite for the frontend; the
   batch-scorecard modal question; the v0.91.0 zip-parity reading

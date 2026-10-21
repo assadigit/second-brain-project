@@ -31,7 +31,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 Yes — proven, not claimed. The test system runs the **unmodified Python
 app** and the Go app on the same inputs and compares outputs **byte for
 byte**: 33 golden generators, all green (the archived full-run report +
-the corpus law). The battery: **2,485 tests, zero failures, race-clean**.
+the corpus law). The battery: **2,486 tests, zero failures, race-clean**.
 Your existing data works as-is: the Go app opens the Python-created
 `config.json` + `cache.db` without migration, and the two apps even
 mutually exclude via the same lock (they can share the data safely).
@@ -1634,3 +1634,47 @@ if/when you have the urge — nothing this session needs you); (2) "ship
 it" — the milestone release; (3) the Phase-8 pick or more
 deferred-debts polish (the GUI-side hero/wiring equivalents; the
 note_state SURGERY CRLF round-trip differential).
+
+
+**Phase 7 (continued) — SESSION-061**: **the deferred-debts path a
+fourth time — and the note_state SURGERY path's CRLF round-trip
+differential (the recorded remainder) landed with proof, closing a
+REAL cross-binary parity gap — the fourth consecutive session where a
+recorded debt guarded a genuine divergence.** Settled at byte level
+first: every reference read of a note file is TEXT MODE
+(`open(path, 'r', encoding='utf-8', errors='replace')` — universal
+newlines translate `\r\n`/lone `\r` to `\n` on read) and
+`atomic_write_text` writes raw (`newline=''`) — so a CRLF note
+through the moves-as-corrections surgery comes out ALL-LF and every
+fingerprint the module stores is of the TRANSLATED content. The Go
+had FOUR raw reads (record_note's file read, the baseline, classify's
+current read, apply's surgery read): mixed-endings output where the
+reference writes all-LF, and RAW fingerprints a Python-baselined
+cache.db row would disagree with forever (the two apps share the DB
+by design — the contract is real). The empirical proof,
+generated-never-hand-typed: dump_notestate.py §5 re-rides the
+reference's own test_phase3 selections over CRLF-written notes (the
+Windows norm) and records its own bytes as the new
+`notestate_crlf_roundtrip.golden.json` (byte-identical on regen;
+reference asserts green twice); `crlfsurgery_test.go` re-rides the
+same fixture bytes through the port and **failed its first run with
+the exact predicted divergences** (raw fingerprints; the round-trip
+output carrying nine `\r`'s where the reference writes none). The
+fix: `helpers.PyNewlines` at the four read sites — the same law
+readHead800, StampCurated and RetireNoteFile already ride — all green
+post-fix (the differential 1/1, the package 57, the battery **2397 +
+89 = 2,486**, race-clean). The MULTIEDIT-TAB corruption struck a
+FOURTH time, in a new shape (a FAILED MultiEdit still re-expanded the
+whole file's tabs AND left the partial edits applied) — caught by the
+standing gofmt check, repaired by gofmt -w + a python patch on the
+real bytes. The records in the same commit:
+spec-core-note-state.md's dated SESSION-061 correction, the parity
+report's §4.2 + §9 (the CRLF differential CLOSED; §9's remainder is
+now ONE named slice: the GUI-side hero/wiring equivalents), and this
+entry's front-page count. The 56th wipe absorbed before work (the
+standard recipe; go-ci green at the open — the run at `41ec1c7`).
+**The menu for the owner is unchanged**: (1) T-82's live Windows
+checklist (only if/when you have the urge — nothing this session
+needs you); (2) "ship it" — the milestone release; (3) the Phase-8
+pick or the last deferred-debts slice (the GUI-side hero/wiring
+equivalents, where the app seam already covers the guards).

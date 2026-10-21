@@ -64,3 +64,50 @@ folder resolving to no category → **unmapped**.
 Port: baseline-first-run silence; each classify branch; corrections apply (category line, tag
 prepend, lock, subcategory rules); dismissed never re-added; dry-run no-op; surgery on
 unterminated blocks. Add: Windows normcase matrix (cased paths).
+
+> **SESSION-061 (the dated correction) — the SURGERY path's text-mode
+> law, closed as the recorded CRLF round-trip differential (the
+> SESSION-008 remainder).** Settled at byte level against the reference
+> before any port change: every reference read of a note file is TEXT
+> MODE — `open(path, 'r', encoding='utf-8', errors='replace')` — so
+> universal newlines translate `\r\n` and lone `\r` to `\n` on READ,
+> and `atomic_write_text` writes with `newline=''` (raw, no
+> translation) — therefore a CRLF note that rides the
+> moves-as-corrections surgery comes out ALL-LF (the CRLF is eaten by
+> the read, never restored by the write), and every fingerprint the
+> module stores (`record_note`'s own file read, the baseline,
+> classify's current read, apply's row refresh) is the fingerprint of
+> the TRANSLATED content. The port had FOUR raw reads
+> (`os.ReadFile` + replace-decode, no translation) at exactly those
+> sites, so the Go leaked `\r`'s into the surgery (mixed-endings
+> output where the reference writes all-LF) and stored RAW
+> fingerprints — a cross-binary `cache.db` disagreement: a
+> Python-baselined CRLF row would read as perpetually edited to a
+> raw-reading twin (the two apps share the DB by design, so the
+> contract is real). The empirical proof, generated-never-hand-typed:
+> `testdiff/goldens/dump_notestate.py` §5 re-rides the reference's own
+> test_phase3 selections (the `_github_note` fixture + the moved/edited
+> selections) over CRLF-written notes — the Windows norm — and
+> recorded the reference's own bytes as
+> `internal/notestate/testdata/notestate_crlf_roundtrip.golden.json`
+> (byte-identical on regen; the reference's own asserts green twice:
+> moved 1, applied 1, edited repo2, the output CR count ZERO);
+> `internal/notestate/crlfsurgery_test.go` re-rides the same fixture
+> bytes through the port and FAILED on its first run with the exact
+> predicted divergences (the raw fingerprints `92a41fd6…` vs the
+> reference's `9c45de47…`/`266ca069…`; the round-trip output carrying
+> NINE `\r`'s where the reference writes none). The fix:
+> `helpers.PyNewlines` after the replace-decode at the four read
+> sites — the same law `readHead800` (SESSION-008),
+> `StampCurated`/`RetireNoteFile` already ride. All green post-fix
+> (the differential 1/1, the package 57, the battery 2397 + 89,
+> race-clean). test_phase3 itself sits behind the PyQt6 import wall in
+> the stdlib-only sandbox venv (it runs in the reference's own CI);
+> the reference's own bytes through the generator are the pinned
+> authority, and `test_notereads` (16/16, loadable) green before and
+> after. The MULTIEDIT-TAB corruption struck a FOURTH time, in a new
+> shape: a FAILED MultiEdit still re-expanded the whole `notestate.go`
+> to spaces AND left the partial edits applied (the tool's atomicity
+> claim is not trustworthy); caught by the standing `gofmt -l`,
+> repaired by `gofmt -w` + a python patch on the real bytes, the
+> post-repair diff verified to be exactly the four edit regions.

@@ -1247,3 +1247,79 @@ flowchart LR
 > be exactly the edit region)**. What remains in Phase 7 is still
 > the owner's: T-82's live checklist (no haste — the owner's own
 > standing words) + the milestone release decision.
+
+
+> **SESSION-061 (2026-10-22) — the Phase-7 finish, owner-input
+> driven, path (c) under the standing delegation a fourth time: the
+> note_state SURGERY path's CRLF round-trip differential landed (the
+> recorded remainder, closed with proof — a REAL cross-binary parity
+> gap, the fourth consecutive session where a recorded debt guarded a
+> genuine divergence).** The 56th wipe absorbed before work (the
+> anonymous public clone at `41ec1c7` — SESSION-060's close, tree
+> clean; the reference via the ephemeral GIT_CONFIG_COUNT PAT form at
+> the pinned `98f4fc7`; go1.27.2 sha-verified against the committed
+> pin; the venv [plain form; Python 3.12.15]; the wails CLI v2.16.0
+> reinstalled; no webkit rebuild — no GUI build this session, the
+> SIXTEENTH webkit rebuild stays pending). go-ci verified GREEN at the
+> open: the run at `41ec1c7` (SESSION-060's close push — run
+> 39692479996 — the latest) — success; the battery re-verified green
+> pre-work (2396 + 89, race-clean, gofmt/vet/build clean in both
+> modules, the pinned states holding: VERSION 12 bytes, the MAIN
+> go.mod the authorized set, T-82's nine slots still `____`).
+> THE SLICE, settled at byte level BEFORE anything was "fixed": every
+> reference read of a note file is TEXT MODE —
+> `open(path, 'r', encoding='utf-8', errors='replace')`, universal
+> newlines translating `\r\n` and lone `\r` to `\n` on read — and
+> `atomic_write_text` writes with `newline=''` (raw) — so a CRLF note
+> that rides the moves-as-corrections surgery comes out ALL-LF (the
+> CRLF eaten by the read, never restored by the write) and every
+> fingerprint the module stores (record_note's own file read, the
+> baseline, classify's current read, apply's row refresh) is of the
+> TRANSLATED content. The Go port had FOUR raw reads at exactly those
+> sites (`os.ReadFile` + replace-decode, no translation): the surgery
+> leaked `\r`'s into its output (mixed endings where the reference
+> writes all-LF) and stored RAW fingerprints — a cross-binary
+> cache.db disagreement (a Python-baselined CRLF row would read as
+> perpetually edited to a raw-reading twin; the two apps share the DB
+> by design, so the contract is real). The empirical proof first,
+> generated-never-hand-typed: `testdiff/goldens/dump_notestate.py` §5
+> re-rides the reference's own test_phase3 selections (the
+> `_github_note` fixture + the moved/edited selections) over
+> CRLF-written notes — the Windows norm — and records the reference's
+> own bytes as the NEW golden
+> `internal/notestate/testdata/notestate_crlf_roundtrip.golden.json`
+> (byte-identical on regen; the reference's own asserts green twice:
+> moved 1, applied 1, edited repo2, the output CR count ZERO;
+> test_phase3 itself sits behind the PyQt6 import wall in the
+> stdlib-only sandbox venv — it runs in the reference's own CI; the
+> generator's recorded bytes are the pinned authority, and
+> test_notereads [16/16, loadable] green before and after); the
+> ported differential `internal/notestate/crlfsurgery_test.go`
+> re-rides the same fixture bytes through the port and FAILED on its
+> first run with the exact predicted divergences (the raw
+> fingerprints `92a41fd6…` vs the reference's
+> `9c45de47…`/`266ca069…`; the round-trip output carrying NINE
+> `\r`'s where the reference writes none). THE LANDING: the fix —
+> `helpers.PyNewlines` after the replace-decode at the four read
+> sites (the same law readHead800 [SESSION-008],
+> StampCurated/RetireNoteFile already ride) — and the differential
+> pinning the golden, all green post-fix (the differential 1/1, the
+> notestate package 57, the full battery **2397 + 89 = 2486**,
+> race-clean, gofmt/vet/build clean in both modules). THE
+> MULTIEDIT-TAB corruption struck a FOURTH time, in a NEW shape: a
+> FAILED MultiEdit still re-expanded the whole `notestate.go`'s tabs
+> to spaces AND left the partial edits applied (the tool's
+> atomicity claim is not trustworthy) — caught by the standing
+> `gofmt -l`, repaired by `gofmt -w` + a python patch on the real
+> bytes, the post-repair diff verified to be exactly the four edit
+> regions (25 insertions / 5 deletions). The records in the same
+> commit (reality wins): spec-core-note-state.md's dated SESSION-061
+> correction (the text-mode law + the four sites + the proof chain),
+> the parity report's §4.2 counts (2396 + 89 → **2397 + 89 = 2486**)
+> + §9 (the CRLF differential CLOSED; the §9 remainder is now ONE
+> named slice: the GUI-side hero/wiring equivalents where the app
+> seam already covers the guards), the README's front-page count +
+> the SESSION-061 status entry, this entry, the session report,
+> NEXT-SESSION.md (the state card v62). What remains in Phase 7 is
+> still the owner's: T-82's live checklist (no haste — the owner's
+> own standing words) + the milestone release decision.
