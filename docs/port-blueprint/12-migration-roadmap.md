@@ -1019,3 +1019,35 @@ flowchart LR
 > implementation row exists to move autonomously — what remains in
 > Phase 7 is the owner's: T-82's live checklist + the milestone
 > release decision.
+
+> **SESSION-056 (2026-10-21) — the Phase-7 finish, owner-input driven:
+> the decision tree ran path (c) a fourth time — the menu surfaced; the
+> 51st wipe absorbed; the battery re-verified green (the exact
+> committed shape).** The owner brought no T-82 results and no "ship
+> it" (the checklist slots verified still empty — every §1 cell the
+> `____` placeholder; the live release list checked via the API: only
+> `v0.92.0-go.1` with the CLI-milestone zip asset [15,988,399 bytes]):
+> the menu (T-82's live Windows legs / the milestone release decision
+> / Phase-8 scoping from the register above / small polish from the
+> deferred-debts list) is surfaced in the SESSION-056 report +
+> NEXT-SESSION.md's state card v57. The 51st full wipe absorbed before
+> work (the standard recipe held without correction again: the
+> anonymous public clone at `5014d0b` — the SESSION-055 close; the
+> reference re-cloned via the ephemeral GIT_CONFIG_COUNT PAT form then
+> byte-scanned at the pinned `98f4fc71cfb8…` — byte-equal to
+> testdiff/PINNED-GITCURATOR-REV, zero token hits; go1.27.2
+> [70,590,635 bytes, the `-L` follow] sha-verified against
+> TOOLCHAIN.md Am.2's committed pin AND go.dev's published listing
+> [programmatic compares, 64 hex, MATCH ×2]; the venv [plain form;
+> Python 3.12.15]; the wails CLI v2.16.0; no webkit rebuild — no Linux
+> GUI build, and the full battery runs without it; the pending rebuild
+> stays the SIXTEENTH). go-ci verified GREEN at the open: run
+> `39580153947` at `5014d0b` (SESSION-055's close push) — success.
+> The battery re-verified green pre-work: **2377 main (plain; race
+> 36 ok, 0 data races) + 89 webui, zero FAILs** — the exact committed
+> shape (gofmt/vet/build clean in both modules; the pinned states
+> re-verified: VERSION `0.92.0-go.1` + the MAIN go.mod byte-unchanged).
+> A docs-only close (the report + the state card v57 + this entry +
+> the README's entry); no implementation row exists to move
+> autonomously — what remains in Phase 7 is the owner's: T-82's live
+> checklist + the milestone release decision.
