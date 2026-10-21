@@ -1400,3 +1400,28 @@ builds / localization) or small polish from the deferred-debts list
 (the [parity report](docs/PARITY-REPORT.md) §9). **What remains in
 Phase 7 is the owner's: T-82's live checklist + the milestone release
 decision.**
+
+**Phase 7 (continued) — SESSION-054**: **the Phase-7 finish,
+owner-input driven — the decision tree ran path (c) again: no T-82
+results and no "ship it" arrived, so the menu is surfaced and the
+session closed cleanly at its natural boundary.** The 49th wipe
+absorbed before work (the standard recipe held without correction:
+the anonymous public clone at `35eb065`; the reference at the pinned
+`98f4fc7` re-cloned with the PAT then scrubbed + byte-scanned;
+go1.27.2 sha-verified against the committed pin — programmatic
+compare, MATCH; the venv; the wails CLI v2.16.0; no webkit rebuild —
+no Linux GUI build). go-ci verified GREEN at the open: run
+`39529633876` at `35eb065` — success. The battery re-verified green
+pre-work: **2377 main (plain; race 36 ok, 0 data races) + 89 webui,
+zero FAILs — the exact committed shape.** The menu for the owner,
+unchanged and in priority order: (1) **T-82's live Windows checklist**
+(the fill-in doc is
+[`docs/poc-artifacts/t-82-clean-vm-checklist.md`](docs/poc-artifacts/t-82-clean-vm-checklist.md)
+— the signed results close T-82 and unlock the Phase-7 exit
+evaluation); (2) **"ship it" — the milestone release** (the desktop
+two-exe zip rides the next tag through the proven workflow; the owner
+picks the number); (3) **the Phase-8 pick** (doc 12's future-work
+register) or small polish from the deferred-debts list (the
+[parity report](docs/PARITY-REPORT.md) §9). **What remains in
+Phase 7 is the owner's: T-82's live checklist + the milestone release
+decision.**

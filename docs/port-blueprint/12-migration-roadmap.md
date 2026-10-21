@@ -949,3 +949,31 @@ flowchart LR
 > card v54 + this entry + the README's entry); no implementation row
 > exists to move autonomously — what remains in Phase 7 is the
 > owner's: T-82's live checklist + the milestone release decision.
+
+> **SESSION-054 (2026-10-21) — the Phase-7 finish, owner-input driven:
+> the decision tree ran path (c) again — the menu surfaced; the 49th
+> wipe absorbed; the battery re-verified green (the exact committed
+> shape).** The owner brought no T-82 results and no "ship it" (the
+> checklist slots verified still empty): the menu (T-82's live
+> Windows legs / the milestone release decision / Phase-8 scoping
+> from the register above / small polish from the deferred-debts
+> list) is surfaced in the SESSION-054 report + NEXT-SESSION.md's
+> state card v55. The 49th full wipe absorbed before work (the
+> standard recipe held without correction again: the anonymous public
+> clone at `35eb065` — the SESSION-053 close; the reference re-cloned
+> with the ephemeral PAT then scrubbed + byte-scanned at the pinned
+> `98f4fc7` — byte-equal to testdiff/PINNED-GITCURATOR-REV; go1.27.2
+> sha-verified against TOOLCHAIN.md Am.2's committed pin
+> `ecbadb99…` [programmatic compare, MATCH]; the venv [plain form;
+> Python 3.12.15]; the wails CLI v2.16.0; no webkit rebuild — no
+> Linux GUI build, and the full battery runs without it). go-ci
+> verified GREEN at the open: run `39529633876` at `35eb065`
+> (SESSION-053's close push) — success; every red on the Actions
+> ledger predates the public flip (the documented billing refusals)
+> plus the by-design refusal leg. The battery re-verified green
+> pre-work: **2377 main (plain; race 36 ok, 0 data races) + 89 webui,
+> zero FAILs** — the exact committed shape. A docs-only close (the
+> report + the state card v55 + this entry + the README's entry); no
+> implementation row exists to move autonomously — what remains in
+> Phase 7 is the owner's: T-82's live checklist + the milestone
+> release decision.
