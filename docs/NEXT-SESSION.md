@@ -27,7 +27,7 @@
   the QUICKSTART §0 (AC-26), commit `e58b7e4`), T-82 PARTIAL (the
   preparable surface landed at SESSION-050; items 1–8 are the owner's
   live Windows legs — the checklist slots were still empty at
-  SESSION-054). **SESSION-052 (commit `44a8bdb`) closed the last
+  SESSION-055). **SESSION-052 (commit `44a8bdb`) closed the last
   autonomous Phase-7 item: the AC-17 benchmark — the Go vault-scan
   wall-time measured on the T-04 synthetic corpus (`testdiff/gobench`,
   the new rig; Go cold 14.6 ms vs Python 32.8 ms same-box = 44.5%,
@@ -35,32 +35,34 @@
   cache-warm 5.3 vs 16.9; 2.25×; same-input tree-hash-equal +
   same-output census-identical proven; the record:
   `docs/poc-artifacts/ac17-go-vaultscan-benchmark.md`). The parity
-  report now has NO open performance row.** **SESSION-053 (docs-only)
-  and SESSION-054 (docs-only) each ran the decision tree's path (c):
-  the owner brought no T-82 results and no "ship it" — the menu
-  surfaced (this card §2/§4 + the session reports), the 48th and 49th
-  wipes absorbed at their opens, the battery re-verified green both
-  times (2377 + 89, the exact committed shape); nothing else
-  moved.** THE HONEST-ZIP FIND (stated in all three T-83 docs): the
-  LIVE `v0.92.0-go.1` release carries the CLI-milestone zip (12
-  files, no GUI exe — cut at SESSION-032 before Phase 6); the desktop
-  two-exe zip (13 files) rides the NEXT milestone release through the
-  proven workflow. **What remains in Phase 7 is the OWNER's: T-82's
-  live checklist + the milestone release decision.**
-- **Push state: CLEAN** — SESSION-054 committed + pushed its docs-only
+  report now has NO open performance row.** **SESSION-053, SESSION-054,
+  and SESSION-055 (all docs-only) each ran the decision tree's path
+  (c): the owner brought no T-82 results and no "ship it" — the menu
+  surfaced all three times (this card §2/§4 + the session reports),
+  the 48th, 49th, and 50th wipes absorbed at their opens, the battery
+  re-verified green all three times (2377 + 89, the exact committed
+  shape); nothing else moved (SESSION-055's one slice was the
+  docs-only webkit-ordinal correction below).** THE HONEST-ZIP FIND
+  (stated in all three T-83 docs): the LIVE `v0.92.0-go.1` release
+  carries the CLI-milestone zip (12 files, no GUI exe — cut at
+  SESSION-032 before Phase 6); the desktop two-exe zip (13 files)
+  rides the NEXT milestone release through the proven workflow.
+  **What remains in Phase 7 is the OWNER's: T-82's live checklist +
+  the milestone release decision.**
+- **Push state: CLEAN** — SESSION-055 committed + pushed its docs-only
   close (the ephemeral GIT_CONFIG_COUNT PAT form; never stored).
   Verify `git status` in sync at the start.
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always); Actions minutes are
   unlimited; the no-secrets law is public-facing. **go-ci is GREEN on
   the current tree** (runs `39517044092`, `39517366335`,
-  `39522289819`, `39526755160` at `44a8bdb`, and `39529633876` at
-  `35eb065` — all success). SESSION-054's docs-only close push is the
-  latest push — verify its run green at the session's open (a red is
-  a REAL failure now; watching the Actions tab on pushes is normal CI
-  hygiene).
-- **The environment recipe** (unchanged; the 49th wipe was absorbed at
-  SESSION-054's open): work repo at
+  `39522289819`, `39526755160` at `44a8bdb`, `39529633876` at
+  `35eb065`, and `39573753456` at `8d05c58` — all success).
+  SESSION-055's docs-only close push is the latest push — verify its
+  run green at the session's open (a red is a REAL failure now;
+  watching the Actions tab on pushes is normal CI hygiene).
+- **The environment recipe** (unchanged; the 50th wipe was absorbed at
+  SESSION-055's open): work repo at
   /home/z/my-project/second-brain-project (**clone it ANONYMOUSLY — it
   is public; the credentials block's GitHub URL may point at the
   PRIVATE Python reference `assadigit/GitCurator` — do not confuse the
@@ -74,49 +76,56 @@
   pin in build/TOOLCHAIN.md Am.2 — the pin is the authority; note
   go.dev/dl redirects — curl needs `-L`), venv
   /home/z/venvs/gitcurator (Python 3.12, stdlib-only; the plain
-  `python3 -m venv` form when ensurepip is present, else
+  'python3 -m venv' form when ensurepip is present, else
   `--without-pip --copies`), the wails CLI v2.16.0
   (`GOBIN=/home/z/.local/go/bin go install
   github.com/wailsapp/wails/v2/cmd/wails@v2.16.0` — build-time only),
-  and the rootless webkit tree (~/.local/lib-wails — DOWN since the
-  47th wipe; the EIGHTEENTH rebuild is pending: rebuild it FIRST only
-  when the session runs a LINUX GUI build — the windows cross-compile
-  legs are CGO-free, and the full battery (main + webui) runs WITHOUT
-  it, re-proven at SESSION-054 — per webui/README.md +
-  docs/poc-artifacts/t-70-gate.md + build/TOOLCHAIN.md Am.3 + Am.4:
-  144 debs → dpkg -x → the 42 .pc prefix rewrites → the 26 dev links,
-  hardlink fallback expected). The MAIN go.mod: modernc.org/sqlite at
-  v1.36.1, bogdanfinn/tls-client at v1.16.0, golang.org/x/net v0.48.0
-  + golang.org/x/text v0.32.0 direct, and the go directive at 1.24.1
-  (the tls-client-forced floor — ADR-0002 Am.2; do not bump any of
-  these). The NESTED webui module rides go 1.25.0 (wails v2.16.0's
-  floor) + the wails require + the transitive requires (ADR-0002
-  Am.5; the MAIN go.mod stays byte-unchanged). **The downloads must
-  run in FOREGROUND CHUNKS** — the sandbox kills backgrounded children
-  when the call returns.
+  and the rootless webkit tree (~/.local/lib-wails — **DOWN; last
+  rebuilt at SESSION-047 (the FIFTEENTH rebuild); never rebuilt since
+  (SESSION-048–055 all ran no Linux GUI build — the windows legs are
+  CGO-free and the full battery [main + webui] runs without it,
+  re-proven at SESSION-055); the SIXTEENTH rebuild is pending: rebuild
+  it FIRST only when the session runs a LINUX GUI build** — per
+  webui/README.md + docs/poc-artifacts/t-70-gate.md +
+  build/TOOLCHAIN.md Am.3 + Am.4: 144 debs → dpkg -x → the 42 .pc
+  prefix rewrites → the 26 dev links, hardlink fallback expected.
+  [Ordinal corrected at SESSION-055: cards v50–v55 had drifted to
+  "SEVENTEENTH/EIGHTEENTH pending" — the true count is fifteen done,
+  sixteenth pending; the record is SESSION-055's report.]) The MAIN
+  go.mod: modernc.org/sqlite at v1.36.1, bogdanfinn/tls-client at
+  v1.16.0, golang.org/x/net v0.48.0 + golang.org/x/text v0.32.0
+  direct, and the go directive at 1.24.1 (the tls-client-forced floor
+  — ADR-0002 Am.2; do not bump any of these). The NESTED webui module
+  rides go 1.25.0 (wails v2.16.0's floor) + the wails require + the
+  transitive requires (ADR-0002 Am.5; the MAIN go.mod stays
+  byte-unchanged). **The downloads must run in FOREGROUND CHUNKS** —
+  the sandbox kills backgrounded children when the call returns.
 - **The operational laws, newest first** (each was paid for in
-  evidence — carry ALL of them): **THE 49TH-WIPE RECIPE (SESSION-054 —
-  the standard rebuild held without correction again; the go.dev
-  download needs `-L`)**; **THE AC-17 BENCHMARK RECORD
-  (SESSION-052)**: performance rows close with same-input +
-  same-output proofs (tree-hash the corpora, cross-scan the census)
-  and same-box medians on both engines — never a stale-baseline-only
-  comparison; **THE HONEST-ZIP RECORD (SESSION-051)**: the live
-  release's contents must be checked via the API before any doc says
-  "how to run it"; **THE 46TH-WIPE RECIPE (SESSION-051)**; **THE
-  STALE-COMPARISON-TARGET LAW (SESSION-050)**; **THE PUBLIC-REPO
-  RECORD (SESSION-050)**; **THE 45TH-WIPE RECIPE (SESSION-049)**;
-  **THE TAG-STATE BUILD LAW (SESSION-049, re-proven on the runner at
-  050)**; **THE ACTIONS-BILLING BLOCK RECORD (SESSION-049 — RESOLVED
-  at 050 by the public flip)**; **THE -X-UNDER-TRIMPATH LAW
-  (SESSION-048)**; **THE VERIFY-THE-VERIFIER LESSON
-  (SESSION-048/049/050/052 — the renderer ate '[main 44a8bdb]' at
-  SESSION-052's commit display too; the -F FILE message + the log line
-  byte-verified fine)**; **THE DEFAULT-ICON FIND (SESSION-048)**;
+  evidence — carry ALL of them): **THE 50TH-WIPE RECIPE (SESSION-055 —
+  the standard rebuild held without correction again)**; **THE
+  WEBKIT-ORDINAL CORRECTION (SESSION-055 — count actual rebuilds from
+  the session records, never the card's own ordinal: the pending
+  rebuild is the SIXTEENTH, last done at SESSION-047)**; **THE
+  49TH-WIPE RECIPE (SESSION-054 — the go.dev download needs `-L`)**;
+  **THE AC-17 BENCHMARK RECORD (SESSION-052)**: performance rows close
+  with same-input + same-output proofs (tree-hash the corpora,
+  cross-scan the census) and same-box medians on both engines — never
+  a stale-baseline-only comparison; **THE HONEST-ZIP RECORD
+  (SESSION-051)**: the live release's contents must be checked via the
+  API before any doc says "how to run it"; **THE 46TH-WIPE RECIPE
+  (SESSION-051)**; **THE STALE-COMPARISON-TARGET LAW (SESSION-050)**;
+  **THE PUBLIC-REPO RECORD (SESSION-050)**; **THE 45TH-WIPE RECIPE
+  (SESSION-049)**; **THE TAG-STATE BUILD LAW (SESSION-049, re-proven
+  on the runner at 050)**; **THE ACTIONS-BILLING BLOCK RECORD
+  (SESSION-049 — RESOLVED at 050 by the public flip)**; **THE
+  -X-UNDER-TRIMPATH LAW (SESSION-048)**; **THE VERIFY-THE-VERIFIER
+  LESSON (SESSION-048/049/050/052 — the renderer ate '[main 44a8bdb]'
+  at SESSION-052's commit display too; the -F FILE message + the log
+  line byte-verified fine)**; **THE DEFAULT-ICON FIND (SESSION-048)**;
   **THE 43RD-WIPE RECIPE (SESSION-047)**; **THE FLAG-CLEAR LAW
   (SESSION-047)**; **THE REFERENCE'S-OWN-ARITHMETIC LAW
   (SESSION-046)**; **THE 42ND-WIPE RECIPE**; **THE VLM MISREAD LEDGER
-  (FOUR incidents: 042/043/044/045; 046–054 ran clean)**; **THE
+  (FOUR incidents: 042/043/044/045; 046–055 ran clean)**; **THE
   BINDING-IMPORT LAW (SESSION-044)**; **THE RACE-PASS DIVIDEND
   (SESSION-045)**; **THE EXTRACT-AND-EXEC SCOPE LAW (SESSION-041)**;
   **THE CROSS-BINARY DISAGREEMENT LAW**; **THE SENTINEL-SEAT RACE LAW
@@ -128,7 +137,7 @@
   edit batch)**; **THE SYMLINK-BLOCK FALLBACK (TOOLCHAIN.md Am.4)**;
   **THE RENDER-CONTEXT LAW (SESSION-037)**; **THE VLM RATE-LIMIT
   WINDOW (SESSION-039)**; **THE PINNED-VERDICT-ROW LESSON
-  (SESSION-039)**; **THE ONE-SLICE-PROPERLY RECORD (036–054)**; and
+  (SESSION-039)**; **THE ONE-SLICE-PROPERLY RECORD (036–055)**; and
   the standing set (THE LIVE-CONFIG LAW; THE GROUP-POINTER LAW; THE
   DISSOLUTION-PROBE RECORD; THE GOLDEN-MARSHAL-ORDER TRAP; THE
   SUITE-REVERIFICATION DIVIDEND; THE WAILS-BUILD MODE FLIPS; THE
@@ -149,13 +158,13 @@
     CHUNKS); **PUSH AFTER EVERY TASK** (ask for the PAT the moment a
     push is due; never store it).
 
-## 2. Next session: SESSION-055 — the Phase-7 finish, owner-input driven
+## 2. Next session: SESSION-056 — the Phase-7 finish, owner-input driven
 
 The implementation side of Phase 7 is DONE (including the AC-17
 benchmark at SESSION-052 — the parity report has no open row left;
-SESSION-053 and SESSION-054 surfaced the menu with no owner input
-arriving). SESSION-055 follows the owner's input; the decision tree
-(in priority order):
+SESSION-053, SESSION-054, and SESSION-055 surfaced the menu with no
+owner input arriving). SESSION-056 follows the owner's input; the
+decision tree (in priority order):
 
 - **(a) If the owner brings T-82 results** (the filled checklist
   `docs/poc-artifacts/t-82-clean-vm-checklist.md` §1/§2): record the
@@ -184,8 +193,9 @@ arriving). SESSION-055 follows the owner's input; the decision tree
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-054.md` — the most recent report (path (c)
-   again: the menu surfaced; the 49th wipe; the battery re-verified).
+1. `docs/sessions/SESSION-055.md` — the most recent report (path (c)
+   a third time: the menu surfaced; the 50th wipe; the battery
+   re-verified; the webkit-ordinal correction).
 2. `docs/PARITY-REPORT.md` — the owner-reviewable state (§9's
    not-done list is the standing menu).
 3. `docs/poc-artifacts/t-82-clean-vm-checklist.md` — the owner's
@@ -194,9 +204,9 @@ arriving). SESSION-055 follows the owner's input; the decision tree
    release path (the recipe if the owner says ship it).
 5. `docs/port-blueprint/12-migration-roadmap.md` — the Phase-7
    records + the Phase-8 future-work register (the tail).
-6. `README.md` (the front page + the SESSION-054 status entry).
+6. `README.md` (the front page + the SESSION-055 status entry).
 
-## 4. Known constraints / owner actions for SESSION-055
+## 4. Known constraints / owner actions for SESSION-056
 
 - **OWNER ACTION #1: T-82's live execution** — the owner's Windows
   machine runs the nine checklist items
@@ -204,7 +214,7 @@ arriving). SESSION-055 follows the owner's input; the decision tree
   current `v0.92.0-go.1` zip (the CLI legs) or the next release (the
   full two-exe set) and fills §2; the signed checklist closes T-82.
 - **OWNER ACTION #2: the milestone release decision** — say the word
-  and SESSION-055 cuts it (see §2b).
+  and SESSION-056 cuts it (see §2b).
 - **OWNER ACTION #3 (if neither): the Phase-8 pick** — doc 12's
   future-work register (the dormant cloud quartet / gotd / Linux/macOS
   builds / localization) or the polish list.
@@ -212,10 +222,11 @@ arriving). SESSION-055 follows the owner's input; the decision tree
   (public-facing guarantee); pushes still need the ephemeral PAT.
 - **Push state: CLEAN** — keep the PUSH-AFTER-EVERY-TASK law; ask for
   the PAT the moment a push is due (never stored, never written).
-- **The webkit tree is DOWN** (down since the 47th wipe; the
-  EIGHTEENTH rebuild is pending) — rebuild it FIRST only if the
-  session runs a LINUX GUI build (the windows legs are CGO-free; the
-  full battery runs without it — re-proven at SESSION-054).
+- **The webkit tree is DOWN** (last rebuilt at SESSION-047 — the
+  fifteenth; the SIXTEENTH rebuild is pending [ordinal corrected at
+  SESSION-055]) — rebuild it FIRST only if the session runs a LINUX
+  GUI build (the windows legs are CGO-free; the full battery runs
+  without it — re-proven at SESSION-055).
 - The dissolution call (the owner's, ADR-0002 Am.5); the
   vanilla-vs-vite call (the owner's); the batch-scorecard modal
   question (the owner's); the v0.91.0 zip-parity reading (the
@@ -224,7 +235,7 @@ arriving). SESSION-055 follows the owner's input; the decision tree
 - **The authorized runtime set is UNCHANGED** (the four; the MAIN
   go.mod byte-unchanged — the nested webui module carries wails + the
   indirect transitive requires per Am.5).
-- The go-directive acknowledgement (STILL WAITING — forty-fifth
+- The go-directive acknowledgement (STILL WAITING — forty-sixth
   session carrying it): the main module rides `go 1.24.1`, forced by
   the owner-acknowledged tls-client v1.16.0 pin (ADR-0002 Am.2).
 - The x/net/html question is a KEEP-OR-SWAP, not a blocker.
@@ -248,10 +259,10 @@ arriving). SESSION-055 follows the owner's input; the decision tree
   (hash-level, not display).
 - **Push after every task** — never end a session push-pending.
 
-## 5. THE PROMPT TO COPY (SESSION-055)
+## 5. THE PROMPT TO COPY (SESSION-056)
 
 ```
-You are starting SESSION-055 of the second-brain-project — the multi-session Go
+You are starting SESSION-056 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
@@ -267,35 +278,38 @@ plain-language implementation report, AC-25), the README front page, the
 WINDOWS-QUICKSTART §0 launch path, doc 13's T-83 row, doc 15 §7's dated note,
 doc 12's entry); T-82 PARTIAL (the preparable surface landed at SESSION-050;
 items 1–8 are the owner's live Windows legs — the checklist slots were still
-empty at SESSION-054); AC-17 CLOSED (SESSION-052, commit 44a8bdb: the AC-17
+empty at SESSION-055); AC-17 CLOSED (SESSION-052, commit 44a8bdb: the AC-17
 benchmark — the Go vault-scan wall-time measured on the T-04 synthetic corpus
 via the new testdiff/gobench rig; Go cold 14.6 ms vs Python 32.8 ms same-box
 (44.5%) and 35.3 ms recorded baseline (41.4%) — the ≤ 50% gate PASSES;
 cache-warm 5.3 vs 16.9 ms; ~90.5k vs ~40.2k notes/s (2.25×); same-input
 (tree-hash equal over 1,314 files) + same-output (the census identical,
 notes_seen 1319) proven; the record: docs/poc-artifacts/ac17-go-vaultscan-benchmark.md;
-the parity report §5/§9 updated — NO open performance row remains). SESSION-053
-and SESSION-054 (both docs-only) each ran the decision tree's path (c): the
-owner brought no T-82 results and no "ship it" — the menu surfaced both times
-(T-82's live legs / the milestone release / Phase-8 scoping / small polish from
-the deferred-debts list), the 48th and 49th wipes absorbed at their opens, the
-battery re-verified green both times (2377 + 89, the exact committed shape);
-nothing else moved. THE HONEST-ZIP FIND (stated in all three T-83 docs): the
-LIVE v0.92.0-go.1 release carries the CLI-milestone zip (12 files, NO GUI exe
-— cut at SESSION-032 before Phase 6); the desktop two-exe zip (13 files) rides
-the NEXT milestone release through the proven workflow. go-ci: GREEN on the
-current tree (runs 39517044092, 39517366335, 39522289819, 39526755160 at
-44a8bdb, and 39529633876 at 35eb065 — all success; SESSION-054's docs-only
-close push is the latest push — verify its run green at the open; a red is a
-REAL failure now; watch the Actions tab on pushes as normal CI hygiene). What
-remains in Phase 7 is the OWNER's: T-82's live checklist + the milestone
-release decision.
+the parity report §5/§9 updated — NO open performance row remains). SESSION-053,
+SESSION-054, and SESSION-055 (all docs-only) each ran the decision tree's path
+(c): the owner brought no T-82 results and no "ship it" — the menu surfaced all
+three times (T-82's live legs / the milestone release / Phase-8 scoping / small
+polish from the deferred-debts list), the 48th, 49th, and 50th wipes absorbed
+at their opens, the battery re-verified green all three times (2377 + 89, the
+exact committed shape); nothing else moved (SESSION-055's one slice was the
+docs-only webkit-ordinal correction: the pending webkit rebuild is the SIXTEENTH
+— the last actual rebuild was the fifteenth at SESSION-047; cards v50–v55 had
+drifted the ordinal upward; the record is SESSION-055's report). THE HONEST-ZIP
+FIND (stated in all three T-83 docs): the LIVE v0.92.0-go.1 release carries the
+CLI-milestone zip (12 files, NO GUI exe — cut at SESSION-032 before Phase 6);
+the desktop two-exe zip (13 files) rides the NEXT milestone release through the
+proven workflow. go-ci: GREEN on the current tree (runs 39517044092, 39517366335,
+39522289819, 39526755160 at 44a8bdb, 39529633876 at 35eb065, and 39573753456
+at 8d05c58 — all success; SESSION-055's docs-only close push is the latest push
+— verify its run green at the open; a red is a REAL failure now; watch the
+Actions tab on pushes as normal CI hygiene). What remains in Phase 7 is the
+OWNER's: T-82's live checklist + the milestone release decision.
 
-1. The environment is REBUILDABLE, not persistent (forty-nine wipe events
-across SESSION-005..054 — SESSION-054 absorbed the 49th at its open; if the
-sandbox wiped again, rebuild per the committed recipes). NOTE the standing
-lessons: downloads and long suites must run in FOREGROUND CHUNKS (the sandbox
-kills backgrounded children when the call returns); this sandbox's tool-output
+1. The environment is REBUILDABLE, not persistent (fifty wipe events across
+SESSION-005..055 — SESSION-055 absorbed the 50th at its open; if the sandbox
+wiped again, rebuild per the committed recipes). NOTE the standing lessons:
+downloads and long suites must run in FOREGROUND CHUNKS (the sandbox kills
+backgrounded children when the call returns); this sandbox's tool-output
 rendering occasionally drops characters — settle every suspect reading with
 byte-level counts/hex before "fixing" anything (the Edit tool's space-vs-tab
 corruption struck 042/044/046/047/048 writing Go source — gofmt -l after every
@@ -309,7 +323,9 @@ calls AND misreads enabled-vs-disabled states (FOUR incidents — never "fix"
 code off a suspect VLM verdict); 'ln -s' refuses AND kills the whole compound
 bash call at this boot — never put it in a compound command (the venv needs
 --without-pip --copies on ensurepip-less boots; the webkit tree's 26 dev links
-need Am.4 hardlinks); THE STALE-COMPARISON-TARGET LAW (050); THE TAG-STATE
+need Am.4 hardlinks); THE WEBKIT-ORDINAL CORRECTION (055 — the pending webkit
+rebuild is the SIXTEENTH; count actual rebuilds from the session records, never
+the card's own ordinal); THE STALE-COMPARISON-TARGET LAW (050); THE TAG-STATE
 BUILD LAW (049, re-proven on the runner at 050); THE -X-UNDER-TRIMPATH LAW
 (048); THE DEFAULT-ICON FIND (048); THE BINDING-IMPORT LAW (044); THE
 FLAG-CLEAR LAW (047); THE REFERENCE'S-OWN-ARITHMETIC LAW (046/048); THE AC-17
@@ -329,33 +345,33 @@ corruption), venv /home/z/venvs/gitcurator (Python 3.12, stdlib-only; the
 plain 'python3 -m venv' form when ensurepip is present, else
 --without-pip --copies), the wails CLI v2.16.0 (GOBIN=/home/z/.local/go/bin
 go install github.com/wailsapp/wails/v2/cmd/wails@v2.16.0 — build-time only),
-and the rootless webkit tree (~/.local/lib-wails — DOWN since the 47th wipe;
-the EIGHTEENTH rebuild is pending: rebuild it FIRST only when the session runs
-a LINUX GUI build — the windows cross-compile legs are CGO-free, and the full
-battery [main + webui] runs WITHOUT it, re-proven at SESSION-054 — per
-webui/README.md + docs/poc-artifacts/t-70-gate.md + build/TOOLCHAIN.md Am.3 +
-Am.4: 144 debs → dpkg -x → the 42 .pc prefix rewrites → the 26 dev links,
-hardlink fallback expected). The MAIN go.mod: modernc.org/sqlite at v1.36.1,
-bogdanfinn/tls-client at v1.16.0, golang.org/x/net v0.48.0 + golang.org/x/text
-v0.32.0 direct, and the go directive at 1.24.1 (the tls-client-forced floor —
-ADR-0002 Am.2; do not bump any of these). The NESTED webui module rides go
-1.25.0 (wails v2.16.0's floor) + the wails require + the transitive requires
-(indirect via the parent replace — ADR-0002 Am.5); the MAIN go.mod stays
-byte-unchanged. THE REPO IS PUBLIC: pushes still need the ephemeral PAT
-(GIT_CONFIG_COUNT env-var form — never persisted; SCRUB if you ever CLONE with
-it); Actions minutes are unlimited; the no-secrets law is public-facing. Then
-check 'git status' and 'git log --oneline -3': SESSION-054's close is the HEAD
-(docs-only: the SESSION-054 report + the state card v55 + doc 12's entry + the
-README's entry; below it 35eb065 SESSION-053 close + 28958bd SESSION-052
-close). Re-verify the suite before work if anything looks off — the law
-pays in bugs, not just safety.
+and the rootless webkit tree (~/.local/lib-wails — DOWN; last rebuilt at
+SESSION-047 [the fifteenth]; the SIXTEENTH rebuild is pending: rebuild it
+FIRST only when the session runs a LINUX GUI build — the windows cross-compile
+legs are CGO-free, and the full battery [main + webui] runs WITHOUT it,
+re-proven at SESSION-055 — per webui/README.md + docs/poc-artifacts/t-70-gate.md
++ build/TOOLCHAIN.md Am.3 + Am.4: 144 debs → dpkg -x → the 42 .pc prefix
+rewrites → the 26 dev links, hardlink fallback expected). The MAIN go.mod:
+modernc.org/sqlite at v1.36.1, bogdanfinn/tls-client at v1.16.0,
+golang.org/x/net v0.48.0 + golang.org/x/text v0.32.0 direct, and the go
+directive at 1.24.1 (the tls-client-forced floor — ADR-0002 Am.2; do not bump
+any of these). The NESTED webui module rides go 1.25.0 (wails v2.16.0's floor)
++ the wails require + the transitive requires (indirect via the parent replace
+— ADR-0002 Am.5); the MAIN go.mod stays byte-unchanged. THE REPO IS PUBLIC:
+pushes still need the ephemeral PAT (GIT_CONFIG_COUNT env-var form — never
+persisted; SCRUB if you ever CLONE with it); Actions minutes are unlimited;
+the no-secrets law is public-facing. Then check 'git status' and 'git log
+--oneline -3': SESSION-055's close is the HEAD (docs-only: the SESSION-055
+report + the state card v56 + doc 12's entry + the README's entry; below it
+8d05c58 SESSION-054 close + 35eb065 SESSION-053 close). Re-verify the suite
+before work if anything looks off — the law pays in bugs, not just safety.
 
-2. Read, in order: docs/sessions/SESSION-054.md (the most recent report) →
+2. Read, in order: docs/sessions/SESSION-055.md (the most recent report) →
 docs/PARITY-REPORT.md (no open row left; §9's not-done list is the standing
 menu) → docs/poc-artifacts/t-82-clean-vm-checklist.md (the owner's fill-in
 surface) → docs/poc-artifacts/t-81-release-workflow.md §5 (the proven release
 path) → docs/port-blueprint/12-migration-roadmap.md (the Phase-7 records + the
-Phase-8 register at the tail) → README.md (the front page + the SESSION-054
+Phase-8 register at the tail) → README.md (the front page + the SESSION-055
 status entry).
 
 3. THIS SESSION = the Phase-7 finish, OWNER-INPUT DRIVEN — follow the
@@ -408,9 +424,9 @@ webui module needs its own cd).
 5. Close the session per SESSION-PROTOCOL.md: honest gate evaluation (the
 chosen path's own acceptance), commit + push everything (ask me for the GitHub
 PAT the moment a push is due — never store it anywhere; never end the session
-push-pending), write docs/sessions/SESSION-055.md, rewrite
+push-pending), write docs/sessions/SESSION-056.md, rewrite
 docs/NEXT-SESSION.md with the next session's prompt, and end your reply with
-a plain-language report plus the prompt I should copy to start SESSION-056.
+a plain-language report plus the prompt I should copy to start SESSION-057.
 
 One slice done properly with proof beats two half-done; close cleanly at a
 natural boundary when capacity runs out.
