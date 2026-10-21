@@ -1051,3 +1051,44 @@ flowchart LR
 > the README's entry); no implementation row exists to move
 > autonomously — what remains in Phase 7 is the owner's: T-82's live
 > checklist + the milestone release decision.
+
+> **SESSION-057 (2026-10-21) — the Phase-7 finish, owner-input driven:
+> the decision tree ran path (c) a fifth time — the menu surfaced; the
+> 52nd wipe absorbed; the battery re-verified green (the exact
+> committed shape); the go.dev-listing recipe correction (the toolchain
+> double-verify's archive side).** The owner brought no T-82 results
+> and no "ship it" (the checklist slots verified still empty — §1's
+> nine rows all the `____` placeholder, parsed cell-by-cell; the live
+> release list checked via the API: only `v0.92.0-go.1`, published,
+> with the single CLI-milestone zip asset [15,988,399 bytes]): the menu
+> (T-82's live Windows legs / the milestone release decision / Phase-8
+> scoping from the register above / small polish from the
+> deferred-debts list) is surfaced in the SESSION-057 report +
+> NEXT-SESSION.md's state card v58. The 52nd full wipe absorbed before
+> work (the standard recipe held, with the one recorded correction:
+> the anonymous public clone at `3ae2443` — the SESSION-056 close; the
+> reference re-cloned via the ephemeral GIT_CONFIG_COUNT PAT form then
+> byte-scanned at the pinned `98f4fc71cfb8…` — byte-equal to
+> testdiff/PINNED-GITCURATOR-REV, zero token hits in `.git` AND the
+> worktree; go1.27.2 [70,590,635 bytes, the `-L` follow] sha-verified
+> against TOOLCHAIN.md Am.2's committed pin AND go.dev's published
+> listing — the listing side now the ARCHIVE form
+> `?mode=json&include=all`, because go1.27.2 left the stable
+> `?mode=json` listing when go1.27.3 shipped [programmatic compares,
+> 64 hex, MATCH ×2; the pin is the authority]; the venv [plain form;
+> Python 3.12.15]; the wails CLI v2.16.0; no webkit rebuild — no Linux
+> GUI build, and the full battery runs without it; the pending rebuild
+> stays the SIXTEENTH). go-ci verified GREEN at the open: run
+> `39583012792` at `3ae2443` (SESSION-056's close push) — success.
+> The battery re-verified green pre-work: **2377 main (plain; race
+> 36 ok, 0 data races) + 89 webui, zero FAILs** — the exact committed
+> shape (gofmt/vet/build clean in both modules; the pinned states
+> re-verified: VERSION `0.92.0-go.1` + the MAIN go.mod byte-unchanged).
+> The session's second docs-only micro-correction: the state card's
+> go-directive "Nth session carrying it" counter replaced with the
+> anchored form (every card since the ADR-0002 Am.2 record landed at
+> SESSION-012 — the counter had drifted, SESSION-055's
+> arithmetic-slip class). A docs-only close (the report + the state
+> card v58 + this entry + the README's entry); no implementation row
+> exists to move autonomously — what remains in Phase 7 is the
+> owner's: T-82's live checklist + the milestone release decision.

@@ -1487,3 +1487,40 @@ register) or small polish from the deferred-debts list (the
 [parity report](docs/PARITY-REPORT.md) §9). **What remains in
 Phase 7 is the owner's: T-82's live checklist + the milestone release
 decision.**
+
+**Phase 7 (continued) — SESSION-057**: **the Phase-7 finish,
+owner-input driven — the decision tree ran path (c) a fifth time: no
+T-82 results and no "ship it" arrived, so the menu is surfaced and
+the session closed cleanly at its natural boundary; the session's one
+slice was a docs-only recipe correction (the toolchain
+double-verify's go.dev listing side).** The 52nd wipe absorbed before
+work (the standard recipe held: the anonymous public clone at
+`3ae2443`; the reference at the pinned `98f4fc7` re-cloned via the
+ephemeral GIT_CONFIG_COUNT PAT form then byte-scanned [zero token
+hits, `.git` and worktree]; go1.27.2 [70,590,635 bytes, the `-L`
+follow] sha-verified against the committed pin AND go.dev's published
+listing — MATCH ×2, programmatic, 64 hex; the venv; the wails CLI
+v2.16.0; no webkit rebuild — no Linux GUI build). go-ci verified
+GREEN at the open: run `39583012792` at `3ae2443` — success. The
+battery re-verified green pre-work: **2377 main (plain; race 36 ok, 0
+data races) + 89 webui, zero FAILs — the exact committed shape**
+(gofmt/vet/build clean in both modules). **The correction**:
+go1.27.2 left go.dev's stable `?mode=json` listing when go1.27.3
+shipped, so the toolchain sha256's second verify side is now the
+archive listing (`?mode=json&include=all`); MATCH ×2 held; the
+committed pin (build/TOOLCHAIN.md Am.2) stays the authority (the
+record is SESSION-057's report; a second micro-correction anchored
+the state card's go-directive acknowledgement — carried in every
+card since the ADR-0002 Am.2 record landed at SESSION-012 — after
+its "Nth session" counter drifted). The menu for the owner, unchanged
+and in priority order: (1) **T-82's live Windows checklist** (the
+fill-in doc is
+[`docs/poc-artifacts/t-82-clean-vm-checklist.md`](docs/poc-artifacts/t-82-clean-vm-checklist.md)
+— the signed results close T-82 and unlock the Phase-7 exit
+evaluation); (2) **"ship it" — the milestone release** (the desktop
+two-exe zip rides the next tag through the proven workflow; the owner
+picks the number); (3) **the Phase-8 pick** (doc 12's future-work
+register) or small polish from the deferred-debts list (the
+[parity report](docs/PARITY-REPORT.md) §9). **What remains in
+Phase 7 is the owner's: T-82's live checklist + the milestone release
+decision.**
