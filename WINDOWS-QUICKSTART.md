@@ -5,6 +5,26 @@ the desktop app (**GitCurator.exe**, double-click **`GitCurator.bat`**)
 and the full command line (**GitCurator-cli.exe**) — same engine, same
 config, same vaults.
 
+## 0. Get the app (once)
+
+Download the zip from
+**[github.com/assadigit/second-brain-project/releases](https://github.com/assadigit/second-brain-project/releases)**.
+
+- **Verify the download before unzipping** (the release notes list the
+  sha256 for every zip): in a terminal,
+  `certutil -hashfile GitCurator-v0.92.0-go.1-windows.zip SHA256`
+  — the number must match the release notes exactly. If it doesn't,
+  don't use the file; re-download.
+- **Which zip you get depends on the release**: the current live
+  release (`v0.92.0-go.1`, the CLI milestone) carries the command
+  line + the launchers — `GitCurator.bat` inside it prints an honest
+  card pointing at the CLI. The **desktop app (GitCurator.exe) rides
+  the next milestone release** — the two-exe zip. This guide describes
+  that full two-exe shape.
+- Unzip anywhere you like (Desktop is fine). Nothing is installed
+  outside the folder you unzipped into (and the vaults you point it
+  at).
+
 ## 1. Install (once)
 
 Double-click **`1-INSTALL.bat`**.

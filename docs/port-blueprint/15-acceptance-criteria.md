@@ -80,6 +80,10 @@
   specs with reasons, updated ADRs (PoC verdicts), updated spec files where reality differed.
 - **AC-26** Go README + updated WINDOWS-QUICKSTART covering the Go launch path; the parity report
   is owner-readable (plain language, per SPEC.md §0).
+  *Completed 2026-10-21 (SESSION-051, T-83): the implementation report is
+  `docs/PARITY-REPORT.md`; the README front page + the QUICKSTART's §0 carry the Go launch
+  path. AC-25/AC-26 hold with the honest boundaries recorded there (AC-17's Go-side
+  wall-time + T-82's live legs land on the owner's run).*
 
 ## 8. Sign-off
 

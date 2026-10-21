@@ -866,3 +866,32 @@ flowchart LR
 > refusals, no runner) — the first post-flip go-ci run rides the next
 > main push. T-82 (the clean-VM checklist + the AV note) + T-83 (the
 > docs) follow.
+
+> **SESSION-051 (2026-10-21) — T-83 COMPLETE (the docs; Phase 7's last
+> implementation row)**: the 46th wipe absorbed before work (both repos
+> re-cloned — the Go port public-anonymous, the Python reference at the
+> pinned 98f4fc7 — go1.27.2 sha-verified against the committed pin, the
+> battery re-verified green pre-work: 2377 main + 89 webui, the exact
+> committed shape). The three artifacts: (1) `docs/PARITY-REPORT.md` —
+> the plain-language implementation report (AC-25): the verdict, the
+> per-task status (62 rows), the proof system, the measured performance
+> (fresh CLI `--status` numbers: 4.8 ms no-config / ≈134 ms config-card
+> vs Python's 49.3/893.6 ms; AC-17's Go-side wall-time honestly OPEN),
+> the nine deviations with reasons, the ADR amendment index, the honest
+> not-done list; (2) the README front page (AC-26) — the stale
+> private-until-launch intro replaced (the repo is public), the
+> owner-readable what-shipped/run-it/parity front matter, the
+> engineering log preserved; (3) WINDOWS-QUICKSTART's §0 — the
+> Releases download + the certutil sha256 verify + the honest
+> which-zip note (the live v0.92.0-go.1 is the CLI milestone; the
+> two-exe desktop zip rides the next milestone release — the owner's
+> call). go-ci watched: runs 39517044092 + 39517366335 both GREEN
+> post-flip (the silently-red record stays closed; CI hygiene is the
+> new normal). T-82's owner-results: the checklist slots are still
+> empty (no intake this session — the owner's execution remains the
+> pending half). **Phase 7's implementation rows are now all landed
+> (T-80 ✓, T-81 ✓, T-82 PARTIAL-the-owner's, T-83 ✓); the phase's
+> remaining work is the owner's: T-82's live checklist + the milestone
+> release decision.** The battery at the close: 2377 + 89, zero FAILs,
+> gofmt clean both modules (docs-only session — no Go/workflow bytes
+> touched).

@@ -1,8 +1,57 @@
-# second-brain-project (codename)
+# second-brain-project — the Go port of GitCurator
 
-> **Private workspace for the Go port of GitCurator** — the personal second-brain library
-> builder (Python/PyQt6 → Go). Codename until the branded name is chosen; stays private
-> until launch.
+> **The personal second-brain library builder, rebuilt in Go** (Python/PyQt6 → Go).
+> This repo is the working home of the port (working name; the app itself is
+> **GitCurator**). The repo is **public** (the owner's call, for unlimited CI/CD).
+
+**The desktop milestone is IN — both faces complete and proven.** One folder,
+no Python, no packages, no installer: **GitCurator.exe** (the desktop app —
+the SYNC desk, the scan views, every Settings page, every tool) and
+**GitCurator-cli.exe** (the full command line). Same engine, same config,
+same vaults, same notes out — **byte-equal to the Python app, proven by
+running both side by side** (the differential corpus; the plain-language
+summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
+
+## Run it on Windows
+
+1. **Get the zip** from
+   [Releases](https://github.com/assadigit/second-brain-project/releases).
+   The live release `v0.92.0-go.1` is the **CLI milestone** (12 files); the
+   desktop app is complete and rides the **next milestone release** (13
+   files, both exes — the release workflow is proven end-to-end, so cutting
+   it is one tag away).
+2. **Verify the download** (the release notes carry the sha256):
+   `certutil -hashfile <zip> SHA256` — the number must match.
+3. Then follow **[`WINDOWS-QUICKSTART.md`](WINDOWS-QUICKSTART.md)** — the
+   three-step first-run guide (install check → configure → the safe
+   dry-run that writes nothing).
+
+## Does it really match the Python app?
+
+Yes — proven, not claimed. The test system runs the **unmodified Python
+app** and the Go app on the same inputs and compares outputs **byte for
+byte**: 33 golden generators, all green (the archived full-run report +
+the corpus law). The battery: **2,466 tests, zero failures, race-clean**.
+Your existing data works as-is: the Go app opens the Python-created
+`config.json` + `cache.db` without migration, and the two apps even
+mutually exclude via the same lock (they can share the data safely).
+It is also faster (the CLI answers `--status` ~6–10× quicker; the log
+desk sustains half a million lines a second). The full plain-language
+story with every number and every deviation:
+[`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md).
+
+## What's left (honest)
+
+The owner's live Windows checklist (T-82 — the fresh-VM install + AV
+scan; the fill-in doc is prepared), the next milestone release cut (the
+owner's call), and the recorded minor debts — all listed in the parity
+report §9. The engineering status follows below.
+
+---
+
+*(Everything below is the engineering log — session-by-session status,
+the doc map, and the binding laws. Owners: everything you need is above
++ the parity report.)*
 
 **Status: Phase 0 CLOSED** — all three PoC verdicts final (Wails ✅ · tls-client ✅ ·
 gotd/td ✅ proven on the owner's account, then **demoted to dormant by the owner's
@@ -645,6 +694,7 @@ matrix + differences modal) opens next.
 
 | What | Where |
 |---|---|
+| **THE PARITY REPORT (owner-readable)** | [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md) — what matches, what differs, the numbers, the proof |
 | **HOW SESSIONS WORK (start here)** | [`docs/SESSION-PROTOCOL.md`](docs/SESSION-PROTOCOL.md) — the loop every session follows |
 | **The state card / next prompt** | [`docs/NEXT-SESSION.md`](docs/NEXT-SESSION.md) — rewritten at every session close |
 | **Session reports (the history)** | [`docs/sessions/`](docs/sessions/) — numbered SESSION-NNN.md files |
@@ -1254,3 +1304,45 @@ teeth, proven on a runner). The test release + both test tags deleted;
 only the real milestone `v0.92.0-go.1` remains. The record:
 `docs/poc-artifacts/t-81-release-workflow.md` §5. T-82 (the clean-VM
 checklist + the AV note) + T-83 (the docs) follow.
+
+**Phase 7 (continued) — SESSION-051**: **T-83 (the docs) COMPLETE — the
+parity report + the README front page + the QUICKSTART's launch path;
+Phase 7's implementation rows are now ALL landed.** The 46th wipe
+absorbed before work (both repos re-cloned — the Go port anonymously
+(it is public), the Python reference at the pinned `98f4fc7` matching
+`testdiff/PINNED-GITCURATOR-REV`; go1.27.2 sha-verified against
+TOOLCHAIN.md Am.2's committed pin; the battery re-verified green
+pre-work: **2377 main + 89 webui, the exact committed shape**). The
+three AC-25/AC-26 artifacts: **(1) `docs/PARITY-REPORT.md`** — the
+plain-language implementation report: the verdict in one paragraph; the
+per-task status (all 62 rows: 59 COMPLETE + T-82 PARTIAL-the-owner's-leg
++ T-51 removed-by-Option-B + T-83); the proof system (the
+33-generator differential corpus — 31 at T-64's archived run + the
+T-72 theme/icons pair — the 2,466-test battery, the data-compat
+fixtures, the cross-machine release proof); **the measured performance
+table with fresh SESSION-051 numbers** (CLI `--status`: **4.8 ms**
+no-config / **≈134 ms** config-card vs Python's 49.3/893.6 ms — 6–10×;
+the gate-leg first-frame 213–892 ms; the ≥454k lines/s flood; AC-17's
+Go-side wall-time marked honestly OPEN — it lands on the owner's real
+vault); the nine-row deviation table; the ADR amendment index; the
+honest not-done list; the double-check recipes. **(2) the README front
+page** — the stale "stays private until launch" intro REPLACED (the
+repo is public — reality wins, fixed in the same commit) with the
+owner-readable front matter (what shipped / the three-step run path /
+the parity claim with proof pointers / the honest what's-left); the
+engineering log preserved below. **(3) `WINDOWS-QUICKSTART.md` §0** —
+the Releases download + the `certutil` sha256 verify step + the honest
+which-zip note: **the live `v0.92.0-go.1` release is the CLI-milestone
+zip (12 files, no GUI exe — it was cut at SESSION-032, before Phase
+6); the two-exe desktop zip (13 files) rides the NEXT milestone
+release through the proven workflow — the cut is the owner's call**
+(formal releases happen only at roadmap milestones). The go-ci watch:
+runs `39517044092` + `39517366335` both GREEN post-flip — the
+silently-red record stays closed; watching Actions on pushes is normal
+CI hygiene now. T-82's owner-results intake: the checklist slots are
+still empty — the owner's live execution remains the pending half (no
+intake this session, recorded honestly). The close battery:
+**2377 + 89, zero FAILs, gofmt clean both modules** (docs-only
+session — `git diff` proves no Go/workflow bytes touched). **What
+remains in Phase 7 is the owner's: T-82's live checklist + the
+milestone release decision.**
