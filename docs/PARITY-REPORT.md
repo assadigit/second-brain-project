@@ -82,13 +82,16 @@ T-64 to 33 today.
 
 ### 4.2 The test battery
 
-**2,394 main-module tests + 89 webui tests = 2,483, over 40 packages —
+**2,396 main-module tests + 89 webui tests = 2,485, over 40 packages —
 zero failures, race-detector clean, `gofmt` clean** (re-verified at
-SESSION-059's close; 2,377 + 89 until SESSION-058, which added the
+SESSION-060's close; 2,377 + 89 until SESSION-058, which added the
 five chrome-retry live-leg tests, then SESSION-059 added the twelve
 noteredo core-level selections — and closed the REAL delivered-law
-parity gap they exposed, §9; the same numbers CI proves on every
-push).
+parity gap they exposed, §9 — and SESSION-060 added the two harvest
+probe-ladder selections that closed the recorded cousin of that gap
+(the closed-DB probe panicked where the reference answers 0; the
+record is in spec-core-website-pipeline.md's Tests section); the same
+numbers CI proves on every push).
 
 ### 4.3 Data compatibility (your existing data works as-is)
 
@@ -221,11 +224,14 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
   had reused the batch-side collector as their delivered probe, so a
   CONSUMED row was invisible to the redo scan — THE OWNER'S EXACT
   CASE — and re-asked by the hand scan; the record is in
-  spec-core-website-pipeline.md's Tests section); what remains is the
+  spec-core-website-pipeline.md's Tests section), and the harvest's
+  probe-panic-ladder cousin landed at SESSION-060 (the closed-DB
+  probe panicked where the reference's try/except answers "a broken
+  probe harvests nothing"; the two pinning selections are
+  `internal/websitepipeline/handharvest_test.go`); what remains is the
   GUI-side hero/wiring equivalents (TestHeroRedoRouting +
-  TestRedoPassWiring) where the app seam already covers the guards,
-  and the harvest's probe-panic-ladder cousin (the reference's
-  try/except has the panic twin in the redo scan only); the note_state
+  TestRedoPassWiring) where the app seam already covers the guards;
+  the note_state
   SURGERY path's CRLF round-trip differential; the launchers'
   clean-VM smoke (rides T-82); the bootstrapper leg (doc 10 §7).
 - **Standing owner calls carried**: the webui-module dissolution

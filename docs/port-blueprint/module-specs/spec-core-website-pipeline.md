@@ -230,3 +230,40 @@ Port from `test_banishment`, `test_phase*` selections, `test_websitesqueuefix`,
 > All 12 ported selections green post-fix; the reference's own suite
 > green in the venv both before and after (the authority); the
 > battery 2394 + 89 at the close (2382 + 12).
+
+> **SESSION-060 — the harvest's probe-panic-ladder cousin landed
+> (the recorded remainder of the delivered-law session, closed with
+> proof).** The sharpened §9 remainder named `HarvestHandRows` as
+> carrying the reference's same ONE try/except around
+> `is_dismissed` + `processed_row` ("a broken probe harvests
+> nothing" — test_handharvest §4's
+> `test_a_broken_state_probe_harvests_nothing`) while the Go port
+> handled only the error shape: the closed-DB probe PANICKED
+> (`store.DB.Close()` nils the handle by its own law; `SQL()` is
+> nil; `QueryRow` on the nil `*sql.DB` dereferences), and the
+> master seam only survived behind the caller's blanket
+> `recover()` belt — every direct caller (the golden flow's own
+> `HarvestHandRows(dbS, ve, nil)` call shape) inherited a hard
+> crash where the reference answers 0 and keeps the gesture. The
+> empirical proof first (the SESSION-059 pattern): the ported
+> selection — the reference's own setup (a proper note + a
+> processed row + the 🖐 gesture, the WOULD-harvest shape) over a
+> closed DB — panicked on its first run with the exact predicted
+> stack (`HarvestHandRows` → `IsDismissed` → `QueryRow(0x0, …)`);
+> the state=nil hermetic shape (the docstring's "the state probe
+> is optional") panicked the same way. The fix: the probe ladder —
+> the same twin `ScanMasterRedoRows` rides (ONE closure wrapping
+> both probe calls, `recover()` answering the broken verdict,
+> probe-broken → `continue`) — plus the two pinning selections
+> (`internal/websitepipeline/handharvest_test.go`: the broken
+> probe + the hermetic no-state leg, both green post-fix). The
+> never-fires belts stay recorded, not changed: the reference's
+> caller belt logs "Hand-harvest pass skipped" if it ever fires
+> and the Go master seam swallows silently — unreachable by
+> construction on both sides (the reference's own callees never
+> raise past their inner excepts; `SweepReviewLeftovers` and the
+> stamp are never-raise in Go); the golden corpus pins the
+> refresh flow's log stream byte-for-byte and cannot see a
+> never-fires belt. The reference's own suite green in the venv
+> both before and after (44/44); the battery 2396 + 89 at the
+> close (2394 + 2).

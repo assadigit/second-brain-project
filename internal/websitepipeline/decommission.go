@@ -918,12 +918,32 @@ func HarvestHandRows(state *StateDB, vaultPath string, log LogFn) int {
 		if already {
 			continue
 		}
-		dismissed, err := state.IsDismissed(canonical)
-		if err != nil || dismissed {
-			continue // a broken probe harvests nothing
-		}
-		prior, err := state.ProcessedRow(canonical)
-		if err != nil {
+		// the probe ladder (the reference's ONE try/except around
+		// is_dismissed + processed_row — "a broken probe harvests
+		// nothing"; the same twin the redo scan rides): a broken
+		// probe — a query error OR a panicked handle (the closed-DB
+		// shape: SQL() is nil after Close by the store's own law, and
+		// the reference's _Broken raises the Python-class twin) —
+		// harvests nothing. state=nil is the same class (the hermetic
+		// law: the probe is optional — the nil receiver panics inside
+		// the probe, and the ladder answers the same broken verdict).
+		prior, probeBroken := func() (prior *ProcessedRow, broken bool) {
+			defer func() {
+				if recover() != nil {
+					broken = true
+				}
+			}()
+			dismissed, err := state.IsDismissed(canonical)
+			if err != nil || dismissed {
+				return nil, true // retired rows are the verdicts' business
+			}
+			prior, err = state.ProcessedRow(canonical)
+			if err != nil {
+				return nil, true
+			}
+			return prior, false
+		}()
+		if probeBroken {
 			continue
 		}
 		proper, _ := NoteIsProperlyStored(prior)

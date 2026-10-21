@@ -31,7 +31,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 Yes — proven, not claimed. The test system runs the **unmodified Python
 app** and the Go app on the same inputs and compares outputs **byte for
 byte**: 33 golden generators, all green (the archived full-run report +
-the corpus law). The battery: **2,483 tests, zero failures, race-clean**.
+the corpus law). The battery: **2,485 tests, zero failures, race-clean**.
 Your existing data works as-is: the Go app opens the Python-created
 `config.json` + `cache.db` without migration, and the two apps even
 mutually exclude via the same lock (they can share the data safely).
@@ -1600,3 +1600,37 @@ the urge — nothing this session needs you); (2) "ship it" — the
 milestone release; (3) the Phase-8 pick or more deferred-debts
 polish (the GUI-side hero/wiring equivalents; the note_state SURGERY
 CRLF round-trip differential).
+
+
+**Phase 7 (continued) — SESSION-060**: **the delegated deferred-debts
+path taken a third time — and the harvest's probe-panic-ladder cousin
+(the recorded remainder of the delivered-law session) landed with
+proof.** The §9-named remainder "the harvest's probe-panic-ladder
+cousin" was settled at byte level first: the reference's
+`harvest_hand_rows` wraps `is_dismissed` + `processed_row` in ONE inner
+try/except ("a broken probe harvests nothing"), but the Go
+`HarvestHandRows` handled only the error shape — the closed-DB probe
+**PANICKED** (`store.DB.Close()` nils the handle by its own law;
+`QueryRow` on the nil `*sql.DB`), so every direct caller inherited a
+hard crash where the reference answers 0 and keeps the 🖐 gesture. The
+empirical proof first (the SESSION-059 pattern): the reference's own
+suite green in the venv (44/44, the authority), then the ported
+selection — the reference's own
+`test_a_broken_state_probe_harvests_nothing` setup (the WOULD-harvest
+shape) over a closed DB — panicked on its first run with the exact
+predicted stack; the state=nil hermetic leg panicked the same way. The
+fix: the probe ladder in `decommission.go` (the same twin the redo
+scan rides) + the two pinning selections
+(`internal/websitepipeline/handharvest_test.go`), all green post-fix.
+The never-fires caller belts recorded, not changed. The records in the
+same commit: spec-core-website-pipeline.md's dated SESSION-060
+correction, the parity report's §4.2 (the battery **2396 + 89 =
+2,485**) + §9 (the harvest cousin CLOSED; the remainder: the GUI-side
+hero/wiring equivalents + the CRLF differential), and this entry's
+front-page count. The 55th wipe absorbed before work (the standard
+recipe; go-ci green at the open — the run at `a743917`). **The menu
+for the owner is unchanged**: (1) T-82's live Windows checklist (only
+if/when you have the urge — nothing this session needs you); (2) "ship
+it" — the milestone release; (3) the Phase-8 pick or more
+deferred-debts polish (the GUI-side hero/wiring equivalents; the
+note_state SURGERY CRLF round-trip differential).

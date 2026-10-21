@@ -1187,3 +1187,63 @@ flowchart LR
 > both modules; the MAIN go.mod byte-unchanged**. What remains in
 > Phase 7 is still the owner's: T-82's live checklist (no haste — the
 > owner's own standing words) + the milestone release decision.
+
+
+> **SESSION-060 (2026-10-21) — the Phase-7 finish, owner-input
+> driven, path (c) under the standing delegation a third time: the
+> harvest's probe-panic-ladder cousin landed (the recorded
+> remainder of SESSION-059's delivered-law session, closed with
+> proof).** The 55th wipe absorbed before work (the anonymous
+> public clone at `a743917` — SESSION-059's close, tree clean; the
+> reference via the ephemeral GIT_CONFIG_COUNT PAT form at the
+> pinned `98f4fc7`; go1.27.2 sha-verified against the committed
+> pin — the 70,590,635-byte tarball; the venv [plain form;
+> Python 3.12.15]; the wails CLI v2.16.0 reinstalled; no webkit
+> rebuild — no GUI build this session, the SIXTEENTH webkit
+> rebuild stays pending). go-ci verified GREEN at the open: the
+> run at `a743917` (SESSION-059's close push — the latest) —
+> success; the battery re-verified green pre-work (2394 + 89,
+> race-clean, gofmt/vet/build clean in both modules, the pinned
+> states holding: VERSION 12 bytes, the MAIN go.mod the authorized
+> set, T-82's nine slots still `____`). THE SLICE, settled at byte
+> level before anything was "fixed": the reference's
+> `harvest_hand_rows` wraps `is_dismissed` + `processed_row` in
+> ONE inner try/except ("a broken probe harvests nothing"), and
+> the Go `HarvestHandRows` handled only the error shape — the
+> closed-DB probe PANICKED (`store.DB.Close()` nils the handle by
+> its own law; `QueryRow` on the nil `*sql.DB`), so every direct
+> caller inherited a hard crash where the reference answers 0 and
+> keeps the gesture (the master seam survived only behind its
+> blanket `recover()` belt). The empirical proof first: the
+> reference's own suite green in the venv (44/44, the authority),
+> then the ported selection — the reference's own
+> `test_a_broken_state_probe_harvests_nothing` setup (a proper
+> note + a processed row + the 🖐 gesture, the WOULD-harvest
+> shape) over a closed DB — PANICKED on its first run with the
+> exact predicted stack (`HarvestHandRows` → `IsDismissed` →
+> `QueryRow(0x0, …)`); the state=nil hermetic leg (the
+> docstring's "the state probe is optional") panicked the same
+> way. THE LANDING: the probe ladder in `decommission.go` — the
+> same twin `ScanMasterRedoRows` rides (ONE closure wrapping both
+> probe calls, `recover()` answering the broken verdict) — plus
+> the two pinning selections
+> (`internal/websitepipeline/handharvest_test.go`), all green
+> post-fix. The never-fires belts recorded, not changed (the
+> reference's caller belt logs a warning if it ever fires, the Go
+> master seam swallows silently — unreachable by construction on
+> both sides; the golden corpus pins the refresh log stream and
+> cannot see a never-fires belt). The records in the same commit
+> (reality wins): spec-core-website-pipeline.md's dated
+> SESSION-060 correction, the parity report's §4.2 counts (2394 +
+> 89 → **2396 + 89 = 2485**) + §9 (the harvest cousin CLOSED; the
+> remainder: the GUI-side hero/wiring equivalents + the CRLF
+> differential), the README's front-page count + the SESSION-060
+> status entry, this entry, the session report, NEXT-SESSION.md
+> (the state card v61). The battery at close: **2396 main (plain;
+> race 36 ok, 0 data races) + 89 webui, zero FAILs; gofmt/vet/
+> build clean in both modules; the MAIN go.mod byte-unchanged;
+> the MULTIEDIT-TAB corruption re-struck mid-session and was
+> repaired by the standing remedy (gofmt -w; the diff verified to
+> be exactly the edit region)**. What remains in Phase 7 is still
+> the owner's: T-82's live checklist (no haste — the owner's own
+> standing words) + the milestone release decision.
