@@ -162,6 +162,88 @@
     "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nFailed links waiting for the fifth door (your real Chrome, one tab each)\n────────────────────────────────────────────────────────────────\n  • https://example.com/epsilon\n      HTTP 403\n  • https://example.com/zeta\n      TLS handshake error\n\n12:00:00 ✔ 🤖 Dry-run — Chrome is never launched; the fifth door rehearsed 2 link(s), delivered 0.\n",
     "rc": 0
   },
+  "chrome_retry_live": {
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": true
+      },
+      "proxy": {
+        "enabled": false
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault"
+    },
+    "hand_url": "https://example.com/false-success",
+    "hand_wall": "HTTP 403 — bot defense",
+    "name": "delivered-plus-redo",
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nFailed links waiting for the fifth door (your real Chrome, one tab each)\n────────────────────────────────────────────────────────────────\n  🔁 redo — hand note(s) not properly stored:\n      https://example.com/false-success\n  • https://example.com/epsilon\n      HTTP 403\n  • https://example.com/zeta\n      TLS handshake error\n\n────────────────────────────── pre-flight checks ───────────────────────────────\n  ✔ GitHub token    authenticated as octo-owner\n  · Proxy           disabled — connecting directly\n  ✔ LLM provider    Ollama up @ http://127.0.0.1:11434 · 2 model(s) · 'llama3' ready\n\n12:00:00 ✔ 🤖 1 page(s) delivered from your real Chrome — processing them now through the Websites pipeline as real fetches…\n12:00:00 • 🔁 1 hand note(s) not properly stored — re-generating them from the delivered pages (the LLM writes the proper, categorized notes)\n[BATCH] mode=direct urls= non_github=https://example.com/epsilon,https://example.com/false-success\n",
+    "rc": 0
+  },
+  "chrome_retry_live_nothing": {
+    "config": {
+      "bot_username": "curator_bot",
+      "github_token": "fake-github-token-0123456789",
+      "llm_num_ctx": 8192,
+      "llm_provider": "ollama",
+      "manual_repo_name": "",
+      "manual_vault_path": "<vaults>/manual",
+      "models": {
+        "analyze": "llama3",
+        "classify": "llama3"
+      },
+      "notfound_strike_threshold": 3,
+      "ollama": {
+        "base_url": "http://127.0.0.1:11434",
+        "model": "llama3"
+      },
+      "pipelines": {
+        "github": true,
+        "websites": true
+      },
+      "proxy": {
+        "enabled": false
+      },
+      "taxonomy_path": "<app>/taxonomy/taxonomy.json",
+      "telegram_api_hash": "abcdef1234567890abcdef12",
+      "telegram_api_id": 12345,
+      "telegram_phone": "+989123456789",
+      "vault_path": "<vaults>/vault",
+      "vaultseal": {
+        "repo_name": "main-vault-backup"
+      },
+      "website_repo_name": "websites-backup",
+      "website_vault_path": "<vaults>/webvault-empty"
+    },
+    "hand_url": "https://example.com/false-success",
+    "hand_wall": "HTTP 403 — bot defense",
+    "name": "nothing-delivered",
+    "output": "\n   ▄███████▄  ▄████████    ▄████████    ▄████████  ███▄▄▄▄      ▄████████\n  ███    ███ ███    ███   ███    ███   ███    ███ ███▀▀▀██▄   ███    ███\n  ███    ███ ███    ███   ███    ███   ███    █▀▀ ███    ███  ███    ███\n ▄███▄▄▄▄███▄███▄▄▄▄▄███▄ ███    ███  ▄███▄▄▄     ███    ███ ▄███▄▄▄▄███▄\n▀▀▀▀▀▀▀▀▀▀▀ ███▀▀▀▀▀▀▀▀▀  ███    ███ ▀▀▀▀▀▀▀    ▀▀     ███▀ ▀▀▀▀▀   ███▀\n▀███████████ ███    ███   ███    ███ ▀███████████ ▄██    ███ ▄██████████▄\n  ███    ███ ███    ███   ███    ███          ███ ███    ███ ███    █████\n  ███    ███ ███    ███ ████    ████ ▄███████████  ▀█████▀  ███    █████\n  GitHub Project Curator — CLI v0.09.5  ·  colored · animated · fully automatic\n\nFailed links waiting for the fifth door (your real Chrome, one tab each)\n────────────────────────────────────────────────────────────────\n  • https://example.com/epsilon\n      HTTP 403\n  • https://example.com/zeta\n      TLS handshake error\n  • https://example.com/false-success\n      HTTP 403 — bot defense\n\n────────────────────────────── pre-flight checks ───────────────────────────────\n  ✔ GitHub token    authenticated as octo-owner\n  · Proxy           disabled — connecting directly\n  ✔ LLM provider    Ollama up @ http://127.0.0.1:11434 · 2 model(s) · 'llama3' ready\n\n12:00:00 ▲ 🤖 The fifth door delivered nothing — 2 tab(s) failed (chrome refused; tab crashed); the links keep waiting.\n",
+    "rc": 1
+  },
   "cliprint_lines": [
     "12:00:00 • hello\n",
     "12:00:00 ✔ it worked\n",

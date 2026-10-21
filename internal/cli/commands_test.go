@@ -646,10 +646,13 @@ func TestHandDeliveryNoVault(t *testing.T) {
 	}
 }
 
-// TestChromeRetryDryRunAndBoundary — the dry-run rehearsal answers the
-// honest card (Chrome never launched, nothing written); the live leg
-// answers the T-62 boundary card.
-func TestChromeRetryDryRunAndBoundary(t *testing.T) {
+// TestChromeRetryDryRunAndPreflightGate — the dry-run rehearsal
+// answers the honest card (Chrome never launched, nothing written);
+// the live leg's FIRST gate is the preflight (SESSION-058: the live
+// leg is real now — this config carries no token, so the preflight
+// aborts with its own card, exit 1; the full live path is
+// chromeretry_test.go's four selections).
+func TestChromeRetryDryRunAndPreflightGate(t *testing.T) {
 	home := t.TempDir()
 	t.Setenv("GITCURATOR_HOME", home)
 	t.Setenv("GITCURATOR_USER_CONFIG", filepath.Join(home, "user-config.json"))
@@ -685,15 +688,27 @@ func TestChromeRetryDryRunAndBoundary(t *testing.T) {
 		t.Errorf("the dry-run rehearsal wrote the queue — dry-run writes nothing")
 	}
 
-	// the live leg: the honest T-62 boundary card
+	// the live leg's preflight gate: the LLM leg answers the
+	// no-models ERROR (the default ollama provider, the models seam
+	// answering an empty list) → the preflight aborts, exit 1, and the
+	// delivery door is never reached (hermetic — no Chrome, no network).
 	buf2 := &bytes.Buffer{}
 	c2 := testCLI(buf2, "")
+	c2.OllamaModels = func(string, float64) ([]string, error) {
+		return nil, nil
+	}
 	rc2 := c2.Run([]string{"--chrome-retry", "--config", cfgPath})
 	if rc2 != 1 {
 		t.Fatalf("live rc = %d, want 1", rc2)
 	}
-	if !strings.Contains(buf2.String(), "lands with T-62 (Phase 5)") {
-		t.Errorf("missing the T-62 boundary card")
+	if !strings.Contains(buf2.String(),
+		"Ollama up @ http://127.0.0.1:11434 but NO models installed — "+
+			"run `ollama pull <model>` first") {
+		t.Errorf("missing the preflight abort card:\n%s", buf2.String())
+	}
+	if strings.Contains(buf2.String(), "Fifth door") {
+		t.Errorf("the delivery door must not run past a failed preflight:\n%s",
+			buf2.String())
 	}
 }
 

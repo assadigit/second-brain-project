@@ -1648,6 +1648,127 @@ app_stub.ProcessingWorker = _real_pw
 _github_stub.Github = _FakeGHClient
 ollama_stub.Client = _FakeOllamaUp
 
+# --- 9z. SESSION-058 — the chrome-retry LIVE leg (the routing law +
+# the honest cards) -----------------------------------------------
+# The reference's own TestCLIRouting shape, driven end-to-end through
+# cli_main: the delivery + the batch are the module-level fakes (the
+# reference's mock surface — test_noteredo patches exactly these two
+# attrs), the preflight runs REAL over the stubbed doors (the
+# _FakeGHClient + _FakeOllamaUp the engine section's restore just put
+# back; the Go replay runs its real PreflightChecks over its
+# PreflightGithub/OllamaModels seams — the preflight bytes are already
+# pinned by the 9i sections).
+from gitcurator.core import website_pipeline as _wp_live  # noqa: E402
+
+HAND_URL = "https://example.com/false-success"
+HAND_WALL = "HTTP 403 — bot defense"
+# the false-success fixture: a 🖐 row + a delivered page (the file is
+# the record — an unconsumed queue row with a page on disk counts as
+# delivered, the reference's own law) + NO processed row → the redo
+# set. The table grammar is the reference's own test_noteredo minimal
+# shape (the header + the column row + the row).
+_live_table = _wp_live.decommission_table_path(
+    os.path.join(VAULT_TMP, "webvault"))
+os.makedirs(os.path.dirname(_live_table), exist_ok=True)
+with open(_live_table, "w", encoding="utf-8") as fh:
+    fh.write("# t\n\n| # | Date | URL | Domain | Source | Status | Notes |\n"
+             "|---|------|-----|--------|--------|--------|-------|\n"
+             "| - | 2026-10-09 | %s | example.com | test | 🖐 hand | %s |\n"
+             % (HAND_URL, HAND_WALL))
+_hd_mod.enqueue_hand_delivery(
+    os.path.join(VAULT_TMP, "webvault"), [HAND_URL],
+    walls={HAND_URL: HAND_WALL}, log=lambda *a, **k: None)
+_live_page = os.path.join(
+    _hd_mod.hand_delivery_dir(os.path.join(VAULT_TMP, "webvault")),
+    _hd_mod.suggested_filename(HAND_URL))
+os.makedirs(os.path.dirname(_live_page), exist_ok=True)
+with open(_live_page, "wb") as fh:
+    fh.write(b"<html><head><title>Hand</title></head>"
+             b"<body>delivered</body></html>")
+# the config: the crafted env + the proxy OFF (the preflight's proxy
+# leg must not touch the network); the ollama model is llama3 (in
+# _FakeOllamaUp's list).
+CHROME_CFG = dict(CONFIG)
+CHROME_CFG["proxy"] = {"enabled": False}
+CHROME_CFG_PATH = os.path.join(APP_TMP, "chrome-live-config.json")
+write_config_file(CHROME_CFG_PATH, CHROME_CFG)
+# the module-level fakes: the delivery answers a crafted report (one
+# of the retry rows delivered), the batch prints its ROUTING
+# OBSERVATION as the marker line (urls=/non_github= joined with
+# commas — the Go replay's RunBatchFn door prints the same bytes).
+_real_cr_deliver = _ct_stub.deliver_pages_via_chrome
+_real_cr_batch = cli_mod.run_batch_visual
+
+
+def _fake_deliver_live(vault_path, links, log=None, config=None, **kw):
+    return {"delivered": 1, "failed": 0,
+            "urls": ["https://example.com/epsilon"],
+            "failed_links": [], "folder": ""}
+
+
+def _fake_batch_live(cfg, mode, *, urls=None, non_github=None, **kw):
+    print("[BATCH] mode=%s urls=%s non_github=%s"
+          % (mode, ",".join(urls or []),
+             ",".join(non_github or [])))
+    return 0
+
+
+_ct_stub.deliver_pages_via_chrome = _fake_deliver_live
+cli_mod.run_batch_visual = _fake_batch_live
+_chrome_live = _cap(lambda: cli_mod.cli_main(
+    ["--chrome-retry", "--config", CHROME_CFG_PATH]))
+OUT["chrome_retry_live"] = {
+    "name": "delivered-plus-redo",
+    "config": CHROME_CFG,
+    "hand_url": HAND_URL,
+    "hand_wall": HAND_WALL,
+    "output": _chrome_live[0],
+    "rc": _chrome_live[1],
+}
+# the nothing leg: a SECOND vault with an UN-delivered 🖐 row (the
+# Chrome pass's set, never the redo's) — the delivery fails every tab,
+# the honest card (the first errors ride it) + exit 1, the batch never
+# runs.
+CHROME_EMPTY_VAULT = os.path.join(VAULT_TMP, "webvault-empty")
+os.makedirs(CHROME_EMPTY_VAULT, exist_ok=True)
+_empty_table = _wp_live.decommission_table_path(CHROME_EMPTY_VAULT)
+os.makedirs(os.path.dirname(_empty_table), exist_ok=True)
+with open(_empty_table, "w", encoding="utf-8") as fh:
+    fh.write("# t\n\n| # | Date | URL | Domain | Source | Status | Notes |\n"
+             "|---|------|-----|--------|--------|--------|-------|\n"
+             "| - | 2026-10-09 | %s | example.com | test | 🖐 hand | %s |\n"
+             % (HAND_URL, HAND_WALL))
+CHROME_EMPTY_CFG = dict(CHROME_CFG)
+CHROME_EMPTY_CFG["website_vault_path"] = CHROME_EMPTY_VAULT
+CHROME_EMPTY_CFG_PATH = os.path.join(APP_TMP, "chrome-empty-config.json")
+write_config_file(CHROME_EMPTY_CFG_PATH, CHROME_EMPTY_CFG)
+
+
+def _fake_deliver_nothing(vault_path, links, log=None, config=None, **kw):
+    return {"delivered": 0, "failed": 2, "urls": [],
+            "failed_links": [
+                {"url": "https://example.com/epsilon",
+                 "error": "chrome refused"},
+                {"url": "https://example.com/zeta",
+                 "error": "tab crashed"},
+            ], "folder": ""}
+
+
+_ct_stub.deliver_pages_via_chrome = _fake_deliver_nothing
+_chrome_nothing = _cap(lambda: cli_mod.cli_main(
+    ["--chrome-retry", "--config", CHROME_EMPTY_CFG_PATH]))
+OUT["chrome_retry_live_nothing"] = {
+    "name": "nothing-delivered",
+    "config": CHROME_EMPTY_CFG,
+    "hand_url": HAND_URL,
+    "hand_wall": HAND_WALL,
+    "output": _chrome_nothing[0],
+    "rc": _chrome_nothing[1],
+}
+# restore the module doors (the payload's own discipline).
+_ct_stub.deliver_pages_via_chrome = _real_cr_deliver
+cli_mod.run_batch_visual = _real_cr_batch
+
 # --- 10. the env record (what the Go replay must rebuild) --------------
 OUT["env"] = {
     "config": CONFIG,

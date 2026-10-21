@@ -140,6 +140,23 @@ batch; no flag → friendly help card.
   run) waits for T-62's batch engine — an honest boundary card naming T-62, never a silent
   no-op (splitting the deliver from the process would diverge from the reference's one-run
   contract).
+  **DATED CORRECTION (2026-10-21, SESSION-058 — reality wins)**: the live leg landed HERE.
+  The T-62-era records had claimed it landed at SESSION-030 (the 6ccf184 commit message
+  names internal/cli/hands.go; the commit's own stat never touched the file) — the honest
+  boundary card and its pinning test stood until SESSION-058 landed the real leg. It
+  mirrors cli.py 1204-1245 exactly: the preflight BEFORE the `__config_path__` stamp (the
+  reference's own ordering quirk — cmd_auto stamps first, cmd_chrome_retry stamps after),
+  the delivery through the chromeDeliverDoor seam (`ChromeDeliverFn` — the reference's
+  module-function patch surface; the dry-run rehearsal routes through the same door), the
+  delivered/redo cards, THE ROUTING LAW (the delivered pages + the redo set ride
+  `NonGithub`, never the GitHub urls — the v0.57.0 fix), the batch through the
+  runBatchDoor seam (`RunBatchFn`; nil → the real RunBatchVisual), the first-three-errors
+  [:90]-runes composition, and the exit codes (0 = the batch's verdict; 1 = nothing
+  delivered + nothing to redo). Proven three ways: the four chromeretry_test.go selections
+  (the port of test_noteredo's TestCLIRouting + the post-batch ⚠️ warning), the
+  differential golden's two new sections (`chrome_retry_live` + `chrome_retry_live_nothing`
+  — the reference's own cli_main runs byte-compared, the golden at 110,503 bytes two-run
+  byte-identical), and the mutation teeth (TestGoldenCLIMutationChromeLive).
   **REALITY-WINS FIND (SESSION-028, fixed in-commit)**: the reference's `cmd_chrome_retry
   --dry-run` leg calls `deliver_pages_via_chrome` WITHOUT flipping the global dry-run switch
   (only the batch worker ever flips it) — the pinned rev's dry-run would launch the real
@@ -324,7 +341,9 @@ numbered menu, set + save, the SET card), settings.go's model-menu half
 model-picker bridge for T-62), `hands.go` (cmd_hand_delivery complete —
 the walled listing over the StateDB adapter + the enqueue + the folder
 card; cmd_chrome_retry — the listing + the full dry-run rehearsal + the
-honest T-62 boundary card for the live leg), and the dispatch updates
+honest T-62 boundary card for the live leg [superseded at SESSION-058:
+the live leg is real — the dated correction above carries the record]),
+and the dispatch updates
 (the not-yet cards retire for every implemented command).
 
 Engine-package touches (additive, no behavior change):

@@ -7,7 +7,9 @@ package cli
 // landed; the T-63 dispatch flip retired the last not-yet cards):
 //   --init (the wizard), --status, --test-connection, --detect-llm,
 //   --list-dead, --reset-dead, --hand-delivery, --chrome-retry (the
-//   live leg landed with T-62), --sync (the full door: beats 1a/1b/2/3),
+//   live leg landed at SESSION-058 — the T-62-era records had
+//   overstated it; doc 13's T-62 row carries the amendment), --sync
+//   (the full door: beats 1a/1b/2/3),
 //   --auto, --retry-failed, --import-file (the batch engine + drivers,
 //   T-62), --config, --vault, --yes/-y, --no-color, --dry-run,
 //   --strikes.
@@ -28,6 +30,7 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/assadigit/second-brain-project/internal/chrometabs"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/githubpipeline"
 	"github.com/assadigit/second-brain-project/internal/llmclient"
@@ -104,6 +107,22 @@ type CLI struct {
 	// real DownloadBanner; tests + the golden replay inject the fake
 	// banner so no network is touched).
 	BannerDownload func(owner, repoName, folder string) string
+	//
+	// SESSION-058 — the chrome-retry live leg's doors (the reference's
+	// own mock surface: test_noteredo's TestCLIRouting patches
+	// deliver_pages_via_chrome + run_batch_visual at the cli module
+	// level; the Go twin is these two nil-defaulted fields).
+	// ChromeDeliverFn replaces the whole fifth-door delivery for BOTH
+	// chrome-retry legs (nil → the real chrometabs.DeliverPagesViaChrome
+	// with no chrome-exe override and no fetcher — the dry-run rehearsal
+	// short-circuits inside it, exactly like the reference's own call).
+	ChromeDeliverFn func(vaultPath string, links []chrometabs.Link,
+		log chrometabs.LogFn, config map[string]any) chrometabs.DeliverReport
+	// RunBatchFn replaces the batch-engine call for the chrome-retry
+	// live leg only (nil → the real RunBatchVisual; cmd_auto/cmd_sync
+	// keep their direct engine calls — the reference's tests patch the
+	// module function only for chrome-retry's routing law).
+	RunBatchFn func(cfg *storage.OrderedMap, opts RunBatchOptions) int
 }
 
 // NewCLI builds the default shell bound to the real streams and the
@@ -148,6 +167,26 @@ func (c *CLI) ollamaFactoryDoor(host string) llmclient.OllamaAPI {
 		return c.OllamaFactory(host)
 	}
 	return llmclient.NewOllamaClient(host)
+}
+
+// chromeDeliverDoor / runBatchDoor are the chrome-retry live leg's
+// nil-safe seam accessors (the same law as the engine doors above: a
+// bare &CLI{} falls back to the production doors; the seams stay
+// injectable for the tests + the golden replay).
+func (c *CLI) chromeDeliverDoor(vaultPath string, links []chrometabs.Link,
+	log chrometabs.LogFn, config map[string]any) chrometabs.DeliverReport {
+	if c.ChromeDeliverFn != nil {
+		return c.ChromeDeliverFn(vaultPath, links, log, config)
+	}
+	return chrometabs.DeliverPagesViaChrome(vaultPath, links, log,
+		config, "", nil, nil)
+}
+
+func (c *CLI) runBatchDoor(cfg *storage.OrderedMap, opts RunBatchOptions) int {
+	if c.RunBatchFn != nil {
+		return c.RunBatchFn(cfg, opts)
+	}
+	return c.RunBatchVisual(cfg, opts)
 }
 
 // radarAllDoor / detectOllamaDoor / probeLlamaDoor / detectLlamaDoor

@@ -1092,3 +1092,45 @@ flowchart LR
 > card v58 + this entry + the README's entry); no implementation row
 > exists to move autonomously — what remains in Phase 7 is the
 > owner's: T-82's live checklist + the milestone release decision.
+
+> **SESSION-058 (2026-10-21) — the Phase-7 finish, owner-input driven,
+> the owner's delegation ("you choose; no haste to start the app"):
+> the deferred-debts path taken — and a REAL parity gap found + closed
+> (the CLI chrome-retry LIVE leg).** The 53rd wipe absorbed before
+> work (the anonymous public clone at `dda46d1` — the SESSION-057
+> close, tree clean; the reference re-cloned via the ephemeral
+> GIT_CONFIG_COUNT PAT form + byte-scanned at the pinned `98f4fc7`;
+> go1.27.2 sha-verified ×2 — the committed pin + go.dev's ARCHIVE
+> listing, SESSION-057's corrected second side; the venv; the wails
+> CLI v2.16.0; no webkit rebuild — the SIXTEENTH stays pending). go-ci
+> green at the open: run `39587039423` at `dda46d1` — success. The
+> battery re-verified green pre-work (2377 + 89, the exact committed
+> shape). THE FIND, settled at byte level before anything was
+> "fixed": the deferred test debt "test_noteredo's un-ported
+> selections" led to `TestCLIRouting` — the reference's chrome-retry
+> routing-law tests — whose Go counterparts were missing; the hunt
+> showed the Go `--chrome-retry` live leg (the preflight → the Chrome
+> delivery → the batch) never existed: `hands.go`'s single commit is
+> `41d699e` (SESSION-028, the boundary card), the `6ccf184` commit
+> message names hands.go but its stat never touched it, and the
+> current test pinned the boundary card. THE LANDING:
+> `internal/cli/hands.go`'s live leg mirroring cli.py 1204-1245
+> byte-exactly (the preflight-before-`__config_path__` ordering quirk,
+> the `ChromeDeliverFn`/`RunBatchFn` nil-defaulted doors — the
+> reference's own TestCLIRouting mock surface, THE ROUTING LAW: the
+> delivered pages + the redo set ride `NonGithub`, never the GitHub
+> urls, the first-three-errors [:90]-runes composition, the exit
+> codes), the four ported selections + the post-batch ⚠️ warning test
+> (`chromeretry_test.go`), the golden's two new sections
+> `chrome_retry_live`/`chrome_retry_live_nothing` (the reference's own
+> runs byte-compared; 110,503 bytes, two-run byte-identical), and the
+> mutation teeth (`TestGoldenCLIMutationChromeLive`). The records
+> fixed in the same commit (reality wins): spec-cli.md's dated
+> correction + the supersession note, doc 13's T-62 row amendment, the
+> parity report's §4.2 counts (2377 → 2382 + 89) + §9's sharpened
+> debt inventory, this entry, the README's entry. The battery at
+> close: **2382 main (plain; race 36 ok, 0 data races) + 89 webui,
+> zero FAILs; gofmt/vet/build clean in both modules; the MAIN go.mod
+> byte-unchanged**. What remains in Phase 7 is still the owner's:
+> T-82's live checklist (the owner has no haste — nothing this session
+> needs them) + the milestone release decision.

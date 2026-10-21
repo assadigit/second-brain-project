@@ -11,13 +11,16 @@ package cli
 // enqueue (queue.json + README.txt, the open-Chrome leg), the folder
 // card.
 //
-// --chrome-retry wires the LISTING (the retry rows + the 🖐 hand rows
-// + the redo set) and the FULL dry-run rehearsal; the live run
-// (preflight → the real Chrome delivery → run_batch_visual processing
-// the delivered pages IN THE SAME RUN) waits for T-62's batch engine —
-// an honest boundary card, never a silent no-op: splitting the deliver
-// from the process would diverge from the reference's one-run
-// contract.
+// --chrome-retry is COMPLETE (SESSION-058): the LISTING (the retry
+// rows + the 🖐 hand rows + the redo set), the FULL dry-run rehearsal,
+// and the LIVE RUN (preflight → the real Chrome delivery →
+// RunBatchVisual processing the delivered pages IN THE SAME RUN as
+// real fetches — the v0.57.0 routing law: website links ride
+// non_github, never the GitHub urls). The T-62 records had claimed the
+// live leg landed at SESSION-030 (the 6ccf184 commit message names
+// hands.go; the commit's own stat never touched it) — the honest
+// boundary card stood until SESSION-058 landed the real leg; doc 13's
+// T-62 row carries the dated amendment.
 //
 // REALITY-WINS FIND (recorded in spec-cli.md): the reference's
 // cmd_chrome_retry --dry-run leg calls deliver_pages_via_chrome
@@ -265,8 +268,8 @@ func (c *CLI) cmdChromeRetry(a *Args) int {
 		// entries are the rehearsal's log — spoken in the card, then
 		// cleared (the batch's dry-run report writer is T-62's).
 		dryrun.Enable()
-		report := chrometabs.DeliverPagesViaChrome(vault, toChromeLinks(links),
-			func(string, string) {}, cfgPlainMap(cfg), "", nil, nil)
+		report := c.chromeDeliverDoor(vault, toChromeLinks(links),
+			func(string, string) {}, cfgPlainMap(cfg))
 		dryrun.Disable()
 		dryrun.Clear()
 		c.CliPrint(fmt.Sprintf("🤖 Dry-run — Chrome is never launched; the fifth "+
@@ -275,15 +278,85 @@ func (c *CLI) cmdChromeRetry(a *Args) int {
 		return 0
 	}
 
-	// The live leg (preflight → the real Chrome delivery → the batch
-	// processing of every delivered page) lands with T-62's engine —
-	// the honest boundary card, never a silent no-op.
-	c.CliPrint("The fifth door's live run — preflight, the Chrome delivery, and "+
-		"the batch processing of every delivered page in the same run — "+
-		"lands with T-62 (Phase 5).", "warning")
-	c.CliPrint("Nothing was launched, nothing was written; the links keep "+
-		"waiting in the retry queue.", "info")
-	return 1
+	// The live leg (v0.07.2 — the same pre-flight as --auto /
+	// --retry-failed: the pages are processed right after they are
+	// delivered, and the processing needs the LLM). The reference's own
+	// ordering quirk mirrored exactly (cli.py 1204-1206): the preflight
+	// runs BEFORE __config_path__ is stamped — cmd_auto stamps first,
+	// cmd_chrome_retry stamps after — so the LLM preflight's save
+	// branch never sees a path on this leg.
+	if !c.PreflightChecks(cfg, false) {
+		return 1
+	}
+	cfg.Set("__config_path__", path)
+	report := c.chromeDeliverDoor(vault, toChromeLinks(links),
+		c.CliPrintLog(), cfgPlainMap(cfg))
+	delivered := report.URLs
+	failedTabs := report.Failed
+	var errParts []string
+	for i, fl := range report.FailedLinks {
+		if i >= 3 {
+			break // the reference's failed_links[:3]
+		}
+		if fl.Error == "" {
+			continue // if f.get("error") — the falsy errors never ride
+		}
+		errParts = append(errParts, pySliceRunes(fl.Error, 0, 90))
+	}
+	firstErrs := strings.Join(errParts, "; ")
+	if len(delivered) == 0 && len(redoURLs) == 0 {
+		msg := fmt.Sprintf(
+			"🤖 The fifth door delivered nothing — %d tab(s) failed", failedTabs)
+		if firstErrs != "" {
+			msg += fmt.Sprintf(" (%s)", firstErrs)
+		}
+		msg += "; the links keep waiting."
+		c.CliPrint(msg, "warning")
+		return 1
+	}
+	reprocess := append([]string{}, delivered...)
+	for _, u := range redoURLs {
+		dup := false
+		for _, d := range delivered {
+			if d == u {
+				dup = true
+				break
+			}
+		}
+		if !dup {
+			reprocess = append(reprocess, u)
+		}
+	}
+	if len(delivered) > 0 {
+		c.CliPrint(fmt.Sprintf("🤖 %d page(s) delivered from your real "+
+			"Chrome — processing them now through the Websites "+
+			"pipeline as real fetches…", len(delivered)), "success")
+	}
+	if len(redoURLs) > 0 {
+		c.CliPrint(fmt.Sprintf("🔁 %d hand note(s) not properly stored — "+
+			"re-generating them from the delivered pages (the LLM "+
+			"writes the proper, categorized notes)", len(redoURLs)), "info")
+	}
+	// v0.57.0 — THE ROUTING FIX: the delivered pages are WEBSITE links
+	// and ride the batch as non_github (the Websites pipeline), never
+	// as GitHub urls — the old 'direct' call fed them to the GitHub
+	// loop, which skipped every one as "non-GitHub URL" while the log
+	// told its ✅ story and no note was ever written.
+	rc := c.runBatchDoor(cfg, RunBatchOptions{
+		Mode:      "direct",
+		NonGithub: reprocess,
+		VaultArg:  a.Vault,
+		DryRun:    false, // the reference's dead-but-faithful kwarg (the dry-run case returned above)
+	})
+	if failedTabs > 0 {
+		msg := fmt.Sprintf("⚠️ %d tab(s) failed — those links keep "+
+			"waiting in the retry queue.", failedTabs)
+		if firstErrs != "" {
+			msg += fmt.Sprintf(" (%s)", firstErrs)
+		}
+		c.CliPrint(msg, "warning")
+	}
+	return rc
 }
 
 // toChromeLinks converts the listing rows into chrometabs.Link.

@@ -1524,3 +1524,37 @@ register) or small polish from the deferred-debts list (the
 [parity report](docs/PARITY-REPORT.md) §9). **What remains in
 Phase 7 is the owner's: T-82's live checklist + the milestone release
 decision.**
+
+
+**Phase 7 (continued) — SESSION-058**: **the owner delegated the pick
+("you choose") — the session took the deferred-debts path and found a
+REAL parity gap hiding under the recorded test debt: the CLI's
+`--chrome-retry` LIVE leg never existed.** The records claimed it
+landed at SESSION-030 (commit `6ccf184`'s message names `hands.go`;
+the commit's own stat never touched the file) — the honest "lands with
+T-62" boundary card + its pinning test stood for 28 sessions while the
+un-ported `test_noteredo` TestCLIRouting selections (the exact tests
+that would have caught it) sat on the deferred-debts list. SESSION-058
+landed the real leg: the preflight (before the `__config_path__`
+stamp, the reference's own ordering quirk) → the Chrome delivery
+through the new `ChromeDeliverFn` door (the reference's module-function
+patch surface; the dry-run rehearsal routes through the same door) →
+the delivered/redo cards → **THE ROUTING LAW** (the delivered pages +
+the redo set ride `non_github`, NEVER the GitHub urls — the v0.57.0
+fix) → the batch through the `RunBatchFn` door → the first-three-errors
+[:90]-runes composition → the exit codes. Proven three ways: the four
+ported selections + the post-batch warning test
+(`internal/cli/chromeretry_test.go`), the differential golden's two
+new sections (`chrome_retry_live` + `chrome_retry_live_nothing` — the
+reference's own `cli_main` runs byte-compared, 110,503 bytes two-run
+byte-identical), and the mutation teeth
+(`TestGoldenCLIMutationChromeLive`). The records fixed in the same
+commit (reality wins): spec-cli's dated correction, doc 13's T-62 row
+amendment, the parity report's counts (the battery 2377 → **2382** +
+89, race-clean, gofmt/vet/build clean in both modules) + the sharpened
+debt inventory. The 53rd wipe absorbed before work (the standard
+recipe held; go-ci green at the open — run `39587039423` at
+`dda46d1`). **The menu for the owner is unchanged**: (1) T-82's live
+Windows checklist (only if/when you have the urge — nothing this
+session needs you); (2) "ship it" — the milestone release; (3) the
+Phase-8 pick or more deferred-debts polish.

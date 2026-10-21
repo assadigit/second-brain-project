@@ -22,6 +22,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/assadigit/second-brain-project/internal/chrometabs"
 	"github.com/assadigit/second-brain-project/internal/config"
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
 	"github.com/assadigit/second-brain-project/internal/dryrun"
@@ -335,6 +336,11 @@ type goldenFile struct {
 	AutoGuardYes goldenDriverCase `json:"auto_guard_yes"`
 	AutoConfirm  goldenDriverCase `json:"auto_confirm"`
 	EngineDryrun goldenEngineCase `json:"engine_dryrun"`
+
+	// SESSION-058 — the chrome-retry live legs (the routing law + the
+	// honest cards; the payload's two-leg chain at the tail).
+	ChromeRetryLive        goldenChromeLiveCase `json:"chrome_retry_live"`
+	ChromeRetryLiveNothing goldenChromeLiveCase `json:"chrome_retry_live_nothing"`
 
 	// SESSION-031 — T-63: the launchers' differential stone (the
 	// reference's own .bat/.sh bytes + the byte-level facts).
@@ -1497,6 +1503,32 @@ func TestGoldenCLI(t *testing.T) {
 		assertBytesEq(t, "engine dry-run report",
 			rep.EngineReport, g.EngineDryrun.ReportBody)
 	})
+
+	// -----------------------------------------------------------------
+	// SESSION-058 — the chrome-retry LIVE legs (the routing law + the
+	// honest cards; the payload's own two-leg chain at the tail, after
+	// the engine section — the fixture crafts land after every section
+	// that reads the webvault, exactly like the payload's order).
+	// -----------------------------------------------------------------
+	liveOut, liveRC, nothingOut, nothingRC := replayChromeRetryLive(
+		t, g, appTmp, vaultsTmp)
+	t.Run("ChromeRetryLive", func(t *testing.T) {
+		assertBytesEq(t, "chrome-retry live output",
+			liveOut, g.ChromeRetryLive.Output)
+		if liveRC != g.ChromeRetryLive.RC {
+			t.Fatalf("chrome-retry live rc = %d, want %d",
+				liveRC, g.ChromeRetryLive.RC)
+		}
+	})
+
+	t.Run("ChromeRetryLiveNothing", func(t *testing.T) {
+		assertBytesEq(t, "chrome-retry nothing output",
+			nothingOut, g.ChromeRetryLiveNothing.Output)
+		if nothingRC != g.ChromeRetryLiveNothing.RC {
+			t.Fatalf("chrome-retry nothing rc = %d, want %d",
+				nothingRC, g.ChromeRetryLiveNothing.RC)
+		}
+	})
 }
 
 // TestGoldenCLIMutation proves the differential has teeth: one byte
@@ -1756,6 +1788,18 @@ type goldenDriverCase struct {
 	RC     int             `json:"rc"`
 }
 
+// goldenChromeLiveCase mirrors the SESSION-058 chrome-retry live-leg
+// sections: the crafted config, the fixture facts (the hand URL + its
+// wall), the console bytes, and the exit code.
+type goldenChromeLiveCase struct {
+	Name     string          `json:"name"`
+	Config   json.RawMessage `json:"config"`
+	HandURL  string          `json:"hand_url"`
+	HandWall string          `json:"hand_wall"`
+	Output   string          `json:"output"`
+	RC       int             `json:"rc"`
+}
+
 // goldenEngineCase mirrors the engine dry-run section: the config, the
 // structured log sequence, the console bytes (the finish card), the
 // exit code, and the dry-run report's body.
@@ -1913,6 +1957,123 @@ func replayDriverScenarios(t *testing.T, g *goldenFile,
 	return res
 }
 
+// replayChromeRetryLive replays the two SESSION-058 chrome-retry
+// live-leg sections: the false-success fixture (the 🖐 row + the
+// delivered page + the enqueue — the payload's own crafts, its own
+// table grammar), the two configs decoded from the golden, the
+// preflight doors (the reference's _FakeGHClient/_FakeOllamaUp twins
+// — the preflight bytes are already pinned by the 9i sections), the
+// delivery door (the crafted reports), and the batch door (the marker
+// line, comma-joined exactly like the payload's fake).
+func replayChromeRetryLive(t *testing.T, g *goldenFile,
+	appTmp, vaultsTmp string) (liveOut string, liveRC int,
+	nothingOut string, nothingRC int) {
+	t.Helper()
+
+	// the false-success fixture in the webvault (the payload's own
+	// crafts): the minimal master table + the enqueue + the page file
+	// (the file is the record — the delivered set's law).
+	webvault := filepath.Join(vaultsTmp, "webvault")
+	handURL := g.ChromeRetryLive.HandURL
+	handWall := g.ChromeRetryLive.HandWall
+	table := "# t\n\n| # | Date | URL | Domain | Source | Status | Notes |\n" +
+		"|---|------|-----|--------|--------|--------|-------|\n" +
+		fmt.Sprintf(
+			"| - | 2026-10-09 | %s | example.com | test | 🖐 hand | %s |\n",
+			handURL, handWall)
+	tablePath := websitepipeline.DecommissionTablePath(webvault)
+	if err := os.MkdirAll(filepath.Dir(tablePath), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(tablePath, []byte(table), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	handdelivery.EnqueueHandDelivery(webvault, []string{handURL},
+		map[string]string{handURL: handWall}, nil, false, "")
+	dir := handdelivery.HandDeliveryDir(webvault)
+	if err := os.MkdirAll(dir, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	page := filepath.Join(dir, handdelivery.SuggestedFilename(handURL))
+	if err := os.WriteFile(page, []byte(
+		"<html><head><title>Hand</title></head><body>delivered</body></html>"),
+		0o644); err != nil {
+		t.Fatal(err)
+	}
+	liveCfgPath := filepath.Join(appTmp, "chrome-live-config.json")
+	liveCfg := decodeConfig(t, g.ChromeRetryLive.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(liveCfgPath, liveCfg); err != nil {
+		t.Fatal(err)
+	}
+	// the nothing leg's own vault (an UN-delivered 🖐 row — the Chrome
+	// pass's set, never the redo's) + its config.
+	emptyVault := filepath.Join(vaultsTmp, "webvault-empty")
+	if err := os.MkdirAll(emptyVault, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	emptyTablePath := websitepipeline.DecommissionTablePath(emptyVault)
+	if err := os.MkdirAll(filepath.Dir(emptyTablePath), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(emptyTablePath, []byte(table), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	emptyCfgPath := filepath.Join(appTmp, "chrome-empty-config.json")
+	emptyCfg := decodeConfig(t, g.ChromeRetryLiveNothing.Config, appTmp, vaultsTmp)
+	if err := storage.WriteConfigFile(emptyCfgPath, emptyCfg); err != nil {
+		t.Fatal(err)
+	}
+
+	// --- the live leg (delivered + redo) --------------------------------
+	c, buf := replayCLI(t, g, "")
+	c.PreflightGithub = func(string) PreflightGHReply {
+		return PreflightGHReply{Status: 200, Login: "octo-owner"}
+	}
+	c.OllamaModels = func(string, float64) ([]string, error) {
+		return []string{"llama3", "qwen2.5-coder:7b"}, nil
+	}
+	c.ChromeDeliverFn = func(_ string, _ []chrometabs.Link,
+		_ chrometabs.LogFn, _ map[string]any) chrometabs.DeliverReport {
+		return chrometabs.DeliverReport{
+			Delivered: 1,
+			URLs:      []string{"https://example.com/epsilon"},
+		}
+	}
+	c.RunBatchFn = func(_ *storage.OrderedMap, opts RunBatchOptions) int {
+		fmt.Fprintf(c.Out, "[BATCH] mode=%s urls=%s non_github=%s\n",
+			opts.Mode, strings.Join(opts.URLs, ","),
+			strings.Join(opts.NonGithub, ","))
+		return 0
+	}
+	liveRC = c.Run([]string{"--chrome-retry", "--config", liveCfgPath})
+	liveOut = fold(buf.String(), appTmp, vaultsTmp)
+
+	// --- the nothing leg (every tab failed; the batch never runs) ------
+	c, buf = replayCLI(t, g, "")
+	c.PreflightGithub = func(string) PreflightGHReply {
+		return PreflightGHReply{Status: 200, Login: "octo-owner"}
+	}
+	c.OllamaModels = func(string, float64) ([]string, error) {
+		return []string{"llama3", "qwen2.5-coder:7b"}, nil
+	}
+	c.ChromeDeliverFn = func(_ string, _ []chrometabs.Link,
+		_ chrometabs.LogFn, _ map[string]any) chrometabs.DeliverReport {
+		return chrometabs.DeliverReport{
+			Failed: 2,
+			FailedLinks: []chrometabs.Link{
+				{URL: "https://example.com/epsilon", Error: "chrome refused"},
+				{URL: "https://example.com/zeta", Error: "tab crashed"},
+			},
+		}
+	}
+	c.RunBatchFn = func(*storage.OrderedMap, RunBatchOptions) int {
+		return 0
+	}
+	nothingRC = c.Run([]string{"--chrome-retry", "--config", emptyCfgPath})
+	nothingOut = fold(buf.String(), appTmp, vaultsTmp)
+	return
+}
+
 // TestGoldenCLIMutationDrivers — the SESSION-030 sections' teeth: one
 // byte changed in the guard's ground-truth line, in the engine's
 // report body, and in the engine's log sequence must each FAIL the
@@ -2014,6 +2175,68 @@ func TestGoldenCLIMutationDrivers(t *testing.T) {
 	}
 	if !equalSeq(rep.EngineLogs, wantUnmutated) {
 		t.Fatalf("the real log sequence diverged from the unmutated golden")
+	}
+}
+
+// TestGoldenCLIMutationChromeLive proves the SESSION-058 chrome-retry
+// live sections have teeth: one byte in the ROUTING MARKER (the
+// routing law's own observation) and one byte in the nothing card must
+// each fail the replay; the unmutated golden must pass it.
+func TestGoldenCLIMutationChromeLive(t *testing.T) {
+	g := loadGoldenCLI(t)
+	appTmp, vaultsTmp := buildEnv(t, g)
+	// the state the payload's earlier sections left before the chrome
+	// live sections: the hand-delivery enqueue (the webvault's queue)
+	// + the driver chain (the settlement + the engine's dry-run dirs).
+	{
+		c, buf := replayCLI(t, g, "")
+		if rc := c.Run([]string{"--hand-delivery", "--config",
+			filepath.Join(appTmp, "config.json")}); rc != g.HandDelivery.RC {
+			t.Fatalf("hand-delivery rc = %d, want %d", rc, g.HandDelivery.RC)
+		}
+		if got, want := fold(buf.String(), appTmp, vaultsTmp),
+			g.HandDelivery.Output; got != want {
+			t.Fatalf("hand-delivery diverged — the preamble is not the " +
+				"golden's own run")
+		}
+	}
+	if err := os.MkdirAll(filepath.Join(appTmp, "reports", "dry-runs"),
+		0o755); err != nil {
+		t.Fatal(err)
+	}
+	_ = replayDriverScenarios(t, g, appTmp, vaultsTmp)
+	liveOut, liveRC, nothingOut, nothingRC := replayChromeRetryLive(
+		t, g, appTmp, vaultsTmp)
+
+	// 1. the routing marker: the delivered page moved from non_github
+	// to urls (the exact old bug the routing law forbids).
+	mutatedMarker := strings.Replace(g.ChromeRetryLive.Output,
+		"[BATCH] mode=direct urls= non_github=https://example.com/epsilon,https://example.com/false-success",
+		"[BATCH] mode=direct urls=https://example.com/epsilon,https://example.com/false-success non_github=",
+		1)
+	if mutatedMarker == g.ChromeRetryLive.Output {
+		t.Fatalf("marker mutation did not bite (pattern missing)")
+	}
+	if liveOut == mutatedMarker {
+		t.Fatalf("the mutated routing marker passed the replay — no teeth")
+	}
+	if liveOut != g.ChromeRetryLive.Output || liveRC != g.ChromeRetryLive.RC {
+		t.Fatalf("the real live leg diverged from the unmutated golden")
+	}
+
+	// 2. the honest nothing card: one byte in the failed count.
+	mutatedNothing := strings.Replace(g.ChromeRetryLiveNothing.Output,
+		"delivered nothing — 2 tab(s) failed",
+		"delivered nothing — 3 tab(s) failed", 1)
+	if mutatedNothing == g.ChromeRetryLiveNothing.Output {
+		t.Fatalf("nothing mutation did not bite (pattern missing)")
+	}
+	if nothingOut == mutatedNothing {
+		t.Fatalf("the mutated nothing card passed the replay — no teeth")
+	}
+	if nothingOut != g.ChromeRetryLiveNothing.Output ||
+		nothingRC != g.ChromeRetryLiveNothing.RC {
+		t.Fatalf("the real nothing leg diverged from the unmutated golden")
 	}
 }
 

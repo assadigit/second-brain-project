@@ -82,11 +82,11 @@ T-64 to 33 today.
 
 ### 4.2 The test battery
 
-**2,377 main-module tests + 89 webui tests = 2,466, over 40 packages —
+**2,382 main-module tests + 89 webui tests = 2,471, over 40 packages —
 zero failures, race-detector clean, `gofmt` clean** (re-verified at
-this session's open and close; the same numbers CI proves on every
-push — the `go-ci` workflow is green post-flip, runs `39517044092` and
-`39517366335`).
+SESSION-058's close; 2,377 + 89 until SESSION-058, which added the
+five chrome-retry live-leg tests; the same numbers CI proves on every
+push).
 
 ### 4.3 Data compatibility (your existing data works as-is)
 
@@ -211,9 +211,15 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
 - **The desktop milestone release** — cutting the next tag ships the
   two-exe zip through the proven workflow. The owner's call.
 - **Recorded test debts** (evidence-recorded, not blockers):
-  `test_noteredo`'s remaining un-ported selections; the note_state
-  SURGERY path's CRLF round-trip differential; the launchers'
-  clean-VM smoke (rides T-82); the bootstrapper leg (doc 10 §7).
+  `test_noteredo`'s remaining un-ported selections (the CLI
+  routing-law class — TestCLIRouting — landed at SESSION-058 together
+  with the chrome-retry live leg it was guarding: the four selections
+  + the two golden sections + the mutation teeth; what remains is the
+  core-level TestRedoScan shapes beyond the app-seam + golden
+  coverage, and the GUI-side hero/wiring equivalents where the app
+  seam already covers the guards); the note_state SURGERY path's CRLF
+  round-trip differential; the launchers' clean-VM smoke (rides T-82);
+  the bootstrapper leg (doc 10 §7).
 - **Standing owner calls carried**: the webui-module dissolution
   (ADR-0002 Am.5); vanilla-vs-vite for the frontend; the
   batch-scorecard modal question; the v0.91.0 zip-parity reading
