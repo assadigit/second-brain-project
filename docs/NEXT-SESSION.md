@@ -61,18 +61,24 @@
   workflow. **What remains in Phase 7 is the OWNER's: T-82's live
   checklist (no haste — their words) + the milestone release
   decision.**
-- **Push state: CLEAN** — SESSION-058 committed + pushed its close
-  (the implementation + the tests + the golden + the records, one
-  commit; the ephemeral GIT_CONFIG_COUNT PAT form; never stored).
-  Verify `git status` in sync at the start.
+- **Push state: CLEAN** — SESSION-058 pushed its close `e43e023` (the
+  chrome-retry live leg: the implementation + the tests + the golden +
+  the records) + the CI-fix `584120b` (the mutation preamble's
+  open-Chrome ladder stubs — the close push's go-ci run `39594350522`
+  went RED on a Chrome-bearing runner: THE HERMETIC-SEAM law's
+  environment lesson — stub the ladder everywhere a hand-delivery
+  command runs; the fix push's run `39594895951` — SUCCESS; the
+  record is SESSION-058's report). Verify `git status` in sync at the
+  start.
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always); Actions minutes are
   unlimited; the no-secrets law is public-facing. **go-ci: GREEN on
-  the tree through `dda46d1`** (run `39587039423` at SESSION-057's
-  close, verified green at SESSION-058's open). **SESSION-058's close
-  push is the latest push — verify its run green at the open (a red
-  is a REAL failure now; watch the Actions tab on pushes as normal CI
-  hygiene).**
+  the tree through `584120b`** (run `39594895951` — SESSION-058's fix
+  push, SUCCESS; the close push `e43e023`'s run `39594350522` was RED
+  — the ladder-stub incident, fixed + green the same session).
+  **SESSION-058's fix push is the latest push — verify its run green
+  at the open (a red is a REAL failure now; watch the Actions tab on
+  pushes as normal CI hygiene).**
 - **The environment recipe** (the 53rd wipe was absorbed at
   SESSION-058's open — the standard recipe held, including
   SESSION-057's archive-listing correction): work repo at
@@ -322,11 +328,16 @@ counts [the battery 2377 → 2382 + 89 = 2471] + §9's sharpened debt
 inventory, doc 12's entry, the README's entry). THE HONEST-ZIP FIND
 (standing): the LIVE v0.92.0-go.1 release carries the CLI-milestone zip (12
 files, NO GUI exe); the desktop two-exe zip (13 files) rides the NEXT
-milestone release through the proven workflow. go-ci: GREEN through dda46d1
-(run 39587039423 verified green at SESSION-058's open); SESSION-058's close
-push is the latest push — verify its run green at the open (a red is a REAL
-failure now). What remains in Phase 7 is the OWNER's: T-82's live checklist
-(no haste) + the milestone release decision.
+milestone release through the proven workflow. go-ci: GREEN through 584120b
+(run 39594895951 — SESSION-058's fix push; the close push e43e023's run
+39594350522 was RED: the mutation preamble's open-Chrome ladder ran raw on
+a Chrome-bearing runner — GitHub's ubuntu runners SHIP Chrome, the sandbox
+does not; fixed with the HandDelivery subtest's own ladder stubs the same
+session — THE HERMETIC-SEAM law's environment lesson: stub the ladder
+everywhere a hand-delivery command runs); SESSION-058's fix push is the
+latest push — verify its run green at the open (a red is a REAL failure
+now). What remains in Phase 7 is the OWNER's: T-82's live checklist (no
+haste) + the milestone release decision.
 
 1. The environment is REBUILDABLE, not persistent (fifty-three wipe events
 across SESSION-005..058 — SESSION-058 absorbed the 53rd at its open; if the
@@ -395,11 +406,13 @@ v0.32.0 direct, and the go directive at 1.24.1 (the tls-client-forced floor
 byte-unchanged. THE REPO IS PUBLIC: pushes still need the ephemeral PAT
 (GIT_CONFIG_COUNT env-var form — never persisted; SCRUB if you ever CLONE
 with it); Actions minutes are unlimited; the no-secrets law is public-facing.
-Then check 'git status' and 'git log --oneline -3': SESSION-058's close is
-the HEAD (the chrome-retry live leg: hands.go + cli.go's two doors +
-chromeretry_test.go + the golden's two sections + the records; below it
-dda46d1 SESSION-057 close + 3ae2443 SESSION-056 close). Re-verify the suite
-before work if anything looks off — the law pays in bugs, not just safety.
+Then check 'git status' and 'git log --oneline -3': SESSION-058's fix is
+the HEAD (the CI-red fix: the mutation preamble's open-Chrome ladder
+stubs; below it e43e023 SESSION-058 close — the chrome-retry live leg:
+hands.go + cli.go's two doors + chromeretry_test.go + the golden's two
+sections + the records — then dda46d1 SESSION-057 close). Re-verify the
+suite before work if anything looks off — the law pays in bugs, not just
+safety.
 
 2. Read, in order: docs/sessions/SESSION-058.md (the most recent report) →
 docs/PARITY-REPORT.md (no open row left; §9's sharpened not-done list is the

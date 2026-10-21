@@ -166,6 +166,31 @@ Windows legs, whenever the urge arrives.
   expected 7 files (6 modified + 1 new), the MAIN go.mod + go.sum
   byte-unchanged (zero new dependencies — the seams are pure
   function-field indirections).
+- **THE CI INCIDENT (the close push went RED, caught + fixed the same
+  session — the honest record)**: the close commit `e43e023`'s go-ci
+  run `39594350522` failed EXACTLY ONE test:
+  `TestGoldenCLIMutationChromeLive` — "hand-delivery diverged — the
+  preamble is not the golden's own run". Root cause, settled from the
+  run's own logs: the mutation test's hand-delivery preamble ran with
+  the REAL open-Chrome ladder while the HandDelivery subtest injects
+  the ladder stubs (its own comment: "the replay injects the same
+  answers so the bytes hold on every machine") — **GitHub's ubuntu
+  runners SHIP Google Chrome; this sandbox does not**, which is why
+  the full local battery passed and the runner diverged (THE
+  HERMETIC-SEAM law, violated by the preamble on Chrome-bearing
+  machines — the runner caught it). The fix (`584120b`): the preamble
+  wraps its run in the same three stubs (Clock/FindChromeFn/
+  WebbrowserOpenFn) + restores them; the rest of the new surface was
+  audited unaffected (replayChromeRetryLive calls EnqueueHandDelivery
+  directly — the ladder lives in cmdHandDelivery, never the enqueue;
+  the unit tests fake the delivery + batch doors at construction; the
+  preflight-gate test never reaches the delivery door). The battery
+  re-verified after the fix (36 ok / 0 FAILs; the cli package
+  race-clean) and **the re-push's go-ci run `39594895951` at `584120b`
+  — SUCCESS**. The lesson rides the state card: an environment
+  difference (a browser on the runner) is a seam violation waiting to
+  happen — stub the ladder everywhere a hand-delivery command runs,
+  not just where the golden compares its bytes.
 - **The records fixed in the same commit (reality wins — fix the spec
   in the same commit)**: `spec-cli.md` (the dated correction on the
   T-60 section's "waits for T-62" paragraph + the supersession note on
@@ -267,8 +292,12 @@ sharpened §9 debt inventory is the honest remainder.
   properly with proof.
 - NEXT-SESSION.md rewritten: yes (the state card v59, the SESSION-059
   prompt inside).
-- Push state: CLEAN — this close commit is the session's single push
-  (the implementation + the tests + the golden + the records, one
-  commit); the ephemeral GIT_CONFIG_COUNT PAT form; never stored. The
-  push's go-ci run is watched per the CI-hygiene law (the chat report
-  carries the verdict; all battery legs were green locally pre-push).
+- Push state: CLEAN — the session's two pushes both landed: the close
+  commit `e43e023` (the implementation + the tests + the golden + the
+  records) and the CI-fix commit `584120b` (the mutation preamble's
+  ladder stubs); the ephemeral GIT_CONFIG_COUNT PAT form; never
+  stored. go-ci: the close push's run `39594350522` failed (the
+  incident above), the fix push's run `39594895951` — **SUCCESS** (the
+  CI-hygiene law held: the red was caught, root-caused from the run's
+  own logs, fixed, re-verified, and re-pushed green, all before the
+  session ended).

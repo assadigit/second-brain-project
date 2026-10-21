@@ -1131,6 +1131,11 @@ flowchart LR
 > debt inventory, this entry, the README's entry. The battery at
 > close: **2382 main (plain; race 36 ok, 0 data races) + 89 webui,
 > zero FAILs; gofmt/vet/build clean in both modules; the MAIN go.mod
-> byte-unchanged**. What remains in Phase 7 is still the owner's:
+> byte-unchanged**. The close push's go-ci run
+> `39594350522` went RED (the mutation preamble's open-Chrome ladder ran
+> raw on a Chrome-bearing runner — GitHub's runners SHIP Chrome, the
+> sandbox does not); fixed with the HandDelivery subtest's own ladder
+> stubs (`584120b`, run `39594895951` — SUCCESS, green the same
+> session). What remains in Phase 7 is still the owner's:
 > T-82's live checklist (the owner has no haste — nothing this session
 > needs them) + the milestone release decision.

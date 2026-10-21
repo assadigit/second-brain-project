@@ -1552,7 +1552,11 @@ byte-identical), and the mutation teeth
 commit (reality wins): spec-cli's dated correction, doc 13's T-62 row
 amendment, the parity report's counts (the battery 2377 → **2382** +
 89, race-clean, gofmt/vet/build clean in both modules) + the sharpened
-debt inventory. The 53rd wipe absorbed before work (the standard
+debt inventory. The close push's go-ci went RED once (the mutation
+test's hand-delivery preamble ran the open-Chrome ladder raw — GitHub's
+runners SHIP Chrome, the sandbox does not; THE HERMETIC-SEAM law's
+environment lesson) — fixed with the ladder stubs the same session
+(`584120b`, go-ci run `39594895951` green). The 53rd wipe absorbed before work (the standard
 recipe held; go-ci green at the open — run `39587039423` at
 `dda46d1`). **The menu for the owner is unchanged**: (1) T-82's live
 Windows checklist (only if/when you have the urge — nothing this
