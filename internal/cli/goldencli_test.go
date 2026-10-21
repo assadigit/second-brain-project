@@ -2188,11 +2188,28 @@ func TestGoldenCLIMutationChromeLive(t *testing.T) {
 	// the state the payload's earlier sections left before the chrome
 	// live sections: the hand-delivery enqueue (the webvault's queue)
 	// + the driver chain (the settlement + the engine's dry-run dirs).
+	// The open-Chrome ladder rides the SAME stubs the HandDelivery
+	// subtest injects (THE HERMETIC-SEAM law — the CI runner SHIPS
+	// Google Chrome, and the raw ladder diverged there at run
+	// 39594350522; the sandbox has no browser, which is why the local
+	// run passed — the stubs make the bytes hold on every machine).
 	{
+		prevClock := handdelivery.Clock
+		prevFind := handdelivery.FindChromeFn
+		prevWOpen := handdelivery.WebbrowserOpenFn
+		handdelivery.Clock = frozenClock
+		handdelivery.FindChromeFn = func() string { return "" }
+		handdelivery.WebbrowserOpenFn = func(u string) (bool, error) {
+			return false, fmt.Errorf("no browser")
+		}
 		c, buf := replayCLI(t, g, "")
-		if rc := c.Run([]string{"--hand-delivery", "--config",
-			filepath.Join(appTmp, "config.json")}); rc != g.HandDelivery.RC {
-			t.Fatalf("hand-delivery rc = %d, want %d", rc, g.HandDelivery.RC)
+		rcHD := c.Run([]string{"--hand-delivery", "--config",
+			filepath.Join(appTmp, "config.json")})
+		handdelivery.Clock = prevClock
+		handdelivery.FindChromeFn = prevFind
+		handdelivery.WebbrowserOpenFn = prevWOpen
+		if rcHD != g.HandDelivery.RC {
+			t.Fatalf("hand-delivery rc = %d, want %d", rcHD, g.HandDelivery.RC)
 		}
 		if got, want := fold(buf.String(), appTmp, vaultsTmp),
 			g.HandDelivery.Output; got != want {
