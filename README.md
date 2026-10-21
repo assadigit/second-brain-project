@@ -1346,3 +1346,34 @@ intake this session, recorded honestly). The close battery:
 session — `git diff` proves no Go/workflow bytes touched). **What
 remains in Phase 7 is the owner's: T-82's live checklist + the
 milestone release decision.**
+
+**Phase 7 (continued) — SESSION-052**: **the AC-17 benchmark COMPLETE
+— the parity report's one open performance row measured and closed:
+the Go vault scan is 2.25× faster than Python (14.6 ms vs 32.8 ms
+cold, same box, same synthetic corpus — the ≤ 50% gate PASSES at
+44.5%; 41.4% vs the recorded T-04 baseline).** The 47th wipe absorbed
+before work (the standard recipe: the anonymous public clone, the
+pinned reference `98f4fc7`, go1.27.2 sha-verified against the
+committed pin, the venv, the wails CLI; no webkit rebuild — no Linux
+GUI build this session). The decision tree ran path (c) — the owner
+brought no T-82 results and no "ship it" — so the menu is surfaced in
+the session report (the milestone release / T-82's live legs /
+Phase-8 scoping), and the session's executed slice was the benchmark.
+**The new `testdiff/gobench` rig** (the goside pattern — the
+production scan door `ScanVaultInventory` behind one mode verb, the
+T-04 corpus generator byte-mirrored, the same four timed passes as
+`python_baselines.py`'s scan mode, the Python rig's JSON field names
++ the census counts) ran three fresh times per side on the same box,
+beside the committed Python rig re-run fresh. **The proofs**: the two
+corpus builders tree-hash EQUAL (`1091ed89…` over 1,314 files); the
+reference's own scan over the Go-built vault returns the IDENTICAL
+census (all ten counts + `notes_seen_by_scan` 1319). **The numbers
+(median of 3)**: cold **14.6 vs 32.8 ms** (44.5% same-box; 41.4% vs
+T-04's 35.3); cache-warm **5.3 vs 16.9 ms**; cache-fill 73.5 vs
+249.0 ms; **~90.5k vs ~40.2k notes/s**. The record:
+[`docs/poc-artifacts/ac17-go-vaultscan-benchmark.md`](docs/poc-artifacts/ac17-go-vaultscan-benchmark.md)
+(the rerun recipes + the cross-check driver inside); the
+[parity report](docs/PARITY-REPORT.md) §5 row closed + §9 updated;
+doc 15's AC-17 dated completion note. **What remains in Phase 7 is
+still the owner's: T-82's live checklist + the milestone release
+decision.**

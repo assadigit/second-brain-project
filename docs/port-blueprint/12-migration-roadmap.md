@@ -895,3 +895,36 @@ flowchart LR
 > release decision.** The battery at the close: 2377 + 89, zero FAILs,
 > gofmt clean both modules (docs-only session — no Go/workflow bytes
 > touched).
+
+> **SESSION-052 (2026-10-21) — the AC-17 benchmark COMPLETE (the
+> parity report's one open performance row closed); the Phase-7 finish
+> session ran the owner-input path (c): the menu surfaced, the
+> autonomous slice executed.** The 47th wipe absorbed before work (the
+> standard recipe: the Go port re-cloned anonymously — it is public;
+> the Python reference re-cloned with the ephemeral PAT then scrubbed +
+> byte-scanned, at the pinned 98f4fc7; go1.27.2 sha-verified against
+> TOOLCHAIN.md Am.2's committed pin; the venv; the wails CLI v2.16.0;
+> no webkit rebuild — no Linux GUI build this session). The decision
+> tree: the owner brought no T-82 results and no "ship it" — the menu
+> surfaced in the close report (Phase-8 scoping / the release decision
+> / T-82's live legs); the executed slice was the tree's own (c)
+> benchmark option. **The rig**: `testdiff/gobench` (NEW — the goside
+> pattern: the production door `vaultscan.ScanVaultInventory` behind
+> one mode verb; `_build_vault`'s byte-mirror as the corpus generator;
+> the same four timed passes as T-04's mode_scan; the Python rig's JSON
+> field names + the census counts; the battery shape unchanged — the
+> package carries no tests). **The proofs**: the two builders' corpora
+> tree-hash EQUAL (sha256 `1091ed89…` over 1,314 files); the
+> reference's own scan over the Go-built vault returns the IDENTICAL
+> census (notes_seen 1319, all ten counts); both rigs ran 3× fresh on
+> the same box. **The numbers (medians)**: Go cold **14.6 ms** vs
+> Python 32.8 ms same-box (**44.5%**) and 35.3 ms recorded baseline
+> (**41.4%**) — ≤ 50% **PASS**; cache-warm 5.3 vs 16.9 (31.4%);
+> cache-fill 73.5 vs 249.0 (29.5%); ~90.5k vs ~40.2k notes/s (2.25×).
+> The docs: `docs/poc-artifacts/ac17-go-vaultscan-benchmark.md` (the
+> full record + the rerun recipes + the driver's bytes); the
+> PARITY-REPORT §5 row closed + §9's open bullet retired + §10's
+> double-check line; doc 15 §4's AC-17 dated completion note; the
+> README's SESSION-052 status entry. What remains in Phase 7 is still
+> the owner's: T-82's live checklist + the milestone release decision
+> (the Phase-8 menu sits in the close report + NEXT-SESSION.md).

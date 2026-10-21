@@ -54,6 +54,13 @@
   parity: ≤120 ms flush, bounded batches).
 - **AC-17** Full vault inventory scan of the owner-scale vault (≈1,300 notes) completes ≤ 50% of
   the measured Python baseline.
+  *Completed 2026-10-21 (SESSION-052, the AC-17 benchmark): the Go rig `testdiff/gobench`
+  and the Python T-04 rig ran three fresh times each on the same box over the same synthetic
+  1,314-note corpus (the two corpus builders proven byte-identical by tree hash; the two
+  engines' census outputs identical on the same tree). Go cold 14.6 ms vs Python 32.8 ms
+  (medians) = 44.5% — 41.4% against T-04's recorded 35.3 ms; cache-warm 5.3 vs 16.9 ms
+  (31.4%); ~90.5k vs ~40.2k notes/s. Evidence: `docs/poc-artifacts/ac17-go-vaultscan-benchmark.md`.
+  The owner's real-vault number still lands at the first live run.*
 - **AC-18** No network or LLM operation blocks the UI thread (verified by the sentinel/batch
   running while interacting).
 

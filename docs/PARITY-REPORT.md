@@ -115,8 +115,10 @@ push — the `go-ci` workflow is green post-flip, runs `39517044092` and
 ## 5. Speed — the measured numbers
 
 Same sandbox class for both columns (the Python column is T-04's
-baseline rig; the Go column is the gate-leg measurements + fresh
-measurements taken this session on the rebuilt environment):
+baseline rig + a fresh same-box re-run at SESSION-052; the Go column
+is the gate-leg measurements + the SESSION-051 CLI numbers + the
+SESSION-052 scan benchmark — the scan row's two sides measured on the
+same box):
 
 | What | Python (measured) | Go (measured) | Target |
 |---|---|---|---|
@@ -125,11 +127,15 @@ measurements taken this session on the rebuilt environment):
 | CLI `--status`, full config card | 893.6 ms | **≈ 134 ms** (measured 2026-10-21, median of 3) | ≤ 0.5 s ✅ |
 | Log desk, 10,000-line flood | drains in 1,960.9 ms | ≥ 454,000 lines/s, **0 dropped lines**, handler ≤ 30 ms/batch | UI stays interactive ✅ |
 | GUI exe size | (Python needs an interpreter + packages) | 14.95 MB, single file, no installer | < 20 MB ✅ |
-| Full vault scan (owner-scale ≈ 1,300 notes) | 35.3 ms cold / 16.7 ms warm (synthetic vault) | **not yet measured on the Go side** — the engine is differential-proven; the honest wall-time number lands on your real vault at the first live run (§9) | ≤ 50% of Python (open) |
+| Full vault scan (owner-scale ≈ 1,300 notes) | 35.3 ms cold / 16.7 ms warm (synthetic vault; same-box re-run 2026-10-21: 32.8 / 16.9) | **14.6 ms cold / 5.3 ms warm** (synthetic vault, measured 2026-10-21, median of 3 — 44.5% of Python same-box, 41.4% of the recorded baseline; same-input + same-output proven: [`ac17-go-vaultscan-benchmark.md`](poc-artifacts/ac17-go-vaultscan-benchmark.md)) | ≤ 50% of Python ✅ |
 
-Both `--status` rows and the flood row beat Python by 6–10×. The
-sandbox numbers are not your Windows numbers — T-82's checklist items
-2/3 measure them on your machine (that is its purpose).
+Both `--status` rows and the flood row beat Python by 6–10×; the vault
+scan is 2.25× faster (measured 2026-10-21 on the same synthetic corpus
+Python's baseline used, same-input and same-output proven — the record
+is `docs/poc-artifacts/ac17-go-vaultscan-benchmark.md`). The sandbox
+numbers are not your Windows numbers — T-82's checklist items 2/3
+measure them on your machine (that is its purpose), and the scan row's
+real-vault number lands at your first live run.
 
 ## 6. Every deviation from the original plan (and why)
 
@@ -204,8 +210,6 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
   automated and green.
 - **The desktop milestone release** — cutting the next tag ships the
   two-exe zip through the proven workflow. The owner's call.
-- **The Go-side vault-scan wall-time** (§5's open row) — lands on
-  your real vault at the first live run.
 - **Recorded test debts** (evidence-recorded, not blockers):
   `test_noteredo`'s remaining un-ported selections; the note_state
   SURGERY path's CRLF round-trip differential; the launchers'
@@ -223,6 +227,8 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
   `go test ./...` in both modules from a clean checkout.
 - The release proof: `docs/poc-artifacts/t-81-release-workflow.md`
   (the runner table + the refusal leg + the cleanup).
+- The scan row: `docs/poc-artifacts/ac17-go-vaultscan-benchmark.md`
+  (both rigs + the cross-check driver rerunnable; the recipes inside).
 - Any task's detail: its row in
   `docs/port-blueprint/13-implementation-task-list.md` names its
   evidence doc; every session's work is in `docs/sessions/`.
@@ -232,6 +238,8 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
 
 ---
 
-*Report assembled at SESSION-051 (T-83). The per-session engineering
-history lives in `docs/sessions/`; the task list with every row's full
-record is `docs/port-blueprint/13-implementation-task-list.md`.*
+*Report assembled at SESSION-051 (T-83); §5's scan row measured and
+closed at SESSION-052 (2026-10-21, the AC-17 benchmark —
+`docs/poc-artifacts/ac17-go-vaultscan-benchmark.md`). The per-session
+engineering history lives in `docs/sessions/`; the task list with every
+row's full record is `docs/port-blueprint/13-implementation-task-list.md`.*
