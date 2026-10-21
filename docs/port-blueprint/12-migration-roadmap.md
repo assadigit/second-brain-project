@@ -928,3 +928,24 @@ flowchart LR
 > README's SESSION-052 status entry. What remains in Phase 7 is still
 > the owner's: T-82's live checklist + the milestone release decision
 > (the Phase-8 menu sits in the close report + NEXT-SESSION.md).
+
+> **SESSION-053 (2026-10-21) — the Phase-7 finish, owner-input driven:
+> the decision tree ran path (c) — the menu surfaced; the 48th wipe
+> absorbed; the battery re-verified green (the exact committed
+> shape).** The owner brought no T-82 results and no "ship it": the
+> menu (T-82's live Windows legs / the milestone release decision /
+> Phase-8 scoping from the register above / small polish from the
+> deferred-debts list) is surfaced in the SESSION-053 report +
+> NEXT-SESSION.md's state card v54. The 48th full wipe absorbed
+> before work (the standard recipe held without correction: the
+> anonymous public clone at `28958bd`; the reference re-cloned with
+> the ephemeral PAT then scrubbed + byte-scanned at the pinned
+> `98f4fc7`; go1.27.2 sha-verified against TOOLCHAIN.md Am.2's
+> committed pin; the venv [plain form]; the wails CLI v2.16.0; no
+> webkit rebuild — no Linux GUI build, and the full battery runs
+> without it). The battery re-verified green pre-work: **2377 main
+> (plain; race 36 ok, 0 data races) + 89 webui, zero FAILs** — the
+> exact committed shape. A docs-only close (the report + the state
+> card v54 + this entry + the README's entry); no implementation row
+> exists to move autonomously — what remains in Phase 7 is the
+> owner's: T-82's live checklist + the milestone release decision.
