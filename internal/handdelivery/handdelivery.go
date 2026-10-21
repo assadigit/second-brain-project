@@ -214,8 +214,12 @@ func (q *Queue) Meta(u string) *storage.OrderedMap {
 	return nil
 }
 
-// metaStr reads one string field off a meta map.
-func metaStr(om *storage.OrderedMap, key string) string {
+// MetaStr reads one string field off a queue meta map (nil-safe —
+// the reference's (meta or {}).get(key) string read). Exported at
+// SESSION-059: the website-pipeline master scans read the queue's meta
+// fields with the same laws (the delivered probe the reference
+// inlines in scan_master_hand_rows + scan_master_redo_rows).
+func MetaStr(om *storage.OrderedMap, key string) string {
 	if om == nil {
 		return ""
 	}
@@ -229,9 +233,11 @@ func metaStr(om *storage.OrderedMap, key string) string {
 	return ""
 }
 
-// metaTruthy reads one field with Python truthiness (a False/""/"0"
-// consumed stamp reads NOT consumed).
-func metaTruthy(om *storage.OrderedMap, key string) bool {
+// MetaTruthy reads one field with Python truthiness (a False/""/"0"
+// consumed stamp reads NOT consumed). Exported at SESSION-059 for the
+// master scans' delivered probe — the same read TakeHandDelivered's
+// consume gate rides.
+func MetaTruthy(om *storage.OrderedMap, key string) bool {
 	if om == nil {
 		return false
 	}
@@ -304,8 +310,8 @@ func ReadmeText(q *Queue) string {
 		m := q.Meta(u)
 		sug, wall := "", ""
 		if m != nil {
-			sug = metaStr(m, "suggested")
-			wall = metaStr(m, "wall")
+			sug = MetaStr(m, "suggested")
+			wall = MetaStr(m, "wall")
 		}
 		if sug == "" {
 			sug = SuggestedFilename(u)
@@ -400,7 +406,7 @@ func EnqueueHandDelivery(vaultPath string, urls []string,
 				u = canon
 			}
 		}
-		if m := queue.Meta(u); m != nil && metaTruthy(m, "consumed") {
+		if m := queue.Meta(u); m != nil && MetaTruthy(m, "consumed") {
 			// a re-enqueue of a consumed link resets it (the owner may
 			// hand-deliver again — e.g. the page changed)
 			m.Set("consumed", false)
@@ -472,18 +478,18 @@ func CollectDelivered(vaultPath string) []DeliveredPage {
 	var out []DeliveredPage
 	for _, u := range queue.Links.Keys() {
 		m := queue.Meta(u)
-		if m == nil || metaTruthy(m, "consumed") {
+		if m == nil || MetaTruthy(m, "consumed") {
 			continue
 		}
-		suggested := metaStr(m, "suggested")
+		suggested := MetaStr(m, "suggested")
 		if suggested == "" {
 			suggested = SuggestedFilename(u)
 		}
 		path := filepath.Join(folder, suggested)
 		if st, err := os.Stat(path); err == nil && !st.IsDir() && st.Size() > 0 {
 			out = append(out, DeliveredPage{
-				URL: u, Wall: metaStr(m, "wall"), Suggested: suggested,
-				File: path, Door: metaStr(m, "door"),
+				URL: u, Wall: MetaStr(m, "wall"), Suggested: suggested,
+				File: path, Door: MetaStr(m, "door"),
 			})
 		}
 	}
@@ -557,10 +563,10 @@ func TakeHandDelivered(vaultPath, canonical string, log LogFn, allowConsumed boo
 	if meta == nil {
 		return nil
 	}
-	if metaTruthy(meta, "consumed") && !allowConsumed {
+	if MetaTruthy(meta, "consumed") && !allowConsumed {
 		return nil
 	}
-	suggested := metaStr(meta, "suggested")
+	suggested := MetaStr(meta, "suggested")
 	if suggested == "" {
 		suggested = SuggestedFilename(canonical)
 	}
@@ -580,20 +586,20 @@ func TakeHandDelivered(vaultPath, canonical string, log LogFn, allowConsumed boo
 	if pyBytesBlank(body) {
 		return nil
 	}
-	if metaStr(meta, "door") == "auto" {
+	if MetaStr(meta, "door") == "auto" {
 		if ok, reason := autoPageIsReal(canonical, body); !ok {
 			_ = os.Remove(path) // the app's own file — discarded
 			log(fmt.Sprintf("⚠️ The auto-delivered page for %s was NOT the site (%s) — discarded (the app's own file), the link keeps waiting for its doors", canonical, reason), "warning")
 			return nil
 		}
 	}
-	if !dryrun.IsEnabled() && !metaTruthy(meta, "consumed") {
+	if !dryrun.IsEnabled() && !MetaTruthy(meta, "consumed") {
 		meta.Set("consumed", stampNow())
 		if err := queue.WriteAtomic(vaultPath); err != nil {
 			log(fmt.Sprintf("⚠️ Hand-delivery queue could not be stamped: %v", err), "warning")
 		}
 	}
-	return HandFetchResult(canonical, body, metaStr(meta, "wall"), metaStr(meta, "door"))
+	return HandFetchResult(canonical, body, MetaStr(meta, "wall"), MetaStr(meta, "door"))
 }
 
 // StatusIsHand mirrors _status_is_hand: True when a gesture reads as

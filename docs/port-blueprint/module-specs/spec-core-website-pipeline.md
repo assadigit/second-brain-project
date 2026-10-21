@@ -196,3 +196,37 @@ Port from `test_banishment`, `test_phase*` selections, `test_websitesqueuefix`,
 > section) fails with a precise diff. 1828 race-clean at the close.
 > Phase 4's exit gate: CLOSED (the stamp + the stone table citation:
 > 12-migration-roadmap.md §Phase 4).
+
+> **SESSION-059 — the delivered-law correction (the noteredo
+> core-level port found a REAL parity gap; reality wins, fixed in the
+> same commit).** The deferred test debt's "TestRedoScan shapes" port
+> (`internal/websitepipeline/noteredo_test.go` — 11 selections + the
+> iconcolumn §7 never-re-ask leg) failed 4 selections on its first
+> run, and the byte-level read of both sides settled why:
+> `scan_master_hand_rows` + `scan_master_redo_rows` INLINE their own
+> delivered probe in the reference (a queue entry marked consumed, OR
+> its suggested page file present — `os.path.isfile`, NO size check),
+> but the Go port had reused the BATCH-side collector
+> (`handdelivery.CollectDelivered` — skip-consumed + getsize>0), so a
+> CONSUMED row was invisible to both Go scans: the redo scan missed
+> THE OWNER'S EXACT CASE (consumed + a half-fetched `_review` note is
+> the very false-success the v0.57.0 feature exists to redo) and the
+> hand scan re-asked a consumed row for a Chrome tab (the reference:
+> "the record stays, the link is not re-scraped"). The 0-byte page
+> file and the nil-meta queue row diverged likewise. The fix:
+> `decommission.go`'s own `deliveredURLSet` — the reference's inlined
+> law byte-for-byte (MetaStr/MetaTruthy exported from handdelivery as
+> the queue-meta readers; `(meta or {})` nil-handling; a broken queue
+> degrades to the empty set behind the never-raise law) — now feeds
+> BOTH scans. The same port also forced the probe-ladder twin: the
+> reference wraps `is_dismissed` + `processed_row` in ONE try/except
+> ("a broken probe redoes nothing"), and the Go scan handled errors
+> but PANICKED on the closed-DB probe shape (`store.DB.Close()` nils
+> the handle by its own law; the reference's `_Broken` raises the
+> Python-class twin) — the scan now recovers the panic as the broken
+> answer. The harvest (`HarvestHandRows`) carries the reference's
+> same try/except and still lacks the panic twin — recorded on the
+> sharpened remainder, not fixed here (one slice, done properly).
+> All 12 ported selections green post-fix; the reference's own suite
+> green in the venv both before and after (the authority); the
+> battery 2394 + 89 at the close (2382 + 12).

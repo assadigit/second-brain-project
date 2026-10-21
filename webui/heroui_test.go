@@ -2130,6 +2130,12 @@ func TestHeroUIFanfareChainGate(t *testing.T) {
 	// the tried belt: the SAME table answers nothing on the next
 	// natural crossing (once per session per link).
 	rig.ui.onBatchFanfare(app.BatchFinished{OK: true, Natural: true})
+	// the first crossing's delivery is ASYNCHRONOUS (startChromeTabRetry's
+	// goroutine) — wait for it to land before the exact count (the
+	// belt's own law caps the count at 1 here, so the wait is race-free;
+	// the bare read flaked under the multi-package battery's CPU
+	// contention — SESSION-059's flake repair, the rig's own waiter).
+	waitDeliverCalls(t, rig, 1)
 	rig.mu.Lock()
 	calls = rig.chromeDeliverCalls
 	rig.mu.Unlock()

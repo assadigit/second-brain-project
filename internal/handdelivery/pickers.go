@@ -99,17 +99,17 @@ func PendingHandLinks(vaultPath string) []PendingHandLink {
 	folder := HandDeliveryDir(vaultPath)
 	for _, u := range queue.Links.Keys() {
 		m := queue.Meta(u)
-		if m == nil || metaTruthy(m, "consumed") {
+		if m == nil || MetaTruthy(m, "consumed") {
 			continue
 		}
-		suggested := metaStr(m, "suggested")
+		suggested := MetaStr(m, "suggested")
 		if suggested == "" {
 			suggested = SuggestedFilename(u)
 		}
 		if st, err := os.Stat(filepath.Join(folder, suggested)); err == nil && !st.IsDir() {
 			continue // the page landed — it is delivered
 		}
-		out = append(out, PendingHandLink{URL: u, Wall: metaStr(m, "wall")})
+		out = append(out, PendingHandLink{URL: u, Wall: MetaStr(m, "wall")})
 	}
 	return out
 }

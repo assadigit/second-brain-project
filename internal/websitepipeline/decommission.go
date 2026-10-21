@@ -674,7 +674,7 @@ func ScanMasterHandRows(vaultPath string, log LogFn) []HandRow {
 	}
 	// the delivered probe: a queue entry marked consumed, or whose
 	// suggested page file already sits in the hand-delivered folder.
-	delivered := collectDeliveredURLs(vaultPath)
+	delivered := deliveredURLSet(vaultPath)
 	seen := map[string]bool{}
 	lines, ok := readTableLines(path)
 	if !ok {
@@ -731,7 +731,7 @@ func ScanMasterRedoRows(vaultPath string, state *StateDB, log LogFn) []RedoRow {
 	if state == nil {
 		return out // nothing can be proven false — the hermetic law
 	}
-	delivered := collectDeliveredURLs(vaultPath)
+	delivered := deliveredURLSet(vaultPath)
 	seen := map[string]bool{}
 	lines, ok := readTableLines(path)
 	if !ok {
@@ -752,12 +752,28 @@ func ScanMasterRedoRows(vaultPath string, state *StateDB, log LogFn) []RedoRow {
 		if !delivered[canonical] {
 			continue // no delivery yet — the Chrome pass's set
 		}
-		dismissed, err := state.IsDismissed(canonical)
-		if err != nil || dismissed {
-			continue // a broken probe redoes nothing
-		}
-		prior, err := state.ProcessedRow(canonical)
-		if err != nil {
+		// the probe ladder (the reference's try/except around
+		// is_dismissed + processed_row): a broken probe — a query
+		// error OR a panicked handle (the closed-DB shape; SQL() is nil
+		// after Close by the store's own law, and the reference's
+		// _Broken raises the Python-class twin) — redoes nothing.
+		prior, probeBroken := func() (prior *ProcessedRow, broken bool) {
+			defer func() {
+				if recover() != nil {
+					broken = true
+				}
+			}()
+			dismissed, err := state.IsDismissed(canonical)
+			if err != nil || dismissed {
+				return nil, true // retired rows are the verdicts' business
+			}
+			prior, err = state.ProcessedRow(canonical)
+			if err != nil {
+				return nil, true
+			}
+			return prior, false
+		}()
+		if probeBroken {
 			continue
 		}
 		proper, why := NoteIsProperlyStored(prior)
@@ -773,14 +789,39 @@ func ScanMasterRedoRows(vaultPath string, state *StateDB, log LogFn) []RedoRow {
 	return out
 }
 
-// collectDeliveredURLs reads the fourth door's delivered set behind
+// deliveredURLSet mirrors the delivered probe the reference INLINES in
+// BOTH master scans (scan_master_hand_rows + scan_master_redo_rows —
+// NOT collect_delivered, the batch side's own skip-consumed collector:
+// the SESSION-059 find, proven by the ported TestRedoScan selections):
+// a queue entry marked consumed, OR whose suggested page file already
+// sits in the hand-delivered folder (os.path.isfile — NO size check:
+// a 0-byte save still landed; collect_delivered's getsize>0 is the
+// BATCH side's law). (meta or {}): a nil-meta row still checks its
+// suggested page file. A broken queue degrades to the empty set behind
 // the never-raise law (a broken queue never hides a hand row).
-func collectDeliveredURLs(vaultPath string) map[string]bool {
+func deliveredURLSet(vaultPath string) map[string]bool {
 	delivered := map[string]bool{}
 	func() {
-		defer func() { recover() }()
-		for _, d := range handdelivery.CollectDelivered(vaultPath) {
-			delivered[links.NormalizeWebsiteURL(d.URL)] = true
+		defer func() {
+			if recover() != nil {
+				delivered = map[string]bool{}
+			}
+		}()
+		queue := handdelivery.ReadQueue(vaultPath)
+		folder := handdelivery.HandDeliveryDir(vaultPath)
+		for _, u := range queue.Links.Keys() {
+			m := queue.Meta(u)
+			suggested := handdelivery.MetaStr(m, "suggested")
+			if suggested == "" {
+				suggested = handdelivery.SuggestedFilename(u)
+			}
+			pageLanded := false
+			if st, err := os.Stat(filepath.Join(folder, suggested)); err == nil && !st.IsDir() {
+				pageLanded = true
+			}
+			if handdelivery.MetaTruthy(m, "consumed") || pageLanded {
+				delivered[links.NormalizeWebsiteURL(u)] = true
+			}
 		}
 	}()
 	return delivered

@@ -31,7 +31,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 Yes — proven, not claimed. The test system runs the **unmodified Python
 app** and the Go app on the same inputs and compares outputs **byte for
 byte**: 33 golden generators, all green (the archived full-run report +
-the corpus law). The battery: **2,466 tests, zero failures, race-clean**.
+the corpus law). The battery: **2,483 tests, zero failures, race-clean**.
 Your existing data works as-is: the Go app opens the Python-created
 `config.json` + `cache.db` without migration, and the two apps even
 mutually exclude via the same lock (they can share the data safely).
@@ -1562,3 +1562,41 @@ recipe held; go-ci green at the open — run `39587039423` at
 Windows checklist (only if/when you have the urge — nothing this
 session needs you); (2) "ship it" — the milestone release; (3) the
 Phase-8 pick or more deferred-debts polish.
+
+
+**Phase 7 (continued) — SESSION-059**: **the delegated deferred-debts
+path taken again — and the noteredo core-level port found + closed a
+SECOND REAL parity gap (the master scans' delivered law).** The
+§9-named remainder "the core-level TestRedoScan shapes" was ported
+(11 selections + the iconcolumn §7 never-re-ask leg,
+`internal/websitepipeline/noteredo_test.go`); the port's first run
+failed the four consumed-row selections, and the byte-level read of
+both sides settled it: the reference inlines its own delivered probe
+in BOTH master scans (a queue entry marked consumed, OR its
+suggested page file present — isfile, no size check), but the Go
+port had reused the BATCH-side collector (skip-consumed + size>0) —
+so a CONSUMED row was invisible to both Go scans: **the redo scan
+missed THE OWNER'S EXACT CASE** (consumed + a half-fetched `_review`
+note — the very "false success and must be redo" the feature exists
+for) and the hand scan re-asked a consumed row for a Chrome tab. The
+fix: `decommission.go`'s own `deliveredURLSet` (the reference's
+inlined law, byte-for-byte; MetaStr/MetaTruthy exported from
+handdelivery as the queue-meta readers) + the probe-panic-ladder in
+the redo scan (the reference's try/except twin — the closed-DB
+probe panics in Go by the store's own Close law). All 12 selections
+green post-fix; the reference's own suite green in the venv before
+and after (the authority). A flake repaired honestly along the way
+(`TestHeroUIFanfareChainGate`'s bare async-delivery read → the rig's
+own waiter). The records in the same commit: spec-core-website-
+pipeline.md's dated correction, the parity report's §4.2 (the
+battery **2394 + 89**) + §9's sharpened remainder (the GUI-side
+hero/wiring equivalents; the harvest's probe-ladder cousin; the CRLF
+differential), and this entry's front-page count fix (the 2,466
+SESSION-058 left stale — the rider the same law required). The 54th
+wipe absorbed before work (the standard recipe; go-ci green at the
+open — run `39595232364` at `2f41a49`). **The menu for the owner is
+unchanged**: (1) T-82's live Windows checklist (only if/when you have
+the urge — nothing this session needs you); (2) "ship it" — the
+milestone release; (3) the Phase-8 pick or more deferred-debts
+polish (the GUI-side hero/wiring equivalents; the note_state SURGERY
+CRLF round-trip differential).

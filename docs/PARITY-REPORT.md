@@ -82,10 +82,12 @@ T-64 to 33 today.
 
 ### 4.2 The test battery
 
-**2,382 main-module tests + 89 webui tests = 2,471, over 40 packages —
+**2,394 main-module tests + 89 webui tests = 2,483, over 40 packages —
 zero failures, race-detector clean, `gofmt` clean** (re-verified at
-SESSION-058's close; 2,377 + 89 until SESSION-058, which added the
-five chrome-retry live-leg tests; the same numbers CI proves on every
+SESSION-059's close; 2,377 + 89 until SESSION-058, which added the
+five chrome-retry live-leg tests, then SESSION-059 added the twelve
+noteredo core-level selections — and closed the REAL delivered-law
+parity gap they exposed, §9; the same numbers CI proves on every
 push).
 
 ### 4.3 Data compatibility (your existing data works as-is)
@@ -211,15 +213,21 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
 - **The desktop milestone release** — cutting the next tag ships the
   two-exe zip through the proven workflow. The owner's call.
 - **Recorded test debts** (evidence-recorded, not blockers):
-  `test_noteredo`'s remaining un-ported selections (the CLI
-  routing-law class — TestCLIRouting — landed at SESSION-058 together
-  with the chrome-retry live leg it was guarding: the four selections
-  + the two golden sections + the mutation teeth; what remains is the
-  core-level TestRedoScan shapes beyond the app-seam + golden
-  coverage, and the GUI-side hero/wiring equivalents where the app
-  seam already covers the guards); the note_state SURGERY path's CRLF
-  round-trip differential; the launchers' clean-VM smoke (rides T-82);
-  the bootstrapper leg (doc 10 §7).
+  `test_noteredo`'s remaining un-ported selections — the CLI
+  routing-law class (TestCLIRouting) landed at SESSION-058 with the
+  chrome-retry live leg it was guarding, and the CORE-LEVEL
+  TestRedoScan shapes + the iconcolumn §7 never-re-ask leg landed at
+  SESSION-059 (the port closed a REAL parity gap: both master scans
+  had reused the batch-side collector as their delivered probe, so a
+  CONSUMED row was invisible to the redo scan — THE OWNER'S EXACT
+  CASE — and re-asked by the hand scan; the record is in
+  spec-core-website-pipeline.md's Tests section); what remains is the
+  GUI-side hero/wiring equivalents (TestHeroRedoRouting +
+  TestRedoPassWiring) where the app seam already covers the guards,
+  and the harvest's probe-panic-ladder cousin (the reference's
+  try/except has the panic twin in the redo scan only); the note_state
+  SURGERY path's CRLF round-trip differential; the launchers'
+  clean-VM smoke (rides T-82); the bootstrapper leg (doc 10 §7).
 - **Standing owner calls carried**: the webui-module dissolution
   (ADR-0002 Am.5); vanilla-vs-vite for the frontend; the
   batch-scorecard modal question; the v0.91.0 zip-parity reading

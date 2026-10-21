@@ -1139,3 +1139,51 @@ flowchart LR
 > session). What remains in Phase 7 is still the owner's:
 > T-82's live checklist (the owner has no haste — nothing this session
 > needs them) + the milestone release decision.
+
+
+> **SESSION-059 (2026-10-21) — the Phase-7 finish, owner-input
+> driven, path (c) under the standing delegation: the deferred-debts
+> slice found + closed a SECOND REAL parity gap (the master scans'
+> delivered law).** The 54th wipe absorbed before work (the anonymous
+> public clone at `2f41a49` — SESSION-058's postscript close, tree
+> clean; the reference via the ephemeral GIT_CONFIG_COUNT PAT form at
+> the pinned `98f4fc7`; go1.27.2 sha-verified ×2 — the committed pin +
+> go.dev's ARCHIVE listing; the venv [plain form; Python 3.12.15]; no
+> wails CLI + no webkit rebuild — no GUI build this session, the
+> SIXTEENTH webkit rebuild stays pending). go-ci green at the open:
+> run `39595232364` at `2f41a49` — success. The battery re-verified
+> green pre-work (2382 + 89, the exact committed shape). THE FIND, at
+> byte level before anything was "fixed": the chosen slice was §9's
+> "the core-level TestRedoScan shapes beyond the app-seam + golden
+> coverage"; the port's first run failed 4 of 12 selections — the
+> reference inlines a delivered probe of its own in BOTH
+> `scan_master_hand_rows` + `scan_master_redo_rows` (consumed OR the
+> page file present, isfile, no size check), but the Go port had
+> reused `handdelivery.CollectDelivered` — the BATCH-side collector
+> (skip-consumed + size>0) — so a CONSUMED row was invisible to both
+> Go scans: the redo scan missed THE OWNER'S EXACT CASE (consumed + a
+> half-fetched `_review` note — the very false success the v0.57.0
+> feature exists to redo) and the hand scan re-asked a consumed row
+> for a Chrome tab. THE LANDING: `decommission.go`'s own
+> `deliveredURLSet` (the reference's inlined law; MetaStr/MetaTruthy
+> exported from handdelivery as the queue-meta readers; the
+> never-raise wipe), the probe-panic-ladder in `ScanMasterRedoRows`
+> (the reference's try/except twin — the closed-DB probe PANICS in Go
+> by store.DB's own Close law, and the selection demanded the ladder),
+> the 12 selections (`internal/websitepipeline/noteredo_test.go` —
+> 11 TestRedoScan + the iconcolumn §7 never-re-ask leg) all green
+> post-fix, and a flake repaired honestly along the way
+> (`TestHeroUIFanfareChainGate`'s bare async-delivery read — the
+> rig's own waiter now; root-caused under the multi-package battery's
+> CPU contention). The harvest's same try/except cousin recorded on
+> the sharpened remainder, not fixed (one slice, done properly). The
+> records in the same commit (reality wins): spec-core-website-
+> pipeline.md's dated correction, the parity report's §4.2 counts
+> (2382 + 89 → **2394 + 89**; the front-page README count fixed too —
+> the 2,466 SESSION-058 left stale) + §9's sharpened debt inventory,
+> this entry, the README's SESSION-059 status entry. The battery at
+> close: **2394 main (plain; race 36 ok, 0 data races) + 89 webui
+> (the flake-repaired suite ×3), zero FAILs; gofmt/vet/build clean in
+> both modules; the MAIN go.mod byte-unchanged**. What remains in
+> Phase 7 is still the owner's: T-82's live checklist (no haste — the
+> owner's own standing words) + the milestone release decision.
