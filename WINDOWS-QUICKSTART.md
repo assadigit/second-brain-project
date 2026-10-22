@@ -29,16 +29,20 @@ Download the zip from
 
 Double-click **`1-INSTALL.bat`**.
 
-- It checks that **git** is on PATH (the only thing the app needs —
-  no Python, no packages, nothing else is installed on your computer).
+- It checks that **git** is on PATH (the only thing the engine needs —
+  no Python, no packages, nothing else is installed on your computer)
+  and probes — **read-only** — for the **WebView2 Runtime** the desktop
+  app uses to draw its window.
 - **If it says git.exe was not found:** install git from
   <https://git-scm.com/download/win> (the "Git for Windows" setup,
   default options are fine), then double-click `1-INSTALL.bat` again.
-- Safe to re-run any time.
+- Safe to re-run any time (it only checks and points; it never writes
+  the registry, never touches PATH, never installs anything itself).
 - **The desktop app** also needs the **WebView2 Runtime** (preinstalled
-  on updated Windows 10/11). If Windows doesn't have it, the app
-  downloads it automatically on first launch (one internet connection,
-  then never again).
+  on updated Windows 10/11). `1-INSTALL.bat` reports what it found; if
+  Windows doesn't have it, nothing is broken — the app offers to
+  download and install it automatically at first launch (one internet
+  connection, then never again).
 
 ## 2. Start the desktop app
 
@@ -86,7 +90,7 @@ It checks and shows, one line each: **vaults** (found + writable),
 
 | File | What it is |
 |---|---|
-| `1-INSTALL.bat` | one-time check (git on PATH; safe to re-run) |
+| `1-INSTALL.bat` | one-time check (git on PATH + a read-only WebView2 probe for the desktop app; safe to re-run) |
 | `GitCurator-CLI-Setup.bat` | first-run credential wizard |
 | `GitCurator-DRY-RUN.bat` | full automatic run, writes nothing |
 | `GitCurator-CLI.bat` | full automatic run (real) |

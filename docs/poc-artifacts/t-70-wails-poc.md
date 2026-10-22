@@ -88,10 +88,30 @@ EOL, no updates — exactly ADR-0001 Am.1's scenario):
 2. On the VM, verify absence first: `winget list
    Microsoft.EdgeWebView2Runtime` (or registry probe
    `HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\
-   {F3017226-FE2A-4295-8BDF-00C3A3960767}`).
+   {F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}`).
 3. Run the setup.exe → measure: silent WebView2 install time → first
    launch → themed window on screen; record numbers.
 4. Portable-zip variant: first-run check + one-click silent fetch of the
    bootstrapper (ADR-0010 Am.1's dual-artifact law).
 
 This leg is registered as the owner action in NEXT-SESSION.md.
+
+> **Dated correction (2026-10-22, SESSION-063 — reality wins):** the
+> GUID above was recorded corrupted
+> (`{F3017226-FE2A-4295-8BDF-00C3A3960767}` — a scrambled last group,
+> not even a valid GUID shape). Settled against the authority
+> (learn.microsoft.com, "Distribute your app and the WebView2
+> Runtime": 4 hits for the correct form, zero for the corrupted one):
+> the Evergreen runtime's own key is
+> `HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\
+> {F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}` (per-machine) and
+> `HKCU\Software\Microsoft\EdgeUpdate\Clients\
+> {F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}` (per-user), value `pv`
+> (REG_SZ). A probe carrying the corrupted shape would read a
+> nonexistent key and report a FALSE absent on machines that have the
+> runtime present. The correction now also has teeth:
+> `TestInstallBatChecksGitAndWebview2` pins the GUID byte-level (exactly
+> twice, once per hive) and bans the corrupted shape outright — the
+> mutation (both probes flipped to the corrupted GUID) fails the
+> self-side pin AND the golden differential exactly, then reverts clean.
+

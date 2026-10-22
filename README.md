@@ -44,9 +44,14 @@ story with every number and every deviation:
 
 The owner's live Windows checklist (T-82 — the fresh-VM install + AV
 scan; the fill-in doc is prepared), the next milestone release cut (the
-owner's call), and the recorded minor debts (all test-debt slices are
-now closed — the last one landed at SESSION-062) — all listed in the
-parity report §9. The engineering status follows below.
+owner's call), and the Phase-8 menu (the future-work register — the
+owner's pick whenever wanted). The recorded debt books are EMPTY: every
+named test-debt slice is closed (the last landed at SESSION-062) and
+the last named test-adjacent debt — the 1-INSTALL bootstrapper leg
+(the WebView2 Evergreen Runtime check, the t-70 plan's recorded
+corruption corrected with teeth) — landed at SESSION-063; its live
+Windows verification rides T-82 item 1. The engineering status follows
+below.
 
 ---
 
@@ -1729,3 +1734,54 @@ live Windows checklist (only if/when you have the urge — nothing
 this session needs you); (2) "ship it" — the milestone release;
 (3) the Phase-8 pick (doc 12's register) — the deferred-debts
 polish is done.
+
+**Phase 7 (continued) — SESSION-063**: **path (c) a sixth time under
+the standing delegation — the last named test-adjacent debt landed
+with proof: the 1-INSTALL BOOTSTRAPPER LEG (doc 10 §4's [verify] on
+the WebView2 row resolved; the recorded debt since T-83's honest
+list).** `1-INSTALL.bat` gained its second leg — the desktop app's
+rendering runtime, probed READ-ONLY through the Evergreen runtime's
+own registry key (per-user `HKCU\…\Clients\{GUID}` then per-machine
+`HKLM\…\WOW6432Node\…\Clients\{GUID}`, value `pv`), with the found
+card (the version printed), the absent card (the honest pointing:
+nothing is broken — the desktop app offers the one-click download at
+its first launch, or install now from the official page then re-run
+to re-check), and the final card made conditional ("Everything the
+app needs is in place" only when the runtime was found). The checker
+still MUTATES nothing — reg query is the one allowed reg verb; reg
+add/reg delete/setx/msiexec/powershell and the PATH/venv verbs all
+stay banned. **The GUID settled at byte level against the authority
+(learn.microsoft.com's distribution page): the t-70 poc plan's
+recorded GUID was a CORRUPTION** (a scrambled last group — a probe
+carrying it would read a nonexistent key and report a FALSE absent on
+machines with the runtime present); corrected the same session with a
+dated note in the poc artifact. Pinned BOTH sides: the self-side
+`TestInstallBatChecksGitAndWebview2` (the probes verbatim, the cards,
+the GUID byte-count == 2 + the corrupted shape banned, the mutation
+bans unchanged) and the golden differential's 1-INSTALL goOnly
+contract. **The proof chain**: the new assertions run RED first (8 +
+8 exact failures — the missing leg, GUID count 0), the .bat landed
+(python on the real bytes, CRLF explicit — 3918 bytes, 82 CRLF, 0
+bare, pure ASCII), GREEN post-fix, then the MUTATION TEETH: both
+probes flipped to the corrupted t-70 GUID → the self-side pin AND the
+differential FAIL exactly → reverted byte-identical → GREEN again.
+The exe's first-launch strategy settled at source level (no ritual
+change — the record): wails v2.16.0's default `download` (one confirm
+dialog, then the Evergreen fetch from
+`go.microsoft.com/fwlink/p/?LinkId=2124703`). The MULTIEDIT-TAB
+corruption struck a FIFTH time (both Go test files re-expanded to
+spaces; caught by gofmt -l, repaired by gofmt -w, the post-repair
+diffs verified to be exactly the edit regions) — and one
+anchor-asserted patch refused on a wrong indent guess exactly as
+designed (nothing mutated). The battery: **2397 + 95 = 2,492**
+unchanged (the slice extended one test + the differential contract,
+not the rows), race-clean, gofmt/vet/build clean in both modules,
+zero new dependencies, the MAIN go.mod byte-unchanged. The QUICKSTART
+§1 + the file table updated to the new honest shape. The records in
+the same commit: doc 10 §4's dated note (the [verify] resolution),
+spec-cli.md's dated SESSION-063 record, the t-70 poc correction, the
+parity report's §4.2 + §9 (the recorded test-debt inventory is now
+EMPTY of autonomous items), this entry, the session report, the state
+card v64. **What remains is only the owner's**: T-82's live checklist
+(item 1 now executable as designed — no haste), the milestone release
+decision, and the Phase-8 menu whenever wanted.

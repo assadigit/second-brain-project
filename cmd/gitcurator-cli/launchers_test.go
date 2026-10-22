@@ -6,8 +6,13 @@ package main
 // byte level), the .sh is LF-only UTF-8, the grammar skeleton is the
 // reference's own (setlocal → title → cd /d "%~dp0" → the walk-up →
 // the exe DIRECTLY — no python discovery — → EXITCODE echo → pause →
-// endlocal), and the 1-INSTALL equivalent checks git and touches
-// nothing else (no registry writes, no PATH mutations).
+// endlocal), and the 1-INSTALL equivalent checks git + the WebView2
+// Evergreen Runtime (the SESSION-063 bootstrapper leg, doc 10 §4's
+// runtime table: the desktop app's rendering engine, probed READ-ONLY
+// through the Evergreen runtime's own registry key) and touches nothing
+// else (no registry WRITES, no PATH mutations, no installs — the
+// one-click install offer rides the exe's first-launch wails
+// download strategy, the byte-settled v2.16.0 default).
 //
 // The reference-anchored differential (the golden's launchers section:
 // the reference's own bytes byte-compared + the divergences asserted)
@@ -224,11 +229,20 @@ func TestBatGrammarSkeleton(t *testing.T) {
 	}
 }
 
-// TestInstallBatChecksGitOnly — the 1-INSTALL equivalent: git.exe on
-// PATH + the next-steps card; NO registry writes, NO PATH mutations,
-// NO installs (the Go app is a native exe — nothing to install).
-func TestInstallBatChecksGitOnly(t *testing.T) {
+// TestInstallBatChecksGitAndWebview2 — the 1-INSTALL equivalent's two
+// legs: git.exe on PATH (the engine's subprocess dep, T-63's own fatal
+// leg) + the WebView2 Evergreen Runtime (the SESSION-063 bootstrapper
+// leg, doc 10 §4's [verify] + ADR-0001 Am.1's WebView2-absent scenario:
+// a READ-ONLY registry probe of the Evergreen runtime's own key,
+// per-user first then per-machine — the exact GUID + pv value
+// Microsoft's distribution docs pin, settled at byte level). The
+// checker still MUTATES nothing: reg query is the ONE allowed reg
+// verb — the read-only probe; every mutating verb stays banned.
+func TestInstallBatChecksGitAndWebview2(t *testing.T) {
 	lines := launcherLines(readLauncher(t, "1-INSTALL.bat"))
+	text := string(readLauncher(t, "1-INSTALL.bat"))
+
+	// --- the git leg (T-63's own, unchanged) ---
 	if !hasLine(lines, "where git >nul 2>nul") {
 		t.Errorf("the git presence check (where git) missing")
 	}
@@ -238,12 +252,57 @@ func TestInstallBatChecksGitOnly(t *testing.T) {
 	if !hasLine(lines, `echo                Next: double-click GitCurator.bat`) {
 		t.Errorf("the next-steps card line missing")
 	}
+
+	// --- the WebView2 leg (SESSION-063's bootstrapper leg) ---
+	if !hasLine(lines, `set "WV2VER="`) {
+		t.Errorf(`the probe variable reset (set "WV2VER=") missing`)
+	}
+	for _, probe := range []string{
+		`for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}" /v pv 2^>nul ^| findstr /i "REG_SZ"') do set "WV2VER=%%b"`,
+		`if not defined WV2VER for /f "tokens=2,*" %%a in ('reg query "HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}" /v pv 2^>nul ^| findstr /i "REG_SZ"') do set "WV2VER=%%b"`,
+	} {
+		if !hasLine(lines, probe) {
+			t.Errorf("the WebView2 Evergreen registry probe missing: %s", probe)
+		}
+	}
+	if !hasLine(lines, `    echo  [GitCurator] Using the WebView2 Runtime:`) {
+		t.Errorf("the Using-the-Runtime card line missing")
+	}
+	if !hasLine(lines, `    echo                found ^(version %WV2VER%^) - the desktop app is ready.`) {
+		t.Errorf("the found leg's version card missing")
+	}
+	if !hasLine(lines, `    echo  [GitCurator] The WebView2 Runtime was not found on this computer.`) {
+		t.Errorf("the absent leg's not-found card missing")
+	}
+	if !hasLine(lines, `    echo                https://developer.microsoft.com/en-us/microsoft-edge/webview2/`) {
+		t.Errorf("the absent leg's official-page pointer missing")
+	}
+	if !hasLine(lines, `    echo                then double-click 1-INSTALL.bat again to re-check.`) {
+		t.Errorf("the absent leg's re-check pointer missing")
+	}
+
+	// --- the GUID guard (byte-level; the authority is Microsoft's
+	// distribution docs — the Evergreen runtime's own GUID, exactly
+	// twice, once per hive. The t-70 poc plan's corrupted shape
+	// (00C3A3960767) must NEVER ride: a wrong GUID probes a key that
+	// does not exist and reports a FALSE absent on machines that have
+	// the runtime present — the exact class the mutation teeth pin.
+	if got := strings.Count(text, "{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}"); got != 2 {
+		t.Errorf("the Evergreen GUID must appear exactly twice (one probe per hive), found %d", got)
+	}
+	if strings.Contains(text, "00C3A3960767") {
+		t.Errorf("the corrupted t-70 poc GUID shape (00C3A3960767) is present — the probe would read a nonexistent key")
+	}
+
+	// --- the mutation bans (the unchanged law): the checker never
+	// mutates the system — no registry WRITES, no PATH mutations, no
+	// installs (the Go app is a native exe; the one-click offer is the
+	// exe's own first-launch path).
 	bannedSubstrings := []string{
-		"reg add", "reg delete", "reg query", "setx ",
+		"reg add", "reg delete", "setx ",
 		"set PATH=", "set \"PATH=", "%PATH%;", "set PY=",
 		"-m venv", "pip install", "msiexec", "powershell",
 	}
-	text := string(readLauncher(t, "1-INSTALL.bat"))
 	for _, banned := range bannedSubstrings {
 		if strings.Contains(text, banned) {
 			t.Errorf("the checker must never mutate the system — found %q", banned)

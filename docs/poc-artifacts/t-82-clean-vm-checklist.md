@@ -115,3 +115,16 @@ from rung 2.
 - The scaffold's `<…>` slots are per-release; the CURRENT tagged-state
   numbers for `v0.92.0-go.1` (should the owner ever re-cut it) live in
   the T-81 evidence doc §5's table.
+- **Dated note (2026-10-22, SESSION-063):** item 1's installer check
+  gained its second leg — `1-INSTALL.bat` now ALSO probes (read-only)
+  for the WebView2 Evergreen Runtime (the Evergreen runtime's own
+  registry key, per-user then per-machine; the found/absent cards; the
+  one-click pointing) — so the verify column's "installer checks
+  WebView2 + git and bootstraps/points as designed" is true by design
+  from the next release on. The honest-zip boundary: the CURRENT live
+  `v0.92.0-go.1` zip carries the OLD git-only checker (12 files); the
+  new leg rides the NEXT milestone release's zip (the two-exe shape).
+  Running item 1 against the current zip exercises the git leg +
+  the exe's own first-launch confirm/download (wails' default
+  strategy) — the desktop app's zip rides the next release either
+  way, so the natural time to run item 1 is after it.

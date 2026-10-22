@@ -2537,7 +2537,7 @@ var launcherContracts = map[string]launcherContract{
 			{`echo  [GitCurator] Using Python:`, `echo  [GitCurator] Using git:`},
 			{`%PY% --version`, `git --version`},
 			{`echo  [GitCurator] Install complete.`,
-				`echo  [GitCurator] Everything the app needs is in place.`},
+				`    echo  [GitCurator] Everything the app needs is in place.`},
 		},
 		refOnly: []string{
 			`set "PY="`,
@@ -2560,6 +2560,19 @@ var launcherContracts = map[string]launcherContract{
 			`where git >nul 2>nul`,
 			`    echo  [GitCurator] git.exe was not found on this computer.`,
 			`echo                (or GitCurator-SYNC.bat for the fast sync lane).`,
+			// SESSION-063 — the bootstrapper leg: the WebView2
+			// Evergreen Runtime probe (READ-ONLY, the Evergreen
+			// runtime's own registry key per Microsoft's
+			// distribution docs — per-user then per-machine) +
+			// the found/absent cards + the one-click pointing.
+			`set "WV2VER="`,
+			`for /f "tokens=2,*" %%a in ('reg query "HKCU\Software\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}" /v pv 2^>nul ^| findstr /i "REG_SZ"') do set "WV2VER=%%b"`,
+			`if not defined WV2VER for /f "tokens=2,*" %%a in ('reg query "HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}" /v pv 2^>nul ^| findstr /i "REG_SZ"') do set "WV2VER=%%b"`,
+			`    echo  [GitCurator] Using the WebView2 Runtime:`,
+			`    echo                found ^(version %WV2VER%^) - the desktop app is ready.`,
+			`    echo  [GitCurator] The WebView2 Runtime was not found on this computer.`,
+			`    echo                https://developer.microsoft.com/en-us/microsoft-edge/webview2/`,
+			`    echo                then double-click 1-INSTALL.bat again to re-check.`,
 		},
 	},
 	// T-65 — the GUI-side pair at the app root / the Go repo root.

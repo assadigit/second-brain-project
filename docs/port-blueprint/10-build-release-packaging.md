@@ -63,6 +63,45 @@ file.
 | Local LLM server (optional) | Ollama/llama.cpp | Auto-detect/auto-start preserved |
 | Telethon-free | — | gotd embedded; no Python anywhere |
 
+> **Dated note (2026-10-22, SESSION-063 — the §4 [verify] on the
+> WebView2 row RESOLVED; the recorded "bootstrapper leg" debt's
+> preparable half landed).** The row's promise — "the installer/
+> `1-INSTALL` equivalent checks and bootstraps the evergreen installer
+> [verify] the Wails bootstrapper path" — is now the shipped shape,
+> split into its two honest halves:
+>
+> 1. **The installer half (LANDED, this session)**: `1-INSTALL.bat`
+>    gained the WebView2 leg — a READ-ONLY registry probe of the
+>    Evergreen runtime's own key (per-user `HKCU\…\Clients\{GUID}` then
+>    per-machine `HKLM\…\WOW6432Node\…\Clients\{GUID}`, value `pv`),
+>    GUID `{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}` settled at byte
+>    level against Microsoft's distribution docs (the t-70 poc plan's
+>    recorded GUID was a corruption — corrected the same session). The
+>    found leg prints the version; the absent leg points honestly (the
+>    desktop app offers the one-click download at its first launch; or
+>    install now from the official page). The checker still MUTATES
+>    nothing (reg query is the one allowed reg verb; reg add/reg
+>    delete/setx/msiexec/powershell all stay banned). Pinned BOTH
+>    sides: `TestInstallBatChecksGitAndWebview2` (the self-side laws +
+>    the GUID guard — the corrupted shape mutated in fails exactly,
+>    reverts clean) and the golden differential's 1-INSTALL goOnly
+>    contract (`internal/cli/goldencli_test.go`).
+> 2. **The runtime half (SETTLED at source level; the LIVE leg is the
+>    owner's, riding T-82 item 1)**: the built GUI exe carries wails
+>    v2.16.0's DEFAULT strategy — `download` (byte-settled in the
+>    pinned CLI's source: `cmd/wails/flags/build.go:71`; the strategy
+>    compiles through `internal/wv2installer/download.go`'s build
+>    tags): at first launch, when the runtime is missing, the exe asks
+>    (one confirm dialog), then fetches Microsoft's Evergreen
+>    bootstrapper (`go.microsoft.com/fwlink/p/?LinkId=2124703`) and
+>    installs it — the QUICKSTART's "one internet connection, then
+>    never again". No ritual change needed (the flag equals the
+>    default under the pin; the proven release command stands). The
+>    live verification on a real WebView2-less machine — ADR-0001
+>    Am.1's scenario, the owner's machine — remains T-82 item 1's
+>    check ("installer checks WebView2 + git and bootstraps/points as
+>    designed" — now true by design).
+
 ## 5. Assets, icons, versioning
 
 - `go:embed` the prompts, taxonomy defaults, Inter font, wav sounds, Lucide SVGs; icon set from

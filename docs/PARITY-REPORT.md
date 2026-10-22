@@ -103,7 +103,13 @@ full-options snapshot, the once-per-session bound, the delivery/
 batch/pipeline holds, the degraded-probe twin; green on the first
 run — no parity gap hid behind this one; the record is in
 spec-core-website-pipeline.md's Tests section; the same numbers CI
-proves on every push).
+proves on every push). SESSION-063 re-verified the same shape at its
+open and close, and added no test count — its slice (the 1-INSTALL
+bootstrapper leg: the WebView2 Evergreen Runtime check) landed by
+EXTENDING one test (the renamed
+`TestInstallBatChecksGitAndWebview2`) and the golden differential's
+goOnly contract, not by adding rows: the counts stay 2397 + 95, the
+arithmetic closes exactly.
 
 ### 4.3 Data compatibility (your existing data works as-is)
 
@@ -256,8 +262,22 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
   the delivery/batch/pipeline holds, the degraded-probe twin), green
   on the first run with the mutation teeth proven on the routing pin
   (the v0.57 bug shape fails it exactly) — the noteredo debt is
-  CLOSED; the launchers' clean-VM smoke (rides T-82); the
-  bootstrapper leg (doc 10 §7).
+  CLOSED; and the bootstrapper leg (doc 10 §7/§4) landed at
+  SESSION-063 — `1-INSTALL.bat`'s WebView2 Evergreen Runtime check:
+  a READ-ONLY registry probe of the Evergreen runtime's own key
+  (per-user then per-machine, value `pv`), the GUID settled at byte
+  level against Microsoft's distribution docs (the t-70 poc plan's
+  recorded GUID was a corruption — corrected the same session), the
+  found/absent cards, the one-click pointing, pinned BOTH sides (the
+  self-side `TestInstallBatChecksGitAndWebview2` + the golden
+  differential's goOnly contract) with the mutation teeth proven on
+  the corrupted-GUID shape; the exe's first-launch strategy settled
+  at source level (wails v2.16.0's default `download`: one confirm +
+  the Evergreen fetch). **The recorded test-debt inventory is now
+  empty of autonomous items** — what remains on this leg is the LIVE
+  half only: the owner's T-82 item 1 execution on a real
+  WebView2-less machine (the launchers' clean-VM smoke rides T-82
+  the same way).
 - **Standing owner calls carried**: the webui-module dissolution
   (ADR-0002 Am.5); vanilla-vs-vite for the frontend; the
   batch-scorecard modal question; the v0.91.0 zip-parity reading

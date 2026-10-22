@@ -1387,3 +1387,56 @@ flowchart LR
 > NEXT-SESSION.md (the state card v63). What remains in Phase 7 is
 > still the owner's: T-82's live checklist (no haste — the owner's
 > own standing words) + the milestone release decision.
+
+> **SESSION-063 (Phase 7, path (c) a sixth time under the standing
+> delegation) — the last named test-adjacent debt landed with proof:
+> the 1-INSTALL BOOTSTRAPPER LEG (doc 10 §4's [verify] on the WebView2
+> row resolved; the debt recorded since T-83's honest list, its LIVE
+> half standing since T-70's blocked-with-plan).** The preparable
+> half: `cmd/gitcurator-cli/1-INSTALL.bat` gained the WebView2
+> Evergreen Runtime check — a READ-ONLY registry probe of the
+> Evergreen runtime's own key (per-user `HKCU\…` then per-machine
+> `HKLM\…\WOW6432Node\…`, value `pv`, GUID
+> `{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}`), the found card (the
+> version printed), the absent card (the honest pointing: the desktop
+> app offers the one-click download at its first launch — nothing is
+> broken; or install now from the official page, then re-run
+> 1-INSTALL.bat to re-check), the conditional final card, and the
+> unchanged no-mutation law (reg query is the ONE allowed reg verb).
+> **The t-70 poc plan's recorded GUID was a CORRUPTION** (a scrambled
+> last group settled wrong since SESSION-033; a probe carrying it
+> reads a nonexistent key and reports a FALSE absent on machines with
+> the runtime present) — settled at byte level against
+> learn.microsoft.com's distribution page (4 hits correct / 0
+> corrupted), corrected the same session with a dated note. Pinned
+> BOTH sides: `TestInstallBatChecksGitAndWebview2` (the self-side
+> laws, extended from the git-only test — a strict sharpening: every
+> old assertion stands, "reg query" moved from the over-broad
+> read-ban to the required read-only verb) and the golden
+> differential's 1-INSTALL goOnly contract. **The proof chain**: RED
+> first (8 + 8 exact failures), the .bat landed (python on the real
+> bytes — 3918 bytes, 82 CRLF, 0 bare, pure ASCII, final CRLF),
+> GREEN, the MUTATION TEETH (both probes flipped to the corrupted
+> t-70 GUID → both pins FAIL exactly → reverted byte-identical →
+> GREEN), the full battery around it (2397 + 95 = 2492 unchanged —
+> the slice extended one test + the differential contract, not the
+> rows; race-clean; gofmt/vet/build clean; go.mod/go.sum/VERSION
+> byte-unchanged; the reference tree untouched). The exe's
+> first-launch strategy settled at source level (the record, no
+> ritual change): wails v2.16.0's default `download` — one confirm
+> dialog, then the Evergreen fetch (`go.microsoft.com/fwlink/p/?
+> LinkId=2124703`). The MULTIEDIT-TAB corruption struck a FIFTH time
+> (both Go test files; gofmt -l caught, gofmt -w repaired, the
+> post-repair diffs verified to be exactly the edit regions) and one
+> anchor-asserted patch refused on a wrong indent guess exactly as
+> designed. The records in the same commit (reality wins): doc 10
+> §4's dated note (the [verify] resolution), spec-cli.md's dated
+> SESSION-063 record, the t-70 poc artifact's dated correction, the
+> parity report's §4.2 + §9 (the recorded test-debt inventory is now
+> EMPTY of autonomous items — what remains on this leg is the LIVE
+> half only, the owner's T-82 item 1), the README's front page +
+> SESSION-063 status entry, the QUICKSTART §1 + file-table update,
+> this entry, the session report, NEXT-SESSION.md (the state card
+> v64). What remains in Phase 7 is the OWNER's, unchanged: T-82's
+> live checklist (item 1 now executable as designed — no haste, the
+> owner's own standing words) + the milestone release decision.

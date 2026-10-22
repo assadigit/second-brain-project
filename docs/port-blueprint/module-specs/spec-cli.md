@@ -726,3 +726,76 @@ Remaining on T-63's books: nothing — the task is COMPLETE (the
 clean-VM smoke of the acceptance column is Phase 7's checklist, per
 the same scoping as T-61's runtime legs). T-64 (the differential
 corpus full run) and T-65 (the tag + zip) follow.
+
+## SESSION-063 shipped record — THE 1-INSTALL BOOTSTRAPPER LEG (the WebView2 Evergreen Runtime check, doc 10 §4's [verify] resolved)
+
+Phase 7, path (c) under the standing delegation — the last named
+test-adjacent debt's preparable half. The 1-INSTALL equivalent gained
+its second leg: the desktop app's runtime, probed READ-ONLY.
+
+Landed:
+
+- `cmd/gitcurator-cli/1-INSTALL.bat` — the WebView2 leg: the Evergreen
+  runtime's own registry key probed read-only (per-user
+  `HKCU\Software\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}`
+  first, then per-machine
+  `HKLM\SOFTWARE\WOW6432Node\Microsoft\EdgeUpdate\Clients\{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}`,
+  value `pv` via `for /f "tokens=2,*"` + `findstr /i "REG_SZ"`), the
+  found card (`Using the WebView2 Runtime: found (version …) - the
+  desktop app is ready.`), the absent card (the honest pointing: the
+  desktop app offers the one-click download at its first launch —
+  nothing is broken; or install now from
+  developer.microsoft.com/en-us/microsoft-edge/webview2, then re-run
+  1-INSTALL.bat to re-check), and the final card made conditional
+  (`Everything the app needs is in place.` only when the runtime was
+  found; the git-only honest summary otherwise). The checker still
+  MUTATES nothing: reg query is the ONE allowed reg verb; reg add /
+  reg delete / setx / msiexec / powershell / the PATH and venv verbs
+  all stay banned. PURE ASCII + CRLF byte-verified (3918 bytes, 82
+  CRLF, 0 bare, final CRLF).
+- The GUID settle (byte level, the authority:
+  learn.microsoft.com's distribution page — 4 hits for the correct
+  form, 0 for the corrupted one): `{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}`.
+  The t-70 poc plan's recorded GUID
+  (`{F3017226-FE2A-4295-8BDF-00C3A3960767}` — a scrambled last group)
+  was a CORRUPTION; corrected the same session with a dated note in
+  the poc artifact. A probe carrying it would read a nonexistent key
+  and report a FALSE absent on machines that have the runtime present.
+- The pins, BOTH sides: `launchers_test.go`'s
+  `TestInstallBatChecksGitAndWebview2` (the two probe lines verbatim,
+  the found/absent cards, the official-page pointer, the re-check
+  line, the GUID byte-count == 2 + the corrupted shape banned, the
+  mutation bans unchanged) and the golden differential's 1-INSTALL
+  goOnly contract (`internal/cli/goldencli_test.go` — the same lines
+  through the reference-anchored stone; the "Everything … in place"
+  diverge pin updated to its new in-block indent).
+- THE PROOF CHAIN: the new assertions written first and run RED
+  (8 self-side + 8 differential failures — exactly the missing leg,
+  the GUID count 0), the .bat landed (python on the real bytes, CRLF
+  explicit), GREEN post-fix, then the MUTATION TEETH: both probes
+  flipped to the corrupted t-70 GUID → the self-side pin FAILS (the
+  probe lines missing + the GUID count 0 + the corrupted shape
+  present) AND the differential FAILS → reverted clean
+  (byte-identical), GREEN again. The battery around it: main 2397
+  PASS / 0 FAIL over 36 ok, race-clean; webui 95; gofmt/vet/build
+  clean both modules; the MAIN go.mod/go.sum + VERSION byte-unchanged;
+  the reference tree untouched (the golden's authority bytes stand).
+- The runtime half settled at source level (no code change — the
+  record): the built GUI exe carries wails v2.16.0's DEFAULT
+  `download` strategy (byte-settled in the pinned CLI's source:
+  `cmd/wails/flags/build.go:71` + `internal/wv2installer/download.go`'s
+  build tags): first launch on a WebView2-less machine asks once,
+  then fetches Microsoft's Evergreen bootstrapper
+  (`go.microsoft.com/fwlink/p/?LinkId=2124703`) and installs it. The
+  LIVE verification on a real WebView2-less machine remains the
+  owner's (T-82 item 1 — now executable as designed). The QUICKSTART
+  §1 + the file table updated to the new honest shape.
+
+Option-B divergences (asserted, never silent): unchanged — the python
+discovery ladder stays gone; the WebView2 leg is a Go-side addition
+with no reference counterpart (the Python app never needed a rendering
+runtime), so it rides the goOnly contract (each new line present in
+the Go file, absent from the reference — the never-silent law).
+
+Remaining on this leg's books: the LIVE half only — the owner's T-82
+item 1 execution (the clean-VM/WebView2-less run).
