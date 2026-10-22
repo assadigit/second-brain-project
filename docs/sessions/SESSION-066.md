@@ -250,7 +250,9 @@ re-surfaces the menu, and closes cleanly.
   implementation slice exists; the owner's pick is the only mover).
 - NEXT-SESSION.md rewritten: yes (the state card v67, the
   SESSION-067 prompt inside).
-- Push state: CLEAN — this session's close commit (docs-only) pushed
-  with the ephemeral PAT form (never stored, never written); the
-  push's go-ci run to be verified green at SESSION-067's open (a red
-  is a REAL failure now).
+- Push state: CLEAN - the close commit `1158e32` (docs-only) pushed
+  with the ephemeral PAT form (never stored, never written); its
+  go-ci run **39871314921 watched to completion the same session -
+  completed / success**. The POSTSCRIPT push (docs-only, recording
+  the green) is now the latest: verify its run green at
+  SESSION-067's open (a red is a REAL failure now).
