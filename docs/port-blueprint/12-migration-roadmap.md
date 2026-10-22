@@ -1418,10 +1418,11 @@ flowchart LR
 > bytes — 3918 bytes, 82 CRLF, 0 bare, pure ASCII, final CRLF),
 > GREEN, the MUTATION TEETH (both probes flipped to the corrupted
 > t-70 GUID → both pins FAIL exactly → reverted byte-identical →
-> GREEN), the full battery around it (2397 + 95 = 2492 unchanged —
-> the slice extended one test + the differential contract, not the
-> rows; race-clean; gofmt/vet/build clean; go.mod/go.sum/VERSION
-> byte-unchanged; the reference tree untouched). The exe's
+> GREEN), the full battery around it (race-clean; gofmt/vet/build
+> clean; go.mod/go.sum/VERSION byte-unchanged; the reference tree
+> untouched — the counts closed at 2398 + 95 = 2493: the slice itself
+> added no rows [it extended one test + the differential contract];
+> the +1 is the CI incident's fixture test, below). The exe's
 > first-launch strategy settled at source level (the record, no
 > ritual change): wails v2.16.0's default `download` — one confirm
 > dialog, then the Evergreen fetch (`go.microsoft.com/fwlink/p/?
@@ -1429,9 +1430,26 @@ flowchart LR
 > (both Go test files; gofmt -l caught, gofmt -w repaired, the
 > post-repair diffs verified to be exactly the edit regions) and one
 > anchor-asserted patch refused on a wrong indent guess exactly as
-> designed. The records in the same commit (reality wins): doc 10
+> designed. **THE CI INCIDENT (the close push's go-ci run went RED —
+> root-caused from both runs' logs, fixed the same session):
+> TestGolden_PushMirror's push_mirror_plain/logs pin diverged on the
+> runner — git's "not a git repository" fatal wording flipped between
+> runner image releases (the green d2fa36c run and the red f9c81ee
+> run BOTH rode git 2.55.0 but different ubuntu26 image releases — on
+> one filesystem layout the walk from t.TempDir() crosses a mount
+> boundary, on the other it doesn't); the golden had accidentally
+> recorded ONE machine's git wording as if it were the app's
+> contract. The fix (the pin SHARPENED, never weakened):
+> normGitWording normalizes both known git variants to one canonical
+> token on BOTH sides of that one comparison (the golden's bytes
+> untouched — goldens are never hand-edited); the fixture test
+> TestNormGitWordingEnvironmentVariants pins the exact CI failure
+> bytes; the mutation teeth proven (the app's own skip line reworded
+> → the comparison FAILS exactly → reverted byte-identical, GREEN).**
+> The records in the same commit (reality wins): doc 10
 > §4's dated note (the [verify] resolution), spec-cli.md's dated
-> SESSION-063 record, the t-70 poc artifact's dated correction, the
+> SESSION-063 record, spec-cloud-directory-sync.md's dated
+> CI-incident record, the t-70 poc artifact's dated correction, the
 > parity report's §4.2 + §9 (the recorded test-debt inventory is now
 > EMPTY of autonomous items — what remains on this leg is the LIVE
 > half only, the owner's T-82 item 1), the README's front page +

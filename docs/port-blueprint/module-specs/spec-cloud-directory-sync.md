@@ -218,3 +218,51 @@ mirror-push battery, and the golden differential.
 - **The drift-seal log adapter**: `publish_after_batch`'s
   `Callable[[str], None]` log meets the seal's `(msg, level)` log —
   the plain lines tag "info" (documented convergence).
+
+## SESSION-063 dated record — the CI incident: git's version-dependent fatal wording normalized (the push_mirror_plain/logs pin)
+
+go-ci run 39837881142 (on the SESSION-063 close push `f9c81ee`) went
+RED on `TestGolden_PushMirror` — `push_mirror_plain/logs` diverged:
+
+- **got** (the runner): `[directory] git rev-parse
+  --is-inside-work-tree failed: fatal: not a git repository (or any
+  parent up to mount point /)\nStopping at filesystem boundary
+  (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).`
+- **want** (the golden): the 2.47-era wording (`or any of the parent
+  directories): .git`).
+
+Root cause (byte-settled from the two runs' logs): the runner's git
+is 2.55.0 on BOTH runs (the green `d2fa36c` run at 18:41 and the red
+`f9c81ee` run at 19:11 — both fresh executions, not cache), but the
+two runs rode DIFFERENT ubuntu26 image releases (20261021.171 green
+vs 20261012.163 red): on one filesystem layout the walk-up from
+`t.TempDir()` to the root crosses a mount boundary (git emits the
+"up to mount point /" + "Stopping at filesystem boundary" form), on
+the other it does not (the old wording). The golden had accidentally
+recorded ONE machine's git wording as if it were the app's contract —
+the reference emits whatever ITS local git says, so the wording is
+environment-owned, never a cross-machine contract.
+
+The fix (tests never weakened — the pin SHARPENED to the app's real
+contract): `internal/directorysync/golden_test.go` gained
+`normGitWording` — both known git fatal variants normalize to one
+canonical token (`fatal: not a git repository (<git-version-dependent
+wording>)`) on BOTH sides of the push_mirror_plain/logs comparison
+(the run's captured text AND the golden's recorded text; the golden's
+bytes stay untouched — goldens are never hand-edited). Everything
+else stays byte-exact. The teeth, proven twice:
+
+1. The fixture test `TestNormGitWordingEnvironmentVariants` pins the
+   exact CI failure bytes: both real-world shapes (the sandbox's
+   2.47 form AND the runner's 2.55 form) normalize to the SAME token
+   while the app's own lines pass through untouched.
+2. The mutation: the app's skip line reworded ("vault is not a
+   repository") — the comparison FAILS exactly (the normalized token
+   visible on both sides, the app line differing) — reverted
+   byte-identical, GREEN.
+
+The battery after the fix: main 2398 PASS / 0 FAIL over 36 ok (2397
++ the fixture test), race-clean, gofmt/vet/build clean. The incident
+class is now a standing law: environment-owned text (a tool's
+version-dependent wording) must never ride a golden pin — normalize
+at comparison time on both sides, or stub the tool.

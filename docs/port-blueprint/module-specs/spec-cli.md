@@ -776,7 +776,8 @@ Landed:
   flipped to the corrupted t-70 GUID → the self-side pin FAILS (the
   probe lines missing + the GUID count 0 + the corrupted shape
   present) AND the differential FAILS → reverted clean
-  (byte-identical), GREEN again. The battery around it: main 2397
+  (byte-identical), GREEN again. The battery around it (after the
+  session's CI incident was fixed — the fixture test +1): main 2398
   PASS / 0 FAIL over 36 ok, race-clean; webui 95; gofmt/vet/build
   clean both modules; the MAIN go.mod/go.sum + VERSION byte-unchanged;
   the reference tree untouched (the golden's authority bytes stand).

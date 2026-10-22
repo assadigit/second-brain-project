@@ -54,11 +54,12 @@
   The exe's first-launch strategy settled at source level (no ritual
   change): wails v2.16.0's default `download` — one confirm dialog,
   then the Evergreen fetch (`go.microsoft.com/fwlink/p/?
-  LinkId=2124703`). The battery: 2397 + 95 = 2492 (unchanged — the
-  slice extended one test + the differential contract, not the
-  rows). **THE RECORDED DEBT BOOKS ARE NOW EMPTY** — what remains on
+  LinkId=2124703`). The battery after the incident's fix: 2398 + 95
+  = 2493 (the slice added no rows — it extended one test + the
+  differential contract; the +1 is the incident's fixture test).
+  **THE RECORDED DEBT BOOKS ARE NOW EMPTY** — what remains on
   the bootstrapper leg is the LIVE half only (the owner's T-82 item
-  1; the launchers' clean-VM smoke rides T-82 the same way).**
+  1; the launchers' clean-VM smoke rides T-82 the same way).
   **THE HONEST-ZIP FIND (standing): the LIVE `v0.92.0-go.1` release
   carries the CLI-milestone zip (12 files, no GUI exe, the OLD
   git-only 1-INSTALL checker); the desktop two-exe zip (13 files)
@@ -66,18 +67,27 @@
   through the proven workflow. What remains in Phase 7 is the
   OWNER's: T-82's live checklist (no haste — their words) + the
   milestone release decision.**
-- **Push state: CLEAN** — SESSION-061's close push (`505f1f2`, run
-  39696190997) verified GREEN at SESSION-062's open; SESSION-062's
-  close push (`d2fa36c`, run 39833368088) verified GREEN at
-  SESSION-063's open. SESSION-063 pushes its close (the bootstrapper
-  leg + the records) — go-ci to verify green at SESSION-064's open
-  (a red is a REAL failure now; watch the Actions tab on pushes as
-  normal CI hygiene).
+- **Push state: CLEAN** — SESSION-062's close push (`d2fa36c`, run
+  39833368088) verified GREEN at SESSION-063's open. SESSION-063
+  pushed its close (`f9c81ee`) — the run went RED (the CI incident:
+  TestGolden_PushMirror's push_mirror_plain/logs pin diverged on the
+  runner; git's "not a git repository" fatal wording flipped between
+  ubuntu26 image releases — both runs rode git 2.55.0, different
+  filesystem layouts; the golden had recorded ONE machine's git
+  wording as if it were the app's contract); root-caused from both
+  runs' logs, fixed the same session (normGitWording — both known
+  variants normalize to one canonical token on BOTH sides of that
+  one comparison; the golden's bytes untouched; the fixture test
+  pins the exact CI failure bytes; the mutation teeth proven) — and
+  re-pushed green with the fix commit. go-ci to verify green at
+  SESSION-064's open (a red is a REAL failure now; watch the Actions
+  tab on pushes as normal CI hygiene).
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always); Actions minutes are
   unlimited; the no-secrets law is public-facing. **go-ci: GREEN on
-  the tree through `d2fa36c`; SESSION-063's close push is the
-  latest — verify its run green at the open.**
+  the tree through `d2fa36c`; SESSION-063's close push went RED (the
+  CI incident, fixed same-session) — the FIX PUSH is the latest:
+  verify its run green at the open.**
 - **The environment recipe** (the 58th wipe was absorbed at
   SESSION-063's open — the standard recipe held): work repo at
   /home/z/my-project/second-brain-project (**clone it ANONYMOUSLY — it
@@ -121,7 +131,18 @@
   downloads must run in FOREGROUND CHUNKS** — the sandbox kills
   backgrounded children when the call returns.
 - **The operational laws, newest first** (each was paid for in
-  evidence — carry ALL of them): **THE BOOTSTRAPPER-LEG RECORD
+  evidence — carry ALL of them): **THE ENVIRONMENT-OWNED-TEXT
+  LAW (SESSION-063's CI incident — a tool's version- or
+  layout-dependent wording (git's fatal messages, a browser's
+  user-agent, a compiler's notes) must NEVER ride a golden pin as if
+  it were the app's contract: the runner's git 2.55.0 flipped the
+  "not a git repository" wording between image releases (both runs
+  green-checked the SAME git version — the flip is the
+  filesystem layout, not the version); settle such reds by
+  root-causing from the runs' logs, then normalize BOTH sides at
+  comparison time (the golden's bytes untouched) or stub the tool
+  — and pin the exact failure bytes as a fixture test)**;
+  **THE BOOTSTRAPPER-LEG RECORD
   (SESSION-063 — the 1-INSTALL WebView2 check is READ-ONLY (reg
   query is the ONE allowed reg verb; the mutating verbs stay
   banned); the Evergreen GUID is
@@ -247,7 +268,9 @@ tree (in priority order):
 
 1. `docs/sessions/SESSION-063.md` — the most recent report (the
    bootstrapper leg landed with proof; the t-70 GUID corruption
-   corrected; the debt books empty; the battery 2397 + 95 unchanged).
+   corrected; the debt books empty; the CI incident fixed same-session
+   (the battery 2398 + 95 = 2493; the +1 is the incident's fixture
+   test).
 2. `docs/PARITY-REPORT.md` — the owner-reviewable state (§9's
    not-done list is now only the owner's LIVE legs).
 3. `docs/poc-artifacts/t-82-clean-vm-checklist.md` — the owner's
@@ -344,13 +367,19 @@ corrupted-GUID shape (the t-70 poc plan's recorded GUID was a CORRUPTION since
 SESSION-033 — settled against learn.microsoft.com, corrected with a dated
 note), and the exe's first-launch strategy settled at source level (wails
 v2.16.0's default download: one confirm dialog + the Evergreen fetch). The
-battery: 2397 main + 95 webui = 2492 (unchanged — the slice extended one test
-+ the differential contract, not the rows). THE RECORDED DEBT BOOKS ARE NOW
-EMPTY — what remains on the leg is the LIVE half only (the owner's T-82 item
-1; the new checker rides the NEXT release's zip — the current live zip
-carries the old git-only one). … go-ci: GREEN through d2fa36c (run
-39833368088); SESSION-063's close push is the latest — verify its run green
-at the open (a red is a REAL failure now). What remains in Phase 7 is the
+battery after the incident's fix: 2398 main + 95 webui = 2493
+(the slice added no rows — it extended one test + the differential
+contract; the +1 is the incident's fixture test). THE RECORDED DEBT
+BOOKS ARE NOW EMPTY — what remains on the leg is the LIVE half only
+(the owner's T-82 item 1; the new checker rides the NEXT release's
+zip — the current live zip carries the old git-only one). … go-ci:
+the close push's run went RED (the CI incident: git's "not a git
+repository" fatal wording flipped between ubuntu26 image releases;
+the golden had recorded one machine's git wording as the app's
+contract) — root-caused, fixed same-session (normGitWording on both
+sides + the fixture test), re-pushed green. Verify the FIX PUSH's
+run green at the open (a red is a REAL failure now). What remains in
+Phase 7 is the
 OWNER's: T-82's live checklist (no haste) + the milestone release decision.
 
 Then follow docs/SESSION-PROTOCOL.md exactly: bootstrap (clone

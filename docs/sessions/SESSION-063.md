@@ -138,10 +138,44 @@ for the owner's pick).
   **anchor-asserted python patch refused on a wrong indent guess**
   (5 tabs written, 4 in the file) — nothing was patched, exactly the
   belt's purpose; the corrected anchor applied cleanly.
-- **The full battery at close**: main plain **2397 PASS / 0 FAIL / 0
-  SKIP over 36 ok** (exit 0 — the count UNCHANGED: the slice extended
-  one test + the differential contract, not the rows; the arithmetic
-  closes exactly), race **36 ok, 0 data races** (exit 0), webui **95
+- **THE CI INCIDENT (the close push's go-ci run went RED —
+  root-caused, fixed, and re-pushed green the same session)**: go-ci
+  run 39837881142 on the close push `f9c81ee` failed
+  `TestGolden_PushMirror` — `push_mirror_plain/logs` diverged:
+  the runner's git emitted `fatal: not a git repository (or any
+  parent up to mount point /)\nStopping at filesystem boundary
+  (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).` where the golden
+  recorded the 2.47-era wording. Root-caused from BOTH runs' logs
+  (byte-settled, not guessed): the green `d2fa36c` run at 18:41 and
+  the red `f9c81ee` run at 19:11 BOTH rode git 2.55.0 (both fresh
+  executions, not cache — 0.154s vs 0.181s) but DIFFERENT ubuntu26
+  image releases (20261021.171 green vs 20261012.163 red): on one
+  filesystem layout the walk-up from `t.TempDir()` crosses a mount
+  boundary (git emits the mount-point + GIT_DISCOVERY_ACROSS_
+  FILESYSTEM form), on the other it does not (the old wording). The
+  golden had accidentally recorded ONE machine's git wording as if
+  it were the app's contract — the reference emits whatever ITS
+  local git says, so the wording is environment-owned. The fix (the
+  pin SHARPENED to the app's real contract, never weakened):
+  `internal/directorysync/golden_test.go` gained `normGitWording` —
+  both known git fatal variants normalize to one canonical token on
+  BOTH sides of the push_mirror_plain/logs comparison (the run's
+  captured text AND the golden's recorded text; the golden's bytes
+  stay untouched — goldens are never hand-edited); everything else
+  stays byte-exact. The teeth, proven twice: (1) the fixture test
+  `TestNormGitWordingEnvironmentVariants` pins the exact CI failure
+  bytes (both real-world shapes → the SAME token; the app's own
+  lines pass through untouched); (2) the mutation — the app's skip
+  line reworded ("vault is not a repository") → the comparison
+  FAILS exactly (the normalized token visible on both sides) →
+  reverted byte-identical, GREEN. The blast radius was settled
+  first: exactly ONE pin in ONE golden (`push_mirror_plain/logs[0]`
+  in directorysync's golden JSON) — no other git-wording pins ride
+  the battery.
+- **The full battery at close (post-fix)**: main plain **2398 PASS / 0
+  FAIL / 0 SKIP over 36 ok** (exit 0 — 2397 + the fixture test; the
+  slice itself added no rows: it extended one test + the differential
+  contract), race **36 ok, 0 data races** (exit 0), webui **95
   / 0 / 0 over 4 ok** (exit 0), `gofmt -l` empty + vet + build clean
   in both modules, the MAIN go.mod/go.sum + VERSION byte-unchanged
   (zero new dependencies), the byte-level secret scan clean (zero
@@ -158,13 +192,14 @@ corrected), the test-first RED (16 exact failures), the landing
 mutation teeth on the corrupted-GUID shape (both pins bite, revert
 verified byte-identical), the pins on BOTH sides (self-side +
 differential), the exe-strategy settle at source level, and the
-battery green around it (2397 + 95, race-clean, gofmt/vet/build
-clean, zero new dependencies).
+battery green around it — INCLUDING the CI incident's root-cause +
+fix + re-proof (a red is a REAL failure; it was not left standing).
 
 **The re-verification gate (the open-of-session law after a wipe):
 PASS** — the battery numbers at the open (2397 + 95, race-clean,
-gofmt/vet/build clean) and at the close (the same shape; the slice
-added no rows — the counts close exactly).
+gofmt/vet/build clean) and at the close (2398 + 95 after the CI
+incident's fixture test — the arithmetic closes exactly: the slice
+added no rows; the incident added one).
 
 **The parity claim's honesty: the recorded test-debt inventory is now
 EMPTY of autonomous items** — §9's list ends with the bootstrapper
@@ -204,9 +239,16 @@ inside the phase).
   self-side test (a strict sharpening; the GUID guard).
 - `internal/cli/goldencli_test.go` — the 1-INSTALL goOnly contract
   extension + the diverge pin's in-block indent.
+- `internal/directorysync/golden_test.go` — the CI incident's fix:
+  `normGitWording` + `goldenStrings` + the fixture test (the exact
+  failure bytes as the fixture) + the header law's third class.
+- `docs/port-blueprint/module-specs/spec-cloud-directory-sync.md` —
+  the dated SESSION-063 CI-incident record (the root cause, the fix,
+  the teeth).
 - `docs/sessions/SESSION-063.md` — NEW (this report).
 - `docs/NEXT-SESSION.md` — REWRITTEN (the state card v64 + the
-  SESSION-064 prompt; the wipe count 57 → 58; the debt books empty).
+  SESSION-064 prompt; the wipe count 57 → 58; the debt books empty;
+  the CI-incident law + the corrected battery 2398 + 95).
 
 ## Blockers & decisions needed
 
@@ -246,6 +288,7 @@ inside the phase).
   close cleanly at a natural boundary when capacity runs out.
 - NEXT-SESSION.md rewritten: yes (the state card v64, the
   SESSION-064 prompt inside).
-- Push state: CLEAN — this session's close commit pushed (the
-  ephemeral PAT form; never stored); go-ci to verify green at
-  SESSION-064's open (a red is a REAL failure now).
+- Push state: CLEAN — the session's close commit (`f9c81ee`) +
+  the CI-incident fix commit pushed (the ephemeral PAT form; never
+  stored); go-ci verified GREEN at SESSION-064's open (a red is a
+  REAL failure now).

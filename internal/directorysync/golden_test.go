@@ -16,7 +16,13 @@
 //
 // THE LAW: goldens are never hand-edited; a divergence is either a Go
 // bug (fix the port) or a reference behavior change (regenerate + say
-// so in the commit).
+// so in the commit). SESSION-063's dated addition: a THIRD class
+// exists - ENVIRONMENT-OWNED text a golden accidentally recorded
+// (git's version-dependent fatal wording inside
+// push_mirror_plain/logs; the CI runner's git 2.55.0 vs the
+// generator's 2.47.3). Such a fragment is normalized on BOTH
+// sides at comparison time (normGitWording) - the golden's bytes
+// stay untouched.
 package directorysync
 
 import (
@@ -26,6 +32,7 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
@@ -682,6 +689,53 @@ func TestGolden_CLI(t *testing.T) {
 	cmpDSGolden(t, "cli_missing_vault/rc", rc2, mv["rc"])
 }
 
+// normGitWording - git's "not a git repository" fatal wording is
+// version- and filesystem-layout-dependent: the 2.47-era wording
+// ("or any of the parent directories): .git") vs the boundary-crossing
+// form newer gits emit ("or any parent up to mount point X" + the
+// GIT_DISCOVERY_ACROSS_FILESYSTEM stop line) - which one appears
+// depends on the machine's mounts, not on the app. The reference
+// emits whatever ITS local git says, so the golden recorded one
+// machine's wording; the CI runner (go-ci run 39837881142 on f9c81ee,
+// the ubuntu26/20261012.163 image, git 2.55.0) emitted the other and
+// the push_mirror_plain/logs pin went red. The APP's contract is the
+// two [directory] lines; git's stderr fragment is environment noise -
+// both known variants normalize to one canonical token on BOTH sides
+// of that comparison (the run's captured text and the golden's
+// recorded text). Everything else stays byte-exact (the fixture test
+// pins the passthrough).
+var gitNotARepoRe = []*regexp.Regexp{
+	regexp.MustCompile(`fatal: not a git repository \(or any of the parent directories\): \.git`),
+	regexp.MustCompile(`fatal: not a git repository \(or any parent up to mount point [^)]*\)` +
+		`\nStopping at filesystem boundary \(GIT_DISCOVERY_ACROSS_FILESYSTEM not set\)\.`),
+}
+
+const gitWordingToken = "fatal: not a git repository (<git-version-dependent wording>)"
+
+func normGitWording(lines []string) []string {
+	out := make([]string, len(lines))
+	for i, l := range lines {
+		for _, re := range gitNotARepoRe {
+			l = re.ReplaceAllString(l, gitWordingToken)
+		}
+		out[i] = l
+	}
+	return out
+}
+
+// goldenStrings - a golden section's recorded logs (JSON []any) as
+// []string, for the normalized comparison.
+func goldenStrings(v any) []string {
+	raw, _ := v.([]any)
+	out := make([]string, 0, len(raw))
+	for _, s := range raw {
+		if str, ok := s.(string); ok {
+			out = append(out, str)
+		}
+	}
+	return out
+}
+
 // --- §8 the mirror push ----------------------------------------------------------
 
 func TestGolden_PushMirror(t *testing.T) {
@@ -714,5 +768,29 @@ func TestGolden_PushMirror(t *testing.T) {
 	var logs3 []string
 	pushed3 := PushMirrorRepo(vault2, func(msg string) { logs3 = append(logs3, msg) })
 	cmpDSGolden(t, "push_mirror_plain/pushed", pushed3, gp["pushed"])
-	cmpDSGolden(t, "push_mirror_plain/logs", logs3, gp["logs"])
+	cmpDSGolden(t, "push_mirror_plain/logs", normGitWording(logs3), normGitWording(goldenStrings(gp["logs"])))
+}
+
+// TestNormGitWordingEnvironmentVariants - the CI incident's fixture
+// (SESSION-063, go-ci run 39837881142 on f9c81ee: the ubuntu26
+// runner image's git 2.55.0 walked t.TempDir() across a filesystem
+// boundary and emitted the mount-point wording the golden never
+// recorded). Both real-world shapes - the sandbox's git 2.47 form
+// AND the runner's exact failure bytes - MUST normalize to the same
+// canonical token, while the app's own log lines pass through
+// untouched (the exact CI failure text is the fixture).
+func TestNormGitWordingEnvironmentVariants(t *testing.T) {
+	oldForm := "[directory] git rev-parse --is-inside-work-tree failed: fatal: not a git repository (or any of the parent directories): .git"
+	newForm := "[directory] git rev-parse --is-inside-work-tree failed: fatal: not a git repository (or any parent up to mount point /)\nStopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set)."
+	wantLine := "[directory] git rev-parse --is-inside-work-tree failed: " + gitWordingToken
+	skipLine := "[directory] mirror push skipped: vault is not a git repo"
+	for _, in := range []string{oldForm, newForm} {
+		got := normGitWording([]string{in, skipLine})
+		if got[0] != wantLine {
+			t.Errorf("the git fatal wording did not normalize to the canonical token:\n in: %q", in)
+		}
+		if got[1] != skipLine {
+			t.Errorf("an app-owned line was touched by the normalizer: %q", got[1])
+		}
+	}
 }

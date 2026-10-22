@@ -31,7 +31,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 Yes — proven, not claimed. The test system runs the **unmodified Python
 app** and the Go app on the same inputs and compares outputs **byte for
 byte**: 33 golden generators, all green (the archived full-run report +
-the corpus law). The battery: **2,492 tests, zero failures, race-clean**.
+the corpus law). The battery: **2,493 tests, zero failures, race-clean**.
 Your existing data works as-is: the Go app opens the Python-created
 `config.json` + `cache.db` without migration, and the two apps even
 mutually exclude via the same lock (they can share the data safely).
@@ -1773,15 +1773,31 @@ corruption struck a FIFTH time (both Go test files re-expanded to
 spaces; caught by gofmt -l, repaired by gofmt -w, the post-repair
 diffs verified to be exactly the edit regions) — and one
 anchor-asserted patch refused on a wrong indent guess exactly as
-designed (nothing mutated). The battery: **2397 + 95 = 2,492**
-unchanged (the slice extended one test + the differential contract,
-not the rows), race-clean, gofmt/vet/build clean in both modules,
-zero new dependencies, the MAIN go.mod byte-unchanged. The QUICKSTART
-§1 + the file table updated to the new honest shape. The records in
-the same commit: doc 10 §4's dated note (the [verify] resolution),
-spec-cli.md's dated SESSION-063 record, the t-70 poc correction, the
-parity report's §4.2 + §9 (the recorded test-debt inventory is now
-EMPTY of autonomous items), this entry, the session report, the state
-card v64. **What remains is only the owner's**: T-82's live checklist
-(item 1 now executable as designed — no haste), the milestone release
-decision, and the Phase-8 menu whenever wanted.
+designed (nothing mutated). The battery: **2398 + 95 = 2,493**
+(2397 + the CI incident's fixture test — the slice itself extended
+one test + the differential contract, not the rows), race-clean,
+gofmt/vet/build clean in both modules, zero new dependencies, the
+MAIN go.mod byte-unchanged. The QUICKSTART §1 + the file table
+updated to the new honest shape. **The CI incident (honest record):
+the close push's go-ci run went RED** — TestGolden_PushMirror's
+push_mirror_plain/logs pin diverged on the runner: git's "not a git
+repository" fatal wording flipped between runner image releases
+(the green d2fa36c run and the red f9c81ee run BOTH rode git 2.55.0
+but different ubuntu26 image releases — on one filesystem layout the
+walk from t.TempDir() crosses a mount boundary, on the other it
+doesn't); the golden had accidentally recorded ONE machine's git
+wording as if it were the app's contract. Root-caused from both
+runs' logs, fixed the same session: normGitWording normalizes both
+known git variants to one canonical token on BOTH sides of that one
+comparison (the golden's bytes untouched — goldens are never
+hand-edited), the fixture test pins the exact CI failure bytes, and
+the mutation teeth were proven twice (the app's own skip line
+reworded → the comparison FAILS exactly → reverted byte-identical).
+The records in the same commit: doc 10 §4's dated note (the
+[verify] resolution), spec-cli.md's dated SESSION-063 record,
+spec-cloud-directory-sync.md's dated CI-incident record, the t-70
+poc correction, the parity report's §4.2 + §9 (the recorded inventory
+now empty of autonomous items), this entry, the session report, the
+state card v64. **What remains is only the owner's**: T-82's live
+checklist (item 1 now executable as designed — no haste), the
+milestone release decision, and the Phase-8 menu whenever wanted.

@@ -82,9 +82,9 @@ T-64 to 33 today.
 
 ### 4.2 The test battery
 
-**2,397 main-module tests + 95 webui tests = 2,492, over 40 packages —
+**2,398 main-module tests + 95 webui tests = 2,493, over 40 packages —
 zero failures, race-detector clean, `gofmt` clean** (re-verified at
-SESSION-062's close; 2,377 + 89 until SESSION-058, which added the
+SESSION-063's close; 2,377 + 89 until SESSION-058, which added the
 five chrome-retry live-leg tests, then SESSION-059 added the twelve
 noteredo core-level selections — and closed the REAL delivered-law
 parity gap they exposed, §9 — then SESSION-060 added the two harvest
@@ -103,13 +103,13 @@ full-options snapshot, the once-per-session bound, the delivery/
 batch/pipeline holds, the degraded-probe twin; green on the first
 run — no parity gap hid behind this one; the record is in
 spec-core-website-pipeline.md's Tests section; the same numbers CI
-proves on every push). SESSION-063 re-verified the same shape at its
-open and close, and added no test count — its slice (the 1-INSTALL
-bootstrapper leg: the WebView2 Evergreen Runtime check) landed by
-EXTENDING one test (the renamed
-`TestInstallBatChecksGitAndWebview2`) and the golden differential's
-goOnly contract, not by adding rows: the counts stay 2397 + 95, the
-arithmetic closes exactly.
+proves on every push). SESSION-063 landed its slice (the 1-INSTALL
+bootstrapper leg: the WebView2 Evergreen Runtime check) by EXTENDING
+one test (the renamed `TestInstallBatChecksGitAndWebview2`) and the
+golden differential's goOnly contract — no rows added there — and
+then +1 for the CI incident's fixture test
+(`TestNormGitWordingEnvironmentVariants`, the git-wording class
+below): the counts close exactly at 2398 + 95.
 
 ### 4.3 Data compatibility (your existing data works as-is)
 
