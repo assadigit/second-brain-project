@@ -79,15 +79,18 @@
   variants normalize to one canonical token on BOTH sides of that
   one comparison; the golden's bytes untouched; the fixture test
   pins the exact CI failure bytes; the mutation teeth proven) — and
-  re-pushed green with the fix commit. go-ci to verify green at
-  SESSION-064's open (a red is a REAL failure now; watch the Actions
-  tab on pushes as normal CI hygiene).
+  re-pushed: the FIX PUSH (`aaac0f6`, run 39838992446) verified GREEN
+  at SESSION-063's close. The postscript push (the record you are
+  reading) is the latest — verify its run green at SESSION-064's
+  open (a red is a REAL failure now; watch the Actions tab on pushes
+  as normal CI hygiene).
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always); Actions minutes are
   unlimited; the no-secrets law is public-facing. **go-ci: GREEN on
   the tree through `d2fa36c`; SESSION-063's close push went RED (the
-  CI incident, fixed same-session) — the FIX PUSH is the latest:
-  verify its run green at the open.**
+  CI incident, fixed same-session) — the FIX PUSH (`aaac0f6`, run
+  39838992446) verified GREEN at the close; the postscript push is
+  the latest: verify its run green at the open.**
 - **The environment recipe** (the 58th wipe was absorbed at
   SESSION-063's open — the standard recipe held): work repo at
   /home/z/my-project/second-brain-project (**clone it ANONYMOUSLY — it
@@ -377,9 +380,9 @@ the close push's run went RED (the CI incident: git's "not a git
 repository" fatal wording flipped between ubuntu26 image releases;
 the golden had recorded one machine's git wording as the app's
 contract) — root-caused, fixed same-session (normGitWording on both
-sides + the fixture test), re-pushed green. Verify the FIX PUSH's
-run green at the open (a red is a REAL failure now). What remains in
-Phase 7 is the
+sides + the fixture test); the fix push aaac0f6 (run 39838992446)
+verified GREEN at the close. Verify the postscript push's run green
+at the open (a red is a REAL failure now). What remains in Phase 7 is the
 OWNER's: T-82's live checklist (no haste) + the milestone release decision.
 
 Then follow docs/SESSION-PROTOCOL.md exactly: bootstrap (clone
