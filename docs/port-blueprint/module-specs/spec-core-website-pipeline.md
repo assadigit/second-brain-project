@@ -267,3 +267,54 @@ Port from `test_banishment`, `test_phase*` selections, `test_websitesqueuefix`,
 > never-fires belt. The reference's own suite green in the venv
 > both before and after (44/44); the battery 2396 + 89 at the
 > close (2394 + 2).
+> **SESSION-062 — the noteredo test debt's LAST slice landed: the
+> GUI-side hero/wiring equivalents (the parity report §9's one
+> remaining entry, closed with proof).** The reference's
+> `TestHeroRedoRouting` + `TestRedoPassWiring`
+> (app/tests/test_noteredo.py:795-973 — the caught-up claim may
+> only be said after the redo check; the pass's once-per-session
+> bound, its ROUTING LAW, and its busy/delivery/pipeline gates)
+> had no Go GUI-side equivalents: the caught-up/redo shapes were
+> pinned at the HeroUI seam only through the fanfare selections'
+> own assertions (`TestHeroUIFanfareCaughtUpRedoPass` /
+> `…PlainClaimIntact` — the claim withheld/spoken) and the
+> guards' data halves at the app seam
+> (`TestFanfareRedoHandNotesScan`). The port —
+> `webui/redowiring_test.go`, six selections — landed green on
+> its first run (the state card's own prediction: test-debt-only,
+> the seam already covering the guards; unlike the four preceding
+> sessions, NO parity gap hid behind this debt — the empirical
+> record, not a claim): the degraded-probe twin (the reference's
+> bare hero without the collaborator → the Go composition's quiet
+> degradation: a garbage cache.db answers nothing by the hermetic
+> law and the claim still lands), THE ROUTING LAW at BOTH call
+> sites (the caught-up click + the fanfare crossing: the redo
+> batch's GitHub list EMPTY, the rows riding as the website list,
+> source "direct" — pinned through the rig's new `batchOpts`
+> full-options snapshot, the capture the old mode-only recorder
+> could not express), the once-per-session bound (the second
+> caught-up click after the batch is home starts nothing; the 🔁
+> line spoken exactly once), the delivery hold (a gathering
+> Chrome delivery defers the redo, the claim still lands, and the
+> RELEASED pass redoes on the next click — the deferral never
+> consumes the tried belt), the running-batch hold (a blocked
+> batch owns the table's truth; the claim lands; no second
+> batch), and the Websites pipeline gate (dark pipeline → the
+> quiet no-op + the claim). The mutation teeth proven on the
+> routing pin (the v0.57 bug shape — the rows fed to the GitHub
+> list — fails the selection exactly). TWO records ride with the
+> port (the never-fires-belt class of SESSION-060, recorded, not
+> changed): the start-failure belts (the reference's
+> `test_a_start_failure_is_honest_not_fatal` maps to
+> `startRedoRerun`'s recover belt — unreachable by construction,
+> `guardCommand` owns every engine panic — and its "already
+> running" refusal line — the microsecond race window between the
+> scan's lock read and the goroutine's acquire, both gating on
+> the SAME shared batch lock; the crashed-run shape is pinned at
+> the commands seam) and the pending-count model (the reference's
+> separate `_chrome_delivery_pending` counter folds into the Go
+> busy flag — T-79d's recorded divergence; the busy flag covers
+> every reachable state the reference's two-term guard reads).
+> The reference's own module green in the venv (48 tests, 10
+> skipped — the PyQt-walled GUI-side selections run in its CI);
+> the battery 2397 + 95 at the close (89 + 6).

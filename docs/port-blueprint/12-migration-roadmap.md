@@ -1323,3 +1323,67 @@ flowchart LR
 > NEXT-SESSION.md (the state card v62). What remains in Phase 7 is
 > still the owner's: T-82's live checklist (no haste — the owner's
 > own standing words) + the milestone release decision.
+
+> **SESSION-062 (Phase 7, path (c) a fifth time under the standing
+> delegation) — the deferred-debts polish COMPLETED: the noteredo
+> test debt's LAST slice (the GUI-side hero/wiring equivalents, §9's
+> one remaining entry) landed, green on its first run — no parity
+> gap hid behind this debt (the state card's own prediction, now the
+> empirical record; the four preceding sessions each found one).**
+> The port: `webui/redowiring_test.go` — six selections translated
+> from the reference's `TestHeroRedoRouting` + `TestRedoPassWiring`
+> (app/tests/test_noteredo.py:795-973): the degraded-probe twin
+> (test_a_bare_hero_without_the_collaborator_is_unchanged → the Go
+> composition's quiet degradation: a garbage cache.db answers
+> nothing by the hermetic law, the caught-up claim still lands, no
+> batch, no crash); THE ROUTING LAW at BOTH call sites
+> (test_the_pass_starts_the_website_mini_batch — the caught-up
+> click + the fanfare crossing: the redo batch's GitHub list EMPTY,
+> the rows riding as the website list, source "direct"; pinned
+> through the rig's new `batchOpts` full-options snapshot added to
+> `heroRig`'s two batch recorders — the capture the old mode-only
+> `batchModes` could not express); the once-per-session bound
+> (test_once_per_session_is_the_bound — the second caught-up click
+> after the batch is fully home starts nothing; the 🔁 line spoken
+> exactly once); the delivery hold
+> (test_a_pending_delivery_holds_the_pass — chromeDeliveryBusy
+> defers the redo, the claim still lands, and the RELEASED pass
+> redoes on the next click: the deferral never consumes the tried
+> belt); the running-batch hold (test_a_running_batch_holds_the_pass
+> — a blocked batch owns the table's truth; batchCalls stays one);
+> and the Websites pipeline gate
+> (test_the_websites_pipeline_gate_holds — dark pipeline → the
+> quiet no-op + the claim). The already-covered selections cited in
+> the file header, never duplicated (the claim withheld/spoken at
+> TestHeroUIFanfareCaughtUpRedoPass / …PlainClaimIntact; the
+> guards' data halves at TestFanfareRedoHandNotesScan). **The
+> mutation teeth proven on the routing pin**: the v0.57 bug shape
+> (startRedoRerun feeding the rows to the GitHub list — the owner's
+> original report) fails TestRedoWiringRoutingLaw exactly, reverted
+> clean. TWO never-fires-belt records ride with the port (the
+> SESSION-060 class, recorded not changed): the start-failure belts
+> (startRedoRerun's recover belt is unreachable by construction —
+> SyncRunBatch's guardCommand owns every engine panic, the
+> crashed-run shape pinned at the commands seam — and its "already
+> running" refusal line needs the microsecond race window between
+> the redo scan's lock read and the goroutine's acquire, both
+> gating on the SAME shared batch lock) and the pending-count model
+> (the reference's separate _chrome_delivery_pending counter folds
+> into the Go chromeDeliveryBusy flag — T-79d's recorded
+> divergence; the busy flag covers every reachable state the
+> reference's two-term guard reads, the unreachable
+> pending-without-busy shape has no Go counterpart). The reference's
+> own module green in the venv (48 tests, 10 skipped — the
+> PyQt-walled GUI-side selections run in its CI; the tree
+> untouched). The battery at the close: **2397 + 95 = 2492**,
+> race-clean, gofmt/vet/build clean in both modules, zero new
+> dependencies, the MAIN go.mod byte-unchanged. The records in the
+> same commit (reality wins): spec-core-website-pipeline.md's dated
+> SESSION-062 record (the Tests-section trail),
+> the parity report's §4.2 counts (2397 + 89 → **2397 + 95 =
+> 2492**) + §9 (the noteredo debt CLOSED — the recorded test-debt
+> inventory is now empty), the README's front-page count + the
+> SESSION-062 status entry, this entry, the session report,
+> NEXT-SESSION.md (the state card v63). What remains in Phase 7 is
+> still the owner's: T-82's live checklist (no haste — the owner's
+> own standing words) + the milestone release decision.

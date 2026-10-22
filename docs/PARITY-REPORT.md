@@ -82,9 +82,9 @@ T-64 to 33 today.
 
 ### 4.2 The test battery
 
-**2,397 main-module tests + 89 webui tests = 2,486, over 40 packages —
+**2,397 main-module tests + 95 webui tests = 2,492, over 40 packages —
 zero failures, race-detector clean, `gofmt` clean** (re-verified at
-SESSION-061's close; 2,377 + 89 until SESSION-058, which added the
+SESSION-062's close; 2,377 + 89 until SESSION-058, which added the
 five chrome-retry live-leg tests, then SESSION-059 added the twelve
 noteredo core-level selections — and closed the REAL delivered-law
 parity gap they exposed, §9 — then SESSION-060 added the two harvest
@@ -96,7 +96,14 @@ surgery path's text-mode remainder — the Go read CRLF notes raw where
 the reference's text mode translates, so a moved CRLF note came out
 with mixed line endings and every stored fingerprint diverged from
 Python's; the fix + the record are in spec-core-note-state.md's Tests
-section; the same numbers CI proves on every push).
+section — and SESSION-062 added the six GUI-side hero/wiring
+selections that closed the noteredo test debt's LAST slice (the
+routing law pinned at both call sites through the rig's new
+full-options snapshot, the once-per-session bound, the delivery/
+batch/pipeline holds, the degraded-probe twin; green on the first
+run — no parity gap hid behind this one; the record is in
+spec-core-website-pipeline.md's Tests section; the same numbers CI
+proves on every push).
 
 ### 4.3 Data compatibility (your existing data works as-is)
 
@@ -242,11 +249,15 @@ in the T-81 evidence doc §2.1. Each rode the commit that found it.
   content, but the Go read raw at four sites: mixed-endings output +
   raw fingerprints a Python-baselined row would disagree with forever;
   the golden + the fix + the record are
-  spec-core-note-state.md's Tests section); what remains is the
-  GUI-side hero/wiring equivalents (TestHeroRedoRouting +
-  TestRedoPassWiring) where the app seam already covers the guards;
-  the launchers' clean-VM smoke (rides T-82); the bootstrapper leg
-  (doc 10 §7).
+  spec-core-note-state.md's Tests section); and the GUI-side
+  hero/wiring equivalents (TestHeroRedoRouting + TestRedoPassWiring)
+  landed at SESSION-062 — `webui/redowiring_test.go`, six selections
+  (the routing law at both call sites, the once-per-session bound,
+  the delivery/batch/pipeline holds, the degraded-probe twin), green
+  on the first run with the mutation teeth proven on the routing pin
+  (the v0.57 bug shape fails it exactly) — the noteredo debt is
+  CLOSED; the launchers' clean-VM smoke (rides T-82); the
+  bootstrapper leg (doc 10 §7).
 - **Standing owner calls carried**: the webui-module dissolution
   (ADR-0002 Am.5); vanilla-vs-vite for the frontend; the
   batch-scorecard modal question; the v0.91.0 zip-parity reading

@@ -31,7 +31,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 Yes — proven, not claimed. The test system runs the **unmodified Python
 app** and the Go app on the same inputs and compares outputs **byte for
 byte**: 33 golden generators, all green (the archived full-run report +
-the corpus law). The battery: **2,486 tests, zero failures, race-clean**.
+the corpus law). The battery: **2,492 tests, zero failures, race-clean**.
 Your existing data works as-is: the Go app opens the Python-created
 `config.json` + `cache.db` without migration, and the two apps even
 mutually exclude via the same lock (they can share the data safely).
@@ -44,8 +44,9 @@ story with every number and every deviation:
 
 The owner's live Windows checklist (T-82 — the fresh-VM install + AV
 scan; the fill-in doc is prepared), the next milestone release cut (the
-owner's call), and the recorded minor debts — all listed in the parity
-report §9. The engineering status follows below.
+owner's call), and the recorded minor debts (all test-debt slices are
+now closed — the last one landed at SESSION-062) — all listed in the
+parity report §9. The engineering status follows below.
 
 ---
 
@@ -1678,3 +1679,53 @@ checklist (only if/when you have the urge — nothing this session
 needs you); (2) "ship it" — the milestone release; (3) the Phase-8
 pick or the last deferred-debts slice (the GUI-side hero/wiring
 equivalents, where the app seam already covers the guards).
+
+**Phase 7 (continued) — SESSION-062**: **the deferred-debts path a
+fifth time — and the noteredo test debt's LAST slice (the GUI-side
+hero/wiring equivalents, §9's one remaining entry) landed with
+proof — green on its first run: no parity gap hid behind this one
+(the state card's own prediction, now the empirical record).** The
+port — `webui/redowiring_test.go`, six selections translated from
+the reference's `TestHeroRedoRouting` + `TestRedoPassWiring`
+(app/tests/test_noteredo.py:795-973): the degraded-probe twin (the
+reference's bare hero without the collaborator → the Go
+composition's quiet degradation: a garbage cache.db answers nothing
+by the hermetic law and the caught-up claim still lands); THE
+ROUTING LAW at BOTH call sites (the caught-up click + the fanfare
+crossing: the redo batch's GitHub list EMPTY, the rows riding as
+the website list, source "direct" — pinned through the rig's new
+`batchOpts` full-options snapshot in `heroui_test.go`, the capture
+the old mode-only recorder could not express); the once-per-session
+bound (the second caught-up click after the batch is home starts
+nothing; the 🔁 line spoken exactly once); the delivery hold (a
+gathering Chrome delivery defers the redo, the claim still lands,
+and the RELEASED pass redoes on the next click — the deferral
+never consumes the tried belt); the running-batch hold (a blocked
+batch owns the table's truth; the claim lands; no second batch);
+and the Websites pipeline gate (dark pipeline → the quiet no-op +
+the claim). **The mutation teeth proven on the routing pin** — the
+v0.57 bug shape (the rows fed to the GitHub list, the owner's
+original report) fails the selection exactly. TWO never-fires-belt
+records ride with the port (the SESSION-060 class, recorded not
+changed): the start-failure belts (`startRedoRerun`'s recover belt
+is unreachable by construction — `guardCommand` owns every engine
+panic — and its "already running" refusal line needs the
+microsecond race window between the scan's lock read and the
+goroutine's acquire, both gating on the SAME shared batch lock)
+and the pending-count model (the reference's separate
+`_chrome_delivery_pending` counter folds into the Go busy flag —
+T-79d's recorded divergence). The reference's own module green in
+the venv (48 tests, 10 skipped — the PyQt-walled GUI-side
+selections run in its CI). The battery: **2397 + 95 = 2,492**,
+race-clean, gofmt/vet/build clean in both modules, zero new
+dependencies. The records in the same commit:
+spec-core-website-pipeline.md's dated SESSION-062 record (the
+Tests-section trail), the parity report's §4.2 + §9 (the noteredo
+debt CLOSED — the recorded test-debt inventory is now empty), and
+this entry's front-page count. The 57th wipe absorbed before work
+(the standard recipe; go-ci green at the open — the run at
+`505f1f2`). **The menu for the owner is unchanged**: (1) T-82's
+live Windows checklist (only if/when you have the urge — nothing
+this session needs you); (2) "ship it" — the milestone release;
+(3) the Phase-8 pick (doc 12's register) — the deferred-debts
+polish is done.

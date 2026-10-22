@@ -41,10 +41,13 @@ type heroRig struct {
 	spoken   *[]string
 	mu       *sync.Mutex
 
-	queueState  string
-	queueItems  []any
-	batchCalls  int
-	batchModes  []string
+	queueState string
+	queueItems []any
+	batchCalls int
+	batchModes []string
+	// batchOpts snapshots every recorded batch's full options (the
+	// routing law's pin: the URLs/NonGithub split, never just the mode).
+	batchOpts   []app.BatchOptions
 	batchResult *app.BatchResult
 	batchBlock  chan struct{} // non-nil → the fake batch waits for the close
 
@@ -97,6 +100,16 @@ func newHeroRig(t *testing.T) *heroRig {
 			rig.mu.Lock()
 			rig.batchCalls++
 			rig.batchModes = append(rig.batchModes, opts.Mode+"/"+opts.Source)
+			rig.batchOpts = append(rig.batchOpts, app.BatchOptions{
+				URLs:             append([]string(nil), opts.URLs...),
+				NonGithub:        append([]string(nil), opts.NonGithub...),
+				Source:           opts.Source,
+				Mode:             opts.Mode,
+				ImportFile:       opts.ImportFile,
+				IntakeDuplicates: opts.IntakeDuplicates,
+				RawURLCount:      opts.RawURLCount,
+				DryRun:           opts.DryRun,
+			})
 			block := rig.batchBlock
 			result := rig.batchResult
 			rig.mu.Unlock()
@@ -1130,6 +1143,16 @@ func newBotDoorUIRig(t *testing.T) *heroRig {
 			rig.mu.Lock()
 			rig.batchCalls++
 			rig.batchModes = append(rig.batchModes, opts.Mode+"/"+opts.Source)
+			rig.batchOpts = append(rig.batchOpts, app.BatchOptions{
+				URLs:             append([]string(nil), opts.URLs...),
+				NonGithub:        append([]string(nil), opts.NonGithub...),
+				Source:           opts.Source,
+				Mode:             opts.Mode,
+				ImportFile:       opts.ImportFile,
+				IntakeDuplicates: opts.IntakeDuplicates,
+				RawURLCount:      opts.RawURLCount,
+				DryRun:           opts.DryRun,
+			})
 			rig.mu.Unlock()
 			return &app.BatchResult{Success: true, Message: "the fake batch finished"}
 		},
