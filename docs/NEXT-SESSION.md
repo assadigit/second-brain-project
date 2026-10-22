@@ -20,7 +20,7 @@
 - **Phase 6 CLOSED (SESSION-033–047)**: the Wails GUI from the T-70
   gate through the T-79a…T-79f Path-B rows.
 - **Phase 7 — THE IMPLEMENTATION SIDE IS DONE, AND THE DEBT BOOKS ARE
-  EMPTY (SESSION-048–065)**: T-80 ✓ (the deterministic zip + the
+  EMPTY (SESSION-048–066)**: T-80 ✓ (the deterministic zip + the
   ritual), T-81 ✓ (the release workflow, dry-run green on a real
   runner + the cross-machine byte-identity proof + the refusal leg),
   T-83 ✓ (SESSION-051: the docs — `docs/PARITY-REPORT.md` (AC-25),
@@ -44,14 +44,15 @@
   cloud quartet revival; Linux/macOS builds; localization; the
   visual redesign; Worker-side improvements; the UI polish backlog
   collected during porting). **SESSION-065 (path (c) an eighth time)
-  RE-VERIFIED THE STATE + RE-SURFACED THE MENU COMPACTLY** (the
-  MENU-SURFACED record exercised exactly as written; the full menu
-  stands from SESSION-064; the compact form rides SESSION-065's
-  report + chat report). **The owner's pick is the only mover left
+  AND SESSION-066 (path (c) a ninth time) EACH RE-VERIFIED THE STATE
+  + RE-SURFACED THE MENU COMPACTLY** (the MENU-SURFACED record
+  exercised exactly as written; the full menu stands from SESSION-064;
+  the compact form rides SESSION-065's + SESSION-066's reports + chat
+  reports). **The owner's pick is the only mover left
   on the board** — no autonomous implementation slice exists (the
   debt books empty; Phase 8 out of blueprint scope; entering it is
   the owner's strategic pick, never a session's unilateral move).
-  The battery re-verified green at SESSION-065's open — the exact
+  The battery re-verified green at SESSION-066's open — the exact
   committed shape (2398 main + 95 webui = 2493, race-clean,
   gofmt/vet/build clean in both modules); the T-82 §1 slots verified
   still empty (no intake); the live release list verified still the
@@ -63,22 +64,22 @@
   through the proven workflow. What remains in Phase 7 is the
   OWNER's: T-82's live checklist (no haste — their words) + the
   milestone release decision.**
-- **Push state: CLEAN** — SESSION-064's close push (`484135a`,
-  docs-only, run 39843195625) verified GREEN at SESSION-065's open
+- **Push state: CLEAN** — SESSION-065's close push (`ef65823`,
+  docs-only, run 39859687910) verified GREEN at SESSION-066's open
   (the CI-incident class did not recur; the ledger below it exactly
-  as recorded). SESSION-065's close push (docs-only) is the latest —
-  verify its run green at SESSION-066's open (a red is a REAL
+  as recorded). SESSION-066's close push (docs-only) is the latest —
+  verify its run green at SESSION-067's open (a red is a REAL
   failure now; watch the Actions tab on pushes as normal CI
   hygiene).
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always — re-inline it per call;
   the sandbox shell does not carry exports between tool calls);
   Actions minutes are unlimited; the no-secrets law is public-facing.
-  **go-ci: GREEN on the tree through `484135a` (run 39843195625,
-  verified at SESSION-065's open); SESSION-065's close push is the
+  **go-ci: GREEN on the tree through `ef65823` (run 39859687910,
+  verified at SESSION-066's open); SESSION-066's close push is the
   latest: verify its run green at the open.**
-- **The environment recipe** (the 60th wipe was absorbed at
-  SESSION-065's open — the standard recipe held, zero corrections):
+- **The environment recipe** (the 61st wipe was absorbed at
+  SESSION-066's open — the standard recipe held, zero corrections):
   work repo at /home/z/my-project/second-brain-project (**clone it
   ANONYMOUSLY — it is public; the credentials block's GitHub URL may
   point at the PRIVATE Python reference `assadigit/GitCurator` — do
@@ -103,9 +104,9 @@
   and the rootless
   webkit tree (~/.local/lib-wails — **DOWN; last rebuilt at
   SESSION-047 (the FIFTEENTH rebuild); never rebuilt since
-  (SESSION-048–065 all ran no Linux GUI build — the windows legs are
+  (SESSION-048–066 all ran no Linux GUI build — the windows legs are
   CGO-free and the full battery [main + webui] runs without it,
-  re-proven at SESSION-065); the SIXTEENTH rebuild is pending:
+  re-proven at SESSION-066); the SIXTEENTH rebuild is pending:
   rebuild it FIRST only when the session runs a LINUX GUI build** —
   per webui/README.md + docs/poc-artifacts/t-70-gate.md +
   build/TOOLCHAIN.md Am.3 + Am.4: 144 debs → dpkg -x → the 42 .pc
@@ -121,13 +122,13 @@
   backgrounded children when the call returns.
 - **The operational laws, newest first** (each was paid for in
   evidence — carry ALL of them): **THE MENU-SURFACED RECORD
-  (SESSION-064, exercised at SESSION-065 exactly as written — the
-  Phase-8 menu is surfaced in full [SESSION-064's report + the chat
-  report + the card §4; the compact re-surface form rides SESSION-065's
-  report]; with the debt books empty, the owner's pick is the only
-  mover; a path-(c) session re-verifies the state + re-surfaces the
-  menu compactly + closes cleanly — never starts Phase-8 work
-  unilaterally)**; **THE ENVIRONMENT-OWNED-TEXT
+  (SESSION-064, exercised at SESSION-065 and SESSION-066 exactly as
+  written — the Phase-8 menu is surfaced in full [SESSION-064's
+  report + the chat report + the card §4; the compact re-surface form
+  rides SESSION-065's + SESSION-066's reports]; with the debt books
+  empty, the owner's pick is the only mover; a path-(c) session
+  re-verifies the state + re-surfaces the menu compactly + closes
+  cleanly — never starts Phase-8 work unilaterally)**; **THE ENVIRONMENT-OWNED-TEXT
   LAW (SESSION-063's CI incident — a tool's version- or
   layout-dependent wording (git's fatal messages, a browser's
   user-agent, a compiler's notes) must NEVER ride a golden pin as if
@@ -167,11 +168,11 @@
   (SESSION-060)**; **THE DELIVERED-LAW RECORD (SESSION-059)**; **THE
   MULTIEDIT-TAB CORRUPTION, THIRD STRIKE (SESSION-060 — also: the
   eat struck a COMMITTED card once — card v59's "battery ain +
-  webui]" for "battery ain + webui]", fixed in v60)**; **THE
+  webui]" for "battery [main + webui]", fixed in v60 — the "for" side itself carried the corrupted form from v60 on (a real byte-level artifact, unlike the webkit bullet's line which byte-checks PROVEN display-only-eaten [always correct in v54→v66]; the "for" side repaired at SESSION-066's close with display-proof byte counts)**; **THE
   ASYNC-READ FLAKE LESSON (SESSION-059)**; **THE LIVE-LEG RECORD
   (SESSION-058 — settle every "already landed" claim against the
-  commit's own stat before trusting it)**; **THE 60TH-WIPE RECIPE
-  (SESSION-065 — held without correction)**; **THE WEBKIT-ORDINAL
+  commit's own stat before trusting it)**; **THE 61ST-WIPE RECIPE
+  (SESSION-066 — held without correction)**; **THE WEBKIT-ORDINAL
   CORRECTION (SESSION-055 — the pending rebuild is the SIXTEENTH,
   last done at SESSION-047)**; **THE AC-17 BENCHMARK RECORD
   (SESSION-052)**: performance rows close with same-input +
@@ -181,12 +182,12 @@
   RECORD (SESSION-050)**; **THE TAG-STATE BUILD LAW (SESSION-049,
   re-proven on the runner at 050)**; **THE -X-UNDER-TRIMPATH LAW
   (SESSION-048)**; **THE VERIFY-THE-VERIFIER LESSON
-  (SESSION-048/049/050/052/059/060/061/062/063/064/065 — the renderer eats
+  (SESSION-048/049/050/052/059/060/061/062/063/064/065/066 — the renderer eats
   characters on displays AND the tool echoes; settle every suspect
   reading with byte-level counts)**; **THE DEFAULT-ICON FIND
   (SESSION-048)**; **THE FLAG-CLEAR LAW (SESSION-047)**; **THE
   REFERENCE'S-OWN-ARITHMETIC LAW (SESSION-046/048)**; **THE VLM
-  MISREAD LEDGER (FOUR incidents: 042/043/044/045; 046–065 ran
+  MISREAD LEDGER (FOUR incidents: 042/043/044/045; 046–066 ran
   clean)**; **THE BINDING-IMPORT LAW (SESSION-044)**; **THE
   RACE-PASS DIVIDEND (SESSION-045)**; **THE EXTRACT-AND-EXEC
   SCOPE LAW (SESSION-041)**; **THE CROSS-BINARY DISAGREEMENT
@@ -200,7 +201,7 @@
   **THE SYMLINK-BLOCK FALLBACK (TOOLCHAIN.md Am.4)**; **THE
   RENDER-CONTEXT LAW (SESSION-037)**; **THE VLM RATE-LIMIT WINDOW
   (SESSION-039)**; **THE PINNED-VERDICT-ROW LESSON (SESSION-039)**;
-  **THE ONE-SLICE-PROPERLY RECORD (036–065)**; and the standing set
+  **THE ONE-SLICE-PROPERLY RECORD (036–066)**; and the standing set
   (THE LIVE-CONFIG LAW; THE GROUP-POINTER LAW; THE
   DISSOLUTION-PROBE RECORD; THE GOLDEN-MARSHAL-ORDER TRAP; THE
   SUITE-REVERIFICATION DIVIDEND; THE WAILS-BUILD MODE FLIPS; THE
@@ -221,21 +222,22 @@
     CHUNKS); **PUSH AFTER EVERY TASK** (ask for the PAT the moment a
     push is due; never store).
 
-## 2. Next session: SESSION-066 — the Phase-7 finish, owner-input driven (the owner's standing delegation recorded)
+## 2. Next session: SESSION-067 — the Phase-7 finish, owner-input driven (the owner's standing delegation recorded)
 
 The implementation side of Phase 7 is DONE and **the debt books are
 EMPTY** (the deferred-debts polish completed through SESSION-062; the
 last named test-adjacent debt — the 1-INSTALL bootstrapper leg —
 landed at SESSION-063; **the Phase-8 menu was surfaced IN FULL at
-SESSION-064 and re-surfaced COMPACTLY at SESSION-065** — the
-register's every option with its scope + evidence pointers rides
-SESSION-064's report; the compact form rides SESSION-065's report +
-chat report + this card). **The owner's standing input (SESSION-058,
+SESSION-064 and re-surfaced COMPACTLY at SESSION-065 and again at
+SESSION-066** — the register's every option with its scope + evidence
+pointers rides SESSION-064's report; the compact form rides
+SESSION-065's + SESSION-066's reports + chat reports + this card).
+**The owner's standing input (SESSION-058,
 verbatim): "Continue your work please. do based on our documentation.
 you choose. I dont have urge and haste to start the app. you can keep
 working. only tell me if you really need me to test the app."** — a
 delegation of the pick, no haste on T-82 or the release, and nothing
-currently needs the owner's testing. SESSION-066 follows the decision
+currently needs the owner's testing. SESSION-067 follows the decision
 tree (in priority order):
 
 - **(a) If the owner brings T-82 results** (the filled checklist
@@ -266,13 +268,14 @@ tree (in priority order):
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-065.md` — the most recent report (the state
+1. `docs/sessions/SESSION-066.md` — the most recent report (the state
    re-verified + the menu re-surfaced compactly; the battery
-   re-verified green 2398 + 95; the 60th wipe absorbed; SESSION-064's
+   re-verified green 2398 + 95; the 61st wipe absorbed; SESSION-065's
    close push's run verified green at the open).
-2. `docs/sessions/SESSION-064.md` — the full-menu session (the
-   register's every option with its scope + evidence pointers — the
-   standing full form of the owner's Phase-8 menu).
+2. `docs/sessions/SESSION-065.md` — the prior compact re-surface
+   session (the same shape one session earlier; the FULL menu with
+   every option's scope + evidence pointers stands in SESSION-064's
+   report — the standing full form of the owner's Phase-8 menu).
 3. `docs/PARITY-REPORT.md` — the owner-reviewable state (§9's
    not-done list is only the owner's LIVE legs).
 4. `docs/poc-artifacts/t-82-clean-vm-checklist.md` — the owner's
@@ -282,9 +285,9 @@ tree (in priority order):
    release path (the recipe if the owner says ship it).
 6. `docs/port-blueprint/12-migration-roadmap.md` — the Phase-7
    records + the Phase-8 future-work register (the tail).
-7. `README.md` (the front page + the SESSION-065 status entry).
+7. `README.md` (the front page + the SESSION-066 status entry).
 
-## 4. Known constraints / owner actions for SESSION-066
+## 4. Known constraints / owner actions for SESSION-067
 
 - **OWNER ACTION #1 (no haste — the owner's own words): T-82's live
   execution** — the owner's Windows machine runs the nine checklist
@@ -297,9 +300,9 @@ tree (in priority order):
   and the session cuts it (see §2b).
 - **OWNER ACTION #3: the Phase-8 pick** — only if the owner wants it
   (the menu is surfaced in full at SESSION-064 + compactly at
-  SESSION-065; the register's options + the standing small calls are
-  listed there); otherwise the standing delegation re-surfaces the
-  menu compactly and closes cleanly.
+  SESSION-065 and SESSION-066; the register's options + the standing
+  small calls are listed there); otherwise the standing delegation
+  re-surfaces the menu compactly and closes cleanly.
 - **The repo is PUBLIC** (SESSION-050) — never commit secrets
   (public-facing guarantee); pushes still need the ephemeral PAT
   (re-inline per call — the shell does not carry exports between
@@ -310,7 +313,7 @@ tree (in priority order):
   fifteenth; the SIXTEENTH rebuild is pending) — rebuild it FIRST
   only if the session runs a LINUX GUI build (the windows legs are
   CGO-free; the full battery runs without it — re-proven at
-  SESSION-065).
+  SESSION-066).
 - The dissolution call (the owner's, ADR-0002 Am.5); the
   vanilla-vs-vite call (the owner's); the batch-scorecard modal
   question (the owner's); the v0.91.0 zip-parity reading (the
@@ -343,10 +346,10 @@ tree (in priority order):
   (hash-level, not display).
 - **Push after every task** — never end a session push-pending.
 
-## 5. THE PROMPT TO COPY (SESSION-066)
+## 5. THE PROMPT TO COPY (SESSION-067)
 
 ```
-You are starting SESSION-066 of the second-brain-project — the multi-session Go
+You are starting SESSION-067 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
@@ -370,19 +373,23 @@ dormant cloud quartet revival; Linux/macOS builds; localization; the visual
 redesign; Worker-side improvements; the UI polish backlog) — the full menu
 with every option's scope + evidence pointers rides SESSION-064's report (the
 Owner-actions section) + the chat report + the state card §4; the COMPACT
-re-surface rides SESSION-065's report + chat report. SESSION-065 (path (c) an
-eighth time) RE-VERIFIED THE STATE + RE-SURFACED THE MENU COMPACTLY + CLOSED
-CLEANLY — the battery re-verified green at its open (2398 + 95 = 2493, the
-exact committed shape, race-clean, gofmt/vet/build clean in both modules); the
-T-82 slots verified still empty; the live release list verified still the
-single CLI-milestone zip (the honest-zip state holds). THE OWNER'S PICK IS THE
-ONLY MOVER LEFT — no autonomous implementation slice exists (the debt books
-empty; Phase 8 out of blueprint scope). … go-ci: SESSION-064's close push
-484135a (docs-only, run 39843195625) verified GREEN at SESSION-065's open;
-SESSION-065's close push (docs-only) is the latest — verify its run green at
-your open (a red is a REAL failure now). What remains is the OWNER's: T-82's
-live checklist (no haste), the milestone release decision, or a Phase-8 pick
-from the menu (the full form at SESSION-064, the compact form at SESSION-065).
+re-surface rides SESSION-065's + SESSION-066's reports + chat reports.
+SESSION-065 (path (c) an eighth time) AND SESSION-066 (path (c) a ninth
+time) EACH RE-VERIFIED THE STATE + RE-SURFACED THE MENU COMPACTLY +
+CLOSED CLEANLY — the battery re-verified green at each open (2398 + 95
+= 2493, the exact committed shape, race-clean, gofmt/vet/build clean
+in both modules); the T-82 slots verified still empty; the live
+release list verified still the single CLI-milestone zip (the
+honest-zip state holds). THE OWNER'S PICK IS THE
+ONLY MOVER LEFT — no autonomous implementation slice exists (the debt
+books empty; Phase 8 out of blueprint scope). … go-ci: SESSION-065's
+close push ef65823 (docs-only, run 39859687910) verified GREEN at
+SESSION-066's open; SESSION-066's close push (docs-only) is the
+latest — verify its run green at your open (a red is a REAL failure
+now). What remains is the OWNER's: T-82's live checklist (no haste),
+the milestone release decision, or a Phase-8 pick from the menu (the
+full form at SESSION-064, the compact form at SESSION-065 and
+SESSION-066).
 
 Then follow docs/SESSION-PROTOCOL.md exactly: bootstrap (clone
 https://github.com/assadigit/second-brain-project — the work repo, public;
@@ -396,6 +403,6 @@ the menu compactly in the chat + the report + closes cleanly at the natural
 boundary — never starting Phase-8 work unilaterally), work (the standing
 laws: reality wins, tests never weakened, no secrets ever, stay inside the
 phase, push after every task), close (the honest gate evaluation, the commit
-+ push, the SESSION-066 report, the NEXT-SESSION.md rewrite, the worklog
++ push, the SESSION-067 report, the NEXT-SESSION.md rewrite, the worklog
 append), and report in chat with the literal next prompt.
 ```
