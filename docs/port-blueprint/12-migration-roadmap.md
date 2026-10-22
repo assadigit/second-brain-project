@@ -1458,3 +1458,50 @@ flowchart LR
 > v64). What remains in Phase 7 is the OWNER's, unchanged: T-82's
 > live checklist (item 1 now executable as designed — no haste, the
 > owner's own standing words) + the milestone release decision.
+
+> **SESSION-064 (2026-10-22): path (c) a seventh time — THE PHASE-8
+> MENU SURFACED IN FULL (the debt-books-empty repo's honest slice);
+> the clean close at the natural boundary.** The 59th wipe absorbed
+> before work (the standard recipe held, zero corrections: both repos
+> re-cloned — the work repo anonymously at `43a6973` [the SESSION-063
+> postscript push, tree clean], the reference via the ephemeral
+> GIT_CONFIG_COUNT PAT form at `98f4fc7`, byte-equal to the pin;
+> go1.27.2 sha-verified BOTH sides [the committed TOOLCHAIN.md Am.2
+> pin + the archive listing — MATCH ×2]; the venv; the wails CLI
+> v2.16.0; no webkit rebuild — the pending rebuild stays the
+> SIXTEENTH). **go-ci verified GREEN at the open**: the postscript
+> push `43a6973` → run 39839421368, completed/success (the incident
+> class did not recur; the fix push `aaac0f6` green below it, exactly
+> as recorded). The battery re-verified green pre-work — the exact
+> committed shape: main plain 2398 / 0 / 0 over 36 ok (exit 0), race
+> 36 ok / 0 data races, webui 95 / 0 / 0 over 4 ok, gofmt/vet/build
+> clean in both modules — **2,493 total, the exact number the README
+> front page + the parity report carry**. The pinned states hold:
+> VERSION `0.92.0-go.1` (12 bytes + LF), the MAIN go.mod/go.sum
+> byte-unchanged, the T-82 §1 slots verified still empty (all nine
+> rows — no intake), the live release list verified still the single
+> CLI-milestone zip (the honest-zip state holds). **The session's one
+> slice: doc 12's future-work register read at source level and
+> surfaced plainly** — every option's scope + evidence pointer
+> verified present (doc 07 §D's redesign boundary; spec-cloud-dormant
+> .md's quartet record; the t-01 PoC artifact + poc/telegram + the
+> gotd v0.110.0 pin; ADR-0004 Am.3's consequences; ADR-0005's
+> Worker-stays-JS record) — the full menu riding SESSION-064's report
+> (the Owner-actions section), the chat report, and the state card
+> v65: the two Phase-7 owner items first (T-82's live checklist; the
+> "ship it" + the number release), then the register's eight (the
+> gotd/td Telegram leg revival; a Worker read-ack endpoint; the
+> dormant cloud quartet revival; Linux/macOS builds; localization
+> beyond what exists; the visual redesign; Worker-side improvements;
+> the UI polish backlog collected during porting). **Nothing was
+> picked on the owner's behalf; no Phase-8 work was started.** With
+> the debt books empty there is NO autonomous implementation slice
+> left — the owner's pick is the only mover on the board; a path-(c)
+> session now re-verifies the state, re-surfaces the menu compactly,
+> and closes cleanly (the MENU-SURFACED record, state card v65's law
+> list). The records in the same commit (docs-only — no Go, workflow,
+> or asset bytes touched): this entry, the SESSION-064 report, the
+> state card v65, the README's SESSION-064 status entry, the
+> environment worklog append. What remains is the OWNER's, unchanged:
+> T-82's live checklist (no haste) + the milestone release decision —
+> or a Phase-8 pick from the surfaced menu.

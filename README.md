@@ -1801,3 +1801,34 @@ now empty of autonomous items), this entry, the session report, the
 state card v64. **What remains is only the owner's**: T-82's live
 checklist (item 1 now executable as designed — no haste), the
 milestone release decision, and the Phase-8 menu whenever wanted.
+
+**Phase 7 (continued) — SESSION-064**: **path (c) a seventh time
+under the standing delegation — THE PHASE-8 MENU SURFACED IN FULL
+(the debt-books-empty repo's honest slice), the clean close at the
+natural boundary.** The 59th wipe absorbed (the standard recipe
+held, zero corrections); **go-ci verified GREEN at the open** (the
+SESSION-063 postscript push `43a6973` → run 39839421368, success —
+the CI-incident class did not recur); the battery re-verified green
+pre-work — the exact committed shape (**main plain 2398 / 0 / 0
+over 36 ok, race 36 ok / 0 data races, webui 95 / 0 / 0 over 4 ok,
+gofmt/vet/build clean in both modules — 2,493 total**); the pinned
+states hold (VERSION `0.92.0-go.1`, the MAIN go.mod/go.sum
+byte-unchanged, the T-82 §1 slots verified still empty — no intake;
+the live release list still the single CLI-milestone zip — the
+honest-zip state holds). **The slice: doc 12's future-work register
+read at source level and surfaced plainly** — every option with its
+scope + evidence pointers (the two Phase-7 owner items first: T-82's
+live checklist, the "ship it" + the number release; then the
+register's eight: the gotd/td Telegram leg revival [capability
+PoC-proven, dormant since Option B], a Worker read-ack endpoint, the
+dormant cloud quartet revival [cloudflare + gdrive, "fixed, not
+deleted"], Linux/macOS builds, localization, the visual redesign
+[doc 07 §D's boundary], Worker-side improvements, the UI polish
+backlog collected during porting) — the full menu riding the
+session report + the chat report + the state card v65. Nothing was
+picked on the owner's behalf; no Phase-8 work was started. **With
+the debt books empty there is no autonomous implementation slice
+left — the owner's pick is the only mover on the board.** The
+records in the same commit (docs-only): the SESSION-064 report, the
+state card v65, doc 12's SESSION-064 entry, this entry, the
+environment worklog append.
