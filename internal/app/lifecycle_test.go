@@ -162,19 +162,31 @@ func TestWatchdogForceReleasesStuckLock(t *testing.T) {
 
 	l.Acquire("batch")
 	deadline := time.After(3 * time.Second)
+	// The watchdog releases the lock FIRST and speaks the loud
+	// line SECOND (lifecycle.go's own order, the reference's twin) —
+	// both on its goroutine, so the release can be observable
+	// while the line is still in flight. Wait for BOTH under the
+	// same deadline: the bare post-release read once lost the coin
+	// flip on a loaded CI runner (run 39878157076).
+	released := false
+	var got LogLine
+	var ok bool
 	for {
 		if !l.Busy() {
-			break
+			released = true
+			got, ok = rec.find("Watchdog")
+			if ok {
+				break // the release AND the loud line both landed
+			}
 		}
 		select {
 		case <-deadline:
-			t.Fatal("the watchdog never released the stuck lock")
+			if !released {
+				t.Fatal("the watchdog never released the stuck lock")
+			}
+			t.Fatalf("the watchdog's release line never landed: %v", rec.lines)
 		case <-time.After(2 * time.Millisecond):
 		}
-	}
-	got, ok := rec.find("Watchdog")
-	if !ok {
-		t.Fatalf("the watchdog's release line never landed: %v", rec.lines)
 	}
 	if !strings.Contains(got.Msg, "'batch'") || !strings.Contains(got.Msg, "force-released") {
 		t.Fatalf("the release line = %q", got.Msg)

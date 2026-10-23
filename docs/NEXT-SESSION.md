@@ -69,19 +69,29 @@
 - **Push state: CLEAN** — SESSION-067's postscript push (`e279292`,
   docs-only, run 39875299946) verified GREEN at SESSION-068's open,
   and SESSION-068's close push (`499521c`, docs-only, run
-  39877939627) watched GREEN to completion the same session (the
-  CI-incident class did not recur; the ledger below it exactly as
-  recorded). The POSTSCRIPT push (docs-only, recording the green) is
-  the latest — verify its run green at SESSION-069's open (a red
-  is a REAL failure now; watch the Actions tab on pushes as normal
-  CI hygiene).
+  39877939627) watched GREEN to completion the same session. The
+  first postscript push (`ef3a4e5`, docs-only) then went **RED**
+  (run 39878157076 — `TestWatchdogForceReleasesStuckLock`, the
+  async-delivery race root-caused from the run's logs + repaired +
+  re-verified + re-pushed green the SAME session: the wait-for-both
+  observation fix, the ASYNC-READ FLAKE class's second strike —
+  SESSION-068's report carries the full incident record). The
+  CI-incident fix push's run was watched to completion at the close
+  (the number recorded by the final postscript push); the FINAL
+  postscript push (docs-only, recording that green) is the latest —
+  verify its run green at SESSION-069's open (a red is a REAL
+  failure now; watch the Actions tab on pushes as normal CI
+  hygiene).
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always — re-inline it per call;
   the sandbox shell does not carry exports between tool calls);
   Actions minutes are unlimited; the no-secrets law is public-facing.
-  **go-ci: GREEN on the tree through `499521c` (the close push's run
+  **go-ci: GREEN on the tree through the close push `499521c` (run
   39877939627 watched to completion at SESSION-068's close); the
-  postscript push is the latest: verify its run green at the open.**
+  first postscript push `ef3a4e5` went RED (run 39878157076 — the
+  watchdog test's async-delivery race, fixed same-session); the
+  CI-incident fix push + the final postscript push follow it —
+  verify the FINAL postscript push's run green at the open.**
 - **The environment recipe** (the 63rd wipe was absorbed at
   SESSION-068's open — the standard recipe held, zero corrections):
   work repo at /home/z/my-project/second-brain-project (**clone it
@@ -174,7 +184,15 @@
   MULTIEDIT-TAB CORRUPTION, THIRD STRIKE (SESSION-060 — also: the
   eat struck a COMMITTED card once — card v59's "battery ain +
   webui]" for "battery [main + webui]", fixed in v60 — the "for" side itself carried the corrupted form from v60 on (a real byte-level artifact, unlike the webkit bullet's line which byte-checks PROVEN display-only-eaten [always correct in v54→v66]; the "for" side repaired at SESSION-066's close with display-proof byte counts)**; **THE
-  ASYNC-READ FLAKE LESSON (SESSION-059)**; **THE LIVE-LEG RECORD
+  ASYNC-READ FLAKE LESSON (SESSION-059, SECOND STRIKE SESSION-068 —
+  the watchdog twin: a test that polls for a STATE and then
+  bare-reads an EVENT the same goroutine emits afterward races the
+  emitter — the state can be observable while the event is still in
+  flight [TestWatchdogForceReleasesStuckLock's `Busy()` poll beat
+  the watchdog goroutine's `EmitLogLine` on a loaded runner, red run
+  39878157076 on a byte-identical Go tree]; wait for the event
+  itself under the test's own deadline, never a bare post-state
+  read — the same law as SESSION-059's fanfare chain gate)**; **THE LIVE-LEG RECORD
   (SESSION-058 — settle every "already landed" claim against the
   commit's own stat before trusting it)**; **THE 63RD-WIPE RECIPE
   (SESSION-068 — held without correction)**; **THE WEBKIT-ORDINAL
@@ -391,9 +409,14 @@ THE OWNER'S PICK IS THE ONLY MOVER LEFT — no autonomous implementation slice
 exists (the debt books empty; Phase 8 out of blueprint scope). … go-ci:
 SESSION-067's close push 447eecb (docs-only, run 39875115793) watched GREEN at
 its close, the postscript push e279292 (docs-only, run 39875299946) verified
-GREEN at SESSION-068's open, and SESSION-068's close + postscript pushes
-(docs-only) are the latest — verify the POSTSCRIPT push's run green at your
-open (a red is a REAL failure now). What remains is the OWNER's: T-82's live
+GREEN at SESSION-068's open, SESSION-068's close push 499521c (docs-only, run
+39877939627) watched GREEN at its close, and the first postscript push ef3a4e5
+then went RED (run 39878157076 — the watchdog test's async-delivery race,
+root-caused from the run's logs + repaired with the wait-for-both observation
+fix + re-verified green [2398 + 95 = 2493 unchanged] + re-pushed the same
+session: a red is a REAL failure); the CI-incident fix push + the final
+postscript push (docs-only) are the latest — verify the FINAL postscript
+push's run green at your open. What remains is the OWNER's: T-82's live
 checklist (no haste), the milestone release decision, or a Phase-8 pick from
 the menu (the full form at SESSION-064, the compact form at SESSION-065,
 SESSION-066, SESSION-067, and SESSION-068).

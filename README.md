@@ -1948,3 +1948,23 @@ owner's pick is the only mover on the board.** The records in the
 same commit (docs-only): the SESSION-068 report, the state card
 v69, doc 12's SESSION-068 entry, this entry, the environment
 worklog append (recreated after the wipe).
+
+**The SESSION-068 CI incident (honest record): the close's first
+postscript push went RED, fixed the same session.** The close push
+`499521c` (docs-only) → run 39877939627 success (watched to
+completion); the postscript push `ef3a4e5` (docs-only — the Go tree
+byte-identical to the green run's) → run **39878157076 FAILURE**:
+`TestWatchdogForceReleasesStuckLock` — the watchdog releases the
+lock FIRST and speaks the loud line SECOND (the reference's own
+order, verified at source), and the test's release-poll could
+bare-read the log line before the watchdog goroutine emitted it
+(the ASYNC-READ FLAKE class's second strike — SESSION-059's was the
+first). **The fix (observation repaired, assertions never
+weakened)**: the test now waits for BOTH the release AND the line
+under its own deadline — both failure messages preserved verbatim,
+the content + level assertions byte-unchanged, the battery count
+unchanged (2,493). Proven: the selection ×100 + ×50 under -race +
+the package ×5 + the FULL battery re-run, all green, race-clean,
+gofmt/vet/build clean in both modules. The CI-incident fix push +
+the final postscript push follow in the same session (a red is a
+REAL failure — the SESSION-063 discipline exercised a second time).

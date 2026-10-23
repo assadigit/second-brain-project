@@ -1,4 +1,4 @@
-# SESSION-068 — 2026-10-23 — Phase 7: the Phase-7 finish, owner-input driven — path (c) an eleventh time under the standing delegation: THE STATE RE-VERIFIED + THE MENU RE-SURFACED COMPACTLY (the full menu stands from SESSION-064; the debt books empty; the owner's pick the only mover) — the clean close at the natural boundary; the battery re-verified green (2398 + 95, the exact committed shape)
+# SESSION-068 — 2026-10-23 — Phase 7: the Phase-7 finish, owner-input driven — path (c) an eleventh time under the standing delegation: THE STATE RE-VERIFIED + THE MENU RE-SURFACED COMPACTLY (the full menu stands from SESSION-064; the debt books empty; the owner's pick the only mover) — the clean close at the natural boundary; the battery re-verified green (2398 + 95, the exact committed shape); the close's postscript push went RED (the watchdog test's async-delivery race — root-caused from the run's logs, repaired with the wait-for-both observation fix, re-verified green, re-pushed the same session: a red is a REAL failure)
 
 ## Goal (from NEXT-SESSION.md at start)
 
@@ -103,6 +103,49 @@ stands from SESSION-064, verified at source level there).
   12's SESSION-068 tail entry (the house pattern), the README's
   SESSION-068 status entry, and the environment worklog append
   (recreated after the wipe took the old one).
+- **THE CI INCIDENT (honest record — the close's POSTSCRIPT push went
+  RED, fixed the same session)**: the close push `499521c` (docs-only)
+  → run **39877939627 completed / success**, watched to completion.
+  The postscript push `ef3a4e5` then went **RED** — run **39878157076
+  completed / FAILURE** — despite changing only two .md files (the Go
+  tree byte-identical to the green run's: `git diff e279292..ef3a4e5
+  --stat` = the four docs, nothing else). The failing selection:
+  `TestWatchdogForceReleasesStuckLock` — `lifecycle_test.go:177: the
+  watchdog's release line never landed: []`. **Root-caused from the
+  run's logs** (the jobs API → the `go test` step log → the single
+  failing selection; the two `[app-bus]`/`[app-lifecycle]` panic lines
+  in the dump are OTHER tests' intentional-panic stdout, noise): the
+  watchdog tick's own order is `ForceRelease` FIRST + `EmitLogLine`
+  SECOND (lifecycle.go:358-366 — the reference's exact twin,
+  `window.py`'s `_tg_lock_watchdog`: `force_release(...)` then
+  `log_message(...)`, verified at source), and the bus delivers
+  synchronously on the publisher's goroutine (events.go's
+  emit→deliver), so the test's `Busy()` poll could observe the
+  release and read `rec.lines` BEFORE the watchdog goroutine ran the
+  log append — **the bare post-release read: the ASYNC-READ FLAKE
+  class's SECOND strike** (SESSION-059's TestHeroUIFanfareChainGate
+  was the first). **The fix (the test's OBSERVATION repaired — never
+  its assertions)**: the poll loop now waits for BOTH the release AND
+  the "Watchdog" line under the same 3 s deadline; both failure
+  messages preserved verbatim (never-released vs
+  line-never-landed, distinguished by a `released` flag); the
+  message-content (`'batch'` + `force-released`) + level (`warning`)
+  assertions byte-unchanged; the dead post-loop re-find removed; the
+  count unchanged — still one test, still 2398 + 95 = 2493. Proven:
+  the single selection `-count=100` green (0.655 s) + `-race
+  -count=50` green (1.398 s) + the whole package `-count=5` green
+  (54.244 s) + **the FULL battery re-run green at the exact committed
+  shape** (main plain 2398 / 0 / 0 over 36 ok, exit 0; race 36 ok / 0
+  data races, exit 0; webui 95 / 0 / 0 over 4 ok, exit 0;
+  gofmt/vet/build clean in both modules). The patch rode the
+  anchor-asserted python form (the MULTIEDIT-TAB law — both patches
+  refused loudly on wrong anchors by construction; `gofmt -l` empty
+  after every interaction; the post-repair diff verified to be
+  exactly the edit region). The records in the same fix commit
+  (reality wins): this report's incident record, the state card v69's
+  push-state + ASYNC-READ law extension, doc 12's SESSION-068 entry
+  incident passage, the README's SESSION-068 entry incident passage,
+  the worklog append.
 
 ## Gate evaluation (pass/fail/partial + EVIDENCE)
 
@@ -121,8 +164,12 @@ race-clean; gofmt/vet/build clean in both modules; the counts from
 the verbose logs with exit codes recorded).
 
 **CI hygiene at the open: PASS** — the latest push's run
-(39875299946 at `e279292`) verified success before any work; no red
-standing (the SESSION-063 incident class did not recur).
+(39875299946 at `e279292`) verified success before any work. **The
+close's own incident (honest record): the postscript push `ef3a4e5`
+went RED (run 39878157076, `TestWatchdogForceReleasesStuckLock` —
+the async-delivery race root-caused + repaired + re-verified +
+re-pushed green the same session; a red is a REAL failure — the
+SESSION-063 discipline exercised a second time).**
 
 **Phase 7's state is unchanged by design**: T-80 ✓, T-81 ✓, T-83 ✓,
 AC-17 ✓, T-82 PARTIAL (items 1–8 the owner's live Windows legs — no
@@ -235,7 +282,12 @@ re-surfaces the menu, and closes cleanly.
   SESSION-069 prompt inside).
 - Push state: CLEAN — the close commit `499521c` (docs-only) pushed
   with the ephemeral PAT form (never stored, never written); its
-  go-ci run **39877939627 watched to completion the same session -
-  completed / success**. The POSTSCRIPT push (docs-only, recording
-  the green) is now the latest: verify its run green at
+  go-ci run **39877939627 watched to completion the same session —
+  completed / success**. The first postscript push `ef3a4e5` (docs
+  -only) then went **RED** (run 39878157076 — the CI incident above,
+  root-caused + fixed the same session). The **CI-incident fix push**
+  (the test repair + all the records) follows, its run watched to
+  completion at the close (the number recorded by the final
+  postscript push); the FINAL postscript push (docs-only, recording
+  that green) is then the latest — verify its run green at
   SESSION-069's open (a red is a REAL failure now).

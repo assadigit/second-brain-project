@@ -1681,3 +1681,33 @@ flowchart LR
 > append (recreated after the wipe). What remains is the OWNER's,
 > unchanged: T-82's live checklist (no haste) + the milestone
 > release decision — or a Phase-8 pick from the menu.
+
+> **The SESSION-068 CI incident (honest record): the close's first
+> postscript push went RED, fixed the same session.** The close push
+> `499521c` (docs-only) → run 39877939627 completed/success (watched
+> to completion); the postscript push `ef3a4e5` (docs-only — the Go
+> tree byte-identical) → run **39878157076 completed / FAILURE**:
+> `TestWatchdogForceReleasesStuckLock`, "the watchdog's release line
+> never landed: []". Root-caused from the run's logs: the watchdog
+> tick releases the lock FIRST and speaks the loud line SECOND
+> (lifecycle.go's own order — the reference's exact twin, window.py's
+> `_tg_lock_watchdog` verified at source), the bus delivers
+> synchronously on the emitter's goroutine, and the test's `Busy()`
+> poll could observe the release and bare-read `rec.lines` before
+> the emitter goroutine ran the log append — the ASYNC-READ FLAKE
+> class's second strike (SESSION-059's fanfare chain gate was the
+> first; the law's card text now carries both). **The fix (the
+> test's observation repaired, never its assertions)**: the poll
+> loop waits for BOTH the release AND the line under the same 3 s
+> deadline; both failure messages preserved verbatim (the released
+> flag distinguishes them); the content + level assertions
+> byte-unchanged; the count unchanged (2398 + 95 = 2493). Proven:
+> the selection -count=100 green + -race -count=50 green + the
+> package -count=5 green + the FULL battery re-run green at the
+> exact committed shape (race-clean; gofmt/vet/build clean in both
+> modules). The anchor-asserted python patch form (the MULTIEDIT-TAB
+> law); the post-repair diff verified to be exactly the edit region.
+> The records in the same fix commit (reality wins): the SESSION-068
+> report's incident record, the state card v69's push-state + the
+> ASYNC-READ law's second-strike extension, this passage, the
+> README's SESSION-068 incident passage, the worklog append.
