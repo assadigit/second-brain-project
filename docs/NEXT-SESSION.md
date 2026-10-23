@@ -68,21 +68,20 @@
   milestone release decision.**
 - **Push state: CLEAN** — SESSION-067's postscript push (`e279292`,
   docs-only, run 39875299946) verified GREEN at SESSION-068's open,
-  and SESSION-068's close push (docs-only; the hash + run number
-  recorded by the postscript push) watched GREEN to completion the
-  same session. The POSTSCRIPT push (docs-only, recording the green)
-  is the latest — verify its run green at SESSION-069's open (a red
+  and SESSION-068's close push (`499521c`, docs-only, run
+  39877939627) watched GREEN to completion the same session (the
+  CI-incident class did not recur; the ledger below it exactly as
+  recorded). The POSTSCRIPT push (docs-only, recording the green) is
+  the latest — verify its run green at SESSION-069's open (a red
   is a REAL failure now; watch the Actions tab on pushes as normal
   CI hygiene).
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always — re-inline it per call;
   the sandbox shell does not carry exports between tool calls);
   Actions minutes are unlimited; the no-secrets law is public-facing.
-  **go-ci: GREEN on the tree through `e279292` (the postscript
-  push's run 39875299946 verified green at SESSION-068's open);
-  SESSION-068's close push is the latest: its run watched to
-  completion at its close (the number recorded by the postscript
-  push — verify the POSTSCRIPT push's run green at the open).**
+  **go-ci: GREEN on the tree through `499521c` (the close push's run
+  39877939627 watched to completion at SESSION-068's close); the
+  postscript push is the latest: verify its run green at the open.**
 - **The environment recipe** (the 63rd wipe was absorbed at
   SESSION-068's open — the standard recipe held, zero corrections):
   work repo at /home/z/my-project/second-brain-project (**clone it
