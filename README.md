@@ -1920,3 +1920,31 @@ owner's pick is the only mover on the board.** The records in the
 same commit (docs-only): the SESSION-067 report, the state card
 v68, doc 12's SESSION-067 entry, this entry, the environment
 worklog append (recreated after the wipe).
+
+**Phase 7 (continued) — SESSION-068**: **path (c) an eleventh time
+under the standing delegation — THE STATE RE-VERIFIED + THE MENU
+RE-SURFACED COMPACTLY (the MENU-SURFACED record exercised exactly
+as written; the full menu stands from SESSION-064), the clean close
+at the natural boundary.** The 63rd wipe absorbed (the standard
+recipe held, zero corrections); **go-ci verified GREEN at the open**
+(SESSION-067's postscript push `e279292` → run 39875299946, success —
+the CI-incident class did not recur); the battery re-verified green
+pre-work — the exact committed shape (**main plain 2398 / 0 / 0
+over 36 ok, race 36 ok / 0 data races, webui 95 / 0 / 0 over 4 ok,
+gofmt/vet/build clean in both modules, the tree clean through every
+leg — 2,493 total**); the pinned states hold (VERSION
+`0.92.0-go.1` od-verified 12 bytes + LF, the MAIN go.mod/go.sum
+byte-unchanged, the T-82 §1 slots verified still empty — no intake;
+the live release list still the single CLI-milestone zip — the
+honest-zip state holds). **The slice: the compact menu re-surface**
+— the two Phase-7 owner items first (T-82's live checklist; the
+"ship it" + the number release), then the register's eight in one
+line each with their evidence pointers, riding SESSION-068's
+report + the chat report; the FULL menu (every option's scope)
+stands from SESSION-064's report. Nothing was picked on the
+owner's behalf; no Phase-8 work was started. **With the debt books
+empty there is no autonomous implementation slice left — the
+owner's pick is the only mover on the board.** The records in the
+same commit (docs-only): the SESSION-068 report, the state card
+v69, doc 12's SESSION-068 entry, this entry, the environment
+worklog append (recreated after the wipe).
