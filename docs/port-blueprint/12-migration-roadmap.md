@@ -1889,3 +1889,42 @@ worklog append. What remains in Phase 7 is the OWNER's, unchanged:
 T-82's live Windows legs (no haste — their own standing words,
 now against the REAL release) + the Phase-7 exit evaluation riding
 the intake (or the owner's explicit deferral call).
+
+**Phase 7 (continued) — SESSION-073: the post-release session under
+the standing delegation (path (b) of card v73's tree — the
+fifteenth standing-delegation session overall; the prompt carried
+no T-82 results, the §1 slots verified still empty): THE STATE
+RE-VERIFIED + THE MENU RE-SURFACED COMPACTLY + the clean close at
+the natural boundary.** The 68th wipe absorbed (the standard recipe
+held, zero corrections: the work repo re-cloned anonymously at the
+recipe path; the reference re-cloned at the pinned `98f4fc7` via
+the ephemeral extraheader form — zero token bytes persisted; go1.27.2
+sha-verified BOTH sides — the TOOLCHAIN.md Am.2 committed pin + the
+go.dev archive listing; the venv; the wails CLI v2.16.0; no webkit
+rebuild — no Linux GUI build). go-ci verified GREEN at the open
+(SESSION-072's close push `0e59425` → run **40000283140 —
+completed / success**; the ledger below it exactly as recorded —
+`d00ea95` → 39980891673, `c241bc8` → 39953390474, the release run
+39951431147 + the bump run 39951244699 green). The battery
+re-verified green pre-work — the exact committed shape: main plain
+2398 / 0 / 0 over 36 ok (exit 0), race 36 ok / 0 data races
+(exit 0), webui 95 / 0 / 0 over 4 ok (exit 0), gofmt/vet/build
+clean in both modules, the tree clean through every leg — **2,493
+total**. The pinned states re-verified: VERSION `0.92.0-go.2`
+od-verified (12 bytes + LF); the MAIN go.mod/go.sum byte-unchanged;
+the T-82 §1 slots still all `____` (no intake; the release
+report's items 1–8 + AV likewise slots); the LIVE release list
+re-verified carrying the two-exe zip (id 421804097,
+27,235,329 bytes, state=uploaded) alongside the go.1 CLI zip — the
+honest-zip-resolved state holds. The slice: the compact menu
+re-surface (the Phase-7 owner items first — T-82's live execution
+against the REAL release + the exit-evaluation timing, then the
+register's eight; the full menu stands from SESSION-064) — nothing
+picked on the owner's behalf, no Phase-8 work started, no
+autonomous implementation slice left. The records in the same
+commit (docs-only): the SESSION-073 report, the state card v74,
+this entry, the README's SESSION-073 status entry, the environment
+worklog append. What remains in Phase 7 is the OWNER's, unchanged:
+T-82's live Windows legs (no haste — their own standing words,
+now against the REAL release) + the Phase-7 exit evaluation riding
+the intake (or the owner's explicit deferral call).

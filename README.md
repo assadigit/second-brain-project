@@ -2092,3 +2092,33 @@ autonomous implementation slice left — the owner's pick is the
 only mover on the board.** The records in the same commit
 (docs-only): the SESSION-072 report, the state card v73, doc 12's
 SESSION-072 entry, this entry, the worklog append.
+
+**Phase 7 (continued) — SESSION-073: the post-release session under
+the standing delegation (path (b) — the prompt carried no T-82
+results; the §1 slots verified still empty): THE STATE RE-VERIFIED
++ THE MENU RE-SURFACED COMPACTLY + the clean close at the natural
+boundary.** The 68th wipe absorbed (the standard recipe held, zero
+corrections); **go-ci verified GREEN at the open** (SESSION-072's
+close push `0e59425` → run 40000283140, success — `d00ea95` →
+39980891673 green in the ledger below it; the release run
+39951431147 + the bump run 39951244699 green); the battery
+re-verified green pre-work — the exact committed shape (**main
+plain 2398 / 0 / 0 over 36 ok, race 36 ok / 0 data races, webui
+95 / 0 / 0 over 4 ok, gofmt/vet/build clean in both modules, the
+tree clean through every leg — 2,493 total**); the pinned states
+hold (VERSION `0.92.0-go.2` od-verified 12 bytes + LF, the MAIN
+go.mod/go.sum byte-unchanged, the T-82 §1 slots verified still
+empty — no intake; **the LIVE release re-verified carrying the
+two-exe zip** [id 421804097, 27,235,329 bytes, state=uploaded]
+alongside the go.1 CLI zip — the honest-zip-resolved state holds).
+**The slice: the compact menu re-surface** — the Phase-7 owner
+items first (T-82's live execution against the REAL release; the
+Phase-7 exit-evaluation timing riding it), then the register's
+eight in one line each with their evidence pointers, riding
+SESSION-073's report + the chat report; the FULL menu stands from
+SESSION-064's report. Nothing was picked on the owner's behalf; no
+Phase-8 work was started. **With the debt books empty there is no
+autonomous implementation slice left — the owner's pick is the
+only mover on the board.** The records in the same commit
+(docs-only): the SESSION-073 report, the state card v74, doc 12's
+SESSION-073 entry, this entry, the worklog append.
