@@ -19,116 +19,95 @@
   asset sha-verified + round-trip verified).
 - **Phase 6 CLOSED (SESSION-033–047)**: the Wails GUI from the T-70
   gate through the T-79a…T-79f Path-B rows.
-- **Phase 7 — THE IMPLEMENTATION SIDE IS DONE, AND THE DEBT BOOKS ARE
-  EMPTY (SESSION-048–069)**: T-80 ✓ (the deterministic zip + the
-  ritual), T-81 ✓ (the release workflow, dry-run green on a real
-  runner + the cross-machine byte-identity proof + the refusal leg),
-  T-83 ✓ (SESSION-051: the docs — `docs/PARITY-REPORT.md` (AC-25),
-  the README front page + the QUICKSTART §0 (AC-26), commit
-  `e58b7e4`), AC-17 CLOSED (SESSION-052), T-82 PARTIAL (items 1–8 are
-  the owner's live Windows legs — the owner has explicitly NO HASTE:
-  their SESSION-058 words were "I dont have urge and haste to start
-  the app ... only tell me if you really need me to test the app").
-  The deferred-debts polish ran out of named slices across
-  SESSION-058–062; SESSION-063 landed the LAST named test-adjacent
-  debt (the 1-INSTALL bootstrapper leg — the WebView2 Evergreen
-  Runtime check, the t-70 GUID corruption corrected with teeth, the
-  CI incident fixed same-session; the battery 2398 + 95 = 2493).
-  **SESSION-064 (path (c) a seventh time) SURFACED THE PHASE-8 MENU
-  IN FULL** — doc 12's register read at source level and presented
-  plainly with every option's scope + evidence pointers (the report's
-  Owner-actions section + the chat report + the card's §4 carry it):
-  the two Phase-7 owner items (T-82's checklist; "ship it" + the
-  number) ahead of the register's eight (the gotd/td Telegram leg
-  revival; a Worker read-ack endpoint; the dormant cloud quartet
-  revival; Linux/macOS builds; localization; the visual redesign;
-  Worker-side improvements; the UI polish backlog collected during
-  porting). **SESSION-065 (path (c) an eighth time), SESSION-066
-  (path (c) a ninth time), SESSION-067 (path (c) a tenth time),
-  SESSION-068 (path (c) an eleventh time), AND SESSION-069 (path (c)
-  a twelfth time) EACH RE-VERIFIED THE STATE + RE-SURFACED THE MENU
-  COMPACTLY** (the MENU-SURFACED record exercised exactly as written;
-  the full menu stands from SESSION-064; the compact form rides
-  SESSION-065's + SESSION-066's + SESSION-067's + SESSION-068's +
-  SESSION-069's reports + chat reports).
-  **The owner's pick is the only mover left on the board** — no
-  autonomous implementation slice exists (the debt books empty;
-  Phase 8 out of blueprint scope; entering it is the owner's
-  strategic pick, never a session's unilateral move). The battery
-  re-verified green at SESSION-069's open — the exact committed
-  shape (2398 main + 95 webui = 2493, race-clean, gofmt/vet/build
-  clean in both modules); the T-82 §1 slots verified still empty (no
-  intake); the live release list verified still the single
-  CLI-milestone zip (the honest-zip state holds).
-  **THE HONEST-ZIP FIND (standing): the LIVE `v0.92.0-go.1` release
-  carries the CLI-milestone zip (12 files, no GUI exe, the OLD
-  git-only 1-INSTALL checker); the desktop two-exe zip (13 files)
-  with the new bootstrapper leg rides the NEXT milestone release
-  through the proven workflow. What remains in Phase 7 is the
-  OWNER's: T-82's live checklist (no haste — their words); the
-  milestone release decision is MADE — the owner's post-close
-  directive at SESSION-069 ("The work is continued until GUI is
-  ready") — and SESSION-070 is THE RELEASE SESSION.**
-- **Push state: CLEAN** — SESSION-068's CI-incident fix push
-  (`8c8a6d3` — the watchdog test repair) → run 39879515564 watched
-  GREEN to completion at SESSION-068's close, and SESSION-068's
-  FINAL postscript push (`9470d22`, docs-only) → run **39879755821
-  verified GREEN at SESSION-069's open** (the incident class did not
-  recur; the ledger below it exactly as recorded: `ef3a4e5` → run
-  39878157076 FAILURE — the async-delivery race incident, history,
-  fixed same-session at SESSION-068; `499521c` → run 39877939627
-  success; `e279292` → run 39875299946 success; `447eecb` → run
-  39875115793 success). SESSION-069's close push (`3d891d5`,
-  docs-only) was watched GREEN to completion the same session (run
-  **39947560680 — completed / success**); the postscript push
-  (docs-only, recording that green) is the latest — verify its run
-  green at SESSION-070's open (a red is a REAL failure now; watch
-  the Actions tab on pushes as normal CI hygiene).
+- **Phase 7 — THE DESKTOP MILESTONE RELEASE IS LIVE
+  (SESSION-048–070)**: T-80 ✓ (the deterministic zip + the ritual),
+  T-81 ✓ (the release workflow, dry-run green on a real runner + the
+  cross-machine byte-identity proof + the refusal leg), T-83 ✓
+  (SESSION-051: the docs), AC-17 ✓ (SESSION-052), **THE MILESTONE
+  RELEASE CUT ✓ (SESSION-070, 2026-10-23 — the owner's post-close
+  directive "The work is continued until GUI is ready" executed):
+  the bump commit `a74b112` (VERSION + wails.json productVersion →
+  `0.92.0-go.2`, go-ci run 39951244699 GREEN) → the tag
+  `v0.92.0-go.2` riding it (THE TAG-STATE BUILD LAW) → the release
+  workflow run **39951431147 ALL 8 STEPS GREEN** → the release
+  **421804097 LIVE** ("GitCurator v0.92.0-go.2 — the Windows
+  release") with the two-exe zip
+  `GitCurator-v0.92.0-go.2-windows.zip` [13 files, 56,931,140 bytes
+  in, 27,235,329 zipped, sha256 `78990ccb…`] — verified THREE ways
+  (the downloaded asset's sha256 == the notes' number; the contents:
+  both exes' sha256 == the notes' table + the buildinfo tag-stamp +
+  the byte-exact VERSION member; **and the cross-machine
+  byte-identity proof** — a full sandbox rebuild at the tagged
+  checkout reproduced every number). The release report (AC-23's
+  scaffold filled): `docs/poc-artifacts/release-v0.92.0-go.2.md`.
+  **THE HONEST-ZIP FIND IS RESOLVED: the LIVE release list now
+  carries the desktop two-exe zip with the new git+WebView2
+  bootstrapper leg** (the older `v0.92.0-go.1` CLI-milestone zip
+  stays listed alongside). T-82 PARTIAL (item 9's automation half
+  green + this session's two legs against the real release; items
+  1–8 the owner's live Windows legs — the owner has explicitly NO
+  HASTE: their SESSION-058 words were "I dont have urge and haste to
+  start the app ... only tell me if you really need me to test the
+  app")**. What remains in Phase 7: the owner's T-82 run + the
+  Phase-7 exit evaluation (the gate: the signed checklist closing
+  T-82 — or the owner's explicit deferral call). The debt books are
+  EMPTY (the §9 inventory since SESSION-062; the last named
+  test-adjacent debt — the 1-INSTALL bootstrapper leg — landed at
+  SESSION-063 and now rides the LIVE zip). **The Phase-8 menu
+  stands surfaced in full from SESSION-064** (doc 12's register;
+  re-surfaced compactly at SESSION-065…069); the owner's pick is
+  the only mover — no autonomous implementation slice exists.
+- **Push state: CLEAN** — SESSION-069's postscript push `ab6ca34`
+  (run 39947854098) + `8e44b9c` (run 39949365627) both green at
+  SESSION-070's open; **the bump commit `a74b112` pushed → go-ci run
+  39951244699 GREEN**; the tag `v0.92.0-go.2` pushed → the release
+  run 39951431147 GREEN with the release live; SESSION-070's close
+  push (docs-only: the release report + the session report + the
+  card v71 + doc 12's entry + the README/QUICKSTART updates) is the
+  latest — **verify its go-ci run green at SESSION-071's open (a red
+  is a REAL failure; watch the Actions tab on pushes as normal CI
+  hygiene)**.
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always — re-inline it per call;
   the sandbox shell does not carry exports between tool calls);
   Actions minutes are unlimited; the no-secrets law is public-facing.
-  **go-ci: GREEN on the tree through SESSION-069's close (the final
-  postscript push `9470d22` → run 39879755821 verified green at the
-  open; the close push `3d891d5` → run 39947560680 watched GREEN to
-  completion at the close); the postscript push (docs-only) is the
-  latest: verify its run green at the open.**
-- **The environment recipe** (the 64th wipe was absorbed at
-  SESSION-069's open — the standard recipe held, zero corrections):
+  **go-ci: GREEN on the tree through SESSION-070's release cut** (the
+  ledger: `a74b112` → run 39951244699 success [the bump]; the tag →
+  the release run 39951431147 success [the release]; the close push is
+  the latest: verify at the open).
+- **The environment recipe** (the 65th wipe was absorbed at
+  SESSION-070's open — the standard recipe held, zero corrections):
   work repo at /home/z/my-project/second-brain-project (**clone it
   ANONYMOUSLY — it is public; the credentials block's GitHub URL may
   point at the PRIVATE Python reference `assadigit/GitCurator` — do
   not confuse the two**; scrub any persisted token from the remote
-  URL — the clone with PAT then set-url anonymous form works), read-only reference
-  /home/z/my-project/GitCurator @ `98f4fc7` (must match
-  testdiff/PINNED-GITCURATOR-REV; the GIT_CONFIG_COUNT env-var form
-  avoids persistence entirely), toolchain go1.27.2 → /home/z/.local/go
-  (go.dev tarball, sha256
+  URL — the clone with PAT then set-url anonymous form works),
+  read-only reference /home/z/my-project/GitCurator @ `98f4fc7` (must
+  match testdiff/PINNED-GITCURATOR-REV; the GIT_CONFIG_COUNT env-var
+  form avoids persistence entirely), toolchain go1.27.2 →
+  /home/z/.local/go (go.dev tarball — extract WITHOUT
+  --strip-components so the tree lands at .local/go; sha256
   `ecbadb99091a3f46e31f5f934b068b1864eafa7995211b39eaddf76996045fe5`
   — 64 hex chars; verify the locally-computed hash against the
   COMMITTED pin in build/TOOLCHAIN.md Am.2 — the pin is the authority;
   note go.dev/dl redirects — curl needs `-L`; the SECOND verify side
-  is the ARCHIVE listing `https://go.dev/dl/?mode=json&include=all`
-  — the stable `?mode=json` listing no longer carries go1.27.2 now
-  that go1.27.3 has shipped; the archive form does), venv
-  /home/z/venvs/gitcurator (Python 3.12, stdlib-only; the plain
+  is the ARCHIVE listing `https://go.dev/dl/?mode=json&include=all`),
+  venv /home/z/venvs/gitcurator (Python 3.12, stdlib-only; the plain
   'python3 -m venv' form when ensurepip is present, else
   `--without-pip --copies`), the wails CLI v2.16.0
   (`GOBIN=/home/z/.local/go/bin go install
   github.com/wailsapp/wails/v2/cmd/wails@v2.16.0` — build-time only),
-  and the rootless
-  webkit tree (~/.local/lib-wails — **DOWN; last rebuilt at
-  SESSION-047 (the FIFTEENTH rebuild); never rebuilt since
-  (SESSION-048–069 all ran no Linux GUI build — the windows legs are
-  CGO-free and the full battery [main + webui] runs without it,
-  re-proven at SESSION-069); the SIXTEENTH rebuild is pending:
-  rebuild it FIRST only when the session runs a LINUX GUI build** —
-  per webui/README.md + docs/poc-artifacts/t-70-gate.md +
-  build/TOOLCHAIN.md Am.3 + Am.4: 144 debs → dpkg -x → the 42 .pc
-  prefix rewrites → the 26 dev links, hardlink fallback expected.)
-  The MAIN go.mod: modernc.org/sqlite at v1.36.1,
-  bogdanfinn/tls-client at v1.16.0, golang.org/x/net v0.48.0 +
-  golang.org/x/text v0.32.0 direct, and the go directive at
+  and the rootless webkit tree (~/.local/lib-wails — **DOWN; last
+  rebuilt at SESSION-047 (the FIFTEENTH rebuild); never rebuilt since
+  (SESSION-048–070 all ran no Linux GUI build — the windows legs are
+  CGO-free and the full battery runs without it, re-proven at
+  SESSION-070; the SIXTEENTH rebuild is pending: rebuild it FIRST
+  only when the session runs a LINUX GUI build** — per webui/README.md
+  + docs/poc-artifacts/t-70-gate.md + build/TOOLCHAIN.md Am.3 + Am.4:
+  144 debs → dpkg -x → the 42 .pc prefix rewrites → the 26 dev links,
+  hardlink fallback expected.) The MAIN go.mod: modernc.org/sqlite at
+  v1.36.1, bogdanfinn/tls-client at v1.16.0, golang.org/x/net v0.48.0
+  + golang.org/x/text v0.32.0 direct, and the go directive at
   1.24.1 (the tls-client-forced floor — ADR-0002 Am.2; do not bump
   any of these). The NESTED webui module rides go 1.25.0 (wails
   v2.16.0's floor) + the wails require + the transitive requires
@@ -136,97 +115,63 @@
   downloads must run in FOREGROUND CHUNKS** — the sandbox kills
   backgrounded children when the call returns.
 - **The operational laws, newest first** (each was paid for in
-  evidence — carry ALL of them): **THE MENU-SURFACED RECORD
-  (SESSION-064, exercised at SESSION-065, SESSION-066, SESSION-067,
-  SESSION-068, and SESSION-069 exactly as written — the Phase-8 menu
-  is surfaced in full [SESSION-064's report + the chat report + the
-  card §4; the compact re-surface form rides SESSION-065's +
-  SESSION-066's + SESSION-067's + SESSION-068's + SESSION-069's
-  reports]; with the debt books empty, the owner's pick is the only
+  evidence — carry ALL of them): **THE RELEASE-RECORD (SESSION-070 —
+  the milestone release cut per the owner's directive: the bump →
+  the tag on the bump commit → the workflow green → the release
+  verified THREE ways incl. the cross-machine byte-identity proof;
+  the reproduce-from-tag recipe is the release report's own section;
+  every future release reuses the proven ritual verbatim)**; **THE
+  MENU-SURFACED RECORD (SESSION-064, exercised at SESSION-065…069 —
+  the Phase-8 menu is surfaced in full [SESSION-064's report + the
+  card §4]; with the debt books empty, the owner's pick is the only
   mover; a path-(c) session re-verifies the state + re-surfaces the
   menu compactly + closes cleanly — never starts Phase-8 work
-  unilaterally)**; **THE ENVIRONMENT-OWNED-TEXT
-  LAW (SESSION-063's CI incident — a tool's version- or
-  layout-dependent wording (git's fatal messages, a browser's
-  user-agent, a compiler's notes) must NEVER ride a golden pin as if
-  it were the app's contract: the runner's git 2.55.0 flipped the
-  "not a git repository" wording between image releases (both runs
-  green-checked the SAME git version — the flip is the
-  filesystem layout, not the version); settle such reds by
-  root-causing from the runs' logs, then normalize BOTH sides at
-  comparison time (the golden's bytes untouched) or stub the tool
-  — and pin the exact failure bytes as a fixture test)**;
-  **THE BOOTSTRAPPER-LEG RECORD
-  (SESSION-063 — the 1-INSTALL WebView2 check is READ-ONLY (reg
-  query is the ONE allowed reg verb; the mutating verbs stay
-  banned); the Evergreen GUID is
-  `{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}` (the t-70 plan's recorded
-  form was a corruption — a probe carrying a wrong GUID reads a
-  nonexistent key and reports a FALSE absent); the two halves of the
-  promise are separate: the INSTALLER half checks + points, the
-  RUNTIME half rides the exe's own first-launch path (wails
-  v2.16.0's default `download` strategy: one confirm dialog + the
-  Evergreen fetch — never promise "silent" for the portable zip's
-  path; fully-silent chains were the NSIS artifact's `/silent
-  /install`, which never shipped); the new leg rides the NEXT
-  release's zip (the honest-zip law)**; **THE DEBT-BOOKS-EMPTY
-  RECORD (SESSION-063 — the §9 inventory is empty of autonomous
-  items; the next path-(c) work is the Phase-8 menu surfacing or
-  whatever the owner's T-82/release inputs trigger)**; **THE
+  unilaterally)**; **THE ENVIRONMENT-OWNED-TEXT LAW (SESSION-063)**;
+  **THE BOOTSTRAPPER-LEG RECORD (SESSION-063 — the 1-INSTALL
+  WebView2 check is READ-ONLY; the Evergreen GUID is
+  `{F3017226-FE2A-4295-8BDF-00C3A9A7E4C5}`; the leg now rides the
+  LIVE zip)**; **THE DEBT-BOOKS-EMPTY RECORD (SESSION-063)**; **THE
   TEXT-MODE-READ LAW (SESSION-061)**; **THE MULTIEDIT-TAB
-  CORRUPTION, FIFTH STRIKE (SESSION-063 — both Go test files in one
-  session, each re-expanded whole-file to spaces; gofmt -l after
-  EVERY tool interaction caught both, gofmt -w repaired both, the
-  post-repair diffs verified to be exactly the edit regions; one
-  anchor-asserted patch refused on a wrong indent guess — nothing
-  was patched, exactly the belt's purpose; patch Go source with
-  PYTHON on the real bytes and ANCHOR-ASSERT every patch: a wrong
-  anchor guess must FAIL LOUD)**; **THE HARVEST-COUSIN RECORD
-  (SESSION-060)**; **THE DELIVERED-LAW RECORD (SESSION-059)**; **THE
-  MULTIEDIT-TAB CORRUPTION, THIRD STRIKE (SESSION-060 — also: the
-  eat struck a COMMITTED card once — card v59's "battery ain +
-  webui]" for "battery [main + webui]", fixed in v60 — the "for" side itself carried the corrupted form from v60 on (a real byte-level artifact, unlike the webkit bullet's line which byte-checks PROVEN display-only-eaten [always correct in v54→v66]; the "for" side repaired at SESSION-066's close with display-proof byte counts)**; **THE
-  ASYNC-READ FLAKE LESSON (SESSION-059, SECOND STRIKE SESSION-068 —
-  the watchdog twin: a test that polls for a STATE and then
-  bare-reads an EVENT the same goroutine emits afterward races the
-  emitter — the state can be observable while the event is still in
-  flight [TestWatchdogForceReleasesStuckLock's `Busy()` poll beat
-  the watchdog goroutine's `EmitLogLine` on a loaded runner, red run
-  39878157076 on a byte-identical Go tree]; wait for the event
-  itself under the test's own deadline, never a bare post-state
-  read — the same law as SESSION-059's fanfare chain gate)**; **THE LIVE-LEG RECORD
-  (SESSION-058 — settle every "already landed" claim against the
-  commit's own stat before trusting it)**; **THE 64TH-WIPE RECIPE
-  (SESSION-069 — held without correction)**; **THE WEBKIT-ORDINAL
-  CORRECTION (SESSION-055 — the pending rebuild is the SIXTEENTH,
-  last done at SESSION-047)**; **THE AC-17 BENCHMARK RECORD
-  (SESSION-052)**: performance rows close with same-input +
-  same-output proofs and same-box medians on both engines; **THE
-  HONEST-ZIP RECORD (SESSION-051)**; **THE
-  STALE-COMPARISON-TARGET LAW (SESSION-050)**; **THE PUBLIC-REPO
-  RECORD (SESSION-050)**; **THE TAG-STATE BUILD LAW (SESSION-049,
-  re-proven on the runner at 050)**; **THE -X-UNDER-TRIMPATH LAW
-  (SESSION-048)**; **THE VERIFY-THE-VERIFIER LESSON
-  (SESSION-048/049/050/052/059/060/061/062/063/064/065/066/067/068/069 — the renderer eats
-  characters on displays AND the tool echoes; settle every suspect
-  reading with byte-level counts)**; **THE DEFAULT-ICON FIND
-  (SESSION-048)**; **THE FLAG-CLEAR LAW (SESSION-047)**; **THE
-  REFERENCE'S-OWN-ARITHMETIC LAW (SESSION-046/048)**; **THE VLM
-  MISREAD LEDGER (FOUR incidents: 042/043/044/045; 046–069 ran
-  clean)**; **THE BINDING-IMPORT LAW (SESSION-044)**; **THE
-  RACE-PASS DIVIDEND (SESSION-045)**; **THE EXTRACT-AND-EXEC
-  SCOPE LAW (SESSION-041)**; **THE CROSS-BINARY DISAGREEMENT
-  LAW**; **THE SENTINEL-SEAT RACE LAW (SESSION-040)**; **THE
-  RETROACTIVE FIELD-TAG AUDIT (SESSION-040)**; **THE NIL-OPTIONAL
-  DEREF (SESSION-040)**; **THE ONE-OWNER-PER-SURFACE law
-  (SESSION-040)**; **THE FIELD-TAG LAW (SESSION-038)**; **THE
-  DISPLAY-PIPELINE CORRUPTION LESSON (SESSION-038 — the Edit
-  tool's SPACE-vs-TAB; gofmt -l after every edit batch;
-  python-patch Go source when the tool rendering is suspect)**;
-  **THE SYMLINK-BLOCK FALLBACK (TOOLCHAIN.md Am.4)**; **THE
+  CORRUPTION, FIFTH STRIKE (SESSION-063 — patch Go source with
+  PYTHON on the real bytes and ANCHOR-ASSERT every patch; a wrong
+  anchor guess must FAIL LOUD — SESSION-070's README move hit the
+  non-unique-anchor variant in MARKDOWN: the edit landed after the
+  wrong entry; settled with a byte-safe python move + grep
+  verification — anchor assertions are for prose too)**; **THE
+  HARVEST-COUSIN RECORD (SESSION-060)**; **THE DELIVERED-LAW RECORD
+  (SESSION-059)**; **THE MULTIEDIT-TAB CORRUPTION, THIRD STRIKE
+  (SESSION-060)**; **THE ASYNC-READ FLAKE LESSON (SESSION-059,
+  SECOND STRIKE SESSION-068)**; **THE LIVE-LEG RECORD (SESSION-058)**;
+  **THE 65TH-WIPE RECIPE (SESSION-070 — held without correction; the
+  go tarball extracts to .local/go WITHOUT --strip-components)**;
+  **THE WEBKIT-ORDINAL CORRECTION (SESSION-055 — the pending rebuild
+  is the SIXTEENTH, last done at SESSION-047)**; **THE AC-17
+  BENCHMARK RECORD (SESSION-052)**; **THE HONEST-ZIP RECORD
+  (SESSION-051 — RESOLVED at SESSION-070: the live list carries the
+  two-exe zip)**; **THE STALE-COMPARISON-TARGET LAW (SESSION-050)**;
+  **THE PUBLIC-REPO RECORD (SESSION-050)**; **THE TAG-STATE BUILD
+  LAW (SESSION-049, re-proven on the runner at 050 and on the REAL
+  release at 070 — the CLI exe's buildinfo carries `mod …
+  v0.92.0-go.2`)**; **THE -X-UNDER-TRIMPATH LAW (SESSION-048)**;
+  **THE VERIFY-THE-VERIFIER LESSON (SESSION-048–070 — the renderer
+  eats characters on displays AND the tool echoes; settle every
+  suspect reading with byte-level counts; SESSION-070's README-tail
+  assertion failed on a `the\nenvironment` line-wrap — the od dump
+  settled it)**; **THE DEFAULT-ICON FIND (SESSION-048)**; **THE
+  FLAG-CLEAR LAW (SESSION-047)**; **THE REFERENCE'S-OWN-ARITHMETIC
+  LAW (SESSION-046/048)**; **THE VLM MISREAD LEDGER (FOUR incidents:
+  042/043/044/045; 046–070 ran clean)**; **THE BINDING-IMPORT LAW
+  (SESSION-044)**; **THE RACE-PASS DIVIDEND (SESSION-045)**; **THE
+  EXTRACT-AND-EXEC SCOPE LAW (SESSION-041)**; **THE CROSS-BINARY
+  DISAGREEMENT LAW**; **THE SENTINEL-SEAT RACE LAW (SESSION-040)**;
+  **THE RETROACTIVE FIELD-TAG AUDIT (SESSION-040)**; **THE
+  NIL-OPTIONAL DEREF (SESSION-040)**; **THE ONE-OWNER-PER-SURFACE
+  law (SESSION-040)**; **THE FIELD-TAG LAW (SESSION-038)**; **THE
+  DISPLAY-PIPELINE CORRUPTION LESSON (SESSION-038)**; **THE
+  SYMLINK-BLOCK FALLBACK (TOOLCHAIN.md Am.4)**; **THE
   RENDER-CONTEXT LAW (SESSION-037)**; **THE VLM RATE-LIMIT WINDOW
   (SESSION-039)**; **THE PINNED-VERDICT-ROW LESSON (SESSION-039)**;
-  **THE ONE-SLICE-PROPERLY RECORD (036–069)**; and the standing set
+  **THE ONE-SLICE-PROPERLY RECORD (036–070)**; and the standing set
   (THE LIVE-CONFIG LAW; THE GROUP-POINTER LAW; THE
   DISSOLUTION-PROBE RECORD; THE GOLDEN-MARSHAL-ORDER TRAP; THE
   SUITE-REVERIFICATION DIVIDEND; THE WAILS-BUILD MODE FLIPS; THE
@@ -242,96 +187,76 @@
     cd AND its own PATH=/home/z/.local/go/bin export); **THE
     RENDERER-EATS-ESCAPE-PAIRS lesson** (commit messages via -F FILE);
     **THE WRITE-TOOL REDACTION lesson** (byte-level secret-scan before
-    every commit — sha256 hashes are fine, tokens are not); **THE
-    BACKGROUND-PROCESS lesson** (long suites + downloads in FOREGROUND
-    CHUNKS); **PUSH AFTER EVERY TASK** (ask for the PAT the moment a
-    push is due; never store).
+    every commit — sha256 hashes are fine, tokens are not; the
+    repo-wide grep's hits must be INSPECTED before declaring them
+    false positives — SESSION-070 proved its hits were the reference's
+    own test-fixture placeholders); **THE BACKGROUND-PROCESS lesson**
+    (long suites + downloads in FOREGROUND CHUNKS); **PUSH AFTER
+    EVERY TASK** (ask for the PAT the moment a push is due; never
+    store).
 
-## 2. Next session: SESSION-070 — THE RELEASE SESSION (the owner's post-close directive, recorded in SESSION-069's report addendum)
+## 2. Next session: SESSION-071 — THE POST-RELEASE SESSION (the decision tree, in priority order)
 
-**The owner's directive (issued after SESSION-069's clean close,
-verbatim): "The work is continued until GUI is ready. give me prompt
-to continue the project until .exe with GUI is ready."** Read
-against the state — the desktop GUI complete + proven since Phase 6
-(the battery 2398 main + 95 webui = 2493, race-clean), the two-exe
-deterministic zip proven cross-machine byte-identical (T-80/T-81),
-the release workflow proven end-to-end on a real runner — the ONLY
-step between now and a downloadable GitCurator.exe (the GUI) is the
-milestone release cut. **This is the release decision: SESSION-070
-cuts it** (path (b) of the decision tree, now directed).
-
-The ritual (the proven recipe at
-`docs/poc-artifacts/t-81-release-workflow.md` §5):
-
-1. Verify the state at the open (the go-ci run green on the latest
-   push + the battery if the environment wiped).
-2. Bump `VERSION` → `0.92.0-go.2` (the card's own suggestion — the
-   desktop milestone following the CLI milestone `v0.92.0-go.1`; if
-   the owner's pasted prompt carries a different number, THAT
-   number wins — `v1.0.0-go` is the alternative shape).
-3. Commit the bump, push it, watch go-ci green.
-4. Push the tag `v$(cat VERSION)` (THE TAG-STATE BUILD LAW: the
-   release numbers live at the tagged checkout; the tag rides the
-   bumped-VERSION commit).
-5. Watch the release workflow build + attach the two-exe zip
-   (GitCurator.exe + GitCurator-cli.exe, 13 files, the new
-   git+WebView2 bootstrapper leg — the honest-zip law satisfied:
-   the LIVE release list then carries the desktop zip).
-6. Verify the release live: the notes' table, the sha256 (the
-   certutil-verifiable number), the asset count/size.
-7. Write the release report per AC-23's scaffold
-   (`docs/poc-artifacts/t-82-clean-vm-checklist.md` §2), record the
-   release in the card + README + doc 12, close per the protocol.
-8. T-82's live Windows legs remain the owner's (no haste — their
-   standing words) and now run against the REAL release; the
-   Phase-7 exit evaluation follows once T-82 completes.
-
-**Fallback**: if anything blocks the release (the workflow red, the
-asset missing, a sha256 mismatch), STOP and surface it with evidence
-per the standing laws — record it in the card + report and hand the
-decision back; never improvise past a blocker. If the owner's T-82
-results arrive with the prompt instead, the intake (the old path
-(a)) takes priority; if the directive is withdrawn, the standing
-delegation's path (c) remains the honest default.
+1. **(a) T-82 INTAKE** — if the owner's prompt carries their live
+   Windows results (the nine checklist items run against the live
+   `v0.92.0-go.2` zip): fill
+   `docs/poc-artifacts/t-82-clean-vm-checklist.md` §1's slots +
+   `docs/poc-artifacts/release-v0.92.0-go.2.md`'s results table + the
+   AV section with the owner's signed results; flip doc 13's T-82
+   row; then **the Phase-7 exit evaluation, honestly** against doc
+   12's gates (T-80…T-83 + AC-17 + the release: what is proven, what
+   the honest boundary is) and record the verdict; then the Phase-8
+   question is the owner's.
+2. **(b) the standing delegation** ("you choose; no haste to start
+   the app") — re-verify the state (the go-ci run at the open — a
+   red is a REAL failure; the battery if the environment wiped, the
+   exact committed shape 2398 + 95 = 2493), re-surface the Phase-8
+   menu compactly (the full menu stands from SESSION-064), and close
+   cleanly at the natural boundary. Never start Phase-8 work
+   unilaterally.
+3. **Blockers**: if anything red surfaces (a CI failure, a broken
+   release link), STOP and surface it with evidence per the standing
+   laws; record it in the card + report and hand the decision back.
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-069.md` — the most recent report + the
-   post-close owner-decision addendum (this directive's provenance
-   + the release-session framing).
-2. `docs/poc-artifacts/t-81-release-workflow.md` §5 — THE PROVEN
-   RELEASE RECIPE (the exact steps; the dry-run green + the
-   cross-machine byte-identity proof).
-3. `docs/poc-artifacts/t-82-clean-vm-checklist.md` §2 — the AC-23
-   release-report scaffold (fill it for the release) + §4's dated
-   honest-zip note (the new zip carries the bootstrapper leg).
+1. `docs/sessions/SESSION-070.md` — the release session's report
+   (the ritual's every step + the verification evidence + the
+   release report's provenance).
+2. `docs/poc-artifacts/release-v0.92.0-go.2.md` — the AC-23 release
+   report (the live release's verified numbers; the owner's T-82
+   fill-in slots live here + the checklist doc §1).
+3. `docs/poc-artifacts/t-82-clean-vm-checklist.md` — §1 (the nine
+   items' slots) + §2 (the scaffold, now instantiated) + §4 (the
+   dated note — resolved by the live release).
 4. `docs/port-blueprint/12-migration-roadmap.md` — the Phase-7
-   records + the release acceptances (AC-23).
-5. `README.md` (the front page — the release section updates with
-   the cut).
-6. `docs/sessions/SESSION-068.md` — only if the CI ledger needs the
-   incident context.
+   records + the release acceptances (AC-23) + the SESSION-070 tail
+   entry.
+5. `README.md` (the front page — now pointing at the live desktop
+   milestone).
+6. `docs/sessions/SESSION-069.md` — only if the menu's full form is
+   needed (the compact form rides SESSION-070's report; the full
+   menu stands from SESSION-064's report).
 
-## 4. Known constraints / owner actions for SESSION-070
+## 4. Known constraints / owner actions for SESSION-071
 
 - **OWNER ACTION #1 (no haste — the owner's own words): T-82's live
   execution** — the owner's Windows machine runs the nine checklist
-  items against the NEXT release's two-exe zip (item 1 now carries
-  the full installer check: git + the WebView2 probe + the exe's
-  first-launch one-click offer; the current live zip carries the old
-  git-only checker — §4's dated note in the checklist doc) and fills
-  §2; the signed checklist closes T-82. Nothing blocks on it.
-- **OWNER ACTION #2: RESOLVED (directed post-close at SESSION-069)** —
-  the owner's directive "The work is continued until GUI is ready" IS
-  the release word; SESSION-070 cuts the milestone release (§2). The
-  number defaults `v0.92.0-go.2` (the owner may swap the `v1.0.0-go`
-  shape by editing the prompt's one line).
+  items against the LIVE `v0.92.0-go.2` two-exe zip (item 1 now
+  carries the full installer check: git + the WebView2 probe + the
+  exe's first-launch one-click offer) and fills §1 + the release
+  report's table + the AV section; the signed checklist closes T-82
+  and unlocks the Phase-7 exit evaluation. Item 9's automation half
+  is already proven (SESSION-070's download-sha256 + cross-machine
+  reproduction legs); the owner's own spot-check is optional. Nothing
+  blocks on it.
+- **OWNER ACTION #2: the Phase-7 exit evaluation timing** — rides the
+  T-82 intake (or the owner's explicit deferral call).
 - **OWNER ACTION #3: the Phase-8 pick** — only if the owner wants it
   (the menu is surfaced in full at SESSION-064 + compactly at
-  SESSION-065, SESSION-066, SESSION-067, SESSION-068, and
-  SESSION-069; the register's options + the standing small calls are
-  listed there); otherwise the standing delegation re-surfaces the
-  menu compactly and closes cleanly.
+  SESSION-065–069; the register's options + the standing small calls
+  are listed there); otherwise the standing delegation re-surfaces
+  the menu compactly and closes cleanly.
 - **The repo is PUBLIC** (SESSION-050) — never commit secrets
   (public-facing guarantee); pushes still need the ephemeral PAT
   (re-inline per call — the shell does not carry exports between
@@ -342,7 +267,7 @@ delegation's path (c) remains the honest default.
   fifteenth; the SIXTEENTH rebuild is pending) — rebuild it FIRST
   only if the session runs a LINUX GUI build (the windows legs are
   CGO-free; the full battery runs without it — re-proven at
-  SESSION-069).
+  SESSION-070).
 - The dissolution call (the owner's, ADR-0002 Am.5); the
   vanilla-vs-vite call (the owner's); the batch-scorecard modal
   question (the owner's); the v0.91.0 zip-parity reading (the
@@ -359,11 +284,9 @@ delegation's path (c) remains the honest default.
 - **After every `wails build`**: check `git diff --raw` for mode flips
   (the wailsjs baseline IS 755) and never commit a stray binary (nor a
   generated notes.md).
-- **Deferred test debt on the books**: NONE (the §9 inventory was
-  emptied at SESSION-062; the last named test-adjacent debt — the
-  bootstrapper leg — landed at SESSION-063). Only the owner's LIVE
-  legs remain (T-82 item 1 for the bootstrapper leg; the launchers'
-  clean-VM smoke rides T-82 the same way).
+- **Deferred test debt on the books**: NONE. Only the owner's LIVE
+  legs remain (T-82 items 1–8; the launchers' clean-VM smoke rides
+  T-82 the same way).
 - **Single-writer law**: the fresh session is the ONLY writer; the
   overseer chat records decisions and audits — it does not implement.
 - Python reference: `assadigit/GitCurator` @ `98f4fc7` — read-only;
@@ -375,60 +298,41 @@ delegation's path (c) remains the honest default.
   (hash-level, not display).
 - **Push after every task** — never end a session push-pending.
 
-## 5. THE PROMPT TO COPY (SESSION-070)
+## 5. THE PROMPT TO COPY (SESSION-071)
 
 ```
-You are starting SESSION-070 of the second-brain-project — the multi-session Go
+You are starting SESSION-071 of the second-brain-project — the multi-session Go
 port of the GitCurator Python app (a personal second-brain library builder; full
 specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
 code alongside you. You are the single writer on the repo.
 
-0. THE DIRECTIVE (the owner's, issued after SESSION-069's close — THE RELEASE
-DECISION): "The work is continued until GUI is ready." Read against the state:
-the desktop GUI is complete and proven (Phase 6 closed; the battery 2398 main +
-95 webui = 2493, race-clean, the exact committed shape), the two-exe
-deterministic zip is proven cross-machine byte-identical (T-80/T-81), and the
-ONLY step between now and a downloadable GitCurator.exe (the GUI) is the
-milestone release cut — SESSION-070 IS THE RELEASE SESSION (path (b) of the
-card's decision tree, now directed). The ritual (the proven recipe at
-docs/poc-artifacts/t-81-release-workflow.md §5): (1) verify the state at the
-open — the go-ci run green on the latest push (SESSION-069's postscript push
-ab6ca34 → run 39947854098 was the last watched green; a red is a REAL failure)
-+ the battery if the environment wiped; (2) bump VERSION to 0.92.0-go.2 (the
-card's own suggestion — the desktop milestone following the CLI milestone
-v0.92.0-go.1; if this prompt carries a different number, THAT number wins);
-(3) commit + push the bump + watch go-ci green; (4) push the tag v$(cat
-VERSION) (THE TAG-STATE BUILD LAW — the release numbers live at the tagged
-checkout; the tag rides the bumped-VERSION commit); (5) watch the release
-workflow build + attach the two-exe zip (GitCurator.exe + GitCurator-cli.exe,
-13 files, the new git+WebView2 bootstrapper leg — the honest-zip law
-satisfied); (6) verify the release live — the notes' table, the sha256 (the
-certutil-verifiable number), the asset count/size; (7) write the release
-report per AC-23's scaffold (docs/poc-artifacts/t-82-clean-vm-checklist.md
-§2) + record the release in the card/README/doc 12. T-82's live Windows legs
-remain the owner's (no haste — their standing words) and now run against the
-REAL release; the Phase-7 exit evaluation follows once T-82 completes. If
-anything blocks the release (the workflow red, the asset missing, a sha256
-mismatch), STOP and surface it with evidence per the standing laws — never
-improvise past a blocker; record it in the card + report and hand the
-decision back.
+0. THE STATE: the desktop milestone release v0.92.0-go.2 is LIVE (cut at
+SESSION-070 per the owner's directive — the two-exe zip GitCurator.exe +
+GitCurator-cli.exe, 13 files, sha256-verified three ways incl. the cross-machine
+byte-identity proof; the release report: docs/poc-artifacts/release-v0.92.0-go.2.md).
+SESSION-071 is the POST-RELEASE session — the decision tree in priority order:
+(a) if this prompt carries the owner's T-82 results (the nine clean-VM checklist
+items run against the v0.92.0-go.2 zip), do the INTAKE: fill
+docs/poc-artifacts/t-82-clean-vm-checklist.md §1 + the release report's results
+table + the AV section with the owner's signed results, flip doc 13's T-82 row,
+then run the PHASE-7 EXIT EVALUATION honestly against doc 12's gates (T-80…T-83
++ AC-17 + the release: what is proven, what the honest boundary is) and record
+the verdict; (b) otherwise the standing delegation ("you choose; no haste to
+start the app") holds: re-verify the state (the go-ci run at the open — a red is
+a REAL failure; the battery if the environment wiped), re-surface the Phase-8
+menu compactly (the full menu stands from SESSION-064), and close cleanly —
+never starting Phase-8 work unilaterally. If anything blocks, STOP and surface
+it with evidence per the standing laws; record it in the card + report and hand
+the decision back.
 
 Then follow docs/SESSION-PROTOCOL.md exactly: bootstrap (clone
 https://github.com/assadigit/second-brain-project — the work repo, public;
-read README.md, docs/SESSION-PROTOCOL.md, docs/NEXT-SESSION.md [the card v70
-amendment — SESSION-070 = the release session], the two most recent session
-reports [SESSION-069 carries the post-close owner-decision record + the
-release-session framing], git log --oneline -15), orient (the read-firsts:
-docs/poc-artifacts/t-81-release-workflow.md §5 — the proven recipe;
-docs/poc-artifacts/t-82-clean-vm-checklist.md §2 — the AC-23 release-report
-scaffold + §4's dated honest-zip note; docs/port-blueprint/
-12-migration-roadmap.md — the Phase-7 acceptances [AC-23]), work (the standing
-laws: reality wins, tests never weakened, no secrets ever, stay inside the
-phase, push after every task), close (the honest gate evaluation — the release
-LIVE with the verified notes + the release report written; the commit + push,
-the SESSION-070 report, the NEXT-SESSION.md rewrite [SESSION-071 = the
-post-release session: the T-82 intake whenever the owner's legs run, then the
-Phase-7 exit evaluation], the worklog append), and report in chat with the
-literal next prompt.
+read README.md, docs/SESSION-PROTOCOL.md, docs/NEXT-SESSION.md [the card v71],
+the two most recent session reports [SESSION-070 is the release report-carrying
+session], git log --oneline -15), orient (the read-firsts: the card's §3),
+work (the standing laws: reality wins, tests never weakened, no secrets ever,
+stay inside the phase, push after every task), close (the honest gate
+evaluation, the commit + push, the SESSION-071 report, the NEXT-SESSION.md
+rewrite, the worklog append), and report in chat with the literal next prompt.
 ```

@@ -16,10 +16,10 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 
 1. **Get the zip** from
    [Releases](https://github.com/assadigit/second-brain-project/releases).
-   The live release `v0.92.0-go.1` is the **CLI milestone** (12 files); the
-   desktop app is complete and rides the **next milestone release** (13
-   files, both exes — the release workflow is proven end-to-end, so cutting
-   it is one tag away).
+   The live release `v0.92.0-go.2` is the **desktop milestone** (13 files:
+   **GitCurator.exe** + **GitCurator-cli.exe** + the launcher set + the
+   git+WebView2 installer check); the release report with every verified
+   number: `docs/poc-artifacts/release-v0.92.0-go.2.md`.
 2. **Verify the download** (the release notes carry the sha256):
    `certutil -hashfile <zip> SHA256` — the number must match.
 3. Then follow **[`WINDOWS-QUICKSTART.md`](WINDOWS-QUICKSTART.md)** — the
@@ -43,9 +43,9 @@ story with every number and every deviation:
 ## What's left (honest)
 
 The owner's live Windows checklist (T-82 — the fresh-VM install + AV
-scan; the fill-in doc is prepared), the next milestone release cut (the
-owner's call), and the Phase-8 menu (the future-work register — the
-owner's pick whenever wanted). The recorded debt books are EMPTY: every
+scan; the fill-in doc is prepared; now running against the real
+`v0.92.0-go.2` release), and the Phase-8 menu (the future-work register —
+the owner's pick whenever wanted). The recorded debt books are EMPTY: every
 named test-debt slice is closed (the last landed at SESSION-062) and
 the last named test-adjacent debt — the 1-INSTALL bootstrapper leg
 (the WebView2 Evergreen Runtime check, the t-70 plan's recorded
@@ -1996,3 +1996,41 @@ left — the owner's pick is the only mover on the board.** The
 records in the same commit (docs-only): the SESSION-069 report,
 the state card v70, doc 12's SESSION-069 entry, this entry, the
 environment worklog append (recreated after the wipe).
+
+**Phase 7 (continued) — SESSION-070: THE RELEASE SESSION (the owner's
+post-close directive "The work is continued until GUI is ready"
+executed — path (b) of the decision tree) — THE DESKTOP MILESTONE
+RELEASE `v0.92.0-go.2` IS LIVE.** The 65th wipe absorbed (the standard
+recipe held, zero corrections; the go1.27.2 tarball sha-verified BOTH
+sides — the committed pin + the archive listing); **go-ci verified
+GREEN at the open** (SESSION-069's postscript push `ab6ca34` → run
+39947854098, success; the latest `8e44b9c` → run 39949365627, success);
+the battery re-verified green pre-work — the exact committed shape
+(**main plain 2398 / 0 / 0 over 36 ok, race 36 ok / 0 data races,
+webui 95 / 0 / 0 over 4 ok, gofmt/vet/build clean in both modules,
+the tree clean through every leg — 2,493 total**). **The ritual, per
+the proven recipe (t-81 §5):** the VERSION bump `0.92.0-go.1` →
+`0.92.0-go.2` (+ webui/wails.json's productVersion — the
+one-version-truth) committed as `a74b112`, pushed, **go-ci run
+39951244699 GREEN**; the tag `v0.92.0-go.2` pushed riding the bump
+commit (THE TAG-STATE BUILD LAW); **the release workflow run
+39951431147 GREEN END-TO-END** (all 8 steps: the tag law → the
+double-build ritual → the AC-23 notes → the zip attach); the release
+published (id 421804097, 2026-10-23T12:15:21Z) with the asset
+`GitCurator-v0.92.0-go.2-windows.zip` — **13 files, 56,931,140 bytes
+in, 27,235,329 zipped, sha256 `78990ccb…`**. **The release verified
+LIVE three ways:** the downloaded asset's sha256 == the notes' number
+(the certutil-verifiable number); the zip's contents verified (both
+exes' sha256 == the notes' table; the CLI exe's buildinfo carries
+`mod … v0.92.0-go.2` — the tag IS the module version); **and the
+cross-machine byte-identity proof** — a full sandbox rebuild at the
+tagged checkout (the same 8 ritual legs, exit 0) reproduces every
+number byte-identically. **The honest-zip law is satisfied: the LIVE
+release list now carries the desktop two-exe zip with the new
+git+WebView2 bootstrapper leg.** The release report (AC-23's scaffold
+filled): `docs/poc-artifacts/release-v0.92.0-go.2.md`; T-82's live
+Windows legs remain the owner's (no haste — their standing words),
+now against the REAL release. The records in the same commit
+(docs-only): the release report, the SESSION-070 report, the state
+card v71, doc 12's SESSION-070 entry, the README front page + the
+QUICKSTART version references, this entry, the worklog append.

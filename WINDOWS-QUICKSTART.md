@@ -1,4 +1,4 @@
-# GitCurator — first run on Windows (v0.92.0-go.1, the desktop milestone)
+# GitCurator — first run on Windows (v0.92.0-go.2, the desktop milestone)
 
 Three steps and you're in. This build carries BOTH faces of the app:
 the desktop app (**GitCurator.exe**, double-click **`GitCurator.bat`**)
@@ -12,15 +12,15 @@ Download the zip from
 
 - **Verify the download before unzipping** (the release notes list the
   sha256 for every zip): in a terminal,
-  `certutil -hashfile GitCurator-v0.92.0-go.1-windows.zip SHA256`
+  `certutil -hashfile GitCurator-v0.92.0-go.2-windows.zip SHA256`
   — the number must match the release notes exactly. If it doesn't,
   don't use the file; re-download.
 - **Which zip you get depends on the release**: the current live
-  release (`v0.92.0-go.1`, the CLI milestone) carries the command
-  line + the launchers — `GitCurator.bat` inside it prints an honest
-  card pointing at the CLI. The **desktop app (GitCurator.exe) rides
-  the next milestone release** — the two-exe zip. This guide describes
-  that full two-exe shape.
+  release (`v0.92.0-go.2`, the desktop milestone) is the **two-exe
+  shape** this guide describes — GitCurator.exe + GitCurator-cli.exe
+  + the launchers + the git+WebView2 installer check. (The older
+  `v0.92.0-go.1` [the CLI milestone] stays listed: its
+  `GitCurator.bat` prints an honest card pointing at the CLI.)
 - Unzip anywhere you like (Desktop is fine). Nothing is installed
   outside the folder you unzipped into (and the vaults you point it
   at).
@@ -121,7 +121,7 @@ It checks and shows, one line each: **vaults** (found + writable),
   `config.json` (and `cache.db` if you want the app to remember
   processed links) into the new folder.
 
-Version 0.92.0-go.1 — the Go port's desktop milestone: the Wails GUI
+Version 0.92.0-go.2 — the Go port's desktop milestone: the Wails GUI
 (the SYNC desk, the scan views, every Settings page, the More tools)
 plus the full command line (status, wizard, test connection, dry-run,
 automatic runs, sync, retry, hand delivery, the LLM detect tools) with

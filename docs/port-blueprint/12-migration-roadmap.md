@@ -1755,3 +1755,63 @@ flowchart LR
 > What remains is the OWNER's, unchanged: T-82's live checklist (no
 > haste — their own standing words), the milestone release decision,
 > or a Phase-8 pick from the register.
+
+**Phase 7 (continued) — SESSION-070: THE RELEASE SESSION (the owner's
+post-close directive after SESSION-069's close — "The work is
+continued until GUI is ready" — the release decision executed, path
+(b) of the card's decision tree): THE DESKTOP MILESTONE RELEASE
+`v0.92.0-go.2` IS LIVE.** The 65th wipe absorbed (the standard recipe
+held, zero corrections; the go1.27.2 tarball sha-verified BOTH sides
+— the committed TOOLCHAIN.md Am.2 pin + the archive listing, size
+identical 70,590,635). go-ci verified GREEN at the open
+(SESSION-069's postscript push `ab6ca34` → run 39947854098 success;
+the latest `8e44b9c` → run 39949365627 success — a red is a REAL
+failure, none red). The battery re-verified green pre-work — the
+exact committed shape: main plain 2398 / 0 / 0 over 36 ok (exit 0),
+race 36 ok / 0 data races (exit 0), webui 95 / 0 / 0 over 4 ok (exit
+0), gofmt/vet/build clean in both modules, the tree clean through
+every leg — **2,493 total**. **The ritual, per the proven recipe
+(t-81-release-workflow.md §5), every step watched:** (1) the state
+verified at the open (the CI ledger + the battery + the pinned
+states — the honest-zip state held: only `v0.92.0-go.1` with the
+CLI-milestone zip; the T-82 §1 slots empty, no intake); (2) the
+VERSION bump `0.92.0-go.1` → `0.92.0-go.2` + webui/wails.json's
+productVersion (THE ONE-VERSION-TRUTH — release.sh's version-drift
+guard + the mkzip test both assert it; the version-sensitive tests
+run green locally before the push) committed as `a74b112`; (3) the
+bump pushed → **go-ci run 39951244699 GREEN**; (4) the tag
+`v0.92.0-go.2` pushed riding the bump commit (THE TAG-STATE BUILD
+LAW — the release numbers live at the tagged checkout); (5) **the
+release workflow run 39951431147 GREEN END-TO-END** (all 8 steps on
+a real runner: checkout → setup-go 1.27.2 → the wails CLI v2.16.0 →
+the tag law PASS → the double-build ritual PASS → the AC-23 notes →
+the zip attach); (6) **the release verified LIVE three ways**: the
+published release (id 421804097, "GitCurator v0.92.0-go.2 — the
+Windows release", 2026-10-23T12:15:21Z) carries the asset
+`GitCurator-v0.92.0-go.2-windows.zip` [27,235,329 bytes] whose
+downloaded sha256 `78990ccb…` == the notes' number (the
+certutil-verifiable number); the zip's contents verified (13 files,
+56,931,140 bytes in — exactly the notes' record; both exes' sha256
+== the notes' table; the CLI exe's buildinfo `mod … v0.92.0-go.2` —
+the tag IS the module version; the zip's VERSION member
+`0.92.0-go.2\n` byte-exact); **and the cross-machine byte-identity
+proof** — a full sandbox rebuild at the tagged checkout (a clean
+worktree at `v0.92.0-go.2`, the same 8 ritual legs, exit 0, "PASS —
+byte-identical rebuilds") reproduces every number byte-identically
+(CLI `a6539a1d…`, GUI `9d6c2c00…`, zip `78990ccb…` — the same
+cross-machine verdict class as T-81's dry-run, now for the REAL
+release). **The honest-zip law is satisfied: the LIVE release list
+now carries the desktop two-exe zip (GitCurator.exe +
+GitCurator-cli.exe, 13 files) with the new git+WebView2 bootstrapper
+leg in 1-INSTALL.bat** (the v0.92.0-go.1 CLI-milestone zip stays
+listed alongside). (7) The release report written per AC-23's
+scaffold: `docs/poc-artifacts/release-v0.92.0-go.2.md` (the parity
+table, the 13-file manifest, the item-9 automation half PASSED with
+both legs, items 1–8 + AV left for the owner's live run). T-82's
+live Windows legs remain the owner's (no haste — their standing
+words), now against the REAL release; the Phase-7 exit evaluation
+follows once T-82 completes. The records in the same commit
+(docs-only — no Go, workflow, or asset bytes touched): the release
+report, this entry, the SESSION-070 report, the state card v71, the
+README front page + the SESSION-070 status entry + the QUICKSTART
+version references, the environment worklog append.
