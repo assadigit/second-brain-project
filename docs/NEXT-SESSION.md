@@ -76,8 +76,9 @@
   39878157076 FAILURE — the async-delivery race incident, history,
   fixed same-session at SESSION-068; `499521c` → run 39877939627
   success; `e279292` → run 39875299946 success; `447eecb` → run
-  39875115793 success). SESSION-069's close push (docs-only) is then
-  watched GREEN to completion the same session; the postscript push
+  39875115793 success). SESSION-069's close push (`3d891d5`,
+  docs-only) was watched GREEN to completion the same session (run
+  **39947560680 — completed / success**); the postscript push
   (docs-only, recording that green) is the latest — verify its run
   green at SESSION-070's open (a red is a REAL failure now; watch
   the Actions tab on pushes as normal CI hygiene).
@@ -85,11 +86,11 @@
   still need the PAT (ephemeral, as always — re-inline it per call;
   the sandbox shell does not carry exports between tool calls);
   Actions minutes are unlimited; the no-secrets law is public-facing.
-  **go-ci: GREEN on the tree through SESSION-069's open (the final
-  postscript push `9470d22` → run 39879755821 — the repaired
-  watchdog test's class did not recur); SESSION-069's close push
-  (docs-only) watched GREEN at its close; the postscript push
-  (docs-only) is the latest: verify its run green at the open.**
+  **go-ci: GREEN on the tree through SESSION-069's close (the final
+  postscript push `9470d22` → run 39879755821 verified green at the
+  open; the close push `3d891d5` → run 39947560680 watched GREEN to
+  completion at the close); the postscript push (docs-only) is the
+  latest: verify its run green at the open.**
 - **The environment recipe** (the 64th wipe was absorbed at
   SESSION-069's open — the standard recipe held, zero corrections):
   work repo at /home/z/my-project/second-brain-project (**clone it
@@ -414,10 +415,10 @@ empty; Phase 8 out of blueprint scope). … go-ci: SESSION-068's CI-incident
 fix push 8c8a6d3 (run 39879515564) watched GREEN at its close — the repaired
 watchdog test green on the runner — and SESSION-068's final postscript push
 9470d22 (docs-only, run 39879755821) verified GREEN at SESSION-069's open
-(the incident class did not recur); SESSION-069's close push (docs-only) was
-watched GREEN at its close, and the postscript push (docs-only, recording
-that green) is the latest — verify its run green at your open (a red is a
-REAL failure). What remains is the OWNER's: T-82's live checklist (no haste),
+(the incident class did not recur); SESSION-069's close push 3d891d5
+(docs-only, run 39947560680) was watched GREEN at its close, and the
+postscript push (docs-only, recording that green) is the latest — verify its
+run green at your open (a red is a REAL failure). What remains is the OWNER's: T-82's live checklist (no haste),
 the milestone release decision, or a Phase-8 pick from the menu (the full
 form at SESSION-064, the compact form at SESSION-065, SESSION-066,
 SESSION-067, SESSION-068, and SESSION-069).
