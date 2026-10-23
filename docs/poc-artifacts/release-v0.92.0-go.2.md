@@ -73,29 +73,52 @@ milestone, 12 files, the git-only checker — both releases stay listed).
 
 ## The clean-VM checklist results (doc 10 §7 — the nine items)
 
+**The v0.92.0-go.2 attempt — the owner's own machine, reported in
+chat 2026-10-24 ("none of them works, neither cli or GUI"; no error
+text provided; recorded verbatim-honest, marking what is not known;
+the full per-item detail + the SESSION-074 diagnosis record live in
+`t-82-clean-vm-checklist.md` §1):**
+
 | # | Item | RESULT | DATE |
 |---|---|---|---|
-| 1 | unzip → 1-INSTALL → GUI launch | ____ | ____ |
-| 2 | cold start ≤ 1.5 s / 1000×750 / theme | ____ | ____ |
-| 3 | CLI --status ≤ 0.5 s / config card | ____ | ____ |
-| 4 | DRY-RUN / zero vault writes | ____ | ____ |
-| 5 | Test Connection modal | ____ | ____ |
-| 6 | 5-link batch / seal / publish | ____ | ____ |
-| 7 | no console / sounds / theme toggle / log flood | ____ | ____ |
-| 8 | AV verdict (the report's §AV) | ____ | ____ |
+| 1 | unzip → 1-INSTALL → GUI launch | **FAIL** (the GUI does not launch; no error text) | 2026-10-24 |
+| 2 | cold start ≤ 1.5 s / 1000×750 / theme | **NOT REACHED** | 2026-10-24 |
+| 3 | CLI --status ≤ 0.5 s / config card | **FAIL** ("neither cli or GUI") | 2026-10-24 |
+| 4 | DRY-RUN / zero vault writes | NOT RUN | — |
+| 5 | Test Connection modal | NOT RUN | — |
+| 6 | 5-link batch / seal / publish | NOT RUN | — |
+| 7 | no console / sounds / theme toggle / log flood | NOT RUN | — |
+| 8 | AV verdict (the report's §AV) | **UNKNOWN** (no verdict; AV interference a live hypothesis) | 2026-10-24 |
 | 9 | sha256 + reproduce spot-check | **PASS (automation half — this session: the downloaded asset's sha256 verified == the notes' number; the reproduce-from-tag ritual run at the tagged checkout, every number byte-identical)** | 2026-10-23 |
 
-Items 1–8 are the owner's live Windows legs (no haste — their standing
-words); they run against THIS release (item 1 now carries the full
-installer check: git + the WebView2 probe + the exe's first-launch
-one-click offer). The fill-in surface: `t-82-clean-vm-checklist.md` §1.
+**THE VERDICT THIS RELEASE CARRIES: the shipped bytes are verified
+correct (the asset re-downloaded 2026-10-24: sha256, both exes, PE
+headers, buildinfo all byte-equal to the recorded table), and the
+release FAILS on the owner's machine — both exes, no error text
+provided. The root cause on their machine is UNDETERMINED from this
+sandbox (no Windows box, standing since SESSION-001; see the
+candidate list in the checklist's diagnosis record). The fix cycle
+reopened under the owner's directive: v0.92.0-go.3 ships the
+portable-first reframe (`0-START-HERE.txt` first in the zip, no
+"install" step in the guide, the SmartScreen/AV walk-through, the
+64-bit-Win10/11 requirement stated); the owner's re-run against it
+rides the checklist's go.3 re-run slots.**
+
+Items 4–8 remain the owner's live Windows legs; they run against
+`v0.92.0-go.3` now (the fill-in surface: `t-82-clean-vm-checklist.md`
+§1's re-run slots).
 
 ## AV (doc 10 §9)
 
-- Scanner/service used: ____   Date: ____
-- GitCurator.exe verdict: ____ / GitCurator-cli.exe verdict: ____
-- The `-w -s` comparison (ONLY if a stripped build was tested): ____
-- Mitigation applied (if any): ____
+- Scanner/service used: not provided   Date: 2026-10-24 (the owner's report)
+- GitCurator.exe verdict: not provided / GitCurator-cli.exe verdict: not provided
+- The `-w -s` comparison (ONLY if a stripped build was tested): not tested
+- Mitigation applied (if any): none applicable yet — the ladder's
+  rung 3 (the sha256 in the release notes) is already the law; rung 4
+  (an EV/OV code-signing cert — the only rung that quiets SmartScreen
+  at the source) is **the owner's call, surfaced in SESSION-074's
+  report with the cost/benefit**; the verdicts above await the
+  owner's error details (the AV hypothesis is live but unverified).
 
 ## The reproduce recipe (any machine with go 1.27.2 + wails v2.16.0)
 
@@ -107,5 +130,7 @@ cd second-brain-project && ./build/release.sh
 ```
 
 Signed (the automation half): SESSION-070, the release session —
-2026-10-23. The live half (items 1–8 + AV): the owner's, whenever
-they run the checklist.
+2026-10-23. The live half (items 1–8 + AV): the owner's — **first
+run recorded 2026-10-24 (this release fails on their machine, both
+exes, no error text; the intake above) — the re-run rides
+`v0.92.0-go.3`.**

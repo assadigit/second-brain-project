@@ -16,17 +16,57 @@ Each item: the do, the verify, and the record slot. Fill RESULT
 is already half-automated (the workflow's notes carry the sha256; the
 spot-check recipe is below).
 
+**The v0.92.0-go.2 attempt (the owner's own machine, reported in chat
+2026-10-24: "I have downloaded the latest github release. none of them
+works, neither cli or GUI") — recorded below verbatim-honest; no error
+text was provided, so the rows carry what is known and mark what is
+not. The v0.92.0-go.3 re-run slots follow the table.**
+
 | # | The do | The verify | RESULT | DATE | NOTES |
 |---|---|---|---|---|---|
-| 1 | Fresh Windows 10 VM (no dev tools); unzip the release zip; run `1-INSTALL.bat`; launch `GitCurator.exe` | GUI launches; installer checks WebView2 + git and bootstraps/points as designed | ____ | ____ | ____ |
-| 2 | Cold start the GUI | First frame ≤ 1.5 s; window 1000×750; theme correct | ____ | ____ | ____ |
-| 3 | `GitCurator-cli.exe --status` in a terminal | Completes ≤ 0.5 s; the config card prints | ____ | ____ | ____ |
-| 4 | `GitCurator-DRY-RUN.bat` | Completes; the dry-run report writes; **zero** vault writes (snapshot diff before/after) | ____ | ____ | ____ |
-| 5 | The Test Connection modal | Against the owner's real services (or the VM's fakes) | ____ | ____ | ____ |
-| 6 | A real 5-link batch against a temp vault | Seals against a temp GitHub repo; publish against the staging Worker door (or the loopback rig) | ____ | ____ | ____ |
-| 7 | The GUI's live behaviors | No console window on launch; sounds play; dark/light toggle; a 10k-line log flood stays interactive | ____ | ____ | ____ |
-| 8 | AV check (§3 below) | The unsigned exe through a scanner service; the verdict + any mitigations recorded in §3 | ____ | ____ | ____ |
-| 9 | sha256 + reproducibility spot-check | The downloaded zip's sha256 equals the release notes' number; `./build/release.sh` from the tag reproduces it (the recipe below) | ____ | ____ | ____ |
+| 1 | Fresh Windows 10 VM (no dev tools); unzip the release zip; run `1-INSTALL.bat`; launch `GitCurator.exe` | GUI launches; installer checks WebView2 + git and bootstraps/points as designed | **FAIL** | 2026-10-24 | The owner's own machine (not a clean VM): "none of them works, neither cli or GUI" — the GUI does not launch. No error text provided; whether 1-INSTALL.bat ran is not specified. |
+| 2 | Cold start the GUI | First frame ≤ 1.5 s; window 1000×750; theme correct | **NOT REACHED** | 2026-10-24 | The GUI never launches on the owner's machine (item 1's FAIL). |
+| 3 | `GitCurator-cli.exe --status` in a terminal | Completes ≤ 0.5 s; the config card prints | **FAIL** | 2026-10-24 | "neither cli or GUI" — the CLI does not work either. No error text; how it was invoked (terminal vs double-click) is not specified. |
+| 4 | `GitCurator-DRY-RUN.bat` | Completes; the dry-run report writes; **zero** vault writes (snapshot diff before/after) | NOT RUN | — | Not reported. |
+| 5 | The Test Connection modal | Against the owner's real services (or the VM's fakes) | NOT RUN | — | Not reported. |
+| 6 | A real 5-link batch against a temp vault | Seals against a temp GitHub repo; publish against the staging Worker door (or the loopback rig) | NOT RUN | — | Not reported. |
+| 7 | The GUI's live behaviors | No console window on launch; sounds play; dark/light toggle; a 10k-line log flood stays interactive | NOT RUN | — | Not reported. |
+| 8 | AV check (§3 below) | The unsigned exe through a scanner service; the verdict + any mitigations recorded in §3 | **UNKNOWN** | 2026-10-24 | No scanner verdict provided. AV interference is a LIVE hypothesis for the simultaneous double failure (a dependency-free static CLI exe failing too) — unverified pending the owner's error details. |
+| 9 | sha256 + reproducibility spot-check | The downloaded zip's sha256 equals the release notes' number; `./build/release.sh` from the tag reproduces it (the recipe below) | **PASS (automation half)** | 2026-10-24 | SESSION-070's legs stand (the downloaded asset's sha256 == the notes' number; the cross-machine reproduction). SESSION-074 re-verified the live download's sha256 byte-equal to the recorded number. The owner's own spot-check: not performed. |
+
+### The v0.92.0-go.3 re-run slots (the owner's legs against the fixed release)
+
+| # | Item | RESULT | DATE | NOTES |
+|---|---|---|---|---|
+| 1 | unzip (Extract All) → 0-START-HERE → GUI launch | ____ | ____ | ____ |
+| 2 | cold start ≤ 1.5 s / 1000×750 / theme | ____ | ____ | ____ |
+| 3 | CLI --status ≤ 0.5 s / config card | ____ | ____ | ____ |
+| 4 | DRY-RUN / zero vault writes | ____ | ____ | ____ |
+| 5 | Test Connection modal | ____ | ____ | ____ |
+| 6 | 5-link batch / seal / publish | ____ | ____ | ____ |
+| 7 | no console / sounds / theme toggle / log flood | ____ | ____ | ____ |
+| 8 | AV verdict (§3) | ____ | ____ | ____ |
+| 9 | sha256 + reproduce spot-check | ____ | ____ | ____ |
+
+**The SESSION-074 diagnosis record (the evidence at hand):** the live
+asset re-downloaded fresh — sha256 `78990ccb…d6c3cd` byte-equal to the
+recorded number; both exes extracted byte-equal to the parity table
+(`9d6c2c00…`, `a6539a1d…`); PE-inspected: both PE32+ x86-64
+(AMD64), `GitCurator.exe` subsystem **WINDOWS_GUI**, `GitCurator-cli.exe`
+subsystem **WINDOWS_CUI**, both stamped for Windows 10+, the CLI's
+buildinfo carries `go1.27.2` + `mod … v0.92.0-go.2` — **the shipped
+bytes are exactly the verified, reproducible release artifacts.**
+Go 1.21+ requires 64-bit Windows 10 or later; Windows 7/8/8.1 or a
+32-bit system refuses both exes at load. The candidates for the
+owner's failure, unranked: (a) SmartScreen blocking the unsigned
+exes ("Windows protected your PC" — the default reading of "does not
+work" for an unsigned app); (b) an antivirus quarantining/blocking both
+exes; (c) running from inside the zip window (no extraction);
+(d) pre-Windows-10 or 32-bit Windows; (e) a Windows-only runtime
+bug — **not excludable from this sandbox** (no Windows box since
+SESSION-001; the exes had never been executed on real Windows before
+this report). Distinguishing (a)/(b)/(c)/(d) from (e) needs the
+owner's exact error text — requested in the SESSION-074 report.
 
 ### The item-9 spot-check recipe (any machine with go 1.27.2 + wails v2.16.0)
 
@@ -128,3 +168,18 @@ from rung 2.
   the exe's own first-launch confirm/download (wails' default
   strategy) — the desktop app's zip rides the next release either
   way, so the natural time to run item 1 is after it.
+- **Dated note (2026-10-24, SESSION-074 — the owner's first live run
+  + the go.2 FAIL):** the owner downloaded the live `v0.92.0-go.2`
+  and reported "none of them works, neither cli or GUI" (no error
+  text). The intake rides §1 above (items 1/3 FAIL, item 2 not
+  reached, items 4–7 not run, item 8 unknown) + the SESSION-074
+  diagnosis record (the shipped bytes verified correct; the root
+  cause on the owner's machine undetermined from this sandbox —
+  SmartScreen/AV/extract-first/pre-Win10 are the candidates, a
+  Windows-only runtime bug not excludable). The owner's directive:
+  the next version must WORK and be portable without install —
+  `v0.92.0-go.3` ships the portable-first reframe (`0-START-HERE.txt`
+  first in the zip + the QUICKSTART reframe), and the re-run slots
+  above target it. The AV ladder's rung 4 (a code-signing cert —
+  the only rung that quiets SmartScreen at the source) is surfaced
+  to the owner as their call.
