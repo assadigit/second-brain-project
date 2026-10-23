@@ -16,15 +16,21 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 
 1. **Get the zip** from
    [Releases](https://github.com/assadigit/second-brain-project/releases).
-   The live release `v0.92.0-go.2` is the **desktop milestone** (13 files:
-   **GitCurator.exe** + **GitCurator-cli.exe** + the launcher set + the
-   git+WebView2 installer check); the release report with every verified
-   number: `docs/poc-artifacts/release-v0.92.0-go.2.md`.
+   The live release `v0.92.0-go.3` is the **desktop milestone line's fix
+   release** (14 files: **GitCurator.exe** + **GitCurator-cli.exe** +
+   **`0-START-HERE.txt` first in the folder** + the launcher set + the
+   optional git+WebView2 checker); the release report with every verified
+   number: `docs/poc-artifacts/release-v0.92.0-go.3.md`.
+   **Nothing is installed — it's a portable app**: extract the zip
+   ("Extract All"), open `0-START-HERE.txt` (the 30-second card — it
+   covers the unsigned-app SmartScreen box and what to do if an
+   antivirus objects), then double-click `GitCurator.bat`. Needs 64-bit
+   Windows 10/11.
 2. **Verify the download** (the release notes carry the sha256):
    `certutil -hashfile <zip> SHA256` — the number must match.
 3. Then follow **[`WINDOWS-QUICKSTART.md`](WINDOWS-QUICKSTART.md)** — the
-   three-step first-run guide (install check → configure → the safe
-   dry-run that writes nothing).
+   first-run guide (start the app → configure → the safe dry-run that
+   writes nothing).
 
 ## Does it really match the Python app?
 
@@ -42,9 +48,12 @@ story with every number and every deviation:
 
 ## What's left (honest)
 
-The owner's live Windows checklist (T-82 — the fresh-VM install + AV
-scan; the fill-in doc is prepared; now running against the real
-`v0.92.0-go.2` release), and the Phase-8 menu (the future-work register —
+The owner's live Windows checklist (T-82 — the first live run against
+`v0.92.0-go.2` FAILED on their machine [both exes, no error text
+provided — the intake + the diagnosis record are in
+`docs/poc-artifacts/t-82-clean-vm-checklist.md` §1]; `v0.92.0-go.3`
+ships the portable-first reframe and awaits their re-run + the exact
+error text if anything still fails), and the Phase-8 menu (the future-work register —
 the owner's pick whenever wanted). The recorded debt books are EMPTY: every
 named test-debt slice is closed (the last landed at SESSION-062) and
 the last named test-adjacent debt — the 1-INSTALL bootstrapper leg
@@ -2122,3 +2131,40 @@ autonomous implementation slice left — the owner's pick is the
 only mover on the board.** The records in the same commit
 (docs-only): the SESSION-073 report, the state card v74, doc 12's
 SESSION-073 entry, this entry, the worklog append.
+
+**Phase 7 (continued) — SESSION-074: THE T-82 INTAKE (the owner's
+first live run, NEGATIVE — "none of them works, neither cli or
+GUI", no error text) + THE FIX RELEASE v0.92.0-go.3 CUT UNDER THE
+OWNER'S DIRECTIVE ("Please make sure the next version both CLI and
+GUI WORKS!" — portable, without install) + THE PHASE-7 EXIT
+EVALUATION: NOT GREEN (the live legs failed; no sign-off; the fix
+cycle continues until the owner's re-run passes).** The diagnosis
+ran to the honest ceiling: the live go.2 asset re-downloaded +
+byte-verified (zip + both exes == the recorded table; PE-inspected
+PE32+ AMD64, GUI/CUI, Win10+ stamped, buildinfo tag-stamped) — the
+shipped bytes are exactly the verified artifacts; the root cause on
+the owner's machine is UNDETERMINED from this sandbox (candidates:
+SmartScreen-unsigned / AV-quarantine / run-from-inside-zip /
+pre-Win10-or-32-bit / a Windows-only runtime bug — the last not
+excludable without the owner's error text, THE ASK). The fix: the
+portable-first reframe — **`0-START-HERE.txt` FIRST in the zip**
+(the extract-first + SmartScreen + AV + 64-bit-Win10/11 card) +
+the QUICKSTART reframe (no install step; `1-INSTALL.bat` = the
+optional checker) + the release-notes First-run section; the
+launchers + the engine untouched. The MULTIEDIT-TAB sixth strike
+absorbed (the Edit tool space-rewrote the mkzip Go files; caught
+by the battery's gofmt leg; repaired python-on-bytes,
+anchor-asserted — GO FILES ARE PYTHON-ONLY TERRITORY now the law).
+The battery green (2398 + 95 = 2493, race-clean, gofmt/vet/build
+clean). **The release v0.92.0-go.3: the bump `5e0c09d` + the tag →
+go-ci 40022070901 + release run 40022070760 both GREEN (watched) →
+release 422298475 LIVE (14 files, 27,237,300 bytes, sha256
+`65eb64b4…`) — verified THREE ways incl. the cross-machine
+byte-identity** (the report:
+`docs/poc-artifacts/release-v0.92.0-go.3.md`; the owner's re-run
+slots: the checklist §1). The records: the SESSION-074 report, the
+state card v75, doc 12's SESSION-074 entry, the README front page
+(pointing at go.3), this entry, the worklog append. What remains:
+the owner's go.3 re-run + their exact error text if anything still
+fails + the optional calls (the code-signing cert; the
+fully-portable bundle).

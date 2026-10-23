@@ -1928,3 +1928,59 @@ worklog append. What remains in Phase 7 is the OWNER's, unchanged:
 T-82's live Windows legs (no haste — their own standing words,
 now against the REAL release) + the Phase-7 exit evaluation riding
 the intake (or the owner's explicit deferral call).
+
+**Phase 7 (continued) — SESSION-074: THE T-82 INTAKE (path (a) —
+the prompt carried the owner's live results, the first live Windows
+run ever, NEGATIVE) + THE FIX RELEASE v0.92.0-go.3 CUT UNDER THE
+OWNER'S DIRECTIVE + THE PHASE-7 EXIT EVALUATION: NOT GREEN.** The
+owner's report (2026-10-24, their own machine, no error text):
+"I have downloaded the latest github release. none of them works,
+neither cli or GUI" + the directive: "Please make sure the next
+version both CLI and GUI WORKS!" (portable, without install). The
+intake recorded verbatim-honest (the checklist §1: items 1/3 FAIL,
+item 2 not reached, items 4–7 not run, item 8 UNKNOWN; the go.2
+report's table + the AV section; doc 13's T-82 row flipped
+PARTIAL→OPEN) + **the SESSION-074 diagnosis record: the shipped
+bytes PROVEN CORRECT** (the live asset re-downloaded fresh —
+sha256/exes byte-equal to the recorded table; PE-inspected:
+PE32+ AMD64, GUI/CUI subsystems, Win10+ stamped, buildinfo
+go1.27.2 + mod v0.92.0-go.2) — **the root cause on the owner's
+machine UNDETERMINED from the sandbox** (no Windows box since
+SESSION-001; the exes had never run on real Windows before):
+candidates SmartScreen-unsigned / AV-quarantine /
+run-from-inside-zip / pre-Win10-or-32-bit / a-Windows-only-runtime-
+bug (not excludable without the owner's error text — THE ASK).
+**The fix (commit `8deaf29` + the bump `5e0c09d`)**: the
+portable-first reframe — `0-START-HERE.txt` FIRST in the zip (the
+30-second card: extract-ALL-first, the SmartScreen "More info →
+Run anyway" walk-through, the AV restore/allow guidance, the
+64-bit-Win10/11 requirement, the CLI invocation card, the
+ask-the-exact-error ask) + the QUICKSTART reframe (no install step;
+1-INSTALL.bat = the optional checker) + the release-notes First-run
+section; the launchers + the engine untouched (parity holds). The
+MULTIEDIT-TAB sixth strike absorbed mid-session (the Edit tool
+space-rewrote both mkzip Go files — caught by the battery's gofmt
+leg; repaired python-on-bytes, anchor-asserted; GO FILES ARE
+PYTHON-ONLY TERRITORY now recorded). The battery green after the
+fix (2398 + 95 = 2493, race-clean, gofmt/vet/build clean, tree
+clean). **The release v0.92.0-go.3**: the bump `5e0c09d` (VERSION +
+wails.json → 0.92.0-go.3) carrying the tag → go-ci run 40022070901
+GREEN + release run 40022070760 GREEN (both watched) → **release
+422298475 LIVE** (14 files, 56,935,578 in / 27,237,300 zipped,
+sha256 `65eb64b4…`) — **verified THREE ways** (the fresh download ==
+the notes; the contents: 14 members, START-HERE first, both exes ==
+the table, VERSION + buildinfo tag-stamped `v0.92.0-go.3`; the
+cross-machine byte-identity: the sandbox rebuild at the tag
+reproduced every number). The go.3 release report +
+`t-82-clean-vm-checklist.md`'s go.3 re-run slots prepared. **THE
+PHASE-7 EXIT EVALUATION, honestly against the gate (the clean-VM
+demonstration + the attached release + the owner sign-off): NOT
+GREEN — the live legs failed and the sign-off is the opposite; the
+fix cycle continues under the owner's directive until their re-run
+passes.** The records in the same commits: the SESSION-074 report,
+the state card v75, this entry, the README's front page + status
+entry, the worklog append. What remains in Phase 7: the owner's
+go.3 re-run + their exact error text if anything still fails (the
+30-second ask) + the optional owner calls (the code-signing cert —
+doc 10 §9 rung 4; the fully-portable bundle — WebView2 fixed +
+MinGit inside the zip).
