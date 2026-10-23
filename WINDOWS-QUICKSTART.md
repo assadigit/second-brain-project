@@ -1,9 +1,18 @@
-# GitCurator — first run on Windows (v0.92.0-go.2, the desktop milestone)
+# GitCurator — first run on Windows (v0.92.0-go.3)
 
-Three steps and you're in. This build carries BOTH faces of the app:
-the desktop app (**GitCurator.exe**, double-click **`GitCurator.bat`**)
-and the full command line (**GitCurator-cli.exe**) — same engine, same
-config, same vaults.
+**Nothing is installed on your computer** — this is a portable
+app; everything it writes stays inside its folder. Three steps and
+you're in. This build carries BOTH faces of the app: the desktop app
+(**GitCurator.exe**, double-click **`GitCurator.bat`**) and the full
+command line (**GitCurator-cli.exe**) — same engine, same config,
+same vaults.
+
+**First: open `0-START-HERE.txt`** (it sorts first in the folder) —
+the 30-second version of this guide, including what to do when
+Windows shows its "protected your PC" box.
+
+**Needs 64-bit Windows 10 or 11** (it will not start on Windows 7/8
+or a 32-bit system).
 
 ## 0. Get the app (once)
 
@@ -12,46 +21,57 @@ Download the zip from
 
 - **Verify the download before unzipping** (the release notes list the
   sha256 for every zip): in a terminal,
-  `certutil -hashfile GitCurator-v0.92.0-go.2-windows.zip SHA256`
+  `certutil -hashfile GitCurator-v0.92.0-go.3-windows.zip SHA256`
   — the number must match the release notes exactly. If it doesn't,
   don't use the file; re-download.
 - **Which zip you get depends on the release**: the current live
-  release (`v0.92.0-go.2`, the desktop milestone) is the **two-exe
-  shape** this guide describes — GitCurator.exe + GitCurator-cli.exe
-  + the launchers + the git+WebView2 installer check. (The older
-  `v0.92.0-go.1` [the CLI milestone] stays listed: its
-  `GitCurator.bat` prints an honest card pointing at the CLI.)
+  release (`v0.92.0-go.3`, the desktop milestone line) is the
+  **two-exe shape** this guide describes — GitCurator.exe +
+  GitCurator-cli.exe + the launchers + the optional git+WebView2
+  checker. (The older releases stay listed.)
+- **Extract ALL files first**: right-click the zip → "Extract All...",
+  then work from the extracted folder. **Do not run anything from
+  inside the zip window itself** — Windows runs it from a temporary
+  copy and things break. Extract first, always.
 - Unzip anywhere you like (Desktop is fine). Nothing is installed
   outside the folder you unzipped into (and the vaults you point it
   at).
 
-## 1. Install (once)
+## 1. If Windows says "protected your PC" (read once, 20 seconds)
 
-Double-click **`1-INSTALL.bat`**.
+GitCurator is a personal project and is **not code-signed**, so the
+first time you run it Windows may show the blue SmartScreen box:
+"Windows protected your PC". That is normal for every unsigned app.
 
-- It checks that **git** is on PATH (the only thing the engine needs —
-  no Python, no packages, nothing else is installed on your computer)
-  and probes — **read-only** — for the **WebView2 Runtime** the desktop
-  app uses to draw its window.
-- **If it says git.exe was not found:** install git from
-  <https://git-scm.com/download/win> (the "Git for Windows" setup,
-  default options are fine), then double-click `1-INSTALL.bat` again.
-- Safe to re-run any time (it only checks and points; it never writes
-  the registry, never touches PATH, never installs anything itself).
-- **The desktop app** also needs the **WebView2 Runtime** (preinstalled
-  on updated Windows 10/11). `1-INSTALL.bat` reports what it found; if
-  Windows doesn't have it, nothing is broken — the app offers to
-  download and install it automatically at first launch (one internet
-  connection, then never again).
+- Click **"More info"** → **"Run anyway"** — once per exe, then
+  Windows remembers.
+- If your **antivirus** removes or blocks `GitCurator.exe` /
+  `GitCurator-cli.exe`, restore and allow them — they are plain Go
+  binaries, and the sha256 numbers in the release notes prove exactly
+  which bytes you downloaded.
 
 ## 2. Start the desktop app
 
-Double-click **`GitCurator.bat`**.
+Double-click **`GitCurator.bat`** (or `GitCurator.exe` directly).
 
 The themed window opens: the SYNC desk (the log + the batch machine),
 the scan views, and Settings (every page the app has). A console window
 opens BEHIND the app if you launched it from the .bat — that is normal;
 if something breaks, screenshot that window: it has the exact error.
+
+**The desktop app needs the WebView2 Runtime** (preinstalled on
+updated Windows 10/11). If your Windows doesn't have it, nothing is
+broken — **at first launch the app offers to download and install it
+automatically** (one internet connection, about a minute, then never
+again). You can also install it yourself from
+<https://developer.microsoft.com/en-us/microsoft-edge/webview2/>.
+
+**git** is needed only for sealing/publishing into vaults (the app
+tells you if it's missing — get it from <https://git-scm.com/download/win>,
+default options are fine). **`1-INSTALL.bat` is an optional checker**
+that verifies both at once: it only checks and points, never installs
+anything itself, and is safe to re-run any time. You do not need it
+to run the app.
 
 ## 3. Configure (the wizard — or the Settings pages)
 
@@ -90,7 +110,8 @@ It checks and shows, one line each: **vaults** (found + writable),
 
 | File | What it is |
 |---|---|
-| `1-INSTALL.bat` | one-time check (git on PATH + a read-only WebView2 probe for the desktop app; safe to re-run) |
+| `0-START-HERE.txt` | the 30-second first-run card (extract first, the "protected your PC" box, how to start) |
+| `1-INSTALL.bat` | OPTIONAL checker (git on PATH + a read-only WebView2 probe; not an installer — you never need it to run the app) |
 | `GitCurator-CLI-Setup.bat` | first-run credential wizard |
 | `GitCurator-DRY-RUN.bat` | full automatic run, writes nothing |
 | `GitCurator-CLI.bat` | full automatic run (real) |
@@ -121,7 +142,7 @@ It checks and shows, one line each: **vaults** (found + writable),
   `config.json` (and `cache.db` if you want the app to remember
   processed links) into the new folder.
 
-Version 0.92.0-go.2 — the Go port's desktop milestone: the Wails GUI
+Version 0.92.0-go.3 — the Go port's desktop milestone: the Wails GUI
 (the SYNC desk, the scan views, every Settings page, the More tools)
 plus the full command line (status, wizard, test connection, dry-run,
 automatic runs, sync, retry, hand delivery, the LLM detect tools) with

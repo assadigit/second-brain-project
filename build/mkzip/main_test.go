@@ -103,6 +103,7 @@ func TestZipComposition(t *testing.T) {
 		"GitCurator/GitCurator-DRY-RUN.bat",
 		"GitCurator/config.example.json",
 		"GitCurator/WINDOWS-QUICKSTART.md",
+		"GitCurator/0-START-HERE.txt",
 		"GitCurator/VERSION",
 	}
 	for _, want := range must {
@@ -180,6 +181,32 @@ func TestZipDeterminismLaws(t *testing.T) {
 			crlf := bytes.Count(data, []byte("\r\n"))
 			if lf != crlf {
 				t.Errorf("%s: bare LF in a .bat (CRLF law)", f.Name)
+			}
+			if !bytes.HasSuffix(data, []byte("\r\n")) {
+				t.Errorf("%s: missing final CRLF", f.Name)
+			}
+		}
+		// 0-START-HERE.txt — the owner's first file (the SESSION-074
+		// portable leg): pure ASCII + CRLF so every Notepad vintage
+		// on every Windows renders it right; a bare LF glues the
+		// whole file into one line on the old ones.
+		if f.Name == "GitCurator/0-START-HERE.txt" {
+			rc, err := f.Open()
+			if err != nil {
+				t.Fatal(err)
+			}
+			data, _ := io.ReadAll(rc)
+			rc.Close()
+			for i, b := range data {
+				if b > 0x7F {
+					t.Errorf("%s: byte %d non-ASCII", f.Name, i)
+					break
+				}
+			}
+			lf := bytes.Count(data, []byte("\n"))
+			crlf := bytes.Count(data, []byte("\r\n"))
+			if lf != crlf {
+				t.Errorf("%s: bare LF in the START-HERE (the Notepad CRLF law)", f.Name)
 			}
 			if !bytes.HasSuffix(data, []byte("\r\n")) {
 				t.Errorf("%s: missing final CRLF", f.Name)

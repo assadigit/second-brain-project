@@ -107,6 +107,7 @@ const launcherDir = "cmd/gitcurator-cli"
 // rootAssets — the repo-root files that ship (relative to the repo
 // root, forward slashes).
 var rootAssets = []string{
+	"0-START-HERE.txt",
 	"GitCurator.bat",
 	"GitCurator-DRY-RUN.bat",
 	"config.example.json",

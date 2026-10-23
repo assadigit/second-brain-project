@@ -1,0 +1,79 @@
+================================================================
+ GitCurator - START HERE (30 seconds, read once)
+================================================================
+
+WHAT THIS IS
+  A portable app. Nothing is installed on your computer.
+  Everything the app writes stays inside this folder.
+
+WHAT YOU NEED
+  64-bit Windows 10 or 11. (It will not start on Windows 7/8
+  or on a 32-bit system.)
+
+----------------------------------------------------------------
+ STEP 1 - EXTRACT EVERYTHING FIRST
+----------------------------------------------------------------
+  Right-click the zip file you downloaded and choose
+  "Extract All...". Then open the extracted folder.
+
+  Do NOT run anything from inside the zip window itself -
+  Windows runs it from a temporary copy and things break.
+  Extract first, always.
+
+----------------------------------------------------------------
+ STEP 2 - IF WINDOWS SHOWS "protected your PC"
+----------------------------------------------------------------
+  GitCurator is a personal project and is not code-signed,
+  so the first time you run it Windows may show a blue box:
+  "Windows protected your PC".
+
+  That is normal for any unsigned app. Click:
+      "More info"  ->  "Run anyway"
+
+  If your antivirus removes or blocks the exes, restore and
+  allow them - they are plain Go binaries, and the sha256
+  numbers in the GitHub release notes prove exactly which
+  bytes you downloaded.
+
+----------------------------------------------------------------
+ STEP 3 - START THE APP
+----------------------------------------------------------------
+  Desktop app (the window):
+      double-click  GitCurator.bat   (or GitCurator.exe)
+
+  - A console window opens BEHIND the app - that is normal;
+    if anything breaks, that window holds the exact error.
+  - On very first launch, if the WebView2 component is
+    missing, the app offers a one-click install of it (about
+    a minute, once, then never again). Most Windows 10/11
+    machines already have it.
+
+  Command line (the terminal):
+      open a terminal in this folder (type  cmd  in the
+      address bar of the folder window) and run:
+
+          GitCurator-cli.exe --help
+
+      (Double-clicking a command-line program just flashes
+      a window and closes - that is normal, not a fault.)
+
+----------------------------------------------------------------
+ THE OTHER FILES
+----------------------------------------------------------------
+  1-INSTALL.bat        optional checker - it only CHECKS that
+                      git + WebView2 are present. It is NOT
+                      an installer and never was. You do not
+                      need it to run the app.
+  WINDOWS-QUICKSTART.md   the full first-run guide.
+  GitCurator-DRY-RUN.bat  the safe first run (writes nothing).
+
+----------------------------------------------------------------
+ IF SOMETHING STILL DOES NOT WORK
+----------------------------------------------------------------
+  Screenshot or copy the EXACT error text you see (the blue
+  box, the antivirus message, or the console window behind
+  the app) and send it back - that one picture pinpoints the
+  cause immediately.
+
+  Version: see the VERSION file in this folder.
+================================================================

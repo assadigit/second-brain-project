@@ -117,6 +117,18 @@ jobs:
               'Built at `%s` by the double-build ritual (`build/release.sh`): '
               'both exes + the zip built twice + one cold-GOCACHE leg per '
               'exe — every sha256 pair identical (AC-22).' % commit, '',
+              '## First run (read this if anything does not start)', '',
+              '1. **Extract the zip first** — right-click the zip, "Extract '
+              'All...". Do NOT run anything from inside the zip window '
+              'itself (Windows runs a temporary copy and things break).',
+              '2. Open **`0-START-HERE.txt`** in the extracted folder — the '
+              '30-second card: it walks past the two normal first-run '
+              'gates: the unsigned-app SmartScreen box ("More info" -> '
+              '"Run anyway") and an antivirus false positive.',
+              '3. Needs **64-bit Windows 10 or 11** (not Windows 7/8, not '
+              '32-bit).',
+              '4. Still failing? Screenshot the exact error text — that '
+              'one picture pinpoints the cause immediately.', '',
               '| Artifact | sha256 |',
               '|---|---|',
               '| GitCurator-cli.exe | `%s` (A = B = cold) |' % legs['GitCurator-cli.exe'][0],
