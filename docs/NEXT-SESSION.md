@@ -76,22 +76,22 @@
   re-verified + re-pushed green the SAME session: the wait-for-both
   observation fix, the ASYNC-READ FLAKE class's second strike —
   SESSION-068's report carries the full incident record). The
-  CI-incident fix push's run was watched to completion at the close
-  (the number recorded by the final postscript push); the FINAL
-  postscript push (docs-only, recording that green) is the latest —
-  verify its run green at SESSION-069's open (a red is a REAL
-  failure now; watch the Actions tab on pushes as normal CI
+  CI-incident fix push (`8c8a6d3` — the test repair + all the
+  records) → run **39879515564 watched to completion at the close:
+  completed / success — the repaired test green ON THE RUNNER**; the
+  FINAL postscript push (docs-only, recording that green) is the
+  latest — verify its run green at SESSION-069's open (a red is a
+  REAL failure now; watch the Actions tab on pushes as normal CI
   hygiene).
 - **The repo is PUBLIC** (the owner's SESSION-050 instruction): pushes
   still need the PAT (ephemeral, as always — re-inline it per call;
   the sandbox shell does not carry exports between tool calls);
   Actions minutes are unlimited; the no-secrets law is public-facing.
-  **go-ci: GREEN on the tree through the close push `499521c` (run
-  39877939627 watched to completion at SESSION-068's close); the
-  first postscript push `ef3a4e5` went RED (run 39878157076 — the
-  watchdog test's async-delivery race, fixed same-session); the
-  CI-incident fix push + the final postscript push follow it —
-  verify the FINAL postscript push's run green at the open.**
+  **go-ci: GREEN on the tree through the CI-incident fix push
+  `8c8a6d3` (run 39879515564 watched to completion at SESSION-068's
+  close — the repaired watchdog test green on the runner); the FINAL
+  postscript push (docs-only) is the latest: verify its run green at
+  the open.**
 - **The environment recipe** (the 63rd wipe was absorbed at
   SESSION-068's open — the standard recipe held, zero corrections):
   work repo at /home/z/my-project/second-brain-project (**clone it
@@ -414,9 +414,10 @@ GREEN at SESSION-068's open, SESSION-068's close push 499521c (docs-only, run
 then went RED (run 39878157076 — the watchdog test's async-delivery race,
 root-caused from the run's logs + repaired with the wait-for-both observation
 fix + re-verified green [2398 + 95 = 2493 unchanged] + re-pushed the same
-session: a red is a REAL failure); the CI-incident fix push + the final
-postscript push (docs-only) are the latest — verify the FINAL postscript
-push's run green at your open. What remains is the OWNER's: T-82's live
+session: a red is a REAL failure); the CI-incident fix push 8c8a6d3
+(run 39879515564, watched GREEN to completion — the repaired test green on
+the runner) + the final postscript push (docs-only) are the latest — verify
+the FINAL postscript push's run green at your open. What remains is the OWNER's: T-82's live
 checklist (no haste), the milestone release decision, or a Phase-8 pick from
 the menu (the full form at SESSION-064, the compact form at SESSION-065,
 SESSION-066, SESSION-067, and SESSION-068).

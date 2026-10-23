@@ -286,8 +286,8 @@ re-surfaces the menu, and closes cleanly.
   completed / success**. The first postscript push `ef3a4e5` (docs
   -only) then went **RED** (run 39878157076 — the CI incident above,
   root-caused + fixed the same session). The **CI-incident fix push**
-  (the test repair + all the records) follows, its run watched to
-  completion at the close (the number recorded by the final
-  postscript push); the FINAL postscript push (docs-only, recording
-  that green) is then the latest — verify its run green at
-  SESSION-069's open (a red is a REAL failure now).
+  `8c8a6d3` (the test repair + all the records) → run **39879515564
+  watched to completion the same session — completed / success: the
+  repaired test green ON THE RUNNER**. The FINAL postscript push
+  (docs-only, recording that green) is then the latest — verify its
+  run green at SESSION-069's open (a red is a REAL failure now).
