@@ -1711,3 +1711,47 @@ flowchart LR
 > report's incident record, the state card v69's push-state + the
 > ASYNC-READ law's second-strike extension, this passage, the
 > README's SESSION-068 incident passage, the worklog append.
+
+> **SESSION-069 (2026-10-23): path (c) a twelfth time — THE STATE
+> RE-VERIFIED + THE MENU RE-SURFACED COMPACTLY (the MENU-SURFACED
+> record exercised exactly as written; the full menu stands from
+> SESSION-064); the clean close at the natural boundary.** The 64th
+> wipe absorbed before work (the standard recipe held, zero
+> corrections: both repos re-cloned — the work repo anonymously at
+> `9470d22` [SESSION-068's final postscript push, tree clean], the
+> reference via the ephemeral GIT_CONFIG_COUNT PAT form at `98f4fc7`,
+> byte-equal to the pin; go1.27.2 sha-verified BOTH sides [the
+> committed TOOLCHAIN.md Am.2 pin + the archive listing — MATCH ×2];
+> the venv; the wails CLI v2.16.0; no webkit rebuild — the pending
+> rebuild stays the SIXTEENTH). **go-ci verified GREEN at the open**:
+> SESSION-068's FINAL postscript push `9470d22` → run 39879755821,
+> completed/success (the watchdog-repair class did not recur; the
+> ledger below it exactly as recorded, the `ef3a4e5` RED run the
+> incident's history). The battery re-verified green pre-work — the
+> exact committed shape: main plain 2398 / 0 / 0 over 36 ok (exit
+> 0), race 36 ok / 0 data races (exit 0), webui 95 / 0 / 0 over 4
+> ok (exit 0), gofmt/vet/build clean in both modules, the tree clean
+> through every leg — **2,493 total, the exact number the README
+> front page + the parity report carry**. The pinned states hold:
+> VERSION `0.92.0-go.1` (12 bytes + LF, od-verified), the MAIN
+> go.mod/go.sum byte-unchanged, the T-82 §1 slots verified still
+> empty (all nine rows — no intake), the live release list verified
+> still the single CLI-milestone zip [15,988,399 bytes] (the
+> honest-zip state holds). **The session's one slice: the compact
+> menu re-surface** — the two Phase-7 owner items first (T-82's
+> live checklist; the "ship it" + the number release), then the
+> register's eight in one line each with their evidence pointers,
+> riding SESSION-069's report (the Owner-actions section) + the
+> chat report; the FULL menu (every option's scope spelled out)
+> stands from SESSION-064's report. Nothing was picked on the
+> owner's behalf; no Phase-8 work was started. With the debt books
+> empty there is NO autonomous implementation slice left — the
+> owner's pick is the only mover on the board; a path-(c) session
+> re-verifies the state, re-surfaces the menu compactly, and closes
+> cleanly. The records in the same commit (docs-only — no Go,
+> workflow, or asset bytes touched): this entry, the SESSION-069
+> report, the state card v70, the README's SESSION-069 status
+> entry, the environment worklog append (recreated after the wipe).
+> What remains is the OWNER's, unchanged: T-82's live checklist (no
+> haste — their own standing words), the milestone release decision,
+> or a Phase-8 pick from the register.
