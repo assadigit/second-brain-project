@@ -241,3 +241,31 @@ re-surfaces the menu, and closes cleanly.
   completed / success**. The postscript push (docs-only, recording
   that green) is then the latest — verify its run green at
   SESSION-070's open (a red is a REAL failure now).
+
+## Owner decision arriving post-close (same chat — the record)
+
+After SESSION-069's clean close (both pushes watched green on the
+runner: `3d891d5` → run 39947560680, `ab6ca34` → run 39947854098),
+the owner issued a new directive in chat, verbatim: "The work is
+continued until GUI is ready. give me prompt to continue the
+project until .exe with GUI is ready." Read against the state — the
+desktop GUI complete + proven since Phase 6 (the battery 2398 +
+95 = 2493, race-clean), the two-exe deterministic zip proven
+cross-machine byte-identical (T-80/T-81), the release workflow
+proven end-to-end on a real runner — the only step between now and
+a downloadable GitCurator.exe (the GUI) is the milestone release
+cut. **This is the release decision: SESSION-070 becomes THE
+RELEASE SESSION (path (b) exercised).** The number defaults to the
+card's own first suggestion `v0.92.0-go.2` (the desktop milestone
+following the CLI milestone `v0.92.0-go.1`; the owner may swap the
+`v1.0.0-go` shape by editing the prompt's one line); T-82's live
+legs remain the owner's, no haste, and now run against the REAL
+release per the card's own sequencing. The state card v70 is
+amended accordingly (§1's honest-zip tail, §2 rewritten as the
+release session with the ritual's steps + the fallback, §3 the
+release read-firsts, §4 OWNER ACTION #2 → RESOLVED, §5 the
+release-session prompt); this addendum + the amendment + the
+worklog record rode the session's final postscript push. The
+Handoff above is superseded on one point only: SESSION-070's goal
+is now the release (not the open decision tree); everything else
+in it stands.

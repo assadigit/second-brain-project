@@ -65,8 +65,10 @@
   git-only 1-INSTALL checker); the desktop two-exe zip (13 files)
   with the new bootstrapper leg rides the NEXT milestone release
   through the proven workflow. What remains in Phase 7 is the
-  OWNER's: T-82's live checklist (no haste — their words) + the
-  milestone release decision.**
+  OWNER's: T-82's live checklist (no haste — their words); the
+  milestone release decision is MADE — the owner's post-close
+  directive at SESSION-069 ("The work is continued until GUI is
+  ready") — and SESSION-070 is THE RELEASE SESSION.**
 - **Push state: CLEAN** — SESSION-068's CI-incident fix push
   (`8c8a6d3` — the watchdog test repair) → run 39879515564 watched
   GREEN to completion at SESSION-068's close, and SESSION-068's
@@ -245,74 +247,70 @@
     CHUNKS); **PUSH AFTER EVERY TASK** (ask for the PAT the moment a
     push is due; never store).
 
-## 2. Next session: SESSION-070 — the Phase-7 finish, owner-input driven (the owner's standing delegation recorded)
+## 2. Next session: SESSION-070 — THE RELEASE SESSION (the owner's post-close directive, recorded in SESSION-069's report addendum)
 
-The implementation side of Phase 7 is DONE and **the debt books are
-EMPTY** (the deferred-debts polish completed through SESSION-062; the
-last named test-adjacent debt — the 1-INSTALL bootstrapper leg —
-landed at SESSION-063; **the Phase-8 menu was surfaced IN FULL at
-SESSION-064 and re-surfaced COMPACTLY at SESSION-065, SESSION-066,
-SESSION-067, SESSION-068, and SESSION-069** — the register's every
-option with its scope + evidence pointers rides SESSION-064's report;
-the compact form rides SESSION-065's + SESSION-066's + SESSION-067's +
-SESSION-068's + SESSION-069's reports + chat reports + this card).
-**The owner's standing input (SESSION-058, verbatim): "Continue your
-work please. do based on our documentation. you choose. I dont have
-urge and haste to start the app. you can keep working. only tell me
-if you really need me to test the app."** — a delegation of the pick,
-no haste on T-82 or the release, and nothing currently needs the
-owner's testing. SESSION-070 follows the decision tree (in priority
-order):
+**The owner's directive (issued after SESSION-069's clean close,
+verbatim): "The work is continued until GUI is ready. give me prompt
+to continue the project until .exe with GUI is ready."** Read
+against the state — the desktop GUI complete + proven since Phase 6
+(the battery 2398 main + 95 webui = 2493, race-clean), the two-exe
+deterministic zip proven cross-machine byte-identical (T-80/T-81),
+the release workflow proven end-to-end on a real runner — the ONLY
+step between now and a downloadable GitCurator.exe (the GUI) is the
+milestone release cut. **This is the release decision: SESSION-070
+cuts it** (path (b) of the decision tree, now directed).
 
-- **(a) If the owner brings T-82 results** (the filled checklist
-  `docs/poc-artifacts/t-82-clean-vm-checklist.md` §1/§2): record the
-  results into the doc's scaffold + the release report per AC-23,
-  flip doc 13's T-82 row → COMPLETE, and run the **Phase-7 exit
-  evaluation** (the honest gate: every Phase-7 acceptance with its
-  evidence).
-- **(b) If the owner says "ship it"** (the milestone release): the
-  release session — bump `VERSION` (the owner picks the number; the
-  desktop milestone suggests `v0.92.0-go.2` or a `v1.0.0-go` shape —
-  the owner's call), commit, push the tag `v$(cat VERSION)` (the tag
-  law), watch the release workflow build + attach the two-exe zip
-  (the ritual is proven end-to-end + cross-machine), verify the
-  release notes' table, and write the release report per AC-23's
-  scaffold (T-82's checklist then runs against the real release).
-  THE TAG-STATE BUILD LAW applies: the release numbers live at the
-  tagged checkout.
-- **(c) Otherwise (the standing delegation)**: with the debt books
-  EMPTY and the menu already surfaced there is **no autonomous
-  implementation slice left** — the honest session: verify the state
-  (the go-ci run at the open + the battery if the environment wiped),
-  re-surface the menu compactly in the chat + the report (the owner's
-  pick is the only mover — never start Phase-8 work unilaterally),
-  and close cleanly at the natural boundary. If the owner's
-  T-82/release/Phase-8 pick arrives first, it takes priority and the
-  session executes it instead.
+The ritual (the proven recipe at
+`docs/poc-artifacts/t-81-release-workflow.md` §5):
+
+1. Verify the state at the open (the go-ci run green on the latest
+   push + the battery if the environment wiped).
+2. Bump `VERSION` → `0.92.0-go.2` (the card's own suggestion — the
+   desktop milestone following the CLI milestone `v0.92.0-go.1`; if
+   the owner's pasted prompt carries a different number, THAT
+   number wins — `v1.0.0-go` is the alternative shape).
+3. Commit the bump, push it, watch go-ci green.
+4. Push the tag `v$(cat VERSION)` (THE TAG-STATE BUILD LAW: the
+   release numbers live at the tagged checkout; the tag rides the
+   bumped-VERSION commit).
+5. Watch the release workflow build + attach the two-exe zip
+   (GitCurator.exe + GitCurator-cli.exe, 13 files, the new
+   git+WebView2 bootstrapper leg — the honest-zip law satisfied:
+   the LIVE release list then carries the desktop zip).
+6. Verify the release live: the notes' table, the sha256 (the
+   certutil-verifiable number), the asset count/size.
+7. Write the release report per AC-23's scaffold
+   (`docs/poc-artifacts/t-82-clean-vm-checklist.md` §2), record the
+   release in the card + README + doc 12, close per the protocol.
+8. T-82's live Windows legs remain the owner's (no haste — their
+   standing words) and now run against the REAL release; the
+   Phase-7 exit evaluation follows once T-82 completes.
+
+**Fallback**: if anything blocks the release (the workflow red, the
+asset missing, a sha256 mismatch), STOP and surface it with evidence
+per the standing laws — record it in the card + report and hand the
+decision back; never improvise past a blocker. If the owner's T-82
+results arrive with the prompt instead, the intake (the old path
+(a)) takes priority; if the directive is withdrawn, the standing
+delegation's path (c) remains the honest default.
 
 ## 3. Read-first list (in order)
 
-1. `docs/sessions/SESSION-069.md` — the most recent report (the state
-   re-verified + the menu re-surfaced compactly; the battery
-   re-verified green 2398 + 95; the 64th wipe absorbed; SESSION-068's
-   final postscript push's run verified green at the open).
-2. `docs/sessions/SESSION-068.md` — the prior compact re-surface
-   session + the CI-incident record (the watchdog test's
-   async-delivery race — the ASYNC-READ FLAKE class's second strike —
-   root-caused + repaired + re-pushed green the same session; the
-   FULL menu with every option's scope + evidence pointers stands in
-   SESSION-064's report — the standing full form of the owner's
-   Phase-8 menu).
-3. `docs/PARITY-REPORT.md` — the owner-reviewable state (§9's
-   not-done list is only the owner's LIVE legs).
-4. `docs/poc-artifacts/t-82-clean-vm-checklist.md` — the owner's
-   fill-in surface (the intake target if results arrive; §4's dated
-   note on the new leg's honest-zip boundary).
-5. `docs/poc-artifacts/t-81-release-workflow.md` §5 — the proven
-   release path (the recipe if the owner says ship it).
-6. `docs/port-blueprint/12-migration-roadmap.md` — the Phase-7
-   records + the Phase-8 future-work register (the tail).
-7. `README.md` (the front page + the SESSION-069 status entry).
+1. `docs/sessions/SESSION-069.md` — the most recent report + the
+   post-close owner-decision addendum (this directive's provenance
+   + the release-session framing).
+2. `docs/poc-artifacts/t-81-release-workflow.md` §5 — THE PROVEN
+   RELEASE RECIPE (the exact steps; the dry-run green + the
+   cross-machine byte-identity proof).
+3. `docs/poc-artifacts/t-82-clean-vm-checklist.md` §2 — the AC-23
+   release-report scaffold (fill it for the release) + §4's dated
+   honest-zip note (the new zip carries the bootstrapper leg).
+4. `docs/port-blueprint/12-migration-roadmap.md` — the Phase-7
+   records + the release acceptances (AC-23).
+5. `README.md` (the front page — the release section updates with
+   the cut).
+6. `docs/sessions/SESSION-068.md` — only if the CI ledger needs the
+   incident context.
 
 ## 4. Known constraints / owner actions for SESSION-070
 
@@ -323,8 +321,11 @@ order):
   first-launch one-click offer; the current live zip carries the old
   git-only checker — §4's dated note in the checklist doc) and fills
   §2; the signed checklist closes T-82. Nothing blocks on it.
-- **OWNER ACTION #2: the milestone release decision** — say the word
-  and the session cuts it (see §2b).
+- **OWNER ACTION #2: RESOLVED (directed post-close at SESSION-069)** —
+  the owner's directive "The work is continued until GUI is ready" IS
+  the release word; SESSION-070 cuts the milestone release (§2). The
+  number defaults `v0.92.0-go.2` (the owner may swap the `v1.0.0-go`
+  shape by editing the prompt's one line).
 - **OWNER ACTION #3: the Phase-8 pick** — only if the owner wants it
   (the menu is surfaced in full at SESSION-064 + compactly at
   SESSION-065, SESSION-066, SESSION-067, SESSION-068, and
@@ -383,58 +384,51 @@ specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
 code alongside you. You are the single writer on the repo.
 
-0. THE PHASE STATE: Phase 7's IMPLEMENTATION SIDE IS DONE, WITH THE DEBT BOOKS
-EMPTY: T-80 COMPLETE; T-81 COMPLETE (the dry-run green on a real runner + the
-cross-machine byte-identity proof); T-83 COMPLETE (the docs); T-82 PARTIAL
-(items 1–8 are the owner's live Windows legs — the owner has explicitly NO
-HASTE: their SESSION-058 words were "I dont have urge and haste to start
-the app ... only tell me if you really need me to test the app"); AC-17 CLOSED
-(SESSION-052). The deferred-debts polish completed across SESSION-058–062;
-SESSION-063 landed the LAST named test-adjacent debt (the 1-INSTALL
-bootstrapper leg — the WebView2 Evergreen Runtime check, the t-70 GUID
-corruption corrected with teeth; the battery 2398 main + 95 webui = 2493).
-SESSION-064 (path (c) a seventh time) SURFACED THE PHASE-8 MENU IN FULL —
-doc 12's register read at source level and presented plainly: the two Phase-7
-owner items (T-82's checklist; "ship it" + the number) ahead of the register's
-eight (the gotd/td Telegram leg revival; a Worker read-ack endpoint; the
-dormant cloud quartet revival; Linux/macOS builds; localization; the visual
-redesign; Worker-side improvements; the UI polish backlog) — the full menu
-with every option's scope + evidence pointers rides SESSION-064's report (the
-Owner-actions section) + the chat report + the state card §4; the COMPACT
-re-surface rides SESSION-065's + SESSION-066's + SESSION-067's + SESSION-068's
-+ SESSION-069's reports + chat reports. SESSION-065 (path (c) an eighth time),
-SESSION-066 (path (c) a ninth time), SESSION-067 (path (c) a tenth time),
-SESSION-068 (path (c) an eleventh time), AND SESSION-069 (path (c) a twelfth
-time) EACH RE-VERIFIED THE STATE + RE-SURFACED THE MENU COMPACTLY + CLOSED
-CLEANLY — the battery re-verified green at each open (2398 + 95 = 2493, the
-exact committed shape, race-clean, gofmt/vet/build clean in both modules);
-the T-82 slots verified still empty; the live release list verified still the
-single CLI-milestone zip (the honest-zip state holds). THE OWNER'S PICK IS THE
-ONLY MOVER LEFT — no autonomous implementation slice exists (the debt books
-empty; Phase 8 out of blueprint scope). … go-ci: SESSION-068's CI-incident
-fix push 8c8a6d3 (run 39879515564) watched GREEN at its close — the repaired
-watchdog test green on the runner — and SESSION-068's final postscript push
-9470d22 (docs-only, run 39879755821) verified GREEN at SESSION-069's open
-(the incident class did not recur); SESSION-069's close push 3d891d5
-(docs-only, run 39947560680) was watched GREEN at its close, and the
-postscript push (docs-only, recording that green) is the latest — verify its
-run green at your open (a red is a REAL failure). What remains is the OWNER's: T-82's live checklist (no haste),
-the milestone release decision, or a Phase-8 pick from the menu (the full
-form at SESSION-064, the compact form at SESSION-065, SESSION-066,
-SESSION-067, SESSION-068, and SESSION-069).
+0. THE DIRECTIVE (the owner's, issued after SESSION-069's close — THE RELEASE
+DECISION): "The work is continued until GUI is ready." Read against the state:
+the desktop GUI is complete and proven (Phase 6 closed; the battery 2398 main +
+95 webui = 2493, race-clean, the exact committed shape), the two-exe
+deterministic zip is proven cross-machine byte-identical (T-80/T-81), and the
+ONLY step between now and a downloadable GitCurator.exe (the GUI) is the
+milestone release cut — SESSION-070 IS THE RELEASE SESSION (path (b) of the
+card's decision tree, now directed). The ritual (the proven recipe at
+docs/poc-artifacts/t-81-release-workflow.md §5): (1) verify the state at the
+open — the go-ci run green on the latest push (SESSION-069's postscript push
+ab6ca34 → run 39947854098 was the last watched green; a red is a REAL failure)
++ the battery if the environment wiped; (2) bump VERSION to 0.92.0-go.2 (the
+card's own suggestion — the desktop milestone following the CLI milestone
+v0.92.0-go.1; if this prompt carries a different number, THAT number wins);
+(3) commit + push the bump + watch go-ci green; (4) push the tag v$(cat
+VERSION) (THE TAG-STATE BUILD LAW — the release numbers live at the tagged
+checkout; the tag rides the bumped-VERSION commit); (5) watch the release
+workflow build + attach the two-exe zip (GitCurator.exe + GitCurator-cli.exe,
+13 files, the new git+WebView2 bootstrapper leg — the honest-zip law
+satisfied); (6) verify the release live — the notes' table, the sha256 (the
+certutil-verifiable number), the asset count/size; (7) write the release
+report per AC-23's scaffold (docs/poc-artifacts/t-82-clean-vm-checklist.md
+§2) + record the release in the card/README/doc 12. T-82's live Windows legs
+remain the owner's (no haste — their standing words) and now run against the
+REAL release; the Phase-7 exit evaluation follows once T-82 completes. If
+anything blocks the release (the workflow red, the asset missing, a sha256
+mismatch), STOP and surface it with evidence per the standing laws — never
+improvise past a blocker; record it in the card + report and hand the
+decision back.
 
 Then follow docs/SESSION-PROTOCOL.md exactly: bootstrap (clone
 https://github.com/assadigit/second-brain-project — the work repo, public;
-read README.md, docs/SESSION-PROTOCOL.md, docs/NEXT-SESSION.md, the two most
-recent session reports, git log --oneline -15), orient (the state card §2's
-decision tree: (a) T-82 intake if the results arrive; (b) the release session
-if "ship it" + the number arrive; (c) otherwise — with the debt books EMPTY
-and the menu already surfaced, the honest session re-verifies the state [the
-go-ci run at the open + the battery if the environment wiped] + re-surfaces
-the menu compactly in the chat + the report + closes cleanly at the natural
-boundary — never starting Phase-8 work unilaterally), work (the standing
+read README.md, docs/SESSION-PROTOCOL.md, docs/NEXT-SESSION.md [the card v70
+amendment — SESSION-070 = the release session], the two most recent session
+reports [SESSION-069 carries the post-close owner-decision record + the
+release-session framing], git log --oneline -15), orient (the read-firsts:
+docs/poc-artifacts/t-81-release-workflow.md §5 — the proven recipe;
+docs/poc-artifacts/t-82-clean-vm-checklist.md §2 — the AC-23 release-report
+scaffold + §4's dated honest-zip note; docs/port-blueprint/
+12-migration-roadmap.md — the Phase-7 acceptances [AC-23]), work (the standing
 laws: reality wins, tests never weakened, no secrets ever, stay inside the
-phase, push after every task), close (the honest gate evaluation, the commit
-+ push, the SESSION-070 report, the NEXT-SESSION.md rewrite, the worklog
-append), and report in chat with the literal next prompt.
+phase, push after every task), close (the honest gate evaluation — the release
+LIVE with the verified notes + the release report written; the commit + push,
+the SESSION-070 report, the NEXT-SESSION.md rewrite [SESSION-071 = the
+post-release session: the T-82 intake whenever the owner's legs run, then the
+Phase-7 exit evaluation], the worklog append), and report in chat with the
+literal next prompt.
 ```
