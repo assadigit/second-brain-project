@@ -18,7 +18,7 @@ import {
   PreviewSound, SelectImportFile, BrowseVault,
 } from './wailsjs/go/main/SettingsUI.js';
 import {
-  SaveBotGroup, CheckBotQueue, ProcessBotQueue, ProcessSourcesUrls,
+  SaveBotGroup, CheckBotQueue, ProcessBotQueue, ProcessSourcesUrls, DirectPair,
   RefreshDashboard, ClearQuarantine, SaveQuarantineGroup,
   ReadUndoLastBatch, ApplyUndoLastBatch, FetchFromSources,
   SaveBackupGroup, RefreshBackupLadders, BackupNowGuards, BackupNow,
@@ -1063,7 +1063,75 @@ function buildBot() {
   display.style.flex = '1';
   display.placeholder = "Click 'Check Queue' to fetch pending repos from your bot...";
   p.appendChild(display);
+
+  // THE DIRECT-PAIR SECTION (the owner's SESSION-079 directive — the
+  // advanced door for owners whose ISP blocks Telegram): paste the
+  // Worker URL + install_id + shared_secret from a pre-paired D1
+  // entry, click Direct Pair, and the app is paired without needing
+  // the Telegram /pair code.
+  p.appendChild(el('h4', 'form-heading',
+    '⚙️ Direct Pair (advanced — no Telegram code needed)'));
+  p.appendChild(el('p', 'info-header',
+    'If your ISP blocks Telegram (the /pair command can\'t reach the bot), ' +
+    'paste the pre-paired credentials here. The Worker URL + install_id + ' +
+    'shared_secret are written directly to config.json + cloudflare_enabled ' +
+    'is turned ON. Get these from your Worker\'s D1 database or your ' +
+    'Cloudflare dashboard.'));
+
+  const dpGroup = el('div', 'settings-group');
+  const dpUrlRow = el('div', 'form-row');
+  dpUrlRow.appendChild(label('Worker URL:'));
+  const dpUrl = input('set-dp-worker-url', '',
+    { placeholder: 'https://github-to-obsidian-bot.your-subdomain.workers.dev' });
+  dpUrlRow.appendChild(dpUrl);
+  dpGroup.appendChild(dpUrlRow);
+
+  const dpIdRow = el('div', 'form-row');
+  dpIdRow.appendChild(label('Install ID:'));
+  const dpId = input('set-dp-install-id', '',
+    { placeholder: 'e.g. 3a7facc8-028e-4223-9911-289f0862fc9b' });
+  dpIdRow.appendChild(dpId);
+  dpGroup.appendChild(dpIdRow);
+
+  const dpSecretRow = el('div', 'form-row');
+  dpSecretRow.appendChild(label('Shared Secret:'));
+  const dpSecret = input('set-dp-shared-secret', '',
+    { placeholder: 'e.g. 903638261d464e2c...', password: true });
+  const dpBtn = btn('Direct Pair', 'primary', '', () => doDirectPair());
+  dpSecretRow.append(dpSecret, dpBtn);
+  dpGroup.appendChild(dpSecretRow);
+  p.appendChild(dpGroup);
   return p;
+}
+
+function doDirectPair() {
+  const vals = {
+    workerUrl: ($('#set-dp-worker-url') || {}).value || '',
+    installId: ($('#set-dp-install-id') || {}).value || '',
+    sharedSecret: ($('#set-dp-shared-secret') || {}).value || '',
+  };
+  if (!vals.workerUrl || !vals.installId || !vals.sharedSecret) {
+    miniDialog('Direct Pair — missing fields',
+      'All three fields are required (Worker URL + Install ID + Shared Secret).',
+      ['OK'], () => {});
+    return;
+  }
+  DirectPair(vals).then((r) => {
+    if (!r) return;
+    if (r.error) {
+      miniDialog('Direct Pair failed', r.error, ['OK'], () => {});
+      return;
+    }
+    miniDialog('✅ Direct Pair — success',
+      'The Worker pairing is saved + cloudflare_enabled is ON.\n\n' +
+      'Click SYNC now — the app will fetch the pending items from your ' +
+      'Telegram bot queue through the Cloudflare Worker (the DoH ' +
+      'fallback dialer handles DNS censorship on your ISP).',
+      ['OK'], () => {});
+  }).catch((e) => {
+    miniDialog('Direct Pair error',
+      (e && e.message) ? e.message : 'unknown error', ['OK'], () => {});
+  });
 }
 
 function saveBotFields() {

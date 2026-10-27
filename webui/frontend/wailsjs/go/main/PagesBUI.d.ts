@@ -15,6 +15,8 @@ export function ClearQuarantine():Promise<main.DashboardViewResult>;
 
 export function CopyBackupTo(arg1:string):Promise<main.RestoreRunResult>;
 
+export function DirectPair(arg1:main.DirectPairValues):Promise<app.SaveResult>;
+
 export function DetectRepos():Promise<app.RadarResult>;
 
 export function FastSync():Promise<app.SealResultRow>;

@@ -26,6 +26,10 @@ export function CopyBackupTo(arg1) {
   return window['go']['main']['PagesBUI']['CopyBackupTo'](arg1);
 }
 
+export function DirectPair(arg1) {
+  return window['go']['main']['PagesBUI']['DirectPair'](arg1);
+}
+
 export function DetectRepos() {
   return window['go']['main']['PagesBUI']['DetectRepos']();
 }

@@ -236,6 +236,22 @@ export namespace app {
 	        this.token = source["token"];
 	    }
 	}
+	export class DirectPairValues {
+	    workerUrl: string;
+	    installId: string;
+	    sharedSecret: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new DirectPairValues(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.workerUrl = source["workerUrl"];
+	        this.installId = source["installId"];
+	        this.sharedSecret = source["sharedSecret"];
+	    }
+	}
 	export class BotVerifyResult {
 	    title: string;
 	    body: string;

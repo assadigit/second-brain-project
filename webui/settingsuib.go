@@ -41,6 +41,12 @@ func (u *PagesBUI) bindCtx(ctx context.Context) {
 // The Bot page (bot_queue.py — the Worker pending source, Option B).
 // ---------------------------------------------------------------------------
 
+// DirectPair commits the Worker pairing directly (the advanced door —
+// no Telegram /pair code needed). THE DIRECT-PAIR LAW.
+func (u *PagesBUI) DirectPair(vals *app.DirectPairValues) *app.SaveResult {
+	return u.settings.DirectPair(vals)
+}
+
 // SaveBotGroup commits the username + token fields (the save-on-change
 // law's Bot group).
 func (u *PagesBUI) SaveBotGroup(vals *app.BotValues) *app.SaveResult {

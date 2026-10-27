@@ -31,6 +31,7 @@ import (
 	"github.com/assadigit/second-brain-project/internal/vaulthygiene"
 	"github.com/assadigit/second-brain-project/internal/vaultscan"
 	"github.com/assadigit/second-brain-project/internal/vaultseal"
+	"github.com/assadigit/second-brain-project/internal/workerclient"
 )
 
 // LogFn mirrors the engine packages' optional log callback shape:
@@ -382,7 +383,14 @@ func (c *Commands) SyncFetchQueue(ctx context.Context) *QueueReport {
 		if state != "ok" {
 			errMsg := "the Worker queue poll failed (network down or the Worker answered an error)"
 			if state == "disabled" {
-				errMsg = "the Worker queue is not configured — set the Worker URL + pair the app in Settings → Bot (the pairing generates the install_id + shared_secret the HMAC signature requires)"
+				// THE DIAGNOSTIC LAW: check WHICH key is missing so the
+				// owner sees exactly what to fix (not just "not configured").
+				syncCheck := workerclient.NewSync(cfgPlainMap(cfg))
+				reason := syncCheck.DisabledReason()
+				errMsg = "the Worker queue is not configured — " + reason +
+					". Open Settings → Bot → Direct Pair (advanced) and paste " +
+					"the Worker URL + install_id + shared_secret, OR edit " +
+					"config.json directly."
 			}
 			out = &QueueReport{State: state, Error: errMsg}
 			return

@@ -5,6 +5,8 @@ package workerclient
 // Python-dict access helpers (the house pattern).
 
 import (
+	"strings"
+
 	"github.com/assadigit/second-brain-project/internal/helpers"
 	"github.com/assadigit/second-brain-project/internal/storage"
 )
@@ -72,6 +74,29 @@ func (s *Sync) IsEnabled() bool {
 		s.WorkerURL() != "" &&
 		s.InstallID() != "" &&
 		s.SharedSecret() != ""
+}
+
+// disabledReason returns a human-readable string naming WHICH key is
+// missing when IsEnabled returns false (the diagnostic law — the owner
+// sees exactly what to fix, not just "not configured").
+func (s *Sync) DisabledReason() string {
+	var missing []string
+	if !pyTruthy(cfgValue(s.config, "cloudflare_enabled")) {
+		missing = append(missing, "cloudflare_enabled is OFF")
+	}
+	if s.WorkerURL() == "" {
+		missing = append(missing, "cloudflare_worker_url is empty")
+	}
+	if s.InstallID() == "" {
+		missing = append(missing, "cloudflare_install_id is empty (not paired)")
+	}
+	if s.SharedSecret() == "" {
+		missing = append(missing, "cloudflare_shared_secret is empty (not paired)")
+	}
+	if len(missing) == 0 {
+		return "all keys set but IsEnabled still false (internal error)"
+	}
+	return strings.Join(missing, "; ")
 }
 
 // IsPaired: install_id AND shared_secret (regardless of the switch).

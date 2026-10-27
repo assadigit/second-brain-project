@@ -21,6 +21,9 @@ import (
 // mutates, no mirror pushes. Never raises.
 func (s *Sync) GetPendingResult() (string, []any) {
 	if !s.IsEnabled() {
+		// THE DIAGNOSTIC LAW: tell the owner WHICH key is missing so
+		// they know exactly what to fix (not just "not configured").
+		debugf("isEnabled: disabled — missing: %s", s.DisabledReason())
 		return "disabled", nil
 	}
 	var r reply

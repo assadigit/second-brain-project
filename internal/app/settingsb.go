@@ -264,6 +264,34 @@ type QuarantineValues struct {
 	StrikeThreshold int `json:"strikeThreshold"`
 }
 
+// DirectPairValues carries the Worker pairing credentials for the
+// advanced direct-pair door (no Telegram /pair code needed — the owner
+// pastes the install_id + shared_secret from a pre-paired D1 entry).
+type DirectPairValues struct {
+	WorkerURL    string `json:"workerUrl"`
+	InstallID    string `json:"installId"`
+	SharedSecret string `json:"sharedSecret"`
+}
+
+// DirectPair commits the Worker pairing directly — the advanced door
+// for owners whose ISP blocks Telegram (the /pair command can't reach
+// the bot). The owner pastes the Worker URL + install_id + shared_secret
+// from a pre-paired D1 entry (written directly to the Worker's database
+// via the Cloudflare API). Sets cloudflare_enabled=true + the three
+// pairing keys, saves the config, returns the save result.
+func (s *Settings) DirectPair(vals *DirectPairValues) *SaveResult {
+	if vals == nil {
+		vals = &DirectPairValues{}
+	}
+	ui := storage.NewOrderedMap()
+	ui.Set("log_level", "INFO")
+	ui.Set("cloudflare_worker_url", strings.TrimRight(strings.TrimSpace(vals.WorkerURL), "/"))
+	ui.Set("cloudflare_install_id", strings.TrimSpace(vals.InstallID))
+	ui.Set("cloudflare_shared_secret", strings.TrimSpace(vals.SharedSecret))
+	ui.Set("cloudflare_enabled", true)
+	return s.saveMerge(ui)
+}
+
 // SaveBotGroup commits the Bot page's fields (one group = one merge).
 func (s *Settings) SaveBotGroup(vals *BotValues) *SaveResult {
 	if vals == nil {
