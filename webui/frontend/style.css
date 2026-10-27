@@ -1099,6 +1099,14 @@ textarea.form-area { resize: vertical; min-height: 42px; }
   z-index: 60;
   min-width: 280px;
   max-width: 380px;
+  /* THE MENU-OVERFLOW LAW (the owner's SESSION-078 directive — "the
+     menu of more doesn't have enough space for items. the (maybe?) last
+     item is almost out of viewport"): the menu's height is bounded to
+     the viewport minus the topbar + the CTA band (~120px); overflow-y
+     scrolls so every item is reachable. The scrollbar is slim + themed
+     (the same law the log desk rides). */
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
   background: var(--sheet);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -1107,6 +1115,12 @@ textarea.form-area { resize: vertical; min-height: 42px; }
   display: flex;
   flex-direction: column;
 }
+/* THE MENU'S SLIM SCROLLBAR (the overflow law's other half): a 6px
+   thumb on the themed track, matching the log desk's own. */
+.more-menu::-webkit-scrollbar { width: 6px; }
+.more-menu::-webkit-scrollbar-track { background: transparent; }
+.more-menu::-webkit-scrollbar-thumb { background: var(--scroll); border-radius: 3px; }
+.more-menu::-webkit-scrollbar-thumb:hover { background: var(--scroll-hover); }
 .more-item {
   display: flex;                     /* the emojicon glyph + the label row */
   align-items: center;
