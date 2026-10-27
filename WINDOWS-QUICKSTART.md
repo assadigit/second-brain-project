@@ -1,4 +1,4 @@
-# GitCurator — first run on Windows (v0.92.0-go.7)
+# GitCurator — first run on Windows (v0.92.0-go.8)
 
 **Nothing is installed on your computer** — this is a portable
 app; everything it writes stays inside its folder. Three steps and
@@ -21,11 +21,11 @@ Download the zip from
 
 - **Verify the download before unzipping** (the release notes list the
   sha256 for every zip): in a terminal,
-  `certutil -hashfile GitCurator-v0.92.0-go.7-windows.zip SHA256`
+  `certutil -hashfile GitCurator-v0.92.0-go.8-windows.zip SHA256`
   — the number must match the release notes exactly. If it doesn't,
   don't use the file; re-download.
 - **Which zip you get depends on the release**: the current live
-  release (`v0.92.0-go.7`, the desktop milestone line) is the
+  release (`v0.92.0-go.8`, the desktop milestone line) is the
   **two-exe shape** this guide describes — GitCurator.exe +
   GitCurator-cli.exe + the launchers + the optional git+WebView2
   checker. (The older releases stay listed.)
@@ -145,14 +145,14 @@ It checks and shows, one line each: **vaults** (found + writable),
   and the offline warning speaks once at launch. It is silent by
   design — no heartbeat lines in the log (the old
   "Sentinel: net=online latency=… · AI=on" noise was removed in
-  v0.92.0-go.7); a line appears only when something CHANGES
+  v0.92.0-go.8); a line appears only when something CHANGES
   (fell offline / back online). There is nothing to configure —
   it just keeps the little lights honest.
 - **Updating later:** unzip the new version and copy your old
   `config.json` (and `cache.db` if you want the app to remember
   processed links) into the new folder.
 
-Version 0.92.0-go.7 — the Go port's desktop milestone: the Wails GUI
+Version 0.92.0-go.8 — the Go port's desktop milestone: the Wails GUI
 (the SYNC desk, the scan views, every Settings page, the More tools)
 plus the full command line (status, wizard, test connection, dry-run,
 automatic runs, sync, retry, hand delivery, the LLM detect tools) with

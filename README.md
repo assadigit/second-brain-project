@@ -16,7 +16,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 
 1. **Get the zip** from
    [Releases](https://github.com/assadigit/second-brain-project/releases).
-   The live release `v0.92.0-go.7` is the **desktop milestone line's
+   The live release `v0.92.0-go.8` is the **desktop milestone line's
    six-fix + three-improvements + five-owner-fixes release** (go.4 carried the six fixes
    the owner named — the quiet log heartbeat, the clean sync without
    the _review warning, the Inter font + wrapped log lines, the
@@ -36,7 +36,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
    **`0-START-HERE.txt`** first in the folder + the launcher set +
    the optional git+WebView2 checker; the release report with every
    verified number:
-   `docs/poc-artifacts/release-v0.92.0-go.7.md`.
+   `docs/poc-artifacts/release-v0.92.0-go.8.md`.
    **Nothing is installed — it's a portable app**: extract the zip
    ("Extract All"), open `0-START-HERE.txt` (the 30-second card — it
    covers the unsigned-app SmartScreen box and what to do if an
