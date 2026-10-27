@@ -16,8 +16,8 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 
 1. **Get the zip** from
    [Releases](https://github.com/assadigit/second-brain-project/releases).
-   The live release `v0.92.0-go.5` is the **desktop milestone line's
-   six-fix + three-improvements release** (go.4 carried the six fixes
+   The live release `v0.92.0-go.6` is the **desktop milestone line's
+   six-fix + three-improvements + five-owner-fixes release** (go.4 carried the six fixes
    the owner named — the quiet log heartbeat, the clean sync without
    the _review warning, the Inter font + wrapped log lines, the
    20%-smaller 800x600 window, real Lucide icons everywhere instead of
@@ -27,12 +27,16 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
    1.1.1.1 + Cloudflare secondary 1.0.0.1 + Quad9 9.9.9.9 cross-provider,
    first-answer-wins with walk-on-nil; the concise chrome AI label —
    "AI: on" in the bar, the engine kind/name in the tooltip; the battery
-   re-verified green — 40 packages, 0 failures, 0 races) — 14 files:
+   re-verified green — 40 packages, 0 failures, 0 races; go.6 adds THE
+   FIVE OWNER-DIRECTIVE FIXES: the Inter progress-label font + ellipsis;
+   the llamacpp default; the log-emoji law (colorful emojis back in logs,
+   smaller text); the SYNC-click-feedback law; the green progress bar +
+   green SYNC button) — 14 files:
    **GitCurator.exe** + **GitCurator-cli.exe** +
    **`0-START-HERE.txt`** first in the folder + the launcher set +
    the optional git+WebView2 checker; the release report with every
    verified number:
-   `docs/poc-artifacts/release-v0.92.0-go.5.md`.
+   `docs/poc-artifacts/release-v0.92.0-go.6.md`.
    **Nothing is installed — it's a portable app**: extract the zip
    ("Extract All"), open `0-START-HERE.txt` (the 30-second card — it
    covers the unsigned-app SmartScreen box and what to do if an
