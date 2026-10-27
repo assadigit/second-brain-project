@@ -34,15 +34,65 @@ not. The v0.92.0-go.3 re-run slots follow the table.**
 | 8 | AV check (§3 below) | The unsigned exe through a scanner service; the verdict + any mitigations recorded in §3 | **UNKNOWN** | 2026-10-24 | No scanner verdict provided. AV interference is a LIVE hypothesis for the simultaneous double failure (a dependency-free static CLI exe failing too) — unverified pending the owner's error details. |
 | 9 | sha256 + reproducibility spot-check | The downloaded zip's sha256 equals the release notes' number; `./build/release.sh` from the tag reproduces it (the recipe below) | **PASS (automation half)** | 2026-10-24 | SESSION-070's legs stand (the downloaded asset's sha256 == the notes' number; the cross-machine reproduction). SESSION-074 re-verified the live download's sha256 byte-equal to the recorded number. The owner's own spot-check: not performed. |
 
-### The v0.92.0-go.3 re-run slots (the owner's legs against the fixed release)
+### The v0.92.0-go.3 re-run — THE OWNER'S RESULTS (SESSION-075's intake, 2026-10-28: the prompt carried a LIVE SCREENSHOT of the app running on their machine — **THE FIRST GREEN LIVE RUN EVER**: the GUI launches, syncs, scans, the desk flows; six problems named and fixed as v0.92.0-go.4)
 
 | # | Item | RESULT | DATE | NOTES |
 |---|---|---|---|---|
-| 1 | unzip (Extract All) → 0-START-HERE → GUI launch | ____ | ____ | ____ |
-| 2 | cold start ≤ 1.5 s / 1000×750 / theme | ____ | ____ | ____ |
+| 1 | unzip (Extract All) → 0-START-HERE → GUI launch | **PASS** | 2026-10-28 | The screenshot shows the live app mid-work on the owner's machine (the GitCurator window: the sentinel labels painted — Net: online, AI: on — local (llama.cpp), Proxy: off; the SYNC batch running; the vault scans reporting 628/673 notes). |
+| 2 | cold start ≤ 1.5 s / 1000×750 / theme | **PASS** | 2026-10-28 | The header's startup-frame badge reads **1.206129 s** (≤ 1.5 s, the gate); the window/theme correct. (go.4 note: the badge itself was retired from the chrome at SESSION-075 — the number stays in Stats().) |
+| 3 | CLI --status ≤ 0.5 s / config card | NOT REPORTED | 2026-10-28 | Not evidenced in the prompt; the GUI's own sync flow ran (the engine works end to end on their machine). |
+| 4 | DRY-RUN / zero vault writes | NOT RUN | — | Not reported. |
+| 5 | Test Connection modal | NOT RUN | 2026-10-28 | The sentinel's own probes ran (Net/AI/Proxy painted); the modal itself not evidenced. |
+| 6 | 5-link batch / seal / publish | PARTIAL | 2026-10-28 | A real SYNC ran (the screenshot's progress bar: "reading Github Projects Obsidian Vault — 673 / 673"; the vault scans over both vaults; hygiene clean; the scan plan proposed + answered). The full seal/publish legs not evidenced. |
+| 7 | no console / sounds / theme toggle / log flood | PARTIAL | 2026-10-28 | The desk's live behaviors proven (28 rows cached, the filters/search live); sounds/toggle/flood not evidenced. |
+| 8 | AV verdict (§3) | **UNKNOWN** | 2026-10-28 | The app RUNS — the go.2 double failure is resolved in practice; the specific gate (SmartScreen vs AV vs extract-first) never named. The go.2 candidates (a)-(c) are all now moot in effect; (d) pre-Win10/32-bit is disproven by the run itself. |
+| 9 | sha256 + reproduce spot-check | **PASS (automation half)** | 2026-10-28 | The owner downloaded and ran the live go.3 asset (the run itself is the proof the bytes landed whole); their own hash spot-check not reported. |
+
+**The owner's six problems (the prompt's own list, verbatim-honest) —
+all six FIXED in v0.92.0-go.4 (SESSION-075):**
+
+1. *"In logs in shows, Sentinel: net=online latency=535ms · AI=on,
+   what is sentinel does to this project? I've never requested it."* →
+   THE QUIET-HEARTBEAT LAW: the sentinel is the connection-health
+   monitor (the reference's v0.85.0 net_guard — its job: paint the
+   Net/AI/Proxy cues, enforce the offline warn-once law); its
+   per-pass log line was noise — now silent on steady state
+   (transitions still speak).
+2. *"Got this error while syncing, though everything is set up
+   correctly: ⚠️ Could not list G:\Docs\…\_review: The system
+   cannot find the file specified."* → THE MISSING-FOLDER LAW: a
+   vault without a `_review` folder is the healthy normal — ENOENT
+   returns silently; other read errors keep their warning.
+3. *"The overal UI and fonts are off. (see screenshot)"* → THE INTER
+   LAW (the embedded Inter variable font) + THE WRAP LAW (log lines
+   wrap — the NoWrap elide cut mid-word: "co…", "a…", "th…") + the
+   debug startup-frame badge retired from the chrome.
+4. *"the app container is too big it must be like 20% smaller."* →
+   THE CONTAINER LAW: the window 1000×750 → **800×600** (exactly −20%).
+5. *"Use real icons instead of emojies"* → THE EMOJICON LAW: every
+   emoji in every surface renders as a real Lucide SVG glyph
+   (emojicons.js — the official lucide-static v0.544.0 geometry, the
+   golden-locked pack untouched).
+6. *"the app must be able to fetch from telegram bot, regardless of
+   the windows is proxy on or off, because telegram bot is connected
+   to cloudflare and system can try to reach cloudflare instead."* →
+   THE REACH-CLOUDFLARE LAW: the Worker channel (the bot queue's own
+   path) was already proxy-independent; the DNS-poisoning class
+   (proxy OFF, a lying local resolver killing the workers.dev name)
+   now falls through to **Cloudflare's own DoH answer** (1.1.1.1,
+   dialed by IP — the question never touches the poisoned resolver),
+   the answer's address dialed directly with the original hostname's
+   TLS.
+
+### The v0.92.0-go.4 re-run slots (the owner's legs against the six-fix release)
+
+| # | Item | RESULT | DATE | NOTES |
+|---|---|---|---|---|
+| 1 | Extract All → 0-START-HERE → GUI launch (800×600 now) | ____ | ____ | ____ |
+| 2 | cold start ≤ 1.5 s / **800×600** / Inter / wrapped log lines | ____ | ____ | ____ |
 | 3 | CLI --status ≤ 0.5 s / config card | ____ | ____ | ____ |
 | 4 | DRY-RUN / zero vault writes | ____ | ____ | ____ |
-| 5 | Test Connection modal | ____ | ____ | ____ |
+| 5 | Test Connection modal (real icons everywhere now) | ____ | ____ | ____ |
 | 6 | 5-link batch / seal / publish | ____ | ____ | ____ |
 | 7 | no console / sounds / theme toggle / log flood | ____ | ____ | ____ |
 | 8 | AV verdict (§3) | ____ | ____ | ____ |

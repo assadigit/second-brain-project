@@ -1984,3 +1984,50 @@ go.3 re-run + their exact error text if anything still fails (the
 30-second ask) + the optional owner calls (the code-signing cert —
 doc 10 §9 rung 4; the fully-portable bundle — WebView2 fixed +
 MinGit inside the zip).
+
+**Phase 7 (continued) — SESSION-075: THE OWNER'S GO.3 RESULTS CAME
+GREEN (the first green live run ever) + THE SIX PROBLEMS → THE SIX
+FIXES + THE SIX-FIX RELEASE v0.92.0-go.4 CUT + LIVE + VERIFIED
+THREE WAYS.** The prompt carried a LIVE SCREENSHOT of the app
+running on the owner's Windows machine (the sentinel labels
+painted — Net: online, AI: on — local (llama.cpp), Proxy: off; a
+real SYNC batch running; the vault scans over both vaults; the desk
+flowing) — **the go.2 "none of them works" era is over; the app
+runs on their machine.** The owner then named six problems; the
+session fixed all six, each as a NAMED LAW with a pinning test:
+**THE QUIET-HEARTBEAT LAW** (the sentinel's 60 s log line — never
+requested — silenced on steady state; the transition lines + the
+chrome's cue paint stay), **THE MISSING-FOLDER LAW** (the live
+"Could not list G:\…\_review" warning — ENOENT returns silently,
+the healthy normal; other read errors keep their warning),
+**THE INTER LAW + THE WRAP LAW** (the embedded Inter variable font;
+the desk's rows wrap — the NoWrap elide's mid-word cuts are gone;
+the debug startup badge retired), **THE CONTAINER LAW** (the window
+1000×750 → 800×600, exactly −20%), **THE EMOJICON LAW** (every
+emoji on every surface renders as a real Lucide SVG glyph —
+emojicons.js, the OFFICIAL lucide-static v0.544.0 geometry, the
+golden-locked icons.js pack untouched; VLM-verified twice: zero
+emojis anywhere), and **THE REACH-CLOUDFLARE LAW** (the Worker
+channel's DoH fallback dialer — a poisoned local resolver with the
+proxy OFF falls through to Cloudflare's own answer on 1.1.1.1,
+dialed by IP, the original hostname's TLS; four hermetic loopback
+tests). The intake recorded verbatim-honest in the T-82 checklist
+§1 (the go.3 re-run table: items 1/2 PASS, 6/7 PARTIAL, 3 not
+reported, 8 UNKNOWN-in-effect-moot, 9 PASS-automation-half) + the
+go.4 re-run slots prepared. The battery green at the close (main
+plain 2403 over 36 ok — 2398 + 5 new / race clean / webui 95 over
+4 ok / gofmt+vet+build clean both modules — 2498). **The release
+v0.92.0-go.4**: the fixes commit `62e0997` + the bump `14d715a`
+(the tag riding it) → go-ci runs 40565884594 + 40566051404 GREEN +
+the release run 40566051363 GREEN → **release 425875420 LIVE**
+(14 files, 57,142,938 in / 27,421,748 zipped, sha256 `11f9d856…`)
+— **verified THREE ways** (the fresh download byte-equal; the
+contents: START-HERE first, both exes == the table, VERSION +
+ASCII stamps + buildinfo + the GUI's version resource all
+`0.92.0-go.4`; the cross-machine byte-identity: the sandbox rebuild
+at the tag reproduced every number, exit 0). The records in the
+same commits: the SESSION-075 report, the state card v76, this
+entry, the README's front page + status entry, the T-82 checklist's
+intake, the go.4 release report, the worklog append. What remains
+in Phase 7: **the owner's go.4 re-run (the slots are prepared) and,
+if green, the sign-off call — the exit gate's last leg.**

@@ -16,11 +16,18 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 
 1. **Get the zip** from
    [Releases](https://github.com/assadigit/second-brain-project/releases).
-   The live release `v0.92.0-go.3` is the **desktop milestone line's fix
-   release** (14 files: **GitCurator.exe** + **GitCurator-cli.exe** +
-   **`0-START-HERE.txt` first in the folder** + the launcher set + the
-   optional git+WebView2 checker); the release report with every verified
-   number: `docs/poc-artifacts/release-v0.92.0-go.3.md`.
+   The live release `v0.92.0-go.4` is the **desktop milestone line's
+   six-fix release** (THE OWNER'S GO.3 RE-RUN CAME GREEN on their
+   machine — the first green live run ever — and named six problems;
+   go.4 carries the fixes: the quiet log heartbeat, the clean sync
+   without the _review warning, the Inter font + wrapped log lines,
+   the 20%-smaller 800x600 window, real Lucide icons everywhere
+   instead of emojis, and the proxy-off bot-queue fetch via
+   Cloudflare DoH) — 14 files: **GitCurator.exe** +
+   **GitCurator-cli.exe** + **`0-START-HERE.txt` first in the
+   folder** + the launcher set + the optional git+WebView2 checker;
+   the release report with every verified number:
+   `docs/poc-artifacts/release-v0.92.0-go.4.md`.
    **Nothing is installed — it's a portable app**: extract the zip
    ("Extract All"), open `0-START-HERE.txt` (the 30-second card — it
    covers the unsigned-app SmartScreen box and what to do if an
@@ -37,7 +44,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 Yes — proven, not claimed. The test system runs the **unmodified Python
 app** and the Go app on the same inputs and compares outputs **byte for
 byte**: 33 golden generators, all green (the archived full-run report +
-the corpus law). The battery: **2,493 tests, zero failures, race-clean**.
+the corpus law). The battery: **2,498 tests, zero failures, race-clean**.
 Your existing data works as-is: the Go app opens the Python-created
 `config.json` + `cache.db` without migration, and the two apps even
 mutually exclude via the same lock (they can share the data safely).
@@ -2168,3 +2175,39 @@ state card v75, doc 12's SESSION-074 entry, the README front page
 the owner's go.3 re-run + their exact error text if anything still
 fails + the optional calls (the code-signing cert; the
 fully-portable bundle).
+
+**Phase 7 (continued) — SESSION-075: THE OWNER'S GO.3 RE-RUN CAME
+GREEN (the live screenshot — the first green live run ever: the GUI
+launches, syncs, scans on their machine) + THE SIX PROBLEMS THEY
+NAMED → THE SIX FIXES + THE SIX-FIX RELEASE v0.92.0-go.4 CUT +
+LIVE + VERIFIED THREE WAYS.** Each fix a named law with a pinning
+test: THE QUIET-HEARTBEAT LAW (the sentinel's 60 s log line — never
+requested — silenced; the Net/AI/Proxy cue paint + the offline-law
+transitions stay), THE MISSING-FOLDER LAW (a vault without a
+`_review` folder is the healthy normal — the ENOENT warning is
+gone), THE INTER LAW + THE WRAP LAW (the embedded Inter variable
+font; log lines wrap — the mid-word "co…/a…/th…" cuts are gone; the
+debug startup badge retired), THE CONTAINER LAW (the window
+1000×750 → 800×600, exactly −20%), THE EMOJICON LAW (every emoji on
+every surface renders as a real Lucide SVG glyph — emojicons.js,
+the official lucide-static v0.544.0 geometry; the golden-locked
+icons.js pack untouched; VLM-verified twice: zero emojis anywhere),
+and THE REACH-CLOUDFLARE LAW (the Worker channel — the bot queue's
+own path — was already proxy-independent; the DNS-poisoning class
+with the proxy OFF now falls through to Cloudflare's own DoH answer
+on 1.1.1.1, dialed by IP, the original hostname's TLS; four
+hermetic loopback tests). The battery green at the close (main
+plain 2403 over 36 ok — 2398 + 5 new / race clean / webui 95 over
+4 ok — **2498**). **The release v0.92.0-go.4: the fixes `62e0997` +
+the bump `14d715a` (the tag riding it) → go-ci 40565884594 +
+40566051404 + the release run 40566051363 all GREEN (watched) →
+release 425875420 LIVE (14 files, 57,142,938 in / 27,421,748
+zipped, sha256 `11f9d856…`) — verified THREE ways incl. the
+cross-machine byte-identity** (the report:
+`docs/poc-artifacts/release-v0.92.0-go.4.md`; the owner's go.4
+re-run slots: the checklist §1). The records: the SESSION-075
+report, the state card v76, doc 12's SESSION-075 entry, the
+README front page (pointing at go.4), this entry, the T-82
+checklist's go.3 intake, the worklog append. What remains: **the
+owner's go.4 re-run and, if green, the sign-off call — the Phase-7
+exit gate's last leg.**
