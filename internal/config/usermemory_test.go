@@ -435,10 +435,10 @@ func TestFreshFillLeavesPreferencesAlone(t *testing.T) {
 	s := newMemSandbox(t)
 	s.remember(`{"github_token": "ghp_real", "llm_provider": "cloud", "vault_path": "/nowhere"}`)
 	fresh := storage.NewOrderedMap()
-	fresh.Set("llm_provider", "ollama")
+	fresh.Set("llm_provider", "llamacpp")
 	fresh.Set("vault_path", "")
 	ApplyGlobalCredentials(fresh, "", true)
-	if v, _ := fresh.Get("llm_provider"); v != "ollama" {
+	if v, _ := fresh.Get("llm_provider"); v != "llamacpp" {
 		t.Errorf("llm_provider = %v (preferences are not remembered)", v)
 	}
 	if v, _ := fresh.Get("vault_path"); v != "/nowhere" {
@@ -464,7 +464,7 @@ func TestFreshFillUsesMemoryNotExample(t *testing.T) {
 func TestExistingConfigOnlyFillsBlankKeys(t *testing.T) {
 	s := newMemSandbox(t)
 	s.remember(`{"github_token": "ghp_memory", "cloud_api_key": "sk-memory"}`)
-	local := treeFromJSON(t, `{"github_token": "ghp_LOCAL", "cloud_api_key": "", "llm_provider": "ollama"}`)
+	local := treeFromJSON(t, `{"github_token": "ghp_LOCAL", "cloud_api_key": "", "llm_provider": "llamacpp"}`)
 	filled := ApplyGlobalCredentials(local, "", false)
 	if v, _ := local.Get("github_token"); v != "ghp_LOCAL" {
 		t.Errorf("local wins: github_token = %v", v)
@@ -754,7 +754,7 @@ func TestNoFileCreatedWhenNothingReal(t *testing.T) {
 	s := newMemSandbox(t)
 	if MirrorCredentialsToGlobal(treeFromJSON(t, `{
           "github_token": "", "cloud_api_key": "", "telegram_api_id": 0,
-          "llm_provider": "ollama"
+          "llm_provider": "llamacpp"
         }`), "") {
 		t.Fatal("mirror returned true with nothing real")
 	}

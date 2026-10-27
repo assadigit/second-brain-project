@@ -13,7 +13,7 @@
  * values — the golden test catches every drift. */
 
 :root {
-  --accent: #5F54B4;
+  --accent: #2E8050;
   --banner-warn-bg: #FAF3E3;
   --bar-retry: #F59E0B;
   --bar-saved: #22C55E;
@@ -37,11 +37,11 @@
   --ghost-hover-bg: #F2EDE3;
   --ghost-hover-fg: #57506B;
   --hero2-bg: #FFFFFF;
-  --hero-fill: #5F54B4;
-  --hero-hover: #514699;
+  --hero-fill: #42B36B;
+  --hero-hover: #3A9E5E;
   --hero-text: #FFFFFF;
   --icon-border: #D8D0BE;
-  --log-checked-hover: #514699;
+  --log-checked-hover: #3A9E5E;
   --log-text: #57506B;
   --log-tint: #F2EDE3;
   --log-ts: #6C6480;
@@ -55,7 +55,7 @@
   --note-indigo: #EEEBFA;
   --on-accent: #FFFFFF;
   --outline-hover: #ECE9FA;
-  --outline-press: #514699;
+  --outline-press: #3A9E5E;
   --pipeline-caption: #57506B;
   --placeholder: #7A7288;
   --plan-del-bg: #FBEDEF;
@@ -64,12 +64,12 @@
   --plan-grow-border: #CFE7D9;
   --plan-mag-bg: #E7F2F2;
   --plan-mag-border: #C8E1E1;
-  --progress-chunk: #7C3AED;
+  --progress-chunk: #42B36B;
   --progress-text: #514A63;
   --progress-track: #E3DACA;
   --scroll: #DCD4C4;
   --scroll-hover: #B5AC9C;
-  --select-bg: #5F54B4;
+  --select-bg: #2E8050;
   --select-fg: #FFFFFF;
   --sheet: #FFFFFF;
   --sheet-alt: #F2EDE3;
@@ -84,7 +84,7 @@
   --text-hover: #57506B;
   --text-muted: #6C6480;
   --text-soft: #514A63;
-  --toolbtn-press: #514699;
+  --toolbtn-press: #3A9E5E;
   --warn-box-border: #F5E3C0;
   --warn-box-text: #B45309;
   --warning: #75510A;
@@ -92,7 +92,7 @@
 }
 
 [data-theme="dark"] {
-  --accent: #C4BCF5;
+  --accent: #5ECF7F;
   --banner-warn-bg: #322B20;
   --bar-retry: #FBBF24;
   --bar-saved: #4ADE80;
@@ -111,13 +111,13 @@
   --err-hover: #F0B2BC;
   --err-text: #5E1120;
   --error: #FF9AAB;
-  --focus: #C4BCF5;
+  --focus: #5ECF7F;
   --ghost-bg: #2B2639;
   --ghost-hover-bg: #352F4A;
   --ghost-hover-fg: #DDD7EC;
   --hero2-bg: #352F4A;
-  --hero-fill: #C4BCF5;
-  --hero-hover: #B3A7F2;
+  --hero-fill: #5ECF7F;
+  --hero-hover: #4EB56C;
   --hero-text: #221E2E;
   --icon-border: #4A4263;
   --log-checked-hover: #D3CDF9;
@@ -134,7 +134,7 @@
   --note-indigo: #2E2A4A;
   --on-accent: #221E2E;
   --outline-hover: #ECE9FA;
-  --outline-press: #514699;
+  --outline-press: #4EB56C;
   --pipeline-caption: #C9C2DC;
   --placeholder: #A6A2AC;
   --plan-del-bg: #3A2731;
@@ -143,12 +143,12 @@
   --plan-grow-border: #33503C;
   --plan-mag-bg: #1F3535;
   --plan-mag-border: #2E4A4A;
-  --progress-chunk: #A78BFA;
+  --progress-chunk: #42B36B;
   --progress-text: #DDD7EC;
   --progress-track: #17131F;
   --scroll: #7A7199;
   --scroll-hover: #8D84AD;
-  --select-bg: #5F54B4;
+  --select-bg: #5ECF7F;
   --select-fg: #FFFFFF;
   --sheet: #2B2639;
   --sheet-alt: #352F4A;
@@ -163,7 +163,7 @@
   --text-hover: #DDD7EC;
   --text-muted: #B7AFC9;
   --text-soft: #DDD7EC;
-  --toolbtn-press: #514699;
+  --toolbtn-press: #4EB56C;
   --warn-box-border: #4A3F28;
   --warn-box-text: #F2DCA8;
   --warning: #FFD37E;

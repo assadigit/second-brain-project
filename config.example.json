@@ -12,7 +12,7 @@
     "base_url": "http://localhost:11434",
     "model": "Qwen3.8-27B-UD-IQ2_S-Instruct-Vision-No-think-DynamicV3-Unsloth:latest"
   },
-  "llm_provider": "ollama",
+  "llm_provider": "llamacpp",
   "cloud_api_url": "https://api.openai.com/v1",
   "cloud_api_key": "",
   "cloud_model": "gpt-4o-mini",

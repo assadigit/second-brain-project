@@ -277,7 +277,7 @@ func buildExampleTree() *storage.OrderedMap {
 	ollama.Set("base_url", "http://localhost:11434")
 	ollama.Set("model", "qwythos-9b")
 	o.Set("ollama", ollama)
-	o.Set("llm_provider", "ollama")
+	o.Set("llm_provider", "llamacpp")
 	o.Set("cloud_api_url", "https://api.openai.com/v1")
 	o.Set("cloud_api_key", "")
 	o.Set("cloud_model", "gpt-4o-mini")

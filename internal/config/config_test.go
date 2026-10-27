@@ -97,7 +97,7 @@ func TestLoadAppConfigFreshRestores(t *testing.T) {
 	if v, _ := res.Config.Get("vault_path"); v != "G:/vault" {
 		t.Errorf("vault_path = %v", v)
 	}
-	if v, _ := res.Config.Get("llm_provider"); v != "ollama" {
+	if v, _ := res.Config.Get("llm_provider"); v != "llamacpp" {
 		t.Errorf("llm_provider = %v (the example's default)", v)
 	}
 	if res.Filled < 3 {
@@ -200,7 +200,7 @@ func TestLoadAppConfigNullFile(t *testing.T) {
 	if res.Fresh {
 		t.Fatal("null file: fresh must stay false (Python json.load returns None)")
 	}
-	if v, _ := res.Config.Get("llm_provider"); v != "ollama" {
+	if v, _ := res.Config.Get("llm_provider"); v != "llamacpp" {
 		t.Fatalf("null file did not fall back to the example: %v", v)
 	}
 	if v, _ := res.Config.Get("github_token"); v != "ghp_real" {

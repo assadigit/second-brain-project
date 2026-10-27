@@ -46,7 +46,7 @@ import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
          ChromeBoot, ChromeOfferAnswer } from './wailsjs/go/main/HeroUI.js';
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
-import { svgEl } from './icons.js';
+import { svgEl , LEVEL_ICONS} from './icons.js';
 import { glyphFor, iconify } from './emojicons.js';
 
 // ---------------------------------------------------------------------------
@@ -161,16 +161,67 @@ function renderHero(payload) {
 
 EventsOn('hero:state', (payload) => { renderHero(payload); });
 
+// THE SYNC-CLICK-FEEDBACK LAW (the owner's SESSION-077 directive —
+// "the sync button does nothing, it's not responsive"): the click
+// gives immediate feedback — a log row + the button's "Starting…"
+// state — so the user knows the click registered before the Go side's
+// own lines land.
+function nowTs() {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, '0');
+  return p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+}
+function speakLog(msg, level) {
+  // append a row directly to the log desk (the same shape app.js's
+  // appendToDesk builds — a level glyph + [ts] + the message text).
+  const desk = document.getElementById('log-desk');
+  if (!desk) return;
+  const empty = document.getElementById('log-empty');
+  if (empty && empty.parentNode) empty.remove();
+  const row = document.createElement('div');
+  row.className = 'log-row';
+  row.title = '[' + nowTs() + '] ' + msg;
+  const ts = document.createElement('span');
+  ts.className = 'log-ts';
+  ts.textContent = '[' + nowTs() + '] ';
+  const m = document.createElement('span');
+  m.className = 'log-msg';
+  m.textContent = msg;
+  const known = LEVEL_ICONS[level] !== undefined;
+  const g = svgEl(LEVEL_ICONS[level] || 'dot', 'glyph glyph-' + (known ? level : 'info'));
+  row.append(g, ts, m);
+  desk.appendChild(row);
+  desk.scrollTop = desk.scrollHeight;
+}
+
 if (heroBtn) {
   heroBtn.disabled = false;          // T-77: the hero machine is live
   heroBtn.addEventListener('click', async () => {
+    // THE IMMEDIATE FEEDBACK: a log row + the button's "Starting…"
+    // state land the instant the click registers — the user knows
+    // the click was heard before the Go side's own lines arrive.
+    speakLog('🔄 SYNC clicked — starting…', 'info');
+    const origLabel = heroBtn.textContent;
+    heroBtn.disabled = true;
+    heroBtn.textContent = 'Starting…';
     let res;
     try {
       res = await HeroClick(liveImportFile());
     } catch (e) {
+      heroBtn.disabled = false;
+      heroBtn.textContent = origLabel || 'SYNC';
+      speakLog('❌ SYNC failed to start: ' + (e && e.message ? e.message : 'unknown error'), 'error');
       return;                        // the binding never rejects in production
     }
+    // handleHeroResult re-renders the button (the render payload
+    // carries the label + the enabled state); the feedback row
+    // already landed above.
     handleHeroResult(res);
+    if (!res || !res.render) {
+      // no render payload — restore the button so the user can retry.
+      heroBtn.disabled = false;
+      heroBtn.textContent = origLabel || 'SYNC';
+    }
   });
 }
 

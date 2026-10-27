@@ -44,14 +44,11 @@ let filterText = '';
 // v0.32 law's meaning rides the glyph survives); a plain line keeps
 // the level glyph. The level color law itself is untouched.
 function glyphEl(level, msg) {
-  const lead = stripLeadingEmoji(msg);
-  if (lead.emoji && EMOJI_MAP[lead.emoji]) {
-    const g = glyphFor(EMOJI_MAP[lead.emoji]);
-    if (g) {
-      g.setAttribute('class', 'glyph glyph-' + (level || 'info'));
-      return g;
-    }
-  }
+  // THE LOG-EMOJI LAW (SESSION-077): the level glyph stays as the SVG
+  // level indicator (info=dot, success=check, warning=triangle-alert,
+  // error=circle-x); the message text keeps ALL its original emojis
+  // (colorful characters, never converted to SVG glyphs). The leading
+  // emoji rides the message text, not the glyph seat.
   const known = LEVEL_ICONS[level] !== undefined;
   const name = LEVEL_ICONS[level] || 'dot';
   return svgEl(name, 'glyph glyph-' + (known ? level : 'info'));
@@ -93,9 +90,7 @@ function appendToDesk(rows) {
     ts.textContent = '[' + r.ts + '] ';
     const msg = document.createElement('span');
     msg.className = 'log-msg';
-    const lead = stripLeadingEmoji(r.msg);
-    msg.textContent = lead.rest;                 // the leading emoji rides the glyph seat
-    iconify(msg);                                // interior emojis → real glyphs
+    msg.textContent = r.msg;                      // THE LOG-EMOJI LAW: full message with original emojis
     row.append(glyphEl(r.level, r.msg), ts, msg);
     frag.appendChild(row);
   }

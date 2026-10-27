@@ -64,7 +64,7 @@
     "base_url": "http://localhost:11434",
     "model": "qwythos-9b"
   },
-  "llm_provider": "ollama",
+  "llm_provider": "llamacpp",
   "cloud_api_url": "https://api.openai.com/v1",
   "cloud_api_key": "",
   "cloud_model": "gpt-4o-mini",

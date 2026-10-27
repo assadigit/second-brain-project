@@ -295,9 +295,9 @@ func TestRGBA(t *testing.T) {
 		token string
 		want  [4]uint8
 	}{
-		{Light, "window", [4]uint8{251, 248, 242, 255}}, // the cream window
-		{Dark, "window", [4]uint8{34, 30, 46, 255}},     // #221E2E
-		{Light, "progress_chunk", [4]uint8{124, 58, 237, 255}},
+		{Light, "window", [4]uint8{251, 248, 242, 255}},        // the cream window
+		{Dark, "window", [4]uint8{34, 30, 46, 255}},            // #221E2E
+		{Light, "progress_chunk", [4]uint8{66, 179, 107, 255}}, // #42B36B (green, SESSION-077)
 	}
 	for _, c := range cases {
 		r, g, b, a := RGBA(c.table, c.token)

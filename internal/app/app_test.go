@@ -51,8 +51,8 @@ func TestNewWiresTheProductionSeams(t *testing.T) {
 	if cfg == nil || len(cfg.Keys()) == 0 {
 		t.Fatalf("missing config = %v, want the example base", cfg)
 	}
-	if v, ok := cfg.Get("llm_provider"); !ok || v != "ollama" {
-		t.Fatalf("missing config's llm_provider = %v, want the example's ollama", v)
+	if v, ok := cfg.Get("llm_provider"); !ok || v != "llamacpp" {
+		t.Fatalf("missing config's llm_provider = %v, want the example's llamacpp", v)
 	}
 	// The live-config law: every load returns the SAME instance.
 	if cfg2 := a.loadConfig(); cfg2 != cfg {

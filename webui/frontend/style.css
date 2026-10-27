@@ -16,7 +16,7 @@
   --font-ui: 'Inter', 'Segoe UI', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'Consolas', 'Monaco', 'Menlo', 'Courier New', monospace;
   --base-size: 13px;
-  --log-size: 12px;
+  --log-size: 11px;
 
   --sp-1: 4px;
   --sp-2: 8px;
@@ -168,12 +168,16 @@ button:focus-visible, input:focus-visible {
   transition: width 60ms linear;
 }
 .progress-count {
-  font-family: var(--font-mono);
-  font-size: 15px;
+  font-family: var(--font-ui);
+  font-size: 13px;
   font-weight: 700;
   color: var(--text);
   min-width: 120px;
   text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
 }
 .progress-count.done { color: var(--success); }
 .progress-count.failed { color: var(--error); }
