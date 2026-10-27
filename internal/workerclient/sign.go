@@ -85,12 +85,17 @@ type reply struct {
 
 // directClient is the proxy-BYPASSED opener (ProxyHandler({})):
 // workers.dev was intercepted by local v2rayN into 403s — no proxy,
-// ever, on any leg of this channel.
+// ever, on any leg of this channel. THE REACH-CLOUDFLARE LAW
+// (SESSION-075): the transport's dialer carries the DoH fallback —
+// a poisoned local resolver (the proxy-off class) falls through to
+// Cloudflare's own answer, dialed directly with the original name's
+// TLS (dohdial.go).
 func directClient(timeoutS float64) *http.Client {
 	return &http.Client{
 		Timeout: secondsDur(timeoutS),
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{},
+			DialContext:     dohFallbackDial,
 		},
 	}
 }

@@ -67,9 +67,13 @@ func main() {
 
 	r, g, b, a := uitheme.RGBA(uitheme.Light, "window")
 	err := wails.Run(&options.App{
-		Title:     "GitCurator",
-		Width:     1000,
-		Height:    750,
+		Title: "GitCurator",
+		// THE CONTAINER LAW (the owner's SESSION-075 directive —
+		// "the app container is too big it must be like 20% smaller":
+		// 1000x750 -> 800x600, exactly -20%; the mins stay (760x380 —
+		// the resize floor the layout keeps honoring).
+		Width:     800,
+		Height:    600,
 		MinWidth:  760,
 		MinHeight: 380,
 		AssetServer: &assetserver.Options{

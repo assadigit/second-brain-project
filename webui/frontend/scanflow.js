@@ -23,6 +23,7 @@
 // lines ride the bus underneath the whole way).
 import { PickVaults, StartScan, ScanAnswer, ProbeAskSample, ProbeScorecardSample } from './wailsjs/go/main/ScanUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
+import { iconify } from './emojicons.js';
 
 // the reference's own numbers (the clocks are the law both sides read).
 const ARM_MS = 350;          // _ARM_MS — the fresh-click door's beat
@@ -42,6 +43,7 @@ function btn(text, kind, title, onClick) {
   b.type = 'button';
   if (title) b.title = title;
   if (onClick) b.addEventListener('click', onClick);
+  iconify(b);                 // a label's emoji rides as a real glyph
   return b;
 }
 
@@ -141,6 +143,7 @@ async function openScanPicker() {
   btnRow.append(cancelBtn, scanBtn);
   body.appendChild(btnRow);
   box.appendChild(body);
+  iconify(box);                // the rows' 🗂️ rides as real glyphs
   pickState.scanBtn = scanBtn;
   escapeHandler = () => finishPick(null);
 }
@@ -152,6 +155,7 @@ function refreshPickScanBtn() {
   for (const [, box2] of pickState.boxes) if (box2.checked) n++;
   b.disabled = n === 0;
   b.textContent = n === 0 ? '🔍 Scan' : (n === 1 ? '🔍 Scan this vault' : '🔍 Scan both vaults');
+  iconify(b);                // the 🔍 rides as a real glyph
 }
 
 function finishPick(picked) {
@@ -330,6 +334,7 @@ function openPlanModal(payload) {
   }, 1000);
 
   escapeHandler = () => answerPlan('declined', null);   // Esc/✕ = declined
+  iconify(box);                // the modal's emojis ride as real glyphs
   refreshApplyAll();
 }
 
@@ -391,6 +396,7 @@ function refreshApplyAll() {
   if (!applyBtn) return;
   applyBtn.textContent = total > 0
     ? '🗂️ Apply plan (' + picked + ' of ' + total + ')' : '🗂️ Apply plan';
+  iconify(applyBtn);          // the 🗂️ rides as a real glyph
   // the enable law: armed AND (something picked, or nothing to pick).
   applyBtn.disabled = !(planState.armed && (picked > 0 || total === 0));
   if (planState.keepBtn) planState.keepBtn.disabled = !planState.armed;
@@ -480,6 +486,7 @@ function openScorecard(model) {
     remaining--;
     if (remaining <= 0) { clearInterval(timer); closeOverlay(); return; }
     clock.textContent = '⏱ This scorecard closes itself in ' + remaining + 's — the full story stays in the log';
+    iconify(clock);            // the ⏱ stays a real glyph across ticks
   }, 1000);
   escapeHandler = () => { clearInterval(timer); closeOverlay(); };
 
@@ -489,6 +496,7 @@ function openScorecard(model) {
     () => { clearInterval(timer); closeOverlay(); }));
   // the clock + OK stay pinned under the scrolling body.
   box.append(body, clock, btnRow);
+  iconify(box);                // the ✅ + ⏱ ride as real glyphs
 }
 
 // ---------------------------------------------------------------------------

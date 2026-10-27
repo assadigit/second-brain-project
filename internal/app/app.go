@@ -616,12 +616,15 @@ func (a *App) sentinelPass() {
 		a.Bus.EmitLogLine("✅ Net: back online — syncing is available again.", "success")
 	}
 
-	latency := "n/a"
-	if snap.Net.LatencyMs != nil {
-		latency = fmt.Sprintf("%dms", *snap.Net.LatencyMs)
-	}
-	a.Bus.EmitLogLine(fmt.Sprintf("🛰️ Sentinel: net=%s latency=%s · AI=%s",
-		netWord(snap.Net.Online), latency, snap.AI.Short), "info")
+	// THE QUIET-HEARTBEAT LAW (the owner's SESSION-075 directive — the
+	// per-pass "Sentinel: net=online latency=535ms · AI=on" line was
+	// never requested; it spoke every 60 s into the desk as noise): the
+	// heartbeat is SILENT now. The sentinel's own two jobs stay exactly
+	// as they were — the offline law's TRANSITION lines above (warn-now
+	// once, fell-offline, back-online — a line only when something
+	// CHANGES) and the snapshot crossing below (the chrome's Net · AI ·
+	// Proxy labels paint every pass). Production never speaks here on a
+	// steady-state pass.
 
 	// THE SNAPSHOT CROSSING (T-77): the chrome's labels paint from this
 	// event (Net · AI · Proxy — the honest placeholders retire).
@@ -632,14 +635,6 @@ func (a *App) sentinelPass() {
 		Proxy:   snap.Proxy,
 		Verdict: verdict,
 	})
-}
-
-// netWord renders the probe's verdict.
-func netWord(on bool) string {
-	if on {
-		return "online"
-	}
-	return "offline"
 }
 
 // llamaAutodetect is the once-per-session probe (v0.15.1): the

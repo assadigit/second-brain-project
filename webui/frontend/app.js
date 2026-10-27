@@ -21,6 +21,7 @@
 import { MarkFirstFrame, FloodLines, Stats, ReportFloodUI, ClearDesk } from './wailsjs/go/main/Shell.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
 import { LEVEL_ICONS, svgEl } from './icons.js';
+import { EMOJI_MAP, glyphFor, iconify, stripLeadingEmoji } from './emojicons.js';
 
 const desk = document.getElementById('log-desk');
 const logEmpty = document.getElementById('log-empty');
@@ -37,7 +38,20 @@ let filterText = '';
 
 // the lucide-static v0.544.0 glyph pack rides icons.js (golden-locked);
 // the desk's level map is the reference's own law (ui.py:2144).
-function glyphEl(level) {
+// THE LEADING-EMOJI SEAT (the owner's SESSION-075 directive — real
+// icons, never emojis): a line that OPENS with a mapped emoji carries
+// that emoji's glyph in the level-glyph seat (LEVEL-COLORED — the
+// v0.32 law's meaning rides the glyph survives); a plain line keeps
+// the level glyph. The level color law itself is untouched.
+function glyphEl(level, msg) {
+  const lead = stripLeadingEmoji(msg);
+  if (lead.emoji && EMOJI_MAP[lead.emoji]) {
+    const g = glyphFor(EMOJI_MAP[lead.emoji]);
+    if (g) {
+      g.setAttribute('class', 'glyph glyph-' + (level || 'info'));
+      return g;
+    }
+  }
   const known = LEVEL_ICONS[level] !== undefined;
   const name = LEVEL_ICONS[level] || 'dot';
   return svgEl(name, 'glyph glyph-' + (known ? level : 'info'));
@@ -64,6 +78,9 @@ function updateCounters() {
 }
 
 // ONE batch = ONE fragment append + ONE tail scroll (the flush law).
+// THE EMOJICON LAW: interior emojis render as real inline glyphs
+// (iconify on the message span); the row's tooltip keeps the full
+// original text.
 function appendToDesk(rows) {
   hideEmpty();
   const frag = document.createDocumentFragment();
@@ -76,8 +93,10 @@ function appendToDesk(rows) {
     ts.textContent = '[' + r.ts + '] ';
     const msg = document.createElement('span');
     msg.className = 'log-msg';
-    msg.textContent = r.msg;                    // CSS elides right (NoWrap)
-    row.append(glyphEl(r.level), ts, msg);
+    const lead = stripLeadingEmoji(r.msg);
+    msg.textContent = lead.rest;                 // the leading emoji rides the glyph seat
+    iconify(msg);                                // interior emojis → real glyphs
+    row.append(glyphEl(r.level, r.msg), ts, msg);
     frag.appendChild(row);
   }
   desk.appendChild(frag);
@@ -189,14 +208,15 @@ EventsOn('flood:done', () => {
   }
 });
 
-// the first-frame badge (the cold-start clock's face)
-MarkFirstFrame().then((d) => {
-  const badge = document.createElement('span');
-  badge.className = 'sentinel';
-  badge.id = 'sentinel-frame';
-  badge.textContent = 'startup→frame: ' + d;
-  sentinels.appendChild(badge);
-});
+// the first-frame measurement rides MarkFirstFrame (the cold-start
+// clock's face in Stats()); the DEBUG BADGE is retired from the chrome
+// (the owner's SESSION-075 "the overall UI is off" — startup timing is
+// diagnostics, not chrome).
+MarkFirstFrame().catch(() => {});
+
+// THE EMOJICON LAW, the static half: the chrome's own labels (the
+// CTA buttons' ⚡/🔍/🔌, every static emoji) become real glyphs at boot.
+iconify(document.getElementById('app'));
 
 // the chips + search + clear doors
 document.querySelectorAll('.chip').forEach((c) => {

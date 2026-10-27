@@ -486,6 +486,10 @@ func TestProgressRowFormats(t *testing.T) {
 // The sentinel pass's own laws (app-level): the snapshot emission, the
 // offline verdict transitions, and the nil-latency regression (the
 // offline pass once panicked into the crash-isolation — T-77's fix).
+// SESSION-075's QUIET-HEARTBEAT LAW: the per-pass heartbeat line is
+// GONE (the owner's directive — it was never requested); a pass speaks
+// ONLY on a transition (warn-now / fell-offline / back-online) and
+// always crosses the snapshot. The test pins the silence too.
 // ---------------------------------------------------------------------------
 
 func TestSentinelPassEmitsSnapshotAndOfflineLaw(t *testing.T) {
@@ -523,8 +527,9 @@ func TestSentinelPassEmitsSnapshotAndOfflineLaw(t *testing.T) {
 	})
 
 	// FIRST PASS, OFFLINE: the warn-now law (the one launch warning) +
-	// the snapshot crossing + the 🛰️ line with the nil-safe latency
-	// (the regression: this pass used to panic on *net.LatencyMs).
+	// the snapshot crossing + THE QUIET HEARTBEAT (no per-pass line —
+	// the regression note stays: the offline pass once panicked on
+	// *net.LatencyMs; the nil-safety now rides the snapshot alone).
 	a.sentinelPass()
 	mu.Lock()
 	n := len(snaps)
@@ -545,18 +550,20 @@ func TestSentinelPassEmitsSnapshotAndOfflineLaw(t *testing.T) {
 	if ev.Net.LatencyMs != nil {
 		t.Fatalf("an offline probe carries no latency")
 	}
-	var sawWarn, sawLine bool
+	var sawWarn bool
 	for _, l := range all {
 		if strings.Contains(l.Msg, "No internet connection detected") {
 			sawWarn = true
 		}
-		if strings.Contains(l.Msg, "🛰️ Sentinel: net=offline latency=n/a") {
-			sawLine = true
+		if strings.Contains(l.Msg, "Sentinel:") {
+			t.Fatalf("the quiet-heartbeat law: a steady-state pass spoke (%q)", l.Msg)
 		}
 	}
-	if !sawWarn || !sawLine {
-		t.Fatalf("the offline pass's lines: warn=%v sentinel=%v (full: %v)", sawWarn, sawLine, all)
+	if !sawWarn {
+		t.Fatalf("the offline pass's warn line never landed (full: %v)", all)
 	}
+	// THE QUIET-HEARTBEAT LAW, pinned: the offline pass's own lines are
+	// EXACTLY the warn-now line — no heartbeat, no latency word.
 
 	// SECOND PASS, STILL OFFLINE: no second warn (warn-ONCE), the
 	// verdict settles to "offline".

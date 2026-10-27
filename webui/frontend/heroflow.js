@@ -47,6 +47,7 @@ import { HeroClick, HeroAnswerOffline, HeroRunQueue, HeroState, TestConnection,
 import { FastSync } from './wailsjs/go/main/PagesBUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
 import { svgEl } from './icons.js';
+import { glyphFor, iconify } from './emojicons.js';
 
 // ---------------------------------------------------------------------------
 // tiny DOM helpers (the scanflow.js kit's local twins).
@@ -62,6 +63,7 @@ function btn(text, kind, title, onClick) {
   b.type = 'button';
   if (title) b.title = title;
   if (onClick) b.addEventListener('click', onClick);
+  iconify(b);                 // a label's emoji rides as a real glyph
   return b;
 }
 
@@ -97,6 +99,7 @@ function themedBox(box, buttons, opts) {
   b.appendChild(el('div', 'card-heading', box.title));
   const body = el('div', 'dialog-body');
   body.appendChild(el('p', 'dialog-message', box.body));
+  iconify(body);               // THE EMOJICON LAW: real glyphs, never emojis
   b.appendChild(body);
   const btnRow = el('div', 'dialog-buttons');
   for (const [text, kind, fn] of buttons) {
@@ -131,15 +134,20 @@ function renderHero(payload) {
   if (!heroBtn || !payload || !payload.render) return;
   const r = payload.render;
   heroBtn.textContent = r.label;
+  iconify(heroBtn);             // a label's emoji (if any) rides as a glyph
   heroBtn.disabled = !r.enabled;
   heroBtn.classList.toggle('btn-hero-danger', !!r.danger);
   if (r.tooltip) heroBtn.title = r.tooltip;
-  // the glyph rides the lucide pack (currentColor tint)
+  // the glyph rides BOTH lucide packs (the locked reference pack +
+  // the extended emojicons pack — 'square' lives in the extended one)
   const old = heroBtn.querySelector('svg');
   if (old) old.remove();
   const name = HERO_GLYPHS[r.glyph] || 'refresh-cw';
-  const g = svgEl(name, 'hero-glyph' + (r.glyph === 'loader' ? ' hero-glyph-spin' : ''));
-  if (g) heroBtn.prepend(g);
+  const g = glyphFor(name) || svgEl(name);
+  if (g) {
+    g.setAttribute('class', 'hero-glyph' + (r.glyph === 'loader' ? ' hero-glyph-spin' : ''));
+    heroBtn.prepend(g);
+  }
   // the progress row's live formats ride the same crossing.
   if (payload.format) {
     barLabel.textContent = payload.format;
@@ -235,6 +243,7 @@ EventsOn('bus:job-progress', (jp) => {
 EventsOn('bus:batch-finished', (bf) => {
   if (!bf) return;
   barLabel.textContent = bf.ok ? '✅ Done' : '❌ Failed';
+  iconify(barLabel);            // the terminal marks ride real glyphs
   barLabel.className = 'progress-count ' + (bf.ok ? 'done' : 'failed');
   if (bf.chime && bf.chime.play && bf.chime.dataUrl) {
     try {
@@ -255,15 +264,19 @@ if (fastBtn) {
   fastBtn.title = '⚡ Fast Sync — the no-AI mirror of the triad: seal the ' +
     'GitHub vault, mirror the Websites vault, publish the website ' +
     'directory (no Telegram fetch, no LLM — v0.90.0).';
+  const setFastLabel = (text) => {
+    fastBtn.textContent = text;
+    iconify(fastBtn);           // the ⚡ rides as a real glyph
+  };
   fastBtn.addEventListener('click', async () => {
     if (fastBtn.disabled) return;
     fastBtn.disabled = true;
-    fastBtn.textContent = '⚡ Fast Syncing…';
+    setFastLabel('⚡ Fast Syncing…');
     try {
       await FastSync();
     } catch (e) { /* the verdict lines ride the desk */ }
     fastBtn.disabled = false;
-    fastBtn.textContent = '⚡ Fast Sync';
+    setFastLabel('⚡ Fast Sync');
   });
 }
 
@@ -414,6 +427,7 @@ function openBatteryModal() {
   startB.disabled = true;           // born dead — green only when all-ok
   btnRow.append(closeB, startB);
   b.appendChild(btnRow);
+  iconify(b);                     // the rows' 📁🧠🐙☁️ + ⏳ ride as real glyphs
   return { rows, startB };
 }
 
@@ -430,6 +444,7 @@ function ccAddItem(idx, short, full) {
   if (!ccState || !ccState.rows[idx]) return;
   const item = el('div', 'cc_item cc-item-line', short);
   item.title = full || short;
+  iconify(item);                  // an item's emoji rides as a glyph
   ccState.rows[idx].items.appendChild(item);
 }
 
@@ -440,6 +455,7 @@ function ccFinalize(idx, verdict) {
   r.done = true;
   r.verdict = verdict;
   r.status.textContent = (CC_MARK[verdict] || '•') + ' ' + (CC_LABEL[verdict] || verdict);
+  iconify(r.status);              // the verdict mark rides as a real glyph
   r.status.className = 'cc_row_status cc-status-' + verdict;
 }
 
@@ -572,6 +588,7 @@ function openHandDeliverDialog(model) {
       }
     }));
   box.appendChild(btnRow);
+  iconify(box);                   // the dialog's emojis ride as real glyphs
 }
 
 // openChromeRetryDialog — 🤖 Chrome tab-retry's offer modal
@@ -617,6 +634,7 @@ function openChromeRetryDialog(links, answer) {
       await answer(picked).catch(() => {});
     }));
   box.appendChild(btnRow);
+  iconify(box);                   // the dialog's emojis ride as real glyphs
 }
 
 // the end-of-run offer (the chrome:offer event — the batch-scorecard
@@ -689,6 +707,7 @@ function openDecommissionDialog(model) {
       }
     }));
   box.appendChild(btnRow);
+  iconify(box);                   // the dialog's emojis ride as real glyphs
 }
 
 // the delivery's failure modal (the chrome:failed event — _on_delivery_
@@ -802,8 +821,10 @@ function openMoreMenu(anchor) {
           closeMoreMenu();
           runMoreAction(subAct);
         });
+        iconify(si);              // the sub-action's emoji rides as a glyph
         sub.appendChild(si);
       }
+      iconify(item);              // the parent's ⚙️ rides as a glyph
       item.appendChild(sub);
       item.addEventListener('click', () => { sub.classList.toggle('open'); });
       menu.appendChild(item);
@@ -817,6 +838,7 @@ function openMoreMenu(anchor) {
     if (!act.live) item.disabled = true;
     if (act.live === 'exportZip' && exportZipRunning) item.disabled = true;
     item.addEventListener('click', () => { closeMoreMenu(); runMoreAction(act); });
+    iconify(item);                // the action's emoji rides as a real glyph
     menu.appendChild(item);
   }
   document.getElementById('app').appendChild(menu);
@@ -1130,6 +1152,7 @@ function openRecategorizeDialog(model) {
       await MoreRecategorizeApply(changes).catch(() => null);
     }));
   box.append(body, btnRow);
+  iconify(box);                   // the 📁 heading rides as a real glyph
 }
 
 // openBotResolveDialog — the verify door's manual-resolve dialog
@@ -1217,6 +1240,7 @@ function openBotResolveDialog(missing) {
   btnRow.appendChild(btn('Close', 'secondary',
     'Leave the links pending — nothing is written.', () => closeOverlay()));
   box.append(body, btnRow);
+  iconify(box);                   // the ⏳ line rides as a real glyph
 }
 
 function applyTheme(mode) {

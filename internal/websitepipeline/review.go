@@ -1,7 +1,9 @@
 package websitepipeline
 
 import (
+	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"path/filepath"
 	"sort"
@@ -86,6 +88,15 @@ func ScanReviewBacklog(vaultPath string, log LogFn, isDismissed func(string) boo
 	}
 	entries, err := os.ReadDir(reviewDir)
 	if err != nil {
+		// THE MISSING-FOLDER LAW (the owner's SESSION-075 directive —
+		// "Could not list G:\...\_review: The system cannot find the
+		// file specified" warned on every sync): a vault WITHOUT a
+		// _review folder is the HEALTHY normal (nothing waits for human
+		// eyes) — the ENOENT case returns silently; every other error
+		// (permissions, a broken junction…) keeps its warning line.
+		if errors.Is(err, fs.ErrNotExist) {
+			return nil
+		}
 		if log != nil && vaultPath != "" {
 			log(fmt.Sprintf("⚠️ Could not list %s: %v", reviewDir, err), "warning")
 		}
@@ -176,6 +187,12 @@ func ScanReviewNotes(vaultPath string, log LogFn) []ReviewNoteItem {
 	reviewDir := filepath.Join(vaultPath, ReviewFolder)
 	entries, err := os.ReadDir(reviewDir)
 	if err != nil {
+		// THE MISSING-FOLDER LAW (the twin of the backlog scan's own):
+		// no _review folder = the healthy normal, ENOENT returns
+		// silently; every other error keeps its warning line.
+		if errors.Is(err, fs.ErrNotExist) {
+			return nil
+		}
 		log(fmt.Sprintf("⚠️ Could not list %s: %v", reviewDir, err), "warning")
 		return nil
 	}

@@ -33,6 +33,7 @@ import {
 } from './wailsjs/go/main/SyncUI.js';
 import { EventsOn } from './wailsjs/runtime/runtime.js';
 import { svgEl } from './icons.js';
+import { iconify } from './emojicons.js';
 
 // The section table (dialogs.py's TAB_INFO — labels, glyphs, hints;
 // the six T-73 pages in the reference's own order; the later pages
@@ -101,6 +102,7 @@ function btn(text, kind, title, onClick) {
   const b = el('button', 'btn-' + kind, text);
   if (title) b.title = title;
   if (onClick) b.addEventListener('click', onClick);
+  iconify(b);                 // a label's emoji rides as a real glyph
   return b;
 }
 function helpButton(text) {
@@ -834,6 +836,7 @@ function miniCustom(title, bodyEl, buttons, onAnswer) {
     }));
   }
   box.appendChild(btnRow);
+  iconify(box);                // the dialog's emojis ride as real glyphs
   dialogOverlay.appendChild(box);
   view.appendChild(dialogOverlay);
 }
@@ -879,6 +882,7 @@ function buildWindow() {
     const page = builders[sec.id]();
     page.dataset.page = sec.id;
     page.hidden = true;
+    iconify(page);              // the page's emojis ride as real glyphs
     stackEl.appendChild(page);
   }
   selectSection('credentials');
@@ -1666,6 +1670,8 @@ function refreshSyncView() {
       measured.textContent =
         `measured at ${stamp.substring(11, 19)} — the numbers are as fresh as this line`;
     }
+    const syncPage = document.querySelector('[data-page="sync"]');
+    if (syncPage) iconify(syncPage);   // the re-rendered emojis ride as glyphs
   }).catch(() => {
     syncBusy = false;
     if (btn) btn.disabled = false;

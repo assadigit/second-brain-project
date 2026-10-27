@@ -7,8 +7,13 @@
 
 :root {
   /* the type scale (§2) + layout tokens: spacing 4/8/16/24/32;
-     focus 2px outline + 2px offset */
-  --font-ui: 'Segoe UI', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+     focus 2px outline + 2px offset.
+     THE INTER LAW (the owner's SESSION-075 directive — "the overall
+     UI and fonts are off"): the UI face is the Inter variable font
+     (embedded, latin+latin-ext+cyrillic subsets — every weight
+     400…800 renders from the one file); the system stacks stay as
+     the fallbacks. */
+  --font-ui: 'Inter', 'Segoe UI', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'Consolas', 'Monaco', 'Menlo', 'Courier New', monospace;
   --base-size: 13px;
   --log-size: 12px;
@@ -18,6 +23,33 @@
   --sp-3: 16px;
   --sp-4: 24px;
   --sp-5: 32px;
+}
+
+/* Inter — the embedded variable font (weight axis 100–900), the
+   three Google-Fonts subsets (latin, latin-ext, cyrillic). */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/inter-var-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/inter-var-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('fonts/inter-var-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 
 * { box-sizing: border-box; }
@@ -30,7 +62,9 @@ html, body {
   color: var(--text);
   font-family: var(--font-ui);
   font-size: var(--base-size);
+  font-feature-settings: 'cv05', 'cv08';   /* Inter: l with tail, better 0 */
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 #app {
@@ -195,7 +229,10 @@ button:focus-visible, input:focus-visible {
 #log-search::placeholder { color: var(--placeholder); }
 .btn-clear { padding: 4px 10px; font-size: 12px; }
 
-/* the desk — LogView twin: read-only NoWrap mono list on the well */
+/* the desk — LogView twin: the wrapping mono list on the well.
+   THE WRAP LAW (the owner's SESSION-075 reality — the NoWrap elide
+   cut mid-word: "co…", "a…", "th…"): rows WRAP now; the full text
+   rides the row (and its tooltip). The mono 12px law stays. */
 .log-desk {
   flex: 1;
   min-height: 0;
@@ -206,6 +243,7 @@ button:focus-visible, input:focus-visible {
   padding: var(--sp-2);
   font-family: var(--font-mono);
   font-size: var(--log-size);
+  line-height: 1.5;
 }
 .log-desk::-webkit-scrollbar { width: 10px; }
 .log-desk::-webkit-scrollbar-track { background: var(--log-well); }
@@ -217,28 +255,56 @@ button:focus-visible, input:focus-visible {
   padding: var(--sp-3);
 }
 /* the row: glyph · [ts] · message — ONE muted message ink for every level
-   (v0.32 law); the meaning rides the shape-coded, level-colored glyphs */
+   (v0.32 law); the meaning rides the shape-coded, level-colored glyphs.
+   The LEADING emoji (when a line carries one) is stripped and its real
+   glyph rides the level-glyph seat (level-colored); INTERIOR emojis
+   render inline as .emojicon glyphs (emojicons.js). */
 .log-row {
   display: flex;
-  align-items: baseline;
+  align-items: flex-start;
   gap: 6px;
-  white-space: nowrap;              /* NoWrap: CSS elides (the fm.elidedText
-                                       twin; the resize re-render debounce is
-                                       a Qt law with no HTML twin needed) */
-  overflow: hidden;
-  padding-bottom: 2px;              /* apply_row_format's 2px bottom margin */
+  white-space: normal;
+  overflow-wrap: anywhere;              /* long paths + URLs wrap, never hide */
+  padding-bottom: 2px;                  /* apply_row_format's 2px bottom margin */
 }
-.log-row .glyph { flex: none; width: 12px; height: 12px; }
+.log-row .glyph { flex: none; width: 12px; height: 12px; margin-top: 3px; }
 .log-row .log-ts { flex: none; color: var(--log-ts); }
 .log-row .log-msg {
   color: var(--log-text);
-  overflow: hidden;
-  text-overflow: ellipsis;          /* elide right; full text on the tooltip */
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .glyph-success { color: var(--success); }
 .glyph-warning { color: var(--warning); }
 .glyph-error   { color: var(--error); }
 .glyph-info    { color: var(--muted); }
+
+/* THE EMOJICON LAW (the owner's SESSION-075 directive — "use real
+   icons instead of emojis"): every mapped emoji renders as a real
+   Lucide SVG glyph (emojicons.js), 1em square, baseline-aligned,
+   currentColor — it follows its context's ink exactly as the text
+   would. */
+.emojicon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.135em;
+  flex: none;
+}
+.emojicon svg { width: 100%; height: 100%; display: block; }
+
+/* icon-bearing buttons: the label flows beside a real glyph */
+.btn-secondary, .btn-ghost, .btn-primary, .btn-danger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 
 .log-card-foot {
   display: flex;
@@ -1038,7 +1104,9 @@ textarea.form-area { resize: vertical; min-height: 42px; }
   flex-direction: column;
 }
 .more-item {
-  display: block;
+  display: flex;                     /* the emojicon glyph + the label row */
+  align-items: center;
+  gap: 9px;
   width: 100%;
   text-align: left;
   background: transparent;
@@ -1051,6 +1119,7 @@ textarea.form-area { resize: vertical; min-height: 42px; }
   cursor: pointer;
   position: relative;
 }
+.more-item .emojicon { width: 14px; height: 14px; flex: none; }
 .more-item:hover:not(:disabled) { background: var(--sheet-alt); }
 .more-item:disabled {
   color: var(--text-disabled);

@@ -532,3 +532,51 @@ func openNoteState(t *testing.T, tmp string) *notestate.DB {
 	t.Cleanup(func() { db.Close() })
 	return db
 }
+
+// ---------------------------------------------------------------------------
+// THE MISSING-FOLDER LAW (the owner's SESSION-075 directive): a vault
+// WITHOUT a _review folder is the healthy normal — the backlog scan
+// and the notes scan return nil SILENTLY (no warning line, exactly no
+// rows); every OTHER read error (a FILE squatting on the folder's
+// name) keeps the warning. The regression: the owner's live sync
+// warned "Could not list G:\…\_review: The system cannot find the
+// file specified." on every pass.
+// ---------------------------------------------------------------------------
+
+func TestScanReviewMissingFolderIsSilent(t *testing.T) {
+	vault := t.TempDir() // NO _review folder — the healthy normal
+
+	var lines []string
+	log := func(msg, level string) { lines = append(lines, level+": "+msg) }
+
+	if got := ScanReviewBacklog(vault, log, nil); got != nil {
+		t.Fatalf("backlog over a missing _review: got %+v, want nil", got)
+	}
+	if got := ScanReviewNotes(vault, log); got != nil {
+		t.Fatalf("notes over a missing _review: got %+v, want nil", got)
+	}
+	if len(lines) != 0 {
+		t.Fatalf("the missing _review folder spoke: %v", lines)
+	}
+
+	// the OTHER errors keep their warning: a FILE squatting on the
+	// folder's path makes ReadDir fail with ENOTDIR (never ENOENT).
+	squatter := filepath.Join(vault, ReviewFolder)
+	if err := os.WriteFile(squatter, []byte("not a folder"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	lines = nil
+	if got := ScanReviewBacklog(vault, log, nil); got != nil {
+		t.Fatalf("backlog over a squatter: got %+v, want nil", got)
+	}
+	if len(lines) != 1 || !strings.Contains(lines[0], "Could not list") {
+		t.Fatalf("the squatter's warning line: %v", lines)
+	}
+	lines = nil
+	if got := ScanReviewNotes(vault, log); got != nil {
+		t.Fatalf("notes over a squatter: got %+v, want nil", got)
+	}
+	if len(lines) != 1 || !strings.Contains(lines[0], "Could not list") {
+		t.Fatalf("the squatter's warning line (notes): %v", lines)
+	}
+}
