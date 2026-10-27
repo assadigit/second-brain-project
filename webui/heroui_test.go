@@ -683,7 +683,10 @@ func TestHeroflowSentinelPaintLaws(t *testing.T) {
 	// the labels never read bare dashes).
 	for _, want := range []string{
 		"'Net: ' + (ev.net && ev.net.online ? 'online' : 'offline')",
-		"'on — cloud'", "'on — local ('", "'Proxy: connected'", "'Proxy: off'", "'Proxy: unreachable'",
+		// THE CONCISE-AI-LABEL LAW (SESSION-076): the chrome's word is
+		// the bare "AI: on"; the engine kind/name rides the tooltip only.
+		"aiWord = 'AI: on'", "'cloud provider'", "'local ('",
+		"'Proxy: connected'", "'Proxy: off'", "'Proxy: unreachable'",
 		"#42B36B", "#E85D75", "#D9A036", "#8E8A90",
 	} {
 		if !strings.Contains(src, want) {

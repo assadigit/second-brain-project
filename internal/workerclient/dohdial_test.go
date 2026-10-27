@@ -1,8 +1,8 @@
 package workerclient
 
 // dohdial_test.go — THE REACH-CLOUDFLARE LAW's hermetic battery (the
-// seam law: dohResolveFn + plainDialFn + the endpoint vars — every leg
-// swapped at loopback, zero network):
+// seam law: dohResolveFn + plainDialFn + the dohEndpoints tier —
+// every leg swapped at loopback, zero network):
 //
 //   1. the DoH question's own grammar (the JSON answer's A records;
 //      NXDOMAIN and junk answers yield nil — never an error);
@@ -10,7 +10,12 @@ package workerclient
 //      dead → the DoH answer's dial; both dead → the ORIGINAL error);
 //   3. the endpoint independence (the question dials the ENDPOINT IP
 //      with the ENDPOINT NAME as SNI — the poisoned-resolver class
-//      never rides the local resolver).
+//      never rides the local resolver);
+//   4. THE THREE-ENDPOINT TIER (SESSION-076): the tier walks to the
+//      next endpoint when the current one returns nil; the first
+//      endpoint that answers wins; the production tier carries exactly
+//      three endpoints (Cloudflare primary 1.1.1.1, Cloudflare
+//      secondary 1.0.0.1, Quad9 9.9.9.9).
 
 import (
 	"context"
@@ -45,6 +50,16 @@ func withDoHSeams(t *testing.T, resolve func(context.Context, string) []string,
 	t.Cleanup(func() { dohResolveFn, plainDialFn = oldResolve, oldPlain })
 }
 
+// withDoHEndpoints swaps the tier for one test (the standard restore
+// law); the loopback suites redirect the production three-endpoint tier
+// to one or more loopback httptest servers.
+func withDoHEndpoints(t *testing.T, eps []dohEndpoint) {
+	t.Helper()
+	old := dohEndpoints
+	dohEndpoints = eps
+	t.Cleanup(func() { dohEndpoints = old })
+}
+
 func TestResolveViaDoHReadsTheJSONAnswer(t *testing.T) {
 	// A loopback DoH endpoint: the fake answers over real HTTP + TLS.
 	srv := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -71,10 +86,7 @@ func TestResolveViaDoHReadsTheJSONAnswer(t *testing.T) {
 	restore := trustServer(srv)
 	defer restore()
 	host, port, _ := net.SplitHostPort(strings.TrimPrefix(srv.URL, "https://"))
-
-	oldName, oldIP, oldPort := dohEndpointName, dohEndpointIP, dohEndpointPort
-	dohEndpointName, dohEndpointIP, dohEndpointPort = "127.0.0.1", host, port
-	t.Cleanup(func() { dohEndpointName, dohEndpointIP, dohEndpointPort = oldName, oldIP, oldPort })
+	withDoHEndpoints(t, []dohEndpoint{{name: "127.0.0.1", ip: host, port: port}})
 
 	got := resolveViaDoH(context.Background(), "bot.example.workers.dev")
 	if len(got) != 2 || got[0] != "192.0.2.10" || got[1] != "192.0.2.11" {
@@ -221,14 +233,163 @@ func TestDohQuestionRidesTheEndpointIP(t *testing.T) {
 	restore := trustServer(srv)
 	defer restore()
 	host, port, _ := net.SplitHostPort(strings.TrimPrefix(srv.URL, "https://"))
-	oldName, oldIP, oldPort := dohEndpointName, dohEndpointIP, dohEndpointPort
-	dohEndpointName, dohEndpointIP, dohEndpointPort = "127.0.0.1", host, port
-	t.Cleanup(func() { dohEndpointName, dohEndpointIP, dohEndpointPort = oldName, oldIP, oldPort })
+	withDoHEndpoints(t, []dohEndpoint{{name: "127.0.0.1", ip: host, port: port}})
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	got := resolveViaDoH(ctx, "any.example")
 	if len(got) != 1 || got[0] != "192.0.2.20" {
 		t.Fatalf("the loopback endpoint's answer: %v", got)
+	}
+}
+
+// TestDoHTierWalksToSecondEndpointWhenFirstReturnsNil — THE
+// THREE-ENDPOINT TIER's walk law (SESSION-076): when the first
+// endpoint returns nil (NXDOMAIN, junk, or no A records), the tier
+// walks to the second endpoint; the second endpoint's answer wins.
+func TestDoHTierWalksToSecondEndpointWhenFirstReturnsNil(t *testing.T) {
+	// Two loopback DoH endpoints: the first returns NXDOMAIN (nil),
+	// the second returns a real A record. The tier must walk.
+	nxdServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{"Status": 3, "Answer": []any{}})
+	}))
+	defer nxdServer.Close()
+	answerServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{"Status": 0,
+			"Answer": []map[string]any{{"type": 1, "data": "192.0.2.42"}}})
+	}))
+	defer answerServer.Close()
+	// THE TRUST LAW: both servers' certs must be trusted (the tier
+	// walks; the second endpoint's TLS must verify under the test root).
+	pool := x509.NewCertPool()
+	if cert := nxdServer.Certificate(); cert != nil {
+		pool.AddCert(cert)
+	}
+	if cert := answerServer.Certificate(); cert != nil {
+		pool.AddCert(cert)
+	}
+	restore := SetDoHTestRoot(pool)
+	defer restore()
+
+	nxdHost, nxdPort, _ := net.SplitHostPort(strings.TrimPrefix(nxdServer.URL, "https://"))
+	ansHost, ansPort, _ := net.SplitHostPort(strings.TrimPrefix(answerServer.URL, "https://"))
+	withDoHEndpoints(t, []dohEndpoint{
+		{name: "127.0.0.1", ip: nxdHost, port: nxdPort},
+		{name: "127.0.0.1", ip: ansHost, port: ansPort},
+	})
+
+	got := resolveViaDoH(context.Background(), "bot.example.workers.dev")
+	if len(got) != 1 || got[0] != "192.0.2.42" {
+		t.Fatalf("the tier must walk to the second endpoint's answer: %v", got)
+	}
+}
+
+// TestDoHTierWalksToThirdEndpointWhenFirstTwoReturnNil — the tier
+// walks through THREE endpoints (the third is the cross-provider
+// redundancy leg): when the first two return nil, the third's answer
+// wins. This is the SESSION-076 Quad9 leg's pin.
+func TestDoHTierWalksToThirdEndpointWhenFirstTwoReturnNil(t *testing.T) {
+	emptyServer1 := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{"Status": 0, "Answer": []any{}})
+	}))
+	defer emptyServer1.Close()
+	emptyServer2 := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{"Status": 3, "Answer": []any{}})
+	}))
+	defer emptyServer2.Close()
+	answerServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_ = json.NewEncoder(w).Encode(map[string]any{"Status": 0,
+			"Answer": []map[string]any{{"type": 1, "data": "192.0.2.99"}}})
+	}))
+	defer answerServer.Close()
+	pool := x509.NewCertPool()
+	for _, s := range []*httptest.Server{emptyServer1, emptyServer2, answerServer} {
+		if cert := s.Certificate(); cert != nil {
+			pool.AddCert(cert)
+		}
+	}
+	restore := SetDoHTestRoot(pool)
+	defer restore()
+
+	h1, p1, _ := net.SplitHostPort(strings.TrimPrefix(emptyServer1.URL, "https://"))
+	h2, p2, _ := net.SplitHostPort(strings.TrimPrefix(emptyServer2.URL, "https://"))
+	h3, p3, _ := net.SplitHostPort(strings.TrimPrefix(answerServer.URL, "https://"))
+	withDoHEndpoints(t, []dohEndpoint{
+		{name: "127.0.0.1", ip: h1, port: p1},
+		{name: "127.0.0.1", ip: h2, port: p2},
+		{name: "127.0.0.1", ip: h3, port: p3},
+	})
+
+	got := resolveViaDoH(context.Background(), "bot.example.workers.dev")
+	if len(got) != 1 || got[0] != "192.0.2.99" {
+		t.Fatalf("the tier must walk to the third endpoint's answer: %v", got)
+	}
+}
+
+// TestDoHTierReturnsFirstEndpointAnswerWhenItHasOne — the tier's
+// first-wins law: when the first endpoint returns a non-empty answer,
+// the tier never asks the second. Two answer-bearing endpoints; the
+// first's answer wins; the second is never hit (a hit counter pins it).
+func TestDoHTierReturnsFirstEndpointAnswerWhenItHasOne(t *testing.T) {
+	var firstHits, secondHits int
+	firstServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		firstHits++
+		_ = json.NewEncoder(w).Encode(map[string]any{"Status": 0,
+			"Answer": []map[string]any{{"type": 1, "data": "192.0.2.10"}}})
+	}))
+	defer firstServer.Close()
+	secondServer := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		secondHits++
+		_ = json.NewEncoder(w).Encode(map[string]any{"Status": 0,
+			"Answer": []map[string]any{{"type": 1, "data": "192.0.2.20"}}})
+	}))
+	defer secondServer.Close()
+	pool := x509.NewCertPool()
+	for _, s := range []*httptest.Server{firstServer, secondServer} {
+		if cert := s.Certificate(); cert != nil {
+			pool.AddCert(cert)
+		}
+	}
+	restore := SetDoHTestRoot(pool)
+	defer restore()
+
+	h1, p1, _ := net.SplitHostPort(strings.TrimPrefix(firstServer.URL, "https://"))
+	h2, p2, _ := net.SplitHostPort(strings.TrimPrefix(secondServer.URL, "https://"))
+	withDoHEndpoints(t, []dohEndpoint{
+		{name: "127.0.0.1", ip: h1, port: p1},
+		{name: "127.0.0.1", ip: h2, port: p2},
+	})
+
+	got := resolveViaDoH(context.Background(), "bot.example.workers.dev")
+	if len(got) != 1 || got[0] != "192.0.2.10" {
+		t.Fatalf("the first endpoint's answer must win: %v", got)
+	}
+	if firstHits != 1 {
+		t.Fatalf("the first endpoint must be hit exactly once: %d", firstHits)
+	}
+	if secondHits != 0 {
+		t.Fatalf("the second endpoint must never be hit when the first answers: %d", secondHits)
+	}
+}
+
+// TestProductionDoHTierHasThreeEndpoints — THE THREE-ENDPOINT
+// RESILIENCE LAW's production pin: the default dohEndpoints slice
+// carries exactly three endpoints in the SESSION-076 order — Cloudflare
+// primary (1.1.1.1 / cloudflare-dns.com), Cloudflare secondary
+// (1.0.0.1 / cloudflare-dns.com), Quad9 (9.9.9.9 / dns.quad9.net).
+// A regression that drops an endpoint or reorders the tier fails here.
+func TestProductionDoHTierHasThreeEndpoints(t *testing.T) {
+	if len(dohEndpoints) != 3 {
+		t.Fatalf("the production DoH tier must carry exactly three endpoints, got %d", len(dohEndpoints))
+	}
+	want := []dohEndpoint{
+		{name: "cloudflare-dns.com", ip: "1.1.1.1", port: "443"},
+		{name: "cloudflare-dns.com", ip: "1.0.0.1", port: "443"},
+		{name: "dns.quad9.net", ip: "9.9.9.9", port: "443"},
+	}
+	for i, ep := range dohEndpoints {
+		if ep != want[i] {
+			t.Fatalf("endpoint %d: got %+v, want %+v", i, ep, want[i])
+		}
 	}
 }

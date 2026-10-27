@@ -329,10 +329,17 @@ function paintSentinels(ev) {
   let aiWord = 'AI: not configured';
   let aiSem = 'muted';
   let aiDot = '#8E8A90';
+  let aiTip = ai.detail || '';
+  // THE CONCISE-AI-LABEL LAW (the owner's SESSION-076 directive — the
+  // chrome's word is "AI: on"; the engine kind/name rides the tooltip
+  // only — hover for the full picture). The cloud/local kind and the
+  // engine name never crowd the chrome bar anymore.
   if (ai.state === 'on') {
-    aiWord = 'AI: ' + (ai.kind === 'cloud' ? 'on — cloud'
-      : 'on — local (' + (ai.engine || 'local') + ')');
+    aiWord = 'AI: on';
     aiSem = 'success'; aiDot = '#42B36B';
+    const engineDesc = ai.kind === 'cloud' ? 'cloud provider'
+      : 'local (' + (ai.engine || 'local') + ')';
+    aiTip = aiTip ? aiTip + ' — ' + engineDesc : engineDesc;
   } else if (ai.state === 'warn') {
     aiWord = 'AI: ' + (ai.short && ai.short.startsWith('warn') ? ai.short : 'warn — ' + (ai.short || 'warn'));
     aiSem = 'warning'; aiDot = '#D9A036';
@@ -341,7 +348,7 @@ function paintSentinels(ev) {
     aiSem = 'error'; aiDot = '#E85D75';
   }
   paintSentinel('sentinel-ai', {
-    dot_color: aiDot, word: aiWord, semantic: aiSem, tooltip: ai.detail || '',
+    dot_color: aiDot, word: aiWord, semantic: aiSem, tooltip: aiTip,
   });
   const px = ev.proxy || {};
   let pxWord = 'Proxy: unreachable', pxSem = 'error', pxDot = '#E85D75';
