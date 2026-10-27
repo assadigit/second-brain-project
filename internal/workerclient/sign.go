@@ -83,6 +83,14 @@ type reply struct {
 	data   any
 }
 
+// DirectClient is the exported proxy-BYPASSED HTTP client with the DoH
+// fallback dialer (for use by other packages — e.g. connectioncheck's
+// Test Connection Worker check, which needs the same DNS-censorship
+// resilience the sync channel has). THE REACH-CLOUDFLARE LAW's export.
+func DirectClient(timeoutS float64) *http.Client {
+	return directClient(timeoutS)
+}
+
 // directClient is the proxy-BYPASSED opener (ProxyHandler({})):
 // workers.dev was intercepted by local v2rayN into 403s — no proxy,
 // ever, on any leg of this channel. THE REACH-CLOUDFLARE LAW

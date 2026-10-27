@@ -20,6 +20,7 @@ import (
 
 	"github.com/assadigit/second-brain-project/internal/llmclient"
 	"github.com/assadigit/second-brain-project/internal/storage"
+	"github.com/assadigit/second-brain-project/internal/workerclient"
 )
 
 // connectionUA is the battery's own identity on every probe.
@@ -210,12 +211,19 @@ type WorkerHTTPGet func(u string, timeoutS float64) (any, error)
 // would otherwise see a false ⚠️/❌ for a Worker that works. A package
 // seam so the battery tests can inject (the reference monkeypatches).
 var workerDirectGet WorkerHTTPGet = func(u string, timeoutS float64) (any, error) {
+	// THE TEST-CONNECTION-DOH LAW (SESSION-080): the Test Connection's
+	// Worker /health check rides the SAME DoH fallback dialer the sync
+	// channel uses (workerclient.DirectClient) — so "Worker not
+	// connected" doesn't lie when the only thing failing is the ISP's
+	// DNS poisoning. The plain directClient used the system resolver;
+	// the DoH client bypasses it (Cloudflare's 1.1.1.1 → resolve → dial
+	// the IP directly with the original name's TLS).
 	req, err := http.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("User-Agent", connectionUA)
-	res, err := directClient(timeoutS).Do(req)
+	res, err := workerclient.DirectClient(timeoutS).Do(req)
 	if err != nil {
 		return nil, err
 	}
