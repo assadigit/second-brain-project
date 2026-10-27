@@ -2211,3 +2211,25 @@ README front page (pointing at go.4), this entry, the T-82
 checklist's go.3 intake, the worklog append. What remains: **the
 owner's go.4 re-run and, if green, the sign-off call — the Phase-7
 exit gate's last leg.**
+
+**Phase 7 (continued) — SESSION-076: THE FULL STATE RE-VERIFIED
+FROM A FRESH SANDBOX (the 70th wipe) — go-ci GREEN at the open; the
+live go.4 asset re-downloaded fresh, sha256 `11f9d856…fb6a`
+byte-exact; all SIX laws confirmed at their seats in code (the
+quiet heartbeat, the `_review` silence, Inter + the wrap, the
+800×600 window, the Lucide glyph pack, the DoH fallback dialer);
+the battery 2403 + 95 = 2498 green (race-clean, gofmt/vet/build
+clean both modules); the tree clean.** The prompt's six problems
+were the go.3-era feedback (the screenshot IS the go.3 run — cold
+start 1.206129 s, the emojis, the sentinel lines) — **go.4 fixes
+all six; the owner has not yet run go.4.** The one improvement: a
+plain-language **"What is the sentinel?"** entry in
+WINDOWS-QUICKSTART.md's "Good to know" (the connection-health
+monitor inherited from the Python original — it paints the Net ·
+AI · Proxy cues; its 60-second log line was noise, silenced in
+go.4; docs-only, rides the next release). The Phase-7 exit
+evaluation: still NOT GREEN honestly — **the owner's go.4 re-run
+(the checklist's slots are prepared) and, if green, the sign-off
+call are the exit gate's last leg.** The records: the SESSION-076
+report, the state card v77, doc 12's SESSION-076 entry, this
+entry, the worklog append.

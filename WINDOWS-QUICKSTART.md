@@ -138,6 +138,16 @@ It checks and shows, one line each: **vaults** (found + writable),
   `GitCurator-cli.exe --cli --detect-llm ollama` (or `llamacpp`).
 - Everything the app writes stays inside this folder (`config.json`,
   `cache.db`, `reports\`) or inside the vaults you point it at.
+- **What is the sentinel?** The **Net · AI · Proxy** cues at the top
+  of the window are painted by a small background monitor (the
+  Python original had it too — it is not a new addition): once a
+  minute it checks your connection and the configured AI endpoint,
+  and the offline warning speaks once at launch. It is silent by
+  design — no heartbeat lines in the log (the old
+  "Sentinel: net=online latency=… · AI=on" noise was removed in
+  v0.92.0-go.4); a line appears only when something CHANGES
+  (fell offline / back online). There is nothing to configure —
+  it just keeps the little lights honest.
 - **Updating later:** unzip the new version and copy your old
   `config.json` (and `cache.db` if you want the app to remember
   processed links) into the new folder.

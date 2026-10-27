@@ -2031,3 +2031,38 @@ entry, the README's front page + status entry, the T-82 checklist's
 intake, the go.4 release report, the worklog append. What remains
 in Phase 7: **the owner's go.4 re-run (the slots are prepared) and,
 if green, the sign-off call — the exit gate's last leg.**
+
+**Phase 7 (continued) — SESSION-076: THE POST-FIX SESSION RAN PATH
+(b) — THE FULL STATE RE-VERIFIED FROM A FRESH SANDBOX (the 70th
+wipe) + THE SENTINEL EXPLAINER ADDED TO THE SHIPPED GUIDE.** The
+prompt re-carried the owner's six problems verbatim (the go.3-era
+feedback) with a screenshot that IS the go.3 run — the cold-start
+badge's 1.206129 s matches the T-82 checklist's recorded go.3
+number, and the chrome (the emoji buttons, the `Sentinel: net=…`
+heartbeat lines, the `_review` warning, the pre-shrink window) is
+every one of the behaviors go.4 removed; the release's download
+count at open was 1 — the SESSION-075 verification download itself,
+so the owner has not yet run go.4. The session's verification, every
+leg evidence-backed: go-ci GREEN at the open (the close push
+`1a79666`'s build run success); the LIVE release asset
+re-downloaded fresh — **sha256 `11f9d856…fb6a` byte-exact**;
+**all six laws confirmed at their seats in code** (the quiet
+heartbeat's steady-state silence in app.go; the `fs.ErrNotExist`
+silent returns in review.go; the Inter subsets + the CSS face; the
+800×600 in webui/main.go; emojicons.js's official lucide-static
+geometry; dohdial.go's 1.1.1.1-by-IP fallback); **the battery
+2403 + 95 = 2498 green** (main plain 2403 over 36 ok / race clean
+0 races / webui 95 over 4 ok / gofmt+vet+build clean both modules),
+the tree clean. The reference repo was found PRIVATE this session
+(the anonymous clone refused) — cloned with the owner's ephemeral
+PAT, the remote scrubbed immediately (THE PRIVATE-REFERENCE
+RECORD). The one improvement: **"What is the sentinel?"** — a
+plain-language entry in WINDOWS-QUICKSTART.md's "Good to know"
+(the owner's SESSION-075 question, now answered in the shipped
+docs; docs-only, rides the next release; no version bump —
+releases only at milestones). The Phase-7 exit evaluation:
+**still NOT GREEN, honestly — unchanged**, because its last leg is
+the owner's: the go.4 re-run (the checklist's slots prepared) + the
+sign-off call. The records in the same commit: the SESSION-076
+report, the state card v77, this entry, the README's status entry,
+the worklog append.
