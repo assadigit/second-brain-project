@@ -382,7 +382,7 @@ func (c *Commands) SyncFetchQueue(ctx context.Context) *QueueReport {
 		if state != "ok" {
 			errMsg := "the Worker queue poll failed (network down or the Worker answered an error)"
 			if state == "disabled" {
-				errMsg = "the Worker queue is not configured (no worker_base_url or pairing)"
+				errMsg = "the Worker queue is not configured — set the Worker URL + pair the app in Settings → Bot (the pairing generates the install_id + shared_secret the HMAC signature requires)"
 			}
 			out = &QueueReport{State: state, Error: errMsg}
 			return

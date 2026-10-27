@@ -107,7 +107,7 @@ type BotResolveAction struct {
 // {err}" lines read it).
 func botQueueFetchErr(state string) string {
 	if state == "disabled" {
-		return "the Worker queue is not configured (no worker_base_url or pairing)"
+		return "the Worker queue is not configured — set the Worker URL + pair the app in Settings → Bot (the pairing generates the install_id + shared_secret the HMAC signature requires)"
 	}
 	return "the Worker queue poll failed (network down or the Worker answered an error)"
 }

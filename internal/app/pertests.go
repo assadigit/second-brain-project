@@ -2,6 +2,7 @@ package app
 
 import (
 	"fmt"
+	"github.com/assadigit/second-brain-project/internal/workerclient"
 	"strings"
 
 	"github.com/assadigit/second-brain-project/internal/connectioncheck"
@@ -68,11 +69,32 @@ func (s *Settings) TestTelegramGitHub() (string, string) {
 		// The queue is optional — the honest line (the reference's
 		// telegram half always ran; an unconfigured Worker is the
 		// port's own "nothing to check" truth).
-		s.SpeakOnBus("ℹ️ Worker queue not configured — the sync is optional (set the Worker's URL in Settings ▸ Bot).", "info")
+		s.SpeakOnBus("ℹ️ Worker queue not configured — the sync is optional (set the Worker URL + pair the app in Settings ▸ Bot).", "info")
 		return "", ""
 	}
 	s.SpeakOnBus("☁️ Worker queue: "+wc.Detail,
 		connectioncheck.GUILevels[wc.Level])
+	// THE WORKER-PAIRING-CHECK LAW (SESSION-077): the Worker's /health
+	// answers (the URL is set), but the SYNC also needs the PAIRING
+	// (install_id + shared_secret for the HMAC signature). When the
+	// pairing isn't set, warn — so "ALL SYSTEMS READY" doesn't lie
+	// when the SYNC will fail with "not configured".
+	sync := workerclient.NewSync(cfgPlainMap(s.cfg))
+	if !sync.IsEnabled() {
+		if !sync.IsPaired() {
+			s.SpeakOnBus("⚠️ Worker URL is set but the app is not paired — SYNC will fail until you pair in Settings ▸ Bot (the pairing generates the install_id + shared_secret).", "warning")
+		} else {
+			enabled := false
+			if v, ok := s.cfg.Get("cloudflare_enabled"); ok {
+				if b, is := v.(bool); is {
+					enabled = b
+				}
+			}
+			if !enabled {
+				s.SpeakOnBus("⚠️ Worker is paired but cloudflare_enabled is OFF — SYNC will fail until you enable it in Settings ▸ Bot.", "warning")
+			}
+		}
+	}
 	return "", ""
 }
 

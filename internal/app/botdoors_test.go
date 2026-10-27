@@ -75,8 +75,9 @@ func TestBotDoorExportGrammar(t *testing.T) {
 	s.SpeakOnBus("—", "info")
 	f.botQueueState = "disabled"
 	s.ExportAllBotLinks()
-	wantLogAt(t, rec, "❌ Export failed: the Worker queue is not configured "+
-		"(no worker_base_url or pairing)", "error", 7)
+	wantLogAt(t, rec, "❌ Export failed: the Worker queue is not configured — "+
+		"set the Worker URL + pair the app in Settings → Bot (the pairing generates "+
+		"the install_id + shared_secret the HMAC signature requires)", "error", 7)
 
 	// the happy path: the routed lists + the Σ forward_count message
 	// count + the export file + the two verdict lines + the box.

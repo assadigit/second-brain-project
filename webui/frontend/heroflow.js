@@ -372,7 +372,7 @@ function paintSentinels(ev) {
   // + dots + semantics live in Go; this only renders).
   paintSentinel('sentinel-net', {
     dot_color: ev.net && ev.net.online ? '#42B36B' : '#E85D75',
-    word: 'Net: ' + (ev.net && ev.net.online ? 'online' : 'offline'),
+    word: ev.net && ev.net.online ? 'Online' : 'Offline',
     semantic: ev.net && ev.net.online ? 'success' : 'error',
     tooltip: (ev.net && ev.net.detail) || '',
   });
@@ -381,16 +381,14 @@ function paintSentinels(ev) {
   let aiSem = 'muted';
   let aiDot = '#8E8A90';
   let aiTip = ai.detail || '';
-  // THE CONCISE-AI-LABEL LAW (the owner's SESSION-076 directive — the
-  // chrome's word is "AI: on"; the engine kind/name rides the tooltip
-  // only — hover for the full picture). The cloud/local kind and the
-  // engine name never crowd the chrome bar anymore.
+  // THE AI-LABEL-WITH-ENGINE LAW (the owner's SESSION-077 directive —
+  // "AI: On (llama.cpp) (or any ai)"): the chrome's word carries the
+  // engine name in parentheses — "AI: On (llama.cpp)" / "AI: On (cloud)"
+  // / "AI: Warn (…)" / "AI: Off (…)". The detail rides the tooltip.
   if (ai.state === 'on') {
-    aiWord = 'AI: on';
+    const engineName = ai.kind === 'cloud' ? 'cloud' : (ai.engine || 'local');
+    aiWord = 'AI: On (' + engineName + ')';
     aiSem = 'success'; aiDot = '#42B36B';
-    const engineDesc = ai.kind === 'cloud' ? 'cloud provider'
-      : 'local (' + (ai.engine || 'local') + ')';
-    aiTip = aiTip ? aiTip + ' — ' + engineDesc : engineDesc;
   } else if (ai.state === 'warn') {
     aiWord = 'AI: ' + (ai.short && ai.short.startsWith('warn') ? ai.short : 'warn — ' + (ai.short || 'warn'));
     aiSem = 'warning'; aiDot = '#D9A036';
