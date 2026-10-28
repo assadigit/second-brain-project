@@ -16,15 +16,14 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 
 1. **Get the zip** from
    [Releases](https://github.com/assadigit/second-brain-project/releases).
-   The live release `v0.92.0-go.14` is the **desktop milestone line's
+   The live release `v0.92.0-go.15` is the **desktop milestone line's
    D1-API-fallback release** (go.11 added THE D1-API FALLBACK; go.12
    fixed the D1 row-shape bug; go.13 added the D1-fallback DIAGNOSTIC;
-   go.14 adds the d1creds.json PRE-CONFIG DROP-IN — the owner downloads
-   ONE small file (just the 3 Cloudflare-API creds) + drops it in the
-   GitCurator folder; the app reads it on startup + arms the fallback
-   without manual Direct Pair field entry (the drop-in MERGES, never
-   overwrites; the no-secrets law holds — the creds ride the file the
-   owner provides, never the release);
+   go.14 added the d1creds.json PRE-CONFIG DROP-IN; go.15 adds the
+   drift-seal READY-MADE AUTO-RECOVERY — a stale .git/index.lock (the
+   common Windows class) is auto-cleared + the stage retried, so the
+   owner clicks SYNC + the vault-seal recovers instead of failing with
+   the confusing "Changes not staged for commit" message);
    go.4 carried the six fixes the owner named — the quiet log heartbeat, the clean sync without
    the _review warning, the Inter font + wrapped log lines, the
    20%-smaller 800x600 window, real Lucide icons everywhere instead of
@@ -43,7 +42,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
    **`0-START-HERE.txt`** first in the folder + the launcher set +
    the optional git+WebView2 checker; the release report with every
    verified number:
-   `docs/poc-artifacts/release-v0.92.0-go.14.md`.
+   `docs/poc-artifacts/release-v0.92.0-go.15.md`.
    **Nothing is installed — it's a portable app**: extract the zip
    ("Extract All"), open `0-START-HERE.txt` (the 30-second card — it
    covers the unsigned-app SmartScreen box and what to do if an
