@@ -52,8 +52,24 @@ click Direct Pair. The drop-in is the zero-field-entry alternative.)
   tests) / webui 4 packages GREEN / gofmt + vet + build clean both
   modules / race clean on workerclient.
 
-## The workflows + the artifact (appended after the live verification)
+## The workflows + the artifact (verified three ways)
 
-> The release-record law: the workflow run IDs + the sha256 + the
-> GitHub release ID are appended here after the go-ci + release
-> workflows complete + the live asset is re-downloaded fresh.
+- **The workflows**: go-ci run **#177** (head `86298ba`, the bump)
+  GREEN + the release run **#16** (head `86298ba`) GREEN.
+- **The release**: GitHub release **426540451**, LIVE, published
+  2026-10-28T10:43:07Z; the asset
+  `GitCurator-v0.92.0-go.14-windows.zip` (**27,455,980 bytes**,
+  state uploaded).
+- **The fresh download**: byte-count matches (27,455,980); sha256
+  `011182c7349dc8758409ee8c2a4d661af50941b7ec90264e899232756d2bb018`.
+- **THE ONE-VERSION-TRUTH**: the tag `v0.92.0-go.14` + the zip's
+  `VERSION` member + the GUI's `ProductVersion` + the CLI's
+  buildinfo mod — all carry one number, verified.
+- **The drop-in code is in the build**: the GUI exe carries the
+  strings `applyD1CredsDropin` + `d1creds.json` (confirmed by
+  grepping the binary) — the drop-in law rides the release.
+
+> **go.11/go.12/go.13 are superseded** — go.14 is the release the
+> owner runs. The owner needs go.14 (the drop-in code) + the
+> `d1creds.json` file (downloaded separately).
+
