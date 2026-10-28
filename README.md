@@ -16,9 +16,16 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 
 1. **Get the zip** from
    [Releases](https://github.com/assadigit/second-brain-project/releases).
-   The live release `v0.92.0-go.10` is the **desktop milestone line's
-   six-fix + three-improvements + five-owner-fixes release** (go.4 carried the six fixes
-   the owner named — the quiet log heartbeat, the clean sync without
+   The live release `v0.92.0-go.11` is the **desktop milestone line's
+   D1-API-fallback release** (go.11 adds THE D1-API FALLBACK: when the
+   owner's ISP blocks workers.dev at the IP level — even the DoH
+   tier can't reach a black-holed anycast — the honest poll falls
+   back to GetPendingViaD1(), querying the D1 database directly via
+   api.cloudflare.com, a DIFFERENT edge the ISP does NOT block; the
+   SQL mirrors the Worker's handleGetPending exactly; read-only, no
+   ack — the ack rides the direct path when the network recovers; the
+   Direct Pair UI carries the 3 new optional Cloudflare-API fields;
+   go.4 carried the six fixes the owner named — the quiet log heartbeat, the clean sync without
    the _review warning, the Inter font + wrapped log lines, the
    20%-smaller 800x600 window, real Lucide icons everywhere instead of
    emojis, and the proxy-off bot-queue fetch via Cloudflare DoH; go.5
@@ -36,7 +43,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
    **`0-START-HERE.txt`** first in the folder + the launcher set +
    the optional git+WebView2 checker; the release report with every
    verified number:
-   `docs/poc-artifacts/release-v0.92.0-go.10.md`.
+   `docs/poc-artifacts/release-v0.92.0-go.11.md`.
    **Nothing is installed — it's a portable app**: extract the zip
    ("Extract All"), open `0-START-HERE.txt` (the 30-second card — it
    covers the unsigned-app SmartScreen box and what to do if an
