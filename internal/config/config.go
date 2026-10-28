@@ -16,6 +16,7 @@ package config
 import (
 	"bytes"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/assadigit/second-brain-project/internal/constants"
@@ -75,6 +76,16 @@ func LoadAppConfig(configPath string) LoadAppResult {
 		config = constants.ExampleTree() // deep copy of the defaults
 	}
 	filled := ApplyGlobalCredentials(config, "", fresh)
+
+	// THE PRE-CONFIG DROP-IN LAW (SESSION-081): the OPTIONAL d1creds.json
+	// file (next to config.json) carries the 3 Cloudflare-API creds the
+	// D1-API fallback needs. The owner downloads ONE small file + drops it
+	// in the app folder; the app reads it on startup + arms the fallback
+	// without manual Direct Pair field entry. No-op when absent (the
+	// common case). Only non-empty values merge (a broken drop-in is
+	// ignored, never poisons the config). The no-secrets law holds: the
+	// creds ride the drop-in file the owner provides, never the release.
+	applyD1CredsDropin(config, configPath)
 
 	// v0.07.1 — heal hand-edited configs (after the fill, under the same
 	// law).
@@ -140,4 +151,44 @@ func Save(path string, config *storage.OrderedMap) bool {
 	}
 	MirrorCredentialsToGlobal(config, "")
 	return true
+}
+
+// d1CredsDropinKeys are the 3 Cloudflare-API creds the D1-API fallback
+// reads (the documented /api/pending contract's api.cloudflare.com
+// access set).
+var d1CredsDropinKeys = []string{
+	"cloudflare_api_token",
+	"cloudflare_account_id",
+	"cloudflare_d1_database_id",
+}
+
+// applyD1CredsDropin reads the OPTIONAL d1creds.json drop-in (next to
+// config.json) + merges the 3 Cloudflare-API creds into the live
+// config when present + non-empty. THE PRE-CONFIG DROP-IN LAW
+// (SESSION-081): the owner downloads ONE small file (just the 3 creds)
+// + drops it in the app folder; the app reads it on startup + arms the
+// D1-API fallback without manual Direct Pair field entry. No-op when
+// the file is absent (the common case). Only non-empty trimmed values
+// merge (a broken or partial drop-in is ignored, never poisons the
+// config). The no-secrets law holds: the creds ride the drop-in file
+// the owner provides, never the public release.
+func applyD1CredsDropin(config *storage.OrderedMap, configPath string) {
+	dropinPath := filepath.Join(filepath.Dir(configPath), "d1creds.json")
+	raw, err := os.ReadFile(dropinPath)
+	if err != nil {
+		return // absent — the common case; no-op
+	}
+	dropin, derr := storage.DecodeJSON(raw)
+	if derr != nil {
+		return // unparseable — no-op (a broken drop-in is ignored)
+	}
+	for _, k := range d1CredsDropinKeys {
+		if v, ok := dropin.Get(k); ok {
+			if s, isStr := v.(string); isStr {
+				if trimmed := strings.TrimSpace(s); trimmed != "" {
+					config.Set(k, trimmed)
+				}
+			}
+		}
+	}
 }

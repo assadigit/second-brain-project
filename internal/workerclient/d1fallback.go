@@ -235,10 +235,12 @@ func (s *Sync) D1FallbackStatus() string {
 	apiToken, accountID, databaseID := s.d1FallbackConfig()
 	if apiToken == "" || accountID == "" || databaseID == "" {
 		return "the D1-API fallback is DORMANT (" + s.d1FallbackMissing() +
-			") — open Settings → Direct Pair + fill the 3 Cloudflare-API fields " +
-			"(API Token + Account ID + Database ID) to arm it; when the direct " +
-			"Worker request fails (the ISP blocks workers.dev), the fallback " +
-			"queries the D1 database directly via api.cloudflare.com"
+			") — arm it ONE of two ways: (a) open Settings → Direct Pair + " +
+			"fill the 3 Cloudflare-API fields (API Token + Account ID + " +
+			"Database ID), OR (b) drop a d1creds.json file (with the 3 creds) " +
+			"into the GitCurator folder (next to GitCurator.exe); when the " +
+			"direct Worker request fails (the ISP blocks workers.dev), the " +
+			"fallback queries the D1 database directly via api.cloudflare.com"
 	}
 	return "the D1-API fallback is ARMED (the 3 Cloudflare-API creds are set) — " +
 		"the direct Worker request failed + the fallback should have run; if you " +

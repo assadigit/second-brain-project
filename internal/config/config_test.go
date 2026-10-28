@@ -251,3 +251,85 @@ func TestExampleTreeDeepCopy(t *testing.T) {
 		t.Fatalf("nested mutation leaked: %v", v)
 	}
 }
+
+// TestApplyD1CredsDropin pins THE PRE-CONFIG DROP-IN LAW (SESSION-081):
+// d1creds.json (next to config.json) merges the 3 Cloudflare-API creds
+// into the live config when present + non-empty. Absent → no-op.
+// Partial → only the present creds merge. Unparseable → no-op.
+func TestApplyD1CredsDropin(t *testing.T) {
+	dir := t.TempDir()
+	cfgPath := filepath.Join(dir, "config.json")
+	write := func(name, body string) {
+		if err := os.WriteFile(filepath.Join(dir, name), []byte(body), 0o644); err != nil {
+			t.Fatal(err)
+		}
+	}
+	read := func() *storage.OrderedMap {
+		res := LoadAppConfig(cfgPath)
+		return res.Config
+	}
+	cred := func(cfg *storage.OrderedMap, key string) string {
+		v, _ := cfg.Get(key)
+		s, _ := v.(string)
+		return s
+	}
+
+	// Base config: no D1 creds.
+	write("config.json", `{"cloudflare_worker_url": "https://bot.example"}`)
+
+	// 1. No drop-in → creds stay empty (the common case).
+	c := read()
+	for _, k := range d1CredsDropinKeys {
+		if got := cred(c, k); got != "" {
+			t.Fatalf("absent drop-in: %s = %q; want empty", k, got)
+		}
+	}
+
+	// 2. Full drop-in → all 3 merge.
+	write("d1creds.json", `{
+                "cloudflare_api_token": "tok-xyz",
+                "cloudflare_account_id": "acct-xyz",
+                "cloudflare_d1_database_id": "db-xyz"
+        }`)
+	c = read()
+	for _, k := range d1CredsDropinKeys {
+		want := map[string]string{
+			"cloudflare_api_token":      "tok-xyz",
+			"cloudflare_account_id":     "acct-xyz",
+			"cloudflare_d1_database_id": "db-xyz",
+		}[k]
+		if got := cred(c, k); got != want {
+			t.Fatalf("full drop-in: %s = %q; want %q", k, got, want)
+		}
+	}
+
+	// 3. The OTHER config keys are untouched (the drop-in MERGES, not overwrites).
+	if got, _ := c.Get("cloudflare_worker_url"); got != "https://bot.example" {
+		t.Fatalf("drop-in clobbered cloudflare_worker_url: %v", got)
+	}
+
+	// 4. Partial drop-in → only the present cred merges; the others stay as-is.
+	write("d1creds.json", `{"cloudflare_api_token": "tok-only"}`)
+	c = read()
+	if got := cred(c, "cloudflare_api_token"); got != "tok-only" {
+		t.Fatalf("partial drop-in: api_token = %q; want tok-only", got)
+	}
+	// account_id + database_id stay empty (the partial drop-in doesn't wipe them).
+	if got := cred(c, "cloudflare_account_id"); got != "" {
+		t.Fatalf("partial drop-in: account_id = %q; want empty (not in drop-in)", got)
+	}
+
+	// 5. Empty-string drop-in value → does NOT overwrite (only non-empty merges).
+	write("d1creds.json", `{"cloudflare_api_token": ""}`)
+	c = read()
+	if got := cred(c, "cloudflare_api_token"); got != "" {
+		t.Fatalf("empty-value drop-in: api_token = %q; want empty (empty values don't merge)", got)
+	}
+
+	// 6. Unparseable drop-in → no-op (a broken drop-in is ignored).
+	write("d1creds.json", `{ not json`)
+	c = read()
+	if got := cred(c, "cloudflare_api_token"); got != "" {
+		t.Fatalf("unparseable drop-in: api_token = %q; want empty", got)
+	}
+}
