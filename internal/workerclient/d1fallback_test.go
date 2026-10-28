@@ -16,6 +16,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/assadigit/second-brain-project/internal/storage"
@@ -258,6 +259,47 @@ func TestD1FallbackQueryFailure(t *testing.T) {
 	ok, pending := s.GetPendingViaD1()
 	if ok || pending != nil {
 		t.Fatalf("query-failure: GetPendingViaD1 = (%v, %v); want (false, nil)", ok, pending)
+	}
+}
+
+// TestD1FallbackStatusArming: D1FallbackStatus reports DORMANT (which
+// creds missing) when any of the 3 is empty + ARMED when all set — the
+// diagnostic law the queue-check error rendering rides.
+func TestD1FallbackStatusArming(t *testing.T) {
+	// All empty → DORMANT with the three-key list.
+	s := NewSync(map[string]any{"cloudflare_enabled": true})
+	got := s.D1FallbackStatus()
+	if !strings.Contains(got, "DORMANT") {
+		t.Fatalf("all-empty: D1FallbackStatus = %q; want it to say DORMANT", got)
+	}
+	for _, key := range []string{
+		"cloudflare_api_token is empty",
+		"cloudflare_account_id is empty",
+		"cloudflare_d1_database_id is empty",
+	} {
+		if !strings.Contains(got, key) {
+			t.Fatalf("all-empty: D1FallbackStatus = %q; want it to name %q", got, key)
+		}
+	}
+	// All set → ARMED.
+	full := NewSync(map[string]any{
+		"cloudflare_api_token":      "tok",
+		"cloudflare_account_id":     "acct",
+		"cloudflare_d1_database_id": "db",
+		"cloudflare_enabled":        true,
+	})
+	if got := full.D1FallbackStatus(); !strings.Contains(got, "ARMED") {
+		t.Fatalf("all-set: D1FallbackStatus = %q; want it to say ARMED", got)
+	}
+	// Partial → DORMANT (names the missing one).
+	partial := NewSync(map[string]any{
+		"cloudflare_api_token":      "tok",
+		"cloudflare_account_id":     "acct",
+		"cloudflare_d1_database_id": "",
+		"cloudflare_enabled":        true,
+	})
+	if got := partial.D1FallbackStatus(); !strings.Contains(got, "DORMANT") || !strings.Contains(got, "cloudflare_d1_database_id is empty") {
+		t.Fatalf("partial: D1FallbackStatus = %q; want DORMANT naming the missing database_id", got)
 	}
 }
 

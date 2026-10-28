@@ -391,6 +391,15 @@ func (c *Commands) SyncFetchQueue(ctx context.Context) *QueueReport {
 					". Open Settings → Bot → Direct Pair (advanced) and paste " +
 					"the Worker URL + install_id + shared_secret, OR edit " +
 					"config.json directly."
+			} else if state == "error" {
+				// THE D1-FALLBACK DIAGNOSTIC (SESSION-081): the direct
+				// Worker request failed (the owner's ISP blocks workers.dev
+				// at the IP level); tell the owner whether the D1-API
+				// fallback is ARMED (the fallback ran + failed) or DORMANT
+				// (the 3 Cloudflare-API creds are missing — the fallback
+				// was skipped). Never a bare "queue poll failed".
+				syncCheck := workerclient.NewSync(cfgPlainMap(cfg))
+				errMsg = errMsg + " — " + syncCheck.D1FallbackStatus()
 			}
 			out = &QueueReport{State: state, Error: errMsg}
 			return

@@ -226,6 +226,26 @@ func shapeD1Row(col string, v any) any {
 	return v
 }
 
+// D1FallbackStatus reports the D1-API fallback's arming state for the
+// command layer's diagnostic (THE DIAGNOSTIC LAW — the owner sees
+// exactly whether the fallback is armed + what to fix, never a bare
+// "queue poll failed"). Pure config read (no HTTP). Used by the
+// queue-check error rendering when the direct Worker leg fails.
+func (s *Sync) D1FallbackStatus() string {
+	apiToken, accountID, databaseID := s.d1FallbackConfig()
+	if apiToken == "" || accountID == "" || databaseID == "" {
+		return "the D1-API fallback is DORMANT (" + s.d1FallbackMissing() +
+			") — open Settings → Direct Pair + fill the 3 Cloudflare-API fields " +
+			"(API Token + Account ID + Database ID) to arm it; when the direct " +
+			"Worker request fails (the ISP blocks workers.dev), the fallback " +
+			"queries the D1 database directly via api.cloudflare.com"
+	}
+	return "the D1-API fallback is ARMED (the 3 Cloudflare-API creds are set) — " +
+		"the direct Worker request failed + the fallback should have run; if you " +
+		"still see this error, the D1 API call itself failed (verify the API " +
+		"token has D1 read access + the account_id + database_id are correct)"
+}
+
 // firstD1Error surfaces the first error message in a D1 envelope's
 // `errors` list (each entry {code, message}); "d1 api failure" when
 // the list is empty or missing (the honest cause rides the debug log,
