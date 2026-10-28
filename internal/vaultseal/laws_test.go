@@ -150,3 +150,65 @@ func TestLaws_CLIFlagSurfaceAndExitCodes(t *testing.T) {
 		t.Fatalf("describe: %s", out.String())
 	}
 }
+
+// TestStageAll_AutoRecoversStaleIndexLock pins THE READY-MADE LAW
+// (SESSION-081 / go.15): a stale .git/index.lock (the common Windows
+// class — a previously-crashed git process leaves it) is auto-cleared
+// + the stage retried; the owner clicks SYNC + the drift-seal
+// recovers instead of failing with the confusing "Changes not staged
+// for commit" message. Also pins: a clean stage succeeds without
+// recovery; the warning log rides the recovery; the real git-add
+// error surfaces when the stage fails for a non-lock cause.
+func TestStageAll_AutoRecoversStaleIndexLock(t *testing.T) {
+	tmp := t.TempDir()
+	vault := initRepo(t, filepath.Join(tmp, "vault"), "note.md", "initial\n")
+	// Dirty the working tree (a modified tracked file to stage).
+	writeFile(t, filepath.Join(vault, "note.md"), "changed\n")
+
+	var logs []string
+	logFn := func(msg, level string) { logs = append(logs, msg+"|"+level) }
+	s := NewVaultSeal(vault, "", "r", false, true, 0, logFn, false, nil)
+
+	// 1. No lock + dirty → stage succeeds, no recovery, no log.
+	if err := s.stageAll(); err != nil {
+		t.Fatalf("clean stage: %v", err)
+	}
+	if len(logs) != 0 {
+		t.Fatalf("clean stage: unexpected recovery log: %v", logs)
+	}
+	// The file is staged now (git status --porcelain shows "M  note.md").
+	_, porcelain := s.gitf("status", "--porcelain")
+	if !strings.HasPrefix(porcelain, "M  note.md") {
+		t.Fatalf("clean stage: porcelain = %q; want the file staged (M  note.md)", porcelain)
+	}
+	// Commit so the tree is clean for the next scenario.
+	s.gitf("commit", "-m", "stage1", "--quiet")
+
+	// 2. Dirty again + a stale .git/index.lock → auto-recover.
+	writeFile(t, filepath.Join(vault, "note.md"), "changed-again\n")
+	lockPath := filepath.Join(vault, ".git", "index.lock")
+	writeFile(t, lockPath, "")
+	if err := s.stageAll(); err != nil {
+		t.Fatalf("stale-lock stage: %v (expected auto-recovery)", err)
+	}
+	// The lock was deleted.
+	if _, statErr := os.Stat(lockPath); !os.IsNotExist(statErr) {
+		t.Fatalf("stale-lock stage: the .git/index.lock was not deleted")
+	}
+	// The recovery warning was logged.
+	found := false
+	for _, ln := range logs {
+		if strings.Contains(ln, "cleared a stale .git/index.lock") && strings.Contains(ln, "warning") {
+			found = true
+			break
+		}
+	}
+	if !found {
+		t.Fatalf("stale-lock stage: no recovery warning logged; logs=%v", logs)
+	}
+	// The file is staged (the retry succeeded).
+	_, porcelain = s.gitf("status", "--porcelain")
+	if !strings.HasPrefix(porcelain, "M  note.md") {
+		t.Fatalf("stale-lock stage: porcelain = %q; want the file staged after recovery", porcelain)
+	}
+}

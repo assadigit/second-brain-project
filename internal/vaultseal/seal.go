@@ -5,6 +5,8 @@ package vaultseal
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -21,6 +23,45 @@ func (s *VaultSeal) commitMessage(runSummary *RunSummary) string {
 			*runSummary.Processed, *runSummary.Processed, *runSummary.Total, ts)
 	}
 	return "seal: vault snapshot — " + ts
+}
+
+// stageAll runs `git add -A -- .` (pathspec-limited to the vault
+// subtree so a hypothetical parent repo can never swallow unrelated
+// files) + AUTO-RECOVERS from a stale .git/index.lock (the common
+// Windows class — a previously-crashed git process leaves the lock;
+// at drift-seal time the app is the only writer, so the lock is
+// stale + safe to clear). THE READY-MADE LAW (SESSION-081 / go.15):
+// the owner clicks SYNC; if a stale lock blocks the stage, the
+// drift-seal clears it + retries instead of failing with the
+// confusing "Changes not staged for commit" message the swallowed
+// failure produced. Returns the honest error when the stage fails
+// even after the recovery (the real git-add cause surfaces).
+func (s *VaultSeal) stageAll() error {
+	rc, out := s.gitf("add", "-A", "--", ".")
+	if rc == 0 {
+		return nil
+	}
+	// Auto-recover from a stale index.lock (the common Windows class).
+	lockPath := filepath.Join(s.vault, ".git", "index.lock")
+	locked := strings.Contains(out, "index.lock")
+	if !locked {
+		if _, statErr := os.Stat(lockPath); statErr == nil {
+			locked = true
+		}
+	}
+	if locked {
+		if rmErr := os.Remove(lockPath); rmErr == nil {
+			s.log("VaultSeal: cleared a stale .git/index.lock (a previously-crashed git process left it); retrying the stage", "warning")
+			rc, out = s.gitf("add", "-A", "--", ".")
+			if rc == 0 {
+				return nil
+			}
+		} else if !os.IsNotExist(rmErr) {
+			return fmt.Errorf("git add failed + the stale .git/index.lock could not be removed (%v): %s",
+				rmErr, cutRunes(out, 300))
+		}
+	}
+	return fmt.Errorf("git add failed: %s", cutRunes(out, 300))
 }
 
 // sealInternal mirrors _seal: the engine room (enabled → vault →
@@ -50,8 +91,18 @@ func (s *VaultSeal) sealInternal(runSummary *RunSummary) *SealResult {
 
 	// Stage everything — pathspec-limited to the vault subtree so a
 	// hypothetical parent repo can never swallow unrelated files (the
-	// managed .gitignore keeps machine state out either way).
-	s.gitf("add", "-A", "--", ".")
+	// managed .gitignore keeps machine state out either way). THE
+	// READY-MADE LAW (SESSION-081 / go.15): a stale .git/index.lock
+	// (the common Windows class — a previously-crashed git process
+	// leaves the lock; at drift-seal time the app is the only writer,
+	// so the lock is stale + safe to clear) is auto-cleared + the
+	// stage retried; the real git-add error surfaces when the stage
+	// fails even after the recovery (never the confusing "Changes
+	// not staged for commit" message the swallowed failure produced).
+	if err := s.stageAll(); err != nil {
+		return &SealResult{Private: true, Error: err.Error(),
+			RepoName: metaRepoName, RepoURL: metaRepoURL}
+	}
 	rc, porcelain := s.gitf("status", "--porcelain")
 	rcHead, _ := s.gitf("rev-parse", "--verify", "-q", "HEAD")
 	var dirty []string
