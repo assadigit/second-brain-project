@@ -13,11 +13,14 @@ import (
 
 // ConfigKeys mirrors CONFIG_KEYS (stored in config.json).
 var ConfigKeys = map[string]any{
-	"cloudflare_worker_url":    "",
-	"cloudflare_install_id":    "",
-	"cloudflare_shared_secret": "",
-	"cloudflare_enabled":       false,
-	"cloudflare_poll_interval": 300,
+	"cloudflare_worker_url":     "",
+	"cloudflare_install_id":     "",
+	"cloudflare_shared_secret":  "",
+	"cloudflare_enabled":        false,
+	"cloudflare_poll_interval":  300,
+	"cloudflare_api_token":      "",
+	"cloudflare_account_id":     "",
+	"cloudflare_d1_database_id": "",
 }
 
 // Sync handles all communication with the Cloudflare Worker

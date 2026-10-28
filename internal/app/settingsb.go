@@ -271,6 +271,9 @@ type DirectPairValues struct {
 	WorkerURL    string `json:"workerUrl"`
 	InstallID    string `json:"installId"`
 	SharedSecret string `json:"sharedSecret"`
+	APIToken     string `json:"apiToken"`
+	AccountID    string `json:"accountId"`
+	DatabaseID   string `json:"databaseId"`
 }
 
 // DirectPair commits the Worker pairing directly — the advanced door
@@ -288,6 +291,9 @@ func (s *Settings) DirectPair(vals *DirectPairValues) *SaveResult {
 	ui.Set("cloudflare_worker_url", strings.TrimRight(strings.TrimSpace(vals.WorkerURL), "/"))
 	ui.Set("cloudflare_install_id", strings.TrimSpace(vals.InstallID))
 	ui.Set("cloudflare_shared_secret", strings.TrimSpace(vals.SharedSecret))
+	ui.Set("cloudflare_api_token", strings.TrimSpace(vals.APIToken))
+	ui.Set("cloudflare_account_id", strings.TrimSpace(vals.AccountID))
+	ui.Set("cloudflare_d1_database_id", strings.TrimSpace(vals.DatabaseID))
 	ui.Set("cloudflare_enabled", true)
 	return s.saveMerge(ui)
 }

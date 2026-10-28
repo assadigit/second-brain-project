@@ -45,8 +45,16 @@ func (s *Sync) GetPendingResult() (string, []any) {
 		}
 		return "ok", nil
 	}
-	debugf("[CloudflareSync] get_pending failed: %d %s", r.status,
-		storage.PyDumpsCompact(r.data))
+	debugf("[CloudflareSync] get_pending direct failed: %d %s — trying D1 fallback",
+		r.status, storage.PyDumpsCompact(r.data))
+	// THE D1-API FALLBACK (SESSION-081): the direct Worker request
+	// failed (the owner's ISP blocks workers.dev at the IP level);
+	// query the D1 database directly via api.cloudflare.com (a
+	// DIFFERENT edge the ISP does NOT block). Read-only — the ack
+	// rides the direct path when the network recovers.
+	if ok, list := s.GetPendingViaD1(); ok {
+		return "ok", list
+	}
 	return "error", nil
 }
 

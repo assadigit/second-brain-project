@@ -240,6 +240,9 @@ export namespace app {
 	    workerUrl: string;
 	    installId: string;
 	    sharedSecret: string;
+	    apiToken: string;
+	    accountId: string;
+	    databaseId: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new DirectPairValues(source);
@@ -250,6 +253,9 @@ export namespace app {
 	        this.workerUrl = source["workerUrl"];
 	        this.installId = source["installId"];
 	        this.sharedSecret = source["sharedSecret"];
+	        this.apiToken = source["apiToken"];
+	        this.accountId = source["accountId"];
+	        this.databaseId = source["databaseId"];
 	    }
 	}
 	export class BotVerifyResult {

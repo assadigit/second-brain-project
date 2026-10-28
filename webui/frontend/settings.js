@@ -1076,7 +1076,12 @@ function buildBot() {
     'paste the pre-paired credentials here. The Worker URL + install_id + ' +
     'shared_secret are written directly to config.json + cloudflare_enabled ' +
     'is turned ON. Get these from your Worker\'s D1 database or your ' +
-    'Cloudflare dashboard.'));
+    'Cloudflare dashboard. The three optional Cloudflare-API fields below ' +
+    '(API Token + Account ID + Database ID) enable THE D1-API FALLBACK: ' +
+    'when the direct Worker request itself fails (the ISP blocks ' +
+    'workers.dev at the IP level), the app queries your D1 database ' +
+    'directly via api.cloudflare.com (a different edge the ISP does not ' +
+    'block) — read-only, no ack.'));
 
   const dpGroup = el('div', 'settings-group');
   const dpUrlRow = el('div', 'form-row');
@@ -1100,6 +1105,33 @@ function buildBot() {
   const dpBtn = btn('Direct Pair', 'primary', '', () => doDirectPair());
   dpSecretRow.append(dpSecret, dpBtn);
   dpGroup.appendChild(dpSecretRow);
+
+  // THE D1-API FALLBACK FIELDS (optional — SESSION-081): when the
+  // direct Worker request fails (ISP blocks workers.dev at the IP
+  // level), the app queries D1 directly via api.cloudflare.com. These
+  // three credentials ride the Direct Pair save (the same cloudflare_*
+  // config keys the sync channel reads).
+  const dpApiRow = el('div', 'form-row');
+  dpApiRow.appendChild(label('API Token (optional):'));
+  const dpApi = input('set-dp-api-token', '',
+    { placeholder: 'cfut_... (Cloudflare API token with D1 read)' });
+  dpApiRow.appendChild(dpApi);
+  dpGroup.appendChild(dpApiRow);
+
+  const dpAcctRow = el('div', 'form-row');
+  dpAcctRow.appendChild(label('Account ID (optional):'));
+  const dpAcct = input('set-dp-account-id', '',
+    { placeholder: 'e.g. 1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d' });
+  dpAcctRow.appendChild(dpAcct);
+  dpGroup.appendChild(dpAcctRow);
+
+  const dpDbRow = el('div', 'form-row');
+  dpDbRow.appendChild(label('Database ID (optional):'));
+  const dpDb = input('set-dp-database-id', '',
+    { placeholder: 'e.g. 11111111-2222-3333-4444-555555555555' });
+  dpDbRow.appendChild(dpDb);
+  dpGroup.appendChild(dpDbRow);
+
   p.appendChild(dpGroup);
   return p;
 }
@@ -1109,6 +1141,9 @@ function doDirectPair() {
     workerUrl: ($('#set-dp-worker-url') || {}).value || '',
     installId: ($('#set-dp-install-id') || {}).value || '',
     sharedSecret: ($('#set-dp-shared-secret') || {}).value || '',
+    apiToken: ($('#set-dp-api-token') || {}).value || '',
+    accountId: ($('#set-dp-account-id') || {}).value || '',
+    databaseId: ($('#set-dp-database-id') || {}).value || '',
   };
   if (!vals.workerUrl || !vals.installId || !vals.sharedSecret) {
     miniDialog('Direct Pair — missing fields',
