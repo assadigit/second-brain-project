@@ -97,6 +97,40 @@ workflow, and verify the release is live.
 ways (docs-only; the report's verification section filled with the
 real numbers).
 
+**THE go.12 FOLLOW-UP (the owner's "pre-config everything so I just
+click SYNC" directive surfaced a latent bug):**
+
+- **Commit `ab32d85`** — THE D1-ROW-SHAPE FIX. go.11's hermetic
+  pinning tests faked the WRONG D1 REST API envelope shape (a
+  `{columns, rows}` pair); the LIVE D1 returns `result[0].results`
+  as a LIST OF ROW-DICTS (each row an object keyed by column name).
+  `d1RawQuery` now reads the real list-of-row-dicts shape; the
+  hermetic `d1Envelope` helper + the two row-shaping tests serve
+  the real shape. THE VERIFY-THE-VERIFIER LESSON re-proven: the
+  hermetic suite passed against a fictional envelope; only the
+  live-D1 call surfaced the shape mismatch.
+- **Commit `d4eb54a`** — the go.12 release bump (VERSION +
+  wails.json + QUICKSTART + README + the go.12 release report).
+  The tag `v0.92.0-go.12` rides THIS commit.
+- **THE D1 PRE-POPULATION** (so the owner just clicks SYNC): the
+  owner's `curator-bot` D1 was EMPTY (0 tables — the bot hadn't
+  processed any GitHub URLs; the Worker creates the `ledger` table
+  lazily on first write). The `ledger` + `vault_mirror` +
+  `dead_letters` tables created (`IF NOT EXISTS`, the documented
+  `/api/pending` contract columns) + ONE test GitHub-URL pending
+  row inserted via the D1 REST API (the owner's own repo). Verified:
+  `GetPendingViaD1` returns `(true, 1)` against the live D1 — the
+  test row, with `github_metadata` parsed as a nested
+  `*OrderedMap`. Cleanup SQL in the go.12 release report.
+- **go-ci run #173** (head `d4eb54a`): GREEN. **release run #14**
+  (head `d4eb54a`): GREEN. Release **426476165** LIVE; the asset
+  `GitCurator-v0.92.0-go.12-windows.zip` (27,453,572 bytes); sha256
+  `50f91b2c…4fec`; the VERSION member + the GUI ProductVersion +
+  the CLI buildinfo + the tag all carry `0.92.0-go.12`.
+- **go.11 is SUPERSEDED** (it carried the latent row-shape bug).
+  go.12 is the release the owner runs for the D1-fallback
+  verification.
+
 ## Gate Evaluation (pass/fail/partial + EVIDENCE)
 
 - **gofmt**: clean (`gofmt -l` empty on all changed packages).

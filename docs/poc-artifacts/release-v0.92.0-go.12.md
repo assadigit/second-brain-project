@@ -72,8 +72,23 @@ DROP TABLE IF EXISTS dead_letters;
 - `GetPendingViaD1` returns `(true, 1)` — the test GitHub-URL row,
   with `github_metadata` parsed as a nested `*OrderedMap`.
 
-## The workflows + the artifact (appended after the live verification)
+## The workflows + the artifact (verified three ways)
 
-> The release-record law: the workflow run IDs + the sha256 + the
-> GitHub release ID are appended here after the go-ci + release
-> workflows complete + the live asset is re-downloaded fresh.
+- **The workflows**: go-ci run **#173** (head `d4eb54a`, the bump)
+  GREEN + the release run **#14** (head `d4eb54a`) GREEN (both
+  watched to completion).
+- **The release**: GitHub release **426476165**, LIVE, published
+  2026-10-28T09:37:04Z; the asset
+  `GitCurator-v0.92.0-go.12-windows.zip` (**27,453,572 bytes**,
+  state uploaded).
+- **The fresh download**: byte-count matches the release asset
+  exactly (27,453,572); sha256
+  `50f91b2c4b5eb2fdf42b9097c05b67b883490fb51881c267d95731fa71834fec`.
+- **THE ONE-VERSION-TRUTH**: the tag `v0.92.0-go.12` + the zip's
+  `VERSION` member (`0.92.0-go.12`) + the GUI's `ProductVersion` +
+  the CLI's buildinfo mod — all four carry one number, verified.
+
+> **go.11 is superseded** — it carried the latent D1 row-shape bug
+> (the hermetic tests passed against a fictional envelope). go.12 is
+> the release the owner should run for the D1-fallback verification.
+

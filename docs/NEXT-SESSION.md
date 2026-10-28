@@ -16,21 +16,21 @@
   five owner-directive fixes at go.6 (SESSION-077), the four at go.7
   (SESSION-078), the Direct-Pair UI + diagnostic logging at go.9
   (SESSION-079), the test-connection-DoH law at go.10 (SESSION-080).
-  **SESSION-081 = THE D1-API-FALLBACK release `v0.92.0-go.11` LIVE +
-  VERIFIED THREE WAYS** (go-ci run #170 GREEN + release run #13 GREEN
-  + the release 426430005 LIVE; the asset 27,452,357 bytes; sha256
-  `2b3b82ac…3f88`; the VERSION member + the GUI ProductVersion +
-  the CLI buildinfo + the tag all carry one number). THE D1-API
-  FALLBACK closes the ISP-blocks-workers.dev gap: when the direct
-  Worker request fails, the honest poll falls back to
-  `GetPendingViaD1()` (a direct D1 query via api.cloudflare.com — a
-  DIFFERENT edge the ISP does NOT block; the SQL mirrors the Worker's
-  `handleGetPending` exactly; read-only, no ack). Six hermetic
-  pinning tests pin every law. The live-D1 verification confirmed the
-  code's transport + envelope + SQL-parse (the owner's `curator-bot`
-  D1 is empty for now — the schema is created lazily on the bot's
-  first write; the fallback fetches live the moment the bot processes
-  a URL).
+  **SESSION-081 = THE D1-API-FALLBACK release `v0.92.0-go.12` LIVE +
+  VERIFIED THREE WAYS** (go-ci run #173 GREEN + release run #14 GREEN
+  + the release 426476165 LIVE; the asset 27,453,572 bytes; sha256
+  `50f91b2c…4fec`; the VERSION member + the GUI ProductVersion +
+  the CLI buildinfo + the tag all carry one number). go.11 shipped
+  THE D1-API FALLBACK but carried a latent row-shape bug (the
+  hermetic tests faked the wrong D1 REST API envelope shape; the
+  live-D1 call caught it); go.12 fixes `d1RawQuery` to read the real
+  list-of-row-dicts shape + the hermetic suite serves it. THE D1 PRE-
+  POPULATION: the owner's `curator-bot` D1 was EMPTY; the ledger +
+  vault_mirror + dead_letters tables created (IF NOT EXISTS, the
+  documented contract columns) + ONE test GitHub-URL pending row
+  inserted via the D1 REST API; `GetPendingViaD1` returns `(true, 1)`
+  against the live D1 — the owner just clicks SYNC. Cleanup SQL in
+  the go.12 release report. go.11 is SUPERSEDED.
 - **Push state: CLEAN** — SESSION-081's close push (the report's
   verification section filled) is the latest; the tree is clean.
 - **The repo is PUBLIC**: pushes need the PAT (ephemeral — re-inline
@@ -94,8 +94,11 @@
 1. `docs/sessions/SESSION-081.md` — the D1-API-fallback session's
    report (the law + the wiring + the six pinning tests + the
    live-D1 verification + the verified-three-ways numbers).
-2. `docs/poc-artifacts/release-v0.92.0-go.11.md` — the live D1-API-
-   fallback release's report (the verified numbers).
+2. `docs/poc-artifacts/release-v0.92.0-go.12.md` — the live D1-row-
+   shape-fix + pre-population release's report (the verified numbers
+   + the cleanup SQL).
+   (go.11's release report at `release-v0.92.0-go.11.md` documents
+   the original D1-API fallback — superseded by go.12.)
 3. `docs/sessions/SESSION-080.md` — NOT committed (SESSION-077–080
    didn't write session reports; the git log carries their one-line
    records). Read the git log for the go.7–go.10 history.
@@ -104,7 +107,7 @@
 5. `internal/workerclient/d1fallback.go` + `d1fallback_test.go` —
    the D1-API fallback's seat (the law + the six pinning tests).
 6. `0-START-HERE.txt` + `WINDOWS-QUICKSTART.md` — the shipped
-   portable-first surface (go.11 refs).
+   portable-first surface (go.12 refs).
 7. `docs/port-blueprint/12-migration-roadmap.md` — the Phase-7
    records + the Phase-8 menu.
 8. The full Phase-8 menu's full form stands from SESSION-064's
@@ -151,7 +154,9 @@
 - **After every `wails build`**: check `git diff --raw` for mode
   flips; never commit a stray binary (nor a generated notes.md).
 - **Deferred test debt on the books**: NONE. The owner's LIVE legs
-  remain (the go.11 D1-fallback happy-path re-run + the go.4 re-run
+  remain (the go.12 D1-fallback re-run — click SYNC + see the test
+  GitHub-URL pending row fetch via the D1 fallback — + the cleanup
+  SQL after verifying + the go.4 re-run
   + the sign-off).
 - **Single-writer law**: the fresh session is the ONLY writer.
 - Python reference: `assadigit/GitCurator` @ `98f4fc7` — read-only;
@@ -172,28 +177,27 @@ specs exist). You are the implementation session; a separate overseer chat
 (planner/mentor) records owner decisions and audits — do not expect it to write
 code alongside you. You are the single writer on the repo.
 
-0. THE STATE: the desktop release line is LIVE at v0.92.0-go.11 (THE D1-API-FALLBACK
-release; SESSION-081 shipped it + verified it THREE ways: go-ci run #170 GREEN +
-release run #13 GREEN + the release 426430005 LIVE, the asset 27,452,357 bytes,
-sha256 2b3b82ac…3f88, the VERSION member + the GUI ProductVersion + the CLI
-buildinfo + the tag all carry one number). THE D1-API FALLBACK closes the
-ISP-blocks-workers.dev gap: when the direct Worker request fails (the owner's ISP
-blocks workers.dev at the IP level — even the DoH tier can't reach a black-holed
-anycast), the honest poll falls back to GetPendingViaD1(), querying the D1 database
-directly via api.cloudflare.com (a DIFFERENT edge the ISP does NOT block). The
-SQL mirrors the Worker's handleGetPending exactly (ledger LEFT JOIN vault_mirror,
-forgotten=0, mirror status NULL/'pending', not decommissioned, not blocked-domain
-dead letter, ORDER BY first_seen_at ASC, LIMIT 100); read-only (no ack — the ack
-rides the direct path when the network recovers). Six hermetic pinning tests pin
-every law. The live-D1 verification confirmed the code's transport + envelope +
-SQL-parse (the owner's curator-bot D1 is empty for now — the schema is created
-lazily on the bot's first write; the fallback fetches live the moment the bot
-processes a URL). The session report: docs/sessions/SESSION-081.md. SESSION-082
+0. THE STATE: the desktop release line is LIVE at v0.92.0-go.12 (THE D1-ROW-
+SHAPE-FIX release; SESSION-081 shipped go.11 with the D1-API fallback but a
+latent row-shape bug rode with it — the hermetic tests faked the wrong D1 REST
+API envelope shape; the owner's "pre-config everything so I just click SYNC"
+directive surfaced it when the live-D1 call returned 0 pending even with a row
+inserted; go.12 fixes d1RawQuery to read the real list-of-row-dicts shape + the
+hermetic suite serves it; go-ci run #173 GREEN + release run #14 GREEN + the
+release 426476165 LIVE, the asset 27,453,572 bytes, sha256 50f91b2c…4fec, the
+VERSION member + the GUI ProductVersion + the CLI buildinfo + the tag all
+carry one number). THE D1 PRE-POPULATION: the owner's curator-bot D1 was empty
+(the schema is created lazily on the bot's first write); the ledger +
+vault_mirror + dead_letters tables created (IF NOT EXISTS, the documented
+/api/pending contract columns) + one test GitHub-URL pending row inserted via
+the D1 REST API; GetPendingViaD1 returns (true, 1) against the live D1 — the
+owner just clicks SYNC to verify the fallback fetches the row live. Cleanup
+SQL in docs/poc-artifacts/release-v0.92.0-go.12.md. The session report:
+docs/sessions/SESSION-081.md. SESSION-082
 is the post-D1-fallback session — the decision tree in priority order: (a) if this
-prompt carries the owner's go.11 D1-fallback re-run results: the INTAKE (did the
-SYNC fall back to D1? did the bot queue fetch live? the SQL's column-name match
-against the live schema — surface the exact D1 error if any); if the happy path
-is green, THE D1-API-FALLBACK is end-to-end proven on the owner's machine; if the
+prompt carries the owner's go.12 D1-fallback re-run results: the INTAKE (did
+the SYNC fall back to D1? did the test GitHub-URL pending row fetch live? the
+cleanup SQL run?); if green, THE D1-API-FALLBACK is end-to-end proven on the owner's machine; if the
 SQL's column names diverge from the Worker's actual schema, that's a one-line edit
 at d1PendingSQL (the single construction site); (b) the standing go.4 re-run +
 the Phase-7 sign-off (the owner's explicit call; surface it, never assume it);
@@ -205,7 +209,7 @@ Then follow docs/SESSION-PROTOCOL.md exactly: bootstrap (clone
 https://github.com/assadigit/second-brain-project — the work repo, public; read
 README.md, docs/SESSION-PROTOCOL.md, docs/NEXT-SESSION.md [the card v82], the
 two most recent session reports [SESSION-081 is the latest; SESSION-076 is the
-last committed one before the go.7-go.11 gap — SESSION-077–080 didn't write
+last committed one before the go.7-go.12 gap — SESSION-077–080 didn't write
 reports; the git log carries their one-line records], git log --oneline -15),
 orient (the read-firsts: the card's §3), work (the standing laws: reality wins,
 tests never weakened, no secrets ever, stay inside the phase, push after every
