@@ -57,8 +57,22 @@ now TELLS the owner this.
   new D1FallbackStatus arming test) / webui 4 packages GREEN / gofmt
   + vet + build clean both modules / race clean on workerclient.
 
-## The workflows + the artifact (appended after the live verification)
+## The workflows + the artifact (verified three ways)
 
-> The release-record law: the workflow run IDs + the sha256 + the
-> GitHub release ID are appended here after the go-ci + release
-> workflows complete + the live asset is re-downloaded fresh.
+- **The workflows**: go-ci run **#175** (head `8ffc9dc`, the bump)
+  GREEN + the release run **#15** (head `8ffc9dc`) GREEN.
+- **The release**: GitHub release **426518397**, LIVE, published
+  2026-10-28T10:20:42Z; the asset
+  `GitCurator-v0.92.0-go.13-windows.zip` (**27,454,969 bytes**,
+  state uploaded).
+- **The fresh download**: byte-count matches (27,454,969); sha256
+  `b4b8a4f9f56a3dee8340c1e4ceb5fac008704d37a79904bfddc6ee941d60cf4d`.
+- **THE ONE-VERSION-TRUTH**: the tag `v0.92.0-go.13` + the zip's
+  `VERSION` member + the GUI's `ProductVersion` + the CLI's
+  buildinfo mod — all carry one number, verified.
+
+> **go.11 + go.12 are superseded** — go.11 carried the latent D1
+> row-shape bug; go.12 fixed it but the error message didn't tell the
+> owner the fallback was DORMANT. go.13 is the release the owner
+> runs — the error message now self-diagnoses.
+
