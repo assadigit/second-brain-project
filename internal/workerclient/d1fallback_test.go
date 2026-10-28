@@ -22,12 +22,10 @@ import (
 )
 
 // d1Envelope builds a canned Cloudflare D1 REST API response envelope
-// (the same wire shape the live api.cloudflare.com returns).
-func d1Envelope(cols []string, rows [][]any, ok bool) map[string]any {
-	colAny := make([]any, len(cols))
-	for i, c := range cols {
-		colAny[i] = c
-	}
+// (the SAME wire shape the live api.cloudflare.com returns): result[0].
+// results is a LIST OF ROW-DICTS (each row an object keyed by column
+// name — NOT a {columns,rows} pair). rows is the list of row-dicts.
+func d1Envelope(rows []map[string]any, ok bool) map[string]any {
 	rowAny := make([]any, len(rows))
 	for i, r := range rows {
 		rowAny[i] = r
@@ -35,10 +33,7 @@ func d1Envelope(cols []string, rows [][]any, ok bool) map[string]any {
 	return map[string]any{
 		"result": []any{
 			map[string]any{
-				"results": map[string]any{
-					"columns": colAny,
-					"rows":    rowAny,
-				},
+				"results": rowAny,
 				"success": ok,
 			},
 		},
@@ -171,15 +166,11 @@ func TestD1FallbackMissingDiagnostic(t *testing.T) {
 // ride as int64 (the /api/pending shape).
 func TestD1FallbackShapesRowsAndParsesMetadata(t *testing.T) {
 	srv := d1Server(t, func(sql string) (map[string]any, int) {
-		return d1Envelope(
-			[]string{"url_normalized", "github_metadata", "forward_count", "ledger_id"},
-			[][]any{
-				{"https://example.com", `{"stars":42,"description":"d"}`, 5, 100},
-				{"https://foo.com", "", 0, 101},
-				{"https://bar.com", nil, 3, 102},
-			},
-			true,
-		), 200
+		return d1Envelope([]map[string]any{
+			{"url_normalized": "https://example.com", "github_metadata": `{"stars":42,"description":"d"}`, "forward_count": 5, "ledger_id": 100},
+			{"url_normalized": "https://foo.com", "github_metadata": "", "forward_count": 0, "ledger_id": 101},
+			{"url_normalized": "https://bar.com", "github_metadata": nil, "forward_count": 3, "ledger_id": 102},
+		}, true), 200
 	})
 	defer srv.Close()
 	withSeam(t, &d1APIBase, srv.URL)
@@ -276,13 +267,9 @@ func TestD1FallbackQueryFailure(t *testing.T) {
 // This is the whole point of the D1-API fallback.
 func TestGetPendingResultFallsBackToD1(t *testing.T) {
 	srv := d1Server(t, func(sql string) (map[string]any, int) {
-		return d1Envelope(
-			[]string{"url_normalized", "github_metadata", "forward_count", "ledger_id"},
-			[][]any{
-				{"https://fallback.example", `{"stars":7}`, 2, 200},
-			},
-			true,
-		), 200
+		return d1Envelope([]map[string]any{
+			{"url_normalized": "https://fallback.example", "github_metadata": `{"stars":7}`, "forward_count": 2, "ledger_id": 200},
+		}, true), 200
 	})
 	defer srv.Close()
 	withSeam(t, &d1APIBase, srv.URL)

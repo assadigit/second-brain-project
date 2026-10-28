@@ -117,11 +117,15 @@ func (s *Sync) GetPendingViaD1() (bool, []any) {
 
 // d1RawQuery runs a read-only SQL statement against the D1 database
 // via the Cloudflare REST API and shapes the result rows into the
-// same dict-list shape the Worker's JSON responses carry (columns
-// zipped with each row; github_metadata parsed back to a nested
-// object). Returns (true, rows) on success; (false, nil) on any
-// failure (the honest cause rides the debug log). The GetPendingViaD1
-// leg rides this; the hermetic suite rides it too.
+// same dict-list shape the Worker's JSON responses carry. THE D1
+// REST API's result[0].results is a LIST OF ROW-DICTS (each row an
+// object keyed by column name — NOT a {columns,rows} pair); this
+// rides storage.DecodeJSONValue so integral columns surface as
+// int64 (the /api/pending shape). The github_metadata column rides
+// as JSON text in D1; shapeD1Row parses it back to a nested object.
+// Returns (true, rows) on success; (false, nil) on any failure (the
+// honest cause rides the debug log). The GetPendingViaD1 leg rides
+// this; the hermetic suite rides it too.
 func (s *Sync) d1RawQuery(sqlText string) (bool, []any) {
 	apiToken, accountID, databaseID := s.d1FallbackConfig()
 	if apiToken == "" || accountID == "" || databaseID == "" {
@@ -172,24 +176,27 @@ func (s *Sync) d1RawQuery(sqlText string) (bool, []any) {
 			firstD1Error(first, "errors"))
 		return false, nil
 	}
-	results := dictValue(first, "results")
-	colAny, _ := dictValue(results, "columns").([]any)
-	rowAny, _ := dictValue(results, "rows").([]any)
-	cols := make([]string, 0, len(colAny))
-	for _, c := range colAny {
-		cols = append(cols, pyStr(c))
-	}
+	// THE D1 REST API's result[0].results is a LIST OF ROW-DICTS
+	// (each row an object keyed by column name). DecodeJSONValue
+	// surfaces each row as a *storage.OrderedMap; shapeD1Row parses
+	// the github_metadata JSON-text column back to a nested object.
+	rowAny, _ := dictValue(first, "results").([]any)
 	pending := make([]any, 0, len(rowAny))
 	for _, r := range rowAny {
-		row, _ := r.([]any)
-		item := storage.NewOrderedMap()
-		for i, col := range cols {
-			if i >= len(row) {
-				break
+		switch row := r.(type) {
+		case *storage.OrderedMap:
+			if md, found := row.Get("github_metadata"); found {
+				row.Set("github_metadata", shapeD1Row("github_metadata", md))
 			}
-			item.Set(col, shapeD1Row(col, row[i]))
+			pending = append(pending, row)
+		case map[string]any:
+			if md, found := row["github_metadata"]; found {
+				row["github_metadata"] = shapeD1Row("github_metadata", md)
+			}
+			pending = append(pending, row)
+		default:
+			pending = append(pending, r)
 		}
-		pending = append(pending, item)
 	}
 	return true, pending
 }
