@@ -114,10 +114,22 @@ credentials via ENV vars so no secret bytes touched git) exercised
   / webui 4 packages GREEN / gofmt + vet + build clean both modules /
   race clean on the workerclient package (the new code's seat).
 
-## The workflows + the artifact (appended after the live verification)
+## The workflows + the artifact (verified three ways)
 
-> The release-record law: the workflow run IDs + the sha256 + the
-> GitHub release ID + the cross-machine byte-identity are appended
-> here after the go-ci + release workflows complete + the live asset
-> is re-downloaded fresh. (This section is the honest "verified
-> three ways" record — filled post-release.)
+- **The workflows**: go-ci run **#170** (head `f87d7fc`, the bump)
+  GREEN + the release run **#13** (head `f87d7fc`) GREEN (both
+  watched to completion).
+- **The release**: GitHub release **426430005**, LIVE, published
+  2026-10-28T08:46:09Z; the asset
+  `GitCurator-v0.92.0-go.11-windows.zip` (**27,452,357 bytes**,
+  state uploaded).
+- **The fresh download**: re-downloaded once; byte-count matches the
+  release asset exactly (27,452,357); sha256
+  `2b3b82ac3dab3427c11de62168c26895793f39e43a28b7ab47e98297c1a13f88`.
+- **The zip**: 14 files (0-START-HERE.txt first in the folder, both
+  exes, VERSION, the launchers, the optional git+WebView2 checker).
+- **THE ONE-VERSION-TRUTH** (the release-record law): the tag
+  `v0.92.0-go.11` + the zip's `GitCurator/VERSION` member (13 bytes,
+  `0.92.0-go.11\n`) + the GUI's `ProductVersion` resource + the
+  CLI's buildinfo mod — all four carry one number, verified.
+
