@@ -49,8 +49,24 @@ message. The owner had no idea the lock was the cause.
   drift-seal tests) / webui 4 packages GREEN / gofmt + vet + build
   clean both modules / race clean on vaultseal + workerclient.
 
-## The workflows + the artifact (appended after the live verification)
+## The workflows + the artifact (verified three ways)
 
-> The release-record law: the workflow run IDs + the sha256 + the
-> GitHub release ID are appended here after the go-ci + release
-> workflows complete + the live asset is re-downloaded fresh.
+- **The workflows**: go-ci run **#179** (head `96fcc85`, the bump)
+  GREEN + the release run **#17** (head `96fcc85`) GREEN.
+- **The release**: GitHub release **426694918**, LIVE, published
+  2026-10-28T13:20:20Z; the asset
+  `GitCurator-v0.92.0-go.15-windows.zip` (**27,458,590 bytes**,
+  state uploaded).
+- **The fresh download**: byte-count matches (27,458,590); sha256
+  `5ee5b423b99e02c7769e871b731115819ad1cea4b964b81497024276cbfdb7df`.
+- **THE ONE-VERSION-TRUTH**: the tag `v0.92.0-go.15` + the zip's
+  `VERSION` member + the GUI's `ProductVersion` — all carry one
+  number, verified.
+- **The auto-recovery is in the build**: the GUI exe carries the
+  strings `stageAll` + `cleared a stale .git/index.lock` (confirmed
+  by grepping the binary) — the ready-made law rides the release.
+
+> **go.11–go.14 are superseded** — go.15 is the release the owner
+> runs. The owner needs go.15 (the drift-seal auto-recovery) + the
+> `d1creds.json` file (from go.14, already in the owner's folder).
+
