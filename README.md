@@ -16,8 +16,8 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
 
 1. **Get the zip** from
    [Releases](https://github.com/assadigit/second-brain-project/releases).
-   The live release `v0.92.0-go.11` is the **desktop milestone line's
-   D1-API-fallback release** (go.11 adds THE D1-API FALLBACK: when the
+   The live release `v0.92.0-go.12` is the **desktop milestone line's
+   D1-API-fallback release** (go.11 added THE D1-API FALLBACK: when the
    owner's ISP blocks workers.dev at the IP level — even the DoH
    tier can't reach a black-holed anycast — the honest poll falls
    back to GetPendingViaD1(), querying the D1 database directly via
@@ -25,6 +25,12 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
    SQL mirrors the Worker's handleGetPending exactly; read-only, no
    ack — the ack rides the direct path when the network recovers; the
    Direct Pair UI carries the 3 new optional Cloudflare-API fields;
+   go.12 fixes the D1 row-shape bug — go.11's hermetic tests faked the
+   wrong D1 REST API envelope shape (a {columns,rows} pair); the live
+   D1 returns result[0].results as a LIST OF ROW-DICTS; the live-D1
+   verification caught it; go.12's d1RawQuery reads the real shape +
+   the hermetic suite now serves it; the owner's D1 is pre-populated
+   with a test GitHub-URL pending row so SYNC fetches it live;
    go.4 carried the six fixes the owner named — the quiet log heartbeat, the clean sync without
    the _review warning, the Inter font + wrapped log lines, the
    20%-smaller 800x600 window, real Lucide icons everywhere instead of
@@ -43,7 +49,7 @@ summary is [`docs/PARITY-REPORT.md`](docs/PARITY-REPORT.md)).
    **`0-START-HERE.txt`** first in the folder + the launcher set +
    the optional git+WebView2 checker; the release report with every
    verified number:
-   `docs/poc-artifacts/release-v0.92.0-go.11.md`.
+   `docs/poc-artifacts/release-v0.92.0-go.12.md`.
    **Nothing is installed — it's a portable app**: extract the zip
    ("Extract All"), open `0-START-HERE.txt` (the 30-second card — it
    covers the unsigned-app SmartScreen box and what to do if an
